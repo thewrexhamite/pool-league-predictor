@@ -193,25 +193,39 @@ function getTeamPlayers2526(team) {
     return players.sort((a, b) => b.pct - a.pct);
 }
 
+// Get effective win% for a player (25/26 preferred, 24/25 fallback)
+function getPlayerEffectivePct(pl) {
+    if (pl.s2526 && pl.s2526.p >= 3) return { pct: pl.s2526.pct / 100, weight: pl.s2526.p };
+    if (pl.winPct !== null && pl.played > 0) return { pct: pl.winPct, weight: pl.played };
+    return null;
+}
+
+// Filter to top N players by effective win% (for lineup size modelling)
+function getTopNPlayers(players, n) {
+    const withStats = players.map(pl => ({ ...pl, eff: getPlayerEffectivePct(pl) }))
+        .filter(pl => pl.eff !== null);
+    withStats.sort((a, b) => b.eff.pct - a.eff.pct);
+    return withStats.slice(0, n);
+}
+
 // Squad Builder strength calculations
 const SQUAD_STRENGTH_SCALING = 4.0;
 
-function calcSquadStrength(team) {
+function calcSquadStrength(team, topN) {
     const players = getTeamPlayers(team);
     if (players.length === 0) return null;
+    const pool = topN ? getTopNPlayers(players, topN) : players.map(pl => ({ ...pl, eff: getPlayerEffectivePct(pl) }));
     let totalWeight = 0, weightedPct = 0;
-    players.forEach(pl => {
-        let pct = null, weight = 0;
-        if (pl.s2526 && pl.s2526.p >= 3) { pct = pl.s2526.pct / 100; weight = pl.s2526.p; }
-        else if (pl.winPct !== null && pl.played > 0) { pct = pl.winPct; weight = pl.played; }
-        if (pct !== null && weight > 0) { weightedPct += pct * weight; totalWeight += weight; }
+    pool.forEach(pl => {
+        const e = pl.eff || getPlayerEffectivePct(pl);
+        if (e) { weightedPct += e.pct * e.weight; totalWeight += e.weight; }
     });
     return totalWeight === 0 ? null : weightedPct / totalWeight;
 }
 
-function calcModifiedSquadStrength(team, overrides) {
+function calcModifiedSquadStrength(team, overrides, topN) {
     const override = overrides[team];
-    if (!override) return calcSquadStrength(team);
+    if (!override) return calcSquadStrength(team, topN);
     const basePlayers = getTeamPlayers(team);
     const removedSet = new Set(override.removed || []);
     let players = basePlayers.filter(pl => !removedSet.has(pl.name));
@@ -228,22 +242,21 @@ function calcModifiedSquadStrength(team, overrides) {
             played: s2425 ? s2425.p : null, s2526: bestTeamEntry, rostered: false
         });
     });
+    const pool = topN ? getTopNPlayers(players, topN) : players.map(pl => ({ ...pl, eff: getPlayerEffectivePct(pl) }));
     let totalWeight = 0, weightedPct = 0;
-    players.forEach(pl => {
-        let pct = null, weight = 0;
-        if (pl.s2526 && pl.s2526.p >= 3) { pct = pl.s2526.pct / 100; weight = pl.s2526.p; }
-        else if (pl.winPct !== null && pl.played > 0) { pct = pl.winPct; weight = pl.played; }
-        if (pct !== null && weight > 0) { weightedPct += pct * weight; totalWeight += weight; }
+    pool.forEach(pl => {
+        const e = pl.eff || getPlayerEffectivePct(pl);
+        if (e) { weightedPct += e.pct * e.weight; totalWeight += e.weight; }
     });
     return totalWeight === 0 ? null : weightedPct / totalWeight;
 }
 
-function calcStrengthAdjustments(div, overrides) {
+function calcStrengthAdjustments(div, overrides, topN) {
     const adjustments = {};
     DIVISIONS[div].teams.forEach(team => {
         if (!overrides[team]) return;
-        const orig = calcSquadStrength(team);
-        const mod = calcModifiedSquadStrength(team, overrides);
+        const orig = calcSquadStrength(team, topN);
+        const mod = calcModifiedSquadStrength(team, overrides, topN);
         if (orig !== null && mod !== null) {
             adjustments[team] = (mod - orig) * SQUAD_STRENGTH_SCALING;
         }
@@ -343,6 +356,7 @@ function App() {
     const [squadOverrides, setSquadOverrides] = useState({});
     const [squadBuilderTeam, setSquadBuilderTeam] = useState('');
     const [squadPlayerSearch, setSquadPlayerSearch] = useState('');
+    const [squadTopN, setSquadTopN] = useState(5);
     const [showGlossary, setShowGlossary] = useState(false);
 
     // Prediction via useEffect (non-deterministic, so not useMemo)
@@ -350,7 +364,7 @@ function App() {
         if (!homeTeam || !awayTeam) { setPrediction(null); return; }
         const div = getDiv(homeTeam);
         const strengths = calcTeamStrength(div);
-        const pAdj = calcStrengthAdjustments(div, squadOverrides);
+        const pAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN);
         Object.entries(pAdj).forEach(([t, adj]) => { if (strengths[t] !== undefined) strengths[t] += adj; });
         const p = predictFrame(strengths[homeTeam] || 0, strengths[awayTeam] || 0);
 
@@ -380,7 +394,7 @@ function App() {
             expectedAway: ((1-p) * 10).toFixed(1),
             topScores
         });
-    }, [homeTeam, awayTeam, squadOverrides]);
+    }, [homeTeam, awayTeam, squadOverrides, squadTopN]);
 
     const standings = calcStandings(selectedDiv);
     const teams = DIVISIONS[selectedDiv].teams;
@@ -395,7 +409,7 @@ function App() {
             const divTeams = DIVISIONS[div].teams;
             const strengths = calcTeamStrength(div);
             // Apply squad builder adjustments
-            const squadAdj = calcStrengthAdjustments(div, squadOverrides);
+            const squadAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN);
             Object.entries(squadAdj).forEach(([t, adj]) => { if (strengths[t] !== undefined) strengths[t] += adj; });
             const current = calcStandings(div);
             const currentMap = {};
@@ -540,7 +554,7 @@ function App() {
 
                 <div className="flex justify-center gap-1 md:gap-2 mb-4 flex-wrap">
                     {Object.entries(DIVISIONS).map(([key, data]) => (
-                        <button key={key} onClick={() => {setSelectedDiv(key); setSimResults(null); setWhatIfSimResults(null); setWhatIfResults([]); setSquadOverrides({}); setSquadBuilderTeam(''); setSquadPlayerSearch(''); setHomeTeam(''); setAwayTeam(''); setSelectedTeam(null); setSelectedPlayer(null); if (activeTab === 'team' || activeTab === 'player') setActiveTab('standings');}}
+                        <button key={key} onClick={() => {setSelectedDiv(key); setSimResults(null); setWhatIfSimResults(null); setWhatIfResults([]); setSquadOverrides({}); setSquadBuilderTeam(''); setSquadPlayerSearch(''); setSquadTopN(5); setHomeTeam(''); setAwayTeam(''); setSelectedTeam(null); setSelectedPlayer(null); if (activeTab === 'team' || activeTab === 'player') setActiveTab('standings');}}
                             className={'px-3 py-2 rounded-lg font-medium transition text-xs md:text-sm ' + (selectedDiv === key ? 'bg-green-600' : 'bg-gray-700 hover:bg-gray-600')}>
                             {key}
                             <span className="hidden md:inline"> - {data.name.replace('Sunday ', 'Sun ').replace('Wednesday ', 'Wed ')}</span>
@@ -902,7 +916,7 @@ function App() {
                                     <div className="mb-4 p-3 bg-purple-900/30 border border-purple-600/30 rounded-lg text-sm">
                                         <span className="text-purple-400 font-medium">Squad changes applied: </span>
                                         {Object.entries(squadOverrides).map(([team, ov], i) => {
-                                            const adj = calcStrengthAdjustments(selectedDiv, squadOverrides);
+                                            const adj = calcStrengthAdjustments(selectedDiv, squadOverrides, squadTopN);
                                             const d = adj[team];
                                             return (
                                                 <span key={team} className="text-gray-300">
@@ -1070,6 +1084,17 @@ function App() {
                                 </select>
                             </div>
 
+                            <div className="mt-3 flex items-center gap-2 flex-wrap">
+                                <span className="text-xs text-gray-400">Lineup size:</span>
+                                {[5, 6, 7, 8, 9, 10].map(n => (
+                                    <button key={n} onClick={() => { setSquadTopN(n); setSimResults(null); }}
+                                        className={'px-3 py-1 rounded text-xs font-medium transition ' + (squadTopN === n ? 'bg-purple-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-gray-300')}>
+                                        {n}
+                                    </button>
+                                ))}
+                                <span className="text-xs text-gray-500 ml-1">best players used</span>
+                            </div>
+
                             {squadBuilderTeam && (() => {
                                 const basePlayers = getTeamPlayers(squadBuilderTeam);
                                 const override = squadOverrides[squadBuilderTeam] || { added: [], removed: [] };
@@ -1156,9 +1181,9 @@ function App() {
 
                                         {/* Strength impact panel */}
                                         {squadOverrides[squadBuilderTeam] && (() => {
-                                            const origStr = calcSquadStrength(squadBuilderTeam);
-                                            const modStr = calcModifiedSquadStrength(squadBuilderTeam, squadOverrides);
-                                            const adj = calcStrengthAdjustments(selectedDiv, squadOverrides);
+                                            const origStr = calcSquadStrength(squadBuilderTeam, squadTopN);
+                                            const modStr = calcModifiedSquadStrength(squadBuilderTeam, squadOverrides, squadTopN);
+                                            const adj = calcStrengthAdjustments(selectedDiv, squadOverrides, squadTopN);
                                             const delta = adj[squadBuilderTeam] || 0;
                                             return origStr !== null && modStr !== null && (
                                                 <div className="mt-3 bg-gray-700 rounded-lg p-3">
@@ -1166,11 +1191,11 @@ function App() {
                                                     <div className="grid grid-cols-3 gap-2 text-center text-sm">
                                                         <div>
                                                             <div className="text-gray-400">{(origStr * 100).toFixed(1)}%</div>
-                                                            <div className="text-xs text-gray-500">Original Avg</div>
+                                                            <div className="text-xs text-gray-500">Best {squadTopN} Avg</div>
                                                         </div>
                                                         <div>
                                                             <div className="text-white font-bold">{(modStr * 100).toFixed(1)}%</div>
-                                                            <div className="text-xs text-gray-500">Modified Avg</div>
+                                                            <div className="text-xs text-gray-500">Modified Best {squadTopN}</div>
                                                         </div>
                                                         <div>
                                                             <div className={'font-bold ' + (delta > 0 ? 'text-green-400' : delta < 0 ? 'text-red-400' : 'text-gray-400')}>
@@ -1313,7 +1338,7 @@ function App() {
                                     </div>
                                     <div>
                                         <div className="font-medium text-blue-300">Squad Builder Adjustment</div>
-                                        <p className="text-gray-400 text-xs">When you add or remove players in the What If tab, the model recalculates the team's average player win% and applies the change (multiplied by a scaling factor) as an adjustment to the team's strength in simulations.</p>
+                                        <p className="text-gray-400 text-xs">When you add or remove players in the What If tab, the model recalculates the team's average player win% and applies the change (multiplied by a scaling factor) as an adjustment to the team's strength in simulations. The <span className="text-gray-300">Lineup Size</span> filter (5-10) controls how many of the squad's best players are used in the calculation — a captain might pick their strongest 5 or use up to 10 different players across both sets.</p>
                                     </div>
                                     <div>
                                         <div className="font-medium text-blue-300">Cup Badge</div>
@@ -1326,7 +1351,7 @@ function App() {
                 </div>
 
                 <p className="text-center text-gray-500 text-xs mt-4">
-                    Model: Frame-differential ratings &bull; Logistic prediction &bull; Home advantage +{(1 / (1 + Math.exp(-HOME_ADV)) * 100 - 50).toFixed(0)}% &bull; Points: HW=2, AW=3, D=1 &bull; Squad builder: weighted avg win% delta
+                    Model: Frame-differential ratings &bull; Logistic prediction &bull; Home advantage +{(1 / (1 + Math.exp(-HOME_ADV)) * 100 - 50).toFixed(0)}% &bull; Points: HW=2, AW=3, D=1 &bull; Squad builder: best-N weighted avg win% delta
                 </p>
             </div>
         </div>
