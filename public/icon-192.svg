@@ -1,6 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
-  <rect width="192" height="192" fill="#0f172a"/>
-  <circle cx="96" cy="96" r="67.19999999999999" fill="#10b981"/>
-  <circle cx="96" cy="96" r="23.519999999999996" fill="white"/>
-  <text x="96" y="96" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-weight="bold" font-size="23.04" fill="#0f172a">8</text>
+  <defs>
+    <radialGradient id="ballGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#0EA572"/>
+      <stop offset="100%" stop-color="#0A7B54"/>
+    </radialGradient>
+    <filter id="innerShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Rounded background -->
+  <rect width="192" height="192" rx="36" fill="#0C1222"/>
+  <!-- Ball with gradient -->
+  <circle cx="96" cy="96" r="67" fill="url(#ballGrad)"/>
+  <!-- White inner circle with shadow -->
+  <circle cx="96" cy="96" r="24" fill="white" filter="url(#innerShadow)"/>
+  <!-- Bold 8 -->
+  <text x="96" y="96" text-anchor="middle" dominant-baseline="central" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="23" fill="#0C1222">8</text>
+  <!-- Gold accent arc (bottom-right quadrant) -->
+  <path d="M 131 139 A 58 58 0 0 1 101 159" fill="none" stroke="#D4A855" stroke-width="2.5" stroke-linecap="round"/>
 </svg>

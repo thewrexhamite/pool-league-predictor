@@ -56,7 +56,6 @@ import FixturesTab from './FixturesTab';
 import PlayersTab from './PlayersTab';
 import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
-import FourDogsReport from './FourDogsReport';
 import Glossary from './Glossary';
 
 const TABS: { id: TabId; label: string; shortLabel: string; icon: typeof LayoutDashboard }[] = [
@@ -399,14 +398,24 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
           <div className="flex items-center justify-between gap-3">
             {/* Left: Logo + title */}
             <div className="flex items-center gap-2 shrink-0">
-              <div className="w-8 h-8 rounded-full bg-baize flex items-center justify-center">
-                <span className="text-surface font-bold text-sm">8</span>
-              </div>
+              <svg width="32" height="32" viewBox="0 0 512 512" className="shrink-0">
+                <defs>
+                  <radialGradient id="logoGrad" cx="35%" cy="35%" r="65%">
+                    <stop offset="0%" stopColor="#0EA572"/>
+                    <stop offset="100%" stopColor="#0A7B54"/>
+                  </radialGradient>
+                </defs>
+                <rect width="512" height="512" rx="96" fill="#0C1222"/>
+                <circle cx="256" cy="256" r="179" fill="url(#logoGrad)"/>
+                <circle cx="256" cy="256" r="63" fill="white"/>
+                <text x="256" y="256" textAnchor="middle" dominantBaseline="central" fontFamily="'Space Grotesk',sans-serif" fontWeight="700" fontSize="62" fill="#0C1222">8</text>
+                <path d="M 350 370 A 155 155 0 0 1 270 425" fill="none" stroke="#D4A855" strokeWidth="4" strokeLinecap="round"/>
+              </svg>
               <button
                 onClick={() => router.setTab('dashboard')}
-                className="text-lg md:text-xl font-bold text-baize-light hover:text-baize transition-colors"
+                className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity"
               >
-                Pool League Pro
+                <span className="text-gray-100">Pool League </span><span className="text-accent">Pro</span>
               </button>
               {myTeam && (
                 <button
@@ -839,10 +848,6 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
           </motion.div>
         </AnimatePresence>
 
-        {/* Four Dogs Report */}
-        {selectedDiv === 'SD2' && activeTab !== 'team' && activeTab !== 'player' && (
-          <FourDogsReport standings={standings} onTeamClick={openTeamDetail} />
-        )}
 
         {/* Glossary */}
         <Glossary />

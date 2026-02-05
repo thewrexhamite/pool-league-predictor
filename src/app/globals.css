@@ -3,26 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --surface: #0f172a;
-  --surface-card: #1e293b;
-  --surface-elevated: #334155;
-  --surface-border: #475569;
-  --baize: #10b981;
-  --baize-light: #34d399;
-  --baize-dark: #059669;
-  --baize-muted: #064e3b;
+  --surface: #0C1222;
+  --surface-card: #161E2E;
+  --surface-elevated: #283548;
+  --surface-border: #3A4A5C;
+  --baize: #0EA572;
+  --baize-light: #34D399;
+  --baize-dark: #0A7B54;
+  --baize-muted: #0A3D2E;
   --win: #22c55e;
   --win-muted: #166534;
   --loss: #ef4444;
   --loss-muted: #7f1d1d;
   --draw: #94a3b8;
-  --accent: #8b5cf6;
-  --accent-light: #a78bfa;
-  --accent-muted: #4c1d95;
-  --info: #38bdf8;
+  --accent: #D4A855;
+  --accent-light: #E4C47A;
+  --accent-muted: #3D2E0F;
+  --info: #4AADE8;
   --info-light: #7dd3fc;
   --info-muted: #0c4a6e;
-  --gold: #f59e0b;
+  --gold: #D4A855;
 }
 
 html {
@@ -31,11 +31,21 @@ html {
 
 body {
   background: var(--surface);
+  background-image: radial-gradient(circle, rgba(14, 165, 114, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 ::selection {
-  background-color: rgba(16, 185, 129, 0.3);
+  background-color: rgba(14, 165, 114, 0.3);
   color: white;
+}
+
+/* Gold accent line at top of header */
+header::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 /* Custom scrollbar */

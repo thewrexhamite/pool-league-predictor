@@ -11,16 +11,16 @@ const config: Config = {
     extend: {
       colors: {
         surface: {
-          DEFAULT: '#0f172a',
-          card: '#1e293b',
-          elevated: '#334155',
-          border: '#475569',
+          DEFAULT: '#0C1222',
+          card: '#161E2E',
+          elevated: '#283548',
+          border: '#3A4A5C',
         },
         baize: {
-          DEFAULT: '#10b981',
-          light: '#34d399',
-          dark: '#059669',
-          muted: '#064e3b',
+          DEFAULT: '#0EA572',
+          light: '#34D399',
+          dark: '#0A7B54',
+          muted: '#0A3D2E',
         },
         win: {
           DEFAULT: '#22c55e',
@@ -34,27 +34,28 @@ const config: Config = {
           DEFAULT: '#94a3b8',
         },
         accent: {
-          DEFAULT: '#8b5cf6',
-          light: '#a78bfa',
-          muted: '#4c1d95',
+          DEFAULT: '#D4A855',
+          light: '#E4C47A',
+          muted: '#3D2E0F',
         },
         info: {
-          DEFAULT: '#38bdf8',
+          DEFAULT: '#4AADE8',
           light: '#7dd3fc',
           muted: '#0c4a6e',
         },
         gold: {
-          DEFAULT: '#f59e0b',
+          DEFAULT: '#D4A855',
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+        sans: ['var(--font-space-grotesk)', 'Inter', ...defaultTheme.fontFamily.sans],
       },
       borderRadius: {
         card: '12px',
       },
       boxShadow: {
         card: '0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)',
+        'card-hover': '0 4px 16px rgba(212, 168, 85, 0.08)',
         elevated: '0 4px 12px rgba(0,0,0,0.4)',
       },
       keyframes: {

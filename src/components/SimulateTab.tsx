@@ -142,10 +142,10 @@ export default function SimulateTab({
                   <XAxis type="number" domain={[0, 100]} tick={{ fill: '#94a3b8', fontSize: 11 }} />
                   <YAxis type="category" dataKey="team" width={100} tick={{ fill: '#e2e8f0', fontSize: 11 }} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569', borderRadius: 8 }}
+                    contentStyle={{ backgroundColor: '#161E2E', border: '1px solid #3A4A5C', borderRadius: 8 }}
                     labelStyle={{ color: '#e2e8f0' }}
                   />
-                  <Bar dataKey="Title%" fill="#f59e0b" radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="Title%" fill="#D4A855" radius={[0, 4, 4, 0]} />
                   <Bar dataKey="Top2%" fill="#22c55e" radius={[0, 4, 4, 0]} />
                   <Bar dataKey="Bot2%" fill="#ef4444" radius={[0, 4, 4, 0]} />
                 </BarChart>

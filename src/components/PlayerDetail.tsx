@@ -90,7 +90,7 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={sparklineData}>
                     <YAxis domain={[0, 1]} hide />
-                    <Line type="monotone" dataKey="value" stroke="#10b981" strokeWidth={2} dot={{ r: 3, fill: '#10b981' }} />
+                    <Line type="monotone" dataKey="value" stroke="#0EA572" strokeWidth={2} dot={{ r: 3, fill: '#0EA572' }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>

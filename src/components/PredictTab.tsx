@@ -173,7 +173,7 @@ export default function PredictTab({
                 <div className="w-20 h-20 mx-auto mb-1">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadialBarChart cx="50%" cy="50%" innerRadius="70%" outerRadius="100%" startAngle={90} endAngle={-270} data={[{ value: g.pct }]}>
-                      <RadialBar dataKey="value" fill={g.color} background={{ fill: '#1e293b' }} cornerRadius={10} />
+                      <RadialBar dataKey="value" fill={g.color} background={{ fill: '#161E2E' }} cornerRadius={10} />
                     </RadialBarChart>
                   </ResponsiveContainer>
                 </div>
@@ -206,7 +206,7 @@ export default function PredictTab({
                   <BarChart data={scoreChartData} margin={{ left: -10 }}>
                     <XAxis dataKey="score" tick={{ fill: '#94a3b8', fontSize: 10 }} />
                     <YAxis tick={{ fill: '#94a3b8', fontSize: 10 }} />
-                    <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569', borderRadius: 8, fontSize: 12 }} />
+                    <Tooltip contentStyle={{ backgroundColor: '#161E2E', border: '1px solid #3A4A5C', borderRadius: 8, fontSize: 12 }} />
                     <Bar dataKey="pct" radius={[4, 4, 0, 0]}>
                       {scoreChartData.map((entry, i) => {
                         const [h, a] = entry.score.split('-').map(Number);

@@ -18,7 +18,7 @@ export default function AIChatPanel() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([
     'Who has the best form in SD2?',
-    'Can Four Dogs A still win the title?',
+    'Which team is most likely to win the title?',
     'Which team has the best away record?',
   ]);
 
