@@ -299,6 +299,7 @@ export default function MyTeamDashboard({
                   onClick={() => onPredict(nextFixture.home, nextFixture.away)}
                   className="ml-2 text-baize hover:text-baize-light transition"
                   aria-label="Predict match"
+                  title="Predict match"
                 >
                   <Target size={14} />
                 </button>
@@ -317,14 +318,14 @@ export default function MyTeamDashboard({
           </h3>
           <div className="grid grid-cols-2 gap-3">
             <div className="text-center">
-              <Home size={14} className="mx-auto mb-1 text-win" />
+              <span title="Home win %"><Home size={14} className="mx-auto mb-1 text-win" /></span>
               <div className="text-lg font-bold text-white">{homeAway.home.winPct.toFixed(0)}%</div>
               <div className="text-xs text-gray-500">
                 W{homeAway.home.w} D{homeAway.home.d} L{homeAway.home.l}
               </div>
             </div>
             <div className="text-center">
-              <Plane size={14} className="mx-auto mb-1 text-info" />
+              <span title="Away win %"><Plane size={14} className="mx-auto mb-1 text-info" /></span>
               <div className="text-lg font-bold text-white">{homeAway.away.winPct.toFixed(0)}%</div>
               <div className="text-xs text-gray-500">
                 W{homeAway.away.w} D{homeAway.away.d} L{homeAway.away.l}
@@ -393,7 +394,7 @@ export default function MyTeamDashboard({
                   {p.adjPct.toFixed(0)}%
                 </span>
                 {p.trend && (
-                  <span className="shrink-0">
+                  <span className="shrink-0" title={p.trend === 'hot' ? 'Hot streak' : p.trend === 'cold' ? 'Cold streak' : 'Steady form'}>
                     {p.trend === 'hot' && <TrendingUp size={12} className="text-win" />}
                     {p.trend === 'cold' && <TrendingDown size={12} className="text-loss" />}
                     {p.trend === 'steady' && <Minus size={12} className="text-gray-500" />}
@@ -405,7 +406,7 @@ export default function MyTeamDashboard({
                     p.category === 'core' ? 'bg-win-muted text-win' :
                     p.category === 'rotation' ? 'bg-surface-elevated text-gray-400' :
                     'bg-surface-elevated text-gray-600'
-                  )}>
+                  )} title={p.category === 'core' ? '80%+ match appearances' : p.category === 'rotation' ? '40–80% match appearances' : 'Under 40% match appearances'}>
                     {p.category.toUpperCase()}
                   </span>
                 )}

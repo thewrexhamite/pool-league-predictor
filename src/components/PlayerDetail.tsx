@@ -120,12 +120,12 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Home / Away</h3>
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-surface rounded-lg p-3 text-center shadow-card">
-              <Home size={14} className="mx-auto text-win mb-1" />
+              <span title="Home win %"><Home size={14} className="mx-auto text-win mb-1" /></span>
               <div className="text-lg font-bold text-win">{homeAway.home.pct.toFixed(0)}%</div>
               <div className="text-[10px] text-gray-500">Home ({homeAway.home.w}/{homeAway.home.p})</div>
             </div>
             <div className="bg-surface rounded-lg p-3 text-center shadow-card">
-              <Plane size={14} className="mx-auto text-loss mb-1" />
+              <span title="Away win %"><Plane size={14} className="mx-auto text-loss mb-1" /></span>
               <div className="text-lg font-bold text-loss">{homeAway.away.pct.toFixed(0)}%</div>
               <div className="text-[10px] text-gray-500">Away ({homeAway.away.w}/{homeAway.away.p})</div>
             </div>

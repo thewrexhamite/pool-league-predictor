@@ -302,6 +302,7 @@ export default function DashboardTab({
                       onClick={() => onPredict(f.home, f.away)}
                       className="ml-2 text-baize hover:text-baize-light transition text-xs shrink-0"
                       aria-label={`Predict ${f.home} vs ${f.away}`}
+                      title="Predict match"
                     >
                       <Target size={14} />
                     </button>

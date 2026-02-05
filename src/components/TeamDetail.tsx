@@ -86,7 +86,7 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-surface rounded-lg p-3 shadow-card">
               <div className="flex items-center gap-1.5 justify-center mb-1">
-                <Home size={14} className="text-win" />
+                <span title="Home win %"><Home size={14} className="text-win" /></span>
                 <span className="text-lg font-bold text-win">{homeAway.home.winPct.toFixed(0)}%</span>
               </div>
               <div className="text-[10px] text-gray-500 text-center">Home Win%</div>
@@ -97,7 +97,7 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
             </div>
             <div className="bg-surface rounded-lg p-3 shadow-card">
               <div className="flex items-center gap-1.5 justify-center mb-1">
-                <Plane size={14} className="text-loss" />
+                <span title="Away win %"><Plane size={14} className="text-loss" /></span>
                 <span className="text-lg font-bold text-loss">{homeAway.away.winPct.toFixed(0)}%</span>
               </div>
               <div className="text-[10px] text-gray-500 text-center">Away Win%</div>
@@ -162,17 +162,17 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
                 >
                   <span className="text-info flex items-center gap-1.5">
                     {pl.name}
-                    {pl.s2526?.cup && <span className="text-gold text-[9px] font-medium">Cup</span>}
+                    {pl.s2526?.cup && <span className="text-gold text-[9px] font-medium" title="Cup appearance — does not affect league predictions">Cup</span>}
                     {pf && pf.trend !== 'steady' && (
                       pf.trend === 'hot'
-                        ? <TrendingUp size={12} className="text-win" />
-                        : <TrendingDown size={12} className="text-loss" />
+                        ? <span title="Hot streak"><TrendingUp size={12} className="text-win" /></span>
+                        : <span title="Cold streak"><TrendingDown size={12} className="text-loss" /></span>
                     )}
                     {ar && (
                       <span className={clsx(
                         'text-[8px] px-1 rounded',
                         ar.category === 'core' ? 'bg-win-muted/30 text-win' : ar.category === 'rotation' ? 'bg-info-muted/30 text-info' : 'bg-surface-elevated text-gray-500'
-                      )}>
+                      )} title={ar.category === 'core' ? '80%+ match appearances' : ar.category === 'rotation' ? '40–80% match appearances' : 'Under 40% match appearances'}>
                         {ar.category === 'core' ? 'Core' : ar.category === 'rotation' ? 'Rot' : 'Fringe'}
                       </span>
                     )}

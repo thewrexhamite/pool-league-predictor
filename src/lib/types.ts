@@ -211,6 +211,7 @@ export interface LeagueMeta {
 
 export interface PlayerFormData {
   last5: { p: number; w: number; pct: number };
+  last8?: { p: number; w: number; pct: number };
   last10: { p: number; w: number; pct: number };
   seasonPct: number;
   trend: 'hot' | 'cold' | 'steady';

@@ -706,21 +706,32 @@ export function calcPlayerForm(player: string, frames: FrameData[]): PlayerFormD
   const history = getPlayerFrameHistory(player, frames);
   if (history.length === 0) return null;
   const last5 = history.slice(0, 5);
+  const last8 = history.slice(0, 8);
   const last10 = history.slice(0, 10);
   const l5w = last5.filter(h => h.won).length;
+  const l8w = last8.filter(h => h.won).length;
   const l10w = last10.filter(h => h.won).length;
   const totalW = history.filter(h => h.won).length;
   const seasonPct = (totalW / history.length) * 100;
   const l5pct = last5.length > 0 ? (l5w / last5.length) * 100 : 0;
+  const l8pct = last8.length > 0 ? (l8w / last8.length) * 100 : 0;
+
+  // Use last-8 as primary form window when available, fall back to last-5
+  const formN = last8.length >= 6 ? last8.length : last5.length;
+  const formPct = last8.length >= 6 ? l8pct : l5pct;
+
+  // Dynamic threshold: 20 / sqrt(n) — scales with sample size
+  const threshold = 20 / Math.sqrt(formN);
 
   let trend: 'hot' | 'cold' | 'steady' = 'steady';
-  if (last5.length >= 3) {
-    if (l5pct > seasonPct + 15) trend = 'hot';
-    else if (l5pct < seasonPct - 15) trend = 'cold';
+  if (formN >= 3) {
+    if (formPct > seasonPct + threshold) trend = 'hot';
+    else if (formPct < seasonPct - threshold) trend = 'cold';
   }
 
   return {
     last5: { p: last5.length, w: l5w, pct: l5pct },
+    last8: { p: last8.length, w: l8w, pct: l8pct },
     last10: { p: last10.length, w: l10w, pct: last10.length > 0 ? (l10w / last10.length) * 100 : 0 },
     seasonPct,
     trend,
@@ -1023,11 +1034,14 @@ export function suggestLineup(
   const oppLineup = predictLineup(opponent, frames);
   const likelyOpponents = oppLineup.recentPlayers;
 
-  // Score each player
+  // Score each player (cache form data for insight generation)
+  const formCache = new Map<string, PlayerFormData>();
   const scored: LineupScore[] = myPlayers.map(pl => {
     // Form component
     const form = frames.length > 0 ? calcPlayerForm(pl.name, frames) : null;
-    const formPct = form ? form.last5.pct : null;
+    if (form) formCache.set(pl.name, form);
+    // Use last-8 when available, fall back to last-5
+    const formPct = form ? (form.last8 && form.last8.p >= 6 ? form.last8.pct : form.last5.pct) : null;
 
     // H2H advantage against likely opponents
     let h2hAdvantage = 0;
@@ -1078,22 +1092,31 @@ export function suggestLineup(
     scored.slice(5, 10).forEach(s => { s.suggestedSet = 2; set2.push(s); });
   }
 
-  // Generate insights
+  // Generate insights (using cached form data)
   const insights: string[] = [];
   const hotPlayers = scored.filter(s => {
-    const f = frames.length > 0 ? calcPlayerForm(s.name, frames) : null;
+    const f = formCache.get(s.name);
     return f && f.trend === 'hot';
   });
   const coldPlayers = scored.filter(s => {
-    const f = frames.length > 0 ? calcPlayerForm(s.name, frames) : null;
+    const f = formCache.get(s.name);
     return f && f.trend === 'cold';
   });
 
+  const formatFormContext = (name: string): string => {
+    const f = formCache.get(name);
+    if (!f) return name;
+    const useL8 = f.last8 && f.last8.p >= 6;
+    const label = useL8 ? 'L8' : 'L5';
+    const pct = useL8 ? f.last8!.pct : f.last5.pct;
+    return `${name} (${label}: ${Math.round(pct)}% vs ${Math.round(f.seasonPct)}% season)`;
+  };
+
   if (hotPlayers.length > 0) {
-    insights.push(`In form: ${hotPlayers.slice(0, 3).map(p => p.name).join(', ')}`);
+    insights.push(`In form: ${hotPlayers.slice(0, 3).map(p => formatFormContext(p.name)).join(', ')}`);
   }
   if (coldPlayers.length > 0) {
-    insights.push(`Out of form: ${coldPlayers.slice(0, 3).map(p => p.name).join(', ')}`);
+    insights.push(`Out of form: ${coldPlayers.slice(0, 3).map(p => formatFormContext(p.name)).join(', ')}`);
   }
   if (oppWeakerLate) {
     insights.push('Opponent is stronger in Set 1 — consider saving best players for Set 2');

@@ -199,7 +199,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
                       <span className={clsx(
                         'flex items-center justify-center gap-0.5',
                         p.form.trend === 'hot' ? 'text-win font-bold' : p.form.trend === 'cold' ? 'text-loss font-bold' : 'text-gray-400'
-                      )}>
+                      )} title={`Last 5 frames: ${p.form.trend === 'hot' ? 'Hot streak' : p.form.trend === 'cold' ? 'Cold streak' : 'Steady'}`}>
                         {p.form.trend === 'hot' ? <TrendingUp size={12} /> : p.form.trend === 'cold' ? <TrendingDown size={12} /> : null}
                         {p.form.last5.pct.toFixed(0)}%
                       </span>

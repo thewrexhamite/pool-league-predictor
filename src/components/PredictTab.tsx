@@ -206,7 +206,11 @@ export default function PredictTab({
                   <BarChart data={scoreChartData} margin={{ left: -10 }}>
                     <XAxis dataKey="score" tick={{ fill: '#94a3b8', fontSize: 10 }} />
                     <YAxis tick={{ fill: '#94a3b8', fontSize: 10 }} />
-                    <Tooltip contentStyle={{ backgroundColor: '#161E2E', border: '1px solid #3A4A5C', borderRadius: 8, fontSize: 12 }} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: '#161E2E', border: '1px solid #3A4A5C', borderRadius: 8, fontSize: 12 }}
+                      formatter={(value) => [`${value}%`, 'Probability']}
+                      labelFormatter={(label) => `Score: ${label}`}
+                    />
                     <Bar dataKey="pct" radius={[4, 4, 0, 0]}>
                       {scoreChartData.map((entry, i) => {
                         const [h, a] = entry.score.split('-').map(Number);
