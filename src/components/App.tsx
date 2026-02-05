@@ -58,7 +58,6 @@ import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
 import FourDogsReport from './FourDogsReport';
 import Glossary from './Glossary';
-import AIChatPanel from './AIChatPanel';
 
 const TABS: { id: TabId; label: string; shortLabel: string; icon: typeof LayoutDashboard }[] = [
   { id: 'dashboard', label: 'Dashboard', shortLabel: 'Dash', icon: LayoutDashboard },
@@ -368,6 +367,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
   const handleSetMyTeam = (team: string, div: DivisionCode) => {
     setMyTeam(team, div);
     setShowMyTeamModal(false);
+    if (div !== router.div) resetDivision(div);
     addToast(`My Team set to ${team}`, 'success');
   };
 
@@ -854,9 +854,6 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
           &copy; Mike Lewis {new Date().getFullYear()}
         </p>
       </main>
-
-      {/* AI Chat Panel */}
-      <AIChatPanel />
 
       {/* My Team Modal */}
       <AnimatePresence>
