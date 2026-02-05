@@ -108,7 +108,7 @@ export default function WhatIfRow({ fixture, onAdd, onPredict, onTeamClick }: Wh
                   onAdd(fixture.home, fixture.away, hs, awayS);
                   setEditing(false);
                 }}
-                className="flex items-center gap-1 bg-baize hover:bg-baize-dark px-3 py-1.5 rounded-lg text-xs font-medium text-white transition ml-1"
+                className="flex items-center gap-1 bg-baize hover:bg-baize-dark px-3 py-1.5 rounded-lg text-xs font-medium text-fixed-white transition ml-1"
               >
                 <Lock size={12} /> Lock
               </button>

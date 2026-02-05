@@ -163,7 +163,7 @@ export default function FixturesTab({
                       onClick={() => onSquadTopNChange(n)}
                       className={clsx(
                         'px-3 py-1 rounded-lg text-xs font-medium transition',
-                        squadTopN === n ? 'bg-accent text-white' : 'bg-surface text-gray-400 hover:text-white'
+                        squadTopN === n ? 'bg-accent text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
                       )}
                     >
                       {n}
@@ -468,10 +468,10 @@ export default function FixturesTab({
       {/* Action buttons */}
       {(whatIfResults.length > 0 || Object.keys(squadOverrides).length > 0) && (
         <div className="flex gap-3 mt-4">
-          <button onClick={onSimulate} className="flex-1 bg-baize hover:bg-baize-dark font-bold py-3 px-6 rounded-lg transition text-white shadow-card">
+          <button onClick={onSimulate} className="flex-1 bg-baize hover:bg-baize-dark font-bold py-3 px-6 rounded-lg transition text-fixed-white shadow-card">
             Simulate with {whatIfResults.length > 0 ? `${whatIfResults.length} Locked Result${whatIfResults.length > 1 ? 's' : ''}` : 'Squad Changes'}
           </button>
-          <button onClick={onClearAll} className="bg-loss hover:bg-red-600 font-bold py-3 px-6 rounded-lg transition text-white">
+          <button onClick={onClearAll} className="bg-loss hover:bg-red-600 font-bold py-3 px-6 rounded-lg transition text-fixed-white">
             Clear
           </button>
         </div>

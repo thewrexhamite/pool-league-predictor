@@ -132,7 +132,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
               onClick={() => setMinGames(n)}
               className={clsx(
                 'px-2.5 py-1 rounded-lg text-xs font-medium transition',
-                minGames === n ? 'bg-baize text-white' : 'bg-surface text-gray-400 hover:text-white'
+                minGames === n ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
               )}
             >
               {n}+

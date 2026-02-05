@@ -17,6 +17,7 @@ import {
   RefreshCw,
   Clock,
   ArrowLeft,
+  Menu,
 } from 'lucide-react';
 import type {
   DivisionCode,
@@ -57,6 +58,7 @@ import PlayersTab from './PlayersTab';
 import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
+import ThemeToggle from './ThemeToggle';
 
 const TABS: { id: TabId; label: string; shortLabel: string; icon: typeof LayoutDashboard }[] = [
   { id: 'dashboard', label: 'Dashboard', shortLabel: 'Dash', icon: LayoutDashboard },
@@ -118,6 +120,10 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
   const [searchFocusIndex, setSearchFocusIndex] = useState(-1);
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Mobile hamburger menu
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // My Team modal
   const [showMyTeamModal, setShowMyTeamModal] = useState(false);
@@ -289,6 +295,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
     setSquadTopN(5);
     setHomeTeam('');
     setAwayTeam('');
+    setMobileMenuOpen(false);
   };
 
   // Search
@@ -333,9 +340,22 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  // Click-outside to close mobile menu
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [mobileMenuOpen]);
+
   const handleSearchSelect = (result: typeof searchResults[0]) => {
     setSearchQuery('');
     setSearchOpen(false);
+    setMobileMenuOpen(false);
     if (result.type === 'team' && result.div) {
       if (result.div !== router.div) {
         resetDivision(result.div);
@@ -394,7 +414,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
     <div className="min-h-screen text-white">
       {/* Sticky header */}
       <header className="sticky top-0 z-40 bg-surface/95 backdrop-blur-sm border-b border-surface-border">
-        <div className="max-w-6xl mx-auto px-4 py-3">
+        <div className="max-w-6xl mx-auto px-4 py-2 md:py-3">
           <div className="flex items-center justify-between gap-3">
             {/* Left: Logo + title */}
             <div className="flex items-center gap-2 shrink-0">
@@ -439,7 +459,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                     i === 0 && 'rounded-l-md',
                     i === arr.length - 1 && 'rounded-r-md',
                     selectedDiv === key
-                      ? 'bg-baize text-white shadow-sm'
+                      ? 'bg-baize text-fixed-white shadow-sm'
                       : 'text-gray-400 hover:text-white'
                   )}
                 >
@@ -494,20 +514,8 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                 )}
               </div>
 
-              {/* Mobile search toggle */}
-              <button
-                onClick={() => {
-                  setSearchOpen(!searchOpen);
-                  if (!searchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
-                }}
-                className="md:hidden p-2 text-gray-400 hover:text-white transition"
-                aria-label="Search"
-              >
-                <Search size={20} />
-              </button>
-
-              {/* Time Machine button */}
-              <div className="relative">
+              {/* Time Machine button (desktop only) */}
+              <div className="hidden md:block relative">
                 <button
                   onClick={() => setTimeMachineOpen(!timeMachineOpen)}
                   className={clsx(
@@ -551,11 +559,16 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                 )}
               </div>
 
-              {/* My Team button (if not set) */}
+              {/* Theme toggle — desktop only */}
+              <div className="hidden md:block">
+                <ThemeToggle variant="icon" />
+              </div>
+
+              {/* My Team button — desktop only (if not set) */}
               {!myTeam && (
                 <button
                   onClick={() => setShowMyTeamModal(true)}
-                  className="p-2 text-gray-400 hover:text-accent-light transition"
+                  className="hidden md:block p-2 text-gray-400 hover:text-accent-light transition"
                   aria-label="Set My Team"
                   title="Set My Team"
                 >
@@ -563,7 +576,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                 </button>
               )}
 
-              {/* Data freshness */}
+              {/* Data freshness (desktop only) */}
               {timeAgo && (
                 <button
                   className={clsx(
@@ -576,8 +589,168 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                   {timeAgo}
                 </button>
               )}
+
+              {/* Mobile hamburger button */}
+              <button
+                onClick={() => setMobileMenuOpen(prev => !prev)}
+                className="md:hidden p-2 text-gray-400 hover:text-white transition"
+                aria-label="Menu"
+              >
+                {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
             </div>
           </div>
+
+          {/* Mobile slide-down menu panel */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                ref={mobileMenuRef}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="md:hidden overflow-hidden"
+              >
+                <div className="pt-3 pb-2 space-y-3 border-t border-surface-border/50 mt-2">
+                  {/* Search */}
+                  <div className="relative" ref={searchRef}>
+                    <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      placeholder="Search teams, players..."
+                      value={searchQuery}
+                      onChange={e => {
+                        setSearchQuery(e.target.value);
+                        setSearchFocusIndex(-1);
+                      }}
+                      onFocus={() => setSearchOpen(true)}
+                      onKeyDown={handleSearchKeyDown}
+                      className="w-full bg-surface-card border border-surface-border rounded-lg pl-8 pr-8 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-baize"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => { setSearchQuery(''); setSearchFocusIndex(-1); }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+                    {searchOpen && searchResults.length > 0 && (
+                      <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden z-50">
+                        {searchResults.map((r, i) => (
+                          <button
+                            key={r.type + r.name}
+                            onClick={() => handleSearchSelect(r)}
+                            className={clsx(
+                              'w-full flex items-center gap-2 px-3 py-2.5 text-sm text-left hover:bg-surface-elevated transition',
+                              i === searchFocusIndex && 'bg-surface-elevated'
+                            )}
+                          >
+                            {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
+                            <span className="text-white flex-1 truncate">{r.name}</span>
+                            <span className="text-gray-500 text-xs">{r.detail}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Division pills */}
+                  <div>
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Division</div>
+                    <div className="flex gap-1">
+                      {(Object.keys(ds.divisions) as DivisionCode[]).map((key) => (
+                        <button
+                          key={key}
+                          onClick={() => resetDivision(key)}
+                          className={clsx(
+                            'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
+                            selectedDiv === key
+                              ? 'bg-baize text-fixed-white'
+                              : 'bg-surface-card text-gray-400'
+                          )}
+                        >
+                          {key}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* My Team + Time Machine side by side */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => { setShowMyTeamModal(true); setMobileMenuOpen(false); }}
+                      className="flex-1 flex items-center justify-center gap-1.5 bg-surface-card border border-surface-border rounded-lg py-2 text-xs text-gray-300 hover:text-white transition"
+                    >
+                      <Star size={14} className={myTeam ? 'text-accent fill-current' : 'text-gray-400'} />
+                      {myTeam ? myTeam.team : 'Set My Team'}
+                    </button>
+                    <button
+                      onClick={() => setTimeMachineOpen(prev => !prev)}
+                      className={clsx(
+                        'flex-1 flex items-center justify-center gap-1.5 bg-surface-card border border-surface-border rounded-lg py-2 text-xs transition',
+                        timeMachineDate ? 'text-accent border-accent/30' : 'text-gray-300 hover:text-white'
+                      )}
+                    >
+                      <Clock size={14} />
+                      {timeMachineDate || 'Time Machine'}
+                    </button>
+                  </div>
+
+                  {/* Theme picker */}
+                  <div>
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Theme</div>
+                    <ThemeToggle variant="segmented" />
+                  </div>
+
+                  {/* Inline Time Machine date picker */}
+                  {timeMachineOpen && (
+                    <div className="bg-surface-card border border-surface-border rounded-lg overflow-hidden">
+                      <div className="p-2 border-b border-surface-border/30">
+                        <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold">Time Machine</div>
+                      </div>
+                      <div className="max-h-48 overflow-y-auto">
+                        <button
+                          onClick={() => { setTimeMachineDate(null); setTimeMachineOpen(false); setSimResults(null); }}
+                          className={clsx(
+                            'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
+                            !timeMachineDate ? 'text-baize font-bold' : 'text-gray-300'
+                          )}
+                        >
+                          Present (live)
+                        </button>
+                        {[...availableDates].reverse().map(date => (
+                          <button
+                            key={date}
+                            onClick={() => { setTimeMachineDate(date); setTimeMachineOpen(false); setSimResults(null); addToast(`Time Machine: viewing as of ${date}`, 'info'); }}
+                            className={clsx(
+                              'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
+                              timeMachineDate === date ? 'text-accent font-bold' : 'text-gray-400'
+                            )}
+                          >
+                            {date}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Data freshness */}
+                  {timeAgo && (
+                    <div className={clsx(
+                      'flex items-center justify-center gap-1 text-xs text-gray-500',
+                      refreshing && 'animate-pulse-subtle'
+                    )}>
+                      <RefreshCw size={10} className={clsx(refreshing && 'animate-spin')} />
+                      Data updated {timeAgo}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Time Machine banner */}
           {timeMachineDate && (
@@ -593,70 +766,6 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
               </button>
             </div>
           )}
-
-          {/* Mobile search overlay */}
-          {searchOpen && (
-            <div className="md:hidden mt-2 relative">
-              <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Search teams, players..."
-                value={searchQuery}
-                onChange={e => {
-                  setSearchQuery(e.target.value);
-                  setSearchFocusIndex(-1);
-                }}
-                onKeyDown={handleSearchKeyDown}
-                className="w-full bg-surface-card border border-surface-border rounded-lg pl-8 pr-8 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-baize"
-                autoFocus
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => { setSearchQuery(''); setSearchFocusIndex(-1); }}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
-                >
-                  <X size={14} />
-                </button>
-              )}
-              {searchResults.length > 0 && (
-                <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden z-50">
-                  {searchResults.map((r, i) => (
-                    <button
-                      key={r.type + r.name}
-                      onClick={() => handleSearchSelect(r)}
-                      className={clsx(
-                        'w-full flex items-center gap-2 px-3 py-2.5 text-sm text-left hover:bg-surface-elevated transition',
-                        i === searchFocusIndex && 'bg-surface-elevated'
-                      )}
-                    >
-                      {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
-                      <span className="text-white flex-1 truncate">{r.name}</span>
-                      <span className="text-gray-500 text-xs">{r.detail}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Mobile division selector */}
-          <div className="flex md:hidden items-center justify-center gap-1 mt-2">
-            {(Object.keys(ds.divisions) as DivisionCode[]).map((key) => (
-              <button
-                key={key}
-                onClick={() => resetDivision(key)}
-                className={clsx(
-                  'px-3 py-1.5 rounded-lg text-xs font-medium transition',
-                  selectedDiv === key
-                    ? 'bg-baize text-white'
-                    : 'bg-surface-card text-gray-400'
-                )}
-              >
-                {key}
-              </button>
-            ))}
-          </div>
 
           {/* Subtitle */}
           <p className="text-center text-gray-500 text-xs mt-1.5">
@@ -676,7 +785,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                     key={tab.id}
                     role="tab"
                     aria-selected={isActive}
-                    onClick={() => router.setTab(tab.id)}
+                    onClick={() => { setMobileMenuOpen(false); router.setTab(tab.id); }}
                     className={clsx(
                       'flex items-center gap-1.5 px-3 md:px-4 py-2.5 text-xs md:text-sm font-medium whitespace-nowrap transition-colors border-b-[3px] min-w-0',
                       isActive
@@ -892,7 +1001,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                         className={clsx(
                           'text-left text-sm px-3 py-1.5 rounded transition',
                           myTeam?.team === team
-                            ? 'bg-accent text-white'
+                            ? 'bg-accent text-fixed-white'
                             : 'text-gray-300 hover:bg-surface-elevated'
                         )}
                       >

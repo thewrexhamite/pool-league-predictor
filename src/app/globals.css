@@ -2,27 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Light Mode (default) ===== */
 :root {
-  --surface: #0C1222;
-  --surface-card: #161E2E;
-  --surface-elevated: #283548;
-  --surface-border: #3A4A5C;
-  --baize: #0EA572;
-  --baize-light: #34D399;
-  --baize-dark: #0A7B54;
-  --baize-muted: #0A3D2E;
-  --win: #22c55e;
-  --win-muted: #166534;
-  --loss: #ef4444;
-  --loss-muted: #7f1d1d;
-  --draw: #94a3b8;
-  --accent: #D4A855;
-  --accent-light: #E4C47A;
-  --accent-muted: #3D2E0F;
-  --info: #4AADE8;
-  --info-light: #7dd3fc;
-  --info-muted: #0c4a6e;
-  --gold: #D4A855;
+  /* Surfaces */
+  --surface: 250 250 252;
+  --surface-card: 255 255 255;
+  --surface-elevated: 243 244 246;
+  --surface-border: 229 231 235;
+
+  /* Brand greens */
+  --baize: 5 150 105;
+  --baize-light: 4 120 87;
+  --baize-dark: 6 95 70;
+  --baize-muted: 209 250 229;
+
+  /* Win / Loss / Draw */
+  --win: 22 163 74;
+  --win-muted: 220 252 231;
+  --loss: 220 38 38;
+  --loss-muted: 254 226 226;
+  --draw: 100 116 139;
+
+  /* Accent (gold) */
+  --accent: 180 130 40;
+  --accent-light: 161 113 29;
+  --accent-muted: 254 243 199;
+
+  /* Info (blue) */
+  --info: 37 99 235;
+  --info-light: 29 78 216;
+  --info-muted: 219 234 254;
+
+  /* Gold alias */
+  --gold: 180 130 40;
+
+  /* Gray scale — semantically inverted so contrast hierarchy is preserved */
+  --tw-white: 17 24 39;
+  --tw-gray-50: 3 7 18;
+  --tw-gray-100: 31 41 55;
+  --tw-gray-200: 55 65 81;
+  --tw-gray-300: 75 85 99;
+  --tw-gray-400: 107 114 128;
+  --tw-gray-500: 156 163 175;
+  --tw-gray-600: 209 213 219;
+  --tw-gray-700: 229 231 235;
+  --tw-gray-800: 243 244 246;
+  --tw-gray-900: 249 250 251;
+  --tw-gray-950: 255 255 255;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 16px rgba(212,168,85,0.12);
+  --shadow-elevated: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ===== Dark Mode ===== */
+.dark {
+  /* Surfaces */
+  --surface: 12 18 34;
+  --surface-card: 22 30 46;
+  --surface-elevated: 40 53 72;
+  --surface-border: 58 74 92;
+
+  /* Brand greens */
+  --baize: 14 165 114;
+  --baize-light: 52 211 153;
+  --baize-dark: 10 123 84;
+  --baize-muted: 10 61 46;
+
+  /* Win / Loss / Draw */
+  --win: 34 197 94;
+  --win-muted: 22 101 52;
+  --loss: 239 68 68;
+  --loss-muted: 127 29 29;
+  --draw: 148 163 184;
+
+  /* Accent (gold) */
+  --accent: 212 168 85;
+  --accent-light: 228 196 122;
+  --accent-muted: 61 46 15;
+
+  /* Info (blue) */
+  --info: 74 173 232;
+  --info-light: 125 211 252;
+  --info-muted: 12 74 110;
+
+  /* Gold alias */
+  --gold: 212 168 85;
+
+  /* Gray scale — standard Tailwind dark values */
+  --tw-white: 255 255 255;
+  --tw-gray-50: 249 250 251;
+  --tw-gray-100: 243 244 246;
+  --tw-gray-200: 229 231 235;
+  --tw-gray-300: 209 213 219;
+  --tw-gray-400: 156 163 175;
+  --tw-gray-500: 107 114 128;
+  --tw-gray-600: 75 85 99;
+  --tw-gray-700: 55 65 81;
+  --tw-gray-800: 31 41 55;
+  --tw-gray-900: 17 24 39;
+  --tw-gray-950: 3 7 18;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-card-hover: 0 4px 16px rgba(212, 168, 85, 0.08);
+  --shadow-elevated: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 html {
@@ -30,14 +115,14 @@ html {
 }
 
 body {
-  background: var(--surface);
-  background-image: radial-gradient(circle, rgba(14, 165, 114, 0.03) 1px, transparent 1px);
+  background: rgb(var(--surface));
+  background-image: radial-gradient(circle, rgb(var(--baize) / 0.03) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
 ::selection {
-  background-color: rgba(14, 165, 114, 0.3);
-  color: white;
+  background-color: rgb(var(--baize) / 0.3);
+  color: rgb(var(--tw-white));
 }
 
 /* Gold accent line at top of header */
@@ -45,7 +130,7 @@ header::before {
   content: '';
   display: block;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: linear-gradient(90deg, transparent, rgb(var(--accent)), transparent);
 }
 
 /* Custom scrollbar */
@@ -59,17 +144,17 @@ header::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-border);
+  background: rgb(var(--surface-border));
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--surface-elevated);
+  background: rgb(var(--surface-elevated));
 }
 
 /* Focus visible ring */
 *:focus-visible {
-  outline: 2px solid var(--baize);
+  outline: 2px solid rgb(var(--baize));
   outline-offset: 2px;
 }
 
@@ -77,9 +162,9 @@ header::before {
 .skeleton {
   background: linear-gradient(
     90deg,
-    var(--surface-card) 25%,
-    var(--surface-elevated) 50%,
-    var(--surface-card) 75%
+    rgb(var(--surface-card)) 25%,
+    rgb(var(--surface-elevated)) 50%,
+    rgb(var(--surface-card)) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 2s infinite linear;

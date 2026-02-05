@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,41 +12,57 @@ const config: Config = {
     extend: {
       colors: {
         surface: {
-          DEFAULT: '#0C1222',
-          card: '#161E2E',
-          elevated: '#283548',
-          border: '#3A4A5C',
+          DEFAULT: 'rgb(var(--surface) / <alpha-value>)',
+          card: 'rgb(var(--surface-card) / <alpha-value>)',
+          elevated: 'rgb(var(--surface-elevated) / <alpha-value>)',
+          border: 'rgb(var(--surface-border) / <alpha-value>)',
         },
         baize: {
-          DEFAULT: '#0EA572',
-          light: '#34D399',
-          dark: '#0A7B54',
-          muted: '#0A3D2E',
+          DEFAULT: 'rgb(var(--baize) / <alpha-value>)',
+          light: 'rgb(var(--baize-light) / <alpha-value>)',
+          dark: 'rgb(var(--baize-dark) / <alpha-value>)',
+          muted: 'rgb(var(--baize-muted) / <alpha-value>)',
         },
         win: {
-          DEFAULT: '#22c55e',
-          muted: '#166534',
+          DEFAULT: 'rgb(var(--win) / <alpha-value>)',
+          muted: 'rgb(var(--win-muted) / <alpha-value>)',
         },
         loss: {
-          DEFAULT: '#ef4444',
-          muted: '#7f1d1d',
+          DEFAULT: 'rgb(var(--loss) / <alpha-value>)',
+          muted: 'rgb(var(--loss-muted) / <alpha-value>)',
         },
         draw: {
-          DEFAULT: '#94a3b8',
+          DEFAULT: 'rgb(var(--draw) / <alpha-value>)',
         },
         accent: {
-          DEFAULT: '#D4A855',
-          light: '#E4C47A',
-          muted: '#3D2E0F',
+          DEFAULT: 'rgb(var(--accent) / <alpha-value>)',
+          light: 'rgb(var(--accent-light) / <alpha-value>)',
+          muted: 'rgb(var(--accent-muted) / <alpha-value>)',
         },
         info: {
-          DEFAULT: '#4AADE8',
-          light: '#7dd3fc',
-          muted: '#0c4a6e',
+          DEFAULT: 'rgb(var(--info) / <alpha-value>)',
+          light: 'rgb(var(--info-light) / <alpha-value>)',
+          muted: 'rgb(var(--info-muted) / <alpha-value>)',
         },
         gold: {
-          DEFAULT: '#D4A855',
+          DEFAULT: 'rgb(var(--gold) / <alpha-value>)',
         },
+        white: 'rgb(var(--tw-white) / <alpha-value>)',
+        gray: {
+          50: 'rgb(var(--tw-gray-50) / <alpha-value>)',
+          100: 'rgb(var(--tw-gray-100) / <alpha-value>)',
+          200: 'rgb(var(--tw-gray-200) / <alpha-value>)',
+          300: 'rgb(var(--tw-gray-300) / <alpha-value>)',
+          400: 'rgb(var(--tw-gray-400) / <alpha-value>)',
+          500: 'rgb(var(--tw-gray-500) / <alpha-value>)',
+          600: 'rgb(var(--tw-gray-600) / <alpha-value>)',
+          700: 'rgb(var(--tw-gray-700) / <alpha-value>)',
+          800: 'rgb(var(--tw-gray-800) / <alpha-value>)',
+          900: 'rgb(var(--tw-gray-900) / <alpha-value>)',
+          950: 'rgb(var(--tw-gray-950) / <alpha-value>)',
+        },
+        'fixed-white': '#ffffff',
+        'fixed-black': '#000000',
       },
       fontFamily: {
         sans: ['var(--font-space-grotesk)', 'Inter', ...defaultTheme.fontFamily.sans],
@@ -54,9 +71,9 @@ const config: Config = {
         card: '12px',
       },
       boxShadow: {
-        card: '0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)',
-        'card-hover': '0 4px 16px rgba(212, 168, 85, 0.08)',
-        elevated: '0 4px 12px rgba(0,0,0,0.4)',
+        card: 'var(--shadow-card)',
+        'card-hover': 'var(--shadow-card-hover)',
+        elevated: 'var(--shadow-elevated)',
       },
       keyframes: {
         'fade-in': {

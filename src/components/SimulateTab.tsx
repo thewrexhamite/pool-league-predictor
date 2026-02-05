@@ -89,7 +89,7 @@ export default function SimulateTab({
         onClick={onRunSimulation}
         disabled={isSimulating}
         className={clsx(
-          'w-full flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg mb-6 transition text-white',
+          'w-full flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg mb-6 transition text-fixed-white',
           isSimulating
             ? 'bg-surface-elevated text-gray-400 cursor-not-allowed'
             : 'bg-baize hover:bg-baize-dark shadow-card'

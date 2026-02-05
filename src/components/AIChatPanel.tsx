@@ -42,7 +42,7 @@ export default function AIChatPanel() {
     return (
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 bg-accent hover:bg-accent-light text-white rounded-full p-3.5 shadow-elevated transition z-50"
+        className="fixed bottom-4 right-4 bg-accent hover:bg-accent-light text-fixed-white rounded-full p-3.5 shadow-elevated transition z-50"
         title="Ask AI"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -129,7 +129,7 @@ export default function AIChatPanel() {
               disabled={isLoading || !input.trim()}
               className={clsx(
                 'px-3 py-2 rounded-lg transition min-h-[44px] min-w-[44px] flex items-center justify-center',
-                isLoading || !input.trim() ? 'bg-surface-elevated text-gray-600' : 'bg-accent hover:bg-accent-light text-white'
+                isLoading || !input.trim() ? 'bg-surface-elevated text-gray-600' : 'bg-accent hover:bg-accent-light text-fixed-white'
               )}
               aria-label="Send"
             >
