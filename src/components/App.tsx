@@ -25,9 +25,9 @@ import type {
   WhatIfResult,
   SquadOverrides,
   UserSession,
-  FrameData,
 } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
+import { ActiveDataProvider, useActiveData } from '@/lib/active-data-provider';
 import { useUserSession } from '@/hooks/use-user-session';
 import { useMyTeam } from '@/hooks/use-my-team';
 import { useHashRouter, type TabId } from '@/lib/router';
@@ -43,7 +43,7 @@ import {
   getDiv,
   type DataSources,
 } from '@/lib/predictions';
-import { createTimeMachineData, getAvailableMatchDates } from '@/lib/time-machine';
+import { getAvailableMatchDates } from '@/lib/time-machine';
 import { DIVISIONS } from '@/lib/data';
 
 import { ToastProvider, useToast } from './ToastProvider';
@@ -70,8 +70,31 @@ const TABS: { id: TabId; label: string; shortLabel: string; icon: typeof LayoutD
   { id: 'players', label: 'Players', shortLabel: 'Players', icon: Users },
 ];
 
+/** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner() {
   const { data: leagueData, refreshing } = useLeagueData();
+  const [timeMachineDate, setTimeMachineDate] = useState<string | null>(null);
+
+  return (
+    <ActiveDataProvider leagueData={leagueData} timeMachineDate={timeMachineDate}>
+      <AppContent
+        refreshing={refreshing}
+        timeMachineDate={timeMachineDate}
+        setTimeMachineDate={setTimeMachineDate}
+      />
+    </ActiveDataProvider>
+  );
+}
+
+interface AppContentProps {
+  refreshing: boolean;
+  timeMachineDate: string | null;
+  setTimeMachineDate: (d: string | null) => void;
+}
+
+function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
+  const { data: activeData, ds } = useActiveData();
+  const { data: leagueData } = useLeagueData();
   const { addToast } = useToast();
   const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
   const router = useHashRouter();
@@ -88,8 +111,7 @@ function AppInner() {
   const [squadPlayerSearch, setSquadPlayerSearch] = useState('');
   const [squadTopN, setSquadTopN] = useState(5);
 
-  // Time machine state
-  const [timeMachineDate, setTimeMachineDate] = useState<string | null>(null);
+  // Time machine UI state
   const [timeMachineOpen, setTimeMachineOpen] = useState(false);
 
   // Search state
@@ -110,31 +132,11 @@ function AppInner() {
     }
   }, [router.tab, router.home, router.away]);
 
-  // Available match dates for time machine
+  // Available match dates for time machine (always from raw data)
   const availableDates = useMemo(
     () => getAvailableMatchDates(leagueData.results),
     [leagueData.results]
   );
-
-  // Base DataSources from live data
-  const liveDs: DataSources = useMemo(() => ({
-    divisions: leagueData.divisions,
-    results: leagueData.results,
-    fixtures: leagueData.fixtures,
-    players: leagueData.players,
-    rosters: leagueData.rosters,
-    players2526: leagueData.players2526,
-  }), [leagueData]);
-
-  // Time machine filtered data
-  const timeMachineData = useMemo(() => {
-    if (!timeMachineDate) return null;
-    return createTimeMachineData(leagueData, timeMachineDate);
-  }, [leagueData, timeMachineDate]);
-
-  // Active data sources — time machine or live
-  const ds: DataSources = timeMachineData ? timeMachineData.ds : liveDs;
-  const activeFrames: FrameData[] = timeMachineData ? timeMachineData.frames : leagueData.frames;
 
   const handleSessionRestore = useCallback((session: UserSession) => {
     if (session.whatIfResults.length > 0) setWhatIfResults(session.whatIfResults);

@@ -1,5 +1,6 @@
 import type {
   MatchResult,
+  Fixture,
   FrameData,
   Players2526Map,
   PlayerTeamStats2526,
@@ -132,6 +133,13 @@ export function createTimeMachineData(
     f => parseDate(f.date) <= normCutoff
   );
 
+  // Results after cutoff become fixtures for the simulation
+  const futureFromResults: Fixture[] = leagueData.results
+    .filter(r => parseDate(r.date) > normCutoff)
+    .map(r => ({ date: r.date, home: r.home, away: r.away, division: r.division }));
+
+  const allFixtures = [...leagueData.fixtures, ...futureFromResults];
+
   // Reconstruct player stats from filtered frames
   const players2526 = reconstructPlayerStats(filteredFrames, normCutoff);
 
@@ -139,7 +147,7 @@ export function createTimeMachineData(
     ds: {
       divisions: leagueData.divisions,
       results: filteredResults,
-      fixtures: leagueData.fixtures, // all fixtures — getRemainingFixtures uses latest result date
+      fixtures: allFixtures,
       players: leagueData.players, // previous season — static
       rosters: leagueData.rosters, // static
       players2526,

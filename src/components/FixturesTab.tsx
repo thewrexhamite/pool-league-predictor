@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Lock, PartyPopper, Search, X, UserPlus, UserMinus, Undo2 } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, WhatIfResult, FixtureImportance, SquadOverrides } from '@/lib/types';
-import { DIVISIONS, PLAYERS, PLAYERS_2526 } from '@/lib/data';
+import { PLAYERS, PLAYERS_2526 } from '@/lib/data';
 import {
   getRemainingFixtures,
   calcFixtureImportance,
@@ -15,6 +15,7 @@ import {
   calcModifiedSquadStrength,
   calcStrengthAdjustments,
 } from '@/lib/predictions';
+import { useActiveData } from '@/lib/active-data-provider';
 import WhatIfRow from './WhatIfRow';
 
 interface FixturesTabProps {
@@ -70,9 +71,10 @@ export default function FixturesTab({
   const [isCalculating, setIsCalculating] = useState(false);
   const [mustWinOpen, setMustWinOpen] = useState(true);
   const [squadBuilderOpen, setSquadBuilderOpen] = useState(false);
+  const { ds } = useActiveData();
 
-  const fixtures = getRemainingFixtures(selectedDiv);
-  const teams = DIVISIONS[selectedDiv].teams;
+  const fixtures = getRemainingFixtures(selectedDiv, ds);
+  const teams = ds.divisions[selectedDiv].teams;
   const lockedKeys = new Set(whatIfResults.map(wi => wi.home + ':' + wi.away));
   const unlockedFixtures = fixtures.filter(f => !lockedKeys.has(f.home + ':' + f.away));
   const displayedFixtures = showAllFixtures ? unlockedFixtures : unlockedFixtures.slice(0, 10);
@@ -89,11 +91,11 @@ export default function FixturesTab({
     setIsCalculating(true);
     setFixtureImportance(null);
     setTimeout(() => {
-      const result = calcFixtureImportance(selectedDiv, importanceTeam, {}, 5, whatIfResults);
+      const result = calcFixtureImportance(selectedDiv, importanceTeam, {}, 5, whatIfResults, ds);
       setFixtureImportance(result);
       setIsCalculating(false);
     }, 50);
-  }, [selectedDiv, importanceTeam, whatIfResults]);
+  }, [selectedDiv, importanceTeam, whatIfResults, ds]);
 
   if (fixtures.length === 0) {
     return (
@@ -108,7 +110,7 @@ export default function FixturesTab({
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <h2 className="text-lg font-bold mb-4 text-white">
-        Fixtures — {DIVISIONS[selectedDiv].name}
+        Fixtures — {ds.divisions[selectedDiv].name}
         <span className="text-gray-500 text-sm font-normal ml-2">({fixtures.length} remaining)</span>
       </h2>
 
@@ -170,7 +172,7 @@ export default function FixturesTab({
                 </div>
 
                 {squadBuilderTeam && (() => {
-                  const basePlayers = getTeamPlayers(squadBuilderTeam);
+                  const basePlayers = getTeamPlayers(squadBuilderTeam, ds);
                   const override = squadOverrides[squadBuilderTeam] || { added: [], removed: [] };
                   const removedSet = new Set(override.removed);
 
@@ -244,7 +246,7 @@ export default function FixturesTab({
                             ...basePlayers.filter(p => !removedSet.has(p.name)).map(p => p.name),
                             ...override.added,
                           ]);
-                          const results = getAllLeaguePlayers()
+                          const results = getAllLeaguePlayers(ds)
                             .filter(p => p.name.toLowerCase().includes(squadPlayerSearch.toLowerCase()))
                             .filter(p => !currentNames.has(p.name))
                             .slice(0, 8);
@@ -274,9 +276,9 @@ export default function FixturesTab({
 
                       {/* Strength impact */}
                       {squadOverrides[squadBuilderTeam] && (() => {
-                        const origStr = calcSquadStrength(squadBuilderTeam, squadTopN);
-                        const modStr = calcModifiedSquadStrength(squadBuilderTeam, squadOverrides, squadTopN);
-                        const adj = calcStrengthAdjustments(selectedDiv, squadOverrides, squadTopN);
+                        const origStr = calcSquadStrength(squadBuilderTeam, squadTopN, ds);
+                        const modStr = calcModifiedSquadStrength(squadBuilderTeam, squadOverrides, squadTopN, ds);
+                        const adj = calcStrengthAdjustments(selectedDiv, squadOverrides, squadTopN, ds);
                         const delta = adj[squadBuilderTeam] || 0;
                         return origStr !== null && modStr !== null && (
                           <div className="mt-3 bg-surface/50 rounded-lg p-3">

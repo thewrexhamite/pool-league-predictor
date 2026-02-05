@@ -4,9 +4,8 @@ import { useState, useMemo } from 'react';
 import { Search, X, TrendingUp, TrendingDown, ChevronUp, ChevronDown, UserX } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, PlayerFormData } from '@/lib/types';
-import { DIVISIONS } from '@/lib/data';
 import { getTeamPlayers, calcPlayerForm, calcBDStats, calcBayesianPct } from '@/lib/predictions';
-import { useLeagueData } from '@/lib/data-provider';
+import { useActiveData } from '@/lib/active-data-provider';
 
 interface PlayersTabProps {
   selectedDiv: DivisionCode;
@@ -22,8 +21,8 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
   const [sortKey, setSortKey] = useState<SortKey>('adjPct');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [searchQuery, setSearchQuery] = useState('');
-  const { data: leagueData } = useLeagueData();
-  const teams = DIVISIONS[selectedDiv].teams;
+  const { ds, frames } = useActiveData();
+  const teams = ds.divisions[selectedDiv].teams;
 
   const divPlayers = useMemo(() => {
     const list: Array<{
@@ -38,11 +37,11 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
     }> = [];
     const seen = new Set<string>();
     teams.forEach(team => {
-      const roster = getTeamPlayers(team);
+      const roster = getTeamPlayers(team, ds);
       roster.forEach(pl => {
         if (pl.s2526 && !seen.has(pl.name + ':' + team)) {
           seen.add(pl.name + ':' + team);
-          const form = leagueData.frames.length > 0 ? calcPlayerForm(pl.name, leagueData.frames) : null;
+          const form = frames.length > 0 ? calcPlayerForm(pl.name, frames) : null;
           const bd = calcBDStats(pl.s2526);
           const adjPct = calcBayesianPct(pl.s2526.w, pl.s2526.p);
           list.push({ ...pl, team, form, bdFRate: bd.bdFRate, bdARate: bd.bdARate, adjPct });
@@ -50,7 +49,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
       });
     });
     return list;
-  }, [teams, leagueData.frames]);
+  }, [teams, frames, ds]);
 
   const filtered = useMemo(() => {
     let f = divPlayers.filter(p => p.s2526 && p.s2526.p >= minGames);
@@ -104,7 +103,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <h2 className="text-lg font-bold mb-4 text-white">{DIVISIONS[selectedDiv].name} — Players</h2>
+      <h2 className="text-lg font-bold mb-4 text-white">{ds.divisions[selectedDiv].name} — Players</h2>
 
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         {/* Search */}

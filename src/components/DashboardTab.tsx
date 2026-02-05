@@ -13,16 +13,13 @@ import {
   Snowflake,
 } from 'lucide-react';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
-import { DIVISIONS } from '@/lib/data';
-import { useLeagueData } from '@/lib/data-provider';
+import { useActiveData } from '@/lib/active-data-provider';
 import {
   getRemainingFixtures,
   getTeamResults,
   calcPlayerForm,
-  getAllRemainingFixtures,
   getDiv,
   parseDate,
-  type DataSources,
 } from '@/lib/predictions';
 
 interface DashboardTabProps {
@@ -42,20 +39,11 @@ export default function DashboardTab({
   onPlayerClick,
   onPredict,
 }: DashboardTabProps) {
-  const { data: leagueData } = useLeagueData();
-
-  const ds: DataSources = useMemo(() => ({
-    divisions: leagueData.divisions,
-    results: leagueData.results,
-    fixtures: leagueData.fixtures,
-    players: leagueData.players,
-    rosters: leagueData.rosters,
-    players2526: leagueData.players2526,
-  }), [leagueData]);
+  const { data: activeData, ds, frames } = useActiveData();
 
   const divResults = useMemo(() =>
-    leagueData.results.filter(r => getDiv(r.home, ds) === selectedDiv),
-    [leagueData.results, selectedDiv, ds]
+    ds.results.filter(r => getDiv(r.home, ds) === selectedDiv),
+    [ds, selectedDiv]
   );
 
   const remaining = useMemo(() => getRemainingFixtures(selectedDiv, ds), [selectedDiv, ds]);
@@ -118,20 +106,20 @@ export default function DashboardTab({
 
   // Hot & cold players
   const { hotPlayer, coldPlayer } = useMemo(() => {
-    if (leagueData.frames.length === 0) return { hotPlayer: null, coldPlayer: null };
-    const teams = DIVISIONS[selectedDiv].teams;
+    if (frames.length === 0) return { hotPlayer: null, coldPlayer: null };
+    const teams = ds.divisions[selectedDiv].teams;
     let hot: { name: string; pct: number } | null = null;
     let cold: { name: string; pct: number } | null = null;
     const seen = new Set<string>();
 
     for (const team of teams) {
-      for (const frame of leagueData.frames) {
+      for (const frame of frames) {
         if (frame.home !== team && frame.away !== team) continue;
         for (const f of frame.frames) {
           const name = frame.home === team ? f.homePlayer : f.awayPlayer;
           if (!name || seen.has(name)) continue;
           seen.add(name);
-          const form = calcPlayerForm(name, leagueData.frames);
+          const form = calcPlayerForm(name, frames);
           if (!form || form.last5.p < 3) continue;
           if (!hot || form.last5.pct > hot.pct) hot = { name, pct: form.last5.pct };
           if (!cold || form.last5.pct < cold.pct) cold = { name, pct: form.last5.pct };
@@ -139,20 +127,20 @@ export default function DashboardTab({
       }
     }
     return { hotPlayer: hot, coldPlayer: cold };
-  }, [leagueData.frames, selectedDiv]);
+  }, [frames, ds.divisions, selectedDiv]);
 
   const leader = standings[0];
 
   // Time ago for data freshness
   const timeAgo = useMemo(() => {
-    if (!leagueData.lastUpdated) return 'Unknown';
-    const diff = Date.now() - leagueData.lastUpdated;
+    if (!activeData.lastUpdated) return 'Unknown';
+    const diff = Date.now() - activeData.lastUpdated;
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(hours / 24);
     if (days > 0) return `${days}d ago`;
     if (hours > 0) return `${hours}h ago`;
     return 'Just now';
-  }, [leagueData.lastUpdated]);
+  }, [activeData.lastUpdated]);
 
   return (
     <div className="space-y-4">
@@ -401,7 +389,7 @@ export default function DashboardTab({
 
       {/* Data Freshness */}
       <div className="text-center text-xs text-gray-600">
-        Data last updated: {timeAgo} &bull; Source: {leagueData.source}
+        Data last updated: {timeAgo} &bull; Source: {activeData.source}
       </div>
     </div>
   );

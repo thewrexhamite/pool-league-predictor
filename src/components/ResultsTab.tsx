@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Clock } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, FrameData } from '@/lib/types';
-import { useLeagueData } from '@/lib/data-provider';
-import { DIVISIONS } from '@/lib/data';
+import { useActiveData } from '@/lib/active-data-provider';
 import { getDiv, parseDate } from '@/lib/predictions';
 
 interface ResultsTabProps {
@@ -16,20 +15,20 @@ interface ResultsTabProps {
 }
 
 export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: ResultsTabProps) {
-  const { data: leagueData } = useLeagueData();
+  const { data: activeData, ds, frames } = useActiveData();
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
 
-  const divResults = leagueData.results
-    .filter(r => getDiv(r.home) === selectedDiv)
+  const divResults = ds.results
+    .filter(r => getDiv(r.home, ds) === selectedDiv)
     .sort((a, b) => parseDate(b.date).localeCompare(parseDate(a.date)));
 
   const frameLookup = useMemo(() => {
     const map = new Map<string, FrameData>();
-    for (const f of leagueData.frames) {
+    for (const f of frames) {
       map.set(`${f.home}|${f.away}|${f.date}`, f);
     }
     return map;
-  }, [leagueData.frames]);
+  }, [frames]);
 
   const toggleExpanded = (key: string) => {
     setExpandedKey(prev => (prev === key ? null : key));
@@ -46,7 +45,7 @@ export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: 
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <h2 className="text-lg font-bold mb-4 text-white">{DIVISIONS[selectedDiv].name} — Results</h2>
+      <h2 className="text-lg font-bold mb-4 text-white">{ds.divisions[selectedDiv].name} — Results</h2>
       <div className="space-y-2">
         {divResults.map((r, i) => {
           const key = `${r.home}|${r.away}|${r.date}`;

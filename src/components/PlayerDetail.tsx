@@ -5,7 +5,7 @@ import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions';
-import { useLeagueData } from '@/lib/data-provider';
+import { useActiveData } from '@/lib/active-data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 
 interface PlayerDetailProps {
@@ -16,14 +16,14 @@ interface PlayerDetailProps {
 }
 
 export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick }: PlayerDetailProps) {
-  const stats = getPlayerStats(player);
-  const stats2526 = getPlayerStats2526(player);
-  const playerTeams = getPlayerTeams(player);
-  const { data: leagueData } = useLeagueData();
+  const { ds, frames } = useActiveData();
+  const stats = getPlayerStats(player, ds);
+  const stats2526 = getPlayerStats2526(player, ds);
+  const playerTeams = getPlayerTeams(player, ds);
 
-  const form = useMemo(() => leagueData.frames.length > 0 ? calcPlayerForm(player, leagueData.frames) : null, [player, leagueData.frames]);
-  const frameHistory = useMemo(() => leagueData.frames.length > 0 ? getPlayerFrameHistory(player, leagueData.frames) : [], [player, leagueData.frames]);
-  const homeAway = useMemo(() => leagueData.frames.length > 0 ? calcPlayerHomeAway(player, leagueData.frames) : null, [player, leagueData.frames]);
+  const form = useMemo(() => frames.length > 0 ? calcPlayerForm(player, frames) : null, [player, frames]);
+  const frameHistory = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player, frames) : [], [player, frames]);
+  const homeAway = useMemo(() => frames.length > 0 ? calcPlayerHomeAway(player, frames) : null, [player, frames]);
 
   // Sparkline data from frame history
   const sparklineData = useMemo(() => {

@@ -4,9 +4,8 @@ import { useMemo } from 'react';
 import { ArrowLeft, Home, Plane, Crosshair, Shield, TrendingUp, TrendingDown } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
-import { DIVISIONS } from '@/lib/data';
 import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates, calcBayesianPct } from '@/lib/predictions';
-import { useLeagueData } from '@/lib/data-provider';
+import { useActiveData } from '@/lib/active-data-provider';
 
 interface TeamDetailProps {
   team: string;
@@ -18,31 +17,31 @@ interface TeamDetailProps {
 }
 
 export default function TeamDetail({ team, selectedDiv, standings, onBack, onTeamClick, onPlayerClick }: TeamDetailProps) {
-  const { data: leagueData } = useLeagueData();
-  const teamResults = getTeamResults(team);
-  const teamPlayers = getTeamPlayers(team);
+  const { ds, frames } = useActiveData();
+  const teamResults = getTeamResults(team, ds);
+  const teamPlayers = getTeamPlayers(team, ds);
   const teamStanding = standings.find(s => s.team === team);
   const teamPos = standings.findIndex(s => s.team === team) + 1;
   const form = teamResults.slice(0, 5).map(r => r.result);
 
-  const homeAway = useMemo(() => calcTeamHomeAway(team, leagueData.results), [team, leagueData.results]);
-  const setPerf = useMemo(() => leagueData.frames.length > 0 ? calcSetPerformance(team, leagueData.frames) : null, [team, leagueData.frames]);
-  const teamBD = useMemo(() => calcTeamBDStats(team, leagueData.players2526), [team, leagueData.players2526]);
+  const homeAway = useMemo(() => calcTeamHomeAway(team, ds.results), [team, ds.results]);
+  const setPerf = useMemo(() => frames.length > 0 ? calcSetPerformance(team, frames) : null, [team, frames]);
+  const teamBD = useMemo(() => calcTeamBDStats(team, ds.players2526), [team, ds.players2526]);
 
   const playerForms = useMemo(() => {
-    if (leagueData.frames.length === 0) return new Map<string, ReturnType<typeof calcPlayerForm>>();
+    if (frames.length === 0) return new Map<string, ReturnType<typeof calcPlayerForm>>();
     const map = new Map<string, ReturnType<typeof calcPlayerForm>>();
-    teamPlayers.forEach(pl => map.set(pl.name, calcPlayerForm(pl.name, leagueData.frames)));
+    teamPlayers.forEach(pl => map.set(pl.name, calcPlayerForm(pl.name, frames)));
     return map;
-  }, [teamPlayers, leagueData.frames]);
+  }, [teamPlayers, frames]);
 
   const appearanceRates = useMemo(() => {
-    if (leagueData.frames.length === 0) return new Map<string, { rate: number; category: 'core' | 'rotation' | 'fringe'; appearances: number; totalMatches: number }>();
-    const rates = calcAppearanceRates(team, leagueData.frames);
+    if (frames.length === 0) return new Map<string, { rate: number; category: 'core' | 'rotation' | 'fringe'; appearances: number; totalMatches: number }>();
+    const rates = calcAppearanceRates(team, frames);
     const map = new Map<string, { rate: number; category: 'core' | 'rotation' | 'fringe'; appearances: number; totalMatches: number }>();
     rates.forEach(r => map.set(r.name, { rate: r.rate, category: r.category, appearances: r.appearances, totalMatches: r.totalMatches }));
     return map;
-  }, [team, leagueData.frames]);
+  }, [team, frames]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -50,7 +49,7 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
         <ArrowLeft size={16} /> Back
       </button>
       <h2 className="text-xl font-bold mb-1 text-white">{team}</h2>
-      <p className="text-gray-500 text-sm mb-4">{DIVISIONS[selectedDiv].name} &bull; #{teamPos}</p>
+      <p className="text-gray-500 text-sm mb-4">{ds.divisions[selectedDiv].name} &bull; #{teamPos}</p>
 
       {teamStanding && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">

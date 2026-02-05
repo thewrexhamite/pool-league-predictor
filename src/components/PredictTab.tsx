@@ -5,9 +5,8 @@ import { Share2 } from 'lucide-react';
 import clsx from 'clsx';
 import { RadialBarChart, RadialBar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
 import type { DivisionCode, PredictionResult, SquadOverrides, H2HRecord } from '@/lib/types';
-import { DIVISIONS, PLAYERS, PLAYERS_2526 } from '@/lib/data';
 import { getTeamPlayers, getSquadH2H, calcSetPerformance, generateScoutingReport, suggestLineup } from '@/lib/predictions';
-import { useLeagueData } from '@/lib/data-provider';
+import { useActiveData } from '@/lib/active-data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 import { useToast } from './ToastProvider';
 
@@ -34,43 +33,43 @@ export default function PredictTab({
   onTeamClick,
   onPlayerClick,
 }: PredictTabProps) {
-  const teams = DIVISIONS[selectedDiv].teams;
-  const { data: leagueData } = useLeagueData();
+  const { data: activeData, ds, frames } = useActiveData();
+  const teams = ds.divisions[selectedDiv].teams;
   const { addToast } = useToast();
 
   const h2hRecords = useMemo(() => {
-    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return [];
-    return getSquadH2H(homeTeam, awayTeam, leagueData.frames, leagueData.rosters);
-  }, [homeTeam, awayTeam, leagueData.frames, leagueData.rosters]);
+    if (!homeTeam || !awayTeam || frames.length === 0) return [];
+    return getSquadH2H(homeTeam, awayTeam, frames, ds.rosters);
+  }, [homeTeam, awayTeam, frames, ds.rosters]);
 
   const homeSetPerf = useMemo(
-    () => homeTeam && leagueData.frames.length > 0 ? calcSetPerformance(homeTeam, leagueData.frames) : null,
-    [homeTeam, leagueData.frames]
+    () => homeTeam && frames.length > 0 ? calcSetPerformance(homeTeam, frames) : null,
+    [homeTeam, frames]
   );
   const awaySetPerf = useMemo(
-    () => awayTeam && leagueData.frames.length > 0 ? calcSetPerformance(awayTeam, leagueData.frames) : null,
-    [awayTeam, leagueData.frames]
+    () => awayTeam && frames.length > 0 ? calcSetPerformance(awayTeam, frames) : null,
+    [awayTeam, frames]
   );
 
   const homeScoutReport = useMemo(() => {
-    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
-    return generateScoutingReport(awayTeam, leagueData.frames, leagueData.results, leagueData.players2526);
-  }, [awayTeam, homeTeam, leagueData.frames, leagueData.results, leagueData.players2526]);
+    if (!homeTeam || !awayTeam || frames.length === 0) return null;
+    return generateScoutingReport(awayTeam, frames, ds.results, ds.players2526);
+  }, [awayTeam, homeTeam, frames, ds.results, ds.players2526]);
 
   const awayScoutReport = useMemo(() => {
-    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
-    return generateScoutingReport(homeTeam, leagueData.frames, leagueData.results, leagueData.players2526);
-  }, [homeTeam, awayTeam, leagueData.frames, leagueData.results, leagueData.players2526]);
+    if (!homeTeam || !awayTeam || frames.length === 0) return null;
+    return generateScoutingReport(homeTeam, frames, ds.results, ds.players2526);
+  }, [homeTeam, awayTeam, frames, ds.results, ds.players2526]);
 
   const homeLineup = useMemo(() => {
-    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
-    return suggestLineup(homeTeam, awayTeam, true, leagueData.frames, leagueData.players2526, leagueData.rosters);
-  }, [homeTeam, awayTeam, leagueData.frames, leagueData.players2526, leagueData.rosters]);
+    if (!homeTeam || !awayTeam || frames.length === 0) return null;
+    return suggestLineup(homeTeam, awayTeam, true, frames, ds.players2526, ds.rosters);
+  }, [homeTeam, awayTeam, frames, ds.players2526, ds.rosters]);
 
   const awayLineup = useMemo(() => {
-    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
-    return suggestLineup(awayTeam, homeTeam, false, leagueData.frames, leagueData.players2526, leagueData.rosters);
-  }, [homeTeam, awayTeam, leagueData.frames, leagueData.players2526, leagueData.rosters]);
+    if (!homeTeam || !awayTeam || frames.length === 0) return null;
+    return suggestLineup(awayTeam, homeTeam, false, frames, ds.players2526, ds.rosters);
+  }, [homeTeam, awayTeam, frames, ds.players2526, ds.rosters]);
 
   const h2hMap = useMemo(() => {
     const map = new Map<string, H2HRecord>();
@@ -418,7 +417,7 @@ export default function PredictTab({
                 { team: awayTeam, color: 'loss' },
               ].map(side => {
                 if (!side.team) return null;
-                const basePlayers = getTeamPlayers(side.team);
+                const basePlayers = getTeamPlayers(side.team, ds);
                 const override = squadOverrides[side.team];
                 const removedSet = override ? new Set(override.removed || []) : new Set<string>();
                 const addedNames = override ? override.added || [] : [];
@@ -451,8 +450,8 @@ export default function PredictTab({
                         </button>
                       ))}
                       {addedNames.map(name => {
-                        const s2526 = PLAYERS_2526[name];
-                        const s2425 = PLAYERS[name];
+                        const s2526 = ds.players2526[name];
+                        const s2425 = ds.players[name];
                         return (
                           <button key={name} onClick={() => onPlayerClick(name)}
                             className="w-full flex justify-between text-xs rounded p-1.5 text-left border-l-2 border-win pl-2 transition hover:bg-surface-elevated/50"
