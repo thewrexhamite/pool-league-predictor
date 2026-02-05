@@ -1387,7 +1387,7 @@ function App() {
                                 <p className="text-xs text-gray-400 mt-1">Relegation battle</p>
                             </div>
                         </div>
-                        <p className="text-xs text-amber-300 mt-3">Derby Day: June 14, 2026</p>
+                        <p className="text-xs text-amber-300 mt-3">🔥 Derby Day: June 14, 2026 🔥</p>
                     </div>
                 )}
 
@@ -1463,6 +1463,7 @@ function App() {
                 <p className="text-center text-gray-500 text-xs mt-4">
                     Model: Frame-differential ratings &bull; Logistic prediction &bull; Home advantage +{(1 / (1 + Math.exp(-HOME_ADV)) * 100 - 50).toFixed(0)}% &bull; Points: HW=2, AW=3, D=1 &bull; Squad builder: best-N weighted avg win% delta
                 </p>
+                <p className="text-center text-gray-600 text-xs mt-2">&copy; Mike Lewis {new Date().getFullYear()}</p>
             </div>
         </div>
     );
