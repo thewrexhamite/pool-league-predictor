@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Edit, Lock, X, Plus, Minus } from 'lucide-react';
+import { Edit, Lock, X, Plus, Minus } from 'lucide-react';
 import clsx from 'clsx';
 import type { Fixture } from '@/lib/types';
 
@@ -35,16 +35,19 @@ export default function WhatIfRow({ fixture, onAdd, onPredict, onTeamClick }: Wh
       <div
         className={clsx(
           'flex items-center p-3 text-sm transition',
-          !editing && 'hover:bg-surface-elevated/50'
+          !editing && 'hover:bg-surface-elevated/50 cursor-pointer'
         )}
+        onClick={() => {
+          if (!editing && onPredict) onPredict(fixture.home, fixture.away);
+        }}
       >
         <span className="text-gray-500 text-xs w-20 shrink-0">{fixture.date}</span>
         <span className="flex-1 text-center">
           {onTeamClick ? (
             <>
-              <span className="cursor-pointer hover:text-info transition" onClick={() => onTeamClick(fixture.home)}>{fixture.home}</span>
+              <span className="cursor-pointer hover:text-info transition" onClick={(e) => { e.stopPropagation(); onTeamClick(fixture.home); }}>{fixture.home}</span>
               <span className="text-gray-600 mx-1">vs</span>
-              <span className="cursor-pointer hover:text-info transition" onClick={() => onTeamClick(fixture.away)}>{fixture.away}</span>
+              <span className="cursor-pointer hover:text-info transition" onClick={(e) => { e.stopPropagation(); onTeamClick(fixture.away); }}>{fixture.away}</span>
             </>
           ) : (
             <>{fixture.home} <span className="text-gray-600">vs</span> {fixture.away}</>
@@ -52,17 +55,8 @@ export default function WhatIfRow({ fixture, onAdd, onPredict, onTeamClick }: Wh
         </span>
         {!editing && (
           <div className="flex items-center gap-2 ml-2 shrink-0">
-            {onPredict && (
-              <button
-                onClick={() => onPredict(fixture.home, fixture.away)}
-                className="flex items-center gap-1 text-baize hover:text-baize-light text-xs transition"
-                aria-label="Predict"
-              >
-                <Target size={14} />
-              </button>
-            )}
             <button
-              onClick={() => setEditing(true)}
+              onClick={(e) => { e.stopPropagation(); setEditing(true); }}
               className="flex items-center gap-1 text-info hover:text-info-light text-xs transition"
               aria-label="Set result"
             >
