@@ -401,8 +401,8 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
               <svg width="32" height="32" viewBox="0 0 512 512" className="shrink-0">
                 <defs>
                   <radialGradient id="logoGrad" cx="35%" cy="35%" r="65%">
-                    <stop offset="0%" stopColor="#0EA572"/>
-                    <stop offset="100%" stopColor="#0A7B54"/>
+                    <stop offset="0%" stopColor="#3A3A3A"/>
+                    <stop offset="100%" stopColor="#111111"/>
                   </radialGradient>
                 </defs>
                 <rect width="512" height="512" rx="96" fill="#0C1222"/>
