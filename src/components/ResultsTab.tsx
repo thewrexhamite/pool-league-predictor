@@ -146,26 +146,27 @@ function FrameSet({
           const isEven = i % 2 === 0;
 
           return (
-            <div key={f.frameNum} className={clsx('flex items-center text-xs rounded px-1 py-0.5', isEven && 'bg-surface-elevated/20')}>
-              <span className="text-gray-600 w-5 text-right mr-2">{f.frameNum}</span>
+            <div key={f.frameNum} className={clsx('flex items-center text-xs rounded py-0.5', isEven && 'bg-surface-elevated/20')}>
+              {/* Match headline: [chevron 14px + mr-1] [date w-20] */}
+              <span className="shrink-0 w-[14px] mr-1" />
+              <span className="text-gray-600 w-20 shrink-0">{f.frameNum}</span>
               <span
                 className={clsx('flex-1 text-right cursor-pointer hover:text-info transition', homeWon ? 'text-win font-semibold' : 'text-gray-400')}
                 onClick={() => onPlayerClick(f.homePlayer)}
               >
                 {f.homePlayer}
+                {homeWon && <span className="text-win ml-1">{'\u2713'}</span>}
               </span>
-              <span className="w-5 text-center text-win">{homeWon ? '\u2713' : ''}</span>
-              <span className="text-gray-600 mx-1 text-[10px]">vs</span>
-              <span className="w-5 text-center text-win">{awayWon ? '\u2713' : ''}</span>
+              {/* Match headline: [score mx-3 w-12] */}
+              <span className="mx-3 w-12 text-center text-gray-600 text-[10px]">vs</span>
               <span
                 className={clsx('flex-1 cursor-pointer hover:text-info transition', awayWon ? 'text-win font-semibold' : 'text-gray-400')}
                 onClick={() => onPlayerClick(f.awayPlayer)}
               >
+                {awayWon && <span className="text-win mr-1">{'\u2713'}</span>}
                 {f.awayPlayer}
-              </span>
-              <span className="w-12 text-right text-xs">
-                {f.breakDish && <span className="text-gold ml-1 bg-gold/10 px-1 rounded text-[9px] font-medium">B&D</span>}
-                {f.forfeit && <span className="text-loss ml-1 text-[9px]">FF</span>}
+                {f.breakDish && <span className="text-gold ml-2 bg-gold/10 px-1 rounded text-[9px] font-medium">B&amp;D</span>}
+                {f.forfeit && <span className="text-loss ml-2 text-[9px]">FF</span>}
               </span>
             </div>
           );
