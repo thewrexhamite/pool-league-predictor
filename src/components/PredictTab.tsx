@@ -1,9 +1,9 @@
 'use client';
 
 import { useMemo } from 'react';
-import type { DivisionCode, PredictionResult, SquadOverrides, H2HRecord } from '@/lib/types';
+import type { DivisionCode, PredictionResult, SquadOverrides, H2HRecord, ScoutingReport, LineupSuggestion } from '@/lib/types';
 import { DIVISIONS, PLAYERS, PLAYERS_2526 } from '@/lib/data';
-import { getTeamPlayers, getSquadH2H, calcSetPerformance } from '@/lib/predictions';
+import { getTeamPlayers, getSquadH2H, calcSetPerformance, generateScoutingReport, suggestLineup } from '@/lib/predictions';
 import { useLeagueData } from '@/lib/data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 
@@ -46,6 +46,28 @@ export default function PredictTab({
     () => awayTeam && leagueData.frames.length > 0 ? calcSetPerformance(awayTeam, leagueData.frames) : null,
     [awayTeam, leagueData.frames]
   );
+
+  // Scouting reports for both teams
+  const homeScoutReport = useMemo(() => {
+    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
+    return generateScoutingReport(awayTeam, leagueData.frames, leagueData.results, leagueData.players2526);
+  }, [awayTeam, homeTeam, leagueData.frames, leagueData.results, leagueData.players2526]);
+
+  const awayScoutReport = useMemo(() => {
+    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
+    return generateScoutingReport(homeTeam, leagueData.frames, leagueData.results, leagueData.players2526);
+  }, [homeTeam, awayTeam, leagueData.frames, leagueData.results, leagueData.players2526]);
+
+  // Lineup suggestions for both sides
+  const homeLineup = useMemo(() => {
+    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
+    return suggestLineup(homeTeam, awayTeam, true, leagueData.frames, leagueData.players2526, leagueData.rosters);
+  }, [homeTeam, awayTeam, leagueData.frames, leagueData.players2526, leagueData.rosters]);
+
+  const awayLineup = useMemo(() => {
+    if (!homeTeam || !awayTeam || leagueData.frames.length === 0) return null;
+    return suggestLineup(awayTeam, homeTeam, false, leagueData.frames, leagueData.players2526, leagueData.rosters);
+  }, [homeTeam, awayTeam, leagueData.frames, leagueData.players2526, leagueData.rosters]);
 
   // Build H2H lookup for the matrix
   const h2hMap = useMemo(() => {
@@ -299,6 +321,158 @@ export default function PredictTab({
               </div>
               <div className="text-[10px] text-gray-500 mt-2">
                 Record shown from {homeTeam} player perspective (W-L). Green = favourable, Red = unfavourable.
+              </div>
+            </div>
+          )}
+
+          {/* Scouting Reports */}
+          {homeScoutReport && awayScoutReport && homeTeam && awayTeam && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { label: homeTeam + ' scouting ' + awayTeam, report: homeScoutReport, color: 'green' },
+                { label: awayTeam + ' scouting ' + homeTeam, report: awayScoutReport, color: 'red' },
+              ].map((side) => (
+                <div key={side.label} className="bg-gray-700/50 rounded-lg p-4">
+                  <h4 className={'font-bold text-sm mb-3 text-' + side.color + '-400'}>
+                    Scout: {side.report.opponent}
+                  </h4>
+                  {/* Opponent form */}
+                  <div className="flex items-center gap-1 mb-2">
+                    <span className="text-[10px] text-gray-500 w-10">Form:</span>
+                    {side.report.teamForm.map((r, i) => (
+                      <span
+                        key={i}
+                        className={
+                          'inline-flex w-5 h-5 rounded text-[10px] font-bold items-center justify-center ' +
+                          (r === 'W' ? 'bg-green-600' : r === 'L' ? 'bg-red-600' : 'bg-gray-500')
+                        }
+                      >
+                        {r}
+                      </span>
+                    ))}
+                  </div>
+                  {/* Key stats */}
+                  <div className="grid grid-cols-2 gap-1 text-[10px] mb-2">
+                    <div className="text-gray-400">
+                      Home: <span className="text-white font-medium">{side.report.homeAway.home.winPct.toFixed(0)}%</span>
+                    </div>
+                    <div className="text-gray-400">
+                      Away: <span className="text-white font-medium">{side.report.homeAway.away.winPct.toFixed(0)}%</span>
+                    </div>
+                    {side.report.setPerformance && (
+                      <>
+                        <div className="text-gray-400">
+                          Set 1: <span className="text-white font-medium">{side.report.setPerformance.set1.pct.toFixed(0)}%</span>
+                        </div>
+                        <div className="text-gray-400">
+                          Set 2: <span className="text-white font-medium">{side.report.setPerformance.set2.pct.toFixed(0)}%</span>
+                        </div>
+                      </>
+                    )}
+                    <div className="text-gray-400">
+                      BD net: <span className={
+                        side.report.bdStats.netBD > 0 ? 'text-green-400 font-medium' :
+                        side.report.bdStats.netBD < 0 ? 'text-red-400 font-medium' : 'text-white font-medium'
+                      }>{side.report.bdStats.netBD > 0 ? '+' : ''}{side.report.bdStats.netBD}</span>
+                    </div>
+                    <div className="text-gray-400">
+                      Forf: <span className="text-amber-400 font-medium">{(side.report.forfeitRate * 100).toFixed(0)}%</span>
+                    </div>
+                  </div>
+                  {/* Strongest/Weakest */}
+                  <div className="text-[10px] mb-1">
+                    <span className="text-gray-500">Strongest: </span>
+                    {side.report.strongestPlayers.map((p, i) => (
+                      <span key={i}>
+                        <span
+                          className="text-green-400 cursor-pointer hover:text-green-300"
+                          onClick={() => onPlayerClick(p.name)}
+                        >
+                          {p.name}
+                        </span>
+                        <span className="text-gray-600"> {p.pct.toFixed(0)}%</span>
+                        {i < side.report.strongestPlayers.length - 1 ? ', ' : ''}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="text-[10px] mb-1">
+                    <span className="text-gray-500">Weakest: </span>
+                    {side.report.weakestPlayers.map((p, i) => (
+                      <span key={i}>
+                        <span
+                          className="text-red-400 cursor-pointer hover:text-red-300"
+                          onClick={() => onPlayerClick(p.name)}
+                        >
+                          {p.name}
+                        </span>
+                        <span className="text-gray-600"> {p.pct.toFixed(0)}%</span>
+                        {i < side.report.weakestPlayers.length - 1 ? ', ' : ''}
+                      </span>
+                    ))}
+                  </div>
+                  {/* Predicted lineup */}
+                  <div className="text-[10px] mt-1">
+                    <span className="text-gray-500">Likely lineup: </span>
+                    <span className="text-gray-300">
+                      {side.report.predictedLineup.recentPlayers.slice(0, 5).join(', ')}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Lineup Suggestions */}
+          {homeLineup && awayLineup && homeTeam && awayTeam && (
+            <div className="bg-gray-700/50 rounded-lg p-4">
+              <h4 className="font-bold text-sm text-gray-300 mb-3">Suggested Lineups</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  { team: homeTeam, lineup: homeLineup, color: 'green' },
+                  { team: awayTeam, lineup: awayLineup, color: 'red' },
+                ].map((side) => (
+                  <div key={side.team}>
+                    <h5 className={'text-xs font-bold mb-2 text-' + side.color + '-400'}>{side.team}</h5>
+                    {[
+                      { label: 'Set 1', players: side.lineup.set1 },
+                      { label: 'Set 2', players: side.lineup.set2 },
+                    ].map((set) => (
+                      <div key={set.label} className="mb-2">
+                        <div className="text-[10px] text-gray-500 mb-0.5">{set.label}</div>
+                        {set.players.map((p, i) => (
+                          <div
+                            key={p.name}
+                            className="flex justify-between text-[11px] py-0.5 cursor-pointer hover:text-blue-300"
+                            onClick={() => onPlayerClick(p.name)}
+                          >
+                            <span className="text-gray-300">
+                              {i + 1}. {p.name}
+                              {p.h2hAdvantage > 0 && (
+                                <span className="text-green-500 ml-1">+{p.h2hAdvantage}h2h</span>
+                              )}
+                              {p.h2hAdvantage < 0 && (
+                                <span className="text-red-500 ml-1">{p.h2hAdvantage}h2h</span>
+                              )}
+                            </span>
+                            <span className="text-gray-500">
+                              {p.score.toFixed(0)}
+                              {p.formPct !== null && (
+                                <span className="ml-1 text-gray-600">F:{p.formPct.toFixed(0)}</span>
+                              )}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                    {side.lineup.insights.length > 0 && (
+                      <div className="mt-1 space-y-0.5">
+                        {side.lineup.insights.map((insight, i) => (
+                          <div key={i} className="text-[10px] text-amber-400/80">{insight}</div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           )}

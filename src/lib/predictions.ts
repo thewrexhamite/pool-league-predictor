@@ -22,6 +22,12 @@ import type {
   H2HRecord,
   SetPerformance,
   BDStats,
+  PlayerAppearance,
+  PredictedLineup,
+  FixtureImportance,
+  ScoutingReport,
+  LineupScore,
+  LineupSuggestion,
 } from './types';
 import {
   DIVISIONS as STATIC_DIVISIONS,
@@ -730,6 +736,294 @@ export function getSquadH2H(
     }
   }
   return records.sort((a, b) => (b.wins + b.losses) - (a.wins + a.losses));
+}
+
+// ── Feature 6: Opponent Appearance Frequency & Lineup Prediction ──
+
+export function calcAppearanceRates(team: string, frames: FrameData[]): PlayerAppearance[] {
+  const matchDates = new Set<string>();
+  const playerAppearances: Record<string, Set<string>> = {};
+
+  for (const match of frames) {
+    const isHome = match.home === team;
+    const isAway = match.away === team;
+    if (!isHome && !isAway) continue;
+    matchDates.add(match.date);
+    for (const f of match.frames) {
+      const player = isHome ? f.homePlayer : f.awayPlayer;
+      if (!playerAppearances[player]) playerAppearances[player] = new Set();
+      playerAppearances[player].add(match.date);
+    }
+  }
+
+  const totalMatches = matchDates.size;
+  if (totalMatches === 0) return [];
+
+  return Object.entries(playerAppearances)
+    .map(([name, dates]) => {
+      const appearances = dates.size;
+      const rate = appearances / totalMatches;
+      let category: 'core' | 'rotation' | 'fringe';
+      if (rate >= 0.8) category = 'core';
+      else if (rate >= 0.4) category = 'rotation';
+      else category = 'fringe';
+      return { name, appearances, totalMatches, rate, category };
+    })
+    .sort((a, b) => b.rate - a.rate);
+}
+
+export function predictLineup(team: string, frames: FrameData[], recentN = 3): PredictedLineup {
+  const appearances = calcAppearanceRates(team, frames);
+
+  // Find the most recent N match dates for this team
+  const matchDates = new Set<string>();
+  for (const match of frames) {
+    if (match.home === team || match.away === team) {
+      matchDates.add(match.date);
+    }
+  }
+  const sortedDates = [...matchDates]
+    .sort((a, b) => parseDate(b).localeCompare(parseDate(a)))
+    .slice(0, recentN);
+  const recentDateSet = new Set(sortedDates);
+
+  // Find players who appeared in the recent matches
+  const recentPlayers = new Set<string>();
+  for (const match of frames) {
+    if (!recentDateSet.has(match.date)) continue;
+    const isHome = match.home === team;
+    const isAway = match.away === team;
+    if (!isHome && !isAway) continue;
+    for (const f of match.frames) {
+      recentPlayers.add(isHome ? f.homePlayer : f.awayPlayer);
+    }
+  }
+
+  return {
+    players: appearances,
+    recentPlayers: [...recentPlayers],
+  };
+}
+
+// ── Feature 7: Must-Win Fixture Identifier ──
+
+export function calcFixtureImportance(
+  div: DivisionCode,
+  team: string,
+  squadOverrides: SquadOverrides,
+  squadTopN: number,
+  whatIfResults: WhatIfResult[],
+  ds?: DataSources
+): FixtureImportance[] {
+  const remaining = getRemainingFixtures(div, ds);
+  const teamFixtures = remaining.filter(f => f.home === team || f.away === team);
+  const whatIfKeys = new Set(whatIfResults.map(wi => wi.home + ':' + wi.away));
+
+  const results: FixtureImportance[] = [];
+
+  for (const fix of teamFixtures) {
+    if (whatIfKeys.has(fix.home + ':' + fix.away)) continue;
+
+    // Simulate with this fixture as a win for the team
+    const isHome = fix.home === team;
+    const winResult: WhatIfResult = {
+      home: fix.home,
+      away: fix.away,
+      homeScore: isHome ? 7 : 3,
+      awayScore: isHome ? 3 : 7,
+    };
+    const lossResult: WhatIfResult = {
+      home: fix.home,
+      away: fix.away,
+      homeScore: isHome ? 3 : 7,
+      awayScore: isHome ? 7 : 3,
+    };
+
+    const simWin = runSeasonSimulation(div, squadOverrides, squadTopN, [...whatIfResults, winResult], ds);
+    const simLoss = runSeasonSimulation(div, squadOverrides, squadTopN, [...whatIfResults, lossResult], ds);
+
+    const teamWin = simWin.find(s => s.team === team);
+    const teamLoss = simLoss.find(s => s.team === team);
+
+    if (teamWin && teamLoss) {
+      const pTop2Win = parseFloat(teamWin.pTop2);
+      const pTop2Loss = parseFloat(teamLoss.pTop2);
+      results.push({
+        home: fix.home,
+        away: fix.away,
+        date: fix.date,
+        importance: Math.abs(pTop2Win - pTop2Loss),
+        pTop2IfWin: pTop2Win,
+        pTop2IfLoss: pTop2Loss,
+      });
+    }
+  }
+
+  return results.sort((a, b) => b.importance - a.importance);
+}
+
+// ── Feature 8: Pre-Match Scouting Report ──
+
+export function generateScoutingReport(
+  opponent: string,
+  frames: FrameData[],
+  results: MatchResult[],
+  players2526: Players2526Map
+): ScoutingReport {
+  // Team form (last 5 results)
+  const oppResults = results
+    .filter(r => r.home === opponent || r.away === opponent)
+    .sort((a, b) => parseDate(b.date).localeCompare(parseDate(a.date)));
+  const teamForm = oppResults.slice(0, 5).map(r => {
+    if (r.home === opponent) {
+      return r.home_score > r.away_score ? 'W' as const : r.home_score < r.away_score ? 'L' as const : 'D' as const;
+    }
+    return r.away_score > r.home_score ? 'W' as const : r.away_score < r.home_score ? 'L' as const : 'D' as const;
+  });
+
+  const homeAway = calcTeamHomeAway(opponent, results);
+  const setPerformance = frames.length > 0 ? calcSetPerformance(opponent, frames) : null;
+  const bdStats = calcTeamBDStats(opponent, players2526);
+  const predictedLineupData = predictLineup(opponent, frames);
+
+  // Strongest/weakest players (from 2526 stats, min 3 games)
+  const oppPlayers: { name: string; pct: number; p: number }[] = [];
+  for (const [name, data] of Object.entries(players2526)) {
+    const entry = data.teams.find(t => t.team === opponent);
+    if (entry && entry.p >= 3) {
+      oppPlayers.push({ name, pct: entry.pct, p: entry.p });
+    }
+  }
+  oppPlayers.sort((a, b) => b.pct - a.pct);
+
+  // Total forfeits / total games
+  let totalForf = 0;
+  let totalGames = 0;
+  for (const data of Object.values(players2526)) {
+    const entry = data.teams.find(t => t.team === opponent);
+    if (entry) {
+      totalForf += entry.forf;
+      totalGames += entry.p;
+    }
+  }
+
+  return {
+    opponent,
+    teamForm,
+    homeAway,
+    setPerformance,
+    bdStats,
+    predictedLineup: predictedLineupData,
+    strongestPlayers: oppPlayers.slice(0, 3),
+    weakestPlayers: oppPlayers.slice(-3).reverse(),
+    forfeitRate: totalGames > 0 ? totalForf / totalGames : 0,
+  };
+}
+
+// ── Feature 9: Optimal Lineup Suggester ──
+
+export function suggestLineup(
+  myTeam: string,
+  opponent: string,
+  isHome: boolean,
+  frames: FrameData[],
+  players2526: Players2526Map,
+  rosters: RostersMap
+): LineupSuggestion {
+  // Get my team's players with stats
+  const myPlayers: { name: string; pct: number; p: number }[] = [];
+  for (const [name, data] of Object.entries(players2526)) {
+    const entry = data.teams.find(t => t.team === myTeam);
+    if (entry && entry.p >= 2) {
+      myPlayers.push({ name, pct: entry.pct, p: entry.p });
+    }
+  }
+
+  // Predicted opponent lineup
+  const oppLineup = predictLineup(opponent, frames);
+  const likelyOpponents = oppLineup.recentPlayers;
+
+  // Score each player
+  const scored: LineupScore[] = myPlayers.map(pl => {
+    // Form component
+    const form = frames.length > 0 ? calcPlayerForm(pl.name, frames) : null;
+    const formPct = form ? form.last5.pct : null;
+
+    // H2H advantage against likely opponents
+    let h2hAdvantage = 0;
+    for (const opp of likelyOpponents) {
+      const record = getH2HRecord(pl.name, opp, frames);
+      h2hAdvantage += record.wins - record.losses;
+    }
+
+    // Home/away performance
+    const ha = frames.length > 0 ? calcPlayerHomeAway(pl.name, frames) : null;
+    const homeAwayPct = ha ? (isHome ? ha.home.pct : ha.away.pct) : null;
+
+    // Composite score: weighted blend
+    let score = pl.pct; // base: season win%
+    if (formPct !== null) score += (formPct - pl.pct) * 0.3; // form adjustment
+    if (h2hAdvantage !== 0) score += h2hAdvantage * 5; // H2H bonus/penalty
+    if (homeAwayPct !== null && ha) {
+      const venue = isHome ? ha.home : ha.away;
+      if (venue.p >= 3) score += (homeAwayPct - pl.pct) * 0.2; // venue adjustment
+    }
+
+    return {
+      name: pl.name,
+      score,
+      formPct,
+      h2hAdvantage,
+      homeAwayPct,
+      suggestedSet: 1 as 1 | 2, // will be assigned below
+    };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+
+  // Assign top 5 to sets — check opponent's set bias
+  const oppSetPerf = frames.length > 0 ? calcSetPerformance(opponent, frames) : null;
+  const oppWeakerLate = oppSetPerf ? oppSetPerf.bias > 5 : false; // opponent stronger early = save best for late
+
+  const set1: LineupScore[] = [];
+  const set2: LineupScore[] = [];
+
+  if (oppWeakerLate && scored.length >= 10) {
+    // Opponent is front-loaded: save best for set 2
+    scored.slice(0, 5).forEach(s => { s.suggestedSet = 2; set2.push(s); });
+    scored.slice(5, 10).forEach(s => { s.suggestedSet = 1; set1.push(s); });
+  } else {
+    // Default: best in set 1
+    scored.slice(0, 5).forEach(s => { s.suggestedSet = 1; set1.push(s); });
+    scored.slice(5, 10).forEach(s => { s.suggestedSet = 2; set2.push(s); });
+  }
+
+  // Generate insights
+  const insights: string[] = [];
+  const hotPlayers = scored.filter(s => {
+    const f = frames.length > 0 ? calcPlayerForm(s.name, frames) : null;
+    return f && f.trend === 'hot';
+  });
+  const coldPlayers = scored.filter(s => {
+    const f = frames.length > 0 ? calcPlayerForm(s.name, frames) : null;
+    return f && f.trend === 'cold';
+  });
+
+  if (hotPlayers.length > 0) {
+    insights.push(`In form: ${hotPlayers.slice(0, 3).map(p => p.name).join(', ')}`);
+  }
+  if (coldPlayers.length > 0) {
+    insights.push(`Out of form: ${coldPlayers.slice(0, 3).map(p => p.name).join(', ')}`);
+  }
+  if (oppWeakerLate) {
+    insights.push('Opponent is stronger in Set 1 — consider saving best players for Set 2');
+  }
+  const h2hStars = scored.filter(s => s.h2hAdvantage >= 2).slice(0, 3);
+  if (h2hStars.length > 0) {
+    insights.push(`H2H advantage: ${h2hStars.map(p => p.name + ' (+' + p.h2hAdvantage + ')').join(', ')}`);
+  }
+
+  return { set1, set2, insights };
 }
 
 export { STATIC_DIVISIONS as DIVISIONS };

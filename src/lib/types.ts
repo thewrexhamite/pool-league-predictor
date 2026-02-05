@@ -223,6 +223,57 @@ export interface BDStats {
   forfRate: number;  // forfeits per game
 }
 
+// Phase 2: Composite tactical types
+
+export interface PlayerAppearance {
+  name: string;
+  appearances: number;
+  totalMatches: number;
+  rate: number; // 0-1
+  category: 'core' | 'rotation' | 'fringe';
+}
+
+export interface PredictedLineup {
+  players: PlayerAppearance[];
+  recentPlayers: string[]; // players who appeared in last 3 matches
+}
+
+export interface FixtureImportance {
+  home: string;
+  away: string;
+  date: string;
+  importance: number; // abs difference in pTop2 between win/loss scenarios
+  pTop2IfWin: number;
+  pTop2IfLoss: number;
+}
+
+export interface ScoutingReport {
+  opponent: string;
+  teamForm: ('W' | 'L' | 'D')[];
+  homeAway: TeamHomeAwaySplit;
+  setPerformance: SetPerformance | null;
+  bdStats: BDStats;
+  predictedLineup: PredictedLineup;
+  strongestPlayers: { name: string; pct: number; p: number }[];
+  weakestPlayers: { name: string; pct: number; p: number }[];
+  forfeitRate: number;
+}
+
+export interface LineupScore {
+  name: string;
+  score: number;
+  formPct: number | null;
+  h2hAdvantage: number; // net wins against likely opponents
+  homeAwayPct: number | null;
+  suggestedSet: 1 | 2;
+}
+
+export interface LineupSuggestion {
+  set1: LineupScore[];
+  set2: LineupScore[];
+  insights: string[];
+}
+
 // AI types
 export interface MatchAnalysisInput {
   homeTeam: string;

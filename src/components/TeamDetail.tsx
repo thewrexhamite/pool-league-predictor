@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { DIVISIONS } from '@/lib/data';
-import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats } from '@/lib/predictions';
+import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates } from '@/lib/predictions';
 import { useLeagueData } from '@/lib/data-provider';
 
 interface TeamDetailProps {
@@ -53,6 +53,14 @@ export default function TeamDetail({
     });
     return map;
   }, [teamPlayers, leagueData.frames]);
+
+  const appearanceRates = useMemo(() => {
+    if (leagueData.frames.length === 0) return new Map<string, { rate: number; category: 'core' | 'rotation' | 'fringe'; appearances: number; totalMatches: number }>();
+    const rates = calcAppearanceRates(team, leagueData.frames);
+    const map = new Map<string, { rate: number; category: 'core' | 'rotation' | 'fringe'; appearances: number; totalMatches: number }>();
+    rates.forEach(r => map.set(r.name, { rate: r.rate, category: r.category, appearances: r.appearances, totalMatches: r.totalMatches }));
+    return map;
+  }, [team, leagueData.frames]);
 
   return (
     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
@@ -186,6 +194,7 @@ export default function TeamDetail({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
             {teamPlayers.map(pl => {
               const pf = playerForms.get(pl.name);
+              const ar = appearanceRates.get(pl.name);
               return (
                 <div
                   key={pl.name}
@@ -209,6 +218,21 @@ export default function TeamDetail({
                         title={`Form: ${pf.last5.pct.toFixed(0)}% last 5 | ${pf.seasonPct.toFixed(0)}% season`}
                       >
                         {pf.trend === 'hot' ? '\u25B2' : pf.trend === 'cold' ? '\u25BC' : ''}
+                      </span>
+                    )}
+                    {ar && (
+                      <span
+                        className={
+                          'text-[9px] px-1 rounded ' +
+                          (ar.category === 'core'
+                            ? 'bg-green-900/50 text-green-400'
+                            : ar.category === 'rotation'
+                              ? 'bg-blue-900/50 text-blue-400'
+                              : 'bg-gray-600/50 text-gray-500')
+                        }
+                        title={`${ar.appearances}/${ar.totalMatches} matches (${(ar.rate * 100).toFixed(0)}%)`}
+                      >
+                        {ar.category === 'core' ? 'Core' : ar.category === 'rotation' ? 'Rot' : 'Fringe'}
                       </span>
                     )}
                   </span>
