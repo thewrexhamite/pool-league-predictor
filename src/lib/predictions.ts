@@ -84,6 +84,7 @@ export function getLatestResultDate(results: MatchResult[]): string {
 // Pulls small samples toward 50% (prior), reducing flukes from low game counts
 const BAYESIAN_PRIOR = 0.5;
 const BAYESIAN_K = 6;
+const PRIOR_BLEND_MATCHES = 10;
 
 export function calcBayesianPct(wins: number, games: number): number {
   if (games === 0) return BAYESIAN_PRIOR * 100;
@@ -139,11 +140,45 @@ export function calcStandings(div: DivisionCode, ds?: DataSources): StandingEntr
     .sort((a, b) => b.pts - a.pts || b.diff - a.diff);
 }
 
+function calcPriorTeamStrength(team: string, div: DivisionCode, ds: DataSources): number {
+  const rosterKey = div + ':' + team;
+  const roster = ds.rosters[rosterKey] || [];
+
+  // Collect all players associated with this team (roster + anyone who played in 25/26)
+  const allPlayers = new Set(roster);
+  for (const [name, data] of Object.entries(ds.players2526)) {
+    if (data.teams.some(t => t.team === team)) allPlayers.add(name);
+  }
+
+  // Weighted average of 24/25 win% (weighted by games played that season)
+  let totalWeight = 0;
+  let weightedPct = 0;
+  for (const name of allPlayers) {
+    const stats = ds.players[name];
+    if (stats && stats.p > 0) {
+      totalWeight += stats.p;
+      weightedPct += stats.w * stats.p;
+    }
+  }
+
+  if (totalWeight === 0) return 0; // no prior data — same as current behaviour
+  const avgWinPct = weightedPct / totalWeight;
+  return (avgWinPct - 0.5) * 4; // map to strength scale
+}
+
 export function calcTeamStrength(div: DivisionCode, ds?: DataSources): Record<string, number> {
-  const standings = calcStandings(div, ds);
+  const src = ds ?? defaults();
+  const standings = calcStandings(div, src);
   const strengths: Record<string, number> = {};
   standings.forEach(s => {
-    strengths[s.team] = s.p > 0 ? (s.diff / s.p / 10) * 2 : 0;
+    const currentStrength = s.p > 0 ? (s.diff / s.p / 10) * 2 : 0;
+    const blendWeight = Math.min(1, s.p / PRIOR_BLEND_MATCHES);
+    if (blendWeight < 1) {
+      const prior = calcPriorTeamStrength(s.team, div, src);
+      strengths[s.team] = (1 - blendWeight) * prior + blendWeight * currentStrength;
+    } else {
+      strengths[s.team] = currentStrength;
+    }
   });
   return strengths;
 }
