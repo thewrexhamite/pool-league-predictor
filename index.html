@@ -1051,6 +1051,8 @@ function App() {
                                     <span className="flex-1 text-right cursor-pointer hover:text-blue-300" onClick={() => openTeamDetail(f.home)}>{f.home}</span>
                                     <span className="mx-3 text-gray-500">vs</span>
                                     <span className="flex-1 cursor-pointer hover:text-blue-300" onClick={() => openTeamDetail(f.away)}>{f.away}</span>
+                                    <button onClick={(e) => { e.stopPropagation(); setHomeTeam(f.home); setAwayTeam(f.away); setActiveTab('predict'); }}
+                                        className="text-green-400 hover:text-green-300 text-xs ml-3 shrink-0">Predict</button>
                                 </div>
                             ))}
                         </div>
