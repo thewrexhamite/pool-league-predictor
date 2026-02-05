@@ -416,31 +416,6 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
           <div className="flex items-center justify-between gap-3">
             {/* Left: Logo + title */}
             <div className="flex items-center gap-2 shrink-0">
-              <svg width="32" height="32" viewBox="0 0 512 512" className="shrink-0">
-                <defs>
-                  <radialGradient id="logoGrad" cx="38%" cy="32%" r="65%">
-                    <stop offset="0%" stopColor="#3a3a3a"/>
-                    <stop offset="55%" stopColor="#1a1a1a"/>
-                    <stop offset="100%" stopColor="#080808"/>
-                  </radialGradient>
-                  <radialGradient id="logoGloss" cx="40%" cy="30%" r="50%">
-                    <stop offset="0%" stopColor="white" stopOpacity="0.35"/>
-                    <stop offset="100%" stopColor="white" stopOpacity="0"/>
-                  </radialGradient>
-                  <clipPath id="logoClip">
-                    <circle cx="256" cy="256" r="179"/>
-                  </clipPath>
-                </defs>
-                <rect width="512" height="512" rx="96" fill="#0C1222"/>
-                <circle cx="256" cy="256" r="179" fill="url(#logoGrad)"/>
-                <g clipPath="url(#logoClip)">
-                  <ellipse cx="256" cy="256" rx="200" ry="72" fill="white" transform="rotate(-18, 256, 256)"/>
-                </g>
-                <ellipse cx="225" cy="195" rx="65" ry="40" fill="url(#logoGloss)" transform="rotate(-25, 225, 195)"/>
-                <circle cx="256" cy="256" r="63" fill="white"/>
-                <text x="256" y="256" textAnchor="middle" dominantBaseline="central" fontFamily="'Space Grotesk',sans-serif" fontWeight="700" fontSize="62" fill="#0C1222">8</text>
-                <path d="M 350 370 A 155 155 0 0 1 270 425" fill="none" stroke="#D4A855" strokeWidth="4" strokeLinecap="round"/>
-              </svg>
               <button
                 onClick={() => router.setTab('dashboard')}
                 className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity"
