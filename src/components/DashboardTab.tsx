@@ -217,7 +217,7 @@ export default function DashboardTab({
                     ))}
                   </div>
                   <span className="text-sm font-bold text-gold w-8 text-right">{s.pts}</span>
-                  {gap > 0 && <span className="text-xs text-gray-500 w-8 text-right">-{gap}</span>}
+                  <span className="text-xs text-gray-500 w-8 text-right">{gap > 0 ? `-${gap}` : ''}</span>
                 </button>
               );
             })}
@@ -264,7 +264,7 @@ export default function DashboardTab({
                     ))}
                   </div>
                   <span className="text-sm font-bold text-gold w-8 text-right">{s.pts}</span>
-                  {gap > 0 && <span className="text-xs text-loss w-10 text-right">-{gap}</span>}
+                  <span className="text-xs text-loss w-10 text-right">{gap > 0 ? `-${gap}` : ''}</span>
                 </button>
               );
             })}
