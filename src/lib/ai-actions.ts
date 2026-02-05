@@ -6,6 +6,8 @@ import { generatePlayerInsight } from '@/ai/flows/player-insights';
 import {
   calcStandings,
   calcTeamStrength,
+  predictFrame,
+  runPredSim,
   getDiv,
   getPlayerStats,
   getPlayerStats2526,
@@ -32,6 +34,9 @@ export async function analyzeMatchAction(homeTeam: string, awayTeam: string) {
     throw new Error('Could not find standings for teams.');
   }
 
+  const pFrame = predictFrame(strengths[homeTeam] || 0, strengths[awayTeam] || 0);
+  const pred = runPredSim(pFrame);
+
   try {
     const result = await analyzeMatch({
       homeTeam,
@@ -39,11 +44,11 @@ export async function analyzeMatchAction(homeTeam: string, awayTeam: string) {
       division: DIVISIONS[div].name,
       homeStrength: strengths[homeTeam] || 0,
       awayStrength: strengths[awayTeam] || 0,
-      pHomeWin: '0',
-      pDraw: '0',
-      pAwayWin: '0',
-      expectedHome: '0',
-      expectedAway: '0',
+      pHomeWin: pred.pHomeWin,
+      pDraw: pred.pDraw,
+      pAwayWin: pred.pAwayWin,
+      expectedHome: pred.expectedHome,
+      expectedAway: pred.expectedAway,
       homeStanding,
       awayStanding,
     });
