@@ -311,7 +311,7 @@ export default function App() {
         )}
 
         {activeTab === 'results' && (
-          <ResultsTab selectedDiv={selectedDiv} onTeamClick={openTeamDetail} />
+          <ResultsTab selectedDiv={selectedDiv} onTeamClick={openTeamDetail} onPlayerClick={openPlayerDetail} />
         )}
 
         {activeTab === 'team' && selectedTeam && (
