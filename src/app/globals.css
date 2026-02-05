@@ -2,10 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background: #111827;
+:root {
+  --surface: #0f172a;
+  --surface-card: #1e293b;
+  --surface-elevated: #334155;
+  --surface-border: #475569;
+  --baize: #10b981;
+  --baize-light: #34d399;
+  --baize-dark: #059669;
+  --baize-muted: #064e3b;
+  --win: #22c55e;
+  --win-muted: #166534;
+  --loss: #ef4444;
+  --loss-muted: #7f1d1d;
+  --draw: #94a3b8;
+  --accent: #8b5cf6;
+  --accent-light: #a78bfa;
+  --accent-muted: #4c1d95;
+  --info: #38bdf8;
+  --info-light: #7dd3fc;
+  --info-muted: #0c4a6e;
+  --gold: #f59e0b;
 }
 
-.gradient-bg {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--surface);
+}
+
+::selection {
+  background-color: rgba(16, 185, 129, 0.3);
+  color: white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--surface-elevated);
+}
+
+/* Focus visible ring */
+*:focus-visible {
+  outline: 2px solid var(--baize);
+  outline-offset: 2px;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-card) 25%,
+    var(--surface-elevated) 50%,
+    var(--surface-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 6px;
 }

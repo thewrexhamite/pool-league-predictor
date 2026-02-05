@@ -1,6 +1,22 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import clsx from 'clsx';
+import {
+  LayoutDashboard,
+  Trophy,
+  ClipboardList,
+  Dices,
+  Target,
+  Calendar,
+  FlaskConical,
+  Users,
+  Search,
+  X,
+  Star,
+  RefreshCw,
+} from 'lucide-react';
 import type {
   DivisionCode,
   PredictionResult,
@@ -11,18 +27,24 @@ import type {
 } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { useUserSession } from '@/hooks/use-user-session';
+import { useMyTeam } from '@/hooks/use-my-team';
+import { useHashRouter, type TabId } from '@/lib/router';
 import {
   calcStandings,
   calcTeamStrength,
   calcStrengthAdjustments,
   predictFrame,
   getAllRemainingFixtures,
+  getAllLeaguePlayers,
   runPredSim,
   runSeasonSimulation,
   getDiv,
   type DataSources,
 } from '@/lib/predictions';
+import { DIVISIONS } from '@/lib/data';
 
+import { ToastProvider, useToast } from './ToastProvider';
+import DashboardTab from './DashboardTab';
 import StandingsTab from './StandingsTab';
 import ResultsTab from './ResultsTab';
 import SimulateTab from './SimulateTab';
@@ -36,21 +58,23 @@ import FourDogsReport from './FourDogsReport';
 import Glossary from './Glossary';
 import AIChatPanel from './AIChatPanel';
 
-const TABS: [string, string][] = [
-  ['standings', 'Standings'],
-  ['results', 'Results'],
-  ['simulate', 'Simulate'],
-  ['predict', 'Predict'],
-  ['fixtures', 'Fixtures'],
-  ['whatif', 'What If'],
-  ['players', 'Players'],
+const TABS: { id: TabId; label: string; shortLabel: string; icon: typeof LayoutDashboard }[] = [
+  { id: 'dashboard', label: 'Dashboard', shortLabel: 'Dash', icon: LayoutDashboard },
+  { id: 'standings', label: 'Standings', shortLabel: 'Table', icon: Trophy },
+  { id: 'results', label: 'Results', shortLabel: 'Results', icon: ClipboardList },
+  { id: 'simulate', label: 'Simulate', shortLabel: 'Sim', icon: Dices },
+  { id: 'predict', label: 'Predict', shortLabel: 'Predict', icon: Target },
+  { id: 'fixtures', label: 'Fixtures', shortLabel: 'Fix', icon: Calendar },
+  { id: 'whatif', label: 'What If', shortLabel: 'WhatIf', icon: FlaskConical },
+  { id: 'players', label: 'Players', shortLabel: 'Players', icon: Users },
 ];
 
-export default function App() {
-  const { data: leagueData } = useLeagueData();
+function AppInner() {
+  const { data: leagueData, refreshing } = useLeagueData();
+  const { addToast } = useToast();
+  const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
+  const router = useHashRouter();
 
-  const [activeTab, setActiveTab] = useState('standings');
-  const [selectedDiv, setSelectedDiv] = useState<DivisionCode>('SD2');
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
   const [simResults, setSimResults] = useState<SimulationResult[] | null>(null);
@@ -58,14 +82,29 @@ export default function App() {
   const [prediction, setPrediction] = useState<PredictionResult | null>(null);
   const [whatIfResults, setWhatIfResults] = useState<WhatIfResult[]>([]);
   const [whatIfSimResults, setWhatIfSimResults] = useState<WhatIfResult[] | null>(null);
-  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
-  const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
   const [squadOverrides, setSquadOverrides] = useState<SquadOverrides>({});
   const [squadBuilderTeam, setSquadBuilderTeam] = useState('');
   const [squadPlayerSearch, setSquadPlayerSearch] = useState('');
   const [squadTopN, setSquadTopN] = useState(5);
 
-  // Build data sources from the provider (Firestore/cache/static)
+  // Search state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchFocusIndex, setSearchFocusIndex] = useState(-1);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // My Team modal
+  const [showMyTeamModal, setShowMyTeamModal] = useState(false);
+
+  // Sync predict teams from router
+  useEffect(() => {
+    if (router.tab === 'predict' && router.home && router.away) {
+      setHomeTeam(router.home);
+      setAwayTeam(router.away);
+    }
+  }, [router.tab, router.home, router.away]);
+
   const ds: DataSources = useMemo(() => ({
     divisions: leagueData.divisions,
     results: leagueData.results,
@@ -75,21 +114,19 @@ export default function App() {
     players2526: leagueData.players2526,
   }), [leagueData]);
 
-  // Session persistence: restore what-if and squad state across sessions
   const handleSessionRestore = useCallback((session: UserSession) => {
     if (session.whatIfResults.length > 0) setWhatIfResults(session.whatIfResults);
     if (Object.keys(session.squadOverrides).length > 0) setSquadOverrides(session.squadOverrides);
-    if (session.selectedDiv) setSelectedDiv(session.selectedDiv);
   }, []);
 
   useUserSession({
-    selectedDiv,
+    selectedDiv: router.div,
     whatIfResults,
     squadOverrides,
     onRestore: handleSessionRestore,
   });
 
-  // Prediction via useEffect
+  // Prediction
   useEffect(() => {
     if (!homeTeam || !awayTeam) {
       setPrediction(null);
@@ -119,24 +156,20 @@ export default function App() {
     setPrediction(pred);
   }, [homeTeam, awayTeam, squadOverrides, squadTopN, ds]);
 
-  const standings = calcStandings(selectedDiv, ds);
+  const standings = calcStandings(router.div, ds);
   const totalRemaining = getAllRemainingFixtures(ds).length;
+  const totalPlayed = ds.results.length;
 
   const runSimulation = useCallback(() => {
     setIsSimulating(true);
     setTimeout(() => {
-      const results = runSeasonSimulation(
-        selectedDiv,
-        squadOverrides,
-        squadTopN,
-        whatIfResults,
-        ds
-      );
+      const results = runSeasonSimulation(router.div, squadOverrides, squadTopN, whatIfResults, ds);
       setSimResults(results);
       setWhatIfSimResults(whatIfResults.length > 0 ? [...whatIfResults] : null);
       setIsSimulating(false);
+      addToast('Simulation complete — 1,000 seasons', 'success');
     }, 100);
-  }, [selectedDiv, squadOverrides, squadTopN, whatIfResults, ds]);
+  }, [router.div, squadOverrides, squadTopN, whatIfResults, ds, addToast]);
 
   const addWhatIf = (home: string, away: string, homeScore: number, awayScore: number) => {
     setWhatIfResults(prev => [
@@ -144,14 +177,15 @@ export default function App() {
       { home, away, homeScore, awayScore },
     ]);
     setSimResults(null);
+    addToast(`Result locked: ${home} ${homeScore}-${awayScore} ${away}`, 'success');
   };
 
   const removeWhatIf = (home: string, away: string) => {
     setWhatIfResults(prev => prev.filter(wi => wi.home !== home || wi.away !== away));
     setSimResults(null);
+    addToast('Result removed', 'info');
   };
 
-  // Squad builder handlers
   const addSquadPlayer = (team: string, playerName: string) => {
     setSquadOverrides(prev => {
       const existing = prev[team] || { added: [], removed: [] };
@@ -167,6 +201,7 @@ export default function App() {
       return { ...prev, [team]: { ...existing, added: [...existing.added, playerName] } };
     });
     setSimResults(null);
+    addToast(`Added ${playerName} to ${team}`, 'success');
   };
 
   const removeSquadPlayer = (team: string, playerName: string) => {
@@ -184,6 +219,7 @@ export default function App() {
       return { ...prev, [team]: { ...existing, removed: [...existing.removed, playerName] } };
     });
     setSimResults(null);
+    addToast(`Removed ${playerName} from ${team}`, 'warning');
   };
 
   const restoreSquadPlayer = (team: string, playerName: string) => {
@@ -213,18 +249,15 @@ export default function App() {
   };
 
   const openTeamDetail = (team: string) => {
-    setSelectedTeam(team);
-    setSelectedPlayer(null);
-    setActiveTab('team');
+    router.openTeam(team);
   };
 
   const openPlayerDetail = (name: string) => {
-    setSelectedPlayer(name);
-    setActiveTab('player');
+    router.openPlayer(name);
   };
 
   const resetDivision = (key: DivisionCode) => {
-    setSelectedDiv(key);
+    router.setDiv(key);
     setSimResults(null);
     setWhatIfSimResults(null);
     setWhatIfResults([]);
@@ -234,208 +267,506 @@ export default function App() {
     setSquadTopN(5);
     setHomeTeam('');
     setAwayTeam('');
-    setSelectedTeam(null);
-    setSelectedPlayer(null);
-    if (activeTab === 'team' || activeTab === 'player') setActiveTab('standings');
   };
 
-  const homeAdvPct = (1 / (1 + Math.exp(-0.2)) * 100 - 50).toFixed(0);
+  // Search
+  const searchResults = useMemo(() => {
+    if (searchQuery.length < 2) return [];
+    const q = searchQuery.toLowerCase();
+    const results: { type: 'team' | 'player'; name: string; detail: string; div?: DivisionCode }[] = [];
+
+    // Search teams
+    for (const [divCode, divData] of Object.entries(ds.divisions) as [DivisionCode, { name: string; teams: string[] }][]) {
+      for (const team of divData.teams) {
+        if (team.toLowerCase().includes(q)) {
+          results.push({ type: 'team', name: team, detail: divCode, div: divCode });
+        }
+      }
+    }
+
+    // Search players
+    const allPlayers = getAllLeaguePlayers(ds);
+    for (const player of allPlayers) {
+      if (player.name.toLowerCase().includes(q)) {
+        results.push({
+          type: 'player',
+          name: player.name,
+          detail: player.teams2526.slice(0, 2).join(', ') || 'Unknown team',
+        });
+      }
+    }
+
+    return results.slice(0, 8);
+  }, [searchQuery, ds]);
+
+  // Click-outside to close search
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  const handleSearchSelect = (result: typeof searchResults[0]) => {
+    setSearchQuery('');
+    setSearchOpen(false);
+    if (result.type === 'team' && result.div) {
+      if (result.div !== router.div) {
+        resetDivision(result.div);
+      }
+      router.openTeam(result.name);
+    } else if (result.type === 'player') {
+      router.openPlayer(result.name);
+    }
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setSearchOpen(false);
+      setSearchQuery('');
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSearchFocusIndex(i => Math.min(i + 1, searchResults.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSearchFocusIndex(i => Math.max(i - 1, 0));
+    } else if (e.key === 'Enter' && searchFocusIndex >= 0 && searchResults[searchFocusIndex]) {
+      e.preventDefault();
+      handleSearchSelect(searchResults[searchFocusIndex]);
+    }
+  };
+
+  // My team handler
+  const handleSetMyTeam = (team: string, div: DivisionCode) => {
+    setMyTeam(team, div);
+    setShowMyTeamModal(false);
+    addToast(`My Team set to ${team}`, 'success');
+  };
+
+  // Time ago helper
+  const timeAgo = useMemo(() => {
+    if (!leagueData.lastUpdated) return null;
+    const diff = Date.now() - leagueData.lastUpdated;
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(hours / 24);
+    if (days > 0) return `${days}d ago`;
+    if (hours > 0) return `${hours}h ago`;
+    return 'just now';
+  }, [leagueData.lastUpdated]);
+
+  const activeTab = router.tab;
+  const selectedDiv = router.div;
+  const selectedTeam = router.team || null;
+  const selectedPlayer = router.player || null;
+
+  const seasonPct = totalPlayed + totalRemaining > 0
+    ? Math.round((totalPlayed / (totalPlayed + totalRemaining)) * 100)
+    : 0;
 
   return (
-    <div className="min-h-screen text-white p-4 gradient-bg">
-      <div className="max-w-6xl mx-auto">
-        <h1
-          className="text-2xl md:text-4xl font-bold text-center mb-2 text-green-400 cursor-pointer"
-          onClick={() => {
-            setActiveTab('standings');
-            setSelectedTeam(null);
-            setSelectedPlayer(null);
-          }}
-        >
-          Pool League Predictor
-        </h1>
-        <p className="text-center text-gray-400 mb-6 text-sm">
-          Wrexham &amp; District 25/26 &bull; {ds.results.length} matches played &bull;{' '}
-          {totalRemaining} remaining
-        </p>
+    <div className="min-h-screen text-white">
+      {/* Sticky header */}
+      <header className="sticky top-0 z-40 bg-surface/95 backdrop-blur-sm border-b border-surface-border">
+        <div className="max-w-6xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between gap-3">
+            {/* Left: Logo + title */}
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="w-8 h-8 rounded-full bg-baize flex items-center justify-center">
+                <span className="text-surface font-bold text-sm">8</span>
+              </div>
+              <button
+                onClick={() => router.setTab('dashboard')}
+                className="text-lg md:text-xl font-bold text-baize-light hover:text-baize transition-colors"
+              >
+                Pool League Pro
+              </button>
+              {myTeam && (
+                <button
+                  onClick={() => setShowMyTeamModal(true)}
+                  className="hidden md:flex items-center gap-1 text-xs bg-accent-muted/50 text-accent-light px-2 py-0.5 rounded-full"
+                >
+                  <Star size={10} className="fill-current" />
+                  {myTeam.team}
+                </button>
+              )}
+            </div>
 
-        {/* Division selector */}
-        <div className="flex justify-center gap-1 md:gap-2 mb-4 flex-wrap">
-          {(Object.entries(ds.divisions) as [DivisionCode, { name: string; teams: string[] }][]).map(
-            ([key, data]) => (
+            {/* Centre: Division segmented control */}
+            <div className="hidden md:flex items-center bg-surface-card rounded-lg p-0.5">
+              {(Object.keys(ds.divisions) as DivisionCode[]).map((key, i, arr) => (
+                <button
+                  key={key}
+                  onClick={() => resetDivision(key)}
+                  className={clsx(
+                    'px-3 py-1.5 text-xs font-medium transition-all',
+                    i === 0 && 'rounded-l-md',
+                    i === arr.length - 1 && 'rounded-r-md',
+                    selectedDiv === key
+                      ? 'bg-baize text-white shadow-sm'
+                      : 'text-gray-400 hover:text-white'
+                  )}
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+
+            {/* Right: Search + My Team */}
+            <div className="flex items-center gap-2" ref={searchRef}>
+              {/* Desktop search */}
+              <div className="hidden md:block relative">
+                <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search teams, players..."
+                  value={searchQuery}
+                  onChange={e => {
+                    setSearchQuery(e.target.value);
+                    setSearchFocusIndex(-1);
+                  }}
+                  onFocus={() => setSearchOpen(true)}
+                  onKeyDown={handleSearchKeyDown}
+                  className="bg-surface-card border border-surface-border rounded-lg pl-8 pr-8 py-1.5 text-sm text-white placeholder-gray-500 w-52 focus:w-72 transition-all focus:outline-none focus:border-baize"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => { setSearchQuery(''); setSearchFocusIndex(-1); }}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
+                  >
+                    <X size={14} />
+                  </button>
+                )}
+                {searchOpen && searchResults.length > 0 && (
+                  <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden">
+                    {searchResults.map((r, i) => (
+                      <button
+                        key={r.type + r.name}
+                        onClick={() => handleSearchSelect(r)}
+                        className={clsx(
+                          'w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-surface-elevated transition',
+                          i === searchFocusIndex && 'bg-surface-elevated'
+                        )}
+                      >
+                        {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
+                        <span className="text-white flex-1 truncate">{r.name}</span>
+                        <span className="text-gray-500 text-xs">{r.detail}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile search toggle */}
+              <button
+                onClick={() => {
+                  setSearchOpen(!searchOpen);
+                  if (!searchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
+                }}
+                className="md:hidden p-2 text-gray-400 hover:text-white transition"
+                aria-label="Search"
+              >
+                <Search size={20} />
+              </button>
+
+              {/* My Team button (if not set) */}
+              {!myTeam && (
+                <button
+                  onClick={() => setShowMyTeamModal(true)}
+                  className="p-2 text-gray-400 hover:text-accent-light transition"
+                  aria-label="Set My Team"
+                  title="Set My Team"
+                >
+                  <Star size={20} />
+                </button>
+              )}
+
+              {/* Data freshness */}
+              {timeAgo && (
+                <button
+                  className={clsx(
+                    'hidden md:flex items-center gap-1 text-xs px-2 py-1 rounded text-gray-500 hover:text-gray-300 transition',
+                    refreshing && 'animate-pulse-subtle'
+                  )}
+                  title="Refresh data"
+                >
+                  <RefreshCw size={12} className={clsx(refreshing && 'animate-spin')} />
+                  {timeAgo}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile search overlay */}
+          {searchOpen && (
+            <div className="md:hidden mt-2 relative">
+              <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search teams, players..."
+                value={searchQuery}
+                onChange={e => {
+                  setSearchQuery(e.target.value);
+                  setSearchFocusIndex(-1);
+                }}
+                onKeyDown={handleSearchKeyDown}
+                className="w-full bg-surface-card border border-surface-border rounded-lg pl-8 pr-8 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-baize"
+                autoFocus
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => { setSearchQuery(''); setSearchFocusIndex(-1); }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
+                >
+                  <X size={14} />
+                </button>
+              )}
+              {searchResults.length > 0 && (
+                <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden z-50">
+                  {searchResults.map((r, i) => (
+                    <button
+                      key={r.type + r.name}
+                      onClick={() => handleSearchSelect(r)}
+                      className={clsx(
+                        'w-full flex items-center gap-2 px-3 py-2.5 text-sm text-left hover:bg-surface-elevated transition',
+                        i === searchFocusIndex && 'bg-surface-elevated'
+                      )}
+                    >
+                      {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
+                      <span className="text-white flex-1 truncate">{r.name}</span>
+                      <span className="text-gray-500 text-xs">{r.detail}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Mobile division selector */}
+          <div className="flex md:hidden items-center justify-center gap-1 mt-2">
+            {(Object.keys(ds.divisions) as DivisionCode[]).map((key) => (
               <button
                 key={key}
                 onClick={() => resetDivision(key)}
-                className={
-                  'px-3 py-2 rounded-lg font-medium transition text-xs md:text-sm ' +
-                  (selectedDiv === key ? 'bg-green-600' : 'bg-gray-700 hover:bg-gray-600')
-                }
+                className={clsx(
+                  'px-3 py-1.5 rounded-lg text-xs font-medium transition',
+                  selectedDiv === key
+                    ? 'bg-baize text-white'
+                    : 'bg-surface-card text-gray-400'
+                )}
               >
                 {key}
-                <span className="hidden md:inline">
-                  {' '}
-                  - {data.name.replace('Sunday ', 'Sun ').replace('Wednesday ', 'Wed ')}
-                </span>
               </button>
-            )
-          )}
+            ))}
+          </div>
+
+          {/* Subtitle */}
+          <p className="text-center text-gray-500 text-xs mt-1.5">
+            {ds.divisions[selectedDiv]?.name} &bull; {totalPlayed} played &bull; {totalRemaining} remaining &bull; {seasonPct}% complete
+          </p>
         </div>
 
-        {/* Tab selector */}
-        <div className="flex justify-center gap-1 md:gap-2 mb-6 flex-wrap">
-          {TABS.map(([tab, label]) => (
-            <button
-              key={tab}
-              onClick={() => {
-                setActiveTab(tab);
-                setSelectedTeam(null);
-                setSelectedPlayer(null);
-              }}
-              className={
-                'px-3 py-2 rounded-lg transition text-xs md:text-sm ' +
-                (activeTab === tab ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-600')
-              }
-            >
-              {label}
-            </button>
-          ))}
+        {/* Tab bar */}
+        <div className="border-t border-surface-border/50">
+          <div className="max-w-6xl mx-auto px-4">
+            <nav className="flex overflow-x-auto scrollbar-none -mb-px" role="tablist">
+              {TABS.map(tab => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => router.setTab(tab.id)}
+                    className={clsx(
+                      'flex items-center gap-1.5 px-3 md:px-4 py-2.5 text-xs md:text-sm font-medium whitespace-nowrap transition-colors border-b-[3px] min-w-0',
+                      isActive
+                        ? 'border-baize text-baize-light'
+                        : 'border-transparent text-gray-500 hover:text-gray-300'
+                    )}
+                  >
+                    <Icon size={16} />
+                    <span className="hidden md:inline">{tab.label}</span>
+                    <span className="md:hidden">{tab.shortLabel}</span>
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
         </div>
+      </header>
 
-        {/* Tab content */}
-        {activeTab === 'standings' && (
-          <StandingsTab
-            selectedDiv={selectedDiv}
-            standings={standings}
-            onTeamClick={openTeamDetail}
-          />
-        )}
+      {/* Main content */}
+      <main className="max-w-6xl mx-auto px-4 py-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab + (activeTab === 'team' ? selectedTeam : '') + (activeTab === 'player' ? selectedPlayer : '')}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
+            role="tabpanel"
+          >
+            {activeTab === 'dashboard' && (
+              <DashboardTab
+                selectedDiv={selectedDiv}
+                standings={standings}
+                myTeam={myTeam}
+                onTeamClick={openTeamDetail}
+                onPlayerClick={openPlayerDetail}
+                onPredict={(home, away) => {
+                  setHomeTeam(home);
+                  setAwayTeam(away);
+                  router.openPredict(home, away);
+                }}
+              />
+            )}
 
-        {activeTab === 'results' && (
-          <ResultsTab selectedDiv={selectedDiv} onTeamClick={openTeamDetail} onPlayerClick={openPlayerDetail} />
-        )}
+            {activeTab === 'standings' && (
+              <StandingsTab
+                selectedDiv={selectedDiv}
+                standings={standings}
+                myTeam={myTeam}
+                onTeamClick={openTeamDetail}
+              />
+            )}
 
-        {activeTab === 'team' && selectedTeam && (
-          <TeamDetail
-            team={selectedTeam}
-            selectedDiv={selectedDiv}
-            standings={standings}
-            onBack={() => setActiveTab('standings')}
-            onTeamClick={openTeamDetail}
-            onPlayerClick={openPlayerDetail}
-          />
-        )}
+            {activeTab === 'results' && (
+              <ResultsTab selectedDiv={selectedDiv} onTeamClick={openTeamDetail} onPlayerClick={openPlayerDetail} />
+            )}
 
-        {activeTab === 'player' && selectedPlayer && (
-          <PlayerDetail
-            player={selectedPlayer}
-            selectedTeam={selectedTeam}
-            onBack={() => {
-              if (selectedTeam) setActiveTab('team');
-              else setActiveTab('players');
-            }}
-            onTeamClick={(team, div) => {
-              setSelectedDiv(div as DivisionCode);
-              openTeamDetail(team);
-            }}
-          />
-        )}
+            {activeTab === 'team' && selectedTeam && (
+              <TeamDetail
+                team={selectedTeam}
+                selectedDiv={selectedDiv}
+                standings={standings}
+                onBack={() => router.setTab('standings')}
+                onTeamClick={openTeamDetail}
+                onPlayerClick={openPlayerDetail}
+              />
+            )}
 
-        {activeTab === 'players' && (
-          <PlayersTab
-            selectedDiv={selectedDiv}
-            onTeamClick={openTeamDetail}
-            onPlayerClick={openPlayerDetail}
-          />
-        )}
+            {activeTab === 'player' && selectedPlayer && (
+              <PlayerDetail
+                player={selectedPlayer}
+                selectedTeam={selectedTeam}
+                onBack={() => {
+                  if (selectedTeam) router.openTeam(selectedTeam);
+                  else router.setTab('players');
+                }}
+                onTeamClick={(team, div) => {
+                  if (div !== router.div) resetDivision(div as DivisionCode);
+                  router.openTeam(team);
+                }}
+              />
+            )}
 
-        {activeTab === 'simulate' && (
-          <SimulateTab
-            selectedDiv={selectedDiv}
-            simResults={simResults}
-            isSimulating={isSimulating}
-            whatIfResults={whatIfResults}
-            whatIfSimResults={whatIfSimResults}
-            squadOverrides={squadOverrides}
-            squadTopN={squadTopN}
-            onRunSimulation={runSimulation}
-            onTeamClick={openTeamDetail}
-          />
-        )}
+            {activeTab === 'players' && (
+              <PlayersTab
+                selectedDiv={selectedDiv}
+                onTeamClick={openTeamDetail}
+                onPlayerClick={openPlayerDetail}
+              />
+            )}
 
-        {activeTab === 'predict' && (
-          <PredictTab
-            selectedDiv={selectedDiv}
-            homeTeam={homeTeam}
-            awayTeam={awayTeam}
-            prediction={prediction}
-            squadOverrides={squadOverrides}
-            onHomeTeamChange={setHomeTeam}
-            onAwayTeamChange={setAwayTeam}
-            onTeamClick={openTeamDetail}
-            onPlayerClick={openPlayerDetail}
-          />
-        )}
+            {activeTab === 'simulate' && (
+              <SimulateTab
+                selectedDiv={selectedDiv}
+                simResults={simResults}
+                isSimulating={isSimulating}
+                whatIfResults={whatIfResults}
+                whatIfSimResults={whatIfSimResults}
+                squadOverrides={squadOverrides}
+                squadTopN={squadTopN}
+                myTeam={myTeam}
+                onRunSimulation={runSimulation}
+                onTeamClick={openTeamDetail}
+              />
+            )}
 
-        {activeTab === 'fixtures' && (
-          <FixturesTab
-            selectedDiv={selectedDiv}
-            whatIfResults={whatIfResults}
-            onAddWhatIf={addWhatIf}
-            onRemoveWhatIf={removeWhatIf}
-            onPredict={(home, away) => {
-              setHomeTeam(home);
-              setAwayTeam(away);
-              setActiveTab('predict');
-            }}
-            onTeamClick={openTeamDetail}
-            onSimulate={() => {
-              setActiveTab('simulate');
-              setTimeout(runSimulation, 200);
-            }}
-            onClearWhatIf={() => {
-              setWhatIfResults([]);
-              setSimResults(null);
-              setWhatIfSimResults(null);
-            }}
-          />
-        )}
+            {activeTab === 'predict' && (
+              <PredictTab
+                selectedDiv={selectedDiv}
+                homeTeam={homeTeam}
+                awayTeam={awayTeam}
+                prediction={prediction}
+                squadOverrides={squadOverrides}
+                onHomeTeamChange={setHomeTeam}
+                onAwayTeamChange={setAwayTeam}
+                onTeamClick={openTeamDetail}
+                onPlayerClick={openPlayerDetail}
+              />
+            )}
 
-        {activeTab === 'whatif' && (
-          <WhatIfTab
-            selectedDiv={selectedDiv}
-            whatIfResults={whatIfResults}
-            squadOverrides={squadOverrides}
-            squadBuilderTeam={squadBuilderTeam}
-            squadPlayerSearch={squadPlayerSearch}
-            squadTopN={squadTopN}
-            onAddWhatIf={addWhatIf}
-            onRemoveWhatIf={removeWhatIf}
-            onSquadBuilderTeamChange={team => {
-              setSquadBuilderTeam(team);
-              setSquadPlayerSearch('');
-            }}
-            onSquadPlayerSearchChange={setSquadPlayerSearch}
-            onSquadTopNChange={n => {
-              setSquadTopN(n);
-              setSimResults(null);
-            }}
-            onAddSquadPlayer={addSquadPlayer}
-            onRemoveSquadPlayer={removeSquadPlayer}
-            onRestoreSquadPlayer={restoreSquadPlayer}
-            onUnaddSquadPlayer={unaddSquadPlayer}
-            onClearAll={() => {
-              setWhatIfResults([]);
-              setSquadOverrides({});
-              setSquadBuilderTeam('');
-              setSimResults(null);
-              setWhatIfSimResults(null);
-            }}
-            onSimulate={() => {
-              setActiveTab('simulate');
-              setTimeout(runSimulation, 200);
-            }}
-          />
-        )}
+            {activeTab === 'fixtures' && (
+              <FixturesTab
+                selectedDiv={selectedDiv}
+                whatIfResults={whatIfResults}
+                myTeam={myTeam}
+                onAddWhatIf={addWhatIf}
+                onRemoveWhatIf={removeWhatIf}
+                onPredict={(home, away) => {
+                  setHomeTeam(home);
+                  setAwayTeam(away);
+                  router.setTab('predict');
+                }}
+                onTeamClick={openTeamDetail}
+                onSimulate={() => {
+                  router.setTab('simulate');
+                  setTimeout(runSimulation, 200);
+                }}
+                onClearWhatIf={() => {
+                  setWhatIfResults([]);
+                  setSimResults(null);
+                  setWhatIfSimResults(null);
+                }}
+              />
+            )}
+
+            {activeTab === 'whatif' && (
+              <WhatIfTab
+                selectedDiv={selectedDiv}
+                whatIfResults={whatIfResults}
+                squadOverrides={squadOverrides}
+                squadBuilderTeam={squadBuilderTeam}
+                squadPlayerSearch={squadPlayerSearch}
+                squadTopN={squadTopN}
+                onAddWhatIf={addWhatIf}
+                onRemoveWhatIf={removeWhatIf}
+                onSquadBuilderTeamChange={team => {
+                  setSquadBuilderTeam(team);
+                  setSquadPlayerSearch('');
+                }}
+                onSquadPlayerSearchChange={setSquadPlayerSearch}
+                onSquadTopNChange={n => {
+                  setSquadTopN(n);
+                  setSimResults(null);
+                }}
+                onAddSquadPlayer={addSquadPlayer}
+                onRemoveSquadPlayer={removeSquadPlayer}
+                onRestoreSquadPlayer={restoreSquadPlayer}
+                onUnaddSquadPlayer={unaddSquadPlayer}
+                onClearAll={() => {
+                  setWhatIfResults([]);
+                  setSquadOverrides({});
+                  setSquadBuilderTeam('');
+                  setSimResults(null);
+                  setWhatIfSimResults(null);
+                }}
+                onSimulate={() => {
+                  router.setTab('simulate');
+                  setTimeout(runSimulation, 200);
+                }}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Four Dogs Report */}
         {selectedDiv === 'SD2' && activeTab !== 'team' && activeTab !== 'player' && (
@@ -445,18 +776,79 @@ export default function App() {
         {/* Glossary */}
         <Glossary />
 
-        <p className="text-center text-gray-500 text-xs mt-4">
-          Model: Frame-differential ratings &bull; Logistic prediction &bull; Home advantage +
-          {homeAdvPct}% &bull; Points: HW=2, AW=3, D=1 &bull; Squad builder: best-N weighted avg
-          win% delta
+        <p className="text-center text-gray-600 text-xs mt-4">
+          Frame-differential ratings &bull; Logistic prediction &bull; Points: HW=2, AW=3, D=1
         </p>
         <p className="text-center text-gray-600 text-xs mt-2">
           &copy; Mike Lewis {new Date().getFullYear()}
         </p>
-      </div>
+      </main>
 
       {/* AI Chat Panel */}
       <AIChatPanel />
+
+      {/* My Team Modal */}
+      <AnimatePresence>
+        {showMyTeamModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+            onClick={() => setShowMyTeamModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-surface-card border border-surface-border rounded-card shadow-elevated p-6 w-full max-w-md max-h-[80vh] overflow-y-auto"
+              onClick={e => e.stopPropagation()}
+            >
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Star size={20} className="text-accent" />
+                Set My Team
+              </h3>
+              {(Object.entries(DIVISIONS) as [DivisionCode, { name: string; teams: string[] }][]).map(([divCode, divData]) => (
+                <div key={divCode} className="mb-4">
+                  <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">{divData.name}</h4>
+                  <div className="grid grid-cols-2 gap-1">
+                    {divData.teams.map(team => (
+                      <button
+                        key={team}
+                        onClick={() => handleSetMyTeam(team, divCode)}
+                        className={clsx(
+                          'text-left text-sm px-3 py-1.5 rounded transition',
+                          myTeam?.team === team
+                            ? 'bg-accent text-white'
+                            : 'text-gray-300 hover:bg-surface-elevated'
+                        )}
+                      >
+                        {team}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {myTeam && (
+                <button
+                  onClick={() => { clearMyTeam(); setShowMyTeamModal(false); addToast('My Team cleared', 'info'); }}
+                  className="w-full mt-2 text-loss text-sm py-2 hover:bg-loss-muted/20 rounded transition"
+                >
+                  Clear My Team
+                </button>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ToastProvider>
+      <AppInner />
+    </ToastProvider>
   );
 }

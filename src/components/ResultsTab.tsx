@@ -1,6 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, Clock } from 'lucide-react';
+import clsx from 'clsx';
 import type { DivisionCode, FrameData } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { DIVISIONS } from '@/lib/data';
@@ -20,7 +23,6 @@ export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: 
     .filter(r => getDiv(r.home) === selectedDiv)
     .sort((a, b) => parseDate(b.date).localeCompare(parseDate(a.date)));
 
-  // Build O(1) lookup map for frame data keyed by home|away|date
   const frameLookup = useMemo(() => {
     const map = new Map<string, FrameData>();
     for (const f of leagueData.frames) {
@@ -33,62 +35,78 @@ export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: 
     setExpandedKey(prev => (prev === key ? null : key));
   };
 
+  if (divResults.length === 0) {
+    return (
+      <div className="bg-surface-card rounded-card shadow-card p-8 text-center">
+        <Clock size={40} className="mx-auto text-gray-600 mb-3" />
+        <p className="text-gray-400">No results yet for this division</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-gray-800 rounded-xl p-4 md:p-6">
-      <h2 className="text-xl font-bold mb-4">{DIVISIONS[selectedDiv].name} - Match Results</h2>
+    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <h2 className="text-lg font-bold mb-4 text-white">{DIVISIONS[selectedDiv].name} — Results</h2>
       <div className="space-y-2">
         {divResults.map((r, i) => {
           const key = `${r.home}|${r.away}|${r.date}`;
           const isExpanded = expandedKey === key;
           const frameData = frameLookup.get(key);
+          const homeWin = r.home_score > r.away_score;
+          const awayWin = r.away_score > r.home_score;
+          const isDraw = r.home_score === r.away_score;
+          const borderColor = homeWin || awayWin ? (homeWin ? 'border-l-win' : 'border-l-loss') : 'border-l-draw';
 
           return (
-            <div key={i}>
-              <div
-                className={
-                  'flex items-center bg-gray-700 rounded-lg p-3 text-sm cursor-pointer hover:bg-gray-600 transition' +
-                  (isExpanded ? ' rounded-b-none' : '')
-                }
+            <div key={i} className={clsx('border-l-4 rounded-lg overflow-hidden', borderColor)}>
+              <button
+                className={clsx(
+                  'w-full flex items-center bg-surface-elevated/30 p-3 text-sm text-left hover:bg-surface-elevated/50 transition',
+                  isExpanded && 'bg-surface-elevated/50'
+                )}
                 onClick={() => toggleExpanded(key)}
               >
-                <span className="text-gray-400 text-xs w-6 shrink-0">
-                  {isExpanded ? '▾' : '▸'}
-                </span>
-                <span className="text-gray-400 text-xs w-24 shrink-0">{r.date}</span>
+                <ChevronDown
+                  size={14}
+                  className={clsx('text-gray-500 shrink-0 transition-transform mr-1', isExpanded && 'rotate-180')}
+                />
+                <span className="text-gray-500 text-xs w-20 shrink-0">{r.date}</span>
                 <span
-                  className={
-                    'flex-1 text-right cursor-pointer hover:text-blue-300 ' +
-                    (r.home_score > r.away_score ? 'font-bold text-green-400' : '')
-                  }
+                  className={clsx('flex-1 text-right cursor-pointer hover:text-info transition', homeWin && 'font-bold text-win')}
                   onClick={(e) => { e.stopPropagation(); onTeamClick(r.home); }}
                 >
                   {r.home}
                 </span>
-                <span className="mx-3 font-bold text-center w-16">
+                <span className="mx-3 font-bold text-center w-12">
                   {r.home_score} - {r.away_score}
                 </span>
                 <span
-                  className={
-                    'flex-1 cursor-pointer hover:text-blue-300 ' +
-                    (r.away_score > r.home_score ? 'font-bold text-green-400' : '')
-                  }
+                  className={clsx('flex-1 cursor-pointer hover:text-info transition', awayWin && 'font-bold text-win')}
                   onClick={(e) => { e.stopPropagation(); onTeamClick(r.away); }}
                 >
                   {r.away}
                 </span>
-              </div>
+              </button>
 
-              {isExpanded && (
-                <div className="bg-gray-750 border border-gray-600 border-t-0 rounded-b-lg p-3 text-sm"
-                  style={{ backgroundColor: '#2d3748' }}
-                >
-                  {frameData && frameData.frames.length > 0 ? (
-                    <FrameDetails frameData={frameData} onPlayerClick={onPlayerClick} />
-                  ) : (
-                    <p className="text-gray-500 text-center text-xs py-2">No frame data available</p>
-                  )}
-                </div>
-              )}
+              <AnimatePresence>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="bg-surface/60 border-t border-surface-border/30 p-3 text-sm">
+                      {frameData && frameData.frames.length > 0 ? (
+                        <FrameDetails frameData={frameData} onPlayerClick={onPlayerClick} />
+                      ) : (
+                        <p className="text-gray-500 text-center text-xs py-2">No frame data available</p>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           );
         })}
@@ -104,12 +122,8 @@ function FrameDetails({ frameData, onPlayerClick }: { frameData: FrameData; onPl
 
   return (
     <div className="space-y-3">
-      {set1.length > 0 && (
-        <FrameSet label="Set 1" frames={set1} onPlayerClick={onPlayerClick} />
-      )}
-      {set2.length > 0 && (
-        <FrameSet label="Set 2" frames={set2} onPlayerClick={onPlayerClick} />
-      )}
+      {set1.length > 0 && <FrameSet label="Set 1" frames={set1} onPlayerClick={onPlayerClick} />}
+      {set2.length > 0 && <FrameSet label="Set 2" frames={set2} onPlayerClick={onPlayerClick} />}
     </div>
   );
 }
@@ -125,43 +139,34 @@ function FrameSet({
 }) {
   return (
     <div>
-      <div className="text-gray-400 text-xs font-semibold mb-1 uppercase tracking-wide">{label}</div>
-      <div className="space-y-1">
-        {frames.map(f => {
+      <div className="text-gray-500 text-[10px] font-semibold mb-1 uppercase tracking-wider">{label}</div>
+      <div className="space-y-0.5">
+        {frames.map((f, i) => {
           const homeWon = f.winner === 'home';
           const awayWon = f.winner === 'away';
+          const isEven = i % 2 === 0;
 
           return (
-            <div key={f.frameNum} className="flex items-center text-xs">
-              <span className="text-gray-500 w-6 text-right mr-2">{f.frameNum}</span>
+            <div key={f.frameNum} className={clsx('flex items-center text-xs rounded px-1 py-0.5', isEven && 'bg-surface-elevated/20')}>
+              <span className="text-gray-600 w-5 text-right mr-2">{f.frameNum}</span>
               <span
-                className={
-                  'flex-1 text-right cursor-pointer hover:text-blue-300 ' +
-                  (homeWon ? 'text-green-400 font-semibold' : 'text-gray-300')
-                }
+                className={clsx('flex-1 text-right cursor-pointer hover:text-info transition', homeWon ? 'text-win font-semibold' : 'text-gray-400')}
                 onClick={() => onPlayerClick(f.homePlayer)}
               >
                 {f.homePlayer}
               </span>
-              <span className="w-5 text-center text-green-400">
-                {homeWon ? '✓' : ''}
-              </span>
-              <span className="text-gray-500 mx-1">vs</span>
-              <span className="w-5 text-center text-green-400">
-                {awayWon ? '✓' : ''}
-              </span>
+              <span className="w-5 text-center text-win">{homeWon ? '\u2713' : ''}</span>
+              <span className="text-gray-600 mx-1 text-[10px]">vs</span>
+              <span className="w-5 text-center text-win">{awayWon ? '\u2713' : ''}</span>
               <span
-                className={
-                  'flex-1 cursor-pointer hover:text-blue-300 ' +
-                  (awayWon ? 'text-green-400 font-semibold' : 'text-gray-300')
-                }
+                className={clsx('flex-1 cursor-pointer hover:text-info transition', awayWon ? 'text-win font-semibold' : 'text-gray-400')}
                 onClick={() => onPlayerClick(f.awayPlayer)}
               >
                 {f.awayPlayer}
               </span>
-              <span className="w-10 text-right text-xs">
-                {f.breakDish && <span className="text-yellow-400 ml-1" title="Break & Dish">B&D</span>}
-                {f.forfeit && <span className="text-red-400 ml-1" title="Forfeit">FF</span>}
+              <span className="w-12 text-right text-xs">
+                {f.breakDish && <span className="text-gold ml-1 bg-gold/10 px-1 rounded text-[9px] font-medium">B&D</span>}
+                {f.forfeit && <span className="text-loss ml-1 text-[9px]">FF</span>}
               </span>
             </div>
           );

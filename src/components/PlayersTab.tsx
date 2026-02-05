@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { Search, X, TrendingUp, TrendingDown, ChevronUp, ChevronDown, UserX } from 'lucide-react';
+import clsx from 'clsx';
 import type { DivisionCode, PlayerFormData } from '@/lib/types';
 import { DIVISIONS } from '@/lib/data';
 import { getTeamPlayers, calcPlayerForm, calcBDStats } from '@/lib/predictions';
@@ -19,6 +21,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
   const [minGames, setMinGames] = useState(5);
   const [sortKey, setSortKey] = useState<SortKey>('pct');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
+  const [searchQuery, setSearchQuery] = useState('');
   const { data: leagueData } = useLeagueData();
   const teams = DIVISIONS[selectedDiv].teams;
 
@@ -48,7 +51,11 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
   }, [teams, leagueData.frames]);
 
   const filtered = useMemo(() => {
-    const f = divPlayers.filter(p => p.s2526 && p.s2526.p >= minGames);
+    let f = divPlayers.filter(p => p.s2526 && p.s2526.p >= minGames);
+    if (searchQuery.length >= 2) {
+      const q = searchQuery.toLowerCase();
+      f = f.filter(p => p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q));
+    }
     f.sort((a, b) => {
       let av: number, bv: number;
       switch (sortKey) {
@@ -72,7 +79,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
       return sortDir === 'desc' ? bv - av : av - bv;
     });
     return f;
-  }, [divPlayers, minGames, sortKey, sortDir]);
+  }, [divPlayers, minGames, sortKey, sortDir, searchQuery]);
 
   function handleSort(key: SortKey) {
     if (sortKey === key) setSortDir(d => (d === 'desc' ? 'asc' : 'desc'));
@@ -82,138 +89,127 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
     }
   }
 
-  function sortIndicator(key: SortKey) {
-    if (sortKey !== key) return '';
-    return sortDir === 'desc' ? ' \u25BC' : ' \u25B2';
+  function SortIcon({ k }: { k: SortKey }) {
+    if (sortKey !== k) return null;
+    return sortDir === 'desc'
+      ? <ChevronDown size={12} className="inline ml-0.5" />
+      : <ChevronUp size={12} className="inline ml-0.5" />;
   }
 
   return (
-    <div className="bg-gray-800 rounded-xl p-4 md:p-6">
-      <h2 className="text-xl font-bold mb-4">{DIVISIONS[selectedDiv].name} - Player Stats</h2>
-      <div className="flex items-center gap-2 mb-4 flex-wrap">
-        <span className="text-sm text-gray-400">Min games:</span>
-        {[1, 3, 5, 10].map(n => (
-          <button
-            key={n}
-            onClick={() => setMinGames(n)}
-            className={
-              'px-3 py-1 rounded text-xs font-medium transition ' +
-              (minGames === n
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-700 hover:bg-gray-600 text-gray-300')
-            }
-          >
-            {n}+
-          </button>
-        ))}
-        <span className="text-xs text-gray-500 ml-2">{filtered.length} players</span>
+    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <h2 className="text-lg font-bold mb-4 text-white">{DIVISIONS[selectedDiv].name} — Players</h2>
+
+      <div className="flex items-center gap-3 mb-4 flex-wrap">
+        {/* Search */}
+        <div className="relative flex-1 min-w-[160px]">
+          <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
+          <input
+            type="text"
+            placeholder="Search players..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="w-full bg-surface border border-surface-border rounded-lg pl-8 pr-8 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-baize"
+          />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white">
+              <X size={14} />
+            </button>
+          )}
+        </div>
+
+        {/* Min games */}
+        <div className="flex items-center gap-1">
+          <span className="text-xs text-gray-500">Min:</span>
+          {[1, 3, 5, 10].map(n => (
+            <button
+              key={n}
+              onClick={() => setMinGames(n)}
+              className={clsx(
+                'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                minGames === n ? 'bg-baize text-white' : 'bg-surface text-gray-400 hover:text-white'
+              )}
+            >
+              {n}+
+            </button>
+          ))}
+        </div>
+        <span className="text-xs text-gray-500">{filtered.length} players</span>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-xs md:text-sm">
-          <thead>
-            <tr className="text-gray-400 border-b border-gray-700">
-              <th className="text-left p-2">#</th>
-              <th className="text-left p-2">Player</th>
-              <th className="text-left p-2">Team</th>
-              <th className="text-center p-2">P</th>
-              <th className="text-center p-2">W</th>
-              <th
-                className="text-center p-2 cursor-pointer hover:text-white select-none"
-                onClick={() => handleSort('pct')}
-              >
-                Win%{sortIndicator('pct')}
-              </th>
-              <th
-                className="text-center p-2 cursor-pointer hover:text-white select-none"
-                onClick={() => handleSort('form')}
-                title="Last 5 games form"
-              >
-                Form{sortIndicator('form')}
-              </th>
-              <th
-                className="text-center p-2 cursor-pointer hover:text-white select-none"
-                onClick={() => handleSort('bdF')}
-                title="Break & Dish for rate"
-              >
-                BD+{sortIndicator('bdF')}
-              </th>
-              <th
-                className="text-center p-2 cursor-pointer hover:text-white select-none"
-                onClick={() => handleSort('bdA')}
-                title="Break & Dish against rate"
-              >
-                BD-{sortIndicator('bdA')}
-              </th>
-              <th className="text-right p-2">Rtg</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((p, i) => (
-              <tr
-                key={p.name + p.team}
-                className="border-b border-gray-700/50 cursor-pointer hover:bg-gray-700/50"
-                onClick={() => onPlayerClick(p.name)}
-              >
-                <td className="p-2 text-gray-500">{i + 1}</td>
-                <td className="p-2 font-medium text-blue-300">{p.name}</td>
-                <td
-                  className="p-2 text-gray-400 cursor-pointer hover:text-blue-300"
-                  onClick={e => {
-                    e.stopPropagation();
-                    onTeamClick(p.team);
-                  }}
-                >
-                  {p.team}
-                </td>
-                <td className="p-2 text-center">{p.s2526!.p}</td>
-                <td className="p-2 text-center text-green-400">{p.s2526!.w}</td>
-                <td className="p-2 text-center font-bold">{p.s2526!.pct.toFixed(1)}%</td>
-                <td className="p-2 text-center">
-                  {p.form ? (
-                    <span
-                      className={
-                        p.form.trend === 'hot'
-                          ? 'text-green-400 font-bold'
-                          : p.form.trend === 'cold'
-                            ? 'text-red-400 font-bold'
-                            : 'text-gray-400'
-                      }
-                      title={`Last 5: ${p.form.last5.pct.toFixed(0)}% | Season: ${p.form.seasonPct.toFixed(0)}%`}
-                    >
-                      {p.form.trend === 'hot' ? '\u2191' : p.form.trend === 'cold' ? '\u2193' : '\u2022'}{' '}
-                      {p.form.last5.pct.toFixed(0)}%
-                    </span>
-                  ) : (
-                    <span className="text-gray-600">-</span>
-                  )}
-                </td>
-                <td className="p-2 text-center text-green-400">
-                  {p.bdFRate.toFixed(2)}
-                </td>
-                <td className="p-2 text-center text-red-400">
-                  {p.bdARate.toFixed(2)}
-                </td>
-                <td
-                  className={
-                    'p-2 text-right ' +
-                    (p.rating !== null
-                      ? p.rating > 0
-                        ? 'text-green-400'
-                        : p.rating < 0
-                          ? 'text-red-400'
-                          : 'text-gray-400'
-                      : 'text-gray-600')
-                  }
-                >
-                  {p.rating !== null
-                    ? (p.rating > 0 ? '+' : '') + p.rating.toFixed(2)
-                    : '-'}
-                </td>
+
+      {filtered.length === 0 ? (
+        <div className="text-center py-8">
+          <UserX size={40} className="mx-auto text-gray-600 mb-3" />
+          <p className="text-gray-500 text-sm">No players match your filters</p>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs md:text-sm">
+            <thead>
+              <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                <th className="text-left p-2">#</th>
+                <th className="text-left p-2">Player</th>
+                <th className="text-left p-2">Team</th>
+                <th className="text-center p-2">P</th>
+                <th className="text-center p-2">W</th>
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('pct')}>
+                  Win%<SortIcon k="pct" />
+                </th>
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('form')} title="Last 5 form">
+                  Form<SortIcon k="form" />
+                </th>
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdF')} title="B&D for rate">
+                  BD+<SortIcon k="bdF" />
+                </th>
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdA')} title="B&D against rate">
+                  BD-<SortIcon k="bdA" />
+                </th>
+                <th className="text-right p-2">Rtg</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filtered.map((p, i) => (
+                <tr
+                  key={p.name + p.team}
+                  className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                  onClick={() => onPlayerClick(p.name)}
+                >
+                  <td className="p-2 text-gray-600">{i + 1}</td>
+                  <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                  <td
+                    className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                    onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                  >
+                    {p.team}
+                  </td>
+                  <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
+                  <td className="p-2 text-center text-win">{p.s2526!.w}</td>
+                  <td className="p-2 text-center font-bold text-white">{p.s2526!.pct.toFixed(1)}%</td>
+                  <td className="p-2 text-center">
+                    {p.form ? (
+                      <span className={clsx(
+                        'flex items-center justify-center gap-0.5',
+                        p.form.trend === 'hot' ? 'text-win font-bold' : p.form.trend === 'cold' ? 'text-loss font-bold' : 'text-gray-400'
+                      )}>
+                        {p.form.trend === 'hot' ? <TrendingUp size={12} /> : p.form.trend === 'cold' ? <TrendingDown size={12} /> : null}
+                        {p.form.last5.pct.toFixed(0)}%
+                      </span>
+                    ) : <span className="text-gray-600">-</span>}
+                  </td>
+                  <td className="p-2 text-center text-win">{p.bdFRate.toFixed(2)}</td>
+                  <td className="p-2 text-center text-loss">{p.bdARate.toFixed(2)}</td>
+                  <td className={clsx(
+                    'p-2 text-right',
+                    p.rating !== null ? (p.rating > 0 ? 'text-win' : p.rating < 0 ? 'text-loss' : 'text-gray-400') : 'text-gray-600'
+                  )}>
+                    {p.rating !== null ? (p.rating > 0 ? '+' : '') + p.rating.toFixed(2) : '-'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

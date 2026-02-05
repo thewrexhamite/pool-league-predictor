@@ -1,5 +1,7 @@
 'use client';
 
+import { Calendar } from 'lucide-react';
+import clsx from 'clsx';
 import type { StandingEntry } from '@/lib/types';
 
 interface FourDogsReportProps {
@@ -8,34 +10,40 @@ interface FourDogsReportProps {
 }
 
 export default function FourDogsReport({ standings, onTeamClick }: FourDogsReportProps) {
+  const aStanding = standings.find(s => s.team === 'Four Dogs A');
+  const bStanding = standings.find(s => s.team === 'Four Dogs B');
+  const aPos = standings.findIndex(s => s.team === 'Four Dogs A') + 1;
+  const bPos = standings.findIndex(s => s.team === 'Four Dogs B') + 1;
+
   return (
-    <div className="mt-6 bg-gradient-to-r from-amber-900/30 to-amber-800/30 rounded-xl p-4 md:p-6 border border-amber-600/30">
-      <h3 className="text-lg font-bold mb-3 text-amber-400">Four Dogs Report</h3>
+    <div className="mt-6 bg-gradient-to-r from-amber-900/20 to-amber-800/20 rounded-card shadow-card p-4 md:p-6 border border-amber-600/20">
+      <h3 className="text-lg font-bold mb-3 text-gold">Four Dogs Report</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div
-          className="bg-gray-800/50 rounded-lg p-4 cursor-pointer hover:bg-gray-800/70"
+        <button
+          className="bg-surface/50 rounded-lg p-4 text-left hover:bg-surface/70 transition"
           onClick={() => onTeamClick('Four Dogs A')}
         >
-          <h4 className="font-bold text-green-400">Four Dogs A</h4>
+          <h4 className="font-bold text-win">Four Dogs A</h4>
           <p className="text-sm text-gray-300">
-            Currently: {standings.find(s => s.team === 'Four Dogs A')?.pts || 0} pts (#
-            {standings.findIndex(s => s.team === 'Four Dogs A') + 1})
+            {aStanding ? `${aStanding.pts} pts` : '0 pts'} (#{aPos})
           </p>
-          <p className="text-xs text-gray-400 mt-1">Promotion contenders</p>
-        </div>
-        <div
-          className="bg-gray-800/50 rounded-lg p-4 cursor-pointer hover:bg-gray-800/70"
+          <p className="text-xs text-gray-500 mt-1">Promotion contenders</p>
+        </button>
+        <button
+          className="bg-surface/50 rounded-lg p-4 text-left hover:bg-surface/70 transition"
           onClick={() => onTeamClick('Four Dogs B')}
         >
-          <h4 className="font-bold text-red-400">Four Dogs B</h4>
+          <h4 className="font-bold text-loss">Four Dogs B</h4>
           <p className="text-sm text-gray-300">
-            Currently: {standings.find(s => s.team === 'Four Dogs B')?.pts || 0} pts (#
-            {standings.findIndex(s => s.team === 'Four Dogs B') + 1})
+            {bStanding ? `${bStanding.pts} pts` : '0 pts'} (#{bPos})
           </p>
-          <p className="text-xs text-gray-400 mt-1">Relegation battle</p>
-        </div>
+          <p className="text-xs text-gray-500 mt-1">Relegation battle</p>
+        </button>
       </div>
-      <p className="text-xs text-amber-300 mt-3">Derby Day: June 14, 2026</p>
+      <p className="text-xs text-gold/80 mt-3 flex items-center gap-1">
+        <Calendar size={12} />
+        Derby Day: June 14, 2026
+      </p>
     </div>
   );
 }

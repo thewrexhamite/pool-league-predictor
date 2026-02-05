@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MessageCircle, X, Send, Zap } from 'lucide-react';
+import clsx from 'clsx';
 import { useAI } from '@/hooks/use-ai';
 
 interface Message {
@@ -21,7 +24,6 @@ export default function AIChatPanel() {
 
   const handleSubmit = async (question: string) => {
     if (!question.trim()) return;
-
     const userMsg: Message = { role: 'user', content: question.trim() };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
@@ -30,128 +32,112 @@ export default function AIChatPanel() {
     const result = await askQuestion(question.trim());
     if (result) {
       setMessages(prev => [...prev, { role: 'assistant', content: result.answer }]);
-      if (result.suggestedFollowUps?.length) {
-        setSuggestions(result.suggestedFollowUps);
-      }
+      if (result.suggestedFollowUps?.length) setSuggestions(result.suggestedFollowUps);
     } else {
-      setMessages(prev => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: 'Sorry, I couldn\'t process that question. Make sure GEMINI_API_KEY is configured.',
-        },
-      ]);
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I couldn\'t process that. Check GEMINI_API_KEY is configured.' }]);
     }
   };
 
   if (!isOpen) {
     return (
-      <button
+      <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 bg-purple-600 hover:bg-purple-700 text-white rounded-full p-3 shadow-lg transition z-50"
-        title="Ask AI about the league"
+        className="fixed bottom-4 right-4 bg-accent hover:bg-accent-light text-white rounded-full p-3.5 shadow-elevated transition z-50"
+        title="Ask AI"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-          />
-        </svg>
-      </button>
+        <MessageCircle size={22} />
+      </motion.button>
     );
   }
 
   return (
-    <div className="fixed bottom-4 right-4 w-80 md:w-96 bg-gray-800 border border-gray-700 rounded-xl shadow-2xl z-50 flex flex-col max-h-[500px]">
-      <div className="flex items-center justify-between p-3 border-b border-gray-700">
-        <h3 className="text-sm font-medium text-purple-400 flex items-center gap-2">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 10V3L4 14h7v7l9-11h-7z"
-            />
-          </svg>
-          Ask AI
-        </h3>
-        <button
-          onClick={() => setIsOpen(false)}
-          className="text-gray-400 hover:text-white text-lg"
-        >
-          &times;
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-[200px]">
-        {messages.length === 0 && (
-          <p className="text-xs text-gray-500 text-center mt-4">
-            Ask me anything about the Wrexham &amp; District Pool League
-          </p>
-        )}
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={
-              'text-sm rounded-lg p-2 ' +
-              (msg.role === 'user'
-                ? 'bg-blue-900/30 text-blue-200 ml-8'
-                : 'bg-gray-700 text-gray-300 mr-8')
-            }
-          >
-            {msg.content}
-          </div>
-        ))}
-        {isLoading && (
-          <div className="flex items-center gap-2 text-sm text-gray-400 mr-8">
-            <div className="animate-spin w-3 h-3 border-2 border-purple-400 border-t-transparent rounded-full" />
-            Thinking...
-          </div>
-        )}
-      </div>
-
-      {suggestions.length > 0 && (
-        <div className="px-3 pb-2 flex flex-wrap gap-1">
-          {suggestions.map((s, i) => (
-            <button
-              key={i}
-              onClick={() => handleSubmit(s)}
-              disabled={isLoading}
-              className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-full px-2 py-1 transition"
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          handleSubmit(input);
-        }}
-        className="p-3 border-t border-gray-700"
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        className="fixed bottom-4 right-4 w-80 md:w-96 bg-surface-card border border-surface-border rounded-card shadow-elevated z-50 flex flex-col max-h-[500px]"
       >
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            placeholder="Ask a question..."
-            disabled={isLoading}
-            className="flex-1 bg-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
-          />
-          <button
-            type="submit"
-            disabled={isLoading || !input.trim()}
-            className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 px-3 py-2 rounded-lg text-sm transition"
-          >
-            Send
+        <div className="flex items-center justify-between p-3 border-b border-surface-border">
+          <h3 className="text-sm font-medium text-accent-light flex items-center gap-2">
+            <Zap size={14} />
+            Ask AI
+          </h3>
+          <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-white transition p-1" aria-label="Close">
+            <X size={18} />
           </button>
         </div>
-      </form>
-    </div>
+
+        <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-[200px]">
+          {messages.length === 0 && (
+            <p className="text-xs text-gray-600 text-center mt-4">
+              Ask me anything about the Wrexham &amp; District Pool League
+            </p>
+          )}
+          {messages.map((msg, i) => (
+            <div key={i} className={clsx(
+              'text-sm rounded-xl p-3',
+              msg.role === 'user'
+                ? 'bg-info-muted/30 text-info-light ml-8 rounded-br-sm'
+                : 'bg-surface-elevated text-gray-300 mr-8 rounded-bl-sm'
+            )}>
+              {msg.content}
+            </div>
+          ))}
+          {isLoading && (
+            <div className="flex items-center gap-2 text-sm text-gray-500 mr-8">
+              <div className="flex gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce" style={{ animationDelay: '0ms' }} />
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce" style={{ animationDelay: '150ms' }} />
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce" style={{ animationDelay: '300ms' }} />
+              </div>
+              Thinking...
+            </div>
+          )}
+        </div>
+
+        {suggestions.length > 0 && (
+          <div className="px-3 pb-2 flex flex-wrap gap-1">
+            {suggestions.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => handleSubmit(s)}
+                disabled={isLoading}
+                className="text-[11px] bg-surface hover:bg-surface-elevated text-gray-400 hover:text-white rounded-full px-2.5 py-1 transition border border-surface-border/30"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <form onSubmit={e => { e.preventDefault(); handleSubmit(input); }} className="p-3 border-t border-surface-border">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              placeholder="Ask a question..."
+              disabled={isLoading}
+              className="flex-1 bg-surface border border-surface-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-baize min-h-[44px]"
+            />
+            <button
+              type="submit"
+              disabled={isLoading || !input.trim()}
+              className={clsx(
+                'px-3 py-2 rounded-lg transition min-h-[44px] min-w-[44px] flex items-center justify-center',
+                isLoading || !input.trim() ? 'bg-surface-elevated text-gray-600' : 'bg-accent hover:bg-accent-light text-white'
+              )}
+              aria-label="Send"
+            >
+              <Send size={16} />
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </AnimatePresence>
   );
 }
