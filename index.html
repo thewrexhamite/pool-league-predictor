@@ -193,6 +193,78 @@ function getTeamPlayers2526(team) {
     return players.sort((a, b) => b.pct - a.pct);
 }
 
+// Squad Builder strength calculations
+const SQUAD_STRENGTH_SCALING = 4.0;
+
+function calcSquadStrength(team) {
+    const players = getTeamPlayers(team);
+    if (players.length === 0) return null;
+    let totalWeight = 0, weightedPct = 0;
+    players.forEach(pl => {
+        let pct = null, weight = 0;
+        if (pl.s2526 && pl.s2526.p >= 3) { pct = pl.s2526.pct / 100; weight = pl.s2526.p; }
+        else if (pl.winPct !== null && pl.played > 0) { pct = pl.winPct; weight = pl.played; }
+        if (pct !== null && weight > 0) { weightedPct += pct * weight; totalWeight += weight; }
+    });
+    return totalWeight === 0 ? null : weightedPct / totalWeight;
+}
+
+function calcModifiedSquadStrength(team, overrides) {
+    const override = overrides[team];
+    if (!override) return calcSquadStrength(team);
+    const basePlayers = getTeamPlayers(team);
+    const removedSet = new Set(override.removed || []);
+    let players = basePlayers.filter(pl => !removedSet.has(pl.name));
+    (override.added || []).forEach(name => {
+        const s2526 = PLAYERS_2526[name];
+        const s2425 = PLAYERS[name];
+        // Use their best team stats (most games played)
+        let bestTeamEntry = null;
+        if (s2526) {
+            bestTeamEntry = s2526.teams.reduce((best, t) => (!best || t.p > best.p) ? t : best, null);
+        }
+        players.push({
+            name, rating: s2425 ? s2425.r : null, winPct: s2425 ? s2425.w : null,
+            played: s2425 ? s2425.p : null, s2526: bestTeamEntry, rostered: false
+        });
+    });
+    let totalWeight = 0, weightedPct = 0;
+    players.forEach(pl => {
+        let pct = null, weight = 0;
+        if (pl.s2526 && pl.s2526.p >= 3) { pct = pl.s2526.pct / 100; weight = pl.s2526.p; }
+        else if (pl.winPct !== null && pl.played > 0) { pct = pl.winPct; weight = pl.played; }
+        if (pct !== null && weight > 0) { weightedPct += pct * weight; totalWeight += weight; }
+    });
+    return totalWeight === 0 ? null : weightedPct / totalWeight;
+}
+
+function calcStrengthAdjustments(div, overrides) {
+    const adjustments = {};
+    DIVISIONS[div].teams.forEach(team => {
+        if (!overrides[team]) return;
+        const orig = calcSquadStrength(team);
+        const mod = calcModifiedSquadStrength(team, overrides);
+        if (orig !== null && mod !== null) {
+            adjustments[team] = (mod - orig) * SQUAD_STRENGTH_SCALING;
+        }
+    });
+    return adjustments;
+}
+
+function getAllLeaguePlayers() {
+    const allNames = new Set([...Object.keys(PLAYERS), ...Object.keys(PLAYERS_2526)]);
+    return [...allNames].map(name => {
+        const s2425 = PLAYERS[name];
+        const s2526 = PLAYERS_2526[name];
+        return {
+            name, rating: s2425 ? s2425.r : null,
+            teams2526: s2526 ? s2526.teams.map(t => t.team) : [],
+            totalPct2526: s2526 ? s2526.total.pct : null,
+            totalPlayed2526: s2526 ? s2526.total.p : null
+        };
+    }).sort((a, b) => (b.totalPct2526 || 0) - (a.totalPct2526 || 0));
+}
+
 // Error boundary
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -268,12 +340,17 @@ function App() {
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [selectedPlayer, setSelectedPlayer] = useState(null);
     const [minGames, setMinGames] = useState(5);
+    const [squadOverrides, setSquadOverrides] = useState({});
+    const [squadBuilderTeam, setSquadBuilderTeam] = useState('');
+    const [squadPlayerSearch, setSquadPlayerSearch] = useState('');
 
     // Prediction via useEffect (non-deterministic, so not useMemo)
     useEffect(() => {
         if (!homeTeam || !awayTeam) { setPrediction(null); return; }
         const div = getDiv(homeTeam);
         const strengths = calcTeamStrength(div);
+        const pAdj = calcStrengthAdjustments(div, squadOverrides);
+        Object.entries(pAdj).forEach(([t, adj]) => { if (strengths[t] !== undefined) strengths[t] += adj; });
         const p = predictFrame(strengths[homeTeam] || 0, strengths[awayTeam] || 0);
 
         let hw = 0, dr = 0, aw = 0;
@@ -302,7 +379,7 @@ function App() {
             expectedAway: ((1-p) * 10).toFixed(1),
             topScores
         });
-    }, [homeTeam, awayTeam]);
+    }, [homeTeam, awayTeam, squadOverrides]);
 
     const standings = calcStandings(selectedDiv);
     const teams = DIVISIONS[selectedDiv].teams;
@@ -316,6 +393,9 @@ function App() {
             const div = selectedDiv;
             const divTeams = DIVISIONS[div].teams;
             const strengths = calcTeamStrength(div);
+            // Apply squad builder adjustments
+            const squadAdj = calcStrengthAdjustments(div, squadOverrides);
+            Object.entries(squadAdj).forEach(([t, adj]) => { if (strengths[t] !== undefined) strengths[t] += adj; });
             const current = calcStandings(div);
             const currentMap = {};
             current.forEach(s => { currentMap[s.team] = s; });
@@ -389,6 +469,55 @@ function App() {
         setSimResults(null);
     };
 
+    // Squad builder handlers
+    const addSquadPlayer = (team, playerName) => {
+        setSquadOverrides(prev => {
+            const existing = prev[team] || { added: [], removed: [] };
+            if (existing.removed.includes(playerName)) {
+                const newOv = { ...existing, removed: existing.removed.filter(n => n !== playerName) };
+                if (newOv.added.length === 0 && newOv.removed.length === 0) { const { [team]: _, ...rest } = prev; return rest; }
+                return { ...prev, [team]: newOv };
+            }
+            if (existing.added.includes(playerName)) return prev;
+            return { ...prev, [team]: { ...existing, added: [...existing.added, playerName] } };
+        });
+        setSimResults(null);
+    };
+
+    const removeSquadPlayer = (team, playerName) => {
+        setSquadOverrides(prev => {
+            const existing = prev[team] || { added: [], removed: [] };
+            if (existing.added.includes(playerName)) {
+                const newOv = { ...existing, added: existing.added.filter(n => n !== playerName) };
+                if (newOv.added.length === 0 && newOv.removed.length === 0) { const { [team]: _, ...rest } = prev; return rest; }
+                return { ...prev, [team]: newOv };
+            }
+            if (existing.removed.includes(playerName)) return prev;
+            return { ...prev, [team]: { ...existing, removed: [...existing.removed, playerName] } };
+        });
+        setSimResults(null);
+    };
+
+    const restoreSquadPlayer = (team, playerName) => {
+        setSquadOverrides(prev => {
+            const existing = prev[team] || { added: [], removed: [] };
+            const newOv = { ...existing, removed: existing.removed.filter(n => n !== playerName) };
+            if (newOv.added.length === 0 && newOv.removed.length === 0) { const { [team]: _, ...rest } = prev; return rest; }
+            return { ...prev, [team]: newOv };
+        });
+        setSimResults(null);
+    };
+
+    const unaddSquadPlayer = (team, playerName) => {
+        setSquadOverrides(prev => {
+            const existing = prev[team] || { added: [], removed: [] };
+            const newOv = { ...existing, added: existing.added.filter(n => n !== playerName) };
+            if (newOv.added.length === 0 && newOv.removed.length === 0) { const { [team]: _, ...rest } = prev; return rest; }
+            return { ...prev, [team]: newOv };
+        });
+        setSimResults(null);
+    };
+
     const openTeamDetail = (team) => {
         setSelectedTeam(team);
         setSelectedPlayer(null);
@@ -410,7 +539,7 @@ function App() {
 
                 <div className="flex justify-center gap-1 md:gap-2 mb-4 flex-wrap">
                     {Object.entries(DIVISIONS).map(([key, data]) => (
-                        <button key={key} onClick={() => {setSelectedDiv(key); setSimResults(null); setWhatIfSimResults(null); setWhatIfResults([]); setHomeTeam(''); setAwayTeam(''); setSelectedTeam(null); setSelectedPlayer(null); if (activeTab === 'team' || activeTab === 'player') setActiveTab('standings');}}
+                        <button key={key} onClick={() => {setSelectedDiv(key); setSimResults(null); setWhatIfSimResults(null); setWhatIfResults([]); setSquadOverrides({}); setSquadBuilderTeam(''); setSquadPlayerSearch(''); setHomeTeam(''); setAwayTeam(''); setSelectedTeam(null); setSelectedPlayer(null); if (activeTab === 'team' || activeTab === 'player') setActiveTab('standings');}}
                             className={'px-3 py-2 rounded-lg font-medium transition text-xs md:text-sm ' + (selectedDiv === key ? 'bg-green-600' : 'bg-gray-700 hover:bg-gray-600')}>
                             {key}
                             <span className="hidden md:inline"> - {data.name.replace('Sunday ', 'Sun ').replace('Wednesday ', 'Wed ')}</span>
@@ -751,7 +880,7 @@ function App() {
                 {activeTab === 'simulate' && (
                     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
                         <h2 className="text-xl font-bold mb-4">Season Simulation - {DIVISIONS[selectedDiv].name}</h2>
-                        <p className="text-gray-400 mb-4 text-sm">1,000 Monte Carlo simulations based on current form{whatIfResults.length > 0 ? ' (with ' + whatIfResults.length + ' What-If result' + (whatIfResults.length > 1 ? 's' : '') + ')' : ''}</p>
+                        <p className="text-gray-400 mb-4 text-sm">1,000 Monte Carlo simulations based on current form{whatIfResults.length > 0 ? ' (with ' + whatIfResults.length + ' locked result' + (whatIfResults.length > 1 ? 's' : '') + ')' : ''}{Object.keys(squadOverrides).length > 0 ? ' (with ' + Object.keys(squadOverrides).length + ' squad change' + (Object.keys(squadOverrides).length > 1 ? 's' : '') + ')' : ''}</p>
 
                         <button onClick={runSimulation} disabled={isSimulating}
                             className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 font-bold py-3 px-6 rounded-lg mb-6 transition">
@@ -766,6 +895,21 @@ function App() {
                                         {whatIfSimResults.map((wi, i) => (
                                             <span key={i} className="text-gray-300">{wi.home} {wi.homeScore}-{wi.awayScore} {wi.away}{i < whatIfSimResults.length - 1 ? ', ' : ''}</span>
                                         ))}
+                                    </div>
+                                )}
+                                {Object.keys(squadOverrides).length > 0 && (
+                                    <div className="mb-4 p-3 bg-purple-900/30 border border-purple-600/30 rounded-lg text-sm">
+                                        <span className="text-purple-400 font-medium">Squad changes applied: </span>
+                                        {Object.entries(squadOverrides).map(([team, ov], i) => {
+                                            const adj = calcStrengthAdjustments(selectedDiv, squadOverrides);
+                                            const d = adj[team];
+                                            return (
+                                                <span key={team} className="text-gray-300">
+                                                    {team} ({d !== undefined ? (d > 0 ? '+' : '') + d.toFixed(3) : 'n/a'})
+                                                    {i < Object.keys(squadOverrides).length - 1 ? ', ' : ''}
+                                                </span>
+                                            );
+                                        })}
                                     </div>
                                 )}
                                 <table className="w-full text-xs md:text-sm">
@@ -909,7 +1053,153 @@ function App() {
                 {activeTab === 'whatif' && (
                     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
                         <h2 className="text-xl font-bold mb-2">What If - {DIVISIONS[selectedDiv].name}</h2>
-                        <p className="text-gray-400 text-sm mb-4">Set specific match results, then run a simulation to see how they affect the final standings.</p>
+                        <p className="text-gray-400 text-sm mb-4">Set specific match results or modify team squads, then run a simulation to see how they affect the final standings.</p>
+
+                        {/* SQUAD BUILDER SECTION */}
+                        <div className="mb-6 border border-gray-700 rounded-lg p-4">
+                            <h3 className="font-bold text-sm mb-3 text-purple-400">Squad Builder</h3>
+                            <div>
+                                <label className="block text-xs text-gray-400 mb-1">Select team to modify</label>
+                                <select value={squadBuilderTeam} onChange={e => { setSquadBuilderTeam(e.target.value); setSquadPlayerSearch(''); }}
+                                    className="w-full bg-gray-700 rounded-lg p-3 text-sm">
+                                    <option value="">Choose a team...</option>
+                                    {teams.map(t => (
+                                        <option key={t} value={t}>{t}{squadOverrides[t] ? ' (modified)' : ''}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {squadBuilderTeam && (() => {
+                                const basePlayers = getTeamPlayers(squadBuilderTeam);
+                                const override = squadOverrides[squadBuilderTeam] || { added: [], removed: [] };
+                                const removedSet = new Set(override.removed);
+
+                                return (
+                                    <div className="mt-3">
+                                        <h4 className="text-xs font-medium text-gray-400 mb-2">{squadBuilderTeam} - Squad</h4>
+                                        <div className="space-y-1 max-h-64 overflow-y-auto">
+                                            {basePlayers.map(pl => (
+                                                <div key={pl.name}
+                                                    className={'flex items-center justify-between text-xs rounded p-2 ' +
+                                                        (removedSet.has(pl.name) ? 'bg-red-900/30 line-through text-gray-500' : 'bg-gray-700/50')}>
+                                                    <span className={removedSet.has(pl.name) ? 'text-gray-500' : 'text-blue-300'}>{pl.name}</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-gray-400">
+                                                            {pl.s2526 ? pl.s2526.pct.toFixed(0) + '% (' + pl.s2526.p + 'g)' : ''}
+                                                            {pl.rating !== null ? (pl.s2526 ? ' | ' : '') + (pl.rating > 0 ? '+' : '') + pl.rating.toFixed(2) : ''}
+                                                        </span>
+                                                        {removedSet.has(pl.name) ? (
+                                                            <button onClick={() => restoreSquadPlayer(squadBuilderTeam, pl.name)}
+                                                                className="text-green-400 hover:text-green-300 text-xs font-medium">Restore</button>
+                                                        ) : (
+                                                            <button onClick={() => removeSquadPlayer(squadBuilderTeam, pl.name)}
+                                                                className="text-red-400 hover:text-red-300 text-xs">Remove</button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                            {(override.added || []).map(name => {
+                                                const s2526 = PLAYERS_2526[name];
+                                                const s2425 = PLAYERS[name];
+                                                return (
+                                                    <div key={name}
+                                                        className="flex items-center justify-between text-xs bg-green-900/30 rounded p-2 border border-green-600/30">
+                                                        <span className="text-green-300">+ {name}</span>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-gray-400">
+                                                                {s2526 ? s2526.total.pct.toFixed(0) + '% (' + s2526.total.p + 'g)' : ''}
+                                                                {s2425 ? (s2526 ? ' | ' : '') + (s2425.r > 0 ? '+' : '') + s2425.r.toFixed(2) : ''}
+                                                            </span>
+                                                            <button onClick={() => unaddSquadPlayer(squadBuilderTeam, name)}
+                                                                className="text-red-400 hover:text-red-300 text-xs">Undo</button>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+
+                                        {/* Player search */}
+                                        <div className="mt-3 relative">
+                                            <input type="text" placeholder="Search players to add..."
+                                                value={squadPlayerSearch} onChange={e => setSquadPlayerSearch(e.target.value)}
+                                                className="w-full bg-gray-700 rounded-lg p-2 text-sm" />
+                                            {squadPlayerSearch.length >= 2 && (() => {
+                                                const currentNames = new Set([
+                                                    ...basePlayers.filter(p => !removedSet.has(p.name)).map(p => p.name),
+                                                    ...override.added
+                                                ]);
+                                                const results = getAllLeaguePlayers()
+                                                    .filter(p => p.name.toLowerCase().includes(squadPlayerSearch.toLowerCase()))
+                                                    .filter(p => !currentNames.has(p.name))
+                                                    .slice(0, 8);
+                                                return results.length > 0 ? (
+                                                    <div className="mt-1 bg-gray-700 rounded-lg overflow-hidden border border-gray-600 absolute w-full z-10">
+                                                        {results.map(p => (
+                                                            <div key={p.name}
+                                                                onClick={() => { addSquadPlayer(squadBuilderTeam, p.name); setSquadPlayerSearch(''); }}
+                                                                className="flex items-center justify-between p-2 text-xs cursor-pointer hover:bg-gray-600 border-b border-gray-600/50 last:border-0">
+                                                                <span className="text-blue-300">{p.name}</span>
+                                                                <span className="text-gray-400 text-right">
+                                                                    {p.teams2526.length > 0 ? p.teams2526.slice(0, 2).join(', ') : ''}
+                                                                    {p.totalPct2526 !== null ? ' ' + p.totalPct2526.toFixed(0) + '%' : ''}
+                                                                    {p.rating !== null ? ' | ' + (p.rating > 0 ? '+' : '') + p.rating.toFixed(2) : ''}
+                                                                </span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <div className="mt-1 bg-gray-700 rounded-lg p-2 text-xs text-gray-500 absolute w-full z-10">No matching players</div>
+                                                );
+                                            })()}
+                                        </div>
+
+                                        {/* Strength impact panel */}
+                                        {squadOverrides[squadBuilderTeam] && (() => {
+                                            const origStr = calcSquadStrength(squadBuilderTeam);
+                                            const modStr = calcModifiedSquadStrength(squadBuilderTeam, squadOverrides);
+                                            const adj = calcStrengthAdjustments(selectedDiv, squadOverrides);
+                                            const delta = adj[squadBuilderTeam] || 0;
+                                            return origStr !== null && modStr !== null && (
+                                                <div className="mt-3 bg-gray-700 rounded-lg p-3">
+                                                    <h4 className="text-xs font-medium text-gray-400 mb-2">Squad Strength Impact</h4>
+                                                    <div className="grid grid-cols-3 gap-2 text-center text-sm">
+                                                        <div>
+                                                            <div className="text-gray-400">{(origStr * 100).toFixed(1)}%</div>
+                                                            <div className="text-xs text-gray-500">Original Avg</div>
+                                                        </div>
+                                                        <div>
+                                                            <div className="text-white font-bold">{(modStr * 100).toFixed(1)}%</div>
+                                                            <div className="text-xs text-gray-500">Modified Avg</div>
+                                                        </div>
+                                                        <div>
+                                                            <div className={'font-bold ' + (delta > 0 ? 'text-green-400' : delta < 0 ? 'text-red-400' : 'text-gray-400')}>
+                                                                {delta > 0 ? '+' : ''}{delta.toFixed(3)}
+                                                            </div>
+                                                            <div className="text-xs text-gray-500">Sim Adjust</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })()}
+                                    </div>
+                                );
+                            })()}
+
+                            {/* Active modifications summary */}
+                            {Object.keys(squadOverrides).length > 0 && (
+                                <div className="mt-3 p-3 bg-purple-900/30 border border-purple-600/30 rounded-lg text-sm">
+                                    <span className="text-purple-400 font-medium">Squad changes: </span>
+                                    {Object.entries(squadOverrides).map(([team, ov], i) => (
+                                        <span key={team} className="text-gray-300">
+                                            {team} ({(ov.added || []).length > 0 ? '+' + ov.added.length : ''}{(ov.removed || []).length > 0 ? ' -' + ov.removed.length : ''})
+                                            {i < Object.keys(squadOverrides).length - 1 ? ', ' : ''}
+                                        </span>
+                                    ))}
+                                    <button onClick={() => { setSquadOverrides({}); setSimResults(null); }}
+                                        className="text-red-400 hover:text-red-300 text-xs ml-2">Clear all</button>
+                                </div>
+                            )}
+                        </div>
 
                         {whatIfResults.length > 0 && (
                             <div className="mb-4 space-y-2">
@@ -930,13 +1220,13 @@ function App() {
                             ))}
                         </div>
 
-                        {whatIfResults.length > 0 && (
+                        {(whatIfResults.length > 0 || Object.keys(squadOverrides).length > 0) && (
                             <div className="mt-4 flex gap-2">
                                 <button onClick={() => { setActiveTab('simulate'); setTimeout(runSimulation, 200); }}
                                     className="flex-1 bg-green-600 hover:bg-green-700 font-bold py-3 px-6 rounded-lg transition">
-                                    Simulate with What-If Results
+                                    Simulate with What-If Changes
                                 </button>
-                                <button onClick={() => { setWhatIfResults([]); setSimResults(null); setWhatIfSimResults(null); }}
+                                <button onClick={() => { setWhatIfResults([]); setSquadOverrides({}); setSquadBuilderTeam(''); setSimResults(null); setWhatIfSimResults(null); }}
                                     className="bg-red-600 hover:bg-red-700 py-3 px-4 rounded-lg text-sm transition">
                                     Clear All
                                 </button>
@@ -966,7 +1256,7 @@ function App() {
                 )}
 
                 <p className="text-center text-gray-500 text-xs mt-8">
-                    Model: Frame-differential ratings &bull; Logistic prediction &bull; Home advantage +{(1 / (1 + Math.exp(-HOME_ADV)) * 100 - 50).toFixed(0)}% &bull; Points: HW=2, AW=3, D=1
+                    Model: Frame-differential ratings &bull; Logistic prediction &bull; Home advantage +{(1 / (1 + Math.exp(-HOME_ADV)) * 100 - 50).toFixed(0)}% &bull; Points: HW=2, AW=3, D=1 &bull; Squad builder: weighted avg win% delta
                 </p>
             </div>
         </div>
