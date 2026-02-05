@@ -1,12 +1,25 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Legacy path — kept for backward compatibility
     match /seasons/{seasonId} {
       allow read: if true;
-      allow write: if false;  // Admin/script writes via firebase-admin only
+      allow write: if false;
     }
+
+    // Multi-league paths
+    match /leagues/{leagueId} {
+      allow read: if true;
+      allow write: if false;
+
+      match /seasons/{seasonId} {
+        allow read: if true;
+        allow write: if false;
+      }
+    }
+
     match /userSessions/{deviceId} {
-      allow read, write: if true;  // No auth initially
+      allow read, write: if true;
     }
   }
 }

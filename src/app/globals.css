@@ -36,24 +36,24 @@
   /* Gold alias */
   --gold: 180 130 40;
 
-  /* Gray scale — semantically inverted so contrast hierarchy is preserved */
+  /* Gray scale — inverted for light mode, tuned for contrast against white surfaces */
   --tw-white: 17 24 39;
   --tw-gray-50: 3 7 18;
   --tw-gray-100: 31 41 55;
-  --tw-gray-200: 55 65 81;
-  --tw-gray-300: 75 85 99;
-  --tw-gray-400: 107 114 128;
-  --tw-gray-500: 156 163 175;
-  --tw-gray-600: 209 213 219;
-  --tw-gray-700: 229 231 235;
-  --tw-gray-800: 243 244 246;
-  --tw-gray-900: 249 250 251;
+  --tw-gray-200: 50 58 74;
+  --tw-gray-300: 66 76 92;
+  --tw-gray-400: 82 92 108;
+  --tw-gray-500: 100 110 126;
+  --tw-gray-600: 130 140 156;
+  --tw-gray-700: 185 190 200;
+  --tw-gray-800: 225 228 232;
+  --tw-gray-900: 242 243 245;
   --tw-gray-950: 255 255 255;
 
-  /* Shadows */
-  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-card-hover: 0 4px 16px rgba(212,168,85,0.12);
-  --shadow-elevated: 0 4px 12px rgba(0,0,0,0.1);
+  /* Shadows — slightly stronger than dark mode to define cards against light bg */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 4px 16px rgba(212,168,85,0.15);
+  --shadow-elevated: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 /* ===== Dark Mode ===== */
@@ -120,6 +120,17 @@ body {
   background-size: 20px 20px;
 }
 
+/* Override antialiased in light mode for heavier, more readable text rendering.
+   Dark mode keeps antialiased (thinner strokes look better on dark backgrounds). */
+:root body {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+.dark body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 ::selection {
   background-color: rgb(var(--baize) / 0.3);
   color: rgb(var(--tw-white));
@@ -156,6 +167,11 @@ header::before {
 *:focus-visible {
   outline: 2px solid rgb(var(--baize));
   outline-offset: 2px;
+}
+
+/* Safe area padding for iOS notch devices */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 /* Skeleton shimmer */

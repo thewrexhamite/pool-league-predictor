@@ -1,6 +1,5 @@
 import type {
   Divisions,
-  DivisionCode,
   MatchResult,
   Fixture,
   PlayersMap,
@@ -57,7 +56,8 @@ export const DIVISIONS: Divisions = {
 
 export const HOME_ADV = 0.2;
 
-export const DIVISION_CODES: DivisionCode[] = ['SD1', 'SD2', 'WD1', 'WD2'];
+/** Static division codes for the Wrexham 25/26 fallback data */
+export const DIVISION_CODES: string[] = ['SD1', 'SD2', 'WD1', 'WD2'];
 
 // Re-export the Firestore-backed hook for components that need live data
 export { useLeagueData } from './data-provider';

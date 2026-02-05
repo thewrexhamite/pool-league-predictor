@@ -5,7 +5,7 @@ import { Dices, Share2, BarChart3 } from 'lucide-react';
 import clsx from 'clsx';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import type { DivisionCode, SimulationResult, WhatIfResult, SquadOverrides } from '@/lib/types';
-import { DIVISIONS } from '@/lib/data';
+import { useActiveData } from '@/lib/active-data-provider';
 import { calcStrengthAdjustments } from '@/lib/predictions';
 import { useToast } from './ToastProvider';
 
@@ -35,11 +35,13 @@ export default function SimulateTab({
   onTeamClick,
 }: SimulateTabProps) {
   const { addToast } = useToast();
+  const { ds } = useActiveData();
   const [showChart, setShowChart] = useState(false);
+  const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
 
   const handleShare = () => {
     if (!simResults) return;
-    const text = `Pool League Pro — ${DIVISIONS[selectedDiv].name} Simulation\n\n` +
+    const text = `Pool League Pro — ${divName} Simulation\n\n` +
       simResults.slice(0, 4).map((r, i) =>
         `${i + 1}. ${r.team}: Title ${r.pTitle}% | Top2 ${r.pTop2}%`
       ).join('\n');
@@ -62,7 +64,7 @@ export default function SimulateTab({
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-white">Season Simulation — {DIVISIONS[selectedDiv].name}</h2>
+        <h2 className="text-lg font-bold text-white">Season Simulation — {divName}</h2>
         {simResults && (
           <div className="flex items-center gap-2">
             <button

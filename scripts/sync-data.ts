@@ -19,6 +19,10 @@ const SITE = 'wrexham';
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const RATE_LIMIT_MS = 200;
 
+// Configurable league/season for multi-league Firestore paths
+const LEAGUE_ID = process.env.LEAGUE_ID || 'wrexham';
+const SEASON_ID = process.env.SEASON_ID || '2526';
+
 // Division mapping
 const DIVISIONS = [
   { code: 'SD1' as const, siteGroup: 'Sunday Division 1' },
@@ -477,7 +481,6 @@ async function writeToFirestore(data: {
     }
 
     const db = admin.default.firestore();
-    const docRef = db.collection('seasons').doc('2526');
 
     // Convert frames to the FrameData format for Firestore
     const frameData = data.frames.map(m => ({
@@ -496,7 +499,7 @@ async function writeToFirestore(data: {
       })),
     }));
 
-    await docRef.set({
+    const seasonPayload = {
       results: data.results.map(r => ({
         date: r.date,
         home: r.home,
@@ -514,9 +517,36 @@ async function writeToFirestore(data: {
       divisions: data.divisions,
       lastUpdated: Date.now(),
       lastSyncedFrom: 'leagueapplive',
-    });
+    };
 
-    console.log('\nFirestore: seasons/2526 written successfully');
+    // Write to new multi-league path
+    const leagueSeasonRef = db.collection('leagues').doc(LEAGUE_ID).collection('seasons').doc(SEASON_ID);
+    await leagueSeasonRef.set(seasonPayload);
+
+    // Also write/update league metadata
+    const leagueRef = db.collection('leagues').doc(LEAGUE_ID);
+    const leagueSnap = await leagueRef.get();
+    const divisionCodes = Object.keys(data.divisions);
+
+    if (!leagueSnap.exists) {
+      await leagueRef.set({
+        name: `${LEAGUE_ID.charAt(0).toUpperCase() + LEAGUE_ID.slice(1)} Pool League`,
+        shortName: LEAGUE_ID.charAt(0).toUpperCase() + LEAGUE_ID.slice(1),
+        seasons: [{
+          id: SEASON_ID,
+          label: `20${SEASON_ID.slice(0, 2)}/${SEASON_ID.slice(2)}`,
+          current: true,
+          divisions: divisionCodes,
+        }],
+      });
+    }
+
+    // Write to legacy path for backward compatibility
+    const legacyRef = db.collection('seasons').doc(SEASON_ID);
+    await legacyRef.set(seasonPayload);
+
+    console.log(`\nFirestore: leagues/${LEAGUE_ID}/seasons/${SEASON_ID} written successfully`);
+    console.log(`Firestore: seasons/${SEASON_ID} (legacy) written successfully`);
   } catch (err) {
     console.error('\nFirestore write failed (credentials may not be configured):');
     console.error(err instanceof Error ? err.message : err);

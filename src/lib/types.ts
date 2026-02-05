@@ -5,7 +5,7 @@ export interface Division {
   teams: string[];
 }
 
-export type DivisionCode = 'SD1' | 'SD2' | 'WD1' | 'WD2';
+export type DivisionCode = string;
 
 export type Divisions = Record<DivisionCode, Division>;
 
@@ -190,6 +190,21 @@ export interface SeasonData {
   divisions: Record<DivisionCode, Division>;
   lastUpdated: number; // timestamp
   lastSyncedFrom: string;
+}
+
+// Multi-league types
+export interface SeasonMeta {
+  id: string;
+  label: string;
+  current: boolean;
+  divisions: string[];
+}
+
+export interface LeagueMeta {
+  id: string;
+  name: string;
+  shortName: string;
+  seasons: SeasonMeta[];
 }
 
 // Tactical edge types

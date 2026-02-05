@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
-import { DIVISIONS } from '@/lib/data';
+import { useActiveData } from '@/lib/active-data-provider';
 
 interface StandingsTabProps {
   selectedDiv: DivisionCode;
@@ -12,9 +12,12 @@ interface StandingsTabProps {
 }
 
 export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamClick }: StandingsTabProps) {
+  const { ds } = useActiveData();
+  const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
+
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6 overflow-x-auto">
-      <h2 className="text-lg font-bold mb-4 text-white">{DIVISIONS[selectedDiv].name} — Standings</h2>
+      <h2 className="text-lg font-bold mb-4 text-white">{divName} — Standings</h2>
       <table className="w-full text-xs md:text-sm" role="table">
         <thead>
           <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">

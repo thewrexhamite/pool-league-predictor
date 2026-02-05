@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import type { DivisionCode } from './types';
 
 export type TabId =
@@ -23,12 +23,20 @@ interface RouteState {
   away?: string;
 }
 
+export interface RouterOptions {
+  validDivisions: string[];
+  defaultDiv: string;
+}
+
+const DEFAULT_OPTIONS: RouterOptions = {
+  validDivisions: ['SD1', 'SD2', 'WD1', 'WD2'],
+  defaultDiv: 'SD2',
+};
+
 const VALID_TABS = new Set<string>([
   'dashboard', 'standings', 'results', 'simulate', 'predict',
   'fixtures', 'players', 'team', 'player',
 ]);
-
-const VALID_DIVS = new Set<string>(['SD1', 'SD2', 'WD1', 'WD2']);
 
 export function encodeRoute(tab: TabId, div: DivisionCode, params?: { team?: string; player?: string; home?: string; away?: string }): string {
   let hash = `#/${tab}/${div}`;
@@ -42,8 +50,8 @@ export function encodeRoute(tab: TabId, div: DivisionCode, params?: { team?: str
   return hash;
 }
 
-export function decodeRoute(hash: string): RouteState {
-  const defaults: RouteState = { tab: 'dashboard', div: 'SD2' };
+export function decodeRoute(hash: string, validDivs: Set<string>, defaultDiv: string): RouteState {
+  const defaults: RouteState = { tab: 'dashboard', div: defaultDiv };
   if (!hash || hash.length < 2) return defaults;
 
   const cleaned = hash.startsWith('#/') ? hash.slice(2) : hash.startsWith('#') ? hash.slice(1) : hash;
@@ -53,7 +61,7 @@ export function decodeRoute(hash: string): RouteState {
   if (!tab || !VALID_TABS.has(tab)) return defaults;
 
   const div = parts[1];
-  if (!div || !VALID_DIVS.has(div)) return { ...defaults, tab: tab as TabId };
+  if (!div || !validDivs.has(div)) return { ...defaults, tab: tab as TabId };
 
   const state: RouteState = { tab: tab as TabId, div: div as DivisionCode };
 
@@ -69,20 +77,24 @@ export function decodeRoute(hash: string): RouteState {
   return state;
 }
 
-export function useHashRouter() {
+export function useHashRouter(options?: RouterOptions) {
+  const opts = options || DEFAULT_OPTIONS;
+  const validDivs = useMemo(() => new Set(opts.validDivisions), [opts.validDivisions]);
+  const defaultDiv = opts.defaultDiv;
+
   const [route, setRouteState] = useState<RouteState>(() => {
-    if (typeof window === 'undefined') return { tab: 'dashboard', div: 'SD2' };
-    return decodeRoute(window.location.hash);
+    if (typeof window === 'undefined') return { tab: 'dashboard', div: defaultDiv };
+    return decodeRoute(window.location.hash, validDivs, defaultDiv);
   });
 
   // Listen for hash changes (browser back/forward)
   useEffect(() => {
     function onHashChange() {
-      setRouteState(decodeRoute(window.location.hash));
+      setRouteState(decodeRoute(window.location.hash, validDivs, defaultDiv));
     }
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
+  }, [validDivs, defaultDiv]);
 
   const navigate = useCallback((tab: TabId, div: DivisionCode, params?: { team?: string; player?: string; home?: string; away?: string }) => {
     const hash = encodeRoute(tab, div, params);

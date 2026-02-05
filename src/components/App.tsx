@@ -4,13 +4,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 import {
-  LayoutDashboard,
   Trophy,
-  ClipboardList,
-  Dices,
-  Target,
-  Calendar,
-  Users,
   Search,
   X,
   Star,
@@ -18,9 +12,11 @@ import {
   Clock,
   ArrowLeft,
   Menu,
+  Users,
 } from 'lucide-react';
 import type {
   DivisionCode,
+  LeagueMeta,
   PredictionResult,
   SimulationResult,
   WhatIfResult,
@@ -45,9 +41,11 @@ import {
   type DataSources,
 } from '@/lib/predictions';
 import { getAvailableMatchDates } from '@/lib/time-machine';
-import { DIVISIONS } from '@/lib/data';
+import { TABS } from '@/lib/tabs';
+import { useLeague } from '@/lib/league-context';
 
 import { ToastProvider, useToast } from './ToastProvider';
+import BottomTabBar from './BottomTabBar';
 import DashboardTab from './DashboardTab';
 import StandingsTab from './StandingsTab';
 import ResultsTab from './ResultsTab';
@@ -60,24 +58,15 @@ import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
 import ThemeToggle from './ThemeToggle';
 
-const TABS: { id: TabId; label: string; shortLabel: string; icon: typeof LayoutDashboard }[] = [
-  { id: 'dashboard', label: 'Dashboard', shortLabel: 'Dash', icon: LayoutDashboard },
-  { id: 'standings', label: 'Standings', shortLabel: 'Table', icon: Trophy },
-  { id: 'results', label: 'Results', shortLabel: 'Results', icon: ClipboardList },
-  { id: 'simulate', label: 'Simulate', shortLabel: 'Sim', icon: Dices },
-  { id: 'predict', label: 'Predict', shortLabel: 'Predict', icon: Target },
-  { id: 'fixtures', label: 'Fixtures', shortLabel: 'Fix', icon: Calendar },
-  { id: 'players', label: 'Players', shortLabel: 'Players', icon: Users },
-];
-
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
-function AppInner() {
+function AppInner({ league }: { league?: LeagueMeta }) {
   const { data: leagueData, refreshing } = useLeagueData();
   const [timeMachineDate, setTimeMachineDate] = useState<string | null>(null);
 
   return (
     <ActiveDataProvider leagueData={leagueData} timeMachineDate={timeMachineDate}>
       <AppContent
+        league={league}
         refreshing={refreshing}
         timeMachineDate={timeMachineDate}
         setTimeMachineDate={setTimeMachineDate}
@@ -87,17 +76,26 @@ function AppInner() {
 }
 
 interface AppContentProps {
+  league?: LeagueMeta;
   refreshing: boolean;
   timeMachineDate: string | null;
   setTimeMachineDate: (d: string | null) => void;
 }
 
-function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
+function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
   const { data: activeData, ds } = useActiveData();
   const { data: leagueData } = useLeagueData();
   const { addToast } = useToast();
   const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
-  const router = useHashRouter();
+  const { clearSelection } = useLeague();
+
+  // Dynamic divisions from data
+  const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
+  const routerOptions = useMemo(() => ({
+    validDivisions: divisionCodes,
+    defaultDiv: divisionCodes[0] || 'SD2',
+  }), [divisionCodes]);
+  const router = useHashRouter(routerOptions);
 
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
@@ -420,13 +418,25 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
             <div className="flex items-center gap-2 shrink-0">
               <svg width="32" height="32" viewBox="0 0 512 512" className="shrink-0">
                 <defs>
-                  <radialGradient id="logoGrad" cx="35%" cy="35%" r="65%">
-                    <stop offset="0%" stopColor="#3A3A3A"/>
-                    <stop offset="100%" stopColor="#111111"/>
+                  <radialGradient id="logoGrad" cx="38%" cy="32%" r="65%">
+                    <stop offset="0%" stopColor="#3a3a3a"/>
+                    <stop offset="55%" stopColor="#1a1a1a"/>
+                    <stop offset="100%" stopColor="#080808"/>
                   </radialGradient>
+                  <radialGradient id="logoGloss" cx="40%" cy="30%" r="50%">
+                    <stop offset="0%" stopColor="white" stopOpacity="0.35"/>
+                    <stop offset="100%" stopColor="white" stopOpacity="0"/>
+                  </radialGradient>
+                  <clipPath id="logoClip">
+                    <circle cx="256" cy="256" r="179"/>
+                  </clipPath>
                 </defs>
                 <rect width="512" height="512" rx="96" fill="#0C1222"/>
                 <circle cx="256" cy="256" r="179" fill="url(#logoGrad)"/>
+                <g clipPath="url(#logoClip)">
+                  <ellipse cx="256" cy="256" rx="200" ry="72" fill="white" transform="rotate(-18, 256, 256)"/>
+                </g>
+                <ellipse cx="225" cy="195" rx="65" ry="40" fill="url(#logoGloss)" transform="rotate(-25, 225, 195)"/>
                 <circle cx="256" cy="256" r="63" fill="white"/>
                 <text x="256" y="256" textAnchor="middle" dominantBaseline="central" fontFamily="'Space Grotesk',sans-serif" fontWeight="700" fontSize="62" fill="#0C1222">8</text>
                 <path d="M 350 370 A 155 155 0 0 1 270 425" fill="none" stroke="#D4A855" strokeWidth="4" strokeLinecap="round"/>
@@ -437,6 +447,16 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
               >
                 <span className="text-gray-100">Pool League </span><span className="text-accent">Pro</span>
               </button>
+              {league && (
+                <button
+                  onClick={() => clearSelection()}
+                  className="hidden md:flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition px-1.5 py-0.5 rounded border border-surface-border/50 hover:border-surface-border"
+                  title="Switch League"
+                >
+                  {league.shortName}
+                  <ArrowLeft size={10} className="rotate-180" />
+                </button>
+              )}
               {myTeam && (
                 <button
                   onClick={() => setShowMyTeamModal(true)}
@@ -769,12 +789,12 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
 
           {/* Subtitle */}
           <p className="text-center text-gray-500 text-xs mt-1.5">
-            {ds.divisions[selectedDiv]?.name} &bull; {totalPlayed} played &bull; {totalRemaining} remaining &bull; {seasonPct}% complete
+            {league ? `${league.shortName} \u2014 ` : ''}{ds.divisions[selectedDiv]?.name} &bull; {totalPlayed} played &bull; {totalRemaining} remaining &bull; {seasonPct}% complete
           </p>
         </div>
 
-        {/* Tab bar */}
-        <div className="border-t border-surface-border/50">
+        {/* Tab bar — hidden on mobile, bottom bar used instead */}
+        <div className="hidden md:block border-t border-surface-border/50">
           <div className="max-w-6xl mx-auto px-4">
             <nav className="flex overflow-x-auto scrollbar-none -mb-px" role="tablist">
               {TABS.map(tab => {
@@ -805,7 +825,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
       </header>
 
       {/* Main content */}
-      <main className="max-w-6xl mx-auto px-4 py-6">
+      <main className="max-w-6xl mx-auto px-4 py-6 pb-24 md:pb-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab + (activeTab === 'team' ? selectedTeam : '') + (activeTab === 'player' ? selectedPlayer : '')}
@@ -969,6 +989,11 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
         </p>
       </main>
 
+      {/* Bottom tab bar — mobile only */}
+      <div className="md:hidden">
+        <BottomTabBar activeTab={activeTab} onTabChange={tab => { setMobileMenuOpen(false); router.setTab(tab); }} />
+      </div>
+
       {/* My Team Modal */}
       <AnimatePresence>
         {showMyTeamModal && (
@@ -990,7 +1015,7 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
                 <Star size={20} className="text-accent" />
                 Set My Team
               </h3>
-              {(Object.entries(DIVISIONS) as [DivisionCode, { name: string; teams: string[] }][]).map(([divCode, divData]) => (
+              {(Object.entries(ds.divisions) as [DivisionCode, { name: string; teams: string[] }][]).map(([divCode, divData]) => (
                 <div key={divCode} className="mb-4">
                   <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">{divData.name}</h4>
                   <div className="grid grid-cols-2 gap-1">
@@ -1027,10 +1052,10 @@ function AppContent({ refreshing, timeMachineDate, setTimeMachineDate }: AppCont
   );
 }
 
-export default function App() {
+export default function App({ league }: { league?: LeagueMeta }) {
   return (
     <ToastProvider>
-      <AppInner />
+      <AppInner league={league} />
     </ToastProvider>
   );
 }

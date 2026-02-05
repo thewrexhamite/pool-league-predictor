@@ -13,7 +13,7 @@ import type {
   SeasonData,
 } from './types';
 
-// Static JSON imports (fallback)
+// Static JSON imports (fallback for wrexham/2526)
 import resultsData from '@data/results.json';
 import fixturesData from '@data/fixtures.json';
 import playersData from '@data/players.json';
@@ -22,8 +22,13 @@ import players2526Data from '@data/players2526.json';
 
 import { DIVISIONS as STATIC_DIVISIONS } from './data';
 
-const CACHE_KEY = 'pool-league-season-data';
-const CACHE_TS_KEY = 'pool-league-season-ts';
+function cacheKey(leagueId: string, seasonId: string) {
+  return `pool-league-${leagueId}-${seasonId}-data`;
+}
+
+function cacheTsKey(leagueId: string, seasonId: string) {
+  return `pool-league-${leagueId}-${seasonId}-ts`;
+}
 
 export interface LeagueData {
   results: MatchResult[];
@@ -57,11 +62,25 @@ function getStaticData(): LeagueData {
   };
 }
 
-function getCachedData(): LeagueData | null {
+function getEmptyData(): LeagueData {
+  return {
+    results: [],
+    fixtures: [],
+    players: {},
+    rosters: {},
+    players2526: {},
+    frames: [],
+    divisions: {} as Divisions,
+    lastUpdated: 0,
+    source: 'static',
+  };
+}
+
+function getCachedData(leagueId: string, seasonId: string): LeagueData | null {
   if (typeof window === 'undefined') return null;
   try {
-    const cached = localStorage.getItem(CACHE_KEY);
-    const ts = localStorage.getItem(CACHE_TS_KEY);
+    const cached = localStorage.getItem(cacheKey(leagueId, seasonId));
+    const ts = localStorage.getItem(cacheTsKey(leagueId, seasonId));
     if (!cached || !ts) return null;
     const parsed = JSON.parse(cached) as Omit<LeagueData, 'source'>;
     return { ...parsed, source: 'cache' };
@@ -70,12 +89,12 @@ function getCachedData(): LeagueData | null {
   }
 }
 
-function setCachedData(data: LeagueData) {
+function setCachedData(leagueId: string, seasonId: string, data: LeagueData) {
   if (typeof window === 'undefined') return;
   try {
     const { source: _, ...rest } = data;
-    localStorage.setItem(CACHE_KEY, JSON.stringify(rest));
-    localStorage.setItem(CACHE_TS_KEY, String(data.lastUpdated));
+    localStorage.setItem(cacheKey(leagueId, seasonId), JSON.stringify(rest));
+    localStorage.setItem(cacheTsKey(leagueId, seasonId), String(data.lastUpdated));
   } catch {
     // localStorage full or unavailable
   }
@@ -87,10 +106,20 @@ const DataContext = createContext<DataContextValue>({
   refreshing: false,
 });
 
-export function DataProvider({ children }: { children: ReactNode }) {
+interface DataProviderProps {
+  leagueId?: string;
+  seasonId?: string;
+  children: ReactNode;
+}
+
+export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children }: DataProviderProps) {
+  const isDefaultLeague = leagueId === 'wrexham' && seasonId === '2526';
+
   const [data, setData] = useState<LeagueData>(() => {
-    const cached = getCachedData();
-    return cached || getStaticData();
+    const cached = getCachedData(leagueId, seasonId);
+    if (cached) return cached;
+    // Only use static fallback for the default league/season
+    return isDefaultLeague ? getStaticData() : getEmptyData();
   });
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -98,20 +127,32 @@ export function DataProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false;
 
+    // Reset state when league/season changes
+    const cached = getCachedData(leagueId, seasonId);
+    if (cached) {
+      setData(cached);
+    } else if (isDefaultLeague) {
+      setData(getStaticData());
+    } else {
+      setData(getEmptyData());
+    }
+
     async function fetchFromFirestore() {
       setRefreshing(true);
       try {
         const { db } = await import('./firebase');
-        const docRef = doc(db, 'seasons', '2526');
+        // Use new multi-league path
+        const docRef = doc(db, 'leagues', leagueId, 'seasons', seasonId);
         const snap = await getDoc(docRef);
 
         if (cancelled) return;
 
         if (snap.exists()) {
           const raw = snap.data() as SeasonData;
-          const cachedTs = parseInt(localStorage.getItem(CACHE_TS_KEY) || '0', 10);
+          const cachedTs = parseInt(localStorage.getItem(cacheTsKey(leagueId, seasonId)) || '0', 10);
 
           if (raw.lastUpdated > cachedTs) {
+            const staticDiv = isDefaultLeague ? STATIC_DIVISIONS : ({} as Divisions);
             const newData: LeagueData = {
               results: raw.results || [],
               fixtures: raw.fixtures || [],
@@ -119,12 +160,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
               rosters: raw.rosters || {},
               players2526: raw.players2526 || {},
               frames: raw.frames || [],
-              divisions: raw.divisions || STATIC_DIVISIONS,
+              divisions: raw.divisions || staticDiv,
               lastUpdated: raw.lastUpdated,
               source: 'firestore',
             };
             setData(newData);
-            setCachedData(newData);
+            setCachedData(leagueId, seasonId, newData);
           }
         }
       } catch {
@@ -145,7 +186,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     }
 
     return () => { cancelled = true; };
-  }, []);
+  }, [leagueId, seasonId, isDefaultLeague]);
 
   return (
     <DataContext.Provider value={{ data, loading, refreshing }}>

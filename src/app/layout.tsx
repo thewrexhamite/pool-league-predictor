@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -10,9 +10,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'Pool League Pro - Wrexham & District 25/26',
+  title: 'Pool League Pro',
   description:
-    'Season simulation, match predictions, squad builder, and AI insights for the Wrexham & District Pool League 2025/26.',
+    'Season simulation, match predictions, squad builder, and AI insights for pool leagues.',
+};
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({
