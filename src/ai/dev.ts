@@ -1,6 +1,6 @@
 'use server';
 import { config } from 'dotenv';
-config();
+config({ path: '.env.local' });
 
 // Import the AI configuration to ensure Genkit initializes
 // when running the Genkit development server.
