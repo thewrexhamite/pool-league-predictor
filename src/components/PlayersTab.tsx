@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import type { DivisionCode } from '@/lib/types';
+import { useState, useMemo } from 'react';
+import type { DivisionCode, PlayerFormData } from '@/lib/types';
 import { DIVISIONS } from '@/lib/data';
-import { getTeamPlayers } from '@/lib/predictions';
+import { getTeamPlayers, calcPlayerForm, calcBDStats } from '@/lib/predictions';
+import { useLeagueData } from '@/lib/data-provider';
 
 interface PlayersTabProps {
   selectedDiv: DivisionCode;
@@ -11,28 +12,80 @@ interface PlayersTabProps {
   onPlayerClick: (name: string) => void;
 }
 
+type SortKey = 'pct' | 'bdF' | 'bdA' | 'form';
+type SortDir = 'asc' | 'desc';
+
 export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: PlayersTabProps) {
   const [minGames, setMinGames] = useState(5);
+  const [sortKey, setSortKey] = useState<SortKey>('pct');
+  const [sortDir, setSortDir] = useState<SortDir>('desc');
+  const { data: leagueData } = useLeagueData();
   const teams = DIVISIONS[selectedDiv].teams;
 
-  const divPlayers: Array<{
-    name: string;
-    rating: number | null;
-    s2526: { p: number; w: number; pct: number } | null;
-    team: string;
-  }> = [];
-  const seen = new Set<string>();
-  teams.forEach(team => {
-    const roster = getTeamPlayers(team);
-    roster.forEach(pl => {
-      if (pl.s2526 && !seen.has(pl.name + ':' + team)) {
-        seen.add(pl.name + ':' + team);
-        divPlayers.push({ ...pl, team });
-      }
+  const divPlayers = useMemo(() => {
+    const list: Array<{
+      name: string;
+      rating: number | null;
+      s2526: { p: number; w: number; pct: number; bdF: number; bdA: number; forf: number } | null;
+      team: string;
+      form: PlayerFormData | null;
+      bdFRate: number;
+      bdARate: number;
+    }> = [];
+    const seen = new Set<string>();
+    teams.forEach(team => {
+      const roster = getTeamPlayers(team);
+      roster.forEach(pl => {
+        if (pl.s2526 && !seen.has(pl.name + ':' + team)) {
+          seen.add(pl.name + ':' + team);
+          const form = leagueData.frames.length > 0 ? calcPlayerForm(pl.name, leagueData.frames) : null;
+          const bd = calcBDStats(pl.s2526);
+          list.push({ ...pl, team, form, bdFRate: bd.bdFRate, bdARate: bd.bdARate });
+        }
+      });
     });
-  });
-  divPlayers.sort((a, b) => (b.s2526 ? b.s2526.pct : -999) - (a.s2526 ? a.s2526.pct : -999));
-  const filtered = divPlayers.filter(p => p.s2526 && p.s2526.p >= minGames);
+    return list;
+  }, [teams, leagueData.frames]);
+
+  const filtered = useMemo(() => {
+    const f = divPlayers.filter(p => p.s2526 && p.s2526.p >= minGames);
+    f.sort((a, b) => {
+      let av: number, bv: number;
+      switch (sortKey) {
+        case 'pct':
+          av = a.s2526 ? a.s2526.pct : -999;
+          bv = b.s2526 ? b.s2526.pct : -999;
+          break;
+        case 'bdF':
+          av = a.bdFRate;
+          bv = b.bdFRate;
+          break;
+        case 'bdA':
+          av = a.bdARate;
+          bv = b.bdARate;
+          break;
+        case 'form':
+          av = a.form ? a.form.last5.pct : -999;
+          bv = b.form ? b.form.last5.pct : -999;
+          break;
+      }
+      return sortDir === 'desc' ? bv - av : av - bv;
+    });
+    return f;
+  }, [divPlayers, minGames, sortKey, sortDir]);
+
+  function handleSort(key: SortKey) {
+    if (sortKey === key) setSortDir(d => (d === 'desc' ? 'asc' : 'desc'));
+    else {
+      setSortKey(key);
+      setSortDir('desc');
+    }
+  }
+
+  function sortIndicator(key: SortKey) {
+    if (sortKey !== key) return '';
+    return sortDir === 'desc' ? ' \u25BC' : ' \u25B2';
+  }
 
   return (
     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
@@ -62,10 +115,36 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
               <th className="text-left p-2">#</th>
               <th className="text-left p-2">Player</th>
               <th className="text-left p-2">Team</th>
-              <th className="text-center p-2">25/26 P</th>
-              <th className="text-center p-2">25/26 W</th>
-              <th className="text-center p-2">25/26 Win%</th>
-              <th className="text-right p-2">24/25 Rtg</th>
+              <th className="text-center p-2">P</th>
+              <th className="text-center p-2">W</th>
+              <th
+                className="text-center p-2 cursor-pointer hover:text-white select-none"
+                onClick={() => handleSort('pct')}
+              >
+                Win%{sortIndicator('pct')}
+              </th>
+              <th
+                className="text-center p-2 cursor-pointer hover:text-white select-none"
+                onClick={() => handleSort('form')}
+                title="Last 5 games form"
+              >
+                Form{sortIndicator('form')}
+              </th>
+              <th
+                className="text-center p-2 cursor-pointer hover:text-white select-none"
+                onClick={() => handleSort('bdF')}
+                title="Break & Dish for rate"
+              >
+                BD+{sortIndicator('bdF')}
+              </th>
+              <th
+                className="text-center p-2 cursor-pointer hover:text-white select-none"
+                onClick={() => handleSort('bdA')}
+                title="Break & Dish against rate"
+              >
+                BD-{sortIndicator('bdA')}
+              </th>
+              <th className="text-right p-2">Rtg</th>
             </tr>
           </thead>
           <tbody>
@@ -89,6 +168,31 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
                 <td className="p-2 text-center">{p.s2526!.p}</td>
                 <td className="p-2 text-center text-green-400">{p.s2526!.w}</td>
                 <td className="p-2 text-center font-bold">{p.s2526!.pct.toFixed(1)}%</td>
+                <td className="p-2 text-center">
+                  {p.form ? (
+                    <span
+                      className={
+                        p.form.trend === 'hot'
+                          ? 'text-green-400 font-bold'
+                          : p.form.trend === 'cold'
+                            ? 'text-red-400 font-bold'
+                            : 'text-gray-400'
+                      }
+                      title={`Last 5: ${p.form.last5.pct.toFixed(0)}% | Season: ${p.form.seasonPct.toFixed(0)}%`}
+                    >
+                      {p.form.trend === 'hot' ? '\u2191' : p.form.trend === 'cold' ? '\u2193' : '\u2022'}{' '}
+                      {p.form.last5.pct.toFixed(0)}%
+                    </span>
+                  ) : (
+                    <span className="text-gray-600">-</span>
+                  )}
+                </td>
+                <td className="p-2 text-center text-green-400">
+                  {p.bdFRate.toFixed(2)}
+                </td>
+                <td className="p-2 text-center text-red-400">
+                  {p.bdARate.toFixed(2)}
+                </td>
                 <td
                   className={
                     'p-2 text-right ' +

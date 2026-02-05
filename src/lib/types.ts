@@ -183,6 +183,46 @@ export interface SeasonData {
   lastSyncedFrom: string;
 }
 
+// Tactical edge types
+
+export interface PlayerFormData {
+  last5: { p: number; w: number; pct: number };
+  last10: { p: number; w: number; pct: number };
+  seasonPct: number;
+  trend: 'hot' | 'cold' | 'steady';
+}
+
+export interface HomeAwaySplit {
+  home: { p: number; w: number; pct: number };
+  away: { p: number; w: number; pct: number };
+}
+
+export interface TeamHomeAwaySplit {
+  home: { p: number; w: number; d: number; l: number; f: number; a: number; winPct: number };
+  away: { p: number; w: number; d: number; l: number; f: number; a: number; winPct: number };
+}
+
+export interface H2HRecord {
+  playerA: string;
+  playerB: string;
+  wins: number;   // A's wins
+  losses: number; // A's losses
+  details: { date: string; winner: string }[];
+}
+
+export interface SetPerformance {
+  set1: { won: number; played: number; pct: number };
+  set2: { won: number; played: number; pct: number };
+  bias: number; // positive = stronger in set 1
+}
+
+export interface BDStats {
+  bdFRate: number;   // B&D for per game
+  bdARate: number;   // B&D against per game
+  netBD: number;     // bdF - bdA
+  forfRate: number;  // forfeits per game
+}
+
 // AI types
 export interface MatchAnalysisInput {
   homeTeam: string;

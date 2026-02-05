@@ -1,6 +1,8 @@
 'use client';
 
-import { getPlayerStats, getPlayerStats2526, getPlayerTeams } from '@/lib/predictions';
+import { useMemo } from 'react';
+import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway } from '@/lib/predictions';
+import { useLeagueData } from '@/lib/data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 
 interface PlayerDetailProps {
@@ -19,6 +21,22 @@ export default function PlayerDetail({
   const stats = getPlayerStats(player);
   const stats2526 = getPlayerStats2526(player);
   const playerTeams = getPlayerTeams(player);
+  const { data: leagueData } = useLeagueData();
+
+  const form = useMemo(
+    () => leagueData.frames.length > 0 ? calcPlayerForm(player, leagueData.frames) : null,
+    [player, leagueData.frames]
+  );
+
+  const frameHistory = useMemo(
+    () => leagueData.frames.length > 0 ? getPlayerFrameHistory(player, leagueData.frames) : [],
+    [player, leagueData.frames]
+  );
+
+  const homeAway = useMemo(
+    () => leagueData.frames.length > 0 ? calcPlayerHomeAway(player, leagueData.frames) : null,
+    [player, leagueData.frames]
+  );
 
   return (
     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
@@ -45,6 +63,97 @@ export default function PlayerDetail({
             </span>
           ))}
         </p>
+      )}
+
+      {/* Player Form Trend */}
+      {form && (
+        <div className="mb-6">
+          <h3 className="font-bold text-sm mb-3 text-gray-300">
+            Form{' '}
+            <span
+              className={
+                form.trend === 'hot'
+                  ? 'text-green-400'
+                  : form.trend === 'cold'
+                    ? 'text-red-400'
+                    : 'text-gray-500'
+              }
+            >
+              ({form.trend === 'hot' ? '\u2191 Hot' : form.trend === 'cold' ? '\u2193 Cold' : 'Steady'})
+            </span>
+          </h3>
+          <div className="grid grid-cols-3 gap-3 mb-3">
+            <div className="bg-gray-700 rounded-lg p-3 text-center">
+              <div className="text-lg font-bold text-blue-400">{form.last5.pct.toFixed(0)}%</div>
+              <div className="text-xs text-gray-400">Last 5 ({form.last5.w}/{form.last5.p})</div>
+              <div className="w-full bg-gray-600 rounded-full h-1.5 mt-1">
+                <div
+                  className="bg-blue-400 h-1.5 rounded-full"
+                  style={{ width: form.last5.pct + '%' }}
+                />
+              </div>
+            </div>
+            <div className="bg-gray-700 rounded-lg p-3 text-center">
+              <div className="text-lg font-bold text-purple-400">{form.last10.pct.toFixed(0)}%</div>
+              <div className="text-xs text-gray-400">Last 10 ({form.last10.w}/{form.last10.p})</div>
+              <div className="w-full bg-gray-600 rounded-full h-1.5 mt-1">
+                <div
+                  className="bg-purple-400 h-1.5 rounded-full"
+                  style={{ width: form.last10.pct + '%' }}
+                />
+              </div>
+            </div>
+            <div className="bg-gray-700 rounded-lg p-3 text-center">
+              <div className="text-lg font-bold text-gray-300">{form.seasonPct.toFixed(0)}%</div>
+              <div className="text-xs text-gray-400">Season</div>
+              <div className="w-full bg-gray-600 rounded-full h-1.5 mt-1">
+                <div
+                  className="bg-gray-400 h-1.5 rounded-full"
+                  style={{ width: form.seasonPct + '%' }}
+                />
+              </div>
+            </div>
+          </div>
+          {/* Recent frame history */}
+          {frameHistory.length > 0 && (
+            <div className="space-y-0.5">
+              <div className="text-xs text-gray-500 mb-1">Recent frames:</div>
+              {frameHistory.slice(0, 10).map((f, i) => (
+                <div key={i} className="flex items-center text-xs gap-2">
+                  <span className="text-gray-500 w-20 shrink-0">{f.date}</span>
+                  <span
+                    className={
+                      'w-4 font-bold ' + (f.won ? 'text-green-400' : 'text-red-400')
+                    }
+                  >
+                    {f.won ? 'W' : 'L'}
+                  </span>
+                  <span className="text-gray-400">vs {f.opponent}</span>
+                  {f.breakDish && (
+                    <span className="text-amber-400 text-[10px]">BD</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Home/Away Split */}
+      {homeAway && (homeAway.home.p > 0 || homeAway.away.p > 0) && (
+        <div className="mb-6">
+          <h3 className="font-bold text-sm mb-3 text-gray-300">Home / Away Split</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-gray-700 rounded-lg p-3 text-center">
+              <div className="text-lg font-bold text-green-400">{homeAway.home.pct.toFixed(0)}%</div>
+              <div className="text-xs text-gray-400">Home ({homeAway.home.w}/{homeAway.home.p})</div>
+            </div>
+            <div className="bg-gray-700 rounded-lg p-3 text-center">
+              <div className="text-lg font-bold text-red-400">{homeAway.away.pct.toFixed(0)}%</div>
+              <div className="text-xs text-gray-400">Away ({homeAway.away.w}/{homeAway.away.p})</div>
+            </div>
+          </div>
+        </div>
       )}
 
       {stats2526 && (

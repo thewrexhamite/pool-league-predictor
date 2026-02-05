@@ -15,6 +15,13 @@ import type {
   RostersMap,
   Players2526Map,
   PlayerTeamStats2526,
+  FrameData,
+  PlayerFormData,
+  HomeAwaySplit,
+  TeamHomeAwaySplit,
+  H2HRecord,
+  SetPerformance,
+  BDStats,
 } from './types';
 import {
   DIVISIONS as STATIC_DIVISIONS,
@@ -499,6 +506,230 @@ export function runSeasonSimulation(
       ).toFixed(1),
     }))
     .sort((a, b) => parseFloat(b.avgPts) - parseFloat(a.avgPts));
+}
+
+// ── Feature 5: Break & Dish Intelligence ──
+
+export function calcBDStats(stats: PlayerTeamStats2526): BDStats {
+  const p = stats.p || 1;
+  return {
+    bdFRate: stats.bdF / p,
+    bdARate: stats.bdA / p,
+    netBD: stats.bdF - stats.bdA,
+    forfRate: stats.forf / p,
+  };
+}
+
+export function calcTeamBDStats(team: string, players2526: Players2526Map): BDStats {
+  let totalP = 0;
+  let totalBdF = 0;
+  let totalBdA = 0;
+  let totalForf = 0;
+  for (const data of Object.values(players2526)) {
+    const entry = data.teams.find(t => t.team === team);
+    if (entry) {
+      totalP += entry.p;
+      totalBdF += entry.bdF;
+      totalBdA += entry.bdA;
+      totalForf += entry.forf;
+    }
+  }
+  const p = totalP || 1;
+  return {
+    bdFRate: totalBdF / p,
+    bdARate: totalBdA / p,
+    netBD: totalBdF - totalBdA,
+    forfRate: totalForf / p,
+  };
+}
+
+// ── Feature 2: Home/Away Performance Split ──
+
+export function calcTeamHomeAway(team: string, results: MatchResult[]): TeamHomeAwaySplit {
+  const home = { p: 0, w: 0, d: 0, l: 0, f: 0, a: 0, winPct: 0 };
+  const away = { p: 0, w: 0, d: 0, l: 0, f: 0, a: 0, winPct: 0 };
+  for (const r of results) {
+    if (r.home === team) {
+      home.p++;
+      home.f += r.home_score;
+      home.a += r.away_score;
+      if (r.home_score > r.away_score) home.w++;
+      else if (r.home_score < r.away_score) home.l++;
+      else home.d++;
+    } else if (r.away === team) {
+      away.p++;
+      away.f += r.away_score;
+      away.a += r.home_score;
+      if (r.away_score > r.home_score) away.w++;
+      else if (r.away_score < r.home_score) away.l++;
+      else away.d++;
+    }
+  }
+  home.winPct = home.p > 0 ? (home.w / home.p) * 100 : 0;
+  away.winPct = away.p > 0 ? (away.w / away.p) * 100 : 0;
+  return { home, away };
+}
+
+export function calcPlayerHomeAway(player: string, frames: FrameData[]): HomeAwaySplit {
+  const home = { p: 0, w: 0, pct: 0 };
+  const away = { p: 0, w: 0, pct: 0 };
+  for (const match of frames) {
+    for (const f of match.frames) {
+      if (f.homePlayer === player) {
+        home.p++;
+        if (f.winner === 'home') home.w++;
+      } else if (f.awayPlayer === player) {
+        away.p++;
+        if (f.winner === 'away') away.w++;
+      }
+    }
+  }
+  home.pct = home.p > 0 ? (home.w / home.p) * 100 : 0;
+  away.pct = away.p > 0 ? (away.w / away.p) * 100 : 0;
+  return { home, away };
+}
+
+// ── Feature 1: Player Form Trend ──
+
+export function getPlayerFrameHistory(
+  player: string,
+  frames: FrameData[]
+): { date: string; won: boolean; opponent: string; breakDish: boolean }[] {
+  const history: { date: string; won: boolean; opponent: string; breakDish: boolean; sortDate: string }[] = [];
+  for (const match of frames) {
+    for (const f of match.frames) {
+      if (f.homePlayer === player) {
+        history.push({
+          date: match.date,
+          won: f.winner === 'home',
+          opponent: f.awayPlayer,
+          breakDish: f.breakDish,
+          sortDate: parseDate(match.date),
+        });
+      } else if (f.awayPlayer === player) {
+        history.push({
+          date: match.date,
+          won: f.winner === 'away',
+          opponent: f.homePlayer,
+          breakDish: f.breakDish,
+          sortDate: parseDate(match.date),
+        });
+      }
+    }
+  }
+  history.sort((a, b) => b.sortDate.localeCompare(a.sortDate));
+  return history.map(({ sortDate: _, ...rest }) => rest);
+}
+
+export function calcPlayerForm(player: string, frames: FrameData[]): PlayerFormData | null {
+  const history = getPlayerFrameHistory(player, frames);
+  if (history.length === 0) return null;
+  const last5 = history.slice(0, 5);
+  const last10 = history.slice(0, 10);
+  const l5w = last5.filter(h => h.won).length;
+  const l10w = last10.filter(h => h.won).length;
+  const totalW = history.filter(h => h.won).length;
+  const seasonPct = (totalW / history.length) * 100;
+  const l5pct = last5.length > 0 ? (l5w / last5.length) * 100 : 0;
+
+  let trend: 'hot' | 'cold' | 'steady' = 'steady';
+  if (last5.length >= 3) {
+    if (l5pct > seasonPct + 15) trend = 'hot';
+    else if (l5pct < seasonPct - 15) trend = 'cold';
+  }
+
+  return {
+    last5: { p: last5.length, w: l5w, pct: l5pct },
+    last10: { p: last10.length, w: l10w, pct: last10.length > 0 ? (l10w / last10.length) * 100 : 0 },
+    seasonPct,
+    trend,
+  };
+}
+
+// ── Feature 4: Set 1 vs Set 2 Analysis ──
+
+export function calcSetPerformance(team: string, frames: FrameData[]): SetPerformance {
+  const set1 = { won: 0, played: 0, pct: 0 };
+  const set2 = { won: 0, played: 0, pct: 0 };
+  for (const match of frames) {
+    const isHome = match.home === team;
+    const isAway = match.away === team;
+    if (!isHome && !isAway) continue;
+    for (const f of match.frames) {
+      const inSet1 = f.frameNum <= 5;
+      const target = inSet1 ? set1 : set2;
+      target.played++;
+      const won = (isHome && f.winner === 'home') || (isAway && f.winner === 'away');
+      if (won) target.won++;
+    }
+  }
+  set1.pct = set1.played > 0 ? (set1.won / set1.played) * 100 : 0;
+  set2.pct = set2.played > 0 ? (set2.won / set2.played) * 100 : 0;
+  return { set1, set2, bias: set1.pct - set2.pct };
+}
+
+// ── Feature 3: Head-to-Head Matchup Lookup ──
+
+export function getH2HRecord(playerA: string, playerB: string, frames: FrameData[]): H2HRecord {
+  const details: { date: string; winner: string }[] = [];
+  let wins = 0;
+  let losses = 0;
+  for (const match of frames) {
+    for (const f of match.frames) {
+      const aIsHome = f.homePlayer === playerA && f.awayPlayer === playerB;
+      const aIsAway = f.homePlayer === playerB && f.awayPlayer === playerA;
+      if (!aIsHome && !aIsAway) continue;
+      const aWon = (aIsHome && f.winner === 'home') || (aIsAway && f.winner === 'away');
+      if (aWon) wins++;
+      else losses++;
+      details.push({
+        date: match.date,
+        winner: aWon ? playerA : playerB,
+      });
+    }
+  }
+  details.sort((a, b) => parseDate(b.date).localeCompare(parseDate(a.date)));
+  return { playerA, playerB, wins, losses, details };
+}
+
+export function getSquadH2H(
+  teamA: string,
+  teamB: string,
+  frames: FrameData[],
+  rosters: RostersMap
+): H2HRecord[] {
+  // Collect all players who have played for each team from frame data
+  const teamAPlayers = new Set<string>();
+  const teamBPlayers = new Set<string>();
+  for (const match of frames) {
+    for (const f of match.frames) {
+      if (match.home === teamA || match.away === teamA) {
+        if (match.home === teamA) teamAPlayers.add(f.homePlayer);
+        else teamAPlayers.add(f.awayPlayer);
+      }
+      if (match.home === teamB || match.away === teamB) {
+        if (match.home === teamB) teamBPlayers.add(f.homePlayer);
+        else teamBPlayers.add(f.awayPlayer);
+      }
+    }
+  }
+  // Also include rostered players
+  for (const [key, roster] of Object.entries(rosters)) {
+    const rosterTeam = key.split(':').slice(1).join(':');
+    if (rosterTeam === teamA) roster.forEach(p => teamAPlayers.add(p));
+    if (rosterTeam === teamB) roster.forEach(p => teamBPlayers.add(p));
+  }
+
+  const records: H2HRecord[] = [];
+  for (const pA of teamAPlayers) {
+    for (const pB of teamBPlayers) {
+      const record = getH2HRecord(pA, pB, frames);
+      if (record.wins + record.losses > 0) {
+        records.push(record);
+      }
+    }
+  }
+  return records.sort((a, b) => (b.wins + b.losses) - (a.wins + a.losses));
 }
 
 export { STATIC_DIVISIONS as DIVISIONS };
