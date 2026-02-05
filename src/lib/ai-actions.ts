@@ -3,6 +3,7 @@
 import { analyzeMatch } from '@/ai/flows/match-analysis';
 import { answerLeagueQuestion } from '@/ai/flows/natural-language';
 import { generatePlayerInsight } from '@/ai/flows/player-insights';
+import { generateTeamReport } from '@/ai/flows/team-report';
 import {
   calcStandings,
   calcTeamStrength,
@@ -15,7 +16,7 @@ import {
   getTeamPlayers,
 } from '@/lib/predictions';
 import { DIVISIONS, RESULTS } from '@/lib/data';
-import type { DivisionCode } from '@/lib/types';
+import type { DivisionCode, TeamReportData, TeamReportOutput } from '@/lib/types';
 
 export async function analyzeMatchAction(homeTeam: string, awayTeam: string) {
   if (!process.env.GEMINI_API_KEY) {
@@ -167,5 +168,19 @@ export async function getPlayerInsightAction(playerName: string) {
   } catch (error) {
     console.error('AI player insight error:', error);
     throw new Error('Failed to generate player insight. Please try again.');
+  }
+}
+
+export async function generateTeamReportAction(input: TeamReportData): Promise<TeamReportOutput> {
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error('AI features are not configured. Please set GEMINI_API_KEY.');
+  }
+
+  try {
+    const result = await generateTeamReport(input);
+    return result;
+  } catch (error) {
+    console.error('AI team report error:', error);
+    throw new Error('Failed to generate team report. Please try again.');
   }
 }

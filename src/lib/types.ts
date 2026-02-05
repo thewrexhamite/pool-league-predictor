@@ -283,6 +283,41 @@ export interface LineupSuggestion {
   insights: string[];
 }
 
+// Team report types
+export interface TeamReportData {
+  teamName: string;
+  divisionName: string;
+  position: number;
+  totalTeams: number;
+  standing: { p: number; w: number; d: number; l: number; f: number; a: number; pts: number; diff: number };
+  form: ('W' | 'L' | 'D')[];
+  recentResults: { opponent: string; teamScore: number; oppScore: number; result: 'W' | 'L' | 'D'; isHome: boolean }[];
+  homeAway: { home: { p: number; w: number; d: number; l: number; winPct: number }; away: { p: number; w: number; d: number; l: number; winPct: number } };
+  playerSummaries: { name: string; played: number; winPct: number; adjPct: number; trend: 'hot' | 'cold' | 'steady' | null; category: 'core' | 'rotation' | 'fringe' | null }[];
+  setPerformance: { set1Pct: number; set2Pct: number; bias: number } | null;
+  bdStats: { bdFRate: number; bdARate: number; netBD: number; forfRate: number };
+  nextOpponent: string | null;
+  nextIsHome: boolean | null;
+  gapToLeader: number;
+  gapToSafety: number;
+}
+
+export interface TeamReportOutput {
+  overallAssessment: string;
+  playerPerformances: string;
+  trends: string;
+  statsHighlights: string;
+  outlook: string;
+}
+
+export interface StoredTeamReport {
+  id: string;
+  teamName: string;
+  divisionCode: DivisionCode;
+  generatedAt: number;
+  report: TeamReportOutput;
+}
+
 // AI types
 export interface MatchAnalysisInput {
   homeTeam: string;

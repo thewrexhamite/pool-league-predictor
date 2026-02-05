@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
+import MyTeamDashboard from './MyTeamDashboard';
 import {
   getRemainingFixtures,
   getTeamResults,
@@ -144,6 +145,17 @@ export default function DashboardTab({
 
   return (
     <div className="space-y-4">
+      {myTeam && myTeam.div === selectedDiv && (
+        <MyTeamDashboard
+          team={myTeam.team}
+          div={myTeam.div}
+          standings={standings}
+          onTeamClick={onTeamClick}
+          onPlayerClick={onPlayerClick}
+          onPredict={onPredict}
+        />
+      )}
+
       {/* Season Progress */}
       <div className="bg-surface-card rounded-card shadow-card p-4">
         <div className="flex items-center justify-between mb-2">

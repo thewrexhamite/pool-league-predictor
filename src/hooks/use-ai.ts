@@ -5,7 +5,9 @@ import {
   analyzeMatchAction,
   askQuestionAction,
   getPlayerInsightAction,
+  generateTeamReportAction,
 } from '@/lib/ai-actions';
+import type { TeamReportData, TeamReportOutput } from '@/lib/types';
 
 export function useAI() {
   const [isLoading, setIsLoading] = useState(false);
@@ -64,10 +66,26 @@ export function useAI() {
     }
   };
 
+  const generateTeamReport = async (input: TeamReportData): Promise<TeamReportOutput | null> => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await generateTeamReportAction(input);
+      return result;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to generate team report';
+      setError(message);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     analyzeMatch,
     askQuestion,
     getPlayerInsight,
+    generateTeamReport,
     isLoading,
     error,
   };
