@@ -1,1 +1,872 @@
-[{"date":"08-02-2026","home":"Brymbo Sports","away":"Rollers B","division":"SD2"},{"date":"08-02-2026","home":"Cross Foxes Coedpoeth","away":"Magnet B","division":"SD2"},{"date":"08-02-2026","home":"Four Dogs A","away":"The Drunk Monk","division":"SD2"},{"date":"08-02-2026","home":"Gwersyllt Club","away":"Gresford Colliery","division":"SD1"},{"date":"08-02-2026","home":"Johnstown Legion","away":"Red Lion Marchweil","division":"SD1"},{"date":"08-02-2026","home":"Magnet A","away":"Breakroom Llay","division":"SD1"},{"date":"08-02-2026","home":"Miners Brymbo","away":"Gwersyllt WMC","division":"SD1"},{"date":"08-02-2026","home":"Old Black Horse","away":"Sun Rhos","division":"SD2"},{"date":"08-02-2026","home":"Rhos Snooker Club","away":"Four Dogs B","division":"SD2"},{"date":"11-02-2026","home":"Breakroom Lions.","away":"War Memorial A","division":"WD1"},{"date":"11-02-2026","home":"Golden Lion Wxm","away":"Miners Brymbo.","division":"WD1"},{"date":"11-02-2026","home":"Colliers Dogs","away":"Golden Lion Cp","division":"WD1"},{"date":"11-02-2026","home":"Gresford Legion","away":"Greyhound","division":"WD2"},{"date":"11-02-2026","home":"Gwersyllt Union","away":"Gwersyllt Club.","division":"WD1"},{"date":"11-02-2026","home":"Kings Mills","away":"Ruabon Cons B","division":"WD2"},{"date":"11-02-2026","home":"Ruabon Cons A","away":"Hafod Club Rhos","division":"WD2"},{"date":"11-02-2026","home":"White Lion Hope","away":"Crown Caergwrle","division":"WD2"},{"date":"11-02-2026","home":"Y Tai.","away":"Plough Gresford","division":"WD2"},{"date":"15-02-2026","home":"Breakroom Llay","away":"Gwersyllt WMC","division":"SD1"},{"date":"15-02-2026","home":"Cross Foxes Coedpoeth","away":"Rollers A","division":"SD2"},{"date":"15-02-2026","home":"Old Black Horse","away":"Brymbo Sports","division":"SD2"},{"date":"18-02-2026","home":"Golden Lion Wxm","away":"Hill Street Social","division":"WD1"},{"date":"18-02-2026","home":"Greyhound","away":"Ruabon Cons A","division":"WD2"},{"date":"18-02-2026","home":"Miners Brymbo.","away":"Breakroom Lions.","division":"WD1"},{"date":"18-02-2026","home":"Ruabon Cons B","away":"Crown Caergwrle","division":"WD2"},{"date":"18-02-2026","home":"War Memorial A","away":"Gwersyllt Club.","division":"WD1"},{"date":"01-03-2026","home":"Breakroom Lions","away":"Johnstown Legion","division":"SD1"},{"date":"01-03-2026","home":"Cross Foxes Coedpoeth","away":"Rhos Snooker Club","division":"SD2"},{"date":"01-03-2026","home":"Four Dogs B","away":"Brymbo Sports","division":"SD2"},{"date":"01-03-2026","home":"Gwersyllt WMC","away":"Magnet A","division":"SD1"},{"date":"01-03-2026","home":"Magnet B","away":"Four Dogs A","division":"SD2"},{"date":"01-03-2026","home":"Red Lion Marchweil","away":"Breakroom Llay","division":"SD1"},{"date":"01-03-2026","home":"Rollers A","away":"Old Black Horse","division":"SD2"},{"date":"01-03-2026","home":"Sun Rhos","away":"Rollers B","division":"SD2"},{"date":"01-03-2026","home":"Y Tai","away":"Gwersyllt Club","division":"SD1"},{"date":"04-03-2026","home":"Crown Caergwrle","away":"Kings Mills","division":"WD2"},{"date":"04-03-2026","home":"Crown Summerhill","away":"Hill Street Social","division":"WD1"},{"date":"04-03-2026","home":"Greyhound","away":"War Memorial B","division":"WD2"},{"date":"04-03-2026","home":"Gwersyllt Club.","away":"Colliers Dogs","division":"WD1"},{"date":"04-03-2026","home":"Hafod Club Rhos","away":"White Lion Hope","division":"WD2"},{"date":"04-03-2026","home":"Miners Brymbo.","away":"Gwersyllt Union","division":"WD1"},{"date":"04-03-2026","home":"Plough Gresford","away":"Ruabon Cons A","division":"WD2"},{"date":"04-03-2026","home":"Ruabon Cons B","away":"Gresford Legion","division":"WD2"},{"date":"04-03-2026","home":"War Memorial A","away":"Golden Lion Wxm","division":"WD1"},{"date":"08-03-2026","home":"Four Dogs B","away":"Old Black Horse","division":"SD2"},{"date":"08-03-2026","home":"Gresford Colliery","away":"Magnet A","division":"SD1"},{"date":"08-03-2026","home":"Gwersyllt WMC","away":"Johnstown Legion","division":"SD1"},{"date":"08-03-2026","home":"Magnet B","away":"Rhos Snooker Club","division":"SD2"},{"date":"08-03-2026","home":"Red Lion Marchweil","away":"Gwersyllt Club","division":"SD1"},{"date":"08-03-2026","home":"Rollers A","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"08-03-2026","home":"Sun Rhos","away":"Four Dogs A","division":"SD2"},{"date":"08-03-2026","home":"The Drunk Monk","away":"Brymbo Sports","division":"SD2"},{"date":"08-03-2026","home":"Y Tai","away":"Miners Brymbo","division":"SD1"},{"date":"11-03-2026","home":"Crown Caergwrle","away":"Ruabon Cons A","division":"WD2"},{"date":"11-03-2026","home":"Crown Summerhill","away":"Colliers Dogs","division":"WD1"},{"date":"11-03-2026","home":"Golden Lion Cp","away":"Gwersyllt Union","division":"WD1"},{"date":"11-03-2026","home":"Greyhound","away":"Kings Mills","division":"WD2"},{"date":"11-03-2026","home":"Gwersyllt Club.","away":"Golden Lion Wxm","division":"WD1"},{"date":"11-03-2026","home":"Hafod Club Rhos","away":"Y Tai.","division":"WD2"},{"date":"11-03-2026","home":"Miners Brymbo.","away":"Breakroom Lions.","division":"WD1"},{"date":"11-03-2026","home":"War Memorial B","away":"Gresford Legion","division":"WD2"},{"date":"15-03-2026","home":"Breakroom Llay","away":"Miners Brymbo","division":"SD1"},{"date":"15-03-2026","home":"Brymbo Sports","away":"Old Black Horse","division":"SD2"},{"date":"15-03-2026","home":"Four Dogs B","away":"Magnet B","division":"SD2"},{"date":"15-03-2026","home":"Gwersyllt WMC","away":"Y Tai","division":"SD1"},{"date":"15-03-2026","home":"Magnet A","away":"Johnstown Legion","division":"SD1"},{"date":"15-03-2026","home":"Red Lion Marchweil","away":"Breakroom Lions","division":"SD1"},{"date":"15-03-2026","home":"Rollers B","away":"Rhos Snooker Club","division":"SD2"},{"date":"15-03-2026","home":"Sun Rhos","away":"Rollers A","division":"SD2"},{"date":"15-03-2026","home":"The Drunk Monk","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"18-03-2026","home":"Breakroom Lions.","away":"Gwersyllt Union","division":"WD1"},{"date":"18-03-2026","home":"Crown Caergwrle","away":"War Memorial B","division":"WD2"},{"date":"18-03-2026","home":"Golden Lion Cp","away":"Crown Summerhill","division":"WD1"},{"date":"18-03-2026","home":"Gwersyllt Club.","away":"Hill Street Social","division":"WD1"},{"date":"18-03-2026","home":"Hafod Club Rhos","away":"Gresford Legion","division":"WD2"},{"date":"18-03-2026","home":"Plough Gresford","away":"Kings Mills","division":"WD2"},{"date":"18-03-2026","home":"Ruabon Cons B","away":"Greyhound","division":"WD2"},{"date":"18-03-2026","home":"War Memorial A","away":"Colliers Dogs","division":"WD1"},{"date":"18-03-2026","home":"Y Tai.","away":"White Lion Hope","division":"WD2"},{"date":"22-03-2026","home":"Breakroom Lions","away":"Gresford Colliery","division":"SD1"},{"date":"22-03-2026","home":"Cross Foxes Coedpoeth","away":"Rollers B","division":"SD2"},{"date":"22-03-2026","home":"Johnstown Legion","away":"Gwersyllt Club","division":"SD1"},{"date":"22-03-2026","home":"Magnet B","away":"Sun Rhos","division":"SD2"},{"date":"22-03-2026","home":"Miners Brymbo","away":"Magnet A","division":"SD1"},{"date":"22-03-2026","home":"Old Black Horse","away":"Four Dogs A","division":"SD2"},{"date":"22-03-2026","home":"Rhos Snooker Club","away":"Brymbo Sports","division":"SD2"},{"date":"22-03-2026","home":"Rollers A","away":"The Drunk Monk","division":"SD2"},{"date":"22-03-2026","home":"Y Tai","away":"Red Lion Marchweil","division":"SD1"},{"date":"25-03-2026","home":"Crown Summerhill","away":"Gwersyllt Club.","division":"WD1"},{"date":"25-03-2026","home":"Colliers Dogs","away":"Breakroom Lions.","division":"WD1"},{"date":"25-03-2026","home":"Gresford Legion","away":"Plough Gresford","division":"WD2"},{"date":"25-03-2026","home":"Greyhound","away":"Crown Caergwrle","division":"WD2"},{"date":"25-03-2026","home":"Gwersyllt Union","away":"Golden Lion Wxm","division":"WD1"},{"date":"25-03-2026","home":"Hill Street Social","away":"Miners Brymbo.","division":"WD1"},{"date":"25-03-2026","home":"Kings Mills","away":"Y Tai.","division":"WD2"},{"date":"25-03-2026","home":"War Memorial B","away":"Hafod Club Rhos","division":"WD2"},{"date":"25-03-2026","home":"White Lion Hope","away":"Ruabon Cons A","division":"WD2"},{"date":"29-03-2026","home":"Breakroom Llay","away":"Breakroom Lions","division":"SD1"},{"date":"29-03-2026","home":"Brymbo Sports","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"29-03-2026","home":"Four Dogs A","away":"Rhos Snooker Club","division":"SD2"},{"date":"29-03-2026","home":"Gresford Colliery","away":"Y Tai","division":"SD1"},{"date":"29-03-2026","home":"Gwersyllt Club","away":"Miners Brymbo","division":"SD1"},{"date":"29-03-2026","home":"Red Lion Marchweil","away":"Gwersyllt WMC","division":"SD1"},{"date":"29-03-2026","home":"Rollers B","away":"Rollers A","division":"SD2"},{"date":"29-03-2026","home":"Sun Rhos","away":"Four Dogs B","division":"SD2"},{"date":"29-03-2026","home":"The Drunk Monk","away":"Magnet B","division":"SD2"},{"date":"01-04-2026","home":"Crown Caergwrle","away":"Ruabon Cons B","division":"WD2"},{"date":"01-04-2026","home":"Golden Lion Wxm","away":"Colliers Dogs","division":"WD1"},{"date":"01-04-2026","home":"Gwersyllt Club.","away":"Golden Lion Cp","division":"WD1"},{"date":"01-04-2026","home":"Hafod Club Rhos","away":"Greyhound","division":"WD2"},{"date":"01-04-2026","home":"Miners Brymbo.","away":"Crown Summerhill","division":"WD1"},{"date":"01-04-2026","home":"Plough Gresford","away":"War Memorial B","division":"WD2"},{"date":"01-04-2026","home":"Ruabon Cons A","away":"Kings Mills","division":"WD2"},{"date":"01-04-2026","home":"War Memorial A","away":"Hill Street Social","division":"WD1"},{"date":"01-04-2026","home":"Y Tai.","away":"Gresford Legion","division":"WD2"},{"date":"22-04-2026","home":"Crown Summerhill","away":"War Memorial A","division":"WD1"},{"date":"22-04-2026","home":"Golden Lion Cp","away":"Miners Brymbo.","division":"WD1"},{"date":"22-04-2026","home":"Colliers Dogs","away":"Gwersyllt Union","division":"WD1"},{"date":"22-04-2026","home":"Gresford Legion","away":"Ruabon Cons A","division":"WD2"},{"date":"22-04-2026","home":"Greyhound","away":"Plough Gresford","division":"WD2"},{"date":"22-04-2026","home":"Hill Street Social","away":"Breakroom Lions.","division":"WD1"},{"date":"22-04-2026","home":"Kings Mills","away":"White Lion Hope","division":"WD2"},{"date":"22-04-2026","home":"Ruabon Cons B","away":"Hafod Club Rhos","division":"WD2"},{"date":"22-04-2026","home":"War Memorial B","away":"Y Tai.","division":"WD2"},{"date":"26-04-2026","home":"Breakroom Lions","away":"Magnet A","division":"SD1"},{"date":"26-04-2026","home":"Cross Foxes Coedpoeth","away":"Four Dogs A","division":"SD2"},{"date":"26-04-2026","home":"Four Dogs B","away":"The Drunk Monk","division":"SD2"},{"date":"26-04-2026","home":"Gwersyllt WMC","away":"Gresford Colliery","division":"SD1"},{"date":"26-04-2026","home":"Magnet B","away":"Rollers B","division":"SD2"},{"date":"26-04-2026","home":"Miners Brymbo","away":"Johnstown Legion","division":"SD1"},{"date":"26-04-2026","home":"Rollers A","away":"Brymbo Sports","division":"SD2"},{"date":"26-04-2026","home":"Y Tai","away":"Breakroom Llay","division":"SD1"},{"date":"29-04-2026","home":"Breakroom Lions.","away":"Crown Summerhill","division":"WD1"},{"date":"29-04-2026","home":"Golden Lion Wxm","away":"Hill Street Social","division":"WD1"},{"date":"29-04-2026","home":"Hafod Club Rhos","away":"Crown Caergwrle","division":"WD2"},{"date":"29-04-2026","home":"Miners Brymbo.","away":"Gwersyllt Club.","division":"WD1"},{"date":"29-04-2026","home":"Plough Gresford","away":"Ruabon Cons B","division":"WD2"},{"date":"29-04-2026","home":"Ruabon Cons A","away":"War Memorial B","division":"WD2"},{"date":"29-04-2026","home":"War Memorial A","away":"Golden Lion Cp","division":"WD1"},{"date":"29-04-2026","home":"White Lion Hope","away":"Gresford Legion","division":"WD2"},{"date":"29-04-2026","home":"Y Tai.","away":"Greyhound","division":"WD2"},{"date":"06-05-2026","home":"Crown Caergwrle","away":"Plough Gresford","division":"WD2"},{"date":"06-05-2026","home":"Crown Summerhill","away":"Golden Lion Wxm","division":"WD1"},{"date":"06-05-2026","home":"Golden Lion Cp","away":"Breakroom Lions.","division":"WD1"},{"date":"06-05-2026","home":"Gresford Legion","away":"Kings Mills","division":"WD2"},{"date":"06-05-2026","home":"Greyhound","away":"Ruabon Cons A","division":"WD2"},{"date":"06-05-2026","home":"Gwersyllt Club.","away":"War Memorial A","division":"WD1"},{"date":"06-05-2026","home":"Hill Street Social","away":"Gwersyllt Union","division":"WD1"},{"date":"06-05-2026","home":"Ruabon Cons B","away":"Y Tai.","division":"WD2"},{"date":"06-05-2026","home":"War Memorial B","away":"White Lion Hope","division":"WD2"},{"date":"10-05-2026","home":"Breakroom Llay","away":"Gwersyllt WMC","division":"SD1"},{"date":"10-05-2026","home":"Brymbo Sports","away":"Magnet B","division":"SD2"},{"date":"10-05-2026","home":"Four Dogs A","away":"Rollers A","division":"SD2"},{"date":"10-05-2026","home":"Gresford Colliery","away":"Red Lion Marchweil","division":"SD1"},{"date":"10-05-2026","home":"Gwersyllt Club","away":"Breakroom Lions","division":"SD1"},{"date":"10-05-2026","home":"Magnet A","away":"Y Tai","division":"SD1"},{"date":"10-05-2026","home":"Old Black Horse","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"10-05-2026","home":"Rollers B","away":"Four Dogs B","division":"SD2"},{"date":"10-05-2026","home":"The Drunk Monk","away":"Sun Rhos","division":"SD2"},{"date":"17-05-2026","home":"Breakroom Lions","away":"Gwersyllt WMC","division":"SD1"},{"date":"17-05-2026","home":"Cross Foxes Coedpoeth","away":"Sun Rhos","division":"SD2"},{"date":"17-05-2026","home":"Four Dogs A","away":"Brymbo Sports","division":"SD2"},{"date":"17-05-2026","home":"Gwersyllt Club","away":"Magnet A","division":"SD1"},{"date":"17-05-2026","home":"Johnstown Legion","away":"Breakroom Llay","division":"SD1"},{"date":"17-05-2026","home":"Miners Brymbo","away":"Gresford Colliery","division":"SD1"},{"date":"17-05-2026","home":"Old Black Horse","away":"Rollers B","division":"SD2"},{"date":"17-05-2026","home":"Rhos Snooker Club","away":"The Drunk Monk","division":"SD2"},{"date":"17-05-2026","home":"Rollers A","away":"Four Dogs B","division":"SD2"},{"date":"27-05-2026","home":"Breakroom Lions.","away":"Gwersyllt Club.","division":"WD1"},{"date":"27-05-2026","home":"Golden Lion Wxm","away":"Golden Lion Cp","division":"WD1"},{"date":"27-05-2026","home":"Colliers Dogs","away":"Hill Street Social","division":"WD1"},{"date":"27-05-2026","home":"Gwersyllt Union","away":"Crown Summerhill","division":"WD1"},{"date":"27-05-2026","home":"Kings Mills","away":"War Memorial B","division":"WD2"},{"date":"27-05-2026","home":"Plough Gresford","away":"Hafod Club Rhos","division":"WD2"},{"date":"27-05-2026","home":"Ruabon Cons A","away":"Ruabon Cons B","division":"WD2"},{"date":"27-05-2026","home":"War Memorial A","away":"Miners Brymbo.","division":"WD1"},{"date":"27-05-2026","home":"White Lion Hope","away":"Greyhound","division":"WD2"},{"date":"27-05-2026","home":"Y Tai.","away":"Crown Caergwrle","division":"WD2"},{"date":"14-06-2026","home":"Breakroom Llay","away":"Gresford Colliery","division":"SD1"},{"date":"14-06-2026","home":"Brymbo Sports","away":"Sun Rhos","division":"SD2"},{"date":"14-06-2026","home":"Four Dogs A","away":"Four Dogs B","division":"SD2"},{"date":"14-06-2026","home":"Gwersyllt Club","away":"Gwersyllt WMC","division":"SD1"},{"date":"14-06-2026","home":"Johnstown Legion","away":"Y Tai","division":"SD1"},{"date":"14-06-2026","home":"Magnet A","away":"Red Lion Marchweil","division":"SD1"},{"date":"14-06-2026","home":"Miners Brymbo","away":"Breakroom Lions","division":"SD1"},{"date":"14-06-2026","home":"Old Black Horse","away":"Magnet B","division":"SD2"},{"date":"14-06-2026","home":"Rhos Snooker Club","away":"Rollers A","division":"SD2"},{"date":"14-06-2026","home":"Rollers B","away":"The Drunk Monk","division":"SD2"}]
+[
+  {
+    "date": "08-02-2026",
+    "home": "Magnet A",
+    "away": "Breakroom Llay",
+    "division": "SD1"
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Gwersyllt Club",
+    "away": "Gresford Colliery",
+    "division": "SD1"
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Johnstown Legion",
+    "away": "Red Lion Marchweil",
+    "division": "SD1"
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Miners Brymbo",
+    "away": "Gwersyllt WMC",
+    "division": "SD1"
+  },
+  {
+    "date": "01-03-2026",
+    "home": "Y Tai",
+    "away": "Gwersyllt Club",
+    "division": "SD1"
+  },
+  {
+    "date": "01-03-2026",
+    "home": "Gwersyllt WMC",
+    "away": "Magnet A",
+    "division": "SD1"
+  },
+  {
+    "date": "01-03-2026",
+    "home": "Red Lion Marchweil",
+    "away": "Breakroom Llay",
+    "division": "SD1"
+  },
+  {
+    "date": "08-03-2026",
+    "home": "Gwersyllt WMC",
+    "away": "Johnstown Legion",
+    "division": "SD1"
+  },
+  {
+    "date": "08-03-2026",
+    "home": "Red Lion Marchweil",
+    "away": "Gwersyllt Club",
+    "division": "SD1"
+  },
+  {
+    "date": "08-03-2026",
+    "home": "Gresford Colliery",
+    "away": "Magnet A",
+    "division": "SD1"
+  },
+  {
+    "date": "15-03-2026",
+    "home": "Magnet A",
+    "away": "Johnstown Legion",
+    "division": "SD1"
+  },
+  {
+    "date": "15-03-2026",
+    "home": "Gwersyllt WMC",
+    "away": "Y Tai",
+    "division": "SD1"
+  },
+  {
+    "date": "15-03-2026",
+    "home": "Red Lion Marchweil",
+    "away": "Breakroom Lions",
+    "division": "SD1"
+  },
+  {
+    "date": "22-03-2026",
+    "home": "Y Tai",
+    "away": "Red Lion Marchweil",
+    "division": "SD1"
+  },
+  {
+    "date": "22-03-2026",
+    "home": "Johnstown Legion",
+    "away": "Gwersyllt Club",
+    "division": "SD1"
+  },
+  {
+    "date": "22-03-2026",
+    "home": "Miners Brymbo",
+    "away": "Magnet A",
+    "division": "SD1"
+  },
+  {
+    "date": "29-03-2026",
+    "home": "Gwersyllt Club",
+    "away": "Miners Brymbo",
+    "division": "SD1"
+  },
+  {
+    "date": "29-03-2026",
+    "home": "Red Lion Marchweil",
+    "away": "Gwersyllt WMC",
+    "division": "SD1"
+  },
+  {
+    "date": "29-03-2026",
+    "home": "Gresford Colliery",
+    "away": "Y Tai",
+    "division": "SD1"
+  },
+  {
+    "date": "26-04-2026",
+    "home": "Y Tai",
+    "away": "Breakroom Llay",
+    "division": "SD1"
+  },
+  {
+    "date": "26-04-2026",
+    "home": "Gwersyllt WMC",
+    "away": "Gresford Colliery",
+    "division": "SD1"
+  },
+  {
+    "date": "26-04-2026",
+    "home": "Miners Brymbo",
+    "away": "Johnstown Legion",
+    "division": "SD1"
+  },
+  {
+    "date": "10-05-2026",
+    "home": "Magnet A",
+    "away": "Y Tai",
+    "division": "SD1"
+  },
+  {
+    "date": "10-05-2026",
+    "home": "Gwersyllt Club",
+    "away": "Breakroom Lions",
+    "division": "SD1"
+  },
+  {
+    "date": "10-05-2026",
+    "home": "Gresford Colliery",
+    "away": "Red Lion Marchweil",
+    "division": "SD1"
+  },
+  {
+    "date": "17-05-2026",
+    "home": "Gwersyllt Club",
+    "away": "Magnet A",
+    "division": "SD1"
+  },
+  {
+    "date": "17-05-2026",
+    "home": "Johnstown Legion",
+    "away": "Breakroom Llay",
+    "division": "SD1"
+  },
+  {
+    "date": "17-05-2026",
+    "home": "Miners Brymbo",
+    "away": "Gresford Colliery",
+    "division": "SD1"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Magnet A",
+    "away": "Red Lion Marchweil",
+    "division": "SD1"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Gwersyllt Club",
+    "away": "Gwersyllt WMC",
+    "division": "SD1"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Johnstown Legion",
+    "away": "Y Tai",
+    "division": "SD1"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Miners Brymbo",
+    "away": "Breakroom Lions",
+    "division": "SD1"
+  },
+  {
+    "date": "04-01-2026",
+    "home": "Old Black Horse",
+    "away": "Rhos Snooker Club",
+    "division": "SD2"
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Four Dogs A",
+    "away": "The Drunk Monk",
+    "division": "SD2"
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Old Black Horse",
+    "away": "Sun Rhos",
+    "division": "SD2"
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Four Dogs B",
+    "division": "SD2"
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Magnet B",
+    "division": "SD2"
+  },
+  {
+    "date": "01-03-2026",
+    "home": "Magnet B",
+    "away": "Four Dogs A",
+    "division": "SD2"
+  },
+  {
+    "date": "01-03-2026",
+    "home": "Four Dogs B",
+    "away": "Brymbo Sports",
+    "division": "SD2"
+  },
+  {
+    "date": "01-03-2026",
+    "home": "Sun Rhos",
+    "away": "Rollers B",
+    "division": "SD2"
+  },
+  {
+    "date": "01-03-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Rhos Snooker Club",
+    "division": "SD2"
+  },
+  {
+    "date": "08-03-2026",
+    "home": "Magnet B",
+    "away": "Rhos Snooker Club",
+    "division": "SD2"
+  },
+  {
+    "date": "08-03-2026",
+    "home": "Four Dogs B",
+    "away": "Old Black Horse",
+    "division": "SD2"
+  },
+  {
+    "date": "08-03-2026",
+    "home": "Sun Rhos",
+    "away": "Four Dogs A",
+    "division": "SD2"
+  },
+  {
+    "date": "08-03-2026",
+    "home": "The Drunk Monk",
+    "away": "Brymbo Sports",
+    "division": "SD2"
+  },
+  {
+    "date": "15-03-2026",
+    "home": "Brymbo Sports",
+    "away": "Old Black Horse",
+    "division": "SD2"
+  },
+  {
+    "date": "15-03-2026",
+    "home": "Four Dogs B",
+    "away": "Magnet B",
+    "division": "SD2"
+  },
+  {
+    "date": "15-03-2026",
+    "home": "Sun Rhos",
+    "away": "Rollers A",
+    "division": "SD2"
+  },
+  {
+    "date": "15-03-2026",
+    "home": "The Drunk Monk",
+    "away": "Cross Foxes Coedpoeth",
+    "division": "SD2"
+  },
+  {
+    "date": "22-03-2026",
+    "home": "Magnet B",
+    "away": "Sun Rhos",
+    "division": "SD2"
+  },
+  {
+    "date": "22-03-2026",
+    "home": "Old Black Horse",
+    "away": "Four Dogs A",
+    "division": "SD2"
+  },
+  {
+    "date": "22-03-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Brymbo Sports",
+    "division": "SD2"
+  },
+  {
+    "date": "22-03-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Rollers B",
+    "division": "SD2"
+  },
+  {
+    "date": "29-03-2026",
+    "home": "Brymbo Sports",
+    "away": "Cross Foxes Coedpoeth",
+    "division": "SD2"
+  },
+  {
+    "date": "29-03-2026",
+    "home": "Four Dogs A",
+    "away": "Rhos Snooker Club",
+    "division": "SD2"
+  },
+  {
+    "date": "29-03-2026",
+    "home": "Sun Rhos",
+    "away": "Four Dogs B",
+    "division": "SD2"
+  },
+  {
+    "date": "29-03-2026",
+    "home": "The Drunk Monk",
+    "away": "Magnet B",
+    "division": "SD2"
+  },
+  {
+    "date": "26-04-2026",
+    "home": "Magnet B",
+    "away": "Rollers B",
+    "division": "SD2"
+  },
+  {
+    "date": "26-04-2026",
+    "home": "Four Dogs B",
+    "away": "The Drunk Monk",
+    "division": "SD2"
+  },
+  {
+    "date": "26-04-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Four Dogs A",
+    "division": "SD2"
+  },
+  {
+    "date": "10-05-2026",
+    "home": "Brymbo Sports",
+    "away": "Magnet B",
+    "division": "SD2"
+  },
+  {
+    "date": "10-05-2026",
+    "home": "Four Dogs A",
+    "away": "Rollers A",
+    "division": "SD2"
+  },
+  {
+    "date": "10-05-2026",
+    "home": "Old Black Horse",
+    "away": "Cross Foxes Coedpoeth",
+    "division": "SD2"
+  },
+  {
+    "date": "10-05-2026",
+    "home": "The Drunk Monk",
+    "away": "Sun Rhos",
+    "division": "SD2"
+  },
+  {
+    "date": "17-05-2026",
+    "home": "Four Dogs A",
+    "away": "Brymbo Sports",
+    "division": "SD2"
+  },
+  {
+    "date": "17-05-2026",
+    "home": "Old Black Horse",
+    "away": "Rollers B",
+    "division": "SD2"
+  },
+  {
+    "date": "17-05-2026",
+    "home": "Rhos Snooker Club",
+    "away": "The Drunk Monk",
+    "division": "SD2"
+  },
+  {
+    "date": "17-05-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Sun Rhos",
+    "division": "SD2"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Brymbo Sports",
+    "away": "Sun Rhos",
+    "division": "SD2"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Four Dogs A",
+    "away": "Four Dogs B",
+    "division": "SD2"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Old Black Horse",
+    "away": "Magnet B",
+    "division": "SD2"
+  },
+  {
+    "date": "14-06-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Rollers A",
+    "division": "SD2"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Breakroom Lions.",
+    "away": "War Memorial A",
+    "division": "WD1"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Golden Lion Wxm",
+    "away": "Miners Brymbo.",
+    "division": "WD1"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Gwersyllt Union",
+    "away": "Gwersyllt Club.",
+    "division": "WD1"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Colliers Dogs",
+    "away": "Golden Lion Cp",
+    "division": "WD1"
+  },
+  {
+    "date": "04-03-2026",
+    "home": "Crown Summerhill",
+    "away": "Hill Street Social",
+    "division": "WD1"
+  },
+  {
+    "date": "04-03-2026",
+    "home": "Gwersyllt Club.",
+    "away": "Colliers Dogs",
+    "division": "WD1"
+  },
+  {
+    "date": "04-03-2026",
+    "home": "Miners Brymbo.",
+    "away": "Gwersyllt Union",
+    "division": "WD1"
+  },
+  {
+    "date": "11-03-2026",
+    "home": "Golden Lion Cp",
+    "away": "Gwersyllt Union",
+    "division": "WD1"
+  },
+  {
+    "date": "11-03-2026",
+    "home": "Gwersyllt Club.",
+    "away": "Golden Lion Wxm",
+    "division": "WD1"
+  },
+  {
+    "date": "11-03-2026",
+    "home": "Miners Brymbo.",
+    "away": "Breakroom Lions.",
+    "division": "WD1"
+  },
+  {
+    "date": "18-03-2026",
+    "home": "Breakroom Lions.",
+    "away": "Gwersyllt Union",
+    "division": "WD1"
+  },
+  {
+    "date": "18-03-2026",
+    "home": "Golden Lion Cp",
+    "away": "Crown Summerhill",
+    "division": "WD1"
+  },
+  {
+    "date": "18-03-2026",
+    "home": "Gwersyllt Club.",
+    "away": "Hill Street Social",
+    "division": "WD1"
+  },
+  {
+    "date": "25-03-2026",
+    "home": "Crown Summerhill",
+    "away": "Gwersyllt Club.",
+    "division": "WD1"
+  },
+  {
+    "date": "25-03-2026",
+    "home": "Gwersyllt Union",
+    "away": "Golden Lion Wxm",
+    "division": "WD1"
+  },
+  {
+    "date": "25-03-2026",
+    "home": "Colliers Dogs",
+    "away": "Breakroom Lions.",
+    "division": "WD1"
+  },
+  {
+    "date": "01-04-2026",
+    "home": "Golden Lion Wxm",
+    "away": "Colliers Dogs",
+    "division": "WD1"
+  },
+  {
+    "date": "01-04-2026",
+    "home": "Gwersyllt Club.",
+    "away": "Golden Lion Cp",
+    "division": "WD1"
+  },
+  {
+    "date": "01-04-2026",
+    "home": "Miners Brymbo.",
+    "away": "Crown Summerhill",
+    "division": "WD1"
+  },
+  {
+    "date": "22-04-2026",
+    "home": "Crown Summerhill",
+    "away": "War Memorial A",
+    "division": "WD1"
+  },
+  {
+    "date": "22-04-2026",
+    "home": "Golden Lion Cp",
+    "away": "Miners Brymbo.",
+    "division": "WD1"
+  },
+  {
+    "date": "22-04-2026",
+    "home": "Colliers Dogs",
+    "away": "Gwersyllt Union",
+    "division": "WD1"
+  },
+  {
+    "date": "29-04-2026",
+    "home": "Breakroom Lions.",
+    "away": "Crown Summerhill",
+    "division": "WD1"
+  },
+  {
+    "date": "29-04-2026",
+    "home": "Golden Lion Wxm",
+    "away": "Hill Street Social",
+    "division": "WD1"
+  },
+  {
+    "date": "29-04-2026",
+    "home": "Miners Brymbo.",
+    "away": "Gwersyllt Club.",
+    "division": "WD1"
+  },
+  {
+    "date": "06-05-2026",
+    "home": "Crown Summerhill",
+    "away": "Golden Lion Wxm",
+    "division": "WD1"
+  },
+  {
+    "date": "06-05-2026",
+    "home": "Golden Lion Cp",
+    "away": "Breakroom Lions.",
+    "division": "WD1"
+  },
+  {
+    "date": "06-05-2026",
+    "home": "Gwersyllt Club.",
+    "away": "War Memorial A",
+    "division": "WD1"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Breakroom Lions.",
+    "away": "Gwersyllt Club.",
+    "division": "WD1"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Golden Lion Wxm",
+    "away": "Golden Lion Cp",
+    "division": "WD1"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Gwersyllt Union",
+    "away": "Crown Summerhill",
+    "division": "WD1"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Colliers Dogs",
+    "away": "Hill Street Social",
+    "division": "WD1"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Y Tai.",
+    "away": "Plough Gresford",
+    "division": "WD2"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Ruabon Cons A",
+    "away": "Hafod Club Rhos",
+    "division": "WD2"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Ruabon Cons B",
+    "away": "White Lion Hope",
+    "division": "WD2"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "White Lion Hope",
+    "away": "Crown Caergwrle",
+    "division": "WD2"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Kings Mills",
+    "away": "Ruabon Cons B",
+    "division": "WD2"
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Gresford Legion",
+    "away": "Greyhound",
+    "division": "WD2"
+  },
+  {
+    "date": "04-03-2026",
+    "home": "Greyhound",
+    "away": "War Memorial B",
+    "division": "WD2"
+  },
+  {
+    "date": "04-03-2026",
+    "home": "Ruabon Cons B",
+    "away": "Gresford Legion",
+    "division": "WD2"
+  },
+  {
+    "date": "04-03-2026",
+    "home": "Crown Caergwrle",
+    "away": "Kings Mills",
+    "division": "WD2"
+  },
+  {
+    "date": "04-03-2026",
+    "home": "Hafod Club Rhos",
+    "away": "White Lion Hope",
+    "division": "WD2"
+  },
+  {
+    "date": "11-03-2026",
+    "home": "Greyhound",
+    "away": "Kings Mills",
+    "division": "WD2"
+  },
+  {
+    "date": "11-03-2026",
+    "home": "Crown Caergwrle",
+    "away": "Ruabon Cons A",
+    "division": "WD2"
+  },
+  {
+    "date": "11-03-2026",
+    "home": "Hafod Club Rhos",
+    "away": "Y Tai.",
+    "division": "WD2"
+  },
+  {
+    "date": "18-03-2026",
+    "home": "Y Tai.",
+    "away": "White Lion Hope",
+    "division": "WD2"
+  },
+  {
+    "date": "18-03-2026",
+    "home": "Ruabon Cons B",
+    "away": "Greyhound",
+    "division": "WD2"
+  },
+  {
+    "date": "18-03-2026",
+    "home": "Crown Caergwrle",
+    "away": "War Memorial B",
+    "division": "WD2"
+  },
+  {
+    "date": "18-03-2026",
+    "home": "Hafod Club Rhos",
+    "away": "Gresford Legion",
+    "division": "WD2"
+  },
+  {
+    "date": "25-03-2026",
+    "home": "Greyhound",
+    "away": "Crown Caergwrle",
+    "division": "WD2"
+  },
+  {
+    "date": "25-03-2026",
+    "home": "White Lion Hope",
+    "away": "Ruabon Cons A",
+    "division": "WD2"
+  },
+  {
+    "date": "25-03-2026",
+    "home": "Kings Mills",
+    "away": "Y Tai.",
+    "division": "WD2"
+  },
+  {
+    "date": "25-03-2026",
+    "home": "Gresford Legion",
+    "away": "Plough Gresford",
+    "division": "WD2"
+  },
+  {
+    "date": "01-04-2026",
+    "home": "Y Tai.",
+    "away": "Gresford Legion",
+    "division": "WD2"
+  },
+  {
+    "date": "01-04-2026",
+    "home": "Ruabon Cons A",
+    "away": "Kings Mills",
+    "division": "WD2"
+  },
+  {
+    "date": "01-04-2026",
+    "home": "Crown Caergwrle",
+    "away": "Ruabon Cons B",
+    "division": "WD2"
+  },
+  {
+    "date": "01-04-2026",
+    "home": "Hafod Club Rhos",
+    "away": "Greyhound",
+    "division": "WD2"
+  },
+  {
+    "date": "22-04-2026",
+    "home": "Greyhound",
+    "away": "Plough Gresford",
+    "division": "WD2"
+  },
+  {
+    "date": "22-04-2026",
+    "home": "Ruabon Cons B",
+    "away": "Hafod Club Rhos",
+    "division": "WD2"
+  },
+  {
+    "date": "22-04-2026",
+    "home": "Kings Mills",
+    "away": "White Lion Hope",
+    "division": "WD2"
+  },
+  {
+    "date": "22-04-2026",
+    "home": "Gresford Legion",
+    "away": "Ruabon Cons A",
+    "division": "WD2"
+  },
+  {
+    "date": "29-04-2026",
+    "home": "Y Tai.",
+    "away": "Greyhound",
+    "division": "WD2"
+  },
+  {
+    "date": "29-04-2026",
+    "home": "Ruabon Cons A",
+    "away": "War Memorial B",
+    "division": "WD2"
+  },
+  {
+    "date": "29-04-2026",
+    "home": "White Lion Hope",
+    "away": "Gresford Legion",
+    "division": "WD2"
+  },
+  {
+    "date": "29-04-2026",
+    "home": "Hafod Club Rhos",
+    "away": "Crown Caergwrle",
+    "division": "WD2"
+  },
+  {
+    "date": "06-05-2026",
+    "home": "Greyhound",
+    "away": "Ruabon Cons A",
+    "division": "WD2"
+  },
+  {
+    "date": "06-05-2026",
+    "home": "Ruabon Cons B",
+    "away": "Y Tai.",
+    "division": "WD2"
+  },
+  {
+    "date": "06-05-2026",
+    "home": "Crown Caergwrle",
+    "away": "Plough Gresford",
+    "division": "WD2"
+  },
+  {
+    "date": "06-05-2026",
+    "home": "Gresford Legion",
+    "away": "Kings Mills",
+    "division": "WD2"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Y Tai.",
+    "away": "Crown Caergwrle",
+    "division": "WD2"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Ruabon Cons A",
+    "away": "Ruabon Cons B",
+    "division": "WD2"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "White Lion Hope",
+    "away": "Greyhound",
+    "division": "WD2"
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Kings Mills",
+    "away": "War Memorial B",
+    "division": "WD2"
+  }
+]

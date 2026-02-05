@@ -145,6 +145,44 @@ export interface LeaguePlayer {
   totalPlayed2526: number | null;
 }
 
+// Frame-level data (per-frame player results from LeagueAppLive)
+export interface FrameData {
+  matchId: string;
+  date: string;
+  home: string;
+  away: string;
+  division: string;
+  frames: {
+    frameNum: number;
+    homePlayer: string;
+    awayPlayer: string;
+    winner: 'home' | 'away';
+    breakDish: boolean;
+    forfeit: boolean;
+  }[];
+}
+
+// User session persistence
+export interface UserSession {
+  whatIfResults: WhatIfResult[];
+  squadOverrides: SquadOverrides;
+  selectedDiv: DivisionCode;
+  lastActive: number; // timestamp
+}
+
+// Season document shape in Firestore
+export interface SeasonData {
+  results: MatchResult[];
+  fixtures: Fixture[];
+  frames: FrameData[];
+  players: PlayersMap;
+  rosters: RostersMap;
+  players2526: Players2526Map;
+  divisions: Record<DivisionCode, Division>;
+  lastUpdated: number; // timestamp
+  lastSyncedFrom: string;
+}
+
 // AI types
 export interface MatchAnalysisInput {
   homeTeam: string;

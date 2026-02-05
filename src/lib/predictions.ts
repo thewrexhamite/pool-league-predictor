@@ -1,6 +1,9 @@
 import type {
   DivisionCode,
+  Divisions,
   StandingEntry,
+  MatchResult,
+  Fixture,
   TeamPlayer,
   TeamResult,
   LeaguePlayer,
@@ -8,17 +11,41 @@ import type {
   SimulationResult,
   WhatIfResult,
   SquadOverrides,
+  PlayersMap,
+  RostersMap,
+  Players2526Map,
   PlayerTeamStats2526,
 } from './types';
 import {
-  DIVISIONS,
-  RESULTS,
-  FIXTURES,
-  PLAYERS,
-  ROSTERS,
-  PLAYERS_2526,
+  DIVISIONS as STATIC_DIVISIONS,
+  RESULTS as STATIC_RESULTS,
+  FIXTURES as STATIC_FIXTURES,
+  PLAYERS as STATIC_PLAYERS,
+  ROSTERS as STATIC_ROSTERS,
+  PLAYERS_2526 as STATIC_PLAYERS_2526,
   HOME_ADV,
 } from './data';
+
+// Optional data sources argument -- defaults to static imports for backward compatibility
+export interface DataSources {
+  divisions: Divisions;
+  results: MatchResult[];
+  fixtures: Fixture[];
+  players: PlayersMap;
+  rosters: RostersMap;
+  players2526: Players2526Map;
+}
+
+function defaults(): DataSources {
+  return {
+    divisions: STATIC_DIVISIONS,
+    results: STATIC_RESULTS,
+    fixtures: STATIC_FIXTURES,
+    players: STATIC_PLAYERS,
+    rosters: STATIC_ROSTERS,
+    players2526: STATIC_PLAYERS_2526,
+  };
+}
 
 // Parse DD-MM-YYYY to comparable YYYY-MM-DD string
 export function parseDate(dateStr: string): string {
@@ -27,27 +54,36 @@ export function parseDate(dateStr: string): string {
 }
 
 // Find the latest result date for dynamic cutoff
-export const LATEST_RESULT_DATE = RESULTS.reduce((max, r) => {
+export const LATEST_RESULT_DATE = STATIC_RESULTS.reduce((max, r) => {
   const d = parseDate(r.date);
   return d > max ? d : max;
 }, '0000-00-00');
 
-export function getDiv(team: string): DivisionCode | null {
-  for (const [div, data] of Object.entries(DIVISIONS)) {
+export function getLatestResultDate(results: MatchResult[]): string {
+  return results.reduce((max, r) => {
+    const d = parseDate(r.date);
+    return d > max ? d : max;
+  }, '0000-00-00');
+}
+
+export function getDiv(team: string, ds?: DataSources): DivisionCode | null {
+  const divisions = ds?.divisions ?? STATIC_DIVISIONS;
+  for (const [div, data] of Object.entries(divisions)) {
     if (data.teams.includes(team)) return div as DivisionCode;
   }
   return null;
 }
 
-export function calcStandings(div: DivisionCode): StandingEntry[] {
-  const teams = DIVISIONS[div].teams;
+export function calcStandings(div: DivisionCode, ds?: DataSources): StandingEntry[] {
+  const { divisions, results } = ds ?? defaults();
+  const teams = divisions[div].teams;
   const standings: Record<string, { p: number; w: number; d: number; l: number; f: number; a: number; pts: number }> = {};
   teams.forEach(t => {
     standings[t] = { p: 0, w: 0, d: 0, l: 0, f: 0, a: 0, pts: 0 };
   });
 
-  RESULTS.forEach(r => {
-    if (getDiv(r.home) !== div) return;
+  results.forEach(r => {
+    if (getDiv(r.home, ds ? ds : undefined) !== div) return;
     const { home, away, home_score: hs, away_score: awayScore } = r;
     if (!standings[home] || !standings[away]) return;
 
@@ -79,8 +115,8 @@ export function calcStandings(div: DivisionCode): StandingEntry[] {
     .sort((a, b) => b.pts - a.pts || b.diff - a.diff);
 }
 
-export function calcTeamStrength(div: DivisionCode): Record<string, number> {
-  const standings = calcStandings(div);
+export function calcTeamStrength(div: DivisionCode, ds?: DataSources): Record<string, number> {
+  const standings = calcStandings(div, ds);
   const strengths: Record<string, number> = {};
   standings.forEach(s => {
     strengths[s.team] = s.p > 0 ? (s.diff / s.p / 10) * 2 : 0;
@@ -104,18 +140,23 @@ export function simulateMatch(
   return [hf, 10 - hf];
 }
 
-export function getRemainingFixtures(div: DivisionCode) {
-  return FIXTURES.filter(
-    f => f.division === div && parseDate(f.date) > LATEST_RESULT_DATE
+export function getRemainingFixtures(div: DivisionCode, ds?: DataSources) {
+  const { fixtures, results } = ds ?? defaults();
+  const latestDate = getLatestResultDate(results);
+  return fixtures.filter(
+    f => f.division === div && parseDate(f.date) > latestDate
   );
 }
 
-export function getAllRemainingFixtures() {
-  return FIXTURES.filter(f => parseDate(f.date) > LATEST_RESULT_DATE);
+export function getAllRemainingFixtures(ds?: DataSources) {
+  const { fixtures, results } = ds ?? defaults();
+  const latestDate = getLatestResultDate(results);
+  return fixtures.filter(f => parseDate(f.date) > latestDate);
 }
 
-export function getTeamResults(team: string): TeamResult[] {
-  return RESULTS.filter(r => r.home === team || r.away === team)
+export function getTeamResults(team: string, ds?: DataSources): TeamResult[] {
+  const { results } = ds ?? defaults();
+  return results.filter(r => r.home === team || r.away === team)
     .map(r => ({
       ...r,
       isHome: r.home === team,
@@ -139,15 +180,16 @@ export function getTeamResults(team: string): TeamResult[] {
     .sort((a, b) => parseDate(b.date).localeCompare(parseDate(a.date)));
 }
 
-export function getTeamPlayers(team: string): TeamPlayer[] {
-  const div = getDiv(team);
+export function getTeamPlayers(team: string, ds?: DataSources): TeamPlayer[] {
+  const src = ds ?? defaults();
+  const div = getDiv(team, src);
   if (!div) return [];
   const rosterKey = div + ':' + team;
-  const roster = ROSTERS[rosterKey];
+  const roster = src.rosters[rosterKey];
   if (!roster) return [];
 
   const players2526: Record<string, PlayerTeamStats2526> = {};
-  for (const [name, data] of Object.entries(PLAYERS_2526)) {
+  for (const [name, data] of Object.entries(src.players2526)) {
     const teamEntry = data.teams.find(t => t.team === team);
     if (teamEntry) players2526[name] = teamEntry;
   }
@@ -158,9 +200,9 @@ export function getTeamPlayers(team: string): TeamPlayer[] {
   return [...allNames]
     .map(name => ({
       name,
-      rating: PLAYERS[name] ? PLAYERS[name].r : null,
-      winPct: PLAYERS[name] ? PLAYERS[name].w : null,
-      played: PLAYERS[name] ? PLAYERS[name].p : null,
+      rating: src.players[name] ? src.players[name].r : null,
+      winPct: src.players[name] ? src.players[name].w : null,
+      played: src.players[name] ? src.players[name].p : null,
       s2526: players2526[name] || null,
       rostered: roster.includes(name),
     }))
@@ -174,15 +216,17 @@ export function getTeamPlayers(team: string): TeamPlayer[] {
     });
 }
 
-export function getPlayerStats(name: string) {
-  const data = PLAYERS[name];
+export function getPlayerStats(name: string, ds?: DataSources) {
+  const { players } = ds ?? defaults();
+  const data = players[name];
   if (!data) return null;
   return { name, rating: data.r, winPct: data.w, played: data.p };
 }
 
-export function getPlayerTeams(name: string) {
+export function getPlayerTeams(name: string, ds?: DataSources) {
+  const { rosters } = ds ?? defaults();
   const teams: { div: string; team: string }[] = [];
-  for (const [key, roster] of Object.entries(ROSTERS)) {
+  for (const [key, roster] of Object.entries(rosters)) {
     if (roster.includes(name)) {
       const parts = key.split(':');
       teams.push({ div: parts[0], team: parts.slice(1).join(':') });
@@ -191,15 +235,17 @@ export function getPlayerTeams(name: string) {
   return teams;
 }
 
-export function getPlayerStats2526(name: string) {
-  const data = PLAYERS_2526[name];
+export function getPlayerStats2526(name: string, ds?: DataSources) {
+  const { players2526 } = ds ?? defaults();
+  const data = players2526[name];
   if (!data) return null;
   return data;
 }
 
-export function getTeamPlayers2526(team: string) {
+export function getTeamPlayers2526(team: string, ds?: DataSources) {
+  const { players2526 } = ds ?? defaults();
   const players: Array<{ name: string } & PlayerTeamStats2526 & { total: { p: number; w: number; pct: number } }> = [];
-  for (const [name, data] of Object.entries(PLAYERS_2526)) {
+  for (const [name, data] of Object.entries(players2526)) {
     const teamEntry = data.teams.find(t => t.team === team);
     if (teamEntry) {
       players.push({ name, ...teamEntry, total: data.total });
@@ -227,8 +273,8 @@ export function getTopNPlayers(players: TeamPlayer[], n: number) {
 // Squad Builder strength calculations
 const SQUAD_STRENGTH_SCALING = 4.0;
 
-export function calcSquadStrength(team: string, topN?: number): number | null {
-  const players = getTeamPlayers(team);
+export function calcSquadStrength(team: string, topN?: number, ds?: DataSources): number | null {
+  const players = getTeamPlayers(team, ds);
   if (players.length === 0) return null;
   const pool = topN
     ? getTopNPlayers(players, topN)
@@ -248,16 +294,18 @@ export function calcSquadStrength(team: string, topN?: number): number | null {
 export function calcModifiedSquadStrength(
   team: string,
   overrides: SquadOverrides,
-  topN?: number
+  topN?: number,
+  ds?: DataSources
 ): number | null {
+  const src = ds ?? defaults();
   const override = overrides[team];
-  if (!override) return calcSquadStrength(team, topN);
-  const basePlayers = getTeamPlayers(team);
+  if (!override) return calcSquadStrength(team, topN, ds);
+  const basePlayers = getTeamPlayers(team, ds);
   const removedSet = new Set(override.removed || []);
   const players: TeamPlayer[] = basePlayers.filter(pl => !removedSet.has(pl.name));
   (override.added || []).forEach(name => {
-    const s2526 = PLAYERS_2526[name];
-    const s2425 = PLAYERS[name];
+    const s2526 = src.players2526[name];
+    const s2425 = src.players[name];
     let bestTeamEntry: PlayerTeamStats2526 | null = null;
     if (s2526) {
       bestTeamEntry = s2526.teams.reduce<PlayerTeamStats2526 | null>(
@@ -292,13 +340,15 @@ export function calcModifiedSquadStrength(
 export function calcStrengthAdjustments(
   div: DivisionCode,
   overrides: SquadOverrides,
-  topN?: number
+  topN?: number,
+  ds?: DataSources
 ): Record<string, number> {
+  const { divisions } = ds ?? defaults();
   const adjustments: Record<string, number> = {};
-  DIVISIONS[div].teams.forEach(team => {
+  divisions[div].teams.forEach(team => {
     if (!overrides[team]) return;
-    const orig = calcSquadStrength(team, topN);
-    const mod = calcModifiedSquadStrength(team, overrides, topN);
+    const orig = calcSquadStrength(team, topN, ds);
+    const mod = calcModifiedSquadStrength(team, overrides, topN, ds);
     if (orig !== null && mod !== null) {
       adjustments[team] = (mod - orig) * SQUAD_STRENGTH_SCALING;
     }
@@ -306,12 +356,13 @@ export function calcStrengthAdjustments(
   return adjustments;
 }
 
-export function getAllLeaguePlayers(): LeaguePlayer[] {
-  const allNames = new Set([...Object.keys(PLAYERS), ...Object.keys(PLAYERS_2526)]);
+export function getAllLeaguePlayers(ds?: DataSources): LeaguePlayer[] {
+  const { players, players2526 } = ds ?? defaults();
+  const allNames = new Set([...Object.keys(players), ...Object.keys(players2526)]);
   return [...allNames]
     .map(name => {
-      const s2425 = PLAYERS[name];
-      const s2526 = PLAYERS_2526[name];
+      const s2425 = players[name];
+      const s2526 = players2526[name];
       return {
         name,
         rating: s2425 ? s2425.r : null,
@@ -358,21 +409,23 @@ export function runSeasonSimulation(
   div: DivisionCode,
   squadOverrides: SquadOverrides,
   squadTopN: number,
-  whatIfResults: WhatIfResult[]
+  whatIfResults: WhatIfResult[],
+  ds?: DataSources
 ): SimulationResult[] {
-  const divTeams = DIVISIONS[div].teams;
-  const strengths = calcTeamStrength(div);
-  const squadAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN);
+  const { divisions } = ds ?? defaults();
+  const divTeams = divisions[div].teams;
+  const strengths = calcTeamStrength(div, ds);
+  const squadAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN, ds);
   Object.entries(squadAdj).forEach(([t, adj]) => {
     if (strengths[t] !== undefined) strengths[t] += adj;
   });
-  const current = calcStandings(div);
+  const current = calcStandings(div, ds);
   const currentMap: Record<string, StandingEntry> = {};
   current.forEach(s => {
     currentMap[s.team] = s;
   });
 
-  const fixtures = getRemainingFixtures(div);
+  const fixtures = getRemainingFixtures(div, ds);
   const N = 1000;
   const tracker: Record<string, { totalPts: number; positions: number[] }> = {};
   divTeams.forEach(t => {
@@ -447,3 +500,6 @@ export function runSeasonSimulation(
     }))
     .sort((a, b) => parseFloat(b.avgPts) - parseFloat(a.avgPts));
 }
+
+export { STATIC_DIVISIONS as DIVISIONS };
+export const DIVISION_CODES: DivisionCode[] = ['SD1', 'SD2', 'WD1', 'WD2'];

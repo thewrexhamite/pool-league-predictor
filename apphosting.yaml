@@ -10,3 +10,9 @@ env:
     secret: gemini-api-key
   - variable: GEMINI_MODEL
     value: googleai/gemini-2.0-flash
+
+  # Firebase Client SDK
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    secret: firebase-api-key
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: pool-league-predictor

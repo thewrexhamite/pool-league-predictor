@@ -1,24 +1,26 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import type {
   DivisionCode,
   PredictionResult,
   SimulationResult,
   WhatIfResult,
   SquadOverrides,
+  UserSession,
 } from '@/lib/types';
-import { DIVISIONS, RESULTS } from '@/lib/data';
+import { useLeagueData } from '@/lib/data-provider';
+import { useUserSession } from '@/hooks/use-user-session';
 import {
   calcStandings,
   calcTeamStrength,
   calcStrengthAdjustments,
   predictFrame,
-  getRemainingFixtures,
   getAllRemainingFixtures,
   runPredSim,
   runSeasonSimulation,
   getDiv,
+  type DataSources,
 } from '@/lib/predictions';
 
 import StandingsTab from './StandingsTab';
@@ -45,6 +47,8 @@ const TABS: [string, string][] = [
 ];
 
 export default function App() {
+  const { data: leagueData } = useLeagueData();
+
   const [activeTab, setActiveTab] = useState('standings');
   const [selectedDiv, setSelectedDiv] = useState<DivisionCode>('SD2');
   const [homeTeam, setHomeTeam] = useState('');
@@ -61,21 +65,45 @@ export default function App() {
   const [squadPlayerSearch, setSquadPlayerSearch] = useState('');
   const [squadTopN, setSquadTopN] = useState(5);
 
+  // Build data sources from the provider (Firestore/cache/static)
+  const ds: DataSources = useMemo(() => ({
+    divisions: leagueData.divisions,
+    results: leagueData.results,
+    fixtures: leagueData.fixtures,
+    players: leagueData.players,
+    rosters: leagueData.rosters,
+    players2526: leagueData.players2526,
+  }), [leagueData]);
+
+  // Session persistence: restore what-if and squad state across sessions
+  const handleSessionRestore = useCallback((session: UserSession) => {
+    if (session.whatIfResults.length > 0) setWhatIfResults(session.whatIfResults);
+    if (Object.keys(session.squadOverrides).length > 0) setSquadOverrides(session.squadOverrides);
+    if (session.selectedDiv) setSelectedDiv(session.selectedDiv);
+  }, []);
+
+  useUserSession({
+    selectedDiv,
+    whatIfResults,
+    squadOverrides,
+    onRestore: handleSessionRestore,
+  });
+
   // Prediction via useEffect
   useEffect(() => {
     if (!homeTeam || !awayTeam) {
       setPrediction(null);
       return;
     }
-    const div = getDiv(homeTeam);
+    const div = getDiv(homeTeam, ds);
     if (!div) return;
-    const strengths = calcTeamStrength(div);
+    const strengths = calcTeamStrength(div, ds);
     const hasSquadChanges =
       Object.keys(squadOverrides).length > 0 &&
       (squadOverrides[homeTeam] || squadOverrides[awayTeam]);
 
     const modStr = { ...strengths };
-    const pAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN);
+    const pAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN, ds);
     Object.entries(pAdj).forEach(([t, adj]) => {
       if (modStr[t] !== undefined) modStr[t] += adj;
     });
@@ -89,10 +117,10 @@ export default function App() {
     }
 
     setPrediction(pred);
-  }, [homeTeam, awayTeam, squadOverrides, squadTopN]);
+  }, [homeTeam, awayTeam, squadOverrides, squadTopN, ds]);
 
-  const standings = calcStandings(selectedDiv);
-  const totalRemaining = getAllRemainingFixtures().length;
+  const standings = calcStandings(selectedDiv, ds);
+  const totalRemaining = getAllRemainingFixtures(ds).length;
 
   const runSimulation = useCallback(() => {
     setIsSimulating(true);
@@ -101,13 +129,14 @@ export default function App() {
         selectedDiv,
         squadOverrides,
         squadTopN,
-        whatIfResults
+        whatIfResults,
+        ds
       );
       setSimResults(results);
       setWhatIfSimResults(whatIfResults.length > 0 ? [...whatIfResults] : null);
       setIsSimulating(false);
     }, 100);
-  }, [selectedDiv, squadOverrides, squadTopN, whatIfResults]);
+  }, [selectedDiv, squadOverrides, squadTopN, whatIfResults, ds]);
 
   const addWhatIf = (home: string, away: string, homeScore: number, awayScore: number) => {
     setWhatIfResults(prev => [
@@ -226,13 +255,13 @@ export default function App() {
           Pool League Predictor
         </h1>
         <p className="text-center text-gray-400 mb-6 text-sm">
-          Wrexham &amp; District 25/26 &bull; {RESULTS.length} matches played &bull;{' '}
+          Wrexham &amp; District 25/26 &bull; {ds.results.length} matches played &bull;{' '}
           {totalRemaining} remaining
         </p>
 
         {/* Division selector */}
         <div className="flex justify-center gap-1 md:gap-2 mb-4 flex-wrap">
-          {(Object.entries(DIVISIONS) as [DivisionCode, { name: string; teams: string[] }][]).map(
+          {(Object.entries(ds.divisions) as [DivisionCode, { name: string; teams: string[] }][]).map(
             ([key, data]) => (
               <button
                 key={key}
