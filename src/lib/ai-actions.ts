@@ -54,14 +54,18 @@ export async function analyzeMatchAction(homeTeam: string, awayTeam: string) {
       awayStanding,
     });
 
+    if (!result || !result.preview) {
+      throw new Error('AI returned an incomplete response.');
+    }
+
     return (
       result.preview +
       '\n\nKey Factors:\n' +
-      result.keyFactors.map(f => '- ' + f).join('\n') +
+      (result.keyFactors || []).map((f: string) => '- ' + f).join('\n') +
       '\n\nTactical Insights:\n' +
-      result.tacticalInsights.map(i => '- ' + i).join('\n') +
+      (result.tacticalInsights || []).map((i: string) => '- ' + i).join('\n') +
       '\n\n' +
-      result.predictedOutcome
+      (result.predictedOutcome || '')
     );
   } catch (error) {
     console.error('AI match analysis error:', error);

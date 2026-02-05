@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Zap } from 'lucide-react';
+import { MessageCircle, X, Send, HelpCircle } from 'lucide-react';
 import clsx from 'clsx';
 import { useAI } from '@/hooks/use-ai';
 
@@ -43,7 +43,7 @@ export default function AIChatPanel() {
       <motion.button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-4 right-4 bg-accent hover:bg-accent-light text-fixed-white rounded-full p-3.5 shadow-elevated transition z-50"
-        title="Ask AI"
+        title="Ask a Question"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -63,8 +63,8 @@ export default function AIChatPanel() {
       >
         <div className="flex items-center justify-between p-3 border-b border-surface-border">
           <h3 className="text-sm font-medium text-accent-light flex items-center gap-2">
-            <Zap size={14} />
-            Ask AI
+            <HelpCircle size={14} />
+            Ask a Question
           </h3>
           <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-white transition p-1" aria-label="Close">
             <X size={18} />

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Zap, X, RefreshCw } from 'lucide-react';
+import { Lightbulb, X, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { useAI } from '@/hooks/use-ai';
@@ -41,8 +41,8 @@ export function AIInsightsPanel({ type, homeTeam, awayTeam, playerName }: AIInsi
           disabled={isLoading}
           className="flex items-center gap-2 text-sm text-accent-light hover:text-accent transition"
         >
-          <Zap size={16} />
-          {type === 'match' ? 'Get AI Match Analysis' : 'Get AI Player Insight'}
+          <Lightbulb size={16} />
+          {type === 'match' ? 'Get Match Analysis' : 'Get Player Insight'}
         </button>
       </div>
     );
@@ -58,8 +58,8 @@ export function AIInsightsPanel({ type, homeTeam, awayTeam, playerName }: AIInsi
       >
         <div className="flex items-center justify-between mb-2">
           <h4 className="text-sm font-medium text-accent-light flex items-center gap-2">
-            <Zap size={16} />
-            {type === 'match' ? 'AI Match Analysis' : 'AI Player Insight'}
+            <Lightbulb size={16} />
+            {type === 'match' ? 'Match Analysis' : 'Player Insight'}
           </h4>
           <button
             onClick={() => {
@@ -98,7 +98,7 @@ export function AIInsightsPanel({ type, homeTeam, awayTeam, playerName }: AIInsi
 
         {!isLoading && !error && !insight && (
           <p className="text-sm text-gray-500">
-            AI features require a Gemini API key. Set GEMINI_API_KEY in your environment.
+            This feature requires configuration. Set GEMINI_API_KEY in your environment.
           </p>
         )}
       </motion.div>

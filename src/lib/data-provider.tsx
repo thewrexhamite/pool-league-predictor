@@ -19,6 +19,7 @@ import fixturesData from '@data/fixtures.json';
 import playersData from '@data/players.json';
 import rostersData from '@data/rosters.json';
 import players2526Data from '@data/players2526.json';
+import framesData from '@data/frames.json';
 
 import { DIVISIONS as STATIC_DIVISIONS } from './data';
 
@@ -55,7 +56,7 @@ function getStaticData(): LeagueData {
     players: playersData as PlayersMap,
     rosters: rostersData as RostersMap,
     players2526: players2526Data as Players2526Map,
-    frames: [],
+    frames: framesData as FrameData[],
     divisions: STATIC_DIVISIONS,
     lastUpdated: 0,
     source: 'static',

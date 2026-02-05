@@ -4,7 +4,6 @@ import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import {
-  Zap,
   ChevronDown,
   ChevronUp,
   Loader2,
@@ -412,17 +411,17 @@ export default function MyTeamDashboard({
         </div>
       )}
 
-      {/* e) AI Team Report Section */}
+      {/* e) Team Report Section */}
       <div className="bg-surface-card rounded-card shadow-card p-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-semibold text-accent flex items-center gap-1.5">
-            <Zap size={16} />
-            AI Team Report
+            <FileText size={16} />
+            Team Report
           </h3>
           <button
             onClick={handleGenerate}
             disabled={isGenerating}
-            title={isApiKeyError ? 'AI reports require configuration' : undefined}
+            title={isApiKeyError ? 'Reports require configuration' : undefined}
             className={clsx(
               'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition',
               isGenerating
@@ -437,7 +436,7 @@ export default function MyTeamDashboard({
               </>
             ) : (
               <>
-                <Zap size={12} />
+                <FileText size={12} />
                 Generate Report
               </>
             )}
@@ -451,8 +450,8 @@ export default function MyTeamDashboard({
         {reports.length === 0 && !isGenerating && (
           <p className="text-xs text-gray-500">
             {isApiKeyError
-              ? 'AI reports require configuration. Set GEMINI_API_KEY to enable.'
-              : 'No reports yet. Click "Generate Report" to create an AI analysis of your team.'}
+              ? 'Reports require configuration. Set GEMINI_API_KEY to enable.'
+              : 'No reports yet. Click "Generate Report" to create an analysis of your team.'}
           </p>
         )}
 

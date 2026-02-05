@@ -74,6 +74,10 @@ Provide your analysis in JSON format:
       output: { format: 'json' },
     });
 
+    if (!response.output) {
+      throw new Error('AI did not return a valid response. Please try again.');
+    }
+
     return response.output;
   }
 );

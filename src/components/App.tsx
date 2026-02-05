@@ -46,6 +46,7 @@ import { useLeague } from '@/lib/league-context';
 
 import { ToastProvider, useToast } from './ToastProvider';
 import BottomTabBar from './BottomTabBar';
+import BackToTopButton from './BackToTopButton';
 import DashboardTab from './DashboardTab';
 import StandingsTab from './StandingsTab';
 import ResultsTab from './ResultsTab';
@@ -125,6 +126,11 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
   // My Team modal
   const [showMyTeamModal, setShowMyTeamModal] = useState(false);
+
+  // Scroll to top on tab change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [router.tab]);
 
   // Sync predict teams from router
   useEffect(() => {
@@ -963,6 +969,9 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
           &copy; Mike Lewis {new Date().getFullYear()}
         </p>
       </main>
+
+      {/* Back to top button */}
+      <BackToTopButton />
 
       {/* Bottom tab bar — mobile only */}
       <div className="md:hidden">
