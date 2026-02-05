@@ -302,6 +302,7 @@ export interface LineupSuggestion {
 export interface TeamReportData {
   teamName: string;
   divisionName: string;
+  leagueName?: string;
   position: number;
   totalTeams: number;
   standing: { p: number; w: number; d: number; l: number; f: number; a: number; pts: number; diff: number };

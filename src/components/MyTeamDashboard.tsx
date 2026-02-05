@@ -27,6 +27,7 @@ import type {
   StoredTeamReport,
 } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
+import { useLeague } from '@/lib/league-context';
 import {
   getTeamResults,
   getTeamPlayers,
@@ -61,6 +62,8 @@ export default function MyTeamDashboard({
   onPredict,
 }: MyTeamDashboardProps) {
   const { ds, frames } = useActiveData();
+  const { selected } = useLeague();
+  const leagueName = selected?.league?.name;
   const { reports, addReport, deleteReport } = useTeamReports(team);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateError, setGenerateError] = useState<string | null>(null);
@@ -143,6 +146,7 @@ export default function MyTeamDashboard({
       const input: TeamReportData = {
         teamName: team,
         divisionName,
+        leagueName,
         position,
         totalTeams,
         standing: standing
@@ -450,7 +454,7 @@ export default function MyTeamDashboard({
         {reports.length === 0 && !isGenerating && (
           <p className="text-xs text-gray-500">
             {isApiKeyError
-              ? 'Reports require configuration. Set GEMINI_API_KEY to enable.'
+              ? 'Reports are currently unavailable.'
               : 'No reports yet. Click "Generate Report" to create an analysis of your team.'}
           </p>
         )}

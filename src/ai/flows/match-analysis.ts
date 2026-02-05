@@ -10,6 +10,7 @@ export const analyzeMatch = ai.defineFlow(
       homeTeam: z.string(),
       awayTeam: z.string(),
       division: z.string(),
+      leagueName: z.string().optional(),
       homeStrength: z.number(),
       awayStrength: z.number(),
       pHomeWin: z.string(),
@@ -48,7 +49,7 @@ export const analyzeMatch = ai.defineFlow(
     }),
   },
   async (input) => {
-    const prompt = `You are an expert pool league analyst for the Wrexham & District Pool League (25/26 season).
+    const prompt = `You are an expert pool league analyst for ${input.leagueName || 'the league'} (25/26 season).
 Each match consists of 10 frames. Points system: Home win = 2 pts, Away win = 3 pts, Draw = 1 pt each.
 
 Analyze this upcoming match and provide commentary:

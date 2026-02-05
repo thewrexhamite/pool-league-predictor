@@ -166,13 +166,13 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
                 <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('form')} title="Last 5 form">
                   Form<SortIcon k="form" />
                 </th>
-                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdF')} title="B&D for rate">
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdF')} title="Break & Dish won per game">
                   BD+<SortIcon k="bdF" />
                 </th>
-                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdA')} title="B&D against rate">
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdA')} title="Break & Dish conceded per game">
                   BD-<SortIcon k="bdA" />
                 </th>
-                <th className="text-right p-2">Rtg</th>
+                <th className="text-right p-2" title="Last season rating">24/25</th>
               </tr>
             </thead>
             <tbody>

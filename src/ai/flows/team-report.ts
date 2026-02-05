@@ -9,6 +9,7 @@ export const generateTeamReport = ai.defineFlow(
     inputSchema: z.object({
       teamName: z.string(),
       divisionName: z.string(),
+      leagueName: z.string().optional(),
       position: z.number(),
       totalTeams: z.number(),
       standing: z.object({
@@ -74,7 +75,7 @@ export const generateTeamReport = ai.defineFlow(
       .map(p => `${p.name}: ${p.played}p, ${p.winPct.toFixed(0)}% win (adj ${p.adjPct.toFixed(0)}%), trend=${p.trend ?? 'n/a'}, role=${p.category ?? 'n/a'}`)
       .join('\n  ');
 
-    const prompt = `You are an expert team analyst for the Wrexham & District Pool League (25/26 season).
+    const prompt = `You are an expert team analyst for ${input.leagueName || 'the league'} (25/26 season).
 Each match consists of 10 frames. Points: Home win = 2 pts, Away win = 3 pts, Draw = 1 pt each.
 
 Provide a comprehensive team report for ${input.teamName} in ${input.divisionName}.

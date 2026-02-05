@@ -441,11 +441,11 @@ export default function PredictTab({
                             {pl.s2526 && <span className="text-white font-medium">{pl.s2526.pct.toFixed(0)}% ({pl.s2526.p}g)</span>}
                             {pl.s2526 && pl.rating !== null && <span className="text-gray-700 mx-1">|</span>}
                             {pl.rating !== null && (
-                              <span className={pl.rating > 0 ? 'text-win' : pl.rating < 0 ? 'text-loss' : 'text-gray-400'}>
+                              <span className={pl.rating > 0 ? 'text-win' : pl.rating < 0 ? 'text-loss' : 'text-gray-400'} title="Last season rating">
                                 {pl.rating > 0 ? '+' : ''}{pl.rating.toFixed(2)}
                               </span>
                             )}
-                            {!pl.s2526 && pl.rating === null && 'No data'}
+                            {!pl.s2526 && pl.rating === null && 'No stats'}
                           </span>
                         </button>
                       ))}
@@ -461,11 +461,11 @@ export default function PredictTab({
                               {s2526 && <span className="text-white font-medium">{s2526.total.pct.toFixed(0)}% ({s2526.total.p}g)</span>}
                               {s2526 && s2425 && <span className="text-gray-700 mx-1">|</span>}
                               {s2425 && (
-                                <span className={s2425.r > 0 ? 'text-win' : s2425.r < 0 ? 'text-loss' : 'text-gray-400'}>
+                                <span className={s2425.r > 0 ? 'text-win' : s2425.r < 0 ? 'text-loss' : 'text-gray-400'} title="Last season rating">
                                   {s2425.r > 0 ? '+' : ''}{s2425.r.toFixed(2)}
                                 </span>
                               )}
-                              {!s2526 && !s2425 && 'No data'}
+                              {!s2526 && !s2425 && 'No stats'}
                             </span>
                           </button>
                         );

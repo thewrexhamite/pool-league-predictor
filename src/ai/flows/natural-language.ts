@@ -9,6 +9,7 @@ export const answerLeagueQuestion = ai.defineFlow(
     inputSchema: z.object({
       question: z.string(),
       leagueContext: z.string(),
+      leagueName: z.string().optional(),
     }),
     outputSchema: z.object({
       answer: z.string(),
@@ -18,7 +19,7 @@ export const answerLeagueQuestion = ai.defineFlow(
     }),
   },
   async (input) => {
-    const prompt = `You are an expert analyst for the Wrexham & District Pool League (25/26 season).
+    const prompt = `You are an expert analyst for ${input.leagueName || 'the league'} (25/26 season).
 Each match is 10 frames. Points: Home win = 2 pts, Away win = 3 pts, Draw = 1 pt each.
 There are 4 divisions: SD1 (Sunday Div 1), SD2 (Sunday Div 2), WD1 (Wednesday Div 1), WD2 (Wednesday Div 2).
 Top 2 teams get promoted, bottom 2 get relegated.

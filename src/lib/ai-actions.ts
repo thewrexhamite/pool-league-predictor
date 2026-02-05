@@ -18,9 +18,9 @@ import {
 import { DIVISIONS, RESULTS } from '@/lib/data';
 import type { DivisionCode, TeamReportData, TeamReportOutput } from '@/lib/types';
 
-export async function analyzeMatchAction(homeTeam: string, awayTeam: string) {
+export async function analyzeMatchAction(homeTeam: string, awayTeam: string, leagueName?: string) {
   if (!process.env.GEMINI_API_KEY) {
-    throw new Error('AI features are not configured. Please set GEMINI_API_KEY.');
+    throw new Error('This feature is currently unavailable. Please try again later.');
   }
 
   const div = getDiv(homeTeam);
@@ -43,6 +43,7 @@ export async function analyzeMatchAction(homeTeam: string, awayTeam: string) {
       homeTeam,
       awayTeam,
       division: DIVISIONS[div].name,
+      leagueName: leagueName || 'the league',
       homeStrength: strengths[homeTeam] || 0,
       awayStrength: strengths[awayTeam] || 0,
       pHomeWin: pred.pHomeWin,
@@ -73,9 +74,9 @@ export async function analyzeMatchAction(homeTeam: string, awayTeam: string) {
   }
 }
 
-export async function askQuestionAction(question: string) {
+export async function askQuestionAction(question: string, leagueName?: string) {
   if (!process.env.GEMINI_API_KEY) {
-    throw new Error('AI features are not configured. Please set GEMINI_API_KEY.');
+    throw new Error('This feature is currently unavailable. Please try again later.');
   }
 
   if (!question || question.length < 3) {
@@ -103,6 +104,7 @@ export async function askQuestionAction(question: string) {
     const result = await answerLeagueQuestion({
       question,
       leagueContext: context.join('\n\n'),
+      leagueName: leagueName || 'the league',
     });
     return result;
   } catch (error) {
@@ -111,9 +113,9 @@ export async function askQuestionAction(question: string) {
   }
 }
 
-export async function getPlayerInsightAction(playerName: string) {
+export async function getPlayerInsightAction(playerName: string, leagueName?: string) {
   if (!process.env.GEMINI_API_KEY) {
-    throw new Error('AI features are not configured. Please set GEMINI_API_KEY.');
+    throw new Error('This feature is currently unavailable. Please try again later.');
   }
 
   const stats2425 = getPlayerStats(playerName);
@@ -136,6 +138,7 @@ export async function getPlayerInsightAction(playerName: string) {
   try {
     const result = await generatePlayerInsight({
       playerName,
+      leagueName: leagueName || 'the league',
       stats2425: stats2425
         ? { rating: stats2425.rating, winPct: stats2425.winPct, played: stats2425.played }
         : null,
@@ -177,7 +180,7 @@ export async function getPlayerInsightAction(playerName: string) {
 
 export async function generateTeamReportAction(input: TeamReportData): Promise<TeamReportOutput> {
   if (!process.env.GEMINI_API_KEY) {
-    throw new Error('AI features are not configured. Please set GEMINI_API_KEY.');
+    throw new Error('This feature is currently unavailable. Please try again later.');
   }
 
   try {

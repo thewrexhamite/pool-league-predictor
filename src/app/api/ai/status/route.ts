@@ -9,6 +9,6 @@ export async function GET() {
     model: hasApiKey ? model : null,
     message: hasApiKey
       ? 'AI features are configured and ready.'
-      : 'GEMINI_API_KEY is not set. AI features are disabled.',
+      : 'AI features are not currently available.',
   });
 }

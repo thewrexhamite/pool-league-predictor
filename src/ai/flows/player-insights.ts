@@ -32,6 +32,7 @@ export const generatePlayerInsight = ai.defineFlow(
         })
         .nullable(),
       teamContext: z.string(),
+      leagueName: z.string().optional(),
     }),
     outputSchema: z.object({
       scoutingReport: z.string(),
@@ -50,7 +51,7 @@ export const generatePlayerInsight = ai.defineFlow(
       ? `25/26 Season: ${input.stats2526.totalPct.toFixed(1)}% win rate, ${input.stats2526.totalWon}/${input.stats2526.totalPlayed} frames won\nTeams: ${input.stats2526.teams.map(t => `${t.team} (${t.div}): ${t.pct.toFixed(1)}% in ${t.played} games`).join(', ')}`
       : '25/26 Season: No data available';
 
-    const prompt = `You are a pool league scout for the Wrexham & District Pool League.
+    const prompt = `You are a pool league scout for ${input.leagueName || 'the league'}.
 Write a brief scouting report for this player.
 
 Player: ${input.playerName}

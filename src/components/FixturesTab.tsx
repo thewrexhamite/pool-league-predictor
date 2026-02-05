@@ -189,7 +189,7 @@ export default function FixturesTab({
                             <div className="flex items-center gap-2">
                               <span className="text-gray-500">
                                 {pl.s2526 ? `${pl.s2526.pct.toFixed(0)}% (${pl.s2526.p}g)` : ''}
-                                {pl.rating !== null ? `${pl.s2526 ? ' | ' : ''}${pl.rating > 0 ? '+' : ''}${pl.rating.toFixed(2)}` : ''}
+                                {pl.rating !== null && <span title="Last season rating">{pl.s2526 ? ' | ' : ''}{pl.rating > 0 ? '+' : ''}{pl.rating.toFixed(2)}</span>}
                               </span>
                               {removedSet.has(pl.name) ? (
                                 <button onClick={() => onRestoreSquadPlayer(squadBuilderTeam, pl.name)}

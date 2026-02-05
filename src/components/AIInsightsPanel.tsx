@@ -5,6 +5,7 @@ import { Lightbulb, X, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { useAI } from '@/hooks/use-ai';
+import { useLeague } from '@/lib/league-context';
 
 interface AIInsightsPanelProps {
   type: 'match' | 'player';
@@ -15,6 +16,8 @@ interface AIInsightsPanelProps {
 
 export function AIInsightsPanel({ type, homeTeam, awayTeam, playerName }: AIInsightsPanelProps) {
   const { analyzeMatch, getPlayerInsight, isLoading, error } = useAI();
+  const { selected } = useLeague();
+  const leagueName = selected?.league?.name;
   const [insight, setInsight] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
 
@@ -22,10 +25,10 @@ export function AIInsightsPanel({ type, homeTeam, awayTeam, playerName }: AIInsi
     setExpanded(true);
     try {
       if (type === 'match' && homeTeam && awayTeam) {
-        const result = await analyzeMatch(homeTeam, awayTeam);
+        const result = await analyzeMatch(homeTeam, awayTeam, leagueName);
         if (result) setInsight(result);
       } else if (type === 'player' && playerName) {
-        const result = await getPlayerInsight(playerName);
+        const result = await getPlayerInsight(playerName, leagueName);
         if (result) setInsight(result);
       }
     } catch {
@@ -98,7 +101,7 @@ export function AIInsightsPanel({ type, homeTeam, awayTeam, playerName }: AIInsi
 
         {!isLoading && !error && !insight && (
           <p className="text-sm text-gray-500">
-            This feature requires configuration. Set GEMINI_API_KEY in your environment.
+            This feature is currently unavailable.
           </p>
         )}
       </motion.div>

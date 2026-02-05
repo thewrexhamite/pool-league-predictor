@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, HelpCircle } from 'lucide-react';
 import clsx from 'clsx';
 import { useAI } from '@/hooks/use-ai';
+import { useLeague } from '@/lib/league-context';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -13,6 +14,8 @@ interface Message {
 
 export default function AIChatPanel() {
   const { askQuestion, isLoading } = useAI();
+  const { selected } = useLeague();
+  const leagueName = selected?.league?.name;
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -29,12 +32,12 @@ export default function AIChatPanel() {
     setInput('');
     setSuggestions([]);
 
-    const result = await askQuestion(question.trim());
+    const result = await askQuestion(question.trim(), leagueName);
     if (result) {
       setMessages(prev => [...prev, { role: 'assistant', content: result.answer }]);
       if (result.suggestedFollowUps?.length) setSuggestions(result.suggestedFollowUps);
     } else {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I couldn\'t process that. Check GEMINI_API_KEY is configured.' }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I couldn\'t process that right now. Please try again later.' }]);
     }
   };
 
@@ -74,7 +77,7 @@ export default function AIChatPanel() {
         <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-[200px]">
           {messages.length === 0 && (
             <p className="text-xs text-gray-600 text-center mt-4">
-              Ask me anything about the Wrexham &amp; District Pool League
+              Ask me anything about the league
             </p>
           )}
           {messages.map((msg, i) => (

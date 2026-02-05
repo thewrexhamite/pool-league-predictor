@@ -963,10 +963,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
         <Glossary />
 
         <p className="text-center text-gray-600 text-xs mt-4">
-          Frame-differential ratings &bull; Logistic prediction &bull; Points: HW=2, AW=3, D=1
+          Home Win = 2pts &bull; Away Win = 3pts &bull; Draw = 1pt each
         </p>
         <p className="text-center text-gray-600 text-xs mt-2">
-          &copy; Mike Lewis {new Date().getFullYear()}
+          &copy; Mike Lewis {new Date().getFullYear()} &bull; Pool League Pro
         </p>
       </main>
 

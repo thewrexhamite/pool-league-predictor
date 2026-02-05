@@ -199,7 +199,7 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
               <div className={clsx('text-2xl font-bold', stats.rating > 0 ? 'text-win' : stats.rating < 0 ? 'text-loss' : 'text-gray-400')}>
                 {stats.rating > 0 ? '+' : ''}{stats.rating.toFixed(2)}
               </div>
-              <div className="text-[10px] text-gray-500">Rating</div>
+              <div className="text-[10px] text-gray-500">Last Season</div>
             </div>
             <div className="bg-surface rounded-lg p-3 text-center shadow-card">
               <div className="text-2xl font-bold text-info">{(stats.winPct * 100).toFixed(1)}%</div>

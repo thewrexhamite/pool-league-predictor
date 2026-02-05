@@ -13,11 +13,11 @@ export function useAI() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const analyzeMatch = async (homeTeam: string, awayTeam: string): Promise<string | null> => {
+  const analyzeMatch = async (homeTeam: string, awayTeam: string, leagueName?: string): Promise<string | null> => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await analyzeMatchAction(homeTeam, awayTeam);
+      const result = await analyzeMatchAction(homeTeam, awayTeam, leagueName);
       return result;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to analyze match';
@@ -29,7 +29,8 @@ export function useAI() {
   };
 
   const askQuestion = async (
-    question: string
+    question: string,
+    leagueName?: string
   ): Promise<{
     answer: string;
     suggestedFollowUps: string[];
@@ -37,7 +38,7 @@ export function useAI() {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await askQuestionAction(question);
+      const result = await askQuestionAction(question, leagueName);
       return {
         answer: result.answer,
         suggestedFollowUps: result.suggestedFollowUps,
@@ -51,11 +52,11 @@ export function useAI() {
     }
   };
 
-  const getPlayerInsight = async (playerName: string): Promise<string | null> => {
+  const getPlayerInsight = async (playerName: string, leagueName?: string): Promise<string | null> => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await getPlayerInsightAction(playerName);
+      const result = await getPlayerInsightAction(playerName, leagueName);
       return result;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to get player insight';

@@ -181,11 +181,11 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
                     {pl.s2526 && <><span className="text-white font-medium">{calcBayesianPct(pl.s2526.w, pl.s2526.p).toFixed(0)}%</span> <span className="text-gray-600">({pl.s2526.pct.toFixed(0)}% raw, {pl.s2526.p}P)</span></>}
                     {pl.s2526 && pl.rating !== null && <span className="text-gray-700 mx-1">|</span>}
                     {pl.rating !== null && (
-                      <span className={pl.rating > 0 ? 'text-win' : pl.rating < 0 ? 'text-loss' : 'text-gray-400'}>
+                      <span className={pl.rating > 0 ? 'text-win' : pl.rating < 0 ? 'text-loss' : 'text-gray-400'} title="Last season rating">
                         {pl.rating > 0 ? '+' : ''}{pl.rating.toFixed(2)}
                       </span>
                     )}
-                    {!pl.s2526 && pl.rating === null && 'No data'}
+                    {!pl.s2526 && pl.rating === null && 'No stats'}
                   </span>
                 </button>
               );
