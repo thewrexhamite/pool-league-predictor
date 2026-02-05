@@ -85,6 +85,7 @@ export function getLatestResultDate(results: MatchResult[]): string {
 const BAYESIAN_PRIOR = 0.5;
 const BAYESIAN_K = 6;
 const PRIOR_BLEND_MATCHES = 10;
+const UNKNOWN_PLAYER_PRIOR = 0.45; // Below-average default for players without prior season data
 
 export function calcBayesianPct(wins: number, games: number): number {
   if (games === 0) return BAYESIAN_PRIOR * 100;
@@ -158,10 +159,14 @@ function calcPriorTeamStrength(team: string, div: DivisionCode, ds: DataSources)
     if (stats && stats.p > 0) {
       totalWeight += stats.p;
       weightedPct += stats.w * stats.p;
+    } else {
+      // Unknown player: contribute a Bayesian prior
+      totalWeight += BAYESIAN_K;
+      weightedPct += UNKNOWN_PLAYER_PRIOR * BAYESIAN_K;
     }
   }
 
-  if (totalWeight === 0) return 0; // no prior data — same as current behaviour
+  if (totalWeight === 0) return 0;
   const avgWinPct = weightedPct / totalWeight;
   return (avgWinPct - 0.5) * 4; // map to strength scale
 }
