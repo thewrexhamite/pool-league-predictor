@@ -3,6 +3,14 @@ import { z } from 'zod';
 
 const model = process.env.GEMINI_MODEL || 'googleai/gemini-2.0-flash';
 
+const playerInsightOutputSchema = z.object({
+  scoutingReport: z.string(),
+  formAssessment: z.string(),
+  seasonComparison: z.string(),
+  strengths: z.array(z.string()),
+  weaknesses: z.array(z.string()),
+});
+
 export const generatePlayerInsight = ai.defineFlow(
   {
     name: 'generatePlayerInsight',
@@ -34,13 +42,7 @@ export const generatePlayerInsight = ai.defineFlow(
       teamContext: z.string(),
       leagueName: z.string().optional(),
     }),
-    outputSchema: z.object({
-      scoutingReport: z.string(),
-      formAssessment: z.string(),
-      seasonComparison: z.string(),
-      strengths: z.array(z.string()),
-      weaknesses: z.array(z.string()),
-    }),
+    outputSchema: playerInsightOutputSchema,
   },
   async (input) => {
     const s2425 = input.stats2425
@@ -71,8 +73,12 @@ Provide a JSON response:
     const response = await ai.generate({
       model,
       prompt,
-      output: { format: 'json' },
+      output: { schema: playerInsightOutputSchema },
     });
+
+    if (!response.output) {
+      throw new Error('AI did not return a valid response. Please try again.');
+    }
 
     return response.output;
   }

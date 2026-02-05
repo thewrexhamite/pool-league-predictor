@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Dices, Share2, BarChart3 } from 'lucide-react';
+import { Dices, Share2, BarChart3, Clock, ChevronDown, RotateCcw } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import type { DivisionCode, SimulationResult, WhatIfResult, SquadOverrides } from '@/lib/types';
@@ -20,6 +21,9 @@ interface SimulateTabProps {
   myTeam: { team: string; div: DivisionCode } | null;
   onRunSimulation: () => void;
   onTeamClick: (team: string) => void;
+  timeMachineDate: string | null;
+  onTimeMachineDateChange: (date: string | null) => void;
+  availableDates: string[];
 }
 
 export default function SimulateTab({
@@ -33,10 +37,14 @@ export default function SimulateTab({
   myTeam,
   onRunSimulation,
   onTeamClick,
+  timeMachineDate,
+  onTimeMachineDateChange,
+  availableDates,
 }: SimulateTabProps) {
   const { addToast } = useToast();
-  const { ds } = useActiveData();
+  const { ds, isTimeMachine } = useActiveData();
   const [showChart, setShowChart] = useState(false);
+  const [timeMachineExpanded, setTimeMachineExpanded] = useState(false);
   const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
 
   const handleShare = () => {
@@ -82,10 +90,71 @@ export default function SimulateTab({
       </div>
 
       <p className="text-gray-500 mb-4 text-sm">
-        1,000 Monte Carlo simulations based on current form
+        1,000 Monte Carlo simulations based on {isTimeMachine ? <>form as of <strong className="text-accent-light">{timeMachineDate}</strong></> : 'current form'}
         {whatIfResults.length > 0 && ` (with ${whatIfResults.length} locked result${whatIfResults.length > 1 ? 's' : ''})`}
         {Object.keys(squadOverrides).length > 0 && ` (with ${Object.keys(squadOverrides).length} squad change${Object.keys(squadOverrides).length > 1 ? 's' : ''})`}
       </p>
+
+      {/* Time Machine section */}
+      <div className={clsx(
+        'mb-4 rounded-lg border transition-colors',
+        isTimeMachine
+          ? 'bg-accent-muted/10 border-accent/40'
+          : 'bg-accent-muted/10 border-accent/20'
+      )}>
+        <button
+          onClick={() => setTimeMachineExpanded(e => !e)}
+          className="w-full flex items-center justify-between px-3 py-2.5 text-sm"
+        >
+          <span className="flex items-center gap-2 text-gray-300 font-medium">
+            <Clock size={16} className={clsx(isTimeMachine ? 'text-accent' : 'text-gray-500')} />
+            Time Machine
+            {isTimeMachine && (
+              <span className="text-xs text-accent bg-accent/10 px-1.5 py-0.5 rounded">{timeMachineDate}</span>
+            )}
+          </span>
+          <ChevronDown
+            size={16}
+            className={clsx(
+              'text-gray-500 transition-transform',
+              (timeMachineExpanded || isTimeMachine) && 'rotate-180'
+            )}
+          />
+        </button>
+        <AnimatePresence initial={false}>
+          {(timeMachineExpanded || isTimeMachine) && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="px-3 pb-3 flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                <select
+                  value={timeMachineDate || ''}
+                  onChange={(e) => onTimeMachineDateChange(e.target.value || null)}
+                  className="bg-surface-elevated border border-surface-border rounded px-2 py-1.5 text-sm text-gray-200 flex-1 min-w-0 w-full sm:w-auto"
+                >
+                  <option value="">Present (live data)</option>
+                  {[...availableDates].reverse().map(date => (
+                    <option key={date} value={date}>{date}</option>
+                  ))}
+                </select>
+                {isTimeMachine && (
+                  <button
+                    onClick={() => onTimeMachineDateChange(null)}
+                    className="flex items-center gap-1.5 text-xs text-accent hover:text-accent-light transition whitespace-nowrap"
+                  >
+                    <RotateCcw size={14} />
+                    Back to present
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <button
         onClick={onRunSimulation}
@@ -97,8 +166,9 @@ export default function SimulateTab({
             : 'bg-baize hover:bg-baize-dark shadow-card'
         )}
       >
+        {isTimeMachine && !isSimulating && <Clock size={18} />}
         <Dices size={20} className={clsx(isSimulating && 'animate-spin')} />
-        {isSimulating ? 'Simulating...' : 'Run Season Simulation'}
+        {isSimulating ? 'Simulating...' : isTimeMachine ? `Simulate from ${timeMachineDate}` : 'Run Season Simulation'}
       </button>
 
       {!simResults && !isSimulating && (
@@ -110,6 +180,25 @@ export default function SimulateTab({
 
       {simResults && (
         <>
+          {isTimeMachine && (
+            <div className="mb-4 p-3 bg-accent-muted/20 border border-accent/30 rounded-lg text-sm flex items-center justify-between gap-2 flex-wrap">
+              <span className="flex items-center gap-2 text-gray-300">
+                <Clock size={16} className="text-accent shrink-0" />
+                <span>
+                  <span className="text-accent-light font-medium">Time Machine Simulation</span>
+                  {' — Results as if the season restarted on '}
+                  <strong className="text-white">{timeMachineDate}</strong>
+                </span>
+              </span>
+              <button
+                onClick={() => onTimeMachineDateChange(null)}
+                className="flex items-center gap-1.5 text-xs text-accent hover:text-accent-light transition whitespace-nowrap"
+              >
+                <RotateCcw size={14} />
+                Back to present
+              </button>
+            </div>
+          )}
           {whatIfSimResults && whatIfSimResults.length > 0 && (
             <div className="mb-4 p-3 bg-amber-900/20 border border-amber-600/20 rounded-lg text-sm">
               <span className="text-gold font-medium">What-If applied: </span>

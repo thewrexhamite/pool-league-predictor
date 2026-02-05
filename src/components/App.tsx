@@ -890,6 +890,9 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                 myTeam={myTeam}
                 onRunSimulation={runSimulation}
                 onTeamClick={openTeamDetail}
+                timeMachineDate={timeMachineDate}
+                onTimeMachineDateChange={(date) => { setTimeMachineDate(date); setSimResults(null); }}
+                availableDates={availableDates}
               />
             )}
 

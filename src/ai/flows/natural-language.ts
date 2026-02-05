@@ -3,6 +3,13 @@ import { z } from 'zod';
 
 const model = process.env.GEMINI_MODEL || 'googleai/gemini-2.0-flash';
 
+const leagueQuestionOutputSchema = z.object({
+  answer: z.string(),
+  referencedTeams: z.array(z.string()),
+  referencedPlayers: z.array(z.string()),
+  suggestedFollowUps: z.array(z.string()),
+});
+
 export const answerLeagueQuestion = ai.defineFlow(
   {
     name: 'answerLeagueQuestion',
@@ -11,12 +18,7 @@ export const answerLeagueQuestion = ai.defineFlow(
       leagueContext: z.string(),
       leagueName: z.string().optional(),
     }),
-    outputSchema: z.object({
-      answer: z.string(),
-      referencedTeams: z.array(z.string()),
-      referencedPlayers: z.array(z.string()),
-      suggestedFollowUps: z.array(z.string()),
-    }),
+    outputSchema: leagueQuestionOutputSchema,
   },
   async (input) => {
     const prompt = `You are an expert analyst for ${input.leagueName || 'the league'} (25/26 season).
@@ -43,8 +45,12 @@ Respond in JSON format:
     const response = await ai.generate({
       model,
       prompt,
-      output: { format: 'json' },
+      output: { schema: leagueQuestionOutputSchema },
     });
+
+    if (!response.output) {
+      throw new Error('AI did not return a valid response. Please try again.');
+    }
 
     return response.output;
   }

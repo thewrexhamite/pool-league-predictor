@@ -3,6 +3,13 @@ import { z } from 'zod';
 
 const model = process.env.GEMINI_MODEL || 'googleai/gemini-2.0-flash';
 
+const matchAnalysisOutputSchema = z.object({
+  preview: z.string(),
+  tacticalInsights: z.array(z.string()),
+  keyFactors: z.array(z.string()),
+  predictedOutcome: z.string(),
+});
+
 export const analyzeMatch = ai.defineFlow(
   {
     name: 'analyzeMatch',
@@ -41,12 +48,7 @@ export const analyzeMatch = ai.defineFlow(
         diff: z.number(),
       }),
     }),
-    outputSchema: z.object({
-      preview: z.string(),
-      tacticalInsights: z.array(z.string()),
-      keyFactors: z.array(z.string()),
-      predictedOutcome: z.string(),
-    }),
+    outputSchema: matchAnalysisOutputSchema,
   },
   async (input) => {
     const prompt = `You are an expert pool league analyst for ${input.leagueName || 'the league'} (25/26 season).
@@ -72,7 +74,7 @@ Provide your analysis in JSON format:
     const response = await ai.generate({
       model,
       prompt,
-      output: { format: 'json' },
+      output: { schema: matchAnalysisOutputSchema },
     });
 
     if (!response.output) {

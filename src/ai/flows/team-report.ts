@@ -3,6 +3,14 @@ import { z } from 'zod';
 
 const model = process.env.GEMINI_MODEL || 'googleai/gemini-2.0-flash';
 
+const teamReportOutputSchema = z.object({
+  overallAssessment: z.string(),
+  playerPerformances: z.string(),
+  trends: z.string(),
+  statsHighlights: z.string(),
+  outlook: z.string(),
+});
+
 export const generateTeamReport = ai.defineFlow(
   {
     name: 'generateTeamReport',
@@ -58,13 +66,7 @@ export const generateTeamReport = ai.defineFlow(
       gapToLeader: z.number(),
       gapToSafety: z.number(),
     }),
-    outputSchema: z.object({
-      overallAssessment: z.string(),
-      playerPerformances: z.string(),
-      trends: z.string(),
-      statsHighlights: z.string(),
-      outlook: z.string(),
-    }),
+    outputSchema: teamReportOutputSchema,
   },
   async (input) => {
     const formStr = input.form.length > 0 ? input.form.join('-') : 'No recent form';
@@ -112,8 +114,12 @@ Provide your analysis in JSON format with these five sections:
     const response = await ai.generate({
       model,
       prompt,
-      output: { format: 'json' },
+      output: { schema: teamReportOutputSchema },
     });
+
+    if (!response.output) {
+      throw new Error('AI did not return a valid response. Please try again.');
+    }
 
     return response.output;
   }
