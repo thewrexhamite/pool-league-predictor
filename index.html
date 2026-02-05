@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pool League Predictor - Wrexham & District 25/26</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" integrity="sha384-tMH8h3BGESGckSAVGZ82T9n90ztNXxvdwvdM6UoR56cYcf+0iGXBliJ29D+wZ/x8" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" integrity="sha384-bm7MnzvK++ykSwVJ2tynSE5TRdN+xL418osEVF2DE/L/gfWHj91J2Sphe582B1Bh" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js" integrity="sha384-1qlE7MZPM2pHD/pBZCU/yB8UCP52RYL8bge/qNdfNBCWToySp8/M+JL2waXU4hjJ" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background: #111827; }
@@ -17,12 +17,12 @@
     <div id="root"></div>
     <script>
 const RESULTS = [{"date":"22-10-2025","home":"Golden Lion Cp","away":"Hill Street Social","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"22-10-2025","home":"Miners Brymbo.","away":"Colliers Dogs","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"22-10-2025","home":"War Memorial A","away":"Gwersyllt Union","home_score":3,"away_score":7,"division":"WD1","frames":10},{"date":"22-10-2025","home":"Breakroom Lions.","away":"Golden Lion Wxm","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"22-10-2025","home":"Ruabon Cons B","away":"War Memorial B","home_score":1,"away_score":9,"division":"WD2","frames":10},{"date":"22-10-2025","home":"Crown Caergwrle","away":"Gresford Legion","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"22-10-2025","home":"Hafod Club Rhos","away":"Kings Mills","home_score":4,"away_score":6,"division":"WD2","frames":10},{"date":"22-10-2025","home":"Y Tai.","away":"Ruabon Cons A","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"26-10-2025","home":"Gwersyllt Club","away":"Breakroom Llay","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"26-10-2025","home":"Johnstown Legion","away":"Gresford Colliery","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"26-10-2025","home":"Miners Brymbo","away":"Red Lion Marchweil","home_score":7,"away_score":3,"division":"SD1","frames":10},{"date":"26-10-2025","home":"Breakroom Lions","away":"Y Tai","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"26-10-2025","home":"Four Dogs A","away":"Rollers B","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"26-10-2025","home":"Old Black Horse","away":"The Drunk Monk","home_score":7,"away_score":3,"division":"SD2","frames":10},{"date":"26-10-2025","home":"Rhos Snooker Club","away":"Sun Rhos","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"26-10-2025","home":"Cross Foxes Coedpoeth","away":"Four Dogs B","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"26-10-2025","home":"Rollers A","away":"Magnet B","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"29-10-2025","home":"Golden Lion Cp","away":"Colliers Dogs","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"29-10-2025","home":"Gwersyllt Club.","away":"Gwersyllt Union","home_score":1,"away_score":9,"division":"WD1","frames":10},{"date":"29-10-2025","home":"Miners Brymbo.","away":"Golden Lion Wxm","home_score":6,"away_score":4,"division":"WD1","frames":10},{"date":"29-10-2025","home":"War Memorial A","away":"Breakroom Lions.","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"29-10-2025","home":"Greyhound","away":"Gresford Legion","home_score":4,"away_score":6,"division":"WD2","frames":10},{"date":"29-10-2025","home":"Ruabon Cons B","away":"Kings Mills","home_score":1,"away_score":9,"division":"WD2","frames":10},{"date":"29-10-2025","home":"Crown Caergwrle","away":"White Lion Hope","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"29-10-2025","home":"Hafod Club Rhos","away":"Ruabon Cons A","home_score":2,"away_score":8,"division":"WD2","frames":10},{"date":"29-10-2025","home":"Plough Gresford","away":"Y Tai.","home_score":7,"away_score":3,"division":"WD2","frames":10},{"date":"02-11-2025","home":"Gwersyllt WMC","away":"Miners Brymbo","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"02-11-2025","home":"Red Lion Marchweil","away":"Johnstown Legion","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"02-11-2025","home":"Gresford Colliery","away":"Gwersyllt Club","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"02-11-2025","home":"Breakroom Llay","away":"Magnet A","home_score":7,"away_score":3,"division":"SD1","frames":10},{"date":"02-11-2025","home":"Magnet B","away":"Cross Foxes Coedpoeth","home_score":6,"away_score":4,"division":"SD2","frames":10},{"date":"02-11-2025","home":"Four Dogs B","away":"Rhos Snooker Club","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"02-11-2025","home":"Sun Rhos","away":"Old Black Horse","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"02-11-2025","home":"The Drunk Monk","away":"Four Dogs A","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"02-11-2025","home":"Rollers B","away":"Brymbo Sports","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"05-11-2025","home":"Golden Lion Wxm","away":"War Memorial A","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"05-11-2025","home":"Gwersyllt Union","away":"Miners Brymbo.","home_score":10,"away_score":0,"division":"WD1","frames":10},{"date":"05-11-2025","home":"Colliers Dogs","away":"Gwersyllt Club.","home_score":4,"away_score":6,"division":"WD1","frames":10},{"date":"05-11-2025","home":"Hill Street Social","away":"Crown Summerhill","home_score":4,"away_score":6,"division":"WD1","frames":10},{"date":"05-11-2025","home":"Ruabon Cons A","away":"Plough Gresford","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"05-11-2025","home":"White Lion Hope","away":"Hafod Club Rhos","home_score":3,"away_score":7,"division":"WD2","frames":10},{"date":"05-11-2025","home":"Kings Mills","away":"Crown Caergwrle","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"05-11-2025","home":"Gresford Legion","away":"Ruabon Cons B","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"05-11-2025","home":"War Memorial B","away":"Greyhound","home_score":7,"away_score":3,"division":"WD2","frames":10},{"date":"09-11-2025","home":"Breakroom Llay","away":"Red Lion Marchweil","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"09-11-2025","home":"Magnet A","away":"Gwersyllt WMC","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"09-11-2025","home":"Gwersyllt Club","away":"Y Tai","home_score":7,"away_score":3,"division":"SD1","frames":10},{"date":"09-11-2025","home":"Johnstown Legion","away":"Breakroom Lions","home_score":8,"away_score":2,"division":"SD1","frames":10},{"date":"09-11-2025","home":"Rollers B","away":"Sun Rhos","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"09-11-2025","home":"Brymbo Sports","away":"Four Dogs B","home_score":9,"away_score":1,"division":"SD2","frames":10},{"date":"09-11-2025","home":"Four Dogs A","away":"Magnet B","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"09-11-2025","home":"Old Black Horse","away":"Rollers A","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"09-11-2025","home":"Rhos Snooker Club","away":"Cross Foxes Coedpoeth","home_score":8,"away_score":2,"division":"SD2","frames":10},{"date":"12-11-2025","home":"Breakroom Lions.","away":"Miners Brymbo.","home_score":3,"away_score":7,"division":"WD1","frames":10},{"date":"12-11-2025","home":"Golden Lion Wxm","away":"Gwersyllt Club.","home_score":6,"away_score":4,"division":"WD1","frames":10},{"date":"12-11-2025","home":"Gwersyllt Union","away":"Golden Lion Cp","home_score":6,"away_score":4,"division":"WD1","frames":10},{"date":"12-11-2025","home":"Colliers Dogs","away":"Crown Summerhill","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"12-11-2025","home":"Y Tai.","away":"Hafod Club Rhos","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"12-11-2025","home":"Ruabon Cons A","away":"Crown Caergwrle","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"12-11-2025","home":"Kings Mills","away":"Greyhound","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"12-11-2025","home":"Gresford Legion","away":"War Memorial B","home_score":4,"away_score":6,"division":"WD2","frames":10},{"date":"16-11-2025","home":"Magnet A","away":"Gresford Colliery","home_score":7,"away_score":3,"division":"SD1","frames":10},{"date":"16-11-2025","home":"Gwersyllt Club","away":"Red Lion Marchweil","home_score":9,"away_score":1,"division":"SD1","frames":10},{"date":"16-11-2025","home":"Johnstown Legion","away":"Gwersyllt WMC","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"16-11-2025","home":"Miners Brymbo","away":"Y Tai","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"16-11-2025","home":"Brymbo Sports","away":"The Drunk Monk","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"16-11-2025","home":"Four Dogs A","away":"Sun Rhos","home_score":6,"away_score":4,"division":"SD2","frames":10},{"date":"16-11-2025","home":"Old Black Horse","away":"Four Dogs B","home_score":6,"away_score":4,"division":"SD2","frames":10},{"date":"16-11-2025","home":"Rhos Snooker Club","away":"Magnet B","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"16-11-2025","home":"Cross Foxes Coedpoeth","away":"Rollers A","home_score":7,"away_score":3,"division":"SD2","frames":10},{"date":"19-11-2025","home":"Gwersyllt Union","away":"Breakroom Lions.","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"19-11-2025","home":"Colliers Dogs","away":"War Memorial A","home_score":2,"away_score":8,"division":"WD1","frames":10},{"date":"19-11-2025","home":"Hill Street Social","away":"Gwersyllt Club.","home_score":3,"away_score":7,"division":"WD1","frames":10},{"date":"19-11-2025","home":"Crown Summerhill","away":"Golden Lion Cp","home_score":6,"away_score":4,"division":"WD1","frames":10},{"date":"19-11-2025","home":"White Lion Hope","away":"Y Tai.","home_score":2,"away_score":8,"division":"WD2","frames":10},{"date":"19-11-2025","home":"Kings Mills","away":"Plough Gresford","home_score":7,"away_score":3,"division":"WD2","frames":10},{"date":"19-11-2025","home":"Gresford Legion","away":"Hafod Club Rhos","home_score":7,"away_score":3,"division":"WD2","frames":10},{"date":"19-11-2025","home":"War Memorial B","away":"Crown Caergwrle","home_score":4,"away_score":6,"division":"WD2","frames":10},{"date":"19-11-2025","home":"Greyhound","away":"Ruabon Cons B","home_score":3,"away_score":7,"division":"WD2","frames":10},{"date":"23-11-2025","home":"Johnstown Legion","away":"Magnet A","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"23-11-2025","home":"Miners Brymbo","away":"Breakroom Llay","home_score":2,"away_score":8,"division":"SD1","frames":10},{"date":"23-11-2025","home":"Breakroom Lions","away":"Red Lion Marchweil","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"23-11-2025","home":"Y Tai","away":"Gwersyllt WMC","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"23-11-2025","home":"Old Black Horse","away":"Brymbo Sports","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"23-11-2025","home":"Rhos Snooker Club","away":"Rollers B","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"23-11-2025","home":"Cross Foxes Coedpoeth","away":"The Drunk Monk","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"23-11-2025","home":"Rollers A","away":"Sun Rhos","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"23-11-2025","home":"Magnet B","away":"Four Dogs B","home_score":8,"away_score":2,"division":"SD2","frames":10},{"date":"26-11-2025","home":"Gwersyllt Club.","away":"Crown Summerhill","home_score":2,"away_score":8,"division":"WD1","frames":10},{"date":"26-11-2025","home":"Miners Brymbo.","away":"Hill Street Social","home_score":9,"away_score":1,"division":"WD1","frames":10},{"date":"26-11-2025","home":"Breakroom Lions.","away":"Colliers Dogs","home_score":4,"away_score":6,"division":"WD1","frames":10},{"date":"26-11-2025","home":"Golden Lion Wxm","away":"Gwersyllt Union","home_score":6,"away_score":4,"division":"WD1","frames":10},{"date":"26-11-2025","home":"Crown Caergwrle","away":"Greyhound","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"26-11-2025","home":"Hafod Club Rhos","away":"War Memorial B","home_score":7,"away_score":3,"division":"WD2","frames":10},{"date":"26-11-2025","home":"Plough Gresford","away":"Gresford Legion","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"26-11-2025","home":"Y Tai.","away":"Kings Mills","home_score":3,"away_score":7,"division":"WD2","frames":10},{"date":"26-11-2025","home":"Ruabon Cons A","away":"White Lion Hope","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"30-11-2025","home":"Red Lion Marchweil","away":"Y Tai","home_score":8,"away_score":2,"division":"SD1","frames":10},{"date":"30-11-2025","home":"Gresford Colliery","away":"Breakroom Lions","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"30-11-2025","home":"Magnet A","away":"Miners Brymbo","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"30-11-2025","home":"Gwersyllt Club","away":"Johnstown Legion","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"30-11-2025","home":"Sun Rhos","away":"Magnet B","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"30-11-2025","home":"The Drunk Monk","away":"Rollers A","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"30-11-2025","home":"Rollers B","away":"Cross Foxes Coedpoeth","home_score":8,"away_score":2,"division":"SD2","frames":10},{"date":"30-11-2025","home":"Brymbo Sports","away":"Rhos Snooker Club","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"30-11-2025","home":"Four Dogs A","away":"Old Black Horse","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"03-12-2025","home":"Colliers Dogs","away":"Golden Lion Wxm","home_score":4,"away_score":6,"division":"WD1","frames":10},{"date":"03-12-2025","home":"Hill Street Social","away":"War Memorial A","home_score":3,"away_score":7,"division":"WD1","frames":10},{"date":"03-12-2025","home":"Crown Summerhill","away":"Miners Brymbo.","home_score":1,"away_score":9,"division":"WD1","frames":10},{"date":"03-12-2025","home":"Golden Lion Cp","away":"Gwersyllt Club.","home_score":3,"away_score":7,"division":"WD1","frames":10},{"date":"03-12-2025","home":"Kings Mills","away":"Ruabon Cons A","home_score":4,"away_score":6,"division":"WD2","frames":10},{"date":"03-12-2025","home":"Gresford Legion","away":"Y Tai.","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"03-12-2025","home":"War Memorial B","away":"Plough Gresford","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"03-12-2025","home":"Greyhound","away":"Hafod Club Rhos","home_score":4,"away_score":6,"division":"WD2","frames":10},{"date":"03-12-2025","home":"Ruabon Cons B","away":"Crown Caergwrle","home_score":2,"away_score":8,"division":"WD2","frames":10},{"date":"07-12-2025","home":"Miners Brymbo","away":"Gwersyllt Club","home_score":3,"away_score":7,"division":"SD1","frames":10},{"date":"07-12-2025","home":"Breakroom Lions","away":"Breakroom Llay","home_score":2,"away_score":8,"division":"SD1","frames":10},{"date":"07-12-2025","home":"Y Tai","away":"Gresford Colliery","home_score":3,"away_score":7,"division":"SD1","frames":10},{"date":"07-12-2025","home":"Gwersyllt WMC","away":"Red Lion Marchweil","home_score":7,"away_score":3,"division":"SD1","frames":10},{"date":"07-12-2025","home":"Rhos Snooker Club","away":"Four Dogs A","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"07-12-2025","home":"Cross Foxes Coedpoeth","away":"Brymbo Sports","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"07-12-2025","home":"Rollers A","away":"Rollers B","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"07-12-2025","home":"Magnet B","away":"The Drunk Monk","home_score":6,"away_score":4,"division":"SD2","frames":10},{"date":"07-12-2025","home":"Four Dogs B","away":"Sun Rhos","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"04-01-2026","home":"Gresford Colliery","away":"Gwersyllt WMC","home_score":7,"away_score":3,"division":"SD1","frames":10},{"date":"04-01-2026","home":"Breakroom Llay","away":"Y Tai","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"04-01-2026","home":"Magnet A","away":"Breakroom Lions","home_score":9,"away_score":1,"division":"SD1","frames":10},{"date":"04-01-2026","home":"Johnstown Legion","away":"Miners Brymbo","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"04-01-2026","home":"The Drunk Monk","away":"Four Dogs B","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"04-01-2026","home":"Rollers B","away":"Magnet B","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"04-01-2026","home":"Brymbo Sports","away":"Rollers A","home_score":7,"away_score":3,"division":"SD2","frames":10},{"date":"04-01-2026","home":"Four Dogs A","away":"Cross Foxes Coedpoeth","home_score":8,"away_score":2,"division":"SD2","frames":10},{"date":"07-01-2026","home":"Miners Brymbo.","away":"Golden Lion Cp","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"07-01-2026","home":"War Memorial A","away":"Crown Summerhill","home_score":8,"away_score":2,"division":"WD1","frames":10},{"date":"07-01-2026","home":"Breakroom Lions.","away":"Hill Street Social","home_score":6,"away_score":4,"division":"WD1","frames":10},{"date":"07-01-2026","home":"Gwersyllt Union","away":"Colliers Dogs","home_score":8,"away_score":2,"division":"WD1","frames":10},{"date":"07-01-2026","home":"Hafod Club Rhos","away":"Ruabon Cons B","home_score":7,"away_score":3,"division":"WD2","frames":10},{"date":"07-01-2026","home":"Plough Gresford","away":"Greyhound","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"07-01-2026","home":"Y Tai.","away":"War Memorial B","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"07-01-2026","home":"Ruabon Cons A","away":"Gresford Legion","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"07-01-2026","home":"White Lion Hope","away":"Kings Mills","home_score":2,"away_score":8,"division":"WD2","frames":10},{"date":"11-01-2026","home":"Breakroom Lions","away":"Gwersyllt Club","home_score":3,"away_score":7,"division":"SD1","frames":10},{"date":"11-01-2026","home":"Y Tai","away":"Magnet A","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"11-01-2026","home":"Gwersyllt WMC","away":"Breakroom Llay","home_score":3,"away_score":7,"division":"SD1","frames":10},{"date":"11-01-2026","home":"Red Lion Marchweil","away":"Gresford Colliery","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"11-01-2026","home":"Cross Foxes Coedpoeth","away":"Old Black Horse","home_score":7,"away_score":3,"division":"SD2","frames":10},{"date":"11-01-2026","home":"Rollers A","away":"Four Dogs A","home_score":1,"away_score":9,"division":"SD2","frames":10},{"date":"11-01-2026","home":"Magnet B","away":"Brymbo Sports","home_score":7,"away_score":3,"division":"SD2","frames":10},{"date":"11-01-2026","home":"Four Dogs B","away":"Rollers B","home_score":1,"away_score":9,"division":"SD2","frames":10},{"date":"11-01-2026","home":"Sun Rhos","away":"The Drunk Monk","home_score":6,"away_score":4,"division":"SD2","frames":10},{"date":"14-01-2026","home":"Hill Street Social","away":"Golden Lion Wxm","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"14-01-2026","home":"Crown Summerhill","away":"Breakroom Lions.","home_score":6,"away_score":4,"division":"WD1","frames":10},{"date":"14-01-2026","home":"Golden Lion Cp","away":"War Memorial A","home_score":3,"away_score":7,"division":"WD1","frames":10},{"date":"14-01-2026","home":"Gwersyllt Club.","away":"Miners Brymbo.","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"14-01-2026","home":"Gresford Legion","away":"White Lion Hope","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"14-01-2026","home":"War Memorial B","away":"Ruabon Cons A","home_score":2,"away_score":8,"division":"WD2","frames":10},{"date":"14-01-2026","home":"Greyhound","away":"Y Tai.","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"14-01-2026","home":"Ruabon Cons B","away":"Plough Gresford","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"14-01-2026","home":"Crown Caergwrle","away":"Hafod Club Rhos","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"18-01-2026","home":"Gwersyllt WMC","away":"Breakroom Lions","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"18-01-2026","home":"Gresford Colliery","away":"Miners Brymbo","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"18-01-2026","home":"Breakroom Llay","away":"Johnstown Legion","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"18-01-2026","home":"Magnet A","away":"Gwersyllt Club","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"18-01-2026","home":"Four Dogs B","away":"Rollers A","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"18-01-2026","home":"The Drunk Monk","away":"Rhos Snooker Club","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"18-01-2026","home":"Rollers B","away":"Old Black Horse","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"18-01-2026","home":"Brymbo Sports","away":"Four Dogs A","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"21-01-2026","home":"War Memorial A","away":"Gwersyllt Club.","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"21-01-2026","home":"Breakroom Lions.","away":"Golden Lion Cp","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"21-01-2026","home":"Golden Lion Wxm","away":"Crown Summerhill","home_score":9,"away_score":1,"division":"WD1","frames":10},{"date":"21-01-2026","home":"Gwersyllt Union","away":"Hill Street Social","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"21-01-2026","home":"Plough Gresford","away":"Crown Caergwrle","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"21-01-2026","home":"Y Tai.","away":"Ruabon Cons B","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"21-01-2026","home":"Ruabon Cons A","away":"Greyhound","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"21-01-2026","home":"Kings Mills","away":"Gresford Legion","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"25-01-2026","home":"Breakroom Lions","away":"Miners Brymbo","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"25-01-2026","home":"Y Tai","away":"Johnstown Legion","home_score":2,"away_score":8,"division":"SD1","frames":10},{"date":"25-01-2026","home":"Gwersyllt WMC","away":"Gwersyllt Club","home_score":6,"away_score":4,"division":"SD1","frames":10},{"date":"25-01-2026","home":"Red Lion Marchweil","away":"Magnet A","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"25-01-2026","home":"Gresford Colliery","away":"Breakroom Llay","home_score":3,"away_score":7,"division":"SD1","frames":10},{"date":"25-01-2026","home":"Rollers A","away":"Rhos Snooker Club","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"25-01-2026","home":"Magnet B","away":"Old Black Horse","home_score":7,"away_score":3,"division":"SD2","frames":10},{"date":"25-01-2026","home":"Four Dogs B","away":"Four Dogs A","home_score":3,"away_score":7,"division":"SD2","frames":10},{"date":"25-01-2026","home":"Sun Rhos","away":"Brymbo Sports","home_score":7,"away_score":3,"division":"SD2","frames":10},{"date":"25-01-2026","home":"The Drunk Monk","away":"Rollers B","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"28-01-2026","home":"Hill Street Social","away":"Colliers Dogs","home_score":4,"away_score":6,"division":"WD1","frames":10},{"date":"28-01-2026","home":"Crown Summerhill","away":"Gwersyllt Union","home_score":2,"away_score":8,"division":"WD1","frames":10},{"date":"28-01-2026","home":"Golden Lion Cp","away":"Golden Lion Wxm","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"28-01-2026","home":"Gwersyllt Club.","away":"Breakroom Lions.","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"28-01-2026","home":"Miners Brymbo.","away":"War Memorial A","home_score":8,"away_score":2,"division":"WD1","frames":10},{"date":"28-01-2026","home":"War Memorial B","away":"Kings Mills","home_score":3,"away_score":7,"division":"WD2","frames":10},{"date":"28-01-2026","home":"Greyhound","away":"White Lion Hope","home_score":3,"away_score":7,"division":"WD2","frames":10},{"date":"28-01-2026","home":"Ruabon Cons B","away":"Ruabon Cons A","home_score":1,"away_score":9,"division":"WD2","frames":10},{"date":"28-01-2026","home":"Crown Caergwrle","away":"Y Tai.","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"28-01-2026","home":"Hafod Club Rhos","away":"Plough Gresford","home_score":5,"away_score":5,"division":"WD2","frames":10},{"date":"01-02-2026","home":"Breakroom Llay","away":"Gwersyllt Club","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"01-02-2026","home":"Gresford Colliery","away":"Johnstown Legion","home_score":4,"away_score":6,"division":"SD1","frames":10},{"date":"01-02-2026","home":"Red Lion Marchweil","away":"Miners Brymbo","home_score":3,"away_score":7,"division":"SD1","frames":10},{"date":"01-02-2026","home":"Y Tai","away":"Breakroom Lions","home_score":5,"away_score":5,"division":"SD1","frames":10},{"date":"01-02-2026","home":"Rollers B","away":"Four Dogs A","home_score":4,"away_score":6,"division":"SD2","frames":10},{"date":"01-02-2026","home":"The Drunk Monk","away":"Old Black Horse","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"01-02-2026","home":"Sun Rhos","away":"Rhos Snooker Club","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"01-02-2026","home":"Four Dogs B","away":"Cross Foxes Coedpoeth","home_score":8,"away_score":2,"division":"SD2","frames":10},{"date":"01-02-2026","home":"Magnet B","away":"Rollers A","home_score":5,"away_score":5,"division":"SD2","frames":10},{"date":"04-02-2026","home":"Colliers Dogs","away":"Miners Brymbo.","home_score":7,"away_score":3,"division":"WD1","frames":10},{"date":"04-02-2026","home":"Gwersyllt Union","away":"War Memorial A","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"04-02-2026","home":"Golden Lion Wxm","away":"Breakroom Lions.","home_score":5,"away_score":5,"division":"WD1","frames":10},{"date":"04-02-2026","home":"War Memorial B","away":"Ruabon Cons B","home_score":7,"away_score":3,"division":"WD2","frames":10},{"date":"04-02-2026","home":"Gresford Legion","away":"Crown Caergwrle","home_score":3,"away_score":7,"division":"WD2","frames":10},{"date":"04-02-2026","home":"Kings Mills","away":"Hafod Club Rhos","home_score":8,"away_score":2,"division":"WD2","frames":10},{"date":"04-02-2026","home":"White Lion Hope","away":"Plough Gresford","home_score":6,"away_score":4,"division":"WD2","frames":10},{"date":"04-02-2026","home":"Ruabon Cons A","away":"Y Tai.","home_score":7,"away_score":3,"division":"WD2","frames":10}];
-const FIXTURES = [{"date":"04-01-2026","home":"Old Black Horse","away":"Rhos Snooker Club","division":"SD2"},{"date":"08-02-2026","home":"Brymbo Sports","away":"Rollers B","division":"SD2"},{"date":"08-02-2026","home":"Cross Foxes Coedpoeth","away":"Magnet B","division":"SD2"},{"date":"08-02-2026","home":"Four Dogs A","away":"The Drunk Monk","division":"SD2"},{"date":"08-02-2026","home":"Gwersyllt Club","away":"Gresford Colliery","division":"SD1"},{"date":"08-02-2026","home":"Johnstown Legion","away":"Red Lion Marchweil","division":"SD1"},{"date":"08-02-2026","home":"Magnet A","away":"Breakroom Llay","division":"SD1"},{"date":"08-02-2026","home":"Miners Brymbo","away":"Gwersyllt WMC","division":"SD1"},{"date":"08-02-2026","home":"Old Black Horse","away":"Sun Rhos","division":"SD2"},{"date":"08-02-2026","home":"Rhos Snooker Club","away":"Four Dogs B","division":"SD2"},{"date":"11-02-2026","home":"Breakroom Lions.","away":"War Memorial A","division":"WD1"},{"date":"11-02-2026","home":"Golden Lion Wxm","away":"Miners Brymbo.","division":"WD1"},{"date":"11-02-2026","home":"Colliers Dogs","away":"Golden Lion Cp","division":"WD1"},{"date":"11-02-2026","home":"Gresford Legion","away":"Greyhound","division":"WD2"},{"date":"11-02-2026","home":"Gwersyllt Union","away":"Gwersyllt Club.","division":"WD1"},{"date":"11-02-2026","home":"Kings Mills","away":"Ruabon Cons B","division":"WD2"},{"date":"11-02-2026","home":"Ruabon Cons A","away":"Hafod Club Rhos","division":"WD2"},{"date":"11-02-2026","home":"White Lion Hope","away":"Crown Caergwrle","division":"WD2"},{"date":"11-02-2026","home":"Y Tai.","away":"Plough Gresford","division":"WD2"},{"date":"15-02-2026","home":"Breakroom Llay","away":"Gwersyllt WMC","division":"SD1"},{"date":"15-02-2026","home":"Cross Foxes Coedpoeth","away":"Rollers A","division":"SD2"},{"date":"15-02-2026","home":"Four Dogs A","away":"Magnet A","division":"SD2"},{"date":"15-02-2026","home":"Gwersyllt Club","away":"The Drunk Monk","division":"SD1"},{"date":"15-02-2026","home":"Magnet B","away":"Johnstown Legion","division":"SD2"},{"date":"15-02-2026","home":"Old Black Horse","away":"Brymbo Sports","division":"SD2"},{"date":"15-02-2026","home":"Red Lion Marchweil","away":"Sun Rhos","division":"SD1"},{"date":"15-02-2026","home":"Rhos Snooker Club","away":"Miners Brymbo","division":"SD2"},{"date":"15-02-2026","home":"Rollers B","away":"Breakroom Lions","division":"SD2"},{"date":"18-02-2026","home":"Golden Lion Wxm","away":"Hill Street Social","division":"WD1"},{"date":"18-02-2026","home":"Golden Lion Cp","away":"War Memorial B","division":"WD1"},{"date":"18-02-2026","home":"Colliers Dogs","away":"Y Tai.","division":"WD1"},{"date":"18-02-2026","home":"Greyhound","away":"Ruabon Cons A","division":"WD2"},{"date":"18-02-2026","home":"Gwersyllt Union","away":"Hafod Club Rhos","division":"WD1"},{"date":"18-02-2026","home":"Miners Brymbo.","away":"Breakroom Lions.","division":"WD1"},{"date":"18-02-2026","home":"Plough Gresford","away":"Crown Summerhill","division":"WD2"},{"date":"18-02-2026","home":"Ruabon Cons B","away":"Crown Caergwrle","division":"WD2"},{"date":"18-02-2026","home":"War Memorial A","away":"Gwersyllt Club.","division":"WD1"},{"date":"01-03-2026","home":"Breakroom Lions","away":"Johnstown Legion","division":"SD1"},{"date":"01-03-2026","home":"Cross Foxes Coedpoeth","away":"Rhos Snooker Club","division":"SD2"},{"date":"01-03-2026","home":"Four Dogs B","away":"Brymbo Sports","division":"SD2"},{"date":"01-03-2026","home":"Gwersyllt WMC","away":"Magnet A","division":"SD1"},{"date":"01-03-2026","home":"Magnet B","away":"Four Dogs A","division":"SD2"},{"date":"01-03-2026","home":"Red Lion Marchweil","away":"Breakroom Llay","division":"SD1"},{"date":"01-03-2026","home":"Rollers A","away":"Old Black Horse","division":"SD2"},{"date":"01-03-2026","home":"Sun Rhos","away":"Rollers B","division":"SD2"},{"date":"01-03-2026","home":"Y Tai","away":"Gwersyllt Club","division":"SD1"},{"date":"04-03-2026","home":"Crown Caergwrle","away":"Kings Mills","division":"WD2"},{"date":"04-03-2026","home":"Crown Summerhill","away":"Hill Street Social","division":"WD1"},{"date":"04-03-2026","home":"Greyhound","away":"War Memorial B","division":"WD2"},{"date":"04-03-2026","home":"Gwersyllt Club.","away":"Colliers Dogs","division":"WD1"},{"date":"04-03-2026","home":"Hafod Club Rhos","away":"White Lion Hope","division":"WD2"},{"date":"04-03-2026","home":"Miners Brymbo.","away":"Gwersyllt Union","division":"WD1"},{"date":"04-03-2026","home":"Plough Gresford","away":"Ruabon Cons A","division":"WD2"},{"date":"04-03-2026","home":"Ruabon Cons B","away":"Gresford Legion","division":"WD2"},{"date":"04-03-2026","home":"War Memorial A","away":"Golden Lion Wxm","division":"WD1"},{"date":"08-03-2026","home":"Four Dogs B","away":"Old Black Horse","division":"SD2"},{"date":"08-03-2026","home":"Gresford Colliery","away":"Magnet A","division":"SD1"},{"date":"08-03-2026","home":"Gwersyllt WMC","away":"Johnstown Legion","division":"SD1"},{"date":"08-03-2026","home":"Magnet B","away":"Rhos Snooker Club","division":"SD2"},{"date":"08-03-2026","home":"Red Lion Marchweil","away":"Gwersyllt Club","division":"SD1"},{"date":"08-03-2026","home":"Rollers A","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"08-03-2026","home":"Sun Rhos","away":"Four Dogs A","division":"SD2"},{"date":"08-03-2026","home":"The Drunk Monk","away":"Brymbo Sports","division":"SD2"},{"date":"08-03-2026","home":"Y Tai","away":"Miners Brymbo","division":"SD1"},{"date":"11-03-2026","home":"Crown Caergwrle","away":"Ruabon Cons A","division":"WD2"},{"date":"11-03-2026","home":"Crown Summerhill","away":"Colliers Dogs","division":"WD1"},{"date":"11-03-2026","home":"Golden Lion Cp","away":"Gwersyllt Union","division":"WD1"},{"date":"11-03-2026","home":"Greyhound","away":"Kings Mills","division":"WD2"},{"date":"11-03-2026","home":"Gwersyllt Club.","away":"Golden Lion Wxm","division":"WD1"},{"date":"11-03-2026","home":"Hafod Club Rhos","away":"Y Tai.","division":"WD2"},{"date":"11-03-2026","home":"Miners Brymbo.","away":"Breakroom Lions.","division":"WD1"},{"date":"11-03-2026","home":"War Memorial B","away":"Gresford Legion","division":"WD2"},{"date":"15-03-2026","home":"Breakroom Llay","away":"Miners Brymbo","division":"SD1"},{"date":"15-03-2026","home":"Brymbo Sports","away":"Old Black Horse","division":"SD2"},{"date":"15-03-2026","home":"Four Dogs B","away":"Magnet B","division":"SD2"},{"date":"15-03-2026","home":"Gwersyllt WMC","away":"Y Tai","division":"SD1"},{"date":"15-03-2026","home":"Magnet A","away":"Johnstown Legion","division":"SD1"},{"date":"15-03-2026","home":"Red Lion Marchweil","away":"Breakroom Lions","division":"SD1"},{"date":"15-03-2026","home":"Rollers B","away":"Rhos Snooker Club","division":"SD2"},{"date":"15-03-2026","home":"Sun Rhos","away":"Rollers A","division":"SD2"},{"date":"15-03-2026","home":"The Drunk Monk","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"18-03-2026","home":"Breakroom Lions.","away":"Gwersyllt Union","division":"WD1"},{"date":"18-03-2026","home":"Crown Caergwrle","away":"War Memorial B","division":"WD2"},{"date":"18-03-2026","home":"Golden Lion Cp","away":"Crown Summerhill","division":"WD1"},{"date":"18-03-2026","home":"Gwersyllt Club.","away":"Hill Street Social","division":"WD1"},{"date":"18-03-2026","home":"Hafod Club Rhos","away":"Gresford Legion","division":"WD2"},{"date":"18-03-2026","home":"Plough Gresford","away":"Kings Mills","division":"WD2"},{"date":"18-03-2026","home":"Ruabon Cons B","away":"Greyhound","division":"WD2"},{"date":"18-03-2026","home":"War Memorial A","away":"Colliers Dogs","division":"WD1"},{"date":"18-03-2026","home":"Y Tai.","away":"White Lion Hope","division":"WD2"},{"date":"22-03-2026","home":"Breakroom Lions","away":"Gresford Colliery","division":"SD1"},{"date":"22-03-2026","home":"Cross Foxes Coedpoeth","away":"Rollers B","division":"SD2"},{"date":"22-03-2026","home":"Johnstown Legion","away":"Gwersyllt Club","division":"SD1"},{"date":"22-03-2026","home":"Magnet B","away":"Sun Rhos","division":"SD2"},{"date":"22-03-2026","home":"Miners Brymbo","away":"Magnet A","division":"SD1"},{"date":"22-03-2026","home":"Old Black Horse","away":"Four Dogs A","division":"SD2"},{"date":"22-03-2026","home":"Rhos Snooker Club","away":"Brymbo Sports","division":"SD2"},{"date":"22-03-2026","home":"Rollers A","away":"The Drunk Monk","division":"SD2"},{"date":"22-03-2026","home":"Y Tai","away":"Red Lion Marchweil","division":"SD1"},{"date":"25-03-2026","home":"Crown Summerhill","away":"Gwersyllt Club.","division":"WD1"},{"date":"25-03-2026","home":"Colliers Dogs","away":"Breakroom Lions.","division":"WD1"},{"date":"25-03-2026","home":"Gresford Legion","away":"Plough Gresford","division":"WD2"},{"date":"25-03-2026","home":"Greyhound","away":"Crown Caergwrle","division":"WD2"},{"date":"25-03-2026","home":"Gwersyllt Union","away":"Golden Lion Wxm","division":"WD1"},{"date":"25-03-2026","home":"Hill Street Social","away":"Miners Brymbo.","division":"WD1"},{"date":"25-03-2026","home":"Kings Mills","away":"Y Tai.","division":"WD2"},{"date":"25-03-2026","home":"War Memorial B","away":"Hafod Club Rhos","division":"WD2"},{"date":"25-03-2026","home":"White Lion Hope","away":"Ruabon Cons A","division":"WD2"},{"date":"29-03-2026","home":"Breakroom Llay","away":"Breakroom Lions","division":"SD1"},{"date":"29-03-2026","home":"Brymbo Sports","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"29-03-2026","home":"Four Dogs A","away":"Rhos Snooker Club","division":"SD2"},{"date":"29-03-2026","home":"Gresford Colliery","away":"Y Tai","division":"SD1"},{"date":"29-03-2026","home":"Gwersyllt Club","away":"Miners Brymbo","division":"SD1"},{"date":"29-03-2026","home":"Red Lion Marchweil","away":"Gwersyllt WMC","division":"SD1"},{"date":"29-03-2026","home":"Rollers B","away":"Rollers A","division":"SD2"},{"date":"29-03-2026","home":"Sun Rhos","away":"Four Dogs B","division":"SD2"},{"date":"29-03-2026","home":"The Drunk Monk","away":"Magnet B","division":"SD2"},{"date":"01-04-2026","home":"Crown Caergwrle","away":"Ruabon Cons B","division":"WD2"},{"date":"01-04-2026","home":"Golden Lion Wxm","away":"Colliers Dogs","division":"WD1"},{"date":"01-04-2026","home":"Gwersyllt Club.","away":"Golden Lion Cp","division":"WD1"},{"date":"01-04-2026","home":"Hafod Club Rhos","away":"Greyhound","division":"WD2"},{"date":"01-04-2026","home":"Miners Brymbo.","away":"Crown Summerhill","division":"WD1"},{"date":"01-04-2026","home":"Plough Gresford","away":"War Memorial B","division":"WD2"},{"date":"01-04-2026","home":"Ruabon Cons A","away":"Kings Mills","division":"WD2"},{"date":"01-04-2026","home":"War Memorial A","away":"Hill Street Social","division":"WD1"},{"date":"01-04-2026","home":"Y Tai.","away":"Gresford Legion","division":"WD2"},{"date":"22-04-2026","home":"Crown Summerhill","away":"War Memorial A","division":"WD1"},{"date":"22-04-2026","home":"Golden Lion Cp","away":"Miners Brymbo.","division":"WD1"},{"date":"22-04-2026","home":"Colliers Dogs","away":"Gwersyllt Union","division":"WD1"},{"date":"22-04-2026","home":"Gresford Legion","away":"Ruabon Cons A","division":"WD2"},{"date":"22-04-2026","home":"Greyhound","away":"Plough Gresford","division":"WD2"},{"date":"22-04-2026","home":"Hill Street Social","away":"Breakroom Lions.","division":"WD1"},{"date":"22-04-2026","home":"Kings Mills","away":"White Lion Hope","division":"WD2"},{"date":"22-04-2026","home":"Ruabon Cons B","away":"Hafod Club Rhos","division":"WD2"},{"date":"22-04-2026","home":"War Memorial B","away":"Y Tai.","division":"WD2"},{"date":"26-04-2026","home":"Breakroom Lions","away":"Magnet A","division":"SD1"},{"date":"26-04-2026","home":"Cross Foxes Coedpoeth","away":"Four Dogs A","division":"SD2"},{"date":"26-04-2026","home":"Four Dogs B","away":"The Drunk Monk","division":"SD2"},{"date":"26-04-2026","home":"Gwersyllt WMC","away":"Gresford Colliery","division":"SD1"},{"date":"26-04-2026","home":"Magnet B","away":"Rollers B","division":"SD2"},{"date":"26-04-2026","home":"Miners Brymbo","away":"Johnstown Legion","division":"SD1"},{"date":"26-04-2026","home":"Rollers A","away":"Brymbo Sports","division":"SD2"},{"date":"26-04-2026","home":"Y Tai","away":"Breakroom Llay","division":"SD1"},{"date":"29-04-2026","home":"Breakroom Lions.","away":"Crown Summerhill","division":"WD1"},{"date":"29-04-2026","home":"Golden Lion Wxm","away":"Hill Street Social","division":"WD1"},{"date":"29-04-2026","home":"Hafod Club Rhos","away":"Crown Caergwrle","division":"WD2"},{"date":"29-04-2026","home":"Miners Brymbo.","away":"Gwersyllt Club.","division":"WD1"},{"date":"29-04-2026","home":"Plough Gresford","away":"Ruabon Cons B","division":"WD2"},{"date":"29-04-2026","home":"Ruabon Cons A","away":"War Memorial B","division":"WD2"},{"date":"29-04-2026","home":"War Memorial A","away":"Golden Lion Cp","division":"WD1"},{"date":"29-04-2026","home":"White Lion Hope","away":"Gresford Legion","division":"WD2"},{"date":"29-04-2026","home":"Y Tai.","away":"Greyhound","division":"WD2"},{"date":"06-05-2026","home":"Crown Caergwrle","away":"Plough Gresford","division":"WD2"},{"date":"06-05-2026","home":"Crown Summerhill","away":"Golden Lion Wxm","division":"WD1"},{"date":"06-05-2026","home":"Golden Lion Cp","away":"Breakroom Lions.","division":"WD1"},{"date":"06-05-2026","home":"Gresford Legion","away":"Kings Mills","division":"WD2"},{"date":"06-05-2026","home":"Greyhound","away":"Ruabon Cons A","division":"WD2"},{"date":"06-05-2026","home":"Gwersyllt Club.","away":"War Memorial A","division":"WD1"},{"date":"06-05-2026","home":"Hill Street Social","away":"Gwersyllt Union","division":"WD1"},{"date":"06-05-2026","home":"Ruabon Cons B","away":"Y Tai.","division":"WD2"},{"date":"06-05-2026","home":"War Memorial B","away":"White Lion Hope","division":"WD2"},{"date":"10-05-2026","home":"Breakroom Llay","away":"Gwersyllt WMC","division":"SD1"},{"date":"10-05-2026","home":"Brymbo Sports","away":"Magnet B","division":"SD2"},{"date":"10-05-2026","home":"Four Dogs A","away":"Rollers A","division":"SD2"},{"date":"10-05-2026","home":"Gresford Colliery","away":"Red Lion Marchweil","division":"SD1"},{"date":"10-05-2026","home":"Gwersyllt Club","away":"Breakroom Lions","division":"SD1"},{"date":"10-05-2026","home":"Magnet A","away":"Y Tai","division":"SD1"},{"date":"10-05-2026","home":"Old Black Horse","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"10-05-2026","home":"Rollers B","away":"Four Dogs B","division":"SD2"},{"date":"10-05-2026","home":"The Drunk Monk","away":"Sun Rhos","division":"SD2"},{"date":"17-05-2026","home":"Breakroom Lions","away":"Gwersyllt WMC","division":"SD1"},{"date":"17-05-2026","home":"Cross Foxes Coedpoeth","away":"Sun Rhos","division":"SD2"},{"date":"17-05-2026","home":"Four Dogs A","away":"Brymbo Sports","division":"SD2"},{"date":"17-05-2026","home":"Gwersyllt Club","away":"Magnet A","division":"SD1"},{"date":"17-05-2026","home":"Johnstown Legion","away":"Breakroom Llay","division":"SD1"},{"date":"17-05-2026","home":"Miners Brymbo","away":"Gresford Colliery","division":"SD1"},{"date":"17-05-2026","home":"Old Black Horse","away":"Rollers B","division":"SD2"},{"date":"17-05-2026","home":"Rhos Snooker Club","away":"The Drunk Monk","division":"SD2"},{"date":"17-05-2026","home":"Rollers A","away":"Four Dogs B","division":"SD2"},{"date":"27-05-2026","home":"Breakroom Lions.","away":"Gwersyllt Club.","division":"WD1"},{"date":"27-05-2026","home":"Golden Lion Wxm","away":"Golden Lion Cp","division":"WD1"},{"date":"27-05-2026","home":"Colliers Dogs","away":"Hill Street Social","division":"WD1"},{"date":"27-05-2026","home":"Gwersyllt Union","away":"Crown Summerhill","division":"WD1"},{"date":"27-05-2026","home":"Kings Mills","away":"War Memorial B","division":"WD2"},{"date":"27-05-2026","home":"Plough Gresford","away":"Hafod Club Rhos","division":"WD2"},{"date":"27-05-2026","home":"Ruabon Cons A","away":"Ruabon Cons B","division":"WD2"},{"date":"27-05-2026","home":"War Memorial A","away":"Miners Brymbo.","division":"WD1"},{"date":"27-05-2026","home":"White Lion Hope","away":"Greyhound","division":"WD2"},{"date":"27-05-2026","home":"Y Tai.","away":"Crown Caergwrle","division":"WD2"},{"date":"14-06-2026","home":"Breakroom Llay","away":"Gresford Colliery","division":"SD1"},{"date":"14-06-2026","home":"Brymbo Sports","away":"Sun Rhos","division":"SD2"},{"date":"14-06-2026","home":"Four Dogs A","away":"Four Dogs B","division":"SD2"},{"date":"14-06-2026","home":"Gwersyllt Club","away":"Gwersyllt WMC","division":"SD1"},{"date":"14-06-2026","home":"Johnstown Legion","away":"Y Tai","division":"SD1"},{"date":"14-06-2026","home":"Magnet A","away":"Red Lion Marchweil","division":"SD1"},{"date":"14-06-2026","home":"Miners Brymbo","away":"Breakroom Lions","division":"SD1"},{"date":"14-06-2026","home":"Old Black Horse","away":"Magnet B","division":"SD2"},{"date":"14-06-2026","home":"Rhos Snooker Club","away":"Rollers A","division":"SD2"},{"date":"14-06-2026","home":"Rollers B","away":"The Drunk Monk","division":"SD2"}];
+const FIXTURES = [{"date":"08-02-2026","home":"Brymbo Sports","away":"Rollers B","division":"SD2"},{"date":"08-02-2026","home":"Cross Foxes Coedpoeth","away":"Magnet B","division":"SD2"},{"date":"08-02-2026","home":"Four Dogs A","away":"The Drunk Monk","division":"SD2"},{"date":"08-02-2026","home":"Gwersyllt Club","away":"Gresford Colliery","division":"SD1"},{"date":"08-02-2026","home":"Johnstown Legion","away":"Red Lion Marchweil","division":"SD1"},{"date":"08-02-2026","home":"Magnet A","away":"Breakroom Llay","division":"SD1"},{"date":"08-02-2026","home":"Miners Brymbo","away":"Gwersyllt WMC","division":"SD1"},{"date":"08-02-2026","home":"Old Black Horse","away":"Sun Rhos","division":"SD2"},{"date":"08-02-2026","home":"Rhos Snooker Club","away":"Four Dogs B","division":"SD2"},{"date":"11-02-2026","home":"Breakroom Lions.","away":"War Memorial A","division":"WD1"},{"date":"11-02-2026","home":"Golden Lion Wxm","away":"Miners Brymbo.","division":"WD1"},{"date":"11-02-2026","home":"Colliers Dogs","away":"Golden Lion Cp","division":"WD1"},{"date":"11-02-2026","home":"Gresford Legion","away":"Greyhound","division":"WD2"},{"date":"11-02-2026","home":"Gwersyllt Union","away":"Gwersyllt Club.","division":"WD1"},{"date":"11-02-2026","home":"Kings Mills","away":"Ruabon Cons B","division":"WD2"},{"date":"11-02-2026","home":"Ruabon Cons A","away":"Hafod Club Rhos","division":"WD2"},{"date":"11-02-2026","home":"White Lion Hope","away":"Crown Caergwrle","division":"WD2"},{"date":"11-02-2026","home":"Y Tai.","away":"Plough Gresford","division":"WD2"},{"date":"15-02-2026","home":"Breakroom Llay","away":"Gwersyllt WMC","division":"SD1"},{"date":"15-02-2026","home":"Cross Foxes Coedpoeth","away":"Rollers A","division":"SD2"},{"date":"15-02-2026","home":"Old Black Horse","away":"Brymbo Sports","division":"SD2"},{"date":"18-02-2026","home":"Golden Lion Wxm","away":"Hill Street Social","division":"WD1"},{"date":"18-02-2026","home":"Greyhound","away":"Ruabon Cons A","division":"WD2"},{"date":"18-02-2026","home":"Miners Brymbo.","away":"Breakroom Lions.","division":"WD1"},{"date":"18-02-2026","home":"Ruabon Cons B","away":"Crown Caergwrle","division":"WD2"},{"date":"18-02-2026","home":"War Memorial A","away":"Gwersyllt Club.","division":"WD1"},{"date":"01-03-2026","home":"Breakroom Lions","away":"Johnstown Legion","division":"SD1"},{"date":"01-03-2026","home":"Cross Foxes Coedpoeth","away":"Rhos Snooker Club","division":"SD2"},{"date":"01-03-2026","home":"Four Dogs B","away":"Brymbo Sports","division":"SD2"},{"date":"01-03-2026","home":"Gwersyllt WMC","away":"Magnet A","division":"SD1"},{"date":"01-03-2026","home":"Magnet B","away":"Four Dogs A","division":"SD2"},{"date":"01-03-2026","home":"Red Lion Marchweil","away":"Breakroom Llay","division":"SD1"},{"date":"01-03-2026","home":"Rollers A","away":"Old Black Horse","division":"SD2"},{"date":"01-03-2026","home":"Sun Rhos","away":"Rollers B","division":"SD2"},{"date":"01-03-2026","home":"Y Tai","away":"Gwersyllt Club","division":"SD1"},{"date":"04-03-2026","home":"Crown Caergwrle","away":"Kings Mills","division":"WD2"},{"date":"04-03-2026","home":"Crown Summerhill","away":"Hill Street Social","division":"WD1"},{"date":"04-03-2026","home":"Greyhound","away":"War Memorial B","division":"WD2"},{"date":"04-03-2026","home":"Gwersyllt Club.","away":"Colliers Dogs","division":"WD1"},{"date":"04-03-2026","home":"Hafod Club Rhos","away":"White Lion Hope","division":"WD2"},{"date":"04-03-2026","home":"Miners Brymbo.","away":"Gwersyllt Union","division":"WD1"},{"date":"04-03-2026","home":"Plough Gresford","away":"Ruabon Cons A","division":"WD2"},{"date":"04-03-2026","home":"Ruabon Cons B","away":"Gresford Legion","division":"WD2"},{"date":"04-03-2026","home":"War Memorial A","away":"Golden Lion Wxm","division":"WD1"},{"date":"08-03-2026","home":"Four Dogs B","away":"Old Black Horse","division":"SD2"},{"date":"08-03-2026","home":"Gresford Colliery","away":"Magnet A","division":"SD1"},{"date":"08-03-2026","home":"Gwersyllt WMC","away":"Johnstown Legion","division":"SD1"},{"date":"08-03-2026","home":"Magnet B","away":"Rhos Snooker Club","division":"SD2"},{"date":"08-03-2026","home":"Red Lion Marchweil","away":"Gwersyllt Club","division":"SD1"},{"date":"08-03-2026","home":"Rollers A","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"08-03-2026","home":"Sun Rhos","away":"Four Dogs A","division":"SD2"},{"date":"08-03-2026","home":"The Drunk Monk","away":"Brymbo Sports","division":"SD2"},{"date":"08-03-2026","home":"Y Tai","away":"Miners Brymbo","division":"SD1"},{"date":"11-03-2026","home":"Crown Caergwrle","away":"Ruabon Cons A","division":"WD2"},{"date":"11-03-2026","home":"Crown Summerhill","away":"Colliers Dogs","division":"WD1"},{"date":"11-03-2026","home":"Golden Lion Cp","away":"Gwersyllt Union","division":"WD1"},{"date":"11-03-2026","home":"Greyhound","away":"Kings Mills","division":"WD2"},{"date":"11-03-2026","home":"Gwersyllt Club.","away":"Golden Lion Wxm","division":"WD1"},{"date":"11-03-2026","home":"Hafod Club Rhos","away":"Y Tai.","division":"WD2"},{"date":"11-03-2026","home":"Miners Brymbo.","away":"Breakroom Lions.","division":"WD1"},{"date":"11-03-2026","home":"War Memorial B","away":"Gresford Legion","division":"WD2"},{"date":"15-03-2026","home":"Breakroom Llay","away":"Miners Brymbo","division":"SD1"},{"date":"15-03-2026","home":"Brymbo Sports","away":"Old Black Horse","division":"SD2"},{"date":"15-03-2026","home":"Four Dogs B","away":"Magnet B","division":"SD2"},{"date":"15-03-2026","home":"Gwersyllt WMC","away":"Y Tai","division":"SD1"},{"date":"15-03-2026","home":"Magnet A","away":"Johnstown Legion","division":"SD1"},{"date":"15-03-2026","home":"Red Lion Marchweil","away":"Breakroom Lions","division":"SD1"},{"date":"15-03-2026","home":"Rollers B","away":"Rhos Snooker Club","division":"SD2"},{"date":"15-03-2026","home":"Sun Rhos","away":"Rollers A","division":"SD2"},{"date":"15-03-2026","home":"The Drunk Monk","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"18-03-2026","home":"Breakroom Lions.","away":"Gwersyllt Union","division":"WD1"},{"date":"18-03-2026","home":"Crown Caergwrle","away":"War Memorial B","division":"WD2"},{"date":"18-03-2026","home":"Golden Lion Cp","away":"Crown Summerhill","division":"WD1"},{"date":"18-03-2026","home":"Gwersyllt Club.","away":"Hill Street Social","division":"WD1"},{"date":"18-03-2026","home":"Hafod Club Rhos","away":"Gresford Legion","division":"WD2"},{"date":"18-03-2026","home":"Plough Gresford","away":"Kings Mills","division":"WD2"},{"date":"18-03-2026","home":"Ruabon Cons B","away":"Greyhound","division":"WD2"},{"date":"18-03-2026","home":"War Memorial A","away":"Colliers Dogs","division":"WD1"},{"date":"18-03-2026","home":"Y Tai.","away":"White Lion Hope","division":"WD2"},{"date":"22-03-2026","home":"Breakroom Lions","away":"Gresford Colliery","division":"SD1"},{"date":"22-03-2026","home":"Cross Foxes Coedpoeth","away":"Rollers B","division":"SD2"},{"date":"22-03-2026","home":"Johnstown Legion","away":"Gwersyllt Club","division":"SD1"},{"date":"22-03-2026","home":"Magnet B","away":"Sun Rhos","division":"SD2"},{"date":"22-03-2026","home":"Miners Brymbo","away":"Magnet A","division":"SD1"},{"date":"22-03-2026","home":"Old Black Horse","away":"Four Dogs A","division":"SD2"},{"date":"22-03-2026","home":"Rhos Snooker Club","away":"Brymbo Sports","division":"SD2"},{"date":"22-03-2026","home":"Rollers A","away":"The Drunk Monk","division":"SD2"},{"date":"22-03-2026","home":"Y Tai","away":"Red Lion Marchweil","division":"SD1"},{"date":"25-03-2026","home":"Crown Summerhill","away":"Gwersyllt Club.","division":"WD1"},{"date":"25-03-2026","home":"Colliers Dogs","away":"Breakroom Lions.","division":"WD1"},{"date":"25-03-2026","home":"Gresford Legion","away":"Plough Gresford","division":"WD2"},{"date":"25-03-2026","home":"Greyhound","away":"Crown Caergwrle","division":"WD2"},{"date":"25-03-2026","home":"Gwersyllt Union","away":"Golden Lion Wxm","division":"WD1"},{"date":"25-03-2026","home":"Hill Street Social","away":"Miners Brymbo.","division":"WD1"},{"date":"25-03-2026","home":"Kings Mills","away":"Y Tai.","division":"WD2"},{"date":"25-03-2026","home":"War Memorial B","away":"Hafod Club Rhos","division":"WD2"},{"date":"25-03-2026","home":"White Lion Hope","away":"Ruabon Cons A","division":"WD2"},{"date":"29-03-2026","home":"Breakroom Llay","away":"Breakroom Lions","division":"SD1"},{"date":"29-03-2026","home":"Brymbo Sports","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"29-03-2026","home":"Four Dogs A","away":"Rhos Snooker Club","division":"SD2"},{"date":"29-03-2026","home":"Gresford Colliery","away":"Y Tai","division":"SD1"},{"date":"29-03-2026","home":"Gwersyllt Club","away":"Miners Brymbo","division":"SD1"},{"date":"29-03-2026","home":"Red Lion Marchweil","away":"Gwersyllt WMC","division":"SD1"},{"date":"29-03-2026","home":"Rollers B","away":"Rollers A","division":"SD2"},{"date":"29-03-2026","home":"Sun Rhos","away":"Four Dogs B","division":"SD2"},{"date":"29-03-2026","home":"The Drunk Monk","away":"Magnet B","division":"SD2"},{"date":"01-04-2026","home":"Crown Caergwrle","away":"Ruabon Cons B","division":"WD2"},{"date":"01-04-2026","home":"Golden Lion Wxm","away":"Colliers Dogs","division":"WD1"},{"date":"01-04-2026","home":"Gwersyllt Club.","away":"Golden Lion Cp","division":"WD1"},{"date":"01-04-2026","home":"Hafod Club Rhos","away":"Greyhound","division":"WD2"},{"date":"01-04-2026","home":"Miners Brymbo.","away":"Crown Summerhill","division":"WD1"},{"date":"01-04-2026","home":"Plough Gresford","away":"War Memorial B","division":"WD2"},{"date":"01-04-2026","home":"Ruabon Cons A","away":"Kings Mills","division":"WD2"},{"date":"01-04-2026","home":"War Memorial A","away":"Hill Street Social","division":"WD1"},{"date":"01-04-2026","home":"Y Tai.","away":"Gresford Legion","division":"WD2"},{"date":"22-04-2026","home":"Crown Summerhill","away":"War Memorial A","division":"WD1"},{"date":"22-04-2026","home":"Golden Lion Cp","away":"Miners Brymbo.","division":"WD1"},{"date":"22-04-2026","home":"Colliers Dogs","away":"Gwersyllt Union","division":"WD1"},{"date":"22-04-2026","home":"Gresford Legion","away":"Ruabon Cons A","division":"WD2"},{"date":"22-04-2026","home":"Greyhound","away":"Plough Gresford","division":"WD2"},{"date":"22-04-2026","home":"Hill Street Social","away":"Breakroom Lions.","division":"WD1"},{"date":"22-04-2026","home":"Kings Mills","away":"White Lion Hope","division":"WD2"},{"date":"22-04-2026","home":"Ruabon Cons B","away":"Hafod Club Rhos","division":"WD2"},{"date":"22-04-2026","home":"War Memorial B","away":"Y Tai.","division":"WD2"},{"date":"26-04-2026","home":"Breakroom Lions","away":"Magnet A","division":"SD1"},{"date":"26-04-2026","home":"Cross Foxes Coedpoeth","away":"Four Dogs A","division":"SD2"},{"date":"26-04-2026","home":"Four Dogs B","away":"The Drunk Monk","division":"SD2"},{"date":"26-04-2026","home":"Gwersyllt WMC","away":"Gresford Colliery","division":"SD1"},{"date":"26-04-2026","home":"Magnet B","away":"Rollers B","division":"SD2"},{"date":"26-04-2026","home":"Miners Brymbo","away":"Johnstown Legion","division":"SD1"},{"date":"26-04-2026","home":"Rollers A","away":"Brymbo Sports","division":"SD2"},{"date":"26-04-2026","home":"Y Tai","away":"Breakroom Llay","division":"SD1"},{"date":"29-04-2026","home":"Breakroom Lions.","away":"Crown Summerhill","division":"WD1"},{"date":"29-04-2026","home":"Golden Lion Wxm","away":"Hill Street Social","division":"WD1"},{"date":"29-04-2026","home":"Hafod Club Rhos","away":"Crown Caergwrle","division":"WD2"},{"date":"29-04-2026","home":"Miners Brymbo.","away":"Gwersyllt Club.","division":"WD1"},{"date":"29-04-2026","home":"Plough Gresford","away":"Ruabon Cons B","division":"WD2"},{"date":"29-04-2026","home":"Ruabon Cons A","away":"War Memorial B","division":"WD2"},{"date":"29-04-2026","home":"War Memorial A","away":"Golden Lion Cp","division":"WD1"},{"date":"29-04-2026","home":"White Lion Hope","away":"Gresford Legion","division":"WD2"},{"date":"29-04-2026","home":"Y Tai.","away":"Greyhound","division":"WD2"},{"date":"06-05-2026","home":"Crown Caergwrle","away":"Plough Gresford","division":"WD2"},{"date":"06-05-2026","home":"Crown Summerhill","away":"Golden Lion Wxm","division":"WD1"},{"date":"06-05-2026","home":"Golden Lion Cp","away":"Breakroom Lions.","division":"WD1"},{"date":"06-05-2026","home":"Gresford Legion","away":"Kings Mills","division":"WD2"},{"date":"06-05-2026","home":"Greyhound","away":"Ruabon Cons A","division":"WD2"},{"date":"06-05-2026","home":"Gwersyllt Club.","away":"War Memorial A","division":"WD1"},{"date":"06-05-2026","home":"Hill Street Social","away":"Gwersyllt Union","division":"WD1"},{"date":"06-05-2026","home":"Ruabon Cons B","away":"Y Tai.","division":"WD2"},{"date":"06-05-2026","home":"War Memorial B","away":"White Lion Hope","division":"WD2"},{"date":"10-05-2026","home":"Breakroom Llay","away":"Gwersyllt WMC","division":"SD1"},{"date":"10-05-2026","home":"Brymbo Sports","away":"Magnet B","division":"SD2"},{"date":"10-05-2026","home":"Four Dogs A","away":"Rollers A","division":"SD2"},{"date":"10-05-2026","home":"Gresford Colliery","away":"Red Lion Marchweil","division":"SD1"},{"date":"10-05-2026","home":"Gwersyllt Club","away":"Breakroom Lions","division":"SD1"},{"date":"10-05-2026","home":"Magnet A","away":"Y Tai","division":"SD1"},{"date":"10-05-2026","home":"Old Black Horse","away":"Cross Foxes Coedpoeth","division":"SD2"},{"date":"10-05-2026","home":"Rollers B","away":"Four Dogs B","division":"SD2"},{"date":"10-05-2026","home":"The Drunk Monk","away":"Sun Rhos","division":"SD2"},{"date":"17-05-2026","home":"Breakroom Lions","away":"Gwersyllt WMC","division":"SD1"},{"date":"17-05-2026","home":"Cross Foxes Coedpoeth","away":"Sun Rhos","division":"SD2"},{"date":"17-05-2026","home":"Four Dogs A","away":"Brymbo Sports","division":"SD2"},{"date":"17-05-2026","home":"Gwersyllt Club","away":"Magnet A","division":"SD1"},{"date":"17-05-2026","home":"Johnstown Legion","away":"Breakroom Llay","division":"SD1"},{"date":"17-05-2026","home":"Miners Brymbo","away":"Gresford Colliery","division":"SD1"},{"date":"17-05-2026","home":"Old Black Horse","away":"Rollers B","division":"SD2"},{"date":"17-05-2026","home":"Rhos Snooker Club","away":"The Drunk Monk","division":"SD2"},{"date":"17-05-2026","home":"Rollers A","away":"Four Dogs B","division":"SD2"},{"date":"27-05-2026","home":"Breakroom Lions.","away":"Gwersyllt Club.","division":"WD1"},{"date":"27-05-2026","home":"Golden Lion Wxm","away":"Golden Lion Cp","division":"WD1"},{"date":"27-05-2026","home":"Colliers Dogs","away":"Hill Street Social","division":"WD1"},{"date":"27-05-2026","home":"Gwersyllt Union","away":"Crown Summerhill","division":"WD1"},{"date":"27-05-2026","home":"Kings Mills","away":"War Memorial B","division":"WD2"},{"date":"27-05-2026","home":"Plough Gresford","away":"Hafod Club Rhos","division":"WD2"},{"date":"27-05-2026","home":"Ruabon Cons A","away":"Ruabon Cons B","division":"WD2"},{"date":"27-05-2026","home":"War Memorial A","away":"Miners Brymbo.","division":"WD1"},{"date":"27-05-2026","home":"White Lion Hope","away":"Greyhound","division":"WD2"},{"date":"27-05-2026","home":"Y Tai.","away":"Crown Caergwrle","division":"WD2"},{"date":"14-06-2026","home":"Breakroom Llay","away":"Gresford Colliery","division":"SD1"},{"date":"14-06-2026","home":"Brymbo Sports","away":"Sun Rhos","division":"SD2"},{"date":"14-06-2026","home":"Four Dogs A","away":"Four Dogs B","division":"SD2"},{"date":"14-06-2026","home":"Gwersyllt Club","away":"Gwersyllt WMC","division":"SD1"},{"date":"14-06-2026","home":"Johnstown Legion","away":"Y Tai","division":"SD1"},{"date":"14-06-2026","home":"Magnet A","away":"Red Lion Marchweil","division":"SD1"},{"date":"14-06-2026","home":"Miners Brymbo","away":"Breakroom Lions","division":"SD1"},{"date":"14-06-2026","home":"Old Black Horse","away":"Magnet B","division":"SD2"},{"date":"14-06-2026","home":"Rhos Snooker Club","away":"Rollers A","division":"SD2"},{"date":"14-06-2026","home":"Rollers B","away":"The Drunk Monk","division":"SD2"}];
 const PLAYERS = {"Ben Thomas":{"r":-0.12,"w":0.47,"p":31},"Ian Brindley":{"r":0.38,"w":0.59,"p":34},"Barry Torrance":{"r":-0.01,"w":0.5,"p":10},"Hywel Roberts":{"r":0.63,"w":0.65,"p":11},"Gavin Darlington":{"r":-0.2,"w":0.45,"p":0},"Mark Postle":{"r":0.12,"w":0.53,"p":26},"Daniel Pickup":{"r":-0.2,"w":0.45,"p":0},"Mark Simpson":{"r":-0.28,"w":0.43,"p":17},"Shane Rhys":{"r":-0.2,"w":0.45,"p":0},"Sam Jones":{"r":-0.38,"w":0.41,"p":16},"Lucas Howson":{"r":-0.2,"w":0.45,"p":0},"Ian Jones":{"r":0.3,"w":0.57,"p":20},"Aled Bennet":{"r":-0.43,"w":0.39,"p":14},"Jamie Jones":{"r":0.3,"w":0.57,"p":11},"Paul Pemberton":{"r":-0.73,"w":0.33,"p":21},"Shaun Considine":{"r":-0.2,"w":0.45,"p":0},"Neil Jones":{"r":-0.08,"w":0.48,"p":21},"Gavin Jones":{"r":-0.2,"w":0.45,"p":0},"Colin Hughes":{"r":-0.2,"w":0.45,"p":0},"Keith Baines":{"r":0.65,"w":0.66,"p":17},"Martin Lawrence":{"r":-0.2,"w":0.45,"p":0},"Chris Roberts":{"r":0.93,"w":0.72,"p":11},"Dan Davies":{"r":-0.43,"w":0.39,"p":14},"Heath Jones":{"r":-0.2,"w":0.45,"p":0},"Jeff Nevitt":{"r":0.15,"w":0.54,"p":20},"Jude Halfpenny":{"r":-0.98,"w":0.27,"p":15},"Harvey Cunnah":{"r":0.42,"w":0.6,"p":29},"Lee Evans":{"r":-0.8,"w":0.31,"p":3},"David Williaimson":{"r":-0.2,"w":0.45,"p":0},"Sion Wood":{"r":0.84,"w":0.7,"p":10},"Ross Kearney":{"r":0.25,"w":0.56,"p":19},"Stephen Rowlands":{"r":0.16,"w":0.54,"p":20},"Alexander Jackson":{"r":-0.2,"w":0.45,"p":0},"Owian Walker":{"r":-1.02,"w":0.26,"p":8},"Calum Millington":{"r":-0.9,"w":0.29,"p":7},"Tim Williams":{"r":0.58,"w":0.64,"p":16},"Arun Thomas":{"r":-0.38,"w":0.41,"p":6},"Dave Anders":{"r":-1.21,"w":0.23,"p":10},"Bec Johns":{"r":-0.26,"w":0.44,"p":19},"Jake Reilly":{"r":-0.2,"w":0.45,"p":0},"Kieran Irwin":{"r":-0.24,"w":0.44,"p":21},"Steve Rogers":{"r":0.45,"w":0.61,"p":22},"Steve Thomas":{"r":-0.13,"w":0.47,"p":11},"Mike Shaw":{"r":-0.01,"w":0.5,"p":4},"Tim Roberts":{"r":0.21,"w":0.55,"p":23},"Phil Sullivan":{"r":0.92,"w":0.72,"p":11},"Tom Rawlinson":{"r":-1.82,"w":0.14,"p":20},"Alex Ward":{"r":-0.15,"w":0.46,"p":24},"Lloyd Baker":{"r":-0.54,"w":0.37,"p":18},"Toni Bennion":{"r":-0.2,"w":0.45,"p":0},"Jamie Williams":{"r":-0.2,"w":0.45,"p":0},"Jonny Craven":{"r":-0.22,"w":0.45,"p":14},"John Broadhurst":{"r":-0.2,"w":0.45,"p":0},"Neil Phillips":{"r":0.51,"w":0.62,"p":15},"Tom Pinnington":{"r":-0.01,"w":0.5,"p":25},"Daf Edwards":{"r":-0.2,"w":0.45,"p":0},"Loz Jones":{"r":-0.2,"w":0.45,"p":0},"Billy Bird":{"r":-0.2,"w":0.45,"p":0},"Mike Parry":{"r":0.35,"w":0.59,"p":18},"Brian Hughes":{"r":-1.17,"w":0.24,"p":18},"Gareth Holman":{"r":-0.2,"w":0.45,"p":0},"Stuart Roberts":{"r":0.23,"w":0.56,"p":21},"Reilly Mcleod":{"r":-0.2,"w":0.45,"p":0},"Nathan Roberts":{"r":-0.66,"w":0.34,"p":14},"Tony Jones":{"r":0.95,"w":0.72,"p":64},"Sam Churchill":{"r":-0.2,"w":0.45,"p":0},"James Ellis":{"r":0.14,"w":0.53,"p":22},"Simon Roberts":{"r":0.76,"w":0.68,"p":41},"Connor Wynn":{"r":-0.2,"w":0.45,"p":0},"Steve Jones":{"r":-0.24,"w":0.44,"p":21},"Paul Marubbi":{"r":1.13,"w":0.76,"p":46},"John Bagnall":{"r":-0.43,"w":0.39,"p":14},"Rachael Prandel":{"r":-0.2,"w":0.45,"p":0},"Martin James":{"r":-0.2,"w":0.45,"p":0},"Karl Thomas":{"r":0.46,"w":0.61,"p":17},"Chris Robinson":{"r":-0.26,"w":0.43,"p":3},"Kev Austin":{"r":-1.01,"w":0.27,"p":8},"Darren Cyll":{"r":-0.2,"w":0.45,"p":0},"Brad \u201cboring\u201d Ferguson":{"r":-0.2,"w":0.45,"p":0},"Jordan Bird":{"r":-0.74,"w":0.32,"p":12},"Martyn James":{"r":-0.2,"w":0.45,"p":0},"Chris Stevens":{"r":-0.38,"w":0.41,"p":1},"Kris Davies":{"r":-0.01,"w":0.5,"p":10},"Jake Davies":{"r":-0.2,"w":0.45,"p":0},"Ronnie Flinders":{"r":-0.21,"w":0.45,"p":5},"Peter Bennett":{"r":-0.54,"w":0.37,"p":18},"Thomas Tyler":{"r":-0.2,"w":0.45,"p":0},"Terry \u201ctizer\u201d Roberts":{"r":-0.2,"w":0.45,"p":0},"Robert Salisbury":{"r":-0.18,"w":0.45,"p":18},"Brad Ferguson":{"r":1.67,"w":0.84,"p":17},"Carl Bagnall":{"r":0.17,"w":0.54,"p":18},"Karl Rogers":{"r":-1.11,"w":0.25,"p":17},"Kerry Gavan":{"r":-0.2,"w":0.45,"p":0},"Andy Gould":{"r":0.29,"w":0.57,"p":22},"Mervyn Thomas":{"r":-0.18,"w":0.46,"p":7},"Debbie Lynch":{"r":-1.1,"w":0.25,"p":21},"Nathaniel Wright":{"r":-0.18,"w":0.46,"p":18},"Gareth Steven\u2019s":{"r":-0.18,"w":0.46,"p":7},"Trow Barry":{"r":-0.2,"w":0.45,"p":0},"Brian Davies":{"r":-0.0,"w":0.5,"p":46},"Neil \u201cice\u201d Roberts":{"r":-0.2,"w":0.45,"p":0},"Paul Bailey":{"r":-0.74,"w":0.32,"p":24},"Paul Williams":{"r":0.58,"w":0.64,"p":16},"Dave Laszlo":{"r":-0.39,"w":0.4,"p":11},"Rob Williams":{"r":0.3,"w":0.57,"p":1},"Marcus Lowe":{"r":-1.16,"w":0.24,"p":18},"Cameron Hamilton":{"r":0.41,"w":0.6,"p":34},"Ewan Picken":{"r":-0.2,"w":0.45,"p":0},"Neil Roberts":{"r":0.92,"w":0.71,"p":37},"Simon Tyler":{"r":-0.2,"w":0.45,"p":0},"Ian Evans":{"r":0.11,"w":0.53,"p":11},"Adam Chamberlain":{"r":-0.67,"w":0.34,"p":17},"Kyle Rogers":{"r":-0.2,"w":0.45,"p":0},"Matt Dempsey":{"r":-0.2,"w":0.45,"p":0},"Shane Jones":{"r":0.07,"w":0.52,"p":19},"Michael Foulkes":{"r":-0.2,"w":0.45,"p":0},"Taylor Dodd":{"r":-0.2,"w":0.45,"p":0},"Len Smith":{"r":-0.02,"w":0.49,"p":4},"Mike Tomlinson":{"r":-0.2,"w":0.45,"p":0},"Rhys Hughes":{"r":-0.2,"w":0.45,"p":0},"Mike Prydderch":{"r":0.47,"w":0.62,"p":12},"Colin Dudds":{"r":-0.2,"w":0.45,"p":0},"Adrian Griffiths":{"r":-0.28,"w":0.43,"p":3},"Lewis Edwards":{"r":-0.2,"w":0.45,"p":0},"Gary Williams":{"r":-0.33,"w":0.42,"p":20},"David Sides":{"r":0.1,"w":0.52,"p":13},"Dan Roberts":{"r":0.73,"w":0.67,"p":15},"Tomos Williams":{"r":-0.2,"w":0.45,"p":0},"Liam Sanger":{"r":0.27,"w":0.57,"p":17},"Phil Woodhall":{"r":-0.01,"w":0.5,"p":29},"Chris Chang":{"r":-0.2,"w":0.45,"p":0},"Lewis Clout":{"r":-0.35,"w":0.41,"p":1},"Martin Lorenzo":{"r":-0.2,"w":0.45,"p":0},"Robbie Wojdyta":{"r":-0.01,"w":0.5,"p":10},"Lyndon Hamilton":{"r":0.77,"w":0.68,"p":39},"Bryan Williams":{"r":0.59,"w":0.64,"p":36},"Craig Jones":{"r":-0.18,"w":0.46,"p":7},"Sam Postle":{"r":-0.31,"w":0.42,"p":22},"Andy Cash":{"r":-0.2,"w":0.45,"p":0},"Curtis Dawson":{"r":-1.01,"w":0.27,"p":8},"Ben Hughes":{"r":-0.2,"w":0.45,"p":0},"Kayden Davies":{"r":-0.49,"w":0.38,"p":46},"Lisa Groom":{"r":-1.51,"w":0.18,"p":14},"Steve Parry":{"r":-0.14,"w":0.47,"p":26},"Walsh Vic":{"r":-0.2,"w":0.45,"p":0},"Chris Williams":{"r":0.17,"w":0.54,"p":18},"Grant Dickens":{"r":0.13,"w":0.53,"p":24},"Daniel Ansloos":{"r":-0.2,"w":0.45,"p":0},"Martin Edwards":{"r":0.36,"w":0.59,"p":6},"Gary Evans":{"r":0.72,"w":0.67,"p":21},"Jamie Austin":{"r":-0.2,"w":0.45,"p":0},"Blake Westhead":{"r":-0.2,"w":0.45,"p":0},"Brian Teagle":{"r":0.44,"w":0.61,"p":4},"Mike Moran":{"r":-0.94,"w":0.28,"p":18},"Anthony Murphy":{"r":-0.35,"w":0.41,"p":1},"Darren Davies":{"r":-0.62,"w":0.35,"p":2},"Tiana Clout":{"r":-1.45,"w":0.19,"p":8},"Geraint Thompson":{"r":-0.2,"w":0.45,"p":0},"James Pierce":{"r":-0.2,"w":0.45,"p":0},"Callum Fuge":{"r":0.3,"w":0.57,"p":8},"Aaron Edwards":{"r":0.99,"w":0.73,"p":19},"Jason Bowen":{"r":-0.1,"w":0.48,"p":17},"Josh Jones":{"r":0.07,"w":0.52,"p":21},"Wright Nathaniel":{"r":-0.2,"w":0.45,"p":0},"James Collier":{"r":-0.39,"w":0.4,"p":6},"Tim Hughes":{"r":-0.2,"w":0.45,"p":0},"Stu Hughes":{"r":-0.18,"w":0.46,"p":42},"George Thomas":{"r":0.08,"w":0.52,"p":19},"Steve Brindley":{"r":0.47,"w":0.61,"p":45},"Shay Moran":{"r":0.66,"w":0.66,"p":20},"Dean Sanger":{"r":0.21,"w":0.55,"p":14},"Leighton Roberts":{"r":0.21,"w":0.55,"p":37},"Karl Pemberton":{"r":-0.46,"w":0.39,"p":22},"Dan Read":{"r":0.9,"w":0.71,"p":21},"Jamie West":{"r":0.11,"w":0.53,"p":13},"Terry Roberts":{"r":0.78,"w":0.69,"p":41},"Owen Barry":{"r":0.58,"w":0.64,"p":34},"Kingsley Strafford":{"r":-0.09,"w":0.48,"p":19},"Phil Jones":{"r":0.61,"w":0.65,"p":40},"Neil Garbutt":{"r":0.09,"w":0.52,"p":15},"Jack Mitchell":{"r":0.49,"w":0.62,"p":20},"Mathew Perrin":{"r":-0.49,"w":0.38,"p":20},"Kev Nicholls":{"r":-0.2,"w":0.45,"p":0},"Ian Phillips":{"r":0.08,"w":0.52,"p":19},"Chris \u201creggie\u201d Colegate":{"r":-0.2,"w":0.45,"p":0},"Mark Vallence":{"r":-0.98,"w":0.27,"p":15},"Chris Jones":{"r":0.32,"w":0.58,"p":15},"Gareth Powell":{"r":0.13,"w":0.53,"p":36},"Jo Smith":{"r":-1.33,"w":0.21,"p":21},"Jeff Dsouza":{"r":-0.39,"w":0.4,"p":16},"Paul Dixon":{"r":-0.38,"w":0.41,"p":1},"Liam \u201cwep\u201d Roberts":{"r":-0.2,"w":0.45,"p":0},"Andy Pearson":{"r":-0.01,"w":0.5,"p":2},"Benny Hill":{"r":-0.2,"w":0.45,"p":0},"Joey Jones":{"r":-0.53,"w":0.37,"p":15},"Martin Millis":{"r":-0.2,"w":0.45,"p":0},"Huw Garbutt":{"r":-0.2,"w":0.45,"p":0},"Carl White":{"r":-0.2,"w":0.45,"p":0},"Owen \u201c20st Head\u201d Barry":{"r":-0.2,"w":0.45,"p":0},"Steve Edwards":{"r":-0.01,"w":0.5,"p":14},"Brett Taylor":{"r":-0.2,"w":0.45,"p":0},"Adrian Naggington":{"r":0.47,"w":0.62,"p":17},"Lee Robert\u2019s":{"r":0.46,"w":0.61,"p":42},"Mark Stokes":{"r":-0.2,"w":0.45,"p":0},"Eryl Roberts":{"r":0.14,"w":0.54,"p":22},"Mike Lewis":{"r":0.25,"w":0.56,"p":19},"Marcus Lewis":{"r":-0.2,"w":0.45,"p":0},"Riley Stenner":{"r":-0.2,"w":0.45,"p":0},"Barry Wilding":{"r":-0.2,"w":0.45,"p":0},"Mark Rowland":{"r":-0.66,"w":0.34,"p":11},"Craig \"tree\" Jones":{"r":-0.2,"w":0.45,"p":0},"Kate Rowland":{"r":-0.2,"w":0.45,"p":0},"Logan Morris":{"r":-0.2,"w":0.45,"p":0},"Jake Daly":{"r":-0.2,"w":0.45,"p":0},"Nicholas Jones":{"r":0.58,"w":0.64,"p":16},"Steve Roberts":{"r":0.61,"w":0.65,"p":5},"Ben Williams":{"r":-0.56,"w":0.36,"p":21},"Marsden Parry":{"r":-0.2,"w":0.45,"p":0},"Kris Fox":{"r":0.39,"w":0.6,"p":21},"Dennis Prescott":{"r":-0.08,"w":0.48,"p":21},"Defyn Gwillam":{"r":0.59,"w":0.64,"p":31},"Mark Jones":{"r":0.3,"w":0.57,"p":38},"David Pritchard":{"r":-0.2,"w":0.45,"p":0},"Rob Ackerley":{"r":-0.2,"w":0.45,"p":0},"Gavin Edwards":{"r":-0.87,"w":0.29,"p":17},"Luke Wilson":{"r":-0.2,"w":0.45,"p":0},"Julian Henshaw":{"r":-0.01,"w":0.5,"p":10},"Paul Parry":{"r":0.29,"w":0.57,"p":15},"John Williams":{"r":1.09,"w":0.75,"p":17},"Matt Jones":{"r":-0.39,"w":0.4,"p":16},"Brad Sandford":{"r":-0.35,"w":0.41,"p":1},"Paul Evison":{"r":-0.2,"w":0.45,"p":0},"Lewis Pugh":{"r":0.25,"w":0.56,"p":19},"Arron Jones":{"r":-0.73,"w":0.32,"p":18},"Steven Pugh":{"r":-0.2,"w":0.45,"p":0},"Liam Roberts":{"r":1.23,"w":0.77,"p":38},"Jack Brindley":{"r":0.66,"w":0.66,"p":29},"Harri Wright":{"r":-0.2,"w":0.45,"p":0},"Mathew Cartwright":{"r":0.29,"w":0.57,"p":15},"Lewis Griffiths":{"r":-0.2,"w":0.45,"p":0},"Ollie Evans":{"r":-1.28,"w":0.22,"p":11},"Mike Roberts":{"r":-0.2,"w":0.45,"p":0},"Craig Wynn":{"r":-0.2,"w":0.45,"p":0},"Niamh Williams":{"r":-0.2,"w":0.45,"p":0},"Alan Jenkins":{"r":0.47,"w":0.62,"p":12},"Jordan Holmes":{"r":0.17,"w":0.54,"p":18},"Steve Thompson":{"r":0.13,"w":0.53,"p":24},"Tom Edwards":{"r":-0.38,"w":0.41,"p":4},"Rob Oldfield":{"r":-0.39,"w":0.4,"p":11},"Mark Griffiths":{"r":-0.2,"w":0.45,"p":0},"Col Richards":{"r":-0.16,"w":0.46,"p":46},"Marcus King":{"r":-0.47,"w":0.38,"p":17},"Rich Williams":{"r":1.7,"w":0.85,"p":36},"Adam Edwards":{"r":1.26,"w":0.78,"p":20},"Aaron Adam\u2019s":{"r":-0.2,"w":0.45,"p":0},"Wayne Pemberton":{"r":-0.18,"w":0.46,"p":7},"Gaz Williams":{"r":0.2,"w":0.55,"p":14},"David Rathbone":{"r":-0.15,"w":0.46,"p":22},"Lewis West":{"r":0.99,"w":0.73,"p":25},"Callum Millington":{"r":-1.12,"w":0.25,"p":9},"Kayden Clout":{"r":-0.2,"w":0.45,"p":0},"Cai Partington":{"r":-0.2,"w":0.45,"p":0},"Sam Todd":{"r":-0.2,"w":0.45,"p":0},"Lee Roberts":{"r":0.46,"w":0.61,"p":42},"Ioan Parry":{"r":-0.09,"w":0.48,"p":19},"Stephen Brindley":{"r":0.47,"w":0.61,"p":45},"Zack Beton":{"r":-0.38,"w":0.41,"p":1},"Rio Bailey":{"r":-0.2,"w":0.45,"p":0},"Tay Morris":{"r":-0.2,"w":0.45,"p":0},"Mark Powis":{"r":-0.1,"w":0.48,"p":17},"Martin Jones":{"r":-0.94,"w":0.28,"p":18},"Ross Tomlinson":{"r":-0.2,"w":0.45,"p":0},"Eirian (Aero) Ingman":{"r":-0.2,"w":0.45,"p":0},"Steven Lambord":{"r":-0.08,"w":0.48,"p":21},"Brad Wynne":{"r":-0.26,"w":0.44,"p":19},"Sam Roberts":{"r":1.23,"w":0.77,"p":38},"Derry \"the Thing\" Flinders":{"r":-0.2,"w":0.45,"p":0},"Annmarie Robbins":{"r":-0.2,"w":0.45,"p":0},"Will William's":{"r":-0.2,"w":0.45,"p":0},"Dan Gittins":{"r":-0.2,"w":0.45,"p":0},"Taylor Dodd Jones":{"r":0.17,"w":0.54,"p":18},"Defyn Gillan":{"r":0.59,"w":0.64,"p":31},"Matty Redmond":{"r":0.46,"w":0.61,"p":17},"Geoff Harriman":{"r":-0.2,"w":0.45,"p":0},"Sam Ansloos":{"r":0.32,"w":0.58,"p":1},"Michael Millward":{"r":-0.2,"w":0.45,"p":0},"Arron Rigby":{"r":0.29,"w":0.57,"p":22},"Nathan Stephens":{"r":0.07,"w":0.52,"p":19},"David Smith":{"r":-0.03,"w":0.49,"p":2},"Tracy Cunnah":{"r":-0.2,"w":0.45,"p":0},"Jon Parry":{"r":0.71,"w":0.67,"p":21},"Rich Lawrence":{"r":-0.2,"w":0.45,"p":0},"Lewis Morris":{"r":-0.2,"w":0.45,"p":0},"Craig Williams":{"r":0.17,"w":0.54,"p":18},"Anthony Edwards":{"r":-0.48,"w":0.38,"p":25},"Neil Hudson":{"r":-0.26,"w":0.43,"p":3},"Dylan Owen":{"r":-0.09,"w":0.48,"p":38},"Frankie Griffiths":{"r":-0.88,"w":0.29,"p":17},"Dan Parry":{"r":0.17,"w":0.54,"p":18},"Richard Williams":{"r":0.3,"w":0.57,"p":47},"Joel Baines":{"r":0.32,"w":0.58,"p":20},"Curt Griffiths":{"r":-0.25,"w":0.44,"p":12},"Andy Brand":{"r":-0.2,"w":0.45,"p":0},"Iain Siddle":{"r":-0.67,"w":0.34,"p":20},"Gareth Evans":{"r":0.81,"w":0.69,"p":46},"Ben Turnbull":{"r":1.32,"w":0.79,"p":7},"Gary Peters":{"r":-0.2,"w":0.45,"p":0},"Danny Frayne":{"r":0.66,"w":0.66,"p":40},"Marcus Ansloos":{"r":-0.2,"w":0.45,"p":0},"Kristian Kennerley":{"r":-0.2,"w":0.45,"p":0},"Levi Humphreys":{"r":-0.2,"w":0.45,"p":0},"Dave Owen":{"r":-0.2,"w":0.45,"p":0},"Craig Ingman":{"r":0.8,"w":0.69,"p":42},"Lance Evans":{"r":-0.2,"w":0.45,"p":0},"Merv Owen":{"r":-0.2,"w":0.45,"p":0},"Preston Cunnah":{"r":-0.2,"w":0.45,"p":0},"Ian Morris":{"r":0.32,"w":0.58,"p":1},"Jase Mayock":{"r":-0.2,"w":0.45,"p":0},"Lee Morris":{"r":-0.66,"w":0.34,"p":25},"Dylan Smith":{"r":-0.49,"w":0.38,"p":20},"Dean Jones":{"r":-1.63,"w":0.16,"p":16},"Gary Ellis":{"r":-0.2,"w":0.45,"p":0},"Gaz Stevens":{"r":-0.2,"w":0.45,"p":0},"Mark Williams":{"r":-0.29,"w":0.43,"p":24},"Claire Biddle":{"r":-0.35,"w":0.41,"p":1},"Grant Williams":{"r":0.14,"w":0.53,"p":9},"Dave Hopwood":{"r":-0.2,"w":0.45,"p":0},"Sam Buxton":{"r":-0.82,"w":0.31,"p":18},"Adrian Robbins":{"r":-0.2,"w":0.45,"p":0},"Nathan Griffiths":{"r":0.88,"w":0.71,"p":7},"Phil Bennett":{"r":-0.61,"w":0.35,"p":19},"Max Walker":{"r":-0.2,"w":0.45,"p":0},"Rob \"ginge\" Williams":{"r":-0.2,"w":0.45,"p":0},"Paul Windows Williams":{"r":-0.2,"w":0.45,"p":0},"Wade Davies":{"r":0.42,"w":0.6,"p":19},"Pete Francis":{"r":-0.2,"w":0.45,"p":0},"Geriant Richards":{"r":-0.18,"w":0.45,"p":18},"Keiron Taylor":{"r":-0.26,"w":0.44,"p":19},"Adam Edward\u2019s":{"r":1.26,"w":0.78,"p":20},"Owen Evans":{"r":-0.01,"w":0.5,"p":20},"Shaun Edwards":{"r":0.17,"w":0.54,"p":37},"Tommy Pinnington":{"r":-0.01,"w":0.5,"p":25},"Nev Jenkins":{"r":0.17,"w":0.54,"p":18},"Ken Davies":{"r":-0.49,"w":0.38,"p":46},"Steve Williams":{"r":0.81,"w":0.69,"p":44},"Mark Fergal":{"r":-0.2,"w":0.45,"p":0},"Mike Robbins":{"r":-0.2,"w":0.45,"p":0},"Wayne Barlow":{"r":-0.2,"w":0.45,"p":0},"Marcel Cheetham":{"r":-0.2,"w":0.45,"p":0},"Ian Jenkins":{"r":0.55,"w":0.63,"p":14},"Wayne Edwards":{"r":-0.28,"w":0.43,"p":17},"Dale Jones":{"r":-0.31,"w":0.42,"p":38},"James Roberts":{"r":0.78,"w":0.69,"p":19},"Nathan Price":{"r":0.61,"w":0.65,"p":6},"Josh Artell":{"r":-0.2,"w":0.45,"p":0},"Lewis Richards":{"r":-1.04,"w":0.26,"p":12},"Martin Gwilliam":{"r":0.71,"w":0.67,"p":42},"Steve Bird":{"r":0.77,"w":0.68,"p":25},"Mathew Thacker":{"r":-0.2,"w":0.45,"p":0},"Steve Cousins":{"r":0.29,"w":0.57,"p":22},"Laurence \u201cyou Guys\u201d Travis":{"r":-0.2,"w":0.45,"p":0},"Dewi Williams":{"r":0.35,"w":0.59,"p":38},"Vincent Jute":{"r":-0.2,"w":0.45,"p":0},"Joe Walters":{"r":-0.2,"w":0.45,"p":0},"Carl Hill":{"r":-0.2,"w":0.45,"p":0},"John Richards":{"r":-0.2,"w":0.45,"p":0},"Simon Hallam":{"r":0.42,"w":0.6,"p":19},"Steve Evans":{"r":-1.16,"w":0.24,"p":18},"Joe Jones":{"r":-0.53,"w":0.37,"p":15},"Laurence Travis":{"r":1.09,"w":0.75,"p":37},"Sean Irwin":{"r":-0.2,"w":0.45,"p":0},"Pete James":{"r":0.42,"w":0.6,"p":14},"Gordon Bird":{"r":0.84,"w":0.7,"p":20},"Graham Davies":{"r":0.33,"w":0.58,"p":25},"Darryl Bithell":{"r":-0.33,"w":0.42,"p":20},"James Owen":{"r":-0.2,"w":0.45,"p":0},"Rob Venn":{"r":-0.2,"w":0.45,"p":0},"Steve Barber":{"r":0.61,"w":0.65,"p":26}};
 const ROSTERS = {"SD2:Rhos Snooker Club":["Joel Baines","Arron Jones","Neil Jones","Josh Jones","Eryl Roberts","Keith Baines","Kris Fox","Steve Jones","Kev Austin","Ioan Parry","John Richards","Neil Hudson"],"WD2:War Memorial B":["Sam Buxton","Harvey Cunnah","Preston Cunnah","Dennis Prescott","Dylan Smith","Mark Simpson","Nathan Price","Tracy Cunnah","Curtis Dawson"],"SD2:Rollers B":["Steve Cousins","Andy Gould","Alan Jenkins","Steve Rogers","Mike Prydderch","Chris Jones","Stephen Rowlands","Craig Jones","Steven Pugh","Mike Shaw","Chris Robinson"],"SD2:Magnet B":["Harvey Cunnah","Adam Edwards","Arron Rigby","Dan Parry","Lewis West","Jack Mitchell","Taylor Dodd Jones","Wade Davies"],"WD2:Gresford Legion":["Michael Foulkes","Neil Garbutt","Joe Jones","Rob Oldfield","Paul Dixon","Owian Walker","Rob Ackerley","Marcus Lewis","Gary Peters","Huw Garbutt","Chris Chang","Simon Tyler","Vincent Jute"],"WD2:Ruabon Cons A":["Carl Hill","Wright Nathaniel","Sam Ansloos","Kristian Kennerley","Andy Pearson","Adrian Robbins","Mike Roberts","Ian Morris","Tim Williams","Paul Evison","Benny Hill","Wayne Pemberton","Thomas Tyler"],"SD2:Sun Rhos":["Nev Jenkins","Matt Jones","Darryl Bithell","Karl Thomas","Chris Williams","Phil Bennett","Ian Phillips","Paul Pemberton","Gary Ellis","Neil Phillips","Ian Jones","Darren Cyll","David Sides"],"SD2:Rollers A":["Bec Johns","Ben Williams","Gary Williams","Steve Edwards","Iain Siddle","Lewis Pugh","Brad Wynne","Dan Roberts","Andy Cash"],"WD2:Hafod Club Rhos":["Josh Jones","Eryl Roberts","Craig Wynn","Kris Fox","Connor Wynn","Joel Baines","Steve Jones","Debbie Lynch","Kev Austin","Neil Jones","Keith Baines","Arron Jones","Pete Francis","Will William's","Martin Millis","Ioan Parry"],"SD2:Four Dogs A":["Mike Lewis","Leighton Roberts","Rob Williams","Arun Thomas","Paul Bailey","Craig \"tree\" Jones","Dylan Owen","Phil Woodhall","Jamie Jones","Brad Sandford","Rob \"ginge\" Williams"],"SD2:Four Dogs B":["Reilly Mcleod","Aled Bennet","Mathew Perrin","Callum Millington","Jeff Dsouza","Tomos Williams","Jake Reilly","Carl White","Ewan Picken","Sam Roberts","Debbie Lynch"],"WD2:Plough Gresford":["Mark Postle","Jo Smith","Marcus King","David Smith","Lee Robert\u2019s","Ross Tomlinson","Sam Postle","Len Smith","Mark Stokes","Calum Millington","David Pritchard"],"WD2:Kings Mills":["Leighton Roberts","Brad Sandford","Adam Edward\u2019s","Defyn Gillan","James Pierce","Kerry Gavan","Arron Rigby","Barry Torrance","Lewis West","James Collier","Wade Davies","Anthony Murphy","Andy Brand","Gavin Darlington","Lewis Morris","Daniel Pickup","Mike Tomlinson"],"WD2:Y Tai":["Liam Sanger","Martyn James","Blake Westhead","Ian Brindley","Lee Morris","Dan Read","Bryan Williams","Stuart Roberts","Stephen Rowlands","Gaz Stevens","Marcus Lowe","Mike Prydderch","Steve Roberts"],"SD2:Old Black Horse":["Dylan Smith","Martin Jones","Ollie Evans","Mark Vallence","Steve Evans","Mark Simpson","Mark Powis","Nathan Price","Ronnie Flinders","Mervyn Thomas"],"SD2:The Drunk Monk":["Peter Bennett","Ross Kearney","David Rathbone","Kieran Irwin","Josh Artell","Lee Morris","Tiana Clout","Sam Jones","Lewis Clout","Wayne Barlow","Kayden Clout","Levi Humphreys","Sean Irwin"],"SD1:Breakroom Llay":["Jordan Bird","Gordon Bird","Matty Redmond","Ben Turnbull","Danny Frayne","Dave Laszlo","Defyn Gwillam","Callum Fuge","Max Walker","Brian Teagle","Joe Walters","Dan Gittins"],"WD1:Miners Brymbo":["Steve Brindley","Merv Owen","Paul Marubbi","Tony Jones","Nathan Stephens","Richard Williams","Dave Owen","Jack Brindley"],"SD1:Miners Brymbo":["Jack Brindley","Stephen Brindley","Kingsley Strafford","George Thomas","Nathan Roberts","Mathew Thacker","Steve Thomas","Julian Henshaw","Jamie West"],"WD1:Golden Lion Wxm":["Mathew Cartwright","Steve Barber","Mike Lewis","Rich Williams","Paul Bailey","Phil Woodhall","Dylan Owen","Rio Bailey","Jamie Jones","Joey Jones","Sion Wood"],"WD1:Breakroom Lions":["Brian Davies","Ken Davies","Craig Ingman","Eirian (Aero) Ingman","Graham Davies","Stu Hughes","Claire Biddle"],"SD1:Breakroom Lions":["Graham Davies","Brian Davies","Ken Davies","Craig Ingman","Stu Hughes","Eirian (Aero) Ingman","Mark Jones"],"WD2:Greyhound":["Darren Davies","Lisa Groom","Alexander Jackson","Mark Rowland","Chris Stevens","Mike Moran","Trow Barry","Walsh Vic"],"SD2:Brymbo Sports":["Gavin Edwards","Tom Rawlinson","James Roberts","Keiron Taylor","Lloyd Baker","Mike Parry","Lewis Griffiths","Tom Edwards"],"WD1:Golden Lion Cp":["Anthony Edwards","Geriant Richards","Tim Roberts","Adrian Griffiths","Owen Evans","Frankie Griffiths","Lewis Richards","Nicholas Jones","Zack Beton","Ian Evans"],"SD1:Johnstown Legion":["Wayne Edwards","James Owen","Jason Bowen","Tim Williams","Nathaniel Wright","Robert Salisbury","Paul Williams","Daf Edwards","Shane Rhys","Marcel Cheetham"],"WD1:War Memorial A":["James Ellis","Simon Roberts","Lee Roberts","Danny Frayne","Matty Redmond","Steve Williams","Jon Parry","Steve Bird","Phil Jones","Jeff Nevitt","Joe Walters"],"WD1:Gwersyllt Union":["Brad \u201cboring\u201d Ferguson","Neil \u201cice\u201d Roberts","Terry \u201ctizer\u201d Roberts","Liam \u201cwep\u201d Roberts","Laurence \u201cyou Guys\u201d Travis","Chris \u201creggie\u201d Colegate","Derry \"the Thing\" Flinders","Owen \u201c20st Head\u201d Barry"],"WD2:Ruabon Cons B":["Lucas Howson","John Broadhurst","Colin Hughes","Martin Lorenzo","Daniel Ansloos","Mark Griffiths","Mark Fergal","Marcus Ansloos","Craig Williams","Gareth Holman","Toni Bennion","Tay Morris","Riley Stenner","Geraint Thompson"],"WD1:Hill Street Social":["Craig Jones","Mark Williams","Mark Jones","Gareth Powell","Paul Windows Williams","Jack Mitchell","Taylor Dodd Jones","Michael Millward","Taylor Dodd"],"SD1:Red Lion Marchweil":["Steven Lambord","Dan Davies","Aaron Edwards","Shay Moran","Martin Edwards","Gary Evans","Jordan Holmes","Chris Roberts","Jonny Craven","Kate Rowland","Niamh Williams"],"SD1:Gresford Colliery":["Paul Marubbi","Col Richards","Nathan Stephens","Rich Williams","Tony Jones","Gareth Evans","Phil Jones","Tom Pinnington"],"SD2:Cross Foxes Coedpoeth":["Mike Robbins","Jamie Austin","David Williaimson","Lee Evans","Logan Morris","Mark Jones","Kayden Davies","Annmarie Robbins","Harri Wright","John Williams","Cai Partington","Brett Taylor","Dave Hopwood","Heath Jones","Kev Nicholls","Marsden Parry","Jamie Williams"],"SD1:Y Tai":["Stuart Roberts","Ian Brindley","Simon Hallam","Dan Read","Bryan Williams","Matt Dempsey","Steve Roberts","Liam Sanger","Martin James","Dean Sanger","Marcus Lowe","Gareth Steven\u2019s"],"SD1:Gwersyllt Club":["Laurence Travis","John Bagnall","Terry Roberts","Liam Roberts","Owen Barry","Nathan Griffiths","Ian Jenkins","Brad Ferguson","Neil Roberts"],"WD1:Crown Summerhill":["Grant Dickens","Lyndon Hamilton","Karl Rogers","Steve Thompson","Dave Anders","Jase Mayock","Dean Jones","Karl Pemberton"],"WD1:Gwersyllt Club":["Shaun Edwards","Brian Hughes","Martin Gwilliam","Cameron Hamilton","Shane Jones","Dewi Williams","Dale Jones","Ben Thomas","Phil Sullivan"],"SD1:Gwersyllt WMC":["Martin Gwilliam","Shaun Edwards","Lyndon Hamilton","Dale Jones","Carl Bagnall","Dewi Williams","Phil Sullivan","Ben Thomas"],"WD1:Colliers Dogs":["Tommy Pinnington","Col Richards","Steve Parry","Alex Ward","Gaz Williams","Paul Williams","Curt Griffiths","Paul Parry","Hywel Roberts"],"SD1:Magnet A":["Lee Roberts","Simon Roberts","Steve Williams","Derry \"the Thing\" Flinders","Pete James","Grant Williams","Robbie Wojdyta","Adrian Naggington"],"WD2:Crown Caergwrle":["Jordan Bird","Adam Chamberlain","Gordon Bird","Ben Hughes","Luke Wilson","Aaron Adam\u2019s","Geoff Harriman","Rich Lawrence","Kyle Rogers","Rob Venn","Jake Davies","Jude Halfpenny","Barry Wilding","Gavin Jones","Max Walker","Billy Bird","Colin Dudds","Shay Moran"],"WD2:White Lion Hope":["Shaun Considine","Rhys Hughes","Sam Todd","Sam Churchill","Martin Lawrence","Rachael Prandel","Jake Daly","Kris Davies","Lance Evans","Tim Hughes","Loz Jones","Lewis Edwards"]};
     </script>
     <script type="text/babel">
-const { useState, useMemo } = React;
+const { useState, useEffect } = React;
 
 const DIVISIONS = {
     'SD1': { name: 'Sunday Div 1', teams: ['Breakroom Lions', 'Breakroom Llay', 'Gresford Colliery', 'Gwersyllt Club', 'Gwersyllt WMC', 'Johnstown Legion', 'Magnet A', 'Miners Brymbo', 'Red Lion Marchweil', 'Y Tai'] },
@@ -33,6 +33,185 @@ const DIVISIONS = {
 
 const HOME_ADV = 0.2;
 
+// Parse DD-MM-YYYY to comparable YYYY-MM-DD string
+function parseDate(dateStr) {
+    const parts = dateStr.split('-');
+    return parts[2] + '-' + parts[1] + '-' + parts[0];
+}
+
+// Find the latest result date for dynamic cutoff
+const LATEST_RESULT_DATE = RESULTS.reduce((max, r) => {
+    const d = parseDate(r.date);
+    return d > max ? d : max;
+}, '0000-00-00');
+
+function getDiv(team) {
+    for (const [div, data] of Object.entries(DIVISIONS)) {
+        if (data.teams.includes(team)) return div;
+    }
+    return null;
+}
+
+function calcStandings(div) {
+    const teams = DIVISIONS[div].teams;
+    const standings = {};
+    teams.forEach(t => { standings[t] = {p:0,w:0,d:0,l:0,f:0,a:0,pts:0}; });
+
+    RESULTS.forEach(r => {
+        if (getDiv(r.home) !== div) return;
+        const {home, away, home_score: hs, away_score: awayScore} = r;
+        if (!standings[home] || !standings[away]) return;
+
+        standings[home].p++; standings[away].p++;
+        standings[home].f += hs; standings[home].a += awayScore;
+        standings[away].f += awayScore; standings[away].a += hs;
+
+        if (hs > awayScore) { standings[home].w++; standings[home].pts += 2; standings[away].l++; }
+        else if (hs < awayScore) { standings[away].w++; standings[away].pts += 3; standings[home].l++; }
+        else { standings[home].d++; standings[away].d++; standings[home].pts++; standings[away].pts++; }
+    });
+
+    return Object.entries(standings)
+        .map(([team, s]) => ({team, ...s, diff: s.f - s.a}))
+        .sort((a,b) => b.pts - a.pts || b.diff - a.diff);
+}
+
+function calcTeamStrength(div) {
+    const standings = calcStandings(div);
+    const strengths = {};
+    standings.forEach(s => {
+        strengths[s.team] = s.p > 0 ? (s.diff / s.p / 10) * 2 : 0;
+    });
+    return strengths;
+}
+
+function predictFrame(homeStr, awayStr) {
+    const adjH = homeStr + HOME_ADV;
+    return 1 / (1 + Math.exp(-(adjH - awayStr)));
+}
+
+function simulateMatch(home, away, strengths) {
+    const p = predictFrame(strengths[home] || 0, strengths[away] || 0);
+    let hf = 0;
+    for (let i = 0; i < 10; i++) if (Math.random() < p) hf++;
+    return [hf, 10 - hf];
+}
+
+function getRemainingFixtures(div) {
+    return FIXTURES.filter(f => f.division === div && parseDate(f.date) > LATEST_RESULT_DATE);
+}
+
+function getAllRemainingFixtures() {
+    return FIXTURES.filter(f => parseDate(f.date) > LATEST_RESULT_DATE);
+}
+
+function getTeamResults(team) {
+    return RESULTS.filter(r => r.home === team || r.away === team)
+        .map(r => ({
+            ...r,
+            isHome: r.home === team,
+            opponent: r.home === team ? r.away : r.home,
+            teamScore: r.home === team ? r.home_score : r.away_score,
+            oppScore: r.home === team ? r.away_score : r.home_score,
+            result: r.home === team
+                ? (r.home_score > r.away_score ? 'W' : r.home_score < r.away_score ? 'L' : 'D')
+                : (r.away_score > r.home_score ? 'W' : r.away_score < r.home_score ? 'L' : 'D')
+        }))
+        .sort((a, b) => parseDate(b.date).localeCompare(parseDate(a.date)));
+}
+
+function getTeamPlayers(team) {
+    const div = getDiv(team);
+    if (!div) return [];
+    const rosterKey = div + ':' + team;
+    const roster = ROSTERS[rosterKey];
+    if (!roster) return [];
+    return roster.map(name => ({
+        name,
+        rating: PLAYERS[name] ? PLAYERS[name].r : null,
+        winPct: PLAYERS[name] ? PLAYERS[name].w : null,
+        played: PLAYERS[name] ? PLAYERS[name].p : null
+    })).sort((a, b) => (b.rating || -999) - (a.rating || -999));
+}
+
+function getPlayerStats(name) {
+    const data = PLAYERS[name];
+    if (!data) return null;
+    return { name, rating: data.r, winPct: data.w, played: data.p };
+}
+
+function getPlayerTeams(name) {
+    const teams = [];
+    for (const [key, roster] of Object.entries(ROSTERS)) {
+        if (roster.includes(name)) {
+            const parts = key.split(':');
+            teams.push({ div: parts[0], team: parts.slice(1).join(':') });
+        }
+    }
+    return teams;
+}
+
+// Error boundary
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+    render() {
+        if (this.state.hasError) {
+            return React.createElement('div', {className: 'min-h-screen text-white p-8 gradient-bg text-center'},
+                React.createElement('h1', {className: 'text-2xl font-bold text-red-400 mb-4'}, 'Something went wrong'),
+                React.createElement('p', {className: 'text-gray-400 mb-4'}, this.state.error?.message || 'Unknown error'),
+                React.createElement('button', {
+                    className: 'bg-green-600 hover:bg-green-700 px-6 py-2 rounded-lg',
+                    onClick: () => { this.setState({ hasError: false, error: null }); }
+                }, 'Try Again')
+            );
+        }
+        return this.props.children;
+    }
+}
+
+function WhatIfRow({ fixture, onAdd }) {
+    const [editing, setEditing] = useState(false);
+    const [hs, setHs] = useState(5);
+    const [awayS, setAwayS] = useState(5);
+
+    if (!editing) {
+        return (
+            <div className="flex items-center justify-between bg-gray-700 rounded-lg p-3 text-sm">
+                <span className="text-gray-400 text-xs w-24 shrink-0">{fixture.date}</span>
+                <span className="flex-1 text-center">{fixture.home} vs {fixture.away}</span>
+                <button onClick={() => setEditing(true)} className="text-blue-400 hover:text-blue-300 text-xs ml-2">Set result</button>
+            </div>
+        );
+    }
+
+    return (
+        <div className="bg-gray-700 rounded-lg p-3 text-sm">
+            <div className="flex items-center justify-between mb-2">
+                <span className="font-medium">{fixture.home} vs {fixture.away}</span>
+            </div>
+            <div className="flex items-center gap-2 justify-center flex-wrap">
+                <span className="text-gray-400 text-xs">{fixture.home}</span>
+                <input type="number" min="0" max="10" value={hs} onChange={e => { const v = Math.min(10, Math.max(0, parseInt(e.target.value) || 0)); setHs(v); setAwayS(10 - v); }}
+                    className="w-14 bg-gray-600 rounded p-1 text-center" />
+                <span className="text-gray-500">-</span>
+                <input type="number" min="0" max="10" value={awayS} onChange={e => { const v = Math.min(10, Math.max(0, parseInt(e.target.value) || 0)); setAwayS(v); setHs(10 - v); }}
+                    className="w-14 bg-gray-600 rounded p-1 text-center" />
+                <span className="text-gray-400 text-xs">{fixture.away}</span>
+                <button onClick={() => { onAdd(fixture.home, fixture.away, hs, awayS); setEditing(false); }}
+                    className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-xs ml-2">Lock</button>
+                <button onClick={() => setEditing(false)}
+                    className="text-gray-400 hover:text-gray-300 text-xs">Cancel</button>
+            </div>
+        </div>
+    );
+}
+
 function App() {
     const [activeTab, setActiveTab] = useState('standings');
     const [selectedDiv, setSelectedDiv] = useState('SD2');
@@ -40,119 +219,20 @@ function App() {
     const [awayTeam, setAwayTeam] = useState('');
     const [simResults, setSimResults] = useState(null);
     const [isSimulating, setIsSimulating] = useState(false);
+    const [prediction, setPrediction] = useState(null);
+    const [showAllFixtures, setShowAllFixtures] = useState(false);
+    const [whatIfResults, setWhatIfResults] = useState([]);
+    const [whatIfSimResults, setWhatIfSimResults] = useState(null);
+    const [selectedTeam, setSelectedTeam] = useState(null);
+    const [selectedPlayer, setSelectedPlayer] = useState(null);
 
-    const getDiv = (team) => {
-        for (const [div, data] of Object.entries(DIVISIONS)) {
-            if (data.teams.includes(team)) return div;
-        }
-        return null;
-    };
-
-    const calcStandings = (div) => {
-        const teams = DIVISIONS[div].teams;
-        const standings = {};
-        teams.forEach(t => { standings[t] = {p:0,w:0,d:0,l:0,f:0,a:0,pts:0}; });
-        
-        RESULTS.forEach(r => {
-            if (getDiv(r.home) !== div) return;
-            const {home, away, home_score: hs, away_score: as} = r;
-            if (!standings[home] || !standings[away]) return;
-            
-            standings[home].p++; standings[away].p++;
-            standings[home].f += hs; standings[home].a += as;
-            standings[away].f += as; standings[away].a += hs;
-            
-            if (hs > as) { standings[home].w++; standings[home].pts += 2; standings[away].l++; }
-            else if (hs < as) { standings[away].w++; standings[away].pts += 3; standings[home].l++; }
-            else { standings[home].d++; standings[away].d++; standings[home].pts++; standings[away].pts++; }
-        });
-        
-        return Object.entries(standings)
-            .map(([team, s]) => ({team, ...s, diff: s.f - s.a}))
-            .sort((a,b) => b.pts - a.pts || b.diff - a.diff);
-    };
-
-    const calcTeamStrength = (div) => {
-        const standings = calcStandings(div);
-        const strengths = {};
-        standings.forEach(s => {
-            strengths[s.team] = s.p > 0 ? (s.diff / s.p / 10) * 2 : 0;
-        });
-        return strengths;
-    };
-
-    const predictFrame = (homeStr, awayStr) => {
-        const adjH = homeStr + HOME_ADV;
-        const adjA = awayStr - HOME_ADV;
-        return 1 / (1 + Math.exp(-(adjH - adjA)));
-    };
-
-    const simulateMatch = (home, away, strengths) => {
-        const p = predictFrame(strengths[home] || 0, strengths[away] || 0);
-        let hf = 0;
-        for (let i = 0; i < 10; i++) if (Math.random() < p) hf++;
-        return [hf, 10 - hf];
-    };
-
-    const runSimulation = () => {
-        setIsSimulating(true);
-        setTimeout(() => {
-            const div = selectedDiv;
-            const teams = DIVISIONS[div].teams;
-            const strengths = calcTeamStrength(div);
-            const current = calcStandings(div);
-            const currentMap = {};
-            current.forEach(s => { currentMap[s.team] = s; });
-            
-            const divFixtures = FIXTURES.filter(f => f.division === div && f.date > '04-02-2026');
-            const N = 1000;
-            const tracker = {};
-            teams.forEach(t => { tracker[t] = {totalPts: 0, positions: Array(teams.length).fill(0)}; });
-            
-            for (let sim = 0; sim < N; sim++) {
-                const standings = {};
-                teams.forEach(t => { standings[t] = {pts: currentMap[t].pts, f: currentMap[t].f, a: currentMap[t].a}; });
-                
-                divFixtures.forEach(fix => {
-                    if (!teams.includes(fix.home) || !teams.includes(fix.away)) return;
-                    const [hs, as] = simulateMatch(fix.home, fix.away, strengths);
-                    standings[fix.home].f += hs; standings[fix.home].a += as;
-                    standings[fix.away].f += as; standings[fix.away].a += hs;
-                    if (hs > as) standings[fix.home].pts += 2;
-                    else if (hs < as) standings[fix.away].pts += 3;
-                    else { standings[fix.home].pts++; standings[fix.away].pts++; }
-                });
-                
-                const ranked = teams.slice().sort((a,b) => 
-                    standings[b].pts - standings[a].pts || 
-                    (standings[b].f - standings[b].a) - (standings[a].f - standings[a].a)
-                );
-                ranked.forEach((t, pos) => {
-                    tracker[t].positions[pos]++;
-                    tracker[t].totalPts += standings[t].pts;
-                });
-            }
-            
-            const results = teams.map(t => ({
-                team: t,
-                currentPts: currentMap[t].pts,
-                avgPts: (tracker[t].totalPts / N).toFixed(1),
-                pTitle: (tracker[t].positions[0] / N * 100).toFixed(1),
-                pTop2: ((tracker[t].positions[0] + tracker[t].positions[1]) / N * 100).toFixed(1),
-                pBot2: ((tracker[t].positions[teams.length-1] + tracker[t].positions[teams.length-2]) / N * 100).toFixed(1)
-            })).sort((a,b) => parseFloat(b.avgPts) - parseFloat(a.avgPts));
-            
-            setSimResults(results);
-            setIsSimulating(false);
-        }, 100);
-    };
-
-    const predictMatch = () => {
-        if (!homeTeam || !awayTeam) return null;
+    // Prediction via useEffect (non-deterministic, so not useMemo)
+    useEffect(() => {
+        if (!homeTeam || !awayTeam) { setPrediction(null); return; }
         const div = getDiv(homeTeam);
         const strengths = calcTeamStrength(div);
         const p = predictFrame(strengths[homeTeam] || 0, strengths[awayTeam] || 0);
-        
+
         let hw = 0, dr = 0, aw = 0;
         const scores = {};
         for (let i = 0; i < 5000; i++) {
@@ -165,119 +245,419 @@ function App() {
             const key = hf + '-' + af;
             scores[key] = (scores[key] || 0) + 1;
         }
-        
+
         const topScores = Object.entries(scores)
             .sort((a,b) => b[1] - a[1])
             .slice(0, 5)
             .map(([s, c]) => ({score: s, pct: (c/50).toFixed(1)}));
-        
-        return {
+
+        setPrediction({
             pHomeWin: (hw/50).toFixed(1),
             pDraw: (dr/50).toFixed(1),
             pAwayWin: (aw/50).toFixed(1),
             expectedHome: (p * 10).toFixed(1),
             expectedAway: ((1-p) * 10).toFixed(1),
             topScores
-        };
+        });
+    }, [homeTeam, awayTeam]);
+
+    const standings = calcStandings(selectedDiv);
+    const teams = DIVISIONS[selectedDiv].teams;
+    const divFixtures = getRemainingFixtures(selectedDiv);
+    const upcomingFixtures = showAllFixtures ? divFixtures : divFixtures.slice(0, 10);
+    const totalRemaining = getAllRemainingFixtures().length;
+
+    const runSimulation = () => {
+        setIsSimulating(true);
+        setTimeout(() => {
+            const div = selectedDiv;
+            const divTeams = DIVISIONS[div].teams;
+            const strengths = calcTeamStrength(div);
+            const current = calcStandings(div);
+            const currentMap = {};
+            current.forEach(s => { currentMap[s.team] = s; });
+
+            const fixtures = getRemainingFixtures(div);
+            const N = 1000;
+            const tracker = {};
+            divTeams.forEach(t => { tracker[t] = {totalPts: 0, positions: Array(divTeams.length).fill(0)}; });
+
+            for (let sim = 0; sim < N; sim++) {
+                const simStandings = {};
+                divTeams.forEach(t => { simStandings[t] = {pts: currentMap[t].pts, f: currentMap[t].f, a: currentMap[t].a}; });
+
+                // Apply What-If results first
+                whatIfResults.forEach(wi => {
+                    if (!divTeams.includes(wi.home) || !divTeams.includes(wi.away)) return;
+                    simStandings[wi.home].f += wi.homeScore;
+                    simStandings[wi.home].a += wi.awayScore;
+                    simStandings[wi.away].f += wi.awayScore;
+                    simStandings[wi.away].a += wi.homeScore;
+                    if (wi.homeScore > wi.awayScore) simStandings[wi.home].pts += 2;
+                    else if (wi.homeScore < wi.awayScore) simStandings[wi.away].pts += 3;
+                    else { simStandings[wi.home].pts++; simStandings[wi.away].pts++; }
+                });
+
+                const whatIfKeys = new Set(whatIfResults.map(wi => wi.home + ':' + wi.away));
+                fixtures.forEach(fix => {
+                    if (!divTeams.includes(fix.home) || !divTeams.includes(fix.away)) return;
+                    if (whatIfKeys.has(fix.home + ':' + fix.away)) return;
+                    const [hs, as2] = simulateMatch(fix.home, fix.away, strengths);
+                    simStandings[fix.home].f += hs; simStandings[fix.home].a += as2;
+                    simStandings[fix.away].f += as2; simStandings[fix.away].a += hs;
+                    if (hs > as2) simStandings[fix.home].pts += 2;
+                    else if (hs < as2) simStandings[fix.away].pts += 3;
+                    else { simStandings[fix.home].pts++; simStandings[fix.away].pts++; }
+                });
+
+                const ranked = divTeams.slice().sort((a,b) =>
+                    simStandings[b].pts - simStandings[a].pts ||
+                    (simStandings[b].f - simStandings[b].a) - (simStandings[a].f - simStandings[a].a)
+                );
+                ranked.forEach((t, pos) => {
+                    tracker[t].positions[pos]++;
+                    tracker[t].totalPts += simStandings[t].pts;
+                });
+            }
+
+            const results = divTeams.map(t => ({
+                team: t,
+                currentPts: currentMap[t].pts,
+                avgPts: (tracker[t].totalPts / N).toFixed(1),
+                pTitle: (tracker[t].positions[0] / N * 100).toFixed(1),
+                pTop2: ((tracker[t].positions[0] + tracker[t].positions[1]) / N * 100).toFixed(1),
+                pBot2: ((tracker[t].positions[divTeams.length-1] + tracker[t].positions[divTeams.length-2]) / N * 100).toFixed(1)
+            })).sort((a,b) => parseFloat(b.avgPts) - parseFloat(a.avgPts));
+
+            setSimResults(results);
+            setWhatIfSimResults(whatIfResults.length > 0 ? [...whatIfResults] : null);
+            setIsSimulating(false);
+        }, 100);
     };
 
-    const standings = useMemo(() => calcStandings(selectedDiv), [selectedDiv]);
-    const prediction = useMemo(() => predictMatch(), [homeTeam, awayTeam]);
-    const teams = DIVISIONS[selectedDiv].teams;
-    const upcomingFixtures = FIXTURES.filter(f => f.division === selectedDiv && f.date > '04-02-2026').slice(0, 10);
+    const addWhatIf = (home, away, homeScore, awayScore) => {
+        setWhatIfResults(prev => [...prev.filter(wi => wi.home !== home || wi.away !== away),
+            { home, away, homeScore: parseInt(homeScore), awayScore: parseInt(awayScore) }]);
+        setSimResults(null);
+    };
+
+    const removeWhatIf = (home, away) => {
+        setWhatIfResults(prev => prev.filter(wi => wi.home !== home || wi.away !== away));
+        setSimResults(null);
+    };
+
+    const openTeamDetail = (team) => {
+        setSelectedTeam(team);
+        setSelectedPlayer(null);
+        setActiveTab('team');
+    };
+
+    const openPlayerDetail = (name) => {
+        setSelectedPlayer(name);
+        setActiveTab('player');
+    };
+
+    const TABS = [['standings', 'Standings'], ['results', 'Results'], ['simulate', 'Simulate'], ['predict', 'Predict'], ['fixtures', 'Fixtures'], ['whatif', 'What If'], ['players', 'Players']];
 
     return (
         <div className="min-h-screen text-white p-4 gradient-bg">
             <div className="max-w-6xl mx-auto">
-                <h1 className="text-3xl md:text-4xl font-bold text-center mb-2 text-green-400">🎱 Pool League Predictor</h1>
-                <p className="text-center text-gray-400 mb-6">Wrexham & District 25/26 • {RESULTS.length} matches played • {FIXTURES.filter(f=>f.date>'04-02-2026').length} remaining</p>
+                <h1 className="text-2xl md:text-4xl font-bold text-center mb-2 text-green-400 cursor-pointer" onClick={() => { setActiveTab('standings'); setSelectedTeam(null); setSelectedPlayer(null); }}>Pool League Predictor</h1>
+                <p className="text-center text-gray-400 mb-6 text-sm">Wrexham &amp; District 25/26 &bull; {RESULTS.length} matches played &bull; {totalRemaining} remaining</p>
 
-                <div className="flex justify-center gap-2 mb-4 flex-wrap">
+                <div className="flex justify-center gap-1 md:gap-2 mb-4 flex-wrap">
                     {Object.entries(DIVISIONS).map(([key, data]) => (
-                        <button key={key} onClick={() => {setSelectedDiv(key); setSimResults(null); setHomeTeam(''); setAwayTeam('');}}
-                            className={'px-4 py-2 rounded-lg font-medium transition ' + (selectedDiv === key ? 'bg-green-600' : 'bg-gray-700 hover:bg-gray-600')}>
-                            {data.name}
+                        <button key={key} onClick={() => {setSelectedDiv(key); setSimResults(null); setWhatIfSimResults(null); setWhatIfResults([]); setHomeTeam(''); setAwayTeam(''); setSelectedTeam(null); setSelectedPlayer(null); if (activeTab === 'team' || activeTab === 'player') setActiveTab('standings');}}
+                            className={'px-3 py-2 rounded-lg font-medium transition text-xs md:text-sm ' + (selectedDiv === key ? 'bg-green-600' : 'bg-gray-700 hover:bg-gray-600')}>
+                            {key}
+                            <span className="hidden md:inline"> - {data.name.replace('Sunday ', 'Sun ').replace('Wednesday ', 'Wed ')}</span>
                         </button>
                     ))}
                 </div>
 
-                <div className="flex justify-center gap-2 mb-6 flex-wrap">
-                    {[['standings', '📊 Standings'], ['simulate', '🎲 Simulate'], ['predict', '🎯 Predict'], ['fixtures', '📅 Fixtures']].map(([tab, label]) => (
-                        <button key={tab} onClick={() => setActiveTab(tab)}
-                            className={'px-4 py-2 rounded-lg transition ' + (activeTab === tab ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-600')}>
+                <div className="flex justify-center gap-1 md:gap-2 mb-6 flex-wrap">
+                    {TABS.map(([tab, label]) => (
+                        <button key={tab} onClick={() => { setActiveTab(tab); setSelectedTeam(null); setSelectedPlayer(null); }}
+                            className={'px-3 py-2 rounded-lg transition text-xs md:text-sm ' + (activeTab === tab ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-600')}>
                             {label}
                         </button>
                     ))}
                 </div>
 
+                {/* STANDINGS TAB */}
                 {activeTab === 'standings' && (
                     <div className="bg-gray-800 rounded-xl p-4 md:p-6 overflow-x-auto">
                         <h2 className="text-xl font-bold mb-4">{DIVISIONS[selectedDiv].name} - Current Standings</h2>
-                        <table className="w-full text-sm">
+                        <table className="w-full text-xs md:text-sm">
                             <thead>
                                 <tr className="text-gray-400 border-b border-gray-700">
                                     <th className="text-left p-2">#</th>
                                     <th className="text-left p-2">Team</th>
                                     <th className="text-center p-2">P</th>
                                     <th className="text-center p-2">W</th>
-                                    <th className="text-center p-2">D</th>
-                                    <th className="text-center p-2">L</th>
-                                    <th className="text-center p-2">F</th>
-                                    <th className="text-center p-2">A</th>
+                                    <th className="text-center p-2 hidden md:table-cell">D</th>
+                                    <th className="text-center p-2 hidden md:table-cell">L</th>
+                                    <th className="text-center p-2 hidden md:table-cell">F</th>
+                                    <th className="text-center p-2 hidden md:table-cell">A</th>
                                     <th className="text-center p-2">+/-</th>
                                     <th className="text-center p-2 font-bold">Pts</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {standings.map((s, i) => (
-                                    <tr key={s.team} className={'border-b border-gray-700/50 ' + (i < 2 ? 'bg-green-900/30' : '') + (i >= standings.length - 2 ? 'bg-red-900/30' : '')}>
+                                    <tr key={s.team} onClick={() => openTeamDetail(s.team)}
+                                        className={'border-b border-gray-700/50 cursor-pointer hover:bg-gray-700/50 ' + (i < 2 ? 'bg-green-900/30 ' : '') + (i >= standings.length - 2 ? 'bg-red-900/30' : '')}>
                                         <td className="p-2 text-gray-500">{i + 1}</td>
-                                        <td className="p-2 font-medium">{s.team} {i < 2 && '⬆️'} {i >= standings.length - 2 && '⬇️'}</td>
+                                        <td className="p-2 font-medium text-blue-300 hover:text-blue-200">{s.team}</td>
                                         <td className="p-2 text-center">{s.p}</td>
                                         <td className="p-2 text-center text-green-400">{s.w}</td>
-                                        <td className="p-2 text-center text-gray-400">{s.d}</td>
-                                        <td className="p-2 text-center text-red-400">{s.l}</td>
-                                        <td className="p-2 text-center">{s.f}</td>
-                                        <td className="p-2 text-center">{s.a}</td>
+                                        <td className="p-2 text-center text-gray-400 hidden md:table-cell">{s.d}</td>
+                                        <td className="p-2 text-center text-red-400 hidden md:table-cell">{s.l}</td>
+                                        <td className="p-2 text-center hidden md:table-cell">{s.f}</td>
+                                        <td className="p-2 text-center hidden md:table-cell">{s.a}</td>
                                         <td className="p-2 text-center">{s.diff > 0 ? '+' : ''}{s.diff}</td>
                                         <td className="p-2 text-center font-bold text-yellow-400">{s.pts}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                        <p className="text-xs text-gray-500 mt-4">🟢 Promotion zone (top 2) • 🔴 Relegation zone (bottom 2)</p>
+                        <p className="text-xs text-gray-500 mt-4">Green = Promotion zone (top 2) &bull; Red = Relegation zone (bottom 2) &bull; Click a team for details</p>
                     </div>
                 )}
 
+                {/* RESULTS TAB */}
+                {activeTab === 'results' && (
+                    <div className="bg-gray-800 rounded-xl p-4 md:p-6">
+                        <h2 className="text-xl font-bold mb-4">{DIVISIONS[selectedDiv].name} - Match Results</h2>
+                        <div className="space-y-2">
+                            {RESULTS.filter(r => getDiv(r.home) === selectedDiv)
+                                .sort((a, b) => parseDate(b.date).localeCompare(parseDate(a.date)))
+                                .map((r, i) => (
+                                <div key={i} className="flex items-center bg-gray-700 rounded-lg p-3 text-sm">
+                                    <span className="text-gray-400 text-xs w-24 shrink-0">{r.date}</span>
+                                    <span className={'flex-1 text-right cursor-pointer hover:text-blue-300 ' + (r.home_score > r.away_score ? 'font-bold text-green-400' : '')}
+                                        onClick={() => openTeamDetail(r.home)}>{r.home}</span>
+                                    <span className="mx-3 font-bold text-center w-16">{r.home_score} - {r.away_score}</span>
+                                    <span className={'flex-1 cursor-pointer hover:text-blue-300 ' + (r.away_score > r.home_score ? 'font-bold text-green-400' : '')}
+                                        onClick={() => openTeamDetail(r.away)}>{r.away}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* TEAM DETAIL TAB */}
+                {activeTab === 'team' && selectedTeam && (() => {
+                    const teamResults = getTeamResults(selectedTeam);
+                    const teamPlayers = getTeamPlayers(selectedTeam);
+                    const teamStanding = standings.find(s => s.team === selectedTeam);
+                    const teamPos = standings.findIndex(s => s.team === selectedTeam) + 1;
+                    const form = teamResults.slice(0, 5).map(r => r.result);
+
+                    return (
+                        <div className="bg-gray-800 rounded-xl p-4 md:p-6">
+                            <button onClick={() => setActiveTab('standings')} className="text-gray-400 hover:text-white text-sm mb-4 block">&larr; Back to standings</button>
+                            <h2 className="text-xl font-bold mb-1">{selectedTeam}</h2>
+                            <p className="text-gray-400 text-sm mb-4">{DIVISIONS[selectedDiv].name} &bull; Position: #{teamPos}</p>
+
+                            {teamStanding && (
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                                    <div className="bg-gray-700 rounded-lg p-3 text-center">
+                                        <div className="text-2xl font-bold text-yellow-400">{teamStanding.pts}</div>
+                                        <div className="text-xs text-gray-400">Points</div>
+                                    </div>
+                                    <div className="bg-gray-700 rounded-lg p-3 text-center">
+                                        <div className="text-2xl font-bold">{teamStanding.w}-{teamStanding.d}-{teamStanding.l}</div>
+                                        <div className="text-xs text-gray-400">W-D-L</div>
+                                    </div>
+                                    <div className="bg-gray-700 rounded-lg p-3 text-center">
+                                        <div className="text-2xl font-bold">{teamStanding.f}-{teamStanding.a}</div>
+                                        <div className="text-xs text-gray-400">Frames F-A</div>
+                                    </div>
+                                    <div className="bg-gray-700 rounded-lg p-3 text-center">
+                                        <div className="flex justify-center gap-1">
+                                            {form.map((r, i) => (
+                                                <span key={i} className={'inline-block w-6 h-6 rounded text-xs font-bold flex items-center justify-center ' +
+                                                    (r === 'W' ? 'bg-green-600' : r === 'L' ? 'bg-red-600' : 'bg-gray-500')}>{r}</span>
+                                            ))}
+                                        </div>
+                                        <div className="text-xs text-gray-400 mt-1">Form (last 5)</div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {teamPlayers.length > 0 && (
+                                <div className="mb-6">
+                                    <h3 className="font-bold text-sm mb-2 text-gray-300">Squad (24/25 ratings)</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                        {teamPlayers.map(pl => (
+                                            <div key={pl.name} onClick={() => openPlayerDetail(pl.name)}
+                                                className="flex justify-between text-xs bg-gray-700/50 rounded p-2 cursor-pointer hover:bg-gray-700">
+                                                <span className="text-blue-300 hover:text-blue-200">{pl.name}</span>
+                                                <span className="text-gray-400">
+                                                    {pl.rating !== null ? (
+                                                        <span>
+                                                            <span className={pl.rating > 0 ? 'text-green-400' : pl.rating < 0 ? 'text-red-400' : 'text-gray-400'}>
+                                                                {pl.rating > 0 ? '+' : ''}{pl.rating.toFixed(2)}
+                                                            </span>
+                                                            <span className="ml-2">{(pl.winPct * 100).toFixed(0)}% ({pl.played}g)</span>
+                                                        </span>
+                                                    ) : 'No data'}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <h3 className="font-bold text-sm mb-2 text-gray-300">Match History</h3>
+                            <div className="space-y-1">
+                                {teamResults.map((r, i) => (
+                                    <div key={i} className="flex items-center text-xs bg-gray-700/50 rounded p-2">
+                                        <span className="text-gray-400 w-20 shrink-0">{r.date}</span>
+                                        <span className={'w-5 font-bold ' + (r.result === 'W' ? 'text-green-400' : r.result === 'L' ? 'text-red-400' : 'text-gray-400')}>{r.result}</span>
+                                        <span className="text-gray-400 text-xs w-8">{r.isHome ? '(H)' : '(A)'}</span>
+                                        <span className="font-bold w-12 text-center">{r.teamScore}-{r.oppScore}</span>
+                                        <span className="text-gray-300 ml-2 cursor-pointer hover:text-blue-300" onClick={() => openTeamDetail(r.opponent)}>vs {r.opponent}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })()}
+
+                {/* PLAYER DETAIL TAB */}
+                {activeTab === 'player' && selectedPlayer && (() => {
+                    const stats = getPlayerStats(selectedPlayer);
+                    const playerTeams = getPlayerTeams(selectedPlayer);
+
+                    return (
+                        <div className="bg-gray-800 rounded-xl p-4 md:p-6">
+                            <button onClick={() => { if (selectedTeam) setActiveTab('team'); else setActiveTab('players'); }}
+                                className="text-gray-400 hover:text-white text-sm mb-4 block">&larr; Back</button>
+                            <h2 className="text-xl font-bold mb-1">{selectedPlayer}</h2>
+
+                            {playerTeams.length > 0 && (
+                                <p className="text-gray-400 text-sm mb-4">
+                                    {playerTeams.map((pt, i) => (
+                                        <span key={i}>
+                                            <span className="cursor-pointer text-blue-300 hover:text-blue-200"
+                                                onClick={() => { setSelectedDiv(pt.div); openTeamDetail(pt.team); }}>{pt.team}</span>
+                                            {' '}({pt.div}){i < playerTeams.length - 1 ? ', ' : ''}
+                                        </span>
+                                    ))}
+                                </p>
+                            )}
+
+                            {stats ? (
+                                <div className="grid grid-cols-3 gap-4 mb-6">
+                                    <div className="bg-gray-700 rounded-lg p-4 text-center">
+                                        <div className={'text-2xl font-bold ' + (stats.rating > 0 ? 'text-green-400' : stats.rating < 0 ? 'text-red-400' : 'text-gray-400')}>
+                                            {stats.rating > 0 ? '+' : ''}{stats.rating.toFixed(2)}
+                                        </div>
+                                        <div className="text-xs text-gray-400">Rating</div>
+                                    </div>
+                                    <div className="bg-gray-700 rounded-lg p-4 text-center">
+                                        <div className="text-2xl font-bold text-blue-400">{(stats.winPct * 100).toFixed(1)}%</div>
+                                        <div className="text-xs text-gray-400">Win Rate</div>
+                                    </div>
+                                    <div className="bg-gray-700 rounded-lg p-4 text-center">
+                                        <div className="text-2xl font-bold text-gray-300">{stats.played}</div>
+                                        <div className="text-xs text-gray-400">Games (24/25)</div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p className="text-gray-400 text-sm">No individual stats available for this player.</p>
+                            )}
+                        </div>
+                    );
+                })()}
+
+                {/* PLAYERS TAB */}
+                {activeTab === 'players' && (() => {
+                    const divPlayers = [];
+                    teams.forEach(team => {
+                        const roster = getTeamPlayers(team);
+                        roster.forEach(pl => { divPlayers.push({ ...pl, team }); });
+                    });
+                    divPlayers.sort((a, b) => (b.rating || -999) - (a.rating || -999));
+
+                    return (
+                        <div className="bg-gray-800 rounded-xl p-4 md:p-6">
+                            <h2 className="text-xl font-bold mb-4">{DIVISIONS[selectedDiv].name} - Player Ratings (24/25 Season)</h2>
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-xs md:text-sm">
+                                    <thead>
+                                        <tr className="text-gray-400 border-b border-gray-700">
+                                            <th className="text-left p-2">#</th>
+                                            <th className="text-left p-2">Player</th>
+                                            <th className="text-left p-2">Team</th>
+                                            <th className="text-right p-2">Rating</th>
+                                            <th className="text-right p-2">Win%</th>
+                                            <th className="text-right p-2">Games</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {divPlayers.filter(p => p.rating !== null).map((p, i) => (
+                                            <tr key={p.name + p.team} className="border-b border-gray-700/50 cursor-pointer hover:bg-gray-700/50"
+                                                onClick={() => openPlayerDetail(p.name)}>
+                                                <td className="p-2 text-gray-500">{i + 1}</td>
+                                                <td className="p-2 font-medium text-blue-300">{p.name}</td>
+                                                <td className="p-2 text-gray-400 cursor-pointer hover:text-blue-300"
+                                                    onClick={(e) => { e.stopPropagation(); openTeamDetail(p.team); }}>{p.team}</td>
+                                                <td className={'p-2 text-right font-bold ' + (p.rating > 0 ? 'text-green-400' : p.rating < 0 ? 'text-red-400' : 'text-gray-400')}>
+                                                    {p.rating > 0 ? '+' : ''}{p.rating.toFixed(2)}
+                                                </td>
+                                                <td className="p-2 text-right">{(p.winPct * 100).toFixed(0)}%</td>
+                                                <td className="p-2 text-right">{p.played}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    );
+                })()}
+
+                {/* SIMULATE TAB */}
                 {activeTab === 'simulate' && (
                     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
                         <h2 className="text-xl font-bold mb-4">Season Simulation - {DIVISIONS[selectedDiv].name}</h2>
-                        <p className="text-gray-400 mb-4">1,000 Monte Carlo simulations based on current form</p>
-                        
+                        <p className="text-gray-400 mb-4 text-sm">1,000 Monte Carlo simulations based on current form{whatIfResults.length > 0 ? ' (with ' + whatIfResults.length + ' What-If result' + (whatIfResults.length > 1 ? 's' : '') + ')' : ''}</p>
+
                         <button onClick={runSimulation} disabled={isSimulating}
-                            className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 font-bold py-3 px-6 rounded-lg mb-6">
-                            {isSimulating ? '⏳ Simulating...' : '🎲 Run Season Simulation'}
+                            className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 font-bold py-3 px-6 rounded-lg mb-6 transition">
+                            {isSimulating ? 'Simulating...' : 'Run Season Simulation'}
                         </button>
 
                         {simResults && (
                             <div className="overflow-x-auto">
-                                <table className="w-full text-sm">
+                                {whatIfSimResults && whatIfSimResults.length > 0 && (
+                                    <div className="mb-4 p-3 bg-amber-900/30 border border-amber-600/30 rounded-lg text-sm">
+                                        <span className="text-amber-400 font-medium">What-If applied: </span>
+                                        {whatIfSimResults.map((wi, i) => (
+                                            <span key={i} className="text-gray-300">{wi.home} {wi.homeScore}-{wi.awayScore} {wi.away}{i < whatIfSimResults.length - 1 ? ', ' : ''}</span>
+                                        ))}
+                                    </div>
+                                )}
+                                <table className="w-full text-xs md:text-sm">
                                     <thead>
                                         <tr className="text-gray-400 border-b border-gray-700">
                                             <th className="text-left p-2">#</th>
                                             <th className="text-left p-2">Team</th>
                                             <th className="text-right p-2">Now</th>
                                             <th className="text-right p-2">Pred</th>
-                                            <th className="text-right p-2">🏆</th>
-                                            <th className="text-right p-2">⬆️</th>
-                                            <th className="text-right p-2">⬇️</th>
+                                            <th className="text-right p-2">Title%</th>
+                                            <th className="text-right p-2">Top2%</th>
+                                            <th className="text-right p-2">Bot2%</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {simResults.map((r, i) => (
-                                            <tr key={r.team} className={'border-b border-gray-700/50 ' + (i < 2 ? 'bg-green-900/20' : '') + (i >= simResults.length - 2 ? 'bg-red-900/20' : '')}>
+                                            <tr key={r.team} className={'border-b border-gray-700/50 cursor-pointer hover:bg-gray-700/50 ' + (i < 2 ? 'bg-green-900/20 ' : '') + (i >= simResults.length - 2 ? 'bg-red-900/20' : '')}
+                                                onClick={() => openTeamDetail(r.team)}>
                                                 <td className="p-2 text-gray-500">{i + 1}</td>
-                                                <td className="p-2 font-medium">{r.team}</td>
+                                                <td className="p-2 font-medium text-blue-300">{r.team}</td>
                                                 <td className="p-2 text-right">{r.currentPts}</td>
                                                 <td className="p-2 text-right font-bold">{r.avgPts}</td>
                                                 <td className="p-2 text-right text-yellow-400">{r.pTitle}%</td>
@@ -292,20 +672,21 @@ function App() {
                     </div>
                 )}
 
+                {/* PREDICT TAB */}
                 {activeTab === 'predict' && (
                     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
                         <h2 className="text-xl font-bold mb-4">Match Prediction</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <div>
                                 <label className="block text-sm text-gray-400 mb-1">Home Team</label>
-                                <select value={homeTeam} onChange={(e) => setHomeTeam(e.target.value)} className="w-full bg-gray-700 rounded-lg p-3">
+                                <select value={homeTeam} onChange={(e) => setHomeTeam(e.target.value)} className="w-full bg-gray-700 rounded-lg p-3 text-sm">
                                     <option value="">Select home team...</option>
                                     {teams.map(t => <option key={t} value={t}>{t}</option>)}
                                 </select>
                             </div>
                             <div>
                                 <label className="block text-sm text-gray-400 mb-1">Away Team</label>
-                                <select value={awayTeam} onChange={(e) => setAwayTeam(e.target.value)} className="w-full bg-gray-700 rounded-lg p-3">
+                                <select value={awayTeam} onChange={(e) => setAwayTeam(e.target.value)} className="w-full bg-gray-700 rounded-lg p-3 text-sm">
                                     <option value="">Select away team...</option>
                                     {teams.filter(t => t !== homeTeam).map(t => <option key={t} value={t}>{t}</option>)}
                                 </select>
@@ -314,18 +695,18 @@ function App() {
 
                         {prediction && (
                             <div className="space-y-4">
-                                <div className="grid grid-cols-3 gap-4 text-center">
+                                <div className="grid grid-cols-3 gap-3 text-center">
                                     <div className="bg-green-900/50 rounded-lg p-4">
                                         <div className="text-2xl md:text-3xl font-bold text-green-400">{prediction.pHomeWin}%</div>
-                                        <div className="text-xs md:text-sm text-gray-400">Home Win (+2pts)</div>
+                                        <div className="text-xs text-gray-400">Home Win (+2pts)</div>
                                     </div>
                                     <div className="bg-gray-700 rounded-lg p-4">
                                         <div className="text-2xl md:text-3xl font-bold text-gray-300">{prediction.pDraw}%</div>
-                                        <div className="text-xs md:text-sm text-gray-400">Draw (+1pt)</div>
+                                        <div className="text-xs text-gray-400">Draw (+1pt)</div>
                                     </div>
                                     <div className="bg-red-900/50 rounded-lg p-4">
                                         <div className="text-2xl md:text-3xl font-bold text-red-400">{prediction.pAwayWin}%</div>
-                                        <div className="text-xs md:text-sm text-gray-400">Away Win (+3pts)</div>
+                                        <div className="text-xs text-gray-400">Away Win (+3pts)</div>
                                     </div>
                                 </div>
                                 <div className="bg-gray-700 rounded-lg p-4 text-center">
@@ -335,54 +716,137 @@ function App() {
                                         Most likely: {prediction.topScores.map(s => s.score + ' (' + s.pct + '%)').join(', ')}
                                     </div>
                                 </div>
+
+                                {/* Player squads under prediction */}
+                                {(homeTeam || awayTeam) && (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                        {[{team: homeTeam, players: getTeamPlayers(homeTeam), color: 'green'}, {team: awayTeam, players: getTeamPlayers(awayTeam), color: 'red'}].map(side => side.team && (
+                                            <div key={side.team} className="bg-gray-700/50 rounded-lg p-4">
+                                                <h4 className={'font-bold mb-2 text-sm text-' + side.color + '-400'}>{side.team} - Squad</h4>
+                                                {side.players.length > 0 ? (
+                                                    <div className="space-y-1">
+                                                        {side.players.map(pl => (
+                                                            <div key={pl.name} onClick={() => openPlayerDetail(pl.name)}
+                                                                className="flex justify-between text-xs cursor-pointer hover:bg-gray-700 rounded p-1">
+                                                                <span className="text-blue-300">{pl.name}</span>
+                                                                <span className="text-gray-400">
+                                                                    {pl.rating !== null ? (
+                                                                        <span>
+                                                                            <span className={pl.rating > 0 ? 'text-green-400' : pl.rating < 0 ? 'text-red-400' : 'text-gray-400'}>
+                                                                                {pl.rating > 0 ? '+' : ''}{pl.rating.toFixed(2)}
+                                                                            </span>
+                                                                            <span className="ml-2">{(pl.winPct * 100).toFixed(0)}%</span>
+                                                                        </span>
+                                                                    ) : 'No data'}
+                                                                </span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ) : <p className="text-xs text-gray-500">No roster data</p>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
                 )}
 
+                {/* FIXTURES TAB */}
                 {activeTab === 'fixtures' && (
                     <div className="bg-gray-800 rounded-xl p-4 md:p-6">
-                        <h2 className="text-xl font-bold mb-4">Upcoming Fixtures - {DIVISIONS[selectedDiv].name}</h2>
+                        <h2 className="text-xl font-bold mb-4">Upcoming Fixtures - {DIVISIONS[selectedDiv].name} ({divFixtures.length} matches)</h2>
                         <div className="space-y-2">
                             {upcomingFixtures.map((f, i) => (
-                                <div key={i} className="flex justify-between items-center bg-gray-700 rounded-lg p-3">
-                                    <span className="text-gray-400 text-sm">{f.date}</span>
-                                    <span className="font-medium text-center flex-1">{f.home} vs {f.away}</span>
+                                <div key={i} className="flex items-center bg-gray-700 rounded-lg p-3 text-sm">
+                                    <span className="text-gray-400 text-xs w-24 shrink-0">{f.date}</span>
+                                    <span className="flex-1 text-right cursor-pointer hover:text-blue-300" onClick={() => openTeamDetail(f.home)}>{f.home}</span>
+                                    <span className="mx-3 text-gray-500">vs</span>
+                                    <span className="flex-1 cursor-pointer hover:text-blue-300" onClick={() => openTeamDetail(f.away)}>{f.away}</span>
                                 </div>
                             ))}
                         </div>
-                        {upcomingFixtures.length === 0 && <p className="text-gray-400">No upcoming fixtures</p>}
+                        {divFixtures.length > 10 && (
+                            <button onClick={() => setShowAllFixtures(!showAllFixtures)}
+                                className="mt-4 w-full bg-gray-700 hover:bg-gray-600 py-2 rounded-lg text-sm transition">
+                                {showAllFixtures ? 'Show Less' : 'Show All ' + divFixtures.length + ' Fixtures'}
+                            </button>
+                        )}
+                        {divFixtures.length === 0 && <p className="text-gray-400">No upcoming fixtures</p>}
                     </div>
                 )}
 
-                {selectedDiv === 'SD2' && (
+                {/* WHAT IF TAB */}
+                {activeTab === 'whatif' && (
+                    <div className="bg-gray-800 rounded-xl p-4 md:p-6">
+                        <h2 className="text-xl font-bold mb-2">What If - {DIVISIONS[selectedDiv].name}</h2>
+                        <p className="text-gray-400 text-sm mb-4">Set specific match results, then run a simulation to see how they affect the final standings.</p>
+
+                        {whatIfResults.length > 0 && (
+                            <div className="mb-4 space-y-2">
+                                <h3 className="text-sm font-medium text-gray-300">Locked results:</h3>
+                                {whatIfResults.map((wi, i) => (
+                                    <div key={i} className="flex items-center justify-between bg-gray-700 rounded-lg p-3 text-sm">
+                                        <span>{wi.home} <span className="font-bold text-green-400">{wi.homeScore}</span> - <span className="font-bold text-red-400">{wi.awayScore}</span> {wi.away}</span>
+                                        <button onClick={() => removeWhatIf(wi.home, wi.away)} className="text-red-400 hover:text-red-300 text-xs ml-2">Remove</button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        <div className="space-y-2">
+                            <h3 className="text-sm font-medium text-gray-300">Upcoming fixtures (click to set result):</h3>
+                            {divFixtures.filter(f => !whatIfResults.some(wi => wi.home === f.home && wi.away === f.away)).slice(0, 20).map((f, i) => (
+                                <WhatIfRow key={f.home + f.away} fixture={f} onAdd={addWhatIf} />
+                            ))}
+                        </div>
+
+                        {whatIfResults.length > 0 && (
+                            <div className="mt-4 flex gap-2">
+                                <button onClick={() => { setActiveTab('simulate'); setTimeout(runSimulation, 200); }}
+                                    className="flex-1 bg-green-600 hover:bg-green-700 font-bold py-3 px-6 rounded-lg transition">
+                                    Simulate with What-If Results
+                                </button>
+                                <button onClick={() => { setWhatIfResults([]); setSimResults(null); setWhatIfSimResults(null); }}
+                                    className="bg-red-600 hover:bg-red-700 py-3 px-4 rounded-lg text-sm transition">
+                                    Clear All
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* FOUR DOGS REPORT */}
+                {selectedDiv === 'SD2' && activeTab !== 'team' && activeTab !== 'player' && (
                     <div className="mt-6 bg-gradient-to-r from-amber-900/30 to-amber-800/30 rounded-xl p-4 md:p-6 border border-amber-600/30">
-                        <h3 className="text-xl font-bold mb-3 text-amber-400">🐕 Four Dogs Report</h3>
+                        <h3 className="text-lg font-bold mb-3 text-amber-400">Four Dogs Report</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="bg-gray-800/50 rounded-lg p-4">
+                            <div className="bg-gray-800/50 rounded-lg p-4 cursor-pointer hover:bg-gray-800/70" onClick={() => openTeamDetail('Four Dogs A')}>
                                 <h4 className="font-bold text-green-400">Four Dogs A</h4>
                                 <p className="text-sm text-gray-300">Currently: {standings.find(s => s.team === 'Four Dogs A')?.pts || 0} pts (#{standings.findIndex(s => s.team === 'Four Dogs A') + 1})</p>
-                                <p className="text-xs text-gray-400 mt-1">Promotion contenders 🔥</p>
+                                <p className="text-xs text-gray-400 mt-1">Promotion contenders</p>
                             </div>
-                            <div className="bg-gray-800/50 rounded-lg p-4">
+                            <div className="bg-gray-800/50 rounded-lg p-4 cursor-pointer hover:bg-gray-800/70" onClick={() => openTeamDetail('Four Dogs B')}>
                                 <h4 className="font-bold text-red-400">Four Dogs B</h4>
                                 <p className="text-sm text-gray-300">Currently: {standings.find(s => s.team === 'Four Dogs B')?.pts || 0} pts (#{standings.findIndex(s => s.team === 'Four Dogs B') + 1})</p>
                                 <p className="text-xs text-gray-400 mt-1">Relegation battle</p>
                             </div>
                         </div>
-                        <p className="text-xs text-amber-300 mt-3">🔥 Derby Day: June 14, 2026</p>
+                        <p className="text-xs text-amber-300 mt-3">Derby Day: June 14, 2026</p>
                     </div>
                 )}
 
                 <p className="text-center text-gray-500 text-xs mt-8">
-                    Model: Bayesian ratings • Home advantage +8% • Points: HW=2, AW=3, D=1
+                    Model: Frame-differential ratings &bull; Logistic prediction &bull; Home advantage +{(1 / (1 + Math.exp(-HOME_ADV)) * 100 - 50).toFixed(0)}% &bull; Points: HW=2, AW=3, D=1
                 </p>
             </div>
         </div>
     );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+    React.createElement(ErrorBoundary, null, <App />)
+);
     </script>
 </body>
 </html>
