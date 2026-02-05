@@ -5,7 +5,7 @@ import { ArrowLeft, Home, Plane, Crosshair, Shield, TrendingUp, TrendingDown } f
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { DIVISIONS } from '@/lib/data';
-import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates } from '@/lib/predictions';
+import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates, calcBayesianPct } from '@/lib/predictions';
 import { useLeagueData } from '@/lib/data-provider';
 
 interface TeamDetailProps {
@@ -179,7 +179,7 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
                     )}
                   </span>
                   <span className="text-gray-500">
-                    {pl.s2526 && <><span className="text-white font-medium">{pl.s2526.pct.toFixed(0)}%</span> <span className="text-gray-600">({pl.s2526.p}P {pl.s2526.w}W)</span></>}
+                    {pl.s2526 && <><span className="text-white font-medium">{calcBayesianPct(pl.s2526.w, pl.s2526.p).toFixed(0)}%</span> <span className="text-gray-600">({pl.s2526.pct.toFixed(0)}% raw, {pl.s2526.p}P)</span></>}
                     {pl.s2526 && pl.rating !== null && <span className="text-gray-700 mx-1">|</span>}
                     {pl.rating !== null && (
                       <span className={pl.rating > 0 ? 'text-win' : pl.rating < 0 ? 'text-loss' : 'text-gray-400'}>

@@ -5,7 +5,7 @@ import { Search, X, TrendingUp, TrendingDown, ChevronUp, ChevronDown, UserX } fr
 import clsx from 'clsx';
 import type { DivisionCode, PlayerFormData } from '@/lib/types';
 import { DIVISIONS } from '@/lib/data';
-import { getTeamPlayers, calcPlayerForm, calcBDStats } from '@/lib/predictions';
+import { getTeamPlayers, calcPlayerForm, calcBDStats, calcBayesianPct } from '@/lib/predictions';
 import { useLeagueData } from '@/lib/data-provider';
 
 interface PlayersTabProps {
@@ -14,12 +14,12 @@ interface PlayersTabProps {
   onPlayerClick: (name: string) => void;
 }
 
-type SortKey = 'pct' | 'bdF' | 'bdA' | 'form';
+type SortKey = 'pct' | 'adjPct' | 'bdF' | 'bdA' | 'form';
 type SortDir = 'asc' | 'desc';
 
 export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: PlayersTabProps) {
   const [minGames, setMinGames] = useState(5);
-  const [sortKey, setSortKey] = useState<SortKey>('pct');
+  const [sortKey, setSortKey] = useState<SortKey>('adjPct');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [searchQuery, setSearchQuery] = useState('');
   const { data: leagueData } = useLeagueData();
@@ -34,6 +34,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
       form: PlayerFormData | null;
       bdFRate: number;
       bdARate: number;
+      adjPct: number;
     }> = [];
     const seen = new Set<string>();
     teams.forEach(team => {
@@ -43,7 +44,8 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
           seen.add(pl.name + ':' + team);
           const form = leagueData.frames.length > 0 ? calcPlayerForm(pl.name, leagueData.frames) : null;
           const bd = calcBDStats(pl.s2526);
-          list.push({ ...pl, team, form, bdFRate: bd.bdFRate, bdARate: bd.bdARate });
+          const adjPct = calcBayesianPct(pl.s2526.w, pl.s2526.p);
+          list.push({ ...pl, team, form, bdFRate: bd.bdFRate, bdARate: bd.bdARate, adjPct });
         }
       });
     });
@@ -62,6 +64,10 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
         case 'pct':
           av = a.s2526 ? a.s2526.pct : -999;
           bv = b.s2526 ? b.s2526.pct : -999;
+          break;
+        case 'adjPct':
+          av = a.adjPct;
+          bv = b.adjPct;
           break;
         case 'bdF':
           av = a.bdFRate;
@@ -152,6 +158,9 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
                 <th className="text-left p-2">Team</th>
                 <th className="text-center p-2">P</th>
                 <th className="text-center p-2">W</th>
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('adjPct')} title="Confidence-adjusted win%">
+                  Adj%<SortIcon k="adjPct" />
+                </th>
                 <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('pct')}>
                   Win%<SortIcon k="pct" />
                 </th>
@@ -184,7 +193,8 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
                   </td>
                   <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
                   <td className="p-2 text-center text-win">{p.s2526!.w}</td>
-                  <td className="p-2 text-center font-bold text-white">{p.s2526!.pct.toFixed(1)}%</td>
+                  <td className="p-2 text-center font-bold text-white">{p.adjPct.toFixed(1)}%</td>
+                  <td className="p-2 text-center text-gray-400">{p.s2526!.pct.toFixed(1)}%</td>
                   <td className="p-2 text-center">
                     {p.form ? (
                       <span className={clsx(

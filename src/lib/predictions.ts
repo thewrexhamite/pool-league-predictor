@@ -28,6 +28,7 @@ import type {
   ScoutingReport,
   LineupScore,
   LineupSuggestion,
+  EffectivePct,
 } from './types';
 import {
   DIVISIONS as STATIC_DIVISIONS,
@@ -77,6 +78,16 @@ export function getLatestResultDate(results: MatchResult[]): string {
     const d = parseDate(r.date);
     return d > max ? d : max;
   }, '0000-00-00');
+}
+
+// Bayesian confidence-adjusted win percentage
+// Pulls small samples toward 50% (prior), reducing flukes from low game counts
+const BAYESIAN_PRIOR = 0.5;
+const BAYESIAN_K = 6;
+
+export function calcBayesianPct(wins: number, games: number): number {
+  if (games === 0) return BAYESIAN_PRIOR * 100;
+  return ((wins + BAYESIAN_K * BAYESIAN_PRIOR) / (games + BAYESIAN_K)) * 100;
 }
 
 export function getDiv(team: string, ds?: DataSources): DivisionCode | null {
@@ -224,7 +235,11 @@ export function getTeamPlayers(team: string, ds?: DataSources): TeamPlayer[] {
       const bP = b.s2526 ? b.s2526.p : 0;
       if (bP >= 5 && aP < 5) return 1;
       if (aP >= 5 && bP < 5) return -1;
-      if (aP >= 5 && bP >= 5) return (b.s2526!.pct - a.s2526!.pct);
+      if (aP >= 5 && bP >= 5) {
+        const aAdj = calcBayesianPct(a.s2526!.w, a.s2526!.p);
+        const bAdj = calcBayesianPct(b.s2526!.w, b.s2526!.p);
+        return bAdj - aAdj;
+      }
       return (b.rating || -999) - (a.rating || -999);
     });
 }
@@ -264,22 +279,41 @@ export function getTeamPlayers2526(team: string, ds?: DataSources) {
       players.push({ name, ...teamEntry, total: data.total });
     }
   }
-  return players.sort((a, b) => b.pct - a.pct);
+  return players.sort((a, b) => {
+    const aAdj = calcBayesianPct(a.w, a.p);
+    const bAdj = calcBayesianPct(b.w, b.p);
+    return bAdj - aAdj;
+  });
 }
 
 // Get effective win% for a player (25/26 preferred, 24/25 fallback)
-export function getPlayerEffectivePct(pl: TeamPlayer): { pct: number; weight: number } | null {
-  if (pl.s2526 && pl.s2526.p >= 3) return { pct: pl.s2526.pct / 100, weight: pl.s2526.p };
-  if (pl.winPct !== null && pl.played !== null && pl.played > 0) return { pct: pl.winPct, weight: pl.played };
+export function getPlayerEffectivePct(pl: TeamPlayer): EffectivePct | null {
+  if (pl.s2526 && pl.s2526.p >= 3) {
+    return {
+      pct: pl.s2526.pct / 100,
+      adjPct: calcBayesianPct(pl.s2526.w, pl.s2526.p) / 100,
+      weight: pl.s2526.p,
+      wins: pl.s2526.w,
+    };
+  }
+  if (pl.winPct !== null && pl.played !== null && pl.played > 0) {
+    const wins = Math.round(pl.winPct * pl.played);
+    return {
+      pct: pl.winPct,
+      adjPct: calcBayesianPct(wins, pl.played) / 100,
+      weight: pl.played,
+      wins,
+    };
+  }
   return null;
 }
 
-// Filter to top N players by effective win%
+// Filter to top N players by adjusted effective win%
 export function getTopNPlayers(players: TeamPlayer[], n: number) {
   const withStats = players
     .map(pl => ({ ...pl, eff: getPlayerEffectivePct(pl) }))
     .filter(pl => pl.eff !== null);
-  withStats.sort((a, b) => b.eff!.pct - a.eff!.pct);
+  withStats.sort((a, b) => b.eff!.adjPct - a.eff!.adjPct);
   return withStats.slice(0, n);
 }
 
@@ -297,7 +331,7 @@ export function calcSquadStrength(team: string, topN?: number, ds?: DataSources)
   pool.forEach(pl => {
     const e = pl.eff || getPlayerEffectivePct(pl);
     if (e) {
-      weightedPct += e.pct * e.weight;
+      weightedPct += e.adjPct * e.weight;
       totalWeight += e.weight;
     }
   });
@@ -343,7 +377,7 @@ export function calcModifiedSquadStrength(
   pool.forEach(pl => {
     const e = pl.eff || getPlayerEffectivePct(pl);
     if (e) {
-      weightedPct += e.pct * e.weight;
+      weightedPct += e.adjPct * e.weight;
       totalWeight += e.weight;
     }
   });
@@ -382,9 +416,10 @@ export function getAllLeaguePlayers(ds?: DataSources): LeaguePlayer[] {
         teams2526: s2526 ? s2526.teams.map(t => t.team) : [],
         totalPct2526: s2526 ? s2526.total.pct : null,
         totalPlayed2526: s2526 ? s2526.total.p : null,
+        adjPct2526: s2526 ? calcBayesianPct(s2526.total.w, s2526.total.p) : null,
       };
     })
-    .sort((a, b) => (b.totalPct2526 || 0) - (a.totalPct2526 || 0));
+    .sort((a, b) => (b.adjPct2526 || 0) - (a.adjPct2526 || 0));
 }
 
 // Run a quick 5000-sim prediction
@@ -887,14 +922,14 @@ export function generateScoutingReport(
   const predictedLineupData = predictLineup(opponent, frames);
 
   // Strongest/weakest players (from 2526 stats, min 3 games)
-  const oppPlayers: { name: string; pct: number; p: number }[] = [];
+  const oppPlayers: { name: string; pct: number; adjPct: number; p: number }[] = [];
   for (const [name, data] of Object.entries(players2526)) {
     const entry = data.teams.find(t => t.team === opponent);
     if (entry && entry.p >= 3) {
-      oppPlayers.push({ name, pct: entry.pct, p: entry.p });
+      oppPlayers.push({ name, pct: entry.pct, adjPct: calcBayesianPct(entry.w, entry.p), p: entry.p });
     }
   }
-  oppPlayers.sort((a, b) => b.pct - a.pct);
+  oppPlayers.sort((a, b) => b.adjPct - a.adjPct);
 
   // Total forfeits / total games
   let totalForf = 0;
@@ -930,12 +965,17 @@ export function suggestLineup(
   players2526: Players2526Map,
   rosters: RostersMap
 ): LineupSuggestion {
-  // Get my team's players with stats
-  const myPlayers: { name: string; pct: number; p: number }[] = [];
+  // Get my team's players with stats (min 5 games for reliability)
+  const myPlayers: { name: string; pct: number; adjPct: number; p: number }[] = [];
+  const excludedPlayers: string[] = [];
   for (const [name, data] of Object.entries(players2526)) {
     const entry = data.teams.find(t => t.team === myTeam);
-    if (entry && entry.p >= 2) {
-      myPlayers.push({ name, pct: entry.pct, p: entry.p });
+    if (entry) {
+      if (entry.p >= 5) {
+        myPlayers.push({ name, pct: entry.pct, adjPct: calcBayesianPct(entry.w, entry.p), p: entry.p });
+      } else if (entry.p >= 1) {
+        excludedPlayers.push(name);
+      }
     }
   }
 
@@ -960,13 +1000,13 @@ export function suggestLineup(
     const ha = frames.length > 0 ? calcPlayerHomeAway(pl.name, frames) : null;
     const homeAwayPct = ha ? (isHome ? ha.home.pct : ha.away.pct) : null;
 
-    // Composite score: weighted blend
-    let score = pl.pct; // base: season win%
-    if (formPct !== null) score += (formPct - pl.pct) * 0.3; // form adjustment
+    // Composite score: weighted blend using adjusted pct as base
+    let score = pl.adjPct; // base: confidence-adjusted win%
+    if (formPct !== null) score += (formPct - pl.adjPct) * 0.3; // form adjustment
     if (h2hAdvantage !== 0) score += h2hAdvantage * 5; // H2H bonus/penalty
     if (homeAwayPct !== null && ha) {
       const venue = isHome ? ha.home : ha.away;
-      if (venue.p >= 3) score += (homeAwayPct - pl.pct) * 0.2; // venue adjustment
+      if (venue.p >= 3) score += (homeAwayPct - pl.adjPct) * 0.2; // venue adjustment
     }
 
     return {
@@ -1021,6 +1061,9 @@ export function suggestLineup(
   const h2hStars = scored.filter(s => s.h2hAdvantage >= 2).slice(0, 3);
   if (h2hStars.length > 0) {
     insights.push(`H2H advantage: ${h2hStars.map(p => p.name + ' (+' + p.h2hAdvantage + ')').join(', ')}`);
+  }
+  if (excludedPlayers.length > 0) {
+    insights.push(`Excluded (<5 games): ${excludedPlayers.join(', ')}`);
   }
 
   return { set1, set2, insights };

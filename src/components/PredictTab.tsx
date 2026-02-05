@@ -343,7 +343,8 @@ export default function PredictTab({
                     {side.report.strongestPlayers.map((p, i) => (
                       <span key={i}>
                         <button className="text-win hover:text-win/80 transition" onClick={() => onPlayerClick(p.name)}>{p.name}</button>
-                        <span className="text-gray-700"> {p.pct.toFixed(0)}%</span>
+                        <span className="text-gray-700"> {p.adjPct.toFixed(0)}%</span>
+                        <span className="text-gray-800"> ({p.pct.toFixed(0)}%)</span>
                         {i < side.report.strongestPlayers.length - 1 ? ', ' : ''}
                       </span>
                     ))}
@@ -353,7 +354,8 @@ export default function PredictTab({
                     {side.report.weakestPlayers.map((p, i) => (
                       <span key={i}>
                         <button className="text-loss hover:text-loss/80 transition" onClick={() => onPlayerClick(p.name)}>{p.name}</button>
-                        <span className="text-gray-700"> {p.pct.toFixed(0)}%</span>
+                        <span className="text-gray-700"> {p.adjPct.toFixed(0)}%</span>
+                        <span className="text-gray-800"> ({p.pct.toFixed(0)}%)</span>
                         {i < side.report.weakestPlayers.length - 1 ? ', ' : ''}
                       </span>
                     ))}

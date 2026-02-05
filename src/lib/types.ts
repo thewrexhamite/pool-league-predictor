@@ -136,6 +136,14 @@ export interface SquadOverride {
 
 export type SquadOverrides = Record<string, SquadOverride>;
 
+// Confidence-adjusted effective percentage
+export interface EffectivePct {
+  pct: number;
+  adjPct: number;
+  weight: number;
+  wins: number;
+}
+
 // League player (for search)
 export interface LeaguePlayer {
   name: string;
@@ -143,6 +151,7 @@ export interface LeaguePlayer {
   teams2526: string[];
   totalPct2526: number | null;
   totalPlayed2526: number | null;
+  adjPct2526: number | null;
 }
 
 // Frame-level data (per-frame player results from LeagueAppLive)
@@ -254,8 +263,8 @@ export interface ScoutingReport {
   setPerformance: SetPerformance | null;
   bdStats: BDStats;
   predictedLineup: PredictedLineup;
-  strongestPlayers: { name: string; pct: number; p: number }[];
-  weakestPlayers: { name: string; pct: number; p: number }[];
+  strongestPlayers: { name: string; pct: number; adjPct: number; p: number }[];
+  weakestPlayers: { name: string; pct: number; adjPct: number; p: number }[];
   forfeitRate: number;
 }
 

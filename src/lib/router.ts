@@ -10,7 +10,6 @@ export type TabId =
   | 'simulate'
   | 'predict'
   | 'fixtures'
-  | 'whatif'
   | 'players'
   | 'team'
   | 'player';
@@ -26,7 +25,7 @@ interface RouteState {
 
 const VALID_TABS = new Set<string>([
   'dashboard', 'standings', 'results', 'simulate', 'predict',
-  'fixtures', 'whatif', 'players', 'team', 'player',
+  'fixtures', 'players', 'team', 'player',
 ]);
 
 const VALID_DIVS = new Set<string>(['SD1', 'SD2', 'WD1', 'WD2']);

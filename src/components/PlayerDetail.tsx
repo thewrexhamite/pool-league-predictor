@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
-import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway } from '@/lib/predictions';
+import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions';
 import { useLeagueData } from '@/lib/data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 
@@ -137,7 +137,7 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
       {stats2526 && (
         <div className="mb-6">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">25/26 Season</h3>
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-4 gap-3 mb-4">
             <div className="bg-surface rounded-lg p-3 text-center shadow-card">
               <div className="text-2xl font-bold text-white">{stats2526.total.p}</div>
               <div className="text-[10px] text-gray-500">Played</div>
@@ -147,8 +147,12 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
               <div className="text-[10px] text-gray-500">Won</div>
             </div>
             <div className="bg-surface rounded-lg p-3 text-center shadow-card">
-              <div className="text-2xl font-bold text-info">{stats2526.total.pct.toFixed(1)}%</div>
-              <div className="text-[10px] text-gray-500">Win%</div>
+              <div className="text-2xl font-bold text-info">{calcBayesianPct(stats2526.total.w, stats2526.total.p).toFixed(1)}%</div>
+              <div className="text-[10px] text-gray-500">Adj%</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className="text-xl font-bold text-gray-400">{stats2526.total.pct.toFixed(1)}%</div>
+              <div className="text-[10px] text-gray-500">Raw Win%</div>
             </div>
           </div>
           {stats2526.teams.length > 1 && (

@@ -10,12 +10,13 @@ import {
   Dices,
   Target,
   Calendar,
-  FlaskConical,
   Users,
   Search,
   X,
   Star,
   RefreshCw,
+  Clock,
+  ArrowLeft,
 } from 'lucide-react';
 import type {
   DivisionCode,
@@ -24,6 +25,7 @@ import type {
   WhatIfResult,
   SquadOverrides,
   UserSession,
+  FrameData,
 } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { useUserSession } from '@/hooks/use-user-session';
@@ -41,6 +43,7 @@ import {
   getDiv,
   type DataSources,
 } from '@/lib/predictions';
+import { createTimeMachineData, getAvailableMatchDates } from '@/lib/time-machine';
 import { DIVISIONS } from '@/lib/data';
 
 import { ToastProvider, useToast } from './ToastProvider';
@@ -50,7 +53,6 @@ import ResultsTab from './ResultsTab';
 import SimulateTab from './SimulateTab';
 import PredictTab from './PredictTab';
 import FixturesTab from './FixturesTab';
-import WhatIfTab from './WhatIfTab';
 import PlayersTab from './PlayersTab';
 import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
@@ -65,7 +67,6 @@ const TABS: { id: TabId; label: string; shortLabel: string; icon: typeof LayoutD
   { id: 'simulate', label: 'Simulate', shortLabel: 'Sim', icon: Dices },
   { id: 'predict', label: 'Predict', shortLabel: 'Predict', icon: Target },
   { id: 'fixtures', label: 'Fixtures', shortLabel: 'Fix', icon: Calendar },
-  { id: 'whatif', label: 'What If', shortLabel: 'WhatIf', icon: FlaskConical },
   { id: 'players', label: 'Players', shortLabel: 'Players', icon: Users },
 ];
 
@@ -87,6 +88,10 @@ function AppInner() {
   const [squadPlayerSearch, setSquadPlayerSearch] = useState('');
   const [squadTopN, setSquadTopN] = useState(5);
 
+  // Time machine state
+  const [timeMachineDate, setTimeMachineDate] = useState<string | null>(null);
+  const [timeMachineOpen, setTimeMachineOpen] = useState(false);
+
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
@@ -105,7 +110,14 @@ function AppInner() {
     }
   }, [router.tab, router.home, router.away]);
 
-  const ds: DataSources = useMemo(() => ({
+  // Available match dates for time machine
+  const availableDates = useMemo(
+    () => getAvailableMatchDates(leagueData.results),
+    [leagueData.results]
+  );
+
+  // Base DataSources from live data
+  const liveDs: DataSources = useMemo(() => ({
     divisions: leagueData.divisions,
     results: leagueData.results,
     fixtures: leagueData.fixtures,
@@ -113,6 +125,16 @@ function AppInner() {
     rosters: leagueData.rosters,
     players2526: leagueData.players2526,
   }), [leagueData]);
+
+  // Time machine filtered data
+  const timeMachineData = useMemo(() => {
+    if (!timeMachineDate) return null;
+    return createTimeMachineData(leagueData, timeMachineDate);
+  }, [leagueData, timeMachineDate]);
+
+  // Active data sources — time machine or live
+  const ds: DataSources = timeMachineData ? timeMachineData.ds : liveDs;
+  const activeFrames: FrameData[] = timeMachineData ? timeMachineData.frames : leagueData.frames;
 
   const handleSessionRestore = useCallback((session: UserSession) => {
     if (session.whatIfResults.length > 0) setWhatIfResults(session.whatIfResults);
@@ -415,7 +437,7 @@ function AppInner() {
               ))}
             </div>
 
-            {/* Right: Search + My Team */}
+            {/* Right: Search + Time Machine + My Team */}
             <div className="flex items-center gap-2" ref={searchRef}>
               {/* Desktop search */}
               <div className="hidden md:block relative">
@@ -473,6 +495,51 @@ function AppInner() {
                 <Search size={20} />
               </button>
 
+              {/* Time Machine button */}
+              <div className="relative">
+                <button
+                  onClick={() => setTimeMachineOpen(!timeMachineOpen)}
+                  className={clsx(
+                    'p-2 rounded transition',
+                    timeMachineDate
+                      ? 'text-accent bg-accent-muted/30'
+                      : 'text-gray-400 hover:text-white'
+                  )}
+                  aria-label="Time Machine"
+                  title="Time Machine"
+                >
+                  <Clock size={18} />
+                </button>
+                {timeMachineOpen && (
+                  <div className="absolute right-0 top-full mt-1 bg-surface-card border border-surface-border rounded-lg shadow-elevated z-50 w-52 max-h-64 overflow-y-auto">
+                    <div className="p-2 border-b border-surface-border/30">
+                      <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold">Time Machine</div>
+                    </div>
+                    <button
+                      onClick={() => { setTimeMachineDate(null); setTimeMachineOpen(false); setSimResults(null); }}
+                      className={clsx(
+                        'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
+                        !timeMachineDate ? 'text-baize font-bold' : 'text-gray-300'
+                      )}
+                    >
+                      Present (live)
+                    </button>
+                    {[...availableDates].reverse().map(date => (
+                      <button
+                        key={date}
+                        onClick={() => { setTimeMachineDate(date); setTimeMachineOpen(false); setSimResults(null); addToast(`Time Machine: viewing as of ${date}`, 'info'); }}
+                        className={clsx(
+                          'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
+                          timeMachineDate === date ? 'text-accent font-bold' : 'text-gray-400'
+                        )}
+                      >
+                        {date}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {/* My Team button (if not set) */}
               {!myTeam && (
                 <button
@@ -500,6 +567,21 @@ function AppInner() {
               )}
             </div>
           </div>
+
+          {/* Time Machine banner */}
+          {timeMachineDate && (
+            <div className="mt-2 flex items-center justify-center gap-2 bg-accent-muted/20 border border-accent/30 rounded-lg px-3 py-1.5 text-xs">
+              <Clock size={12} className="text-accent" />
+              <span className="text-accent-light font-medium">Time Machine: Viewing as of {timeMachineDate}</span>
+              <button
+                onClick={() => { setTimeMachineDate(null); setSimResults(null); }}
+                className="flex items-center gap-1 text-gray-400 hover:text-white transition ml-2"
+              >
+                <ArrowLeft size={12} />
+                Back to present
+              </button>
+            </div>
+          )}
 
           {/* Mobile search overlay */}
           {searchOpen && (
@@ -709,6 +791,10 @@ function AppInner() {
                 selectedDiv={selectedDiv}
                 whatIfResults={whatIfResults}
                 myTeam={myTeam}
+                squadOverrides={squadOverrides}
+                squadBuilderTeam={squadBuilderTeam}
+                squadPlayerSearch={squadPlayerSearch}
+                squadTopN={squadTopN}
                 onAddWhatIf={addWhatIf}
                 onRemoveWhatIf={removeWhatIf}
                 onPredict={(home, away) => {
@@ -726,19 +812,6 @@ function AppInner() {
                   setSimResults(null);
                   setWhatIfSimResults(null);
                 }}
-              />
-            )}
-
-            {activeTab === 'whatif' && (
-              <WhatIfTab
-                selectedDiv={selectedDiv}
-                whatIfResults={whatIfResults}
-                squadOverrides={squadOverrides}
-                squadBuilderTeam={squadBuilderTeam}
-                squadPlayerSearch={squadPlayerSearch}
-                squadTopN={squadTopN}
-                onAddWhatIf={addWhatIf}
-                onRemoveWhatIf={removeWhatIf}
                 onSquadBuilderTeamChange={team => {
                   setSquadBuilderTeam(team);
                   setSquadPlayerSearch('');
@@ -758,10 +831,6 @@ function AppInner() {
                   setSquadBuilderTeam('');
                   setSimResults(null);
                   setWhatIfSimResults(null);
-                }}
-                onSimulate={() => {
-                  router.setTab('simulate');
-                  setTimeout(runSimulation, 200);
                 }}
               />
             )}
