@@ -92,26 +92,15 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
-
-  // Show loading state if no divisions yet (data still loading)
-  if (divisionCodes.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
-          <p className="text-gray-500 text-sm">Loading league data...</p>
-        </div>
-      </div>
-    );
-  }
   const routerOptions = useMemo(() => ({
-    validDivisions: divisionCodes,
+    validDivisions: divisionCodes.length > 0 ? divisionCodes : ['SD2'],
     defaultDiv: divisionCodes[0] || 'SD2',
   }), [divisionCodes]);
   const router = useHashRouter(routerOptions);
 
   // Ensure division is valid for current league (handles switching between leagues)
   const safeDiv = useMemo(() => {
+    if (divisionCodes.length === 0) return 'SD2' as DivisionCode;
     if (ds.divisions[router.div]) return router.div;
     return (divisionCodes[0] as DivisionCode) || router.div;
   }, [router.div, ds.divisions, divisionCodes]);
@@ -431,6 +420,18 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const seasonPct = totalPlayed + totalRemaining > 0
     ? Math.round((totalPlayed / (totalPlayed + totalRemaining)) * 100)
     : 0;
+
+  // Show loading state if no divisions yet (data still loading)
+  if (divisionCodes.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Loading league data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen text-white">
