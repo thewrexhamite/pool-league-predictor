@@ -6,7 +6,7 @@
  * Search and claim player profiles from season data.
  */
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -23,6 +23,18 @@ interface PlayerSearchResult {
 }
 
 export default function ClaimPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <ClaimPageContent />
+    </Suspense>
+  );
+}
+
+function ClaimPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, profile, refreshProfile } = useAuth();
