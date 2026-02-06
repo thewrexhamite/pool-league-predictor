@@ -79,7 +79,6 @@ export function LeagueProvider({ children }: { children: ReactNode }) {
 
         if (cancelled) return;
 
-        console.log('[LeagueProvider] Firestore returned', snap.docs.length, 'leagues:', snap.docs.map(d => d.id));
         if (!snap.empty) {
           const fetched: LeagueMeta[] = snap.docs.map(doc => {
             const data = doc.data();
@@ -90,11 +89,10 @@ export function LeagueProvider({ children }: { children: ReactNode }) {
               seasons: (data.seasons || []) as SeasonMeta[],
             };
           });
-          console.log('[LeagueProvider] Setting leagues:', fetched.map(l => l.id));
           setLeagues(fetched);
         }
-      } catch (err) {
-        console.error('[LeagueProvider] Firestore fetch failed:', err);
+      } catch {
+        // Firestore unavailable — use default
       } finally {
         if (!cancelled) setLoading(false);
       }
