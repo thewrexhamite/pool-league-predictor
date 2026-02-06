@@ -1,0 +1,30 @@
+{
+  "TD1": {
+    "name": "Tuesday Div 1",
+    "teams": [
+      "Crown Summerhill",
+      "George & Dragon Brymbo",
+      "Golden Lion Wrexham",
+      "Gwersyllt Cricket A",
+      "Kings Mills A",
+      "Magnet A",
+      "Railway Club Wrexham",
+      "Rollers",
+      "Sun Rhos"
+    ]
+  },
+  "TD2": {
+    "name": "Tuesday Div 2",
+    "teams": [
+      "Cross Foxes Coedpoeth",
+      "Drunk Monk",
+      "Greyhound",
+      "Gwersyllt Cricket Club B",
+      "Kings Mills B",
+      "Magnet B",
+      "Saith Seren",
+      "War Memorial",
+      "Welch Fusilier"
+    ]
+  }
+}

@@ -1,0 +1,1289 @@
+[
+  {
+    "date": "04-11-2025",
+    "home": "Gwersyllt Cricket A",
+    "away": "George & Dragon Brymbo",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "04-11-2025",
+    "home": "Kings Mills A",
+    "away": "Railway Club Wrexham",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "04-11-2025",
+    "home": "Magnet A",
+    "away": "Golden Lion Wrexham",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "04-11-2025",
+    "home": "Rollers",
+    "away": "Crown Summerhill",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "Crown Summerhill",
+    "away": "Sun Rhos",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "George & Dragon Brymbo",
+    "away": "Kings Mills A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "Golden Lion Wrexham",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "Railway Club Wrexham",
+    "away": "Rollers",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Gwersyllt Cricket A",
+    "away": "Magnet A",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Kings Mills A",
+    "away": "Golden Lion Wrexham",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Rollers",
+    "away": "George & Dragon Brymbo",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Sun Rhos",
+    "away": "Railway Club Wrexham",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD1",
+    "frames": 7
+  },
+  {
+    "date": "23-09-2025",
+    "home": "Golden Lion Wrexham",
+    "away": "Rollers",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "23-09-2025",
+    "home": "George & Dragon Brymbo",
+    "away": "Sun Rhos",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "23-09-2025",
+    "home": "Magnet A",
+    "away": "Kings Mills A",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "23-09-2025",
+    "home": "Railway Club Wrexham",
+    "away": "Crown Summerhill",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Crown Summerhill",
+    "away": "George & Dragon Brymbo",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Kings Mills A",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Rollers",
+    "away": "Magnet A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Sun Rhos",
+    "away": "Golden Lion Wrexham",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD1",
+    "frames": 7
+  },
+  {
+    "date": "09-09-2025",
+    "home": "George & Dragon Brymbo",
+    "away": "Railway Club Wrexham",
+    "home_score": 10,
+    "away_score": 0,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "09-09-2025",
+    "home": "Golden Lion Wrexham",
+    "away": "Crown Summerhill",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "09-09-2025",
+    "home": "Gwersyllt Cricket A",
+    "away": "Rollers",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "09-09-2025",
+    "home": "Magnet A",
+    "away": "Sun Rhos",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Crown Summerhill",
+    "away": "Magnet A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Railway Club Wrexham",
+    "away": "Golden Lion Wrexham",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Rollers",
+    "away": "Kings Mills A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Sun Rhos",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "26-08-2025",
+    "home": "Golden Lion Wrexham",
+    "away": "George & Dragon Brymbo",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "26-08-2025",
+    "home": "Gwersyllt Cricket A",
+    "away": "Crown Summerhill",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "26-08-2025",
+    "home": "Kings Mills A",
+    "away": "Sun Rhos",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "26-08-2025",
+    "home": "Magnet A",
+    "away": "Railway Club Wrexham",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "19-08-2025",
+    "home": "Crown Summerhill",
+    "away": "Kings Mills A",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "19-08-2025",
+    "home": "George & Dragon Brymbo",
+    "away": "Magnet A",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "19-08-2025",
+    "home": "Railway Club Wrexham",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "19-08-2025",
+    "home": "Sun Rhos",
+    "away": "Rollers",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "22-07-2026",
+    "home": "Crown Summerhill",
+    "away": "Rollers",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "22-07-2026",
+    "home": "George & Dragon Brymbo",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "22-07-2026",
+    "home": "Golden Lion Wrexham",
+    "away": "Magnet A",
+    "home_score": 10,
+    "away_score": 0,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "22-07-2026",
+    "home": "Railway Club Wrexham",
+    "away": "Kings Mills A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Gwersyllt Cricket A",
+    "away": "Golden Lion Wrexham",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Kings Mills A",
+    "away": "George & Dragon Brymbo",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Rollers",
+    "away": "Railway Club Wrexham",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Sun Rhos",
+    "away": "Crown Summerhill",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "08-07-2026",
+    "home": "George & Dragon Brymbo",
+    "away": "Rollers",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "08-07-2026",
+    "home": "Golden Lion Wrexham",
+    "away": "Kings Mills A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 7
+  },
+  {
+    "date": "08-07-2026",
+    "home": "Magnet A",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "08-07-2026",
+    "home": "Railway Club Wrexham",
+    "away": "Sun Rhos",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Crown Summerhill",
+    "away": "Railway Club Wrexham",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Kings Mills A",
+    "away": "Magnet A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 7
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Rollers",
+    "away": "Golden Lion Wrexham",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Sun Rhos",
+    "away": "George & Dragon Brymbo",
+    "home_score": 1,
+    "away_score": 9,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "George & Dragon Brymbo",
+    "away": "Crown Summerhill",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "Golden Lion Wrexham",
+    "away": "Sun Rhos",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "Gwersyllt Cricket A",
+    "away": "Kings Mills A",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "Magnet A",
+    "away": "Rollers",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Crown Summerhill",
+    "away": "Golden Lion Wrexham",
+    "home_score": 1,
+    "away_score": 9,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Railway Club Wrexham",
+    "away": "George & Dragon Brymbo",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 5
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Rollers",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD1",
+    "frames": 9
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Sun Rhos",
+    "away": "Magnet A",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Golden Lion Wrexham",
+    "away": "Railway Club Wrexham",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD1",
+    "frames": 5
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Gwersyllt Cricket A",
+    "away": "Sun Rhos",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Kings Mills A",
+    "away": "Rollers",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Magnet A",
+    "away": "Crown Summerhill",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 5
+  },
+  {
+    "date": "20-05-2026",
+    "home": "Crown Summerhill",
+    "away": "Gwersyllt Cricket A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "20-05-2026",
+    "home": "George & Dragon Brymbo",
+    "away": "Golden Lion Wrexham",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD1",
+    "frames": 5
+  },
+  {
+    "date": "20-05-2026",
+    "home": "Railway Club Wrexham",
+    "away": "Magnet A",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 5
+  },
+  {
+    "date": "20-05-2026",
+    "home": "Sun Rhos",
+    "away": "Kings Mills A",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Gwersyllt Cricket A",
+    "away": "Railway Club Wrexham",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Kings Mills A",
+    "away": "Crown Summerhill",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Magnet A",
+    "away": "George & Dragon Brymbo",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Rollers",
+    "away": "Sun Rhos",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD1",
+    "frames": 10
+  },
+  {
+    "date": "04-11-2025",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Kings Mills B",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "04-11-2025",
+    "home": "Drunk Monk",
+    "away": "Gwersyllt Cricket Club B",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "04-11-2025",
+    "home": "Saith Seren",
+    "away": "War Memorial",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "04-11-2025",
+    "home": "Welch Fusilier",
+    "away": "Greyhound",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "Greyhound",
+    "away": "Saith Seren",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "Magnet B",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "Kings Mills B",
+    "away": "Drunk Monk",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "21-10-2025",
+    "home": "War Memorial",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Greyhound",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 9
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Drunk Monk",
+    "away": "War Memorial",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Magnet B",
+    "away": "Kings Mills B",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "14-10-2025",
+    "home": "Saith Seren",
+    "away": "Welch Fusilier",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "30-09-2025",
+    "home": "Welch Fusilier",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "23-09-2025",
+    "home": "Greyhound",
+    "away": "Drunk Monk",
+    "home_score": 10,
+    "away_score": 0,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "23-09-2025",
+    "home": "War Memorial",
+    "away": "Magnet B",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 9
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Saith Seren",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Drunk Monk",
+    "away": "Welch Fusilier",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "War Memorial",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "16-09-2025",
+    "home": "Magnet B",
+    "away": "Greyhound",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "09-09-2025",
+    "home": "Greyhound",
+    "away": "Gwersyllt Cricket Club B",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "09-09-2025",
+    "home": "Saith Seren",
+    "away": "Drunk Monk",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "09-09-2025",
+    "home": "War Memorial",
+    "away": "Kings Mills B",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "09-09-2025",
+    "home": "Welch Fusilier",
+    "away": "Magnet B",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Drunk Monk",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "Welch Fusilier",
+    "home_score": 2,
+    "away_score": 8,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Kings Mills B",
+    "away": "Greyhound",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "02-09-2025",
+    "home": "Magnet B",
+    "away": "Saith Seren",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "27-08-2025",
+    "home": "Greyhound",
+    "away": "War Memorial",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "26-08-2025",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Magnet B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "26-08-2025",
+    "home": "Saith Seren",
+    "away": "Gwersyllt Cricket Club B",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "26-08-2025",
+    "home": "Welch Fusilier",
+    "away": "Kings Mills B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "19-08-2025",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "19-08-2025",
+    "home": "Kings Mills B",
+    "away": "Saith Seren",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "19-08-2025",
+    "home": "Magnet B",
+    "away": "Drunk Monk",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "19-08-2025",
+    "home": "War Memorial",
+    "away": "Welch Fusilier",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "22-07-2026",
+    "home": "Greyhound",
+    "away": "Welch Fusilier",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "22-07-2026",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "Drunk Monk",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "22-07-2026",
+    "home": "Kings Mills B",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "22-07-2026",
+    "home": "War Memorial",
+    "away": "Saith Seren",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "War Memorial",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Drunk Monk",
+    "away": "Kings Mills B",
+    "home_score": 1,
+    "away_score": 9,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Magnet B",
+    "away": "Gwersyllt Cricket Club B",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "15-07-2026",
+    "home": "Saith Seren",
+    "away": "Greyhound",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "08-07-2026",
+    "home": "Greyhound",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "08-07-2026",
+    "home": "Kings Mills B",
+    "away": "Magnet B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "08-07-2026",
+    "home": "War Memorial",
+    "away": "Drunk Monk",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "08-07-2026",
+    "home": "Welch Fusilier",
+    "away": "Saith Seren",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Welch Fusilier",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Drunk Monk",
+    "away": "Greyhound",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "Kings Mills B",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "01-07-2026",
+    "home": "Magnet B",
+    "away": "War Memorial",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "Greyhound",
+    "away": "Magnet B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "Saith Seren",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "War Memorial",
+    "away": "Gwersyllt Cricket Club B",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "10-06-2026",
+    "home": "Welch Fusilier",
+    "away": "Drunk Monk",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Drunk Monk",
+    "away": "Saith Seren",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "Greyhound",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Kings Mills B",
+    "away": "War Memorial",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "03-06-2026",
+    "home": "Magnet B",
+    "away": "Welch Fusilier",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 5
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Drunk Monk",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Greyhound",
+    "away": "Kings Mills B",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Saith Seren",
+    "away": "Magnet B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "27-05-2026",
+    "home": "Welch Fusilier",
+    "away": "Gwersyllt Cricket Club B",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD2",
+    "frames": 5
+  },
+  {
+    "date": "20-05-2026",
+    "home": "Gwersyllt Cricket Club B",
+    "away": "Saith Seren",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "20-05-2026",
+    "home": "Kings Mills B",
+    "away": "Welch Fusilier",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "20-05-2026",
+    "home": "Magnet B",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "TD2",
+    "frames": 5
+  },
+  {
+    "date": "20-05-2026",
+    "home": "War Memorial",
+    "away": "Greyhound",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "TD2",
+    "frames": 5
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Gwersyllt Cricket Club B",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Drunk Monk",
+    "away": "Magnet B",
+    "home_score": 1,
+    "away_score": 9,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Saith Seren",
+    "away": "Kings Mills B",
+    "home_score": 10,
+    "away_score": 0,
+    "division": "TD2",
+    "frames": 10
+  },
+  {
+    "date": "13-05-2026",
+    "home": "Welch Fusilier",
+    "away": "War Memorial",
+    "home_score": 1,
+    "away_score": 9,
+    "division": "TD2",
+    "frames": 10
+  }
+]

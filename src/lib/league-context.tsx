@@ -2,7 +2,9 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
+import { logEvent } from 'firebase/analytics';
 import type { LeagueMeta, SeasonMeta } from './types';
+import { getFirebaseAnalytics } from './firebase';
 
 const STORAGE_KEY = 'pool-league-selected';
 
@@ -127,6 +129,17 @@ export function LeagueProvider({ children }: { children: ReactNode }) {
     if (!league) return;
     saveSelection(leagueId, seasonId);
     setSelected({ leagueId, seasonId, league });
+
+    // Track analytics
+    getFirebaseAnalytics().then(analytics => {
+      if (analytics) {
+        logEvent(analytics, 'select_content', {
+          content_type: 'league',
+          item_id: leagueId,
+          season_id: seasonId,
+        });
+      }
+    });
   }, [leagues]);
 
   const clearSelection = useCallback(() => {
