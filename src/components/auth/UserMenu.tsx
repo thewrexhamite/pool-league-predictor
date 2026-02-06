@@ -8,6 +8,7 @@
  */
 
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/lib/auth';
 import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
 
@@ -64,9 +65,11 @@ export function UserMenu({ onLoginClick }: UserMenuProps) {
           hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
       >
         {photoURL ? (
-          <img
+          <Image
             src={photoURL}
             alt={displayName}
+            width={32}
+            height={32}
             className="w-8 h-8 rounded-full"
           />
         ) : (

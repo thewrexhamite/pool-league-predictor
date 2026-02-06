@@ -294,7 +294,7 @@ export default function ClaimPage() {
                   <div className="absolute z-50 w-full mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg
                     border border-gray-200 dark:border-gray-700 p-4 text-center text-gray-500 dark:text-gray-400"
                   >
-                    No players found matching "{searchQuery}"
+                    No players found matching &quot;{searchQuery}&quot;
                   </div>
                 )}
               </div>
@@ -362,7 +362,7 @@ export default function ClaimPage() {
               {selectedPlayer.isClaimed ? (
                 <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
                   <Check className="w-5 h-5" />
-                  <span>You've already claimed this profile</span>
+                  <span>You&apos;ve already claimed this profile</span>
                 </div>
               ) : (
                 <button
@@ -432,7 +432,7 @@ export default function ClaimPage() {
                 </h3>
                 <p className="text-sm text-blue-700 dark:text-blue-400 mt-1">
                   Switch the league and season above to claim your profile in each competition
-                  you've participated in.
+                  you&apos;ve participated in.
                 </p>
               </div>
             </div>

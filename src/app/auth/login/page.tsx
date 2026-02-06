@@ -139,7 +139,7 @@ export default function LoginPage() {
           </div>
 
           <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <span className="text-gray-700 dark:text-gray-300">
               Signing in will create one automatically.
             </span>
