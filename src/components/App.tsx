@@ -61,8 +61,21 @@ import ThemeToggle from './ThemeToggle';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
-  const { data: leagueData, refreshing } = useLeagueData();
+  const { data: leagueData, refreshing, loading } = useLeagueData();
   const [timeMachineDate, setTimeMachineDate] = useState<string | null>(null);
+
+  // Show loading state while data is being fetched or if no divisions exist yet
+  const hasDivisions = Object.keys(leagueData.divisions).length > 0;
+  if (loading || !hasDivisions) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Loading league data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ActiveDataProvider leagueData={leagueData} timeMachineDate={timeMachineDate}>
@@ -420,18 +433,6 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const seasonPct = totalPlayed + totalRemaining > 0
     ? Math.round((totalPlayed / (totalPlayed + totalRemaining)) * 100)
     : 0;
-
-  // Show loading state if no divisions yet (data still loading)
-  if (divisionCodes.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
-          <p className="text-gray-500 text-sm">Loading league data...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen text-white">
