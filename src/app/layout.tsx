@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { AuthProvider } from '@/lib/auth';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -30,7 +31,9 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

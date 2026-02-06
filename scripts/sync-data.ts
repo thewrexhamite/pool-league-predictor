@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { parse as parseHTML } from 'node-html-parser';
+import { normalizePlayerName } from './normalize-players';
 
 /**
  * LeagueAppLive → Firestore + JSON sync script.
@@ -383,14 +384,15 @@ function aggregatePlayerStats(
     if (!rosterSets[awayRosterKey]) rosterSets[awayRosterKey] = new Set();
 
     for (const frame of match.frames) {
-      // Home player
+      // Home player - normalize with team context for disambiguation
       if (frame.homePlayer) {
-        rosterSets[homeRosterKey].add(frame.homePlayer);
-        if (!playerTeamStats[frame.homePlayer]) playerTeamStats[frame.homePlayer] = {};
-        if (!playerTeamStats[frame.homePlayer][match.home]) {
-          playerTeamStats[frame.homePlayer][match.home] = { p: 0, w: 0, lag: 0, bdF: 0, bdA: 0, forf: 0 };
+        const homePlayerName = normalizePlayerName(frame.homePlayer, match.home, DATA_DIR);
+        rosterSets[homeRosterKey].add(homePlayerName);
+        if (!playerTeamStats[homePlayerName]) playerTeamStats[homePlayerName] = {};
+        if (!playerTeamStats[homePlayerName][match.home]) {
+          playerTeamStats[homePlayerName][match.home] = { p: 0, w: 0, lag: 0, bdF: 0, bdA: 0, forf: 0 };
         }
-        const stat = playerTeamStats[frame.homePlayer][match.home];
+        const stat = playerTeamStats[homePlayerName][match.home];
         stat.p++;
         if (frame.winner === 'home') {
           stat.w++;
@@ -401,14 +403,15 @@ function aggregatePlayerStats(
         if (frame.forfeit) stat.forf++;
       }
 
-      // Away player
+      // Away player - normalize with team context for disambiguation
       if (frame.awayPlayer) {
-        rosterSets[awayRosterKey].add(frame.awayPlayer);
-        if (!playerTeamStats[frame.awayPlayer]) playerTeamStats[frame.awayPlayer] = {};
-        if (!playerTeamStats[frame.awayPlayer][match.away]) {
-          playerTeamStats[frame.awayPlayer][match.away] = { p: 0, w: 0, lag: 0, bdF: 0, bdA: 0, forf: 0 };
+        const awayPlayerName = normalizePlayerName(frame.awayPlayer, match.away, DATA_DIR);
+        rosterSets[awayRosterKey].add(awayPlayerName);
+        if (!playerTeamStats[awayPlayerName]) playerTeamStats[awayPlayerName] = {};
+        if (!playerTeamStats[awayPlayerName][match.away]) {
+          playerTeamStats[awayPlayerName][match.away] = { p: 0, w: 0, lag: 0, bdF: 0, bdA: 0, forf: 0 };
         }
-        const stat = playerTeamStats[frame.awayPlayer][match.away];
+        const stat = playerTeamStats[awayPlayerName][match.away];
         stat.p++;
         if (frame.winner === 'away') {
           stat.w++;

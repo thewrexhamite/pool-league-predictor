@@ -21,6 +21,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { splitAndNormalizePlayerNames, normalizePlayerName } from './normalize-players';
 
 // ============================================================================
 // Types
@@ -486,15 +487,13 @@ function parseScorecard(html: string, matchId: string): { match: ScrapedMatch; f
  * Split a player name field into individual player names.
  * Handles doubles pairs like "James Collier & Shaun Jones" -> ["James Collier", "Shaun Jones"]
  * Filters out invalid names like "Unknown"
+ * Applies normalization (HTML decoding, whitespace, aliases) but NOT team disambiguation
+ * (disambiguation requires team context and is applied in buildPlayerStats)
  */
 function splitPlayerNames(playerField: string): string[] {
-  if (!playerField || playerField === 'Unknown') {
-    return [];
-  }
-
-  // Split on " & " for doubles pairs
-  const names = playerField.split(/\s*&\s*/).map(n => n.trim()).filter(n => n.length > 0 && n !== 'Unknown');
-  return names;
+  // Use the shared normalization without team context
+  // Team disambiguation will be applied in buildPlayerStats where we have team info
+  return splitAndNormalizePlayerNames(playerField, undefined, OUTPUT_DIR);
 }
 
 function buildPlayerStats(allFrames: FrameData[]): Record<string, PlayerData> {
@@ -503,8 +502,11 @@ function buildPlayerStats(allFrames: FrameData[]): Record<string, PlayerData> {
   for (const match of allFrames) {
     for (const frame of match.frames) {
       // Process home player(s) - split doubles pairs into individual players
-      const homePlayers = splitPlayerNames(frame.homePlayer);
-      for (const playerName of homePlayers) {
+      const homePlayersRaw = splitPlayerNames(frame.homePlayer);
+      for (const rawName of homePlayersRaw) {
+        // Apply team disambiguation to get the final player key
+        const playerName = normalizePlayerName(rawName, match.home, OUTPUT_DIR);
+
         if (!stats[playerName]) {
           stats[playerName] = { teams: [], total: { p: 0, w: 0, pct: 0 } };
         }
@@ -538,8 +540,11 @@ function buildPlayerStats(allFrames: FrameData[]): Record<string, PlayerData> {
       }
 
       // Process away player(s) - split doubles pairs into individual players
-      const awayPlayers = splitPlayerNames(frame.awayPlayer);
-      for (const playerName of awayPlayers) {
+      const awayPlayersRaw = splitPlayerNames(frame.awayPlayer);
+      for (const rawName of awayPlayersRaw) {
+        // Apply team disambiguation to get the final player key
+        const playerName = normalizePlayerName(rawName, match.away, OUTPUT_DIR);
+
         if (!stats[playerName]) {
           stats[playerName] = { teams: [], total: { p: 0, w: 0, pct: 0 } };
         }
@@ -605,11 +610,13 @@ function buildRosters(allFrames: FrameData[]): Record<string, string[]> {
     if (!rosters[awayKey]) rosters[awayKey] = new Set();
 
     for (const frame of match.frames) {
-      // Split doubles pairs into individual players and filter out "Unknown"
-      for (const player of splitPlayerNames(frame.homePlayer)) {
+      // Split doubles pairs into individual players, normalize with team disambiguation
+      for (const rawName of splitPlayerNames(frame.homePlayer)) {
+        const player = normalizePlayerName(rawName, match.home, OUTPUT_DIR);
         rosters[homeKey].add(player);
       }
-      for (const player of splitPlayerNames(frame.awayPlayer)) {
+      for (const rawName of splitPlayerNames(frame.awayPlayer)) {
+        const player = normalizePlayerName(rawName, match.away, OUTPUT_DIR);
         rosters[awayKey].add(player);
       }
     }
