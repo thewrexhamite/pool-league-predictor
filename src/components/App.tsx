@@ -85,13 +85,25 @@ interface AppContentProps {
 
 function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
   const { data: activeData, ds } = useActiveData();
-  const { data: leagueData } = useLeagueData();
+  const { data: leagueData, loading: dataLoading } = useLeagueData();
   const { addToast } = useToast();
   const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
   const { clearSelection } = useLeague();
 
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
+
+  // Show loading state if no divisions yet (data still loading)
+  if (divisionCodes.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Loading league data...</p>
+        </div>
+      </div>
+    );
+  }
   const routerOptions = useMemo(() => ({
     validDivisions: divisionCodes,
     defaultDiv: divisionCodes[0] || 'SD2',
