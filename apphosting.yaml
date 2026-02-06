@@ -16,3 +16,5 @@ env:
     secret: firebase-api-key
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
     value: pool-league-predictor
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: G-2Y3WXKZYSD
