@@ -44,6 +44,7 @@ import { getAvailableMatchDates } from '@/lib/time-machine';
 import { TABS } from '@/lib/tabs';
 import { useLeague } from '@/lib/league-context';
 
+import { useRouter } from 'next/navigation';
 import { ToastProvider, useToast } from './ToastProvider';
 import BottomTabBar from './BottomTabBar';
 import BackToTopButton from './BackToTopButton';
@@ -58,6 +59,7 @@ import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
 import ThemeToggle from './ThemeToggle';
+import { UserMenu } from './auth';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
@@ -102,6 +104,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const { addToast } = useToast();
   const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
   const { clearSelection } = useLeague();
+  const nextRouter = useRouter();
 
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
@@ -585,6 +588,11 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                 <ThemeToggle variant="icon" />
               </div>
 
+              {/* User menu — desktop only */}
+              <div className="hidden md:block">
+                <UserMenu onLoginClick={() => nextRouter.push('/auth/login')} />
+              </div>
+
               {/* My Team button — desktop only (if not set) */}
               {!myTeam && (
                 <button
@@ -724,6 +732,12 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                   <div>
                     <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Theme</div>
                     <ThemeToggle variant="segmented" />
+                  </div>
+
+                  {/* Account */}
+                  <div className="flex items-center justify-between bg-surface-card border border-surface-border rounded-lg px-3 py-2">
+                    <span className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold">Account</span>
+                    <UserMenu onLoginClick={() => { setMobileMenuOpen(false); nextRouter.push('/auth/login'); }} />
                   </div>
 
                   {/* Inline Time Machine date picker */}

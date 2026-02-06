@@ -4,19 +4,21 @@
  * User Menu Component
  *
  * Dropdown menu showing user info and actions when signed in,
- * or a sign in button when signed out.
+ * or a subtle sign in link when signed out.
  */
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
-import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { User, LogOut, UserCheck, ChevronDown } from 'lucide-react';
 
 interface UserMenuProps {
   onLoginClick?: () => void;
+  variant?: 'default' | 'minimal';
 }
 
-export function UserMenu({ onLoginClick }: UserMenuProps) {
+export function UserMenu({ onLoginClick, variant = 'default' }: UserMenuProps) {
   const { user, profile, loading, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -35,20 +37,31 @@ export function UserMenu({ onLoginClick }: UserMenuProps) {
 
   if (loading) {
     return (
-      <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+      <div className="w-6 h-6 rounded-full bg-surface-elevated animate-pulse" />
     );
   }
 
   if (!user) {
+    // Minimal variant: just text link
+    if (variant === 'minimal') {
+      return (
+        <button
+          onClick={onLoginClick}
+          className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+        >
+          Sign In
+        </button>
+      );
+    }
+
+    // Default: subtle link with icon
     return (
       <button
         onClick={onLoginClick}
-        className="flex items-center gap-2 px-3 py-2 text-sm font-medium
-          text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white
-          hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+        className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
       >
         <User className="w-4 h-4" />
-        <span>Sign In</span>
+        <span className="hidden sm:inline">Sign In</span>
       </button>
     );
   }
@@ -56,80 +69,74 @@ export function UserMenu({ onLoginClick }: UserMenuProps) {
   const displayName = profile?.displayName || user.displayName || 'User';
   const photoURL = profile?.photoURL || user.photoURL;
   const email = profile?.email || user.email || '';
+  const claimedCount = profile?.claimedProfiles?.length || 0;
 
   return (
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-2 py-1 rounded-lg
-          hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        className="flex items-center gap-1.5 rounded-lg hover:bg-surface-elevated transition-colors p-1"
       >
         {photoURL ? (
           <Image
             src={photoURL}
             alt={displayName}
-            width={32}
-            height={32}
-            className="w-8 h-8 rounded-full"
+            width={28}
+            height={28}
+            className="w-7 h-7 rounded-full"
           />
         ) : (
-          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
+          <div className="w-7 h-7 rounded-full bg-baize flex items-center justify-center text-white text-sm font-medium">
             {displayName.charAt(0).toUpperCase()}
           </div>
         )}
         <ChevronDown
-          className={`w-4 h-4 text-gray-500 transition-transform ${
+          className={`w-3 h-3 text-gray-500 transition-transform ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 rounded-lg shadow-lg
-          bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
-          overflow-hidden z-50"
+        <div className="absolute right-0 mt-2 w-56 rounded-lg shadow-elevated
+          bg-surface-card border border-surface-border overflow-hidden z-50"
         >
           {/* User info */}
-          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-            <p className="font-medium text-gray-900 dark:text-white truncate">
+          <div className="px-4 py-3 border-b border-surface-border">
+            <p className="font-medium text-white truncate text-sm">
               {displayName}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+            <p className="text-xs text-gray-500 truncate">
               {email}
             </p>
           </div>
 
-          {/* Claimed profiles info */}
-          {profile && profile.claimedProfiles.length > 0 && (
-            <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {profile.claimedProfiles.length} claimed profile
-                {profile.claimedProfiles.length !== 1 ? 's' : ''}
-              </p>
-            </div>
-          )}
-
           {/* Menu items */}
           <div className="py-1">
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                // Navigate to settings - implement as needed
-              }}
+            {/* Claim Profile */}
+            <Link
+              href="/claim"
+              onClick={() => setIsOpen(false)}
               className="w-full flex items-center gap-3 px-4 py-2 text-sm
-                text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                text-gray-300 hover:bg-surface-elevated hover:text-white transition"
             >
-              <Settings className="w-4 h-4" />
-              <span>Settings</span>
-            </button>
+              <UserCheck className="w-4 h-4" />
+              <span>Claim Profile</span>
+              {claimedCount > 0 && (
+                <span className="ml-auto text-xs text-gray-500">
+                  {claimedCount} claimed
+                </span>
+              )}
+            </Link>
 
+            {/* Sign Out */}
             <button
               onClick={async () => {
                 setIsOpen(false);
                 await signOut();
               }}
               className="w-full flex items-center gap-3 px-4 py-2 text-sm
-                text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                text-loss hover:bg-surface-elevated transition"
             >
               <LogOut className="w-4 h-4" />
               <span>Sign Out</span>

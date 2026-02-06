@@ -1,11 +1,13 @@
 'use client';
 
 import { useMemo } from 'react';
-import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
+import { useAuth } from '@/lib/auth';
 import { AIInsightsPanel } from './AIInsightsPanel';
 
 interface PlayerDetailProps {
@@ -17,9 +19,16 @@ interface PlayerDetailProps {
 
 export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick }: PlayerDetailProps) {
   const { ds, frames } = useActiveData();
+  const { user, profile } = useAuth();
   const stats = getPlayerStats(player, ds);
   const stats2526 = getPlayerStats2526(player, ds);
   const playerTeams = getPlayerTeams(player, ds);
+
+  // Check if the current user has already claimed this player
+  const isClaimedByUser = useMemo(() => {
+    if (!profile?.claimedProfiles) return false;
+    return profile.claimedProfiles.some(cp => cp.name === player);
+  }, [profile, player]);
 
   const form = useMemo(() => frames.length > 0 ? calcPlayerForm(player, frames) : null, [player, frames]);
   const frameHistory = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player, frames) : [], [player, frames]);
@@ -214,6 +223,35 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
       ) : (!stats2526 && <p className="text-gray-500 text-sm">No individual stats available.</p>)}
 
       <AIInsightsPanel type="player" playerName={player} />
+
+      {/* "Is this you?" prompt - only shown to logged-in users who haven't claimed this profile */}
+      {user && !isClaimedByUser && (
+        <div className="mt-6 bg-surface/50 rounded-lg p-4 border border-surface-border/50">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <UserCheck className="w-5 h-5 text-baize shrink-0" />
+              <div>
+                <p className="text-sm text-gray-300">Is this you?</p>
+                <p className="text-xs text-gray-500">Claim this profile to track your career stats</p>
+              </div>
+            </div>
+            <Link
+              href={`/claim?name=${encodeURIComponent(player)}`}
+              className="text-sm text-baize hover:text-baize-light transition shrink-0"
+            >
+              Claim Profile
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Show badge if user has claimed this profile */}
+      {isClaimedByUser && (
+        <div className="mt-6 flex items-center gap-2 text-sm text-baize">
+          <UserCheck className="w-4 h-4" />
+          <span>This is your claimed profile</span>
+        </div>
+      )}
     </div>
   );
 }

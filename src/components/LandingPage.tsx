@@ -1,10 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useLeague } from '@/lib/league-context';
+import { UserMenu } from '@/components/auth';
 import type { LeagueMeta, SeasonMeta } from '@/lib/types';
 
 export default function LandingPage() {
   const { leagues, loading, selectLeague } = useLeague();
+  const router = useRouter();
 
   // Check for previous selection shortcut
   const saved = typeof window !== 'undefined'
@@ -20,7 +23,15 @@ export default function LandingPage() {
   const savedSeason = savedLeague?.seasons.find(s => s.id === saved?.seasonId);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 relative">
+      {/* Sign in link - top right */}
+      <div className="absolute top-4 right-4">
+        <UserMenu
+          variant="minimal"
+          onLoginClick={() => router.push('/auth/login')}
+        />
+      </div>
+
       <div className="w-full max-w-lg space-y-6">
         {/* Logo + title */}
         <div className="text-center">

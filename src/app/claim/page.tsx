@@ -7,7 +7,7 @@
  */
 
 import { useState, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth, addClaimedProfile, hasClaimedProfile, type ClaimedProfile } from '@/lib/auth';
@@ -24,7 +24,11 @@ interface PlayerSearchResult {
 
 export default function ClaimPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, profile, refreshProfile } = useAuth();
+
+  // Get pre-filled name from URL query parameter
+  const initialName = searchParams.get('name') || '';
 
   // League/season selection
   const [leagues, setLeagues] = useState<LeagueMeta[]>([]);
@@ -37,8 +41,8 @@ export default function ClaimPage() {
   const [claiming, setClaiming] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Search
-  const [searchQuery, setSearchQuery] = useState('');
+  // Search - initialize with URL query param if provided
+  const [searchQuery, setSearchQuery] = useState(initialName);
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerSearchResult | null>(null);
 
   // Load available leagues
