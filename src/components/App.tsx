@@ -98,6 +98,12 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   }), [divisionCodes]);
   const router = useHashRouter(routerOptions);
 
+  // Ensure division is valid for current league (handles switching between leagues)
+  const safeDiv = useMemo(() => {
+    if (ds.divisions[router.div]) return router.div;
+    return (divisionCodes[0] as DivisionCode) || router.div;
+  }, [router.div, ds.divisions, divisionCodes]);
+
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
   const [simResults, setSimResults] = useState<SimulationResult[] | null>(null);
@@ -152,7 +158,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   }, []);
 
   useUserSession({
-    selectedDiv: router.div,
+    selectedDiv: safeDiv,
     whatIfResults,
     squadOverrides,
     onRestore: handleSessionRestore,
@@ -188,20 +194,20 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
     setPrediction(pred);
   }, [homeTeam, awayTeam, squadOverrides, squadTopN, ds]);
 
-  const standings = calcStandings(router.div, ds);
+  const standings = calcStandings(safeDiv, ds);
   const totalRemaining = getAllRemainingFixtures(ds).length;
   const totalPlayed = ds.results.length;
 
   const runSimulation = useCallback(() => {
     setIsSimulating(true);
     setTimeout(() => {
-      const results = runSeasonSimulation(router.div, squadOverrides, squadTopN, whatIfResults, ds);
+      const results = runSeasonSimulation(safeDiv, squadOverrides, squadTopN, whatIfResults, ds);
       setSimResults(results);
       setWhatIfSimResults(whatIfResults.length > 0 ? [...whatIfResults] : null);
       setIsSimulating(false);
       addToast('Simulation complete — 1,000 seasons', 'success');
     }, 100);
-  }, [router.div, squadOverrides, squadTopN, whatIfResults, ds, addToast]);
+  }, [safeDiv, squadOverrides, squadTopN, whatIfResults, ds, addToast]);
 
   const addWhatIf = (home: string, away: string, homeScore: number, awayScore: number) => {
     setWhatIfResults(prev => [
@@ -406,7 +412,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   }, [leagueData.lastUpdated]);
 
   const activeTab = router.tab;
-  const selectedDiv = router.div;
+  const selectedDiv = safeDiv;
   const selectedTeam = router.team || null;
   const selectedPlayer = router.player || null;
 

@@ -1,0 +1,254 @@
+{
+  "James Collier": {
+    "teams": [
+      {
+        "team": "Gwersyllt Cricket A",
+        "div": "TD1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Stephen Brindley": {
+    "teams": [
+      {
+        "team": "George & Dragon Brymbo",
+        "div": "TD1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Leighton Roberts": {
+    "teams": [
+      {
+        "team": "Gwersyllt Cricket A",
+        "div": "TD1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Lee Owen": {
+    "teams": [
+      {
+        "team": "George & Dragon Brymbo",
+        "div": "TD1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "James Pierce": {
+    "teams": [
+      {
+        "team": "Gwersyllt Cricket A",
+        "div": "TD1",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Dave Simons": {
+    "teams": [
+      {
+        "team": "Gwersyllt Cricket A",
+        "div": "TD1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Shaun Jones": {
+    "teams": [
+      {
+        "team": "Gwersyllt Cricket A",
+        "div": "TD1",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Gav Millington": {
+    "teams": [
+      {
+        "team": "George & Dragon Brymbo",
+        "div": "TD1",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Sean Sutcliffe": {
+    "teams": [
+      {
+        "team": "Gwersyllt Cricket A",
+        "div": "TD1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Steve  Walters": {
+    "teams": [
+      {
+        "team": "George & Dragon Brymbo",
+        "div": "TD1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jack Watkins": {
+    "teams": [
+      {
+        "team": "Gwersyllt Cricket A",
+        "div": "TD1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Amy Griffiths": {
+    "teams": [
+      {
+        "team": "George & Dragon Brymbo",
+        "div": "TD1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  }
+}
