@@ -1,0 +1,36 @@
+{
+  "wrexham": {
+    "site": "wrexham",
+    "leagueId": "wrexham",
+    "seasonId": "2526",
+    "leagueName": "Wrexham & District Pool League",
+    "shortName": "Wrexham",
+    "dataDir": "data",
+    "divisions": [
+      { "code": "SD1", "siteGroup": "Sunday Division 1" },
+      { "code": "SD2", "siteGroup": "Sunday Division 2" },
+      { "code": "WD1", "siteGroup": "Wednesday Division 1" },
+      { "code": "WD2", "siteGroup": "Wednesday Division 2" }
+    ],
+    "teamNameMap": {}
+  },
+  "nwpa": {
+    "site": "nwpa",
+    "leagueId": "nwpa",
+    "seasonId": "2526",
+    "leagueName": "North Wales Pool Association",
+    "shortName": "NWPA",
+    "dataDir": "data-nwpa",
+    "divisions": [
+      { "code": "PREM", "siteGroup": "Premier Division" },
+      { "code": "D1", "siteGroup": "Division One" },
+      { "code": "D2", "siteGroup": "Division Two" },
+      { "code": "D3", "siteGroup": "Division Three" },
+      { "code": "D4", "siteGroup": "Division Four" },
+      { "code": "D5", "siteGroup": "Division Five" },
+      { "code": "D6", "siteGroup": "Division Six" },
+      { "code": "D7", "siteGroup": "Division Seven" }
+    ],
+    "teamNameMap": {}
+  }
+}
