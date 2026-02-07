@@ -405,6 +405,94 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
         </div>
       )}
 
+      {/* Individual Predictions */}
+      {predictions && predictions.length > 0 && (
+        <div className="mb-4">
+          <h4 className="text-xs font-semibold text-gray-400 mb-2">Recent Predictions</h4>
+          <div className="space-y-1.5 max-h-80 overflow-y-auto">
+            {[...predictions]
+              .sort((a, b) => b.predictedAt - a.predictedAt)
+              .slice(0, 20)
+              .map((pred, i) => {
+                const isComplete = pred.actualWinner !== undefined;
+                const isCorrect = pred.correct === true;
+                const isIncorrect = pred.correct === false;
+                const isEven = i % 2 === 0;
+
+                // Format date
+                const date = new Date(pred.predictedAt).toLocaleDateString('en-GB', {
+                  month: 'short',
+                  day: 'numeric',
+                });
+
+                return (
+                  <div
+                    key={`${pred.home}-${pred.away}-${pred.predictedAt}`}
+                    className={clsx(
+                      'flex items-center text-xs rounded py-1.5 px-2',
+                      isEven && 'bg-surface-elevated/20',
+                      isComplete && (isCorrect ? 'border-l-2 border-l-win' : 'border-l-2 border-l-lose')
+                    )}
+                  >
+                    {/* Date */}
+                    <span className="text-gray-600 w-16 shrink-0 text-[10px]">{date}</span>
+
+                    {/* Home Team */}
+                    <span
+                      className={clsx(
+                        'flex-1 text-right',
+                        pred.predictedWinner === 'home' && 'font-semibold text-gray-200',
+                        pred.predictedWinner !== 'home' && 'text-gray-400'
+                      )}
+                    >
+                      {pred.home}
+                      {isComplete && pred.actualWinner === 'home' && (
+                        <span className="text-win ml-1">{'\u2713'}</span>
+                      )}
+                    </span>
+
+                    {/* VS */}
+                    <span className="mx-2 text-gray-600 text-[10px]">vs</span>
+
+                    {/* Away Team */}
+                    <span
+                      className={clsx(
+                        'flex-1',
+                        pred.predictedWinner === 'away' && 'font-semibold text-gray-200',
+                        pred.predictedWinner !== 'away' && 'text-gray-400'
+                      )}
+                    >
+                      {isComplete && pred.actualWinner === 'away' && (
+                        <span className="text-win mr-1">{'\u2713'}</span>
+                      )}
+                      {pred.away}
+                    </span>
+
+                    {/* Result Indicator */}
+                    <div className="ml-2 w-16 flex items-center justify-end">
+                      {!isComplete && (
+                        <span className="text-[10px] text-gray-500 italic">Pending</span>
+                      )}
+                      {isCorrect && (
+                        <div className="flex items-center gap-0.5 text-win">
+                          <CheckCircle2 size={12} />
+                          <span className="text-[10px] font-medium">Correct</span>
+                        </div>
+                      )}
+                      {isIncorrect && (
+                        <div className="flex items-center gap-0.5 text-lose">
+                          <XCircle size={12} />
+                          <span className="text-[10px] font-medium">Wrong</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
       {/* By Division (only show when viewing all divisions) */}
       {!selectedDiv && byDivision.length > 1 && (
         <div>
