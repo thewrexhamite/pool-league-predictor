@@ -61,6 +61,7 @@ import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
 import ThemeToggle from './ThemeToggle';
 import { UserMenu } from './auth';
+import NotificationSettings from './NotificationSettings';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
@@ -154,6 +155,9 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
   // My Team modal
   const [showMyTeamModal, setShowMyTeamModal] = useState(false);
+
+  // Notification Settings modal
+  const [showNotificationSettings, setShowNotificationSettings] = useState(false);
 
   // Scroll to top on tab change
   useEffect(() => {
@@ -638,7 +642,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
               {/* User menu — desktop only */}
               <div className="hidden md:block">
-                <UserMenu onLoginClick={() => nextRouter.push('/auth/login')} />
+                <UserMenu
+                  onLoginClick={() => nextRouter.push('/auth/login')}
+                  onNotificationSettingsClick={() => setShowNotificationSettings(true)}
+                />
               </div>
 
               {/* My Team button — desktop only (if not set) */}
@@ -808,7 +815,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                   {/* Account */}
                   <div className="flex items-center justify-between bg-surface-card border border-surface-border rounded-lg px-3 py-2">
                     <span className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold">Account</span>
-                    <UserMenu onLoginClick={() => { setMobileMenuOpen(false); nextRouter.push('/auth/login'); }} />
+                    <UserMenu
+                      onLoginClick={() => { setMobileMenuOpen(false); nextRouter.push('/auth/login'); }}
+                      onNotificationSettingsClick={() => { setMobileMenuOpen(false); setShowNotificationSettings(true); }}
+                    />
                   </div>
 
                   {/* Inline Time Machine date picker */}
@@ -1136,6 +1146,29 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                   Clear My Team
                 </button>
               )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Notification Settings Modal */}
+      <AnimatePresence>
+        {showNotificationSettings && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+            onClick={() => setShowNotificationSettings(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-surface-card border border-surface-border rounded-card shadow-elevated p-6 w-full max-w-md max-h-[80vh] overflow-y-auto"
+              onClick={e => e.stopPropagation()}
+            >
+              <NotificationSettings onUnsubscribe={() => setShowNotificationSettings(false)} />
             </motion.div>
           </motion.div>
         )}

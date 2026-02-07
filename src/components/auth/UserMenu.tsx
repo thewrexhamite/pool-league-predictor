@@ -11,14 +11,15 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
-import { User, LogOut, UserCheck, ChevronDown } from 'lucide-react';
+import { User, LogOut, UserCheck, ChevronDown, Bell } from 'lucide-react';
 
 interface UserMenuProps {
   onLoginClick?: () => void;
+  onNotificationSettingsClick?: () => void;
   variant?: 'default' | 'minimal';
 }
 
-export function UserMenu({ onLoginClick, variant = 'default' }: UserMenuProps) {
+export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 'default' }: UserMenuProps) {
   const { user, profile, loading, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -128,6 +129,21 @@ export function UserMenu({ onLoginClick, variant = 'default' }: UserMenuProps) {
                 </span>
               )}
             </Link>
+
+            {/* Notification Settings */}
+            {onNotificationSettingsClick && (
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  onNotificationSettingsClick();
+                }}
+                className="w-full flex items-center gap-3 px-4 py-2 text-sm
+                  text-gray-300 hover:bg-surface-elevated hover:text-white transition"
+              >
+                <Bell className="w-4 h-4" />
+                <span>Notification Settings</span>
+              </button>
+            )}
 
             {/* Sign Out */}
             <button
