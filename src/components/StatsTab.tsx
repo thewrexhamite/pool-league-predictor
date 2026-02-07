@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Trophy, TrendingUp, Target, Flame, Award } from 'lucide-react';
 import type { DivisionCode } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
-import { getTeamPlayers, calcBayesianPct, calcBDStats } from '@/lib/predictions';
+import { getTeamPlayers, calcBayesianPct, calcBDStats, getTeamResults, getDiv } from '@/lib/predictions';
 
 interface StatsTabProps {
   selectedDiv: DivisionCode;
@@ -68,6 +68,52 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       .sort((a, b) => a.bdARate - b.bdARate)
       .slice(0, 10);
   }, [divPlayers, minGames]);
+
+  // Calculate team home/away records
+  const teamRecords = useMemo(() => {
+    return teams.map(team => {
+      const results = getTeamResults(team, ds);
+      const divResults = results.filter(r => getDiv(r.home, ds) === selectedDiv);
+
+      const home = { w: 0, d: 0, l: 0, p: 0 };
+      const away = { w: 0, d: 0, l: 0, p: 0 };
+
+      divResults.forEach(r => {
+        if (r.isHome) {
+          home.p++;
+          if (r.result === 'W') home.w++;
+          else if (r.result === 'D') home.d++;
+          else home.l++;
+        } else {
+          away.p++;
+          if (r.result === 'W') away.w++;
+          else if (r.result === 'D') away.d++;
+          else away.l++;
+        }
+      });
+
+      const homePct = home.p > 0 ? (home.w / home.p) * 100 : 0;
+      const awayPct = away.p > 0 ? (away.w / away.p) * 100 : 0;
+
+      return { team, home, away, homePct, awayPct };
+    });
+  }, [teams, ds, selectedDiv]);
+
+  // Best home records
+  const bestHome = useMemo(() => {
+    return [...teamRecords]
+      .filter(t => t.home.p >= 3)
+      .sort((a, b) => b.homePct - a.homePct)
+      .slice(0, 10);
+  }, [teamRecords]);
+
+  // Best away records
+  const bestAway = useMemo(() => {
+    return [...teamRecords]
+      .filter(t => t.away.p >= 3)
+      .sort((a, b) => b.awayPct - a.awayPct)
+      .slice(0, 10);
+  }, [teamRecords]);
 
   return (
     <div className="space-y-4">
@@ -254,26 +300,98 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         </div>
       </div>
 
-      {/* Team Records Section - Placeholder */}
+      {/* Team Records Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Best Home Records */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5">
             <Award size={16} />
             Best Home Records
           </h3>
-          <div className="text-center py-8">
-            <p className="text-gray-500 text-sm">Leaderboard coming soon...</p>
-          </div>
+          {bestHome.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500 text-sm">No teams with 3+ home games</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
+                    <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Team</th>
+                    <th className="text-center p-2">P</th>
+                    <th className="text-center p-2">W</th>
+                    <th className="text-center p-2">D</th>
+                    <th className="text-center p-2">L</th>
+                    <th className="text-center p-2">Win%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bestHome.map((t, i) => (
+                    <tr
+                      key={t.team}
+                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                      onClick={() => onTeamClick(t.team)}
+                    >
+                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
+                      <td className="p-2 text-center text-gray-300">{t.home.p}</td>
+                      <td className="p-2 text-center text-win">{t.home.w}</td>
+                      <td className="p-2 text-center text-gray-400">{t.home.d}</td>
+                      <td className="p-2 text-center text-loss">{t.home.l}</td>
+                      <td className="p-2 text-center font-bold text-white">{t.homePct.toFixed(1)}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
 
+        {/* Best Away Records */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5">
             <Award size={16} />
             Best Away Records
           </h3>
-          <div className="text-center py-8">
-            <p className="text-gray-500 text-sm">Leaderboard coming soon...</p>
-          </div>
+          {bestAway.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500 text-sm">No teams with 3+ away games</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
+                    <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Team</th>
+                    <th className="text-center p-2">P</th>
+                    <th className="text-center p-2">W</th>
+                    <th className="text-center p-2">D</th>
+                    <th className="text-center p-2">L</th>
+                    <th className="text-center p-2">Win%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bestAway.map((t, i) => (
+                    <tr
+                      key={t.team}
+                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                      onClick={() => onTeamClick(t.team)}
+                    >
+                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
+                      <td className="p-2 text-center text-gray-300">{t.away.p}</td>
+                      <td className="p-2 text-center text-win">{t.away.w}</td>
+                      <td className="p-2 text-center text-gray-400">{t.away.d}</td>
+                      <td className="p-2 text-center text-loss">{t.away.l}</td>
+                      <td className="p-2 text-center font-bold text-white">{t.awayPct.toFixed(1)}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
 
