@@ -30,42 +30,27 @@ interface LeagueConfig {
   teamNameMap: Record<string, string>;
 }
 
-const LEAGUE_CONFIGS: Record<string, LeagueConfig> = {
-  wrexham: {
-    site: 'wrexham',
-    leagueId: 'wrexham',
-    seasonId: '2526',
-    leagueName: 'Wrexham & District Pool League',
-    shortName: 'Wrexham',
-    dataDir: path.join(__dirname, '..', 'data'),
-    divisions: [
-      { code: 'SD1', siteGroup: 'Sunday Division 1' },
-      { code: 'SD2', siteGroup: 'Sunday Division 2' },
-      { code: 'WD1', siteGroup: 'Wednesday Division 1' },
-      { code: 'WD2', siteGroup: 'Wednesday Division 2' },
-    ],
-    teamNameMap: {},
-  },
-  nwpa: {
-    site: 'nwpa',
-    leagueId: 'nwpa',
-    seasonId: '2526',
-    leagueName: 'North Wales Pool Association',
-    shortName: 'NWPA',
-    dataDir: path.join(__dirname, '..', 'data-nwpa'),
-    divisions: [
-      { code: 'PREM', siteGroup: 'Premier Division' },
-      { code: 'D1', siteGroup: 'Division One' },
-      { code: 'D2', siteGroup: 'Division Two' },
-      { code: 'D3', siteGroup: 'Division Three' },
-      { code: 'D4', siteGroup: 'Division Four' },
-      { code: 'D5', siteGroup: 'Division Five' },
-      { code: 'D6', siteGroup: 'Division Six' },
-      { code: 'D7', siteGroup: 'Division Seven' },
-    ],
-    teamNameMap: {},
-  },
-};
+// Load league configurations from external JSON file
+function loadLeagueConfigs(): Record<string, LeagueConfig> {
+  const configPath = path.join(__dirname, '..', 'league-config.json');
+  if (!fs.existsSync(configPath)) {
+    throw new Error(`League configuration file not found: ${configPath}`);
+  }
+  const rawConfigs = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+
+  // Process each config to resolve dataDir paths relative to project root
+  const configs: Record<string, LeagueConfig> = {};
+  for (const [key, cfg] of Object.entries(rawConfigs)) {
+    const rawConfig = cfg as LeagueConfig;
+    configs[key] = {
+      ...rawConfig,
+      dataDir: path.join(__dirname, '..', rawConfig.dataDir),
+    };
+  }
+  return configs;
+}
+
+const LEAGUE_CONFIGS = loadLeagueConfigs();
 
 // --- CLI argument parsing ---
 
