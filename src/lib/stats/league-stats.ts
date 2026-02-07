@@ -21,6 +21,20 @@ export interface TopPlayerEntry {
   bayesianPct: number;
 }
 
+export interface BDLeaderEntry {
+  name: string;
+  division: string;
+  team: string;
+  played: number;
+  bdCount: number;
+  bdRate: number;
+}
+
+export interface BDLeaders {
+  bdFor: BDLeaderEntry[];
+  bdAgainst: BDLeaderEntry[];
+}
+
 // ============================================================================
 // Top Players Leaderboard
 // ============================================================================
@@ -81,4 +95,92 @@ export function getTopPlayers(
 
   // Return top N results
   return results.slice(0, limit);
+}
+
+// ============================================================================
+// Break & Dish Leaderboard
+// ============================================================================
+
+/**
+ * Get Break & Dish leaders.
+ *
+ * Returns two leaderboards:
+ * - bdFor: Players with highest Break & Dish rate (most successful breaks)
+ * - bdAgainst: Players with lowest Break & Dish against rate (best defense)
+ *
+ * @param players2526 - Current season player stats map
+ * @param division - Division code to filter by (null for all divisions)
+ * @param minGames - Minimum games played threshold (default: 10)
+ * @param limit - Maximum number of players to return per leaderboard (default: 10)
+ * @returns Object with bdFor and bdAgainst leaderboards
+ */
+export function getBDLeaders(
+  players2526: Players2526Map,
+  division: DivisionCode | null,
+  minGames: number = 10,
+  limit: number = 10
+): BDLeaders {
+  const bdForResults: BDLeaderEntry[] = [];
+  const bdAgainstResults: BDLeaderEntry[] = [];
+
+  // Iterate through all players
+  for (const [playerName, playerData] of Object.entries(players2526)) {
+    // For each team the player has played for
+    for (const teamStats of playerData.teams) {
+      // Skip if filtering by division and this team isn't in that division
+      if (division !== null && teamStats.div !== division) {
+        continue;
+      }
+
+      // Skip if below minimum games threshold
+      if (teamStats.p < minGames) {
+        continue;
+      }
+
+      // Calculate B&D rates (per game)
+      const bdForRate = teamStats.p > 0 ? (teamStats.bdF / teamStats.p) * 100 : 0;
+      const bdAgainstRate = teamStats.p > 0 ? (teamStats.bdA / teamStats.p) * 100 : 0;
+
+      // Add to bdFor leaderboard
+      bdForResults.push({
+        name: playerName,
+        division: teamStats.div,
+        team: teamStats.team,
+        played: teamStats.p,
+        bdCount: teamStats.bdF,
+        bdRate: bdForRate,
+      });
+
+      // Add to bdAgainst leaderboard
+      bdAgainstResults.push({
+        name: playerName,
+        division: teamStats.div,
+        team: teamStats.team,
+        played: teamStats.p,
+        bdCount: teamStats.bdA,
+        bdRate: bdAgainstRate,
+      });
+    }
+  }
+
+  // Sort bdFor by highest rate (descending), then by games played (descending)
+  bdForResults.sort((a, b) => {
+    if (Math.abs(a.bdRate - b.bdRate) > 0.01) {
+      return b.bdRate - a.bdRate;
+    }
+    return b.played - a.played;
+  });
+
+  // Sort bdAgainst by lowest rate (ascending), then by games played (descending)
+  bdAgainstResults.sort((a, b) => {
+    if (Math.abs(a.bdRate - b.bdRate) > 0.01) {
+      return a.bdRate - b.bdRate;
+    }
+    return b.played - a.played;
+  });
+
+  return {
+    bdFor: bdForResults.slice(0, limit),
+    bdAgainst: bdAgainstResults.slice(0, limit),
+  };
 }
