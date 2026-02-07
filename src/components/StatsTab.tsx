@@ -53,6 +53,22 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       .slice(0, 10);
   }, [divPlayers, minGames]);
 
+  // Best Break & Dish For (highest bdFRate)
+  const topBDFor = useMemo(() => {
+    return divPlayers
+      .filter(p => p.s2526 && p.s2526.p >= minGames)
+      .sort((a, b) => b.bdFRate - a.bdFRate)
+      .slice(0, 10);
+  }, [divPlayers, minGames]);
+
+  // Best Break & Dish Against (lowest bdARate - fewer conceded is better)
+  const topBDAgainst = useMemo(() => {
+    return divPlayers
+      .filter(p => p.s2526 && p.s2526.p >= minGames)
+      .sort((a, b) => a.bdARate - b.bdARate)
+      .slice(0, 10);
+  }, [divPlayers, minGames]);
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -141,26 +157,100 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         )}
       </div>
 
-      {/* Break & Dish Section - Placeholder */}
+      {/* Break & Dish Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Best BD For */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-win mb-3 flex items-center gap-1.5">
             <Target size={16} />
             Best Break & Dish (For)
           </h3>
-          <div className="text-center py-8">
-            <p className="text-gray-500 text-sm">Leaderboard coming soon...</p>
-          </div>
+          {topBDFor.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500 text-sm">No players with {minGames}+ games</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
+                    <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Player</th>
+                    <th className="text-left p-2">Team</th>
+                    <th className="text-center p-2">P</th>
+                    <th className="text-center p-2" title="Break & Dish won per game">BD+</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topBDFor.map((p, i) => (
+                    <tr
+                      key={p.name + p.team}
+                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                      onClick={() => onPlayerClick(p.name)}
+                    >
+                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                      <td
+                        className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                        onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                      >
+                        {p.team}
+                      </td>
+                      <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
+                      <td className="p-2 text-center font-bold text-win">{p.bdFRate.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
 
+        {/* Best BD Against */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-success mb-3 flex items-center gap-1.5">
             <Target size={16} />
             Best Break & Dish (Against)
           </h3>
-          <div className="text-center py-8">
-            <p className="text-gray-500 text-sm">Leaderboard coming soon...</p>
-          </div>
+          {topBDAgainst.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500 text-sm">No players with {minGames}+ games</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
+                    <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Player</th>
+                    <th className="text-left p-2">Team</th>
+                    <th className="text-center p-2">P</th>
+                    <th className="text-center p-2" title="Break & Dish conceded per game">BD-</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topBDAgainst.map((p, i) => (
+                    <tr
+                      key={p.name + p.team}
+                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                      onClick={() => onPlayerClick(p.name)}
+                    >
+                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                      <td
+                        className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                        onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                      >
+                        {p.team}
+                      </td>
+                      <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
+                      <td className="p-2 text-center font-bold text-success">{p.bdARate.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
 
