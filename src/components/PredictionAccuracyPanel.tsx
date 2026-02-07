@@ -21,7 +21,7 @@ interface PredictionAccuracyPanelProps {
 }
 
 export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccuracyPanelProps) {
-  const { accuracyStats, loading, error, refresh } = usePredictionAccuracy({
+  const { predictions, accuracyStats, loading, error, refresh } = usePredictionAccuracy({
     division: selectedDiv,
   });
 
@@ -33,6 +33,41 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
     if (!accuracyStats || !selectedDiv) return null;
     return accuracyStats.byDivision.find(d => d.division === selectedDiv);
   }, [accuracyStats, selectedDiv]);
+
+  // Prepare historical trend data
+  const trendData = useMemo(() => {
+    if (!predictions || predictions.length === 0) return [];
+
+    // Filter to only completed predictions with results
+    const completed = predictions.filter(
+      p => p.actualWinner !== undefined && p.correct !== undefined
+    );
+
+    if (completed.length === 0) return [];
+
+    // Sort by predictedAt timestamp
+    const sorted = [...completed].sort((a, b) => a.predictedAt - b.predictedAt);
+
+    // Group by date (day)
+    const byDate = new Map<string, { correct: number; total: number }>();
+    for (const pred of sorted) {
+      const date = new Date(pred.predictedAt).toLocaleDateString('en-GB', {
+        month: 'short',
+        day: 'numeric',
+      });
+      const stats = byDate.get(date) || { correct: 0, total: 0 };
+      stats.total++;
+      if (pred.correct) stats.correct++;
+      byDate.set(date, stats);
+    }
+
+    // Convert to array format for chart
+    return Array.from(byDate.entries()).map(([date, stats]) => ({
+      date,
+      accuracy: (stats.correct / stats.total) * 100,
+      total: stats.total,
+    }));
+  }, [predictions]);
 
   // Prepare calibration chart data
   const calibrationData = useMemo(() => {
@@ -300,6 +335,67 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
                     stroke="#0EA572"
                     strokeWidth={2}
                     dot={{ r: 4, fill: '#0EA572', strokeWidth: 2, stroke: '#1a1d23' }}
+                    activeDot={{ r: 6 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Historical Trend Chart */}
+      {trendData.length > 0 && (
+        <div className="mb-4">
+          <h4 className="text-xs font-semibold text-gray-400 mb-2 flex items-center gap-1">
+            <TrendingUp size={12} />
+            Accuracy Trend
+          </h4>
+          <p className="text-[10px] text-gray-500 mb-3">
+            Track how prediction accuracy has changed over time
+          </p>
+          <div className="bg-surface/50 rounded-lg p-3">
+            <div className="h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={trendData} margin={{ top: 5, right: 10, bottom: 20, left: 0 }}>
+                  <XAxis
+                    dataKey="date"
+                    stroke="#6B7280"
+                    style={{ fontSize: '10px' }}
+                    label={{ value: 'Date', position: 'bottom', offset: 0, fill: '#9CA3AF', fontSize: 10 }}
+                  />
+                  <YAxis
+                    type="number"
+                    domain={[0, 100]}
+                    ticks={[0, 25, 50, 75, 100]}
+                    tickFormatter={(value) => `${value}%`}
+                    stroke="#6B7280"
+                    style={{ fontSize: '10px' }}
+                    label={{ value: 'Accuracy', angle: -90, position: 'insideLeft', fill: '#9CA3AF', fontSize: 10 }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1a1d23',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                    }}
+                    labelStyle={{ color: '#D1D5DB' }}
+                    formatter={(value: number) => [`${value.toFixed(1)}%`, 'Accuracy']}
+                    labelFormatter={(_, payload) => {
+                      if (payload && payload[0]) {
+                        const data = payload[0].payload;
+                        return `${data.date} (${data.total} prediction${data.total > 1 ? 's' : ''})`;
+                      }
+                      return '';
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="accuracy"
+                    stroke="#3B82F6"
+                    strokeWidth={2}
+                    dot={{ r: 4, fill: '#3B82F6', strokeWidth: 2, stroke: '#1a1d23' }}
                     activeDot={{ r: 6 }}
                   />
                 </LineChart>
