@@ -130,6 +130,58 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       .slice(0, 10);
   }, [divPlayers, minGames]);
 
+  // Calculate win streaks for teams
+  const teamStreaks = useMemo(() => {
+    return teams.map(team => {
+      const results = getTeamResults(team, ds);
+      const divResults = results.filter(r => getDiv(r.home, ds) === selectedDiv);
+
+      if (divResults.length === 0) {
+        return { team, currentStreak: 0, longestStreak: 0 };
+      }
+
+      // Current streak (most recent consecutive wins)
+      let currentStreak = 0;
+      for (const r of divResults) {
+        if (r.result === 'W') {
+          currentStreak++;
+        } else {
+          break;
+        }
+      }
+
+      // Longest streak in the season
+      let longestStreak = 0;
+      let tempStreak = 0;
+      for (const r of divResults) {
+        if (r.result === 'W') {
+          tempStreak++;
+          longestStreak = Math.max(longestStreak, tempStreak);
+        } else {
+          tempStreak = 0;
+        }
+      }
+
+      return { team, currentStreak, longestStreak };
+    });
+  }, [teams, ds, selectedDiv]);
+
+  // Active win streaks (teams currently on a winning streak)
+  const activeStreaks = useMemo(() => {
+    return [...teamStreaks]
+      .filter(t => t.currentStreak > 0)
+      .sort((a, b) => b.currentStreak - a.currentStreak)
+      .slice(0, 10);
+  }, [teamStreaks]);
+
+  // Longest win streaks this season
+  const longestStreaks = useMemo(() => {
+    return [...teamStreaks]
+      .filter(t => t.longestStreak > 0)
+      .sort((a, b) => b.longestStreak - a.longestStreak)
+      .slice(0, 10);
+  }, [teamStreaks]);
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -468,14 +520,87 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         )}
       </div>
 
-      {/* Win Streaks Section - Placeholder */}
-      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-        <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
-          <Flame size={16} />
-          Longest Active Win Streaks
-        </h3>
-        <div className="text-center py-8">
-          <p className="text-gray-500 text-sm">Leaderboard coming soon...</p>
+      {/* Win Streaks Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Active Win Streaks */}
+        <div className="bg-surface-card rounded-card shadow-card p-4">
+          <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
+            <Flame size={16} />
+            Active Win Streaks
+          </h3>
+          {activeStreaks.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500 text-sm">No teams on active win streaks</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
+                    <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Team</th>
+                    <th className="text-center p-2">Streak</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {activeStreaks.map((t, i) => (
+                    <tr
+                      key={t.team}
+                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                      onClick={() => onTeamClick(t.team)}
+                    >
+                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
+                      <td className="p-2 text-center">
+                        <span className="inline-flex items-center gap-1 font-bold text-warning">
+                          <Flame size={14} />
+                          {t.currentStreak}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Longest Win Streaks */}
+        <div className="bg-surface-card rounded-card shadow-card p-4">
+          <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
+            <Trophy size={16} />
+            Longest Win Streaks
+          </h3>
+          {longestStreaks.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500 text-sm">No win streaks recorded</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
+                    <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Team</th>
+                    <th className="text-center p-2">Best</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {longestStreaks.map((t, i) => (
+                    <tr
+                      key={t.team}
+                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                      onClick={() => onTeamClick(t.team)}
+                    >
+                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
+                      <td className="p-2 text-center font-bold text-accent">{t.longestStreak}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>
