@@ -34,5 +34,20 @@
       { "code": "D7", "siteGroup": "Division Seven" }
     ],
     "teamNameMap": {}
+  },
+  "chester": {
+    "site": "chester",
+    "leagueId": "chester",
+    "seasonId": "2526",
+    "leagueName": "Chester Pool League",
+    "shortName": "Chester",
+    "primaryColor": "#059669",
+    "dataDir": "data-chester",
+    "divisions": [
+      { "code": "PREM", "siteGroup": "Premier Division" },
+      { "code": "D1", "siteGroup": "Division One" },
+      { "code": "D2", "siteGroup": "Division Two" }
+    ],
+    "teamNameMap": {}
   }
 }
