@@ -110,6 +110,62 @@ export interface PredictionResult {
   baseline?: PredictionResult;
 }
 
+// Prediction tracking types
+export interface PredictionSnapshot {
+  id: string;
+  seasonId: string;
+  date: string;
+  home: string;
+  away: string;
+  division: string;
+  predictedAt: number; // timestamp when prediction was made
+  pHomeWin: number; // 0-1
+  pDraw: number; // 0-1
+  pAwayWin: number; // 0-1
+  expectedHome: number;
+  expectedAway: number;
+  confidence: number; // max(pHomeWin, pDraw, pAwayWin)
+  predictedWinner: 'home' | 'away' | 'draw';
+  actualHomeScore?: number;
+  actualAwayScore?: number;
+  actualWinner?: 'home' | 'away' | 'draw';
+  correct?: boolean;
+}
+
+export interface CalibrationBucket {
+  minConfidence: number; // e.g., 0.6
+  maxConfidence: number; // e.g., 0.7
+  predictedRate: number; // midpoint, e.g., 0.65
+  actualRate: number; // actual win rate in this bucket
+  count: number; // number of predictions in bucket
+}
+
+export interface AccuracyByDivision {
+  division: string;
+  total: number;
+  correct: number;
+  accuracy: number; // 0-1
+}
+
+export interface AccuracyByConfidence {
+  label: string; // e.g., "High (>70%)", "Medium (50-70%)", "Low (<50%)"
+  minConfidence: number;
+  maxConfidence: number;
+  total: number;
+  correct: number;
+  accuracy: number; // 0-1
+}
+
+export interface AccuracyStats {
+  totalPredictions: number;
+  correctPredictions: number;
+  overallAccuracy: number; // 0-1
+  byDivision: AccuracyByDivision[];
+  byConfidence: AccuracyByConfidence[];
+  calibration: CalibrationBucket[];
+  lastUpdated: number; // timestamp
+}
+
 // Simulation types
 export interface SimulationResult {
   team: string;
