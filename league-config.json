@@ -5,6 +5,7 @@
     "seasonId": "2526",
     "leagueName": "Wrexham & District Pool League",
     "shortName": "Wrexham",
+    "primaryColor": "#C8102E",
     "dataDir": "data",
     "divisions": [
       { "code": "SD1", "siteGroup": "Sunday Division 1" },
@@ -20,6 +21,7 @@
     "seasonId": "2526",
     "leagueName": "North Wales Pool Association",
     "shortName": "NWPA",
+    "primaryColor": "#1E40AF",
     "dataDir": "data-nwpa",
     "divisions": [
       { "code": "PREM", "siteGroup": "Premier Division" },
