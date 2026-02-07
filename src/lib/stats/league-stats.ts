@@ -4,7 +4,7 @@
  * Calculate league-wide leaderboards and statistical rankings.
  */
 
-import type { Players2526Map, DivisionCode, MatchResult, TeamHomeAwaySplit } from '../types';
+import type { Players2526Map, PlayersMap, DivisionCode, MatchResult, TeamHomeAwaySplit } from '../types';
 import { calcBayesianPct } from '../predictions';
 
 // ============================================================================
@@ -33,6 +33,18 @@ export interface BDLeaderEntry {
 export interface BDLeaders {
   bdFor: BDLeaderEntry[];
   bdAgainst: BDLeaderEntry[];
+}
+
+export interface ImprovedPlayerEntry {
+  name: string;
+  division: string;
+  team: string;
+  currentPlayed: number;
+  currentWon: number;
+  currentPct: number;
+  priorPlayed: number;
+  priorPct: number;
+  improvement: number;
 }
 
 // ============================================================================
@@ -246,4 +258,88 @@ export function getTeamHomeAwayRecord(
     home: homeRecord,
     away: awayRecord,
   };
+}
+
+// ============================================================================
+// Most Improved Players
+// ============================================================================
+
+/**
+ * Get most improved players by comparing current season to prior season.
+ *
+ * Calculates improvement as the difference between current win percentage
+ * and prior season win percentage. Only includes players who played in both
+ * seasons and meet the minimum games threshold in both seasons.
+ *
+ * @param players2526 - Current season player stats map
+ * @param players - Prior season (24/25) player stats map
+ * @param division - Division code to filter by (null for all divisions)
+ * @param minGames - Minimum games played threshold for both seasons (default: 10)
+ * @param limit - Maximum number of players to return (default: 10)
+ * @returns Array of most improved players sorted by improvement delta
+ */
+export function getMostImprovedPlayers(
+  players2526: Players2526Map,
+  players: PlayersMap,
+  division: DivisionCode | null,
+  minGames: number = 10,
+  limit: number = 10
+): ImprovedPlayerEntry[] {
+  const results: ImprovedPlayerEntry[] = [];
+
+  // Iterate through all current season players
+  for (const [playerName, playerData] of Object.entries(players2526)) {
+    // Check if player exists in prior season data
+    const priorStats = players[playerName];
+    if (!priorStats) {
+      continue;
+    }
+
+    // Skip if player didn't play enough games in prior season
+    if (priorStats.p < minGames) {
+      continue;
+    }
+
+    // Prior season win percentage (stored as 0-1, convert to 0-100)
+    const priorPct = priorStats.w * 100;
+
+    // For each team the player has played for this season
+    for (const teamStats of playerData.teams) {
+      // Skip if filtering by division and this team isn't in that division
+      if (division !== null && teamStats.div !== division) {
+        continue;
+      }
+
+      // Skip if below minimum games threshold in current season
+      if (teamStats.p < minGames) {
+        continue;
+      }
+
+      // Calculate improvement delta
+      const improvement = teamStats.pct - priorPct;
+
+      results.push({
+        name: playerName,
+        division: teamStats.div,
+        team: teamStats.team,
+        currentPlayed: teamStats.p,
+        currentWon: teamStats.w,
+        currentPct: teamStats.pct,
+        priorPlayed: priorStats.p,
+        priorPct,
+        improvement,
+      });
+    }
+  }
+
+  // Sort by improvement (descending), then by current games played (descending)
+  results.sort((a, b) => {
+    if (Math.abs(a.improvement - b.improvement) > 0.01) {
+      return b.improvement - a.improvement;
+    }
+    return b.currentPlayed - a.currentPlayed;
+  });
+
+  // Return top N results
+  return results.slice(0, limit);
 }
