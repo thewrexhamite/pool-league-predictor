@@ -176,6 +176,11 @@ export async function addClaimedProfile(
   season: string,
   name: string
 ): Promise<void> {
+  const auth = getAuth();
+  if (auth.currentUser) {
+    await ensureUserProfile(auth.currentUser);
+  }
+
   const userRef = doc(db, 'users', userId);
   const claim: ClaimedProfile = {
     league,
