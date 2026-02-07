@@ -56,6 +56,7 @@ function ClaimPageContent() {
   // Search - initialize with URL query param if provided
   const [searchQuery, setSearchQuery] = useState(initialName);
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerSearchResult | null>(null);
+  const [agreedToDisclaimer, setAgreedToDisclaimer] = useState(false);
 
   // Load available leagues
   useEffect(() => {
@@ -271,7 +272,11 @@ function ClaimPageContent() {
                     {searchResults.map((result) => (
                       <button
                         key={result.name}
-                        onClick={() => setSelectedPlayer(result)}
+                        onClick={() => {
+                          setSelectedPlayer(result);
+                          setSearchQuery('');
+                          setAgreedToDisclaimer(false);
+                        }}
                         className="w-full px-4 py-3 flex items-start gap-3 hover:bg-gray-50 dark:hover:bg-gray-700
                           border-b border-gray-100 dark:border-gray-700 last:border-0 text-left"
                       >
@@ -381,14 +386,37 @@ function ClaimPageContent() {
                   <span>You&apos;ve already claimed this profile</span>
                 </div>
               ) : (
-                <button
-                  onClick={handleClaim}
-                  disabled={claiming}
-                  className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium
-                    hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {claiming ? 'Claiming...' : 'This is Me - Claim Profile'}
-                </button>
+                <>
+                  <div className="mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200
+                    dark:border-amber-800 rounded-lg text-sm text-amber-800 dark:text-amber-300"
+                  >
+                    <p>
+                      Only claim a profile that belongs to you. Falsely claiming another
+                      player&apos;s profile may result in your account being suspended.
+                    </p>
+                  </div>
+                  <label className="flex items-start gap-3 mb-4 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={agreedToDisclaimer}
+                      onChange={(e) => setAgreedToDisclaimer(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded border-gray-300 text-blue-600
+                        focus:ring-blue-500"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      I confirm this is my player profile and understand that misuse may lead to
+                      account suspension.
+                    </span>
+                  </label>
+                  <button
+                    onClick={handleClaim}
+                    disabled={claiming || !agreedToDisclaimer}
+                    className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium
+                      hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {claiming ? 'Claiming...' : 'This is Me - Claim Profile'}
+                  </button>
+                </>
               )}
 
               {error && (
