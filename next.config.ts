@@ -15,18 +15,6 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '*.googleusercontent.com',
       },
-      {
-        protocol: 'https',
-        hostname: 'graph.microsoft.com', // Microsoft
-      },
-      {
-        protocol: 'https',
-        hostname: '*.fbcdn.net', // Facebook
-      },
-      {
-        protocol: 'https',
-        hostname: 'platform-lookaside.fbsbx.com', // Facebook
-      },
     ],
   },
 };

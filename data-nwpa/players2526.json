@@ -1,0 +1,6944 @@
+{
+  "Liam Roberts": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Andy Price": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Simon Roberts": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Lee Hughes": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Lewis West": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Carl Owen": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Laurence Travis": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Jamie Jones": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Danny Frayne": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Kevin Roberts": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Chris Colegate": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Martin Gallagher": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Grant Williams": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Graham Davies": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Terry Roberts": {
+    "teams": [
+      {
+        "team": "Wrexham Union",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Del Jones": {
+    "teams": [
+      {
+        "team": "Bangor Blues",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Callum Bishop": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Andrew Messenger": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Matt Davies": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Ashley Higham": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Carl Guntrip": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Ian Billingsley": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Drew Hughes": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Scott Millington": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Kev Austin": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Lewis Heeley": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Steve Davies": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Michael Heywood": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Mike Williams": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 9,
+      "w": 6,
+      "pct": 66.67
+    }
+  },
+  "Lee Hall": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Daf Rowlands": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Lee Ross": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Carl Hanson": {
+    "teams": [
+      {
+        "team": "Newtown",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Paul Myers": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Sean Jones": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "John Mckeown": {
+    "teams": [
+      {
+        "team": "Rhyl A",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ian Jones": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 9,
+      "w": 4,
+      "pct": 44.44
+    }
+  },
+  "Rob Moore": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Andrew Jones": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 6,
+      "pct": 75
+    }
+  },
+  "Tim Owen": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Freddie Winks jones": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Craig Moore": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Jason Stokes": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Dan Fletcher": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Andrew Nurse": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Ben Williams": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Alex Huxley": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Andy Yates": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Steve Tomkins": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Evan parry Williams": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Dean Williams": {
+    "teams": [
+      {
+        "team": "Osw Ex-Servicemans",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Ian Williams": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 5,
+      "pct": 62.5
+    }
+  },
+  "Richie Roberts": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Mark Roberts": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dave Roberts": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Barry Stuart": {
+    "teams": [
+      {
+        "team": "Holyhead",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Craig Sheehan": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Dale Jones": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "John Smith": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Lyndon Hamilton": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Stephen Jones": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Nathaniel Wright": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Will Roberts": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Steve Brindley": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Ally Mcchristie": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Tim Williams": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Paul Fleming": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Harvey Cunnah": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "John Dunne": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Martin Gwilliam": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Lee Vacher": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Cameron Hamilton": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Scott Ellams": {
+    "teams": [
+      {
+        "team": "Flintshire A",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Nathan Price": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Paul Williams": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jack Brindley": {
+    "teams": [
+      {
+        "team": "Gwersyllt WMC",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Mike Noden": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Shay Moran": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Matty Redmond": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Sean Ling": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Ben Thomas": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Colin Healy": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Alex Taubman": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Elis Berry": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Neal Monaghan": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Andy Williams": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Ethan Turton": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Suben Padayachee": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Gordy Bird": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Ryan Edwards": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Daniel Parry": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Callum Fuge": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Max Walker": {
+    "teams": [
+      {
+        "team": "The Breakroom",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Dave Bull": {
+    "teams": [
+      {
+        "team": "Conwy C",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Jonathan Phylip-jones": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Tom Wilcox": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Dylan Morgan": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Brian Hughes": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Josh Green": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "James Heathcote": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Andrew Williams": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Jack Collo": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Gwynfor Jones": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Ray Cheers": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 3,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Mike Jones": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Andy Byrne": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Tom Picken": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Kane Burgess": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Dave Smith": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Owen Bracegirdle": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Gareth Aubrey": {
+    "teams": [
+      {
+        "team": "Dreigiau Caernarfon",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Bryn Jones": {
+    "teams": [
+      {
+        "team": "Melrose Deeside A",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Mark Davies": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Arthur Lyon": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Robert Griffiths": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Nathan Griffiths": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Rich Evans": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Hywel Window": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Carl Clark": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Robbie Bryan": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Alan Walker": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Nick Buckley": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Hywel Lloyd": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Graham Armstrong": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Dan Stephens": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Arthur Latham": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Ryan Hamar": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Colin Dudds": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Gareth Fuzz jones": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Mark Scholes": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Rhys Butler": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Rhys Jones": {
+    "teams": [
+      {
+        "team": "Monty Dragons",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Tony Owen": {
+    "teams": [
+      {
+        "team": "Flintshire 8 Ball",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Elwyn Morris": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Gerwyn Hughes": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Mark Brassington": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Iwan Jones": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Endaf Owens": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Gareth Jones": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 9,
+      "w": 5,
+      "pct": 55.56
+    }
+  },
+  "Hayden Owen": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Brian Evans": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Rod Edwards": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Mark Williams": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "John Finney": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Ows Owen": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Aled Jones": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "John f Hughes": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Hugh Morris": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Dylan Hughes": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Gary Rogers": {
+    "teams": [
+      {
+        "team": "Tanat Valley",
+        "div": "D2",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Pete Griffiths": {
+    "teams": [
+      {
+        "team": "North Anglesey",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Richard Williams": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Chris Rushton": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Jeff Nevitt": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Scott Jones": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Colin Richards": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "David Sheppard": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Paul Marubbi": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Craig Bales": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Mark Jarvis": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Tobias Hughes": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Tony Jones": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Clark Thomas": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Curt Griffiths": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Anthony Luke": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Tommy Pinnington": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Craig Owen": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Phil Woodhall": {
+    "teams": [
+      {
+        "team": "Wrexham 8 Ball",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Dion Taylor": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "John Maloney": {
+    "teams": [
+      {
+        "team": "Bangor Aces",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Clive Jones": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Daf Edwards": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Danny Vel": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Jonty Jr": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Jake Massey": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Owain Newell": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Jamie Evans": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Jamie Fitzgerald": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Darryl Hatfield": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Lewis Penrose": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "John Richards": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Jack Wheelan": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Jordan Fraser": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "James Owen": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Charlie Jones": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Will Newell": {
+    "teams": [
+      {
+        "team": "AAA Dragons",
+        "div": "D3",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Neil Lloyd": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Derek Richards": {
+    "teams": [
+      {
+        "team": "Melrose Deeside B",
+        "div": "D3",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Ed Patrick": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Kenyon Hall": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Antony Downes": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Arwel Owen": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Steve Memmott": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dez Roberts": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Gareth Bowen": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Connor Jones": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 9,
+      "w": 5,
+      "pct": 55.56
+    }
+  },
+  "Chris White": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Dan Rowlands": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Barry Emberton": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Tomi Evans": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Paul Merideth": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Phil Hay": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Shaun James": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Dave Woosnam": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Gwri Evans": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Llion Jones": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Scott Clifford": {
+    "teams": [
+      {
+        "team": "Welshpool Tigers",
+        "div": "D4",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Wendy Edwards": {
+    "teams": [
+      {
+        "team": "Mach Blues",
+        "div": "D4",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Jac Jones": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Owen Taylor": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "John Wickwar": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Derek Owen": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Tom Williams": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Meirion Taylor": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "John Vaughan": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Danial Williams": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Alfie Rogers": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Chris Taylor": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Jim Evans": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Arwel archie Jones": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Craig Williams": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Mark Allman": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Jake Williams": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Darrell Brindley": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons A",
+        "div": "D4",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Dafydd Roberts": {
+    "teams": [
+      {
+        "team": "Wellmans Select",
+        "div": "D4",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 6,
+      "pct": 75
+    }
+  },
+  "Andy Hughes": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Tommy Adams": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Lawrence Evison": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Izaak Howcroft": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Chris Scott": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Tom Davis": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Barry Bennett": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Jihn Jones": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dave Gannon": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Jim Baskeyfield": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Paul Allen": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Paul Bennett": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Luke Harbridge": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Jim Brown": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Dan Harbridge": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Matt Hartshorn": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Joe Bowman-long": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Owain Wilding": {
+    "teams": [
+      {
+        "team": "Welshpool Warriors",
+        "div": "D5",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "John Jones": {
+    "teams": [
+      {
+        "team": "Conwy B",
+        "div": "D5",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ben Hughes": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Lawrence Clowes": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Luke Wilson": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Chris Neale": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Adam Edwards": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Liam Hughes": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Richard Lawrence": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Sam Welch": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Leighton Roberts": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Alex Hughes": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Aaron Adams": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Darren Latham": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Craig Lockley": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Richie Samueuls": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Wade Davies": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Carl Partington": {
+    "teams": [
+      {
+        "team": "Mold 8Ball",
+        "div": "D6",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Gary Roberts": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Eddy Brown": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Ollie Formstone": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Barry Wilding": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Ant Formstone": {
+    "teams": [
+      {
+        "team": "The Breakroom Union",
+        "div": "D6",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Adam Castell": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Richie John": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Chris Jones": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Daniel Ward": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Simon Jones": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Dylan Jones": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Jamie Cutler": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Alwyn Parry": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Pete Castell": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Jay Barrow": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Byron Lloyd": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Tom Grifiths": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dave Jones": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Steven Caunt": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "David Sawicz": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Stephen Roberts": {
+    "teams": [
+      {
+        "team": "Croesoswallt Dragons B",
+        "div": "D6",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Terry Williams": {
+    "teams": [
+      {
+        "team": "Mon Celts",
+        "div": "D6",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Paul Henry": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Robbie Gardner": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Kelly Pending": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Corey Williams": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Keith Hilton": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Andy Coyne": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Nick Williams": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Daz Millard": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Dion Lewis": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Alan Williams": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Tom Edwards": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Pete Robbins": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Ryan Roberts": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Mike Hughes": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Darren Chant": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Mike Barrett": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Jack Sherlock": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Thomas Claspers": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Allan Michaels": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Gwion Jones": {
+    "teams": [
+      {
+        "team": "Corner Pocket Crusaders",
+        "div": "D7",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Gary Eccleston": {
+    "teams": [
+      {
+        "team": "Jolly Sailor",
+        "div": "D7",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Nathan Williams": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Shaun Jones": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Matty Hinchliffe": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Lynne Alvis": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Paul Hinchliffe": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Ben Jones": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Daniel Bostock": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dave Hughes": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Dewi Thomas": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Mathew Hodgetts": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Nick Durkan": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Mark Morris": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Craig s Jones": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Ben Lloyd": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Arwel Williams": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "James Shuttleworth": {
+    "teams": [
+      {
+        "team": "Ex Serv Amigos",
+        "div": "D7",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Louie Chapman": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Shane Roberts": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dewi Jones": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Harri Chandler": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Dave Howell": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Alun Roberts": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.67
+    }
+  },
+  "Thomas Hall": {
+    "teams": [
+      {
+        "team": "Holyhead B",
+        "div": "D7",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  }
+}

@@ -9,8 +9,6 @@ import {
   signInWithPopup,
   signOut as firebaseSignOut,
   GoogleAuthProvider,
-  OAuthProvider,
-  FacebookAuthProvider,
   type User,
   type UserCredential,
 } from 'firebase/auth';
@@ -58,12 +56,7 @@ export interface UserProfile {
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-const microsoftProvider = new OAuthProvider('microsoft.com');
-microsoftProvider.setCustomParameters({ prompt: 'select_account' });
-
-const facebookProvider = new FacebookAuthProvider();
-
-export type AuthProvider = 'google' | 'microsoft' | 'facebook';
+export type AuthProvider = 'google';
 
 // ============================================================================
 // Sign In Functions
@@ -81,12 +74,6 @@ export async function signInWithProvider(
   switch (providerType) {
     case 'google':
       provider = googleProvider;
-      break;
-    case 'microsoft':
-      provider = microsoftProvider;
-      break;
-    case 'facebook':
-      provider = facebookProvider;
       break;
     default:
       throw new Error(`Unknown provider: ${providerType}`);
