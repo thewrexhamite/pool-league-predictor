@@ -4,7 +4,7 @@
  * Calculate league-wide leaderboards and statistical rankings.
  */
 
-import type { Players2526Map, PlayersMap, DivisionCode, MatchResult, TeamHomeAwaySplit } from '../types';
+import type { Players2526Map, PlayersMap, DivisionCode, MatchResult, TeamHomeAwaySplit, FrameData } from '../types';
 import { calcBayesianPct } from '../predictions';
 
 // ============================================================================
@@ -45,6 +45,15 @@ export interface ImprovedPlayerEntry {
   priorPlayed: number;
   priorPct: number;
   improvement: number;
+}
+
+export interface StreakLeaderEntry {
+  name: string;
+  division: string;
+  team: string;
+  streak: number;
+  lastGameDate: string;
+  played: number;
 }
 
 // ============================================================================
@@ -338,6 +347,142 @@ export function getMostImprovedPlayers(
       return b.improvement - a.improvement;
     }
     return b.currentPlayed - a.currentPlayed;
+  });
+
+  // Return top N results
+  return results.slice(0, limit);
+}
+
+// ============================================================================
+// Winning Streaks
+// ============================================================================
+
+/**
+ * Parse a date string in DD-MM-YYYY format.
+ */
+function parseDate(dateStr: string): Date {
+  const [day, month, year] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
+/**
+ * Get players with longest active winning streaks.
+ *
+ * Calculates current winning streaks by analyzing recent frame data.
+ * A streak is the number of consecutive wins counting backwards from
+ * the most recent game. Only active streaks are counted (streak continues
+ * from most recent game).
+ *
+ * @param frames - Frame-level match data
+ * @param players2526 - Current season player stats map
+ * @param division - Division code to filter by (null for all divisions)
+ * @param limit - Maximum number of players to return (default: 10)
+ * @returns Array of players with longest active winning streaks
+ */
+export function getActiveWinStreaks(
+  frames: FrameData[],
+  players2526: Players2526Map,
+  division: DivisionCode | null,
+  limit: number = 10
+): StreakLeaderEntry[] {
+  // Map to store each player's games: playerName -> games array
+  const playerGames = new Map<string, Array<{ date: string; won: boolean; division: string }>>();
+
+  // Extract all player games from frame data
+  for (const match of frames) {
+    for (const frame of match.frames) {
+      const homePlayer = frame.homePlayer;
+      const awayPlayer = frame.awayPlayer;
+
+      // Skip forfeits as they don't count for streaks
+      if (frame.forfeit) {
+        continue;
+      }
+
+      // Record home player's game
+      if (!playerGames.has(homePlayer)) {
+        playerGames.set(homePlayer, []);
+      }
+      playerGames.get(homePlayer)!.push({
+        date: match.date,
+        won: frame.winner === 'home',
+        division: match.division,
+      });
+
+      // Record away player's game
+      if (!playerGames.has(awayPlayer)) {
+        playerGames.set(awayPlayer, []);
+      }
+      playerGames.get(awayPlayer)!.push({
+        date: match.date,
+        won: frame.winner === 'away',
+        division: match.division,
+      });
+    }
+  }
+
+  const results: StreakLeaderEntry[] = [];
+
+  // Calculate active streak for each player
+  for (const [playerName, games] of playerGames.entries()) {
+    // Check if player exists in current season stats
+    const playerData = players2526[playerName];
+    if (!playerData) {
+      continue;
+    }
+
+    // Sort games by date (most recent first)
+    games.sort((a, b) => {
+      const dateA = parseDate(a.date);
+      const dateB = parseDate(b.date);
+      return dateB.getTime() - dateA.getTime();
+    });
+
+    // For each team the player has played for
+    for (const teamStats of playerData.teams) {
+      // Skip if filtering by division and this team isn't in that division
+      if (division !== null && teamStats.div !== division) {
+        continue;
+      }
+
+      // Get games for this specific division
+      const divisionGames = games.filter((g) => g.division === teamStats.div);
+
+      if (divisionGames.length === 0) {
+        continue;
+      }
+
+      // Calculate active streak (consecutive wins from most recent game)
+      let streak = 0;
+      for (const game of divisionGames) {
+        if (game.won) {
+          streak++;
+        } else {
+          // Streak broken
+          break;
+        }
+      }
+
+      // Only include players with an active streak (at least 1 win)
+      if (streak > 0) {
+        results.push({
+          name: playerName,
+          division: teamStats.div,
+          team: teamStats.team,
+          streak,
+          lastGameDate: divisionGames[0].date,
+          played: teamStats.p,
+        });
+      }
+    }
+  }
+
+  // Sort by streak length (descending), then by games played (descending)
+  results.sort((a, b) => {
+    if (a.streak !== b.streak) {
+      return b.streak - a.streak;
+    }
+    return b.played - a.played;
   });
 
   // Return top N results
