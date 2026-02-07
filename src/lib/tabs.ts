@@ -6,6 +6,7 @@ import {
   Target,
   Calendar,
   Users,
+  BarChart3,
 } from 'lucide-react';
 import type { TabId } from './router';
 
@@ -20,6 +21,7 @@ export interface TabConfig {
 export const TABS: TabConfig[] = [
   { id: 'dashboard', label: 'Dashboard', shortLabel: 'Dash', icon: LayoutDashboard, primary: true },
   { id: 'standings', label: 'Standings', shortLabel: 'Table', icon: Trophy, primary: true },
+  { id: 'stats', label: 'Stats', shortLabel: 'Stats', icon: BarChart3, primary: true },
   { id: 'predict', label: 'Predict', shortLabel: 'Predict', icon: Target, primary: true },
   { id: 'fixtures', label: 'Fixtures', shortLabel: 'Fix', icon: Calendar, primary: true },
   { id: 'results', label: 'Results', shortLabel: 'Results', icon: ClipboardList, primary: false },
