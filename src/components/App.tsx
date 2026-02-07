@@ -110,14 +110,14 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
   const routerOptions = useMemo(() => ({
-    validDivisions: divisionCodes.length > 0 ? divisionCodes : ['SD2'],
-    defaultDiv: divisionCodes[0] || 'SD2',
+    validDivisions: divisionCodes.length > 0 ? divisionCodes : [],
+    defaultDiv: divisionCodes[0] || '',
   }), [divisionCodes]);
   const router = useHashRouter(routerOptions);
 
   // Ensure division is valid for current league (handles switching between leagues)
   const safeDiv = useMemo(() => {
-    if (divisionCodes.length === 0) return 'SD2' as DivisionCode;
+    if (divisionCodes.length === 0) return '' as DivisionCode;
     if (ds.divisions[router.div]) return router.div;
     return (divisionCodes[0] as DivisionCode) || router.div;
   }, [router.div, ds.divisions, divisionCodes]);
