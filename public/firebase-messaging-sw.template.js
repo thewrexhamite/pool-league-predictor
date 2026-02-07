@@ -1,4 +1,8 @@
-// Firebase Cloud Messaging Service Worker
+// Firebase Cloud Messaging Service Worker (TEMPLATE)
+// This file is processed at build time to inject Firebase configuration
+// DO NOT edit firebase-messaging-sw.js directly - it is auto-generated
+// Edit this template file instead
+//
 // Handles background push notifications and notification actions
 
 importScripts('https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js');

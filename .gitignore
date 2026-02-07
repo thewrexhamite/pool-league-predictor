@@ -28,6 +28,9 @@ yarn-error.log*
 # Firebase service account keys
 service-account*.json
 
+# Generated files
+public/firebase-messaging-sw.js
+
 # vercel
 .vercel
 
