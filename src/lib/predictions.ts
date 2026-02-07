@@ -31,7 +31,6 @@ import type {
   EffectivePct,
 } from './types';
 import {
-  DIVISIONS as STATIC_DIVISIONS,
   RESULTS as STATIC_RESULTS,
   FIXTURES as STATIC_FIXTURES,
   PLAYERS as STATIC_PLAYERS,
@@ -52,7 +51,7 @@ export interface DataSources {
 
 function defaults(): DataSources {
   return {
-    divisions: STATIC_DIVISIONS,
+    divisions: {}, // Empty - divisions should always come from DataSources parameter
     results: STATIC_RESULTS,
     fixtures: STATIC_FIXTURES,
     players: STATIC_PLAYERS,
@@ -93,7 +92,7 @@ export function calcBayesianPct(wins: number, games: number): number {
 }
 
 export function getDiv(team: string, ds?: DataSources): DivisionCode | null {
-  const divisions = ds?.divisions ?? STATIC_DIVISIONS;
+  const divisions = ds?.divisions ?? {}; // Use empty object if no DataSources provided
   for (const [div, data] of Object.entries(divisions)) {
     if (data.teams.includes(team)) return div as DivisionCode;
   }
@@ -1132,5 +1131,4 @@ export function suggestLineup(
   return { set1, set2, insights };
 }
 
-export { STATIC_DIVISIONS as DIVISIONS };
-export const DIVISION_CODES: DivisionCode[] = ['SD1', 'SD2', 'WD1', 'WD2'];
+// Removed: STATIC_DIVISIONS (no longer exported) and DIVISION_CODES (hardcoded Wrexham divisions)
