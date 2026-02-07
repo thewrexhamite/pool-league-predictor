@@ -32,3 +32,17 @@ export {
   type H2HRecord,
   type H2HSummary,
 } from './head-to-head';
+
+// League-wide stats
+export {
+  getTopPlayers,
+  getBDLeaders,
+  getTeamHomeAwayRecord,
+  getMostImprovedPlayers,
+  getActiveWinStreaks,
+  type TopPlayerEntry,
+  type BDLeaderEntry,
+  type BDLeaders,
+  type ImprovedPlayerEntry,
+  type StreakLeaderEntry,
+} from './league-stats';
