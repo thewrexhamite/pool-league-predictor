@@ -5,7 +5,13 @@ import clsx from 'clsx';
 import { Trophy, TrendingUp, Target, Flame, Award } from 'lucide-react';
 import type { DivisionCode } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
-import { getTeamPlayers, calcBayesianPct, calcBDStats, getTeamResults, getDiv } from '@/lib/predictions';
+import { getTeamResults, getDiv } from '@/lib/predictions';
+import {
+  getTopPlayers,
+  getBDLeaders,
+  getTeamHomeAwayRecord,
+  getMostImprovedPlayers,
+} from '@/lib/stats';
 
 interface StatsTabProps {
   selectedDiv: DivisionCode;
@@ -29,118 +35,64 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
     return ds.divisions[selectedDiv].teams;
   }, [showAllDivisions, ds, selectedDiv]);
 
-  // Calculate all players in division with stats
-  const divPlayers = useMemo(() => {
-    const list: Array<{
-      name: string;
-      s2526: { p: number; w: number; pct: number; bdF: number; bdA: number; forf: number } | null;
-      winPct: number | null;
-      played: number | null;
-      team: string;
-      bdFRate: number;
-      bdARate: number;
-      adjPct: number;
-      improvement: number | null;
-    }> = [];
-    const seen = new Set<string>();
-    teams.forEach(team => {
-      const roster = getTeamPlayers(team, ds);
-      roster.forEach(pl => {
-        if (pl.s2526 && !seen.has(pl.name + ':' + team)) {
-          seen.add(pl.name + ':' + team);
-          const bd = calcBDStats(pl.s2526);
-          const adjPct = calcBayesianPct(pl.s2526.w, pl.s2526.p);
-          // Calculate improvement: current season adj% - previous season win%
-          const improvement = pl.winPct !== null && pl.played !== null && pl.played >= 5
-            ? adjPct - (pl.winPct * 100)
-            : null;
-          list.push({ ...pl, team, bdFRate: bd.bdFRate, bdARate: bd.bdARate, adjPct, improvement });
-        }
-      });
-    });
-    return list;
-  }, [teams, ds]);
-
-  // Top players by adjusted win percentage
+  // Top players by Bayesian-adjusted win percentage
   const topPlayers = useMemo(() => {
-    return divPlayers
-      .filter(p => p.s2526 && p.s2526.p >= minGames)
-      .sort((a, b) => b.adjPct - a.adjPct)
-      .slice(0, 10);
-  }, [divPlayers, minGames]);
+    const division = showAllDivisions ? null : selectedDiv;
+    const players = getTopPlayers(ds.players2526, division, minGames, 10);
 
-  // Best Break & Dish For (highest bdFRate)
-  const topBDFor = useMemo(() => {
-    return divPlayers
-      .filter(p => p.s2526 && p.s2526.p >= minGames)
-      .sort((a, b) => b.bdFRate - a.bdFRate)
-      .slice(0, 10);
-  }, [divPlayers, minGames]);
-
-  // Best Break & Dish Against (lowest bdARate - fewer conceded is better)
-  const topBDAgainst = useMemo(() => {
-    return divPlayers
-      .filter(p => p.s2526 && p.s2526.p >= minGames)
-      .sort((a, b) => a.bdARate - b.bdARate)
-      .slice(0, 10);
-  }, [divPlayers, minGames]);
-
-  // Calculate team home/away records
-  const teamRecords = useMemo(() => {
-    return teams.map(team => {
-      const results = getTeamResults(team, ds);
-      // Filter by division only if not showing all divisions
-      const divResults = showAllDivisions
-        ? results
-        : results.filter(r => getDiv(r.home, ds) === selectedDiv);
-
-      const home = { w: 0, d: 0, l: 0, p: 0 };
-      const away = { w: 0, d: 0, l: 0, p: 0 };
-
-      divResults.forEach(r => {
-        if (r.isHome) {
-          home.p++;
-          if (r.result === 'W') home.w++;
-          else if (r.result === 'D') home.d++;
-          else home.l++;
-        } else {
-          away.p++;
-          if (r.result === 'W') away.w++;
-          else if (r.result === 'D') away.d++;
-          else away.l++;
-        }
-      });
-
-      const homePct = home.p > 0 ? (home.w / home.p) * 100 : 0;
-      const awayPct = away.p > 0 ? (away.w / away.p) * 100 : 0;
-
-      return { team, home, away, homePct, awayPct };
+    // Enrich with BD stats for display
+    return players.map(p => {
+      const playerData = ds.players2526[p.name];
+      const teamStats = playerData?.teams.find(t => t.team === p.team);
+      const bdFRate = teamStats && teamStats.p > 0 ? (teamStats.bdF / teamStats.p) * 100 : 0;
+      const bdARate = teamStats && teamStats.p > 0 ? (teamStats.bdA / teamStats.p) * 100 : 0;
+      return { ...p, bdFRate, bdARate };
     });
-  }, [teams, ds, selectedDiv, showAllDivisions]);
+  }, [ds.players2526, selectedDiv, showAllDivisions, minGames]);
 
-  // Best home records
-  const bestHome = useMemo(() => {
-    return [...teamRecords]
+  // Break & Dish leaderboards
+  const { bdFor: topBDFor, bdAgainst: topBDAgainst } = useMemo(() => {
+    const division = showAllDivisions ? null : selectedDiv;
+    return getBDLeaders(ds.players2526, division, minGames, 10);
+  }, [ds.players2526, selectedDiv, showAllDivisions, minGames]);
+
+  // Team home/away records
+  const { bestHome, bestAway } = useMemo(() => {
+    // Filter results by division if needed
+    const filteredResults = showAllDivisions
+      ? ds.results
+      : ds.results.filter(r => getDiv(r.home, ds) === selectedDiv);
+
+    // Calculate records for each team
+    const teamRecords = teams.map(team => {
+      const record = getTeamHomeAwayRecord(filteredResults, team);
+      return {
+        team,
+        home: record.home,
+        away: record.away,
+        homePct: record.home.winPct,
+        awayPct: record.away.winPct,
+      };
+    });
+
+    const bestHome = teamRecords
       .filter(t => t.home.p >= 3)
       .sort((a, b) => b.homePct - a.homePct)
       .slice(0, 10);
-  }, [teamRecords]);
 
-  // Best away records
-  const bestAway = useMemo(() => {
-    return [...teamRecords]
+    const bestAway = teamRecords
       .filter(t => t.away.p >= 3)
       .sort((a, b) => b.awayPct - a.awayPct)
       .slice(0, 10);
-  }, [teamRecords]);
+
+    return { bestHome, bestAway };
+  }, [ds.results, teams, selectedDiv, showAllDivisions]);
 
   // Most improved players (current season vs previous season)
   const mostImproved = useMemo(() => {
-    return divPlayers
-      .filter(p => p.s2526 && p.s2526.p >= minGames && p.improvement !== null)
-      .sort((a, b) => b.improvement! - a.improvement!)
-      .slice(0, 10);
-  }, [divPlayers, minGames]);
+    const division = showAllDivisions ? null : selectedDiv;
+    return getMostImprovedPlayers(ds.players2526, ds.players, division, minGames, 10);
+  }, [ds.players2526, ds.players, selectedDiv, showAllDivisions, minGames]);
 
   // Calculate win streaks for teams
   const teamStreaks = useMemo(() => {
@@ -295,10 +247,10 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     >
                       {p.team}
                     </td>
-                    <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
-                    <td className="p-2 text-center text-win">{p.s2526!.w}</td>
-                    <td className="p-2 text-center font-bold text-white">{p.adjPct.toFixed(1)}%</td>
-                    <td className="p-2 text-center text-gray-400">{p.s2526!.pct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-300">{p.played}</td>
+                    <td className="p-2 text-center text-win">{p.won}</td>
+                    <td className="p-2 text-center font-bold text-white">{p.bayesianPct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-400">{p.winPct.toFixed(1)}%</td>
                     <td className="p-2 text-center text-win">{p.bdFRate.toFixed(2)}</td>
                     <td className="p-2 text-center text-success">{p.bdARate.toFixed(2)}</td>
                   </tr>
@@ -348,8 +300,8 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                       >
                         {p.team}
                       </td>
-                      <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
-                      <td className="p-2 text-center font-bold text-win">{p.bdFRate.toFixed(2)}</td>
+                      <td className="p-2 text-center text-gray-300">{p.played}</td>
+                      <td className="p-2 text-center font-bold text-win">{p.bdRate.toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -395,8 +347,8 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                       >
                         {p.team}
                       </td>
-                      <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
-                      <td className="p-2 text-center font-bold text-success">{p.bdARate.toFixed(2)}</td>
+                      <td className="p-2 text-center text-gray-300">{p.played}</td>
+                      <td className="p-2 text-center font-bold text-success">{p.bdRate.toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -542,14 +494,14 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     >
                       {p.team}
                     </td>
-                    <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
-                    <td className="p-2 text-center font-medium text-white">{p.adjPct.toFixed(1)}%</td>
-                    <td className="p-2 text-center text-gray-400">{(p.winPct! * 100).toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-300">{p.currentPlayed}</td>
+                    <td className="p-2 text-center font-medium text-white">{p.currentPct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-400">{p.priorPct.toFixed(1)}%</td>
                     <td className={clsx(
                       'p-2 text-center font-bold',
-                      p.improvement! > 0 ? 'text-success' : 'text-gray-500'
+                      p.improvement > 0 ? 'text-success' : 'text-gray-500'
                     )}>
-                      {p.improvement! > 0 ? '+' : ''}{p.improvement!.toFixed(1)}%
+                      {p.improvement > 0 ? '+' : ''}{p.improvement.toFixed(1)}%
                     </td>
                   </tr>
                 ))}
