@@ -10,9 +10,11 @@ import {
   updateNotificationPreferences as updateNotificationPreferencesAPI,
   type NotificationPermissionStatus,
   type NotificationPreferences,
+  type MyTeam,
 } from '@/lib/notifications';
 
 const STORAGE_KEY = 'pool-league-pro-notifications';
+const MY_TEAM_STORAGE_KEY = 'pool-league-pro-my-team';
 
 interface NotificationState {
   permission: NotificationPermissionStatus;
@@ -78,6 +80,22 @@ export function useNotifications() {
     }
   }, []);
 
+  // Get My Team from localStorage
+  const getMyTeam = useCallback((): MyTeam | undefined => {
+    try {
+      const stored = localStorage.getItem(MY_TEAM_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed.team && parsed.div) {
+          return parsed as MyTeam;
+        }
+      }
+    } catch {
+      // ignore
+    }
+    return undefined;
+  }, []);
+
   // Subscribe to notifications
   const subscribe = useCallback(async (userId: string): Promise<boolean> => {
     if (!isNotificationSupported() || state.permission !== 'granted') {
@@ -86,7 +104,8 @@ export function useNotifications() {
 
     setLoading(true);
     try {
-      const success = await subscribeToNotificationsAPI(userId, state.preferences);
+      const myTeam = getMyTeam();
+      const success = await subscribeToNotificationsAPI(userId, state.preferences, myTeam);
 
       if (success) {
         const newState = { ...state, isSubscribed: true };
@@ -106,7 +125,7 @@ export function useNotifications() {
     } finally {
       setLoading(false);
     }
-  }, [state]);
+  }, [state, getMyTeam]);
 
   // Unsubscribe from notifications
   const unsubscribe = useCallback(async (userId: string): Promise<boolean> => {
@@ -145,7 +164,8 @@ export function useNotifications() {
 
     setLoading(true);
     try {
-      const success = await updateNotificationPreferencesAPI(userId, preferences);
+      const myTeam = getMyTeam();
+      const success = await updateNotificationPreferencesAPI(userId, preferences, myTeam);
 
       if (success) {
         const newState = { ...state, preferences };
@@ -165,7 +185,7 @@ export function useNotifications() {
     } finally {
       setLoading(false);
     }
-  }, [state]);
+  }, [state, getMyTeam]);
 
   return {
     permission: state.permission,

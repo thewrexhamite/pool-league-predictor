@@ -33,16 +33,22 @@ interface NotificationPreferences {
   prediction_updates: boolean;
 }
 
+interface MyTeam {
+  team: string;
+  div: string;
+}
+
 interface SubscribeRequestBody {
   token: string;
   userId: string;
   preferences: NotificationPreferences;
+  myTeam?: MyTeam;
 }
 
 export async function POST(request: Request) {
   try {
     const body: SubscribeRequestBody = await request.json();
-    const { token, userId, preferences } = body;
+    const { token, userId, preferences, myTeam } = body;
 
     // Validate required fields
     if (!token || !userId || !preferences) {
@@ -90,15 +96,19 @@ export async function POST(request: Request) {
       .collection('notificationSubscription')
       .doc('active');
 
-    await subscriptionRef.set(
-      {
-        token,
-        preferences,
-        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-        subscribedAt: admin.firestore.FieldValue.serverTimestamp(),
-      },
-      { merge: true }
-    );
+    const subscriptionData: any = {
+      token,
+      preferences,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      subscribedAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+
+    // Store My Team if provided for notification scoping
+    if (myTeam && myTeam.team && myTeam.div) {
+      subscriptionData.myTeam = myTeam;
+    }
+
+    await subscriptionRef.set(subscriptionData, { merge: true });
 
     return NextResponse.json({
       success: true,

@@ -146,7 +146,7 @@ export async function POST(request: Request) {
     }
 
     const subscriptionData = subscriptionDoc.data();
-    const { token, preferences } = subscriptionData || {};
+    const { token, preferences, myTeam } = subscriptionData || {};
 
     if (!token) {
       return NextResponse.json(
@@ -161,6 +161,22 @@ export async function POST(request: Request) {
         success: false,
         message: `User has disabled ${type} notifications`,
       });
+    }
+
+    // Check My Team scoping - only send team-specific notifications if they match user's My Team
+    if (data.teamId && myTeam && myTeam.team) {
+      // For team-specific notifications, check if it matches the user's My Team
+      // teamId format could be "team-name" or just "name", so we normalize for comparison
+      const normalizedTeamId = data.teamId.toLowerCase().replace(/^team-/, '').trim();
+      const normalizedMyTeam = myTeam.team.toLowerCase().trim();
+
+      if (normalizedTeamId !== normalizedMyTeam) {
+        return NextResponse.json({
+          success: false,
+          message: `Notification is for team "${data.teamId}" but user's My Team is "${myTeam.team}"`,
+          filtered: true,
+        });
+      }
     }
 
     // Build notification payload

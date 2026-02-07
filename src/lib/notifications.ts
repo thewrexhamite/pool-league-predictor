@@ -10,6 +10,11 @@ export interface NotificationPreferences {
   prediction_updates: boolean;
 }
 
+export interface MyTeam {
+  team: string;
+  div: string;
+}
+
 /**
  * Check if push notifications are supported in the current browser
  */
@@ -73,11 +78,12 @@ export async function getToken(): Promise<string | null> {
 
 /**
  * Subscribe to push notifications
- * Sends FCM token and preferences to the backend
+ * Sends FCM token, preferences, and My Team to the backend
  */
 export async function subscribeToNotifications(
   userId: string,
-  preferences: NotificationPreferences
+  preferences: NotificationPreferences,
+  myTeam?: MyTeam
 ): Promise<boolean> {
   if (typeof window === 'undefined') return false;
 
@@ -96,6 +102,7 @@ export async function subscribeToNotifications(
         token,
         userId,
         preferences,
+        myTeam,
       }),
     });
 
@@ -140,11 +147,12 @@ export async function unsubscribeFromNotifications(userId: string): Promise<bool
 
 /**
  * Update notification preferences
- * Updates preferences in backend without changing subscription status
+ * Updates preferences and optionally My Team in backend without changing subscription status
  */
 export async function updateNotificationPreferences(
   userId: string,
-  preferences: NotificationPreferences
+  preferences: NotificationPreferences,
+  myTeam?: MyTeam
 ): Promise<boolean> {
   if (typeof window === 'undefined') return false;
 
@@ -163,6 +171,7 @@ export async function updateNotificationPreferences(
         token,
         userId,
         preferences,
+        myTeam,
       }),
     });
 
