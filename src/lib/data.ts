@@ -19,41 +19,6 @@ export const PLAYERS: PlayersMap = playersData as PlayersMap;
 export const ROSTERS: RostersMap = rostersData as RostersMap;
 export const PLAYERS_2526: Players2526Map = players2526Data as Players2526Map;
 
-export const DIVISIONS: Divisions = {
-  SD1: {
-    name: 'Sunday Div 1',
-    teams: [
-      'Breakroom Lions', 'Breakroom Llay', 'Gresford Colliery', 'Gwersyllt Club',
-      'Gwersyllt WMC', 'Johnstown Legion', 'Magnet A', 'Miners Brymbo',
-      'Red Lion Marchweil', 'Y Tai',
-    ],
-  },
-  SD2: {
-    name: 'Sunday Div 2',
-    teams: [
-      'Brymbo Sports', 'Cross Foxes Coedpoeth', 'Four Dogs A', 'Four Dogs B',
-      'Magnet B', 'Old Black Horse', 'Rhos Snooker Club', 'Rollers A',
-      'Rollers B', 'Sun Rhos', 'The Drunk Monk',
-    ],
-  },
-  WD1: {
-    name: 'Wednesday Div 1',
-    teams: [
-      'Breakroom Lions.', 'Colliers Dogs', 'Crown Summerhill', 'Golden Lion Cp',
-      'Golden Lion Wxm', 'Gwersyllt Club.', 'Gwersyllt Union', 'Hill Street Social',
-      'Miners Brymbo.', 'War Memorial A',
-    ],
-  },
-  WD2: {
-    name: 'Wednesday Div 2',
-    teams: [
-      'Crown Caergwrle', 'Gresford Legion', 'Greyhound', 'Hafod Club Rhos',
-      'Kings Mills', 'Plough Gresford', 'Ruabon Cons A', 'Ruabon Cons B',
-      'War Memorial B', 'White Lion Hope', 'Y Tai.',
-    ],
-  },
-};
-
 export const HOME_ADV = 0.2;
 
 /** Static division codes for the Wrexham 25/26 fallback data */
