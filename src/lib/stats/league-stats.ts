@@ -4,7 +4,7 @@
  * Calculate league-wide leaderboards and statistical rankings.
  */
 
-import type { Players2526Map, DivisionCode } from '../types';
+import type { Players2526Map, DivisionCode, MatchResult, TeamHomeAwaySplit } from '../types';
 import { calcBayesianPct } from '../predictions';
 
 // ============================================================================
@@ -182,5 +182,68 @@ export function getBDLeaders(
   return {
     bdFor: bdForResults.slice(0, limit),
     bdAgainst: bdAgainstResults.slice(0, limit),
+  };
+}
+
+// ============================================================================
+// Team Home/Away Records
+// ============================================================================
+
+/**
+ * Calculate team home and away records.
+ *
+ * @param results - Match results array
+ * @param team - Team name to calculate records for
+ * @returns TeamHomeAwaySplit with separate home and away statistics
+ */
+export function getTeamHomeAwayRecord(
+  results: MatchResult[],
+  team: string
+): TeamHomeAwaySplit {
+  // Initialize home and away records
+  const homeRecord = { p: 0, w: 0, d: 0, l: 0, f: 0, a: 0, winPct: 0 };
+  const awayRecord = { p: 0, w: 0, d: 0, l: 0, f: 0, a: 0, winPct: 0 };
+
+  // Iterate through all results
+  for (const result of results) {
+    const { home, away, home_score, away_score } = result;
+
+    // Check if this team is the home team
+    if (home === team) {
+      homeRecord.p++;
+      homeRecord.f += home_score;
+      homeRecord.a += away_score;
+
+      if (home_score > away_score) {
+        homeRecord.w++;
+      } else if (home_score < away_score) {
+        homeRecord.l++;
+      } else {
+        homeRecord.d++;
+      }
+    }
+    // Check if this team is the away team
+    else if (away === team) {
+      awayRecord.p++;
+      awayRecord.f += away_score;
+      awayRecord.a += home_score;
+
+      if (away_score > home_score) {
+        awayRecord.w++;
+      } else if (away_score < home_score) {
+        awayRecord.l++;
+      } else {
+        awayRecord.d++;
+      }
+    }
+  }
+
+  // Calculate win percentages
+  homeRecord.winPct = homeRecord.p > 0 ? (homeRecord.w / homeRecord.p) * 100 : 0;
+  awayRecord.winPct = awayRecord.p > 0 ? (awayRecord.w / awayRecord.p) * 100 : 0;
+
+  return {
+    home: homeRecord,
+    away: awayRecord,
   };
 }
