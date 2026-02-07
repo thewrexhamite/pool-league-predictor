@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { Trophy, TrendingUp, Target, Flame, Award } from 'lucide-react';
 import type { DivisionCode } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
+import { getTeamPlayers, calcBayesianPct, calcBDStats } from '@/lib/predictions';
 
 interface StatsTabProps {
   selectedDiv: DivisionCode;
@@ -17,6 +18,40 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   const { ds } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
+  const teams = ds.divisions[selectedDiv].teams;
+
+  // Calculate all players in division with stats
+  const divPlayers = useMemo(() => {
+    const list: Array<{
+      name: string;
+      s2526: { p: number; w: number; pct: number; bdF: number; bdA: number; forf: number } | null;
+      team: string;
+      bdFRate: number;
+      bdARate: number;
+      adjPct: number;
+    }> = [];
+    const seen = new Set<string>();
+    teams.forEach(team => {
+      const roster = getTeamPlayers(team, ds);
+      roster.forEach(pl => {
+        if (pl.s2526 && !seen.has(pl.name + ':' + team)) {
+          seen.add(pl.name + ':' + team);
+          const bd = calcBDStats(pl.s2526);
+          const adjPct = calcBayesianPct(pl.s2526.w, pl.s2526.p);
+          list.push({ ...pl, team, bdFRate: bd.bdFRate, bdARate: bd.bdARate, adjPct });
+        }
+      });
+    });
+    return list;
+  }, [teams, ds]);
+
+  // Top players by adjusted win percentage
+  const topPlayers = useMemo(() => {
+    return divPlayers
+      .filter(p => p.s2526 && p.s2526.p >= minGames)
+      .sort((a, b) => b.adjPct - a.adjPct)
+      .slice(0, 10);
+  }, [divPlayers, minGames]);
 
   return (
     <div className="space-y-4">
@@ -51,15 +86,59 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         </p>
       </div>
 
-      {/* Top Players Section - Placeholder */}
+      {/* Top Players Section */}
       <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
           <Trophy size={16} />
           Top Players by Win %
         </h3>
-        <div className="text-center py-8">
-          <p className="text-gray-500 text-sm">Leaderboard coming soon...</p>
-        </div>
+        {topPlayers.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500 text-sm">No players with {minGames}+ games</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Player</th>
+                  <th className="text-left p-2">Team</th>
+                  <th className="text-center p-2">P</th>
+                  <th className="text-center p-2">W</th>
+                  <th className="text-center p-2" title="Confidence-adjusted win%">Adj%</th>
+                  <th className="text-center p-2">Win%</th>
+                  <th className="text-center p-2" title="Break & Dish won per game">BD+</th>
+                  <th className="text-center p-2" title="Break & Dish conceded per game">BD-</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topPlayers.map((p, i) => (
+                  <tr
+                    key={p.name + p.team}
+                    className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                    onClick={() => onPlayerClick(p.name)}
+                  >
+                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                    <td
+                      className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                      onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                    >
+                      {p.team}
+                    </td>
+                    <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
+                    <td className="p-2 text-center text-win">{p.s2526!.w}</td>
+                    <td className="p-2 text-center font-bold text-white">{p.adjPct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-400">{p.s2526!.pct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-win">{p.bdFRate.toFixed(2)}</td>
+                    <td className="p-2 text-center text-success">{p.bdARate.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Break & Dish Section - Placeholder */}
