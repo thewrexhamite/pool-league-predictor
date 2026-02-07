@@ -43,6 +43,17 @@ export default function RootLayout({
             gtag('config', 'G-2Y3WXKZYSD');
           `}
         </Script>
+        <Script id="service-worker-registration" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch((error) => {
+                  console.error('Service Worker registration failed:', error);
+                });
+              });
+            }
+          `}
+        </Script>
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
