@@ -56,6 +56,7 @@ import SimulateTab from './SimulateTab';
 import PredictTab from './PredictTab';
 import FixturesTab from './FixturesTab';
 import PlayersTab from './PlayersTab';
+import StatsTab from './StatsTab';
 import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
@@ -977,6 +978,14 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
             {activeTab === 'players' && (
               <PlayersTab
+                selectedDiv={selectedDiv}
+                onTeamClick={openTeamDetail}
+                onPlayerClick={openPlayerDetail}
+              />
+            )}
+
+            {activeTab === 'stats' && (
+              <StatsTab
                 selectedDiv={selectedDiv}
                 onTeamClick={openTeamDetail}
                 onPlayerClick={openPlayerDetail}
