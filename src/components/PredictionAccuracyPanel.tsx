@@ -12,6 +12,7 @@ import {
   Loader2,
   RefreshCw,
 } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { usePredictionAccuracy } from '@/hooks/use-prediction-accuracy';
 import type { DivisionCode } from '@/lib/types';
 
@@ -32,6 +33,32 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
     if (!accuracyStats || !selectedDiv) return null;
     return accuracyStats.byDivision.find(d => d.division === selectedDiv);
   }, [accuracyStats, selectedDiv]);
+
+  // Prepare calibration chart data
+  const calibrationData = useMemo(() => {
+    if (!accuracyStats || accuracyStats.byConfidence.length === 0) return [];
+
+    return accuracyStats.byConfidence
+      .map(conf => {
+        // Extract predicted probability from label (e.g., "60-70%" -> 65)
+        const match = conf.label.match(/(\d+)-(\d+)%/);
+        if (!match) return null;
+
+        const lower = parseInt(match[1]);
+        const upper = parseInt(match[2]);
+        const predicted = (lower + upper) / 2;
+        const actual = conf.accuracy * 100;
+
+        return {
+          predicted,
+          actual,
+          label: conf.label,
+          count: conf.total,
+        };
+      })
+      .filter((d): d is NonNullable<typeof d> => d !== null)
+      .sort((a, b) => a.predicted - b.predicted);
+  }, [accuracyStats]);
 
   // Loading state
   if (loading) {
@@ -205,6 +232,79 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Calibration Chart */}
+      {calibrationData.length > 0 && (
+        <div className="mb-4">
+          <h4 className="text-xs font-semibold text-gray-400 mb-2">Calibration Chart</h4>
+          <p className="text-[10px] text-gray-500 mb-3">
+            Shows how well predicted win rates match actual outcomes. Perfect calibration follows the diagonal line.
+          </p>
+          <div className="bg-surface/50 rounded-lg p-3">
+            <div className="h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={calibrationData} margin={{ top: 5, right: 10, bottom: 20, left: 0 }}>
+                  <XAxis
+                    dataKey="predicted"
+                    type="number"
+                    domain={[0, 100]}
+                    ticks={[0, 25, 50, 75, 100]}
+                    tickFormatter={(value) => `${value}%`}
+                    stroke="#6B7280"
+                    style={{ fontSize: '10px' }}
+                    label={{ value: 'Predicted Win %', position: 'bottom', offset: 0, fill: '#9CA3AF', fontSize: 10 }}
+                  />
+                  <YAxis
+                    type="number"
+                    domain={[0, 100]}
+                    ticks={[0, 25, 50, 75, 100]}
+                    tickFormatter={(value) => `${value}%`}
+                    stroke="#6B7280"
+                    style={{ fontSize: '10px' }}
+                    label={{ value: 'Actual Win %', angle: -90, position: 'insideLeft', fill: '#9CA3AF', fontSize: 10 }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1a1d23',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                    }}
+                    labelStyle={{ color: '#D1D5DB' }}
+                    formatter={(value: number, name: string) => [
+                      `${value.toFixed(1)}%`,
+                      name === 'actual' ? 'Actual' : 'Predicted'
+                    ]}
+                    labelFormatter={(_, payload) => {
+                      if (payload && payload[0]) {
+                        const data = payload[0].payload;
+                        return `${data.label} (n=${data.count})`;
+                      }
+                      return '';
+                    }}
+                  />
+                  {/* Perfect calibration line */}
+                  <ReferenceLine
+                    segment={[{ x: 0, y: 0 }, { x: 100, y: 100 }]}
+                    stroke="#6B7280"
+                    strokeDasharray="3 3"
+                    strokeWidth={1}
+                  />
+                  {/* Actual accuracy line */}
+                  <Line
+                    type="monotone"
+                    dataKey="actual"
+                    stroke="#0EA572"
+                    strokeWidth={2}
+                    dot={{ r: 4, fill: '#0EA572', strokeWidth: 2, stroke: '#1a1d23' }}
+                    activeDot={{ r: 6 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       )}
