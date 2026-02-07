@@ -14,7 +14,11 @@ env:
   # Firebase Client SDK
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     secret: firebase-api-key
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: pool-league-predictor.firebaseapp.com
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
     value: pool-league-predictor
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: pool-league-predictor.appspot.com
   - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
     value: G-2Y3WXKZYSD
