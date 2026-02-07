@@ -1,14 +1,31 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useEffect, useRef } from 'react';
+import { doc, setDoc } from 'firebase/firestore';
 import { Share2 } from 'lucide-react';
 import clsx from 'clsx';
 import { RadialBarChart, RadialBar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
-import type { DivisionCode, PredictionResult, SquadOverrides, H2HRecord } from '@/lib/types';
+import type { DivisionCode, PredictionResult, SquadOverrides, H2HRecord, PredictionSnapshot } from '@/lib/types';
 import { getTeamPlayers, getSquadH2H, calcSetPerformance, generateScoutingReport, suggestLineup } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 import { useToast } from './ToastProvider';
+
+const DEVICE_ID_KEY = 'pool-league-device-id';
+
+function generateDeviceId(): string {
+  return 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+}
+
+function getDeviceId(): string {
+  if (typeof window === 'undefined') return '';
+  let id = localStorage.getItem(DEVICE_ID_KEY);
+  if (!id) {
+    id = generateDeviceId();
+    localStorage.setItem(DEVICE_ID_KEY, id);
+  }
+  return id;
+}
 
 interface PredictTabProps {
   selectedDiv: DivisionCode;
@@ -88,6 +105,65 @@ export default function PredictTab({
     }
     return { homePlayers: [...hp], awayPlayers: [...ap] };
   }, [h2hRecords]);
+
+  // Store prediction to Firestore when generated
+  const lastPredictionRef = useRef<string>('');
+  useEffect(() => {
+    if (!prediction || !homeTeam || !awayTeam) return;
+
+    // Create a fingerprint to detect new predictions
+    const fingerprint = `${homeTeam}|${awayTeam}|${prediction.pHomeWin}|${prediction.pDraw}|${prediction.pAwayWin}`;
+    if (fingerprint === lastPredictionRef.current) return;
+    lastPredictionRef.current = fingerprint;
+
+    // Store prediction asynchronously
+    (async () => {
+      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return;
+
+      try {
+        const { db } = await import('@/lib/firebase');
+        const deviceId = getDeviceId();
+        if (!deviceId) return;
+
+        // Generate prediction ID
+        const predictionId = `${deviceId}_${Date.now()}`;
+
+        // Determine predicted winner
+        const pHome = parseFloat(prediction.pHomeWin);
+        const pDraw = parseFloat(prediction.pDraw);
+        const pAway = parseFloat(prediction.pAwayWin);
+        const maxProb = Math.max(pHome, pDraw, pAway);
+        let predictedWinner: 'home' | 'away' | 'draw';
+        if (pHome === maxProb) predictedWinner = 'home';
+        else if (pAway === maxProb) predictedWinner = 'away';
+        else predictedWinner = 'draw';
+
+        // Create prediction snapshot
+        const snapshot: PredictionSnapshot = {
+          id: predictionId,
+          seasonId: '2025-26', // Current season
+          date: new Date().toISOString().split('T')[0], // YYYY-MM-DD format
+          home: homeTeam,
+          away: awayTeam,
+          division: selectedDiv,
+          predictedAt: Date.now(),
+          pHomeWin: pHome / 100, // Convert percentage to 0-1
+          pDraw: pDraw / 100,
+          pAwayWin: pAway / 100,
+          expectedHome: parseFloat(prediction.expectedHome),
+          expectedAway: parseFloat(prediction.expectedAway),
+          confidence: maxProb / 100,
+          predictedWinner,
+        };
+
+        // Store to Firestore
+        const docRef = doc(db, 'predictions', predictionId);
+        await setDoc(docRef, snapshot);
+      } catch {
+        // Firestore unavailable - silent fail
+      }
+    })();
+  }, [prediction, homeTeam, awayTeam, selectedDiv]);
 
   const handleShare = () => {
     if (!prediction || !homeTeam || !awayTeam) return;
