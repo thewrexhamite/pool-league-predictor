@@ -15,10 +15,19 @@ interface StatsTabProps {
 
 export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: StatsTabProps) {
   const [minGames, setMinGames] = useState(5);
+  const [showAllDivisions, setShowAllDivisions] = useState(false);
   const { ds } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
-  const teams = ds.divisions[selectedDiv].teams;
+
+  // Get teams based on filter
+  const teams = useMemo(() => {
+    if (showAllDivisions) {
+      // Get all teams from all divisions
+      return Object.values(ds.divisions).flatMap(div => div.teams);
+    }
+    return ds.divisions[selectedDiv].teams;
+  }, [showAllDivisions, ds, selectedDiv]);
 
   // Calculate all players in division with stats
   const divPlayers = useMemo(() => {
@@ -80,7 +89,10 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   const teamRecords = useMemo(() => {
     return teams.map(team => {
       const results = getTeamResults(team, ds);
-      const divResults = results.filter(r => getDiv(r.home, ds) === selectedDiv);
+      // Filter by division only if not showing all divisions
+      const divResults = showAllDivisions
+        ? results
+        : results.filter(r => getDiv(r.home, ds) === selectedDiv);
 
       const home = { w: 0, d: 0, l: 0, p: 0 };
       const away = { w: 0, d: 0, l: 0, p: 0 };
@@ -104,7 +116,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
 
       return { team, home, away, homePct, awayPct };
     });
-  }, [teams, ds, selectedDiv]);
+  }, [teams, ds, selectedDiv, showAllDivisions]);
 
   // Best home records
   const bestHome = useMemo(() => {
@@ -134,7 +146,10 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   const teamStreaks = useMemo(() => {
     return teams.map(team => {
       const results = getTeamResults(team, ds);
-      const divResults = results.filter(r => getDiv(r.home, ds) === selectedDiv);
+      // Filter by division only if not showing all divisions
+      const divResults = showAllDivisions
+        ? results
+        : results.filter(r => getDiv(r.home, ds) === selectedDiv);
 
       if (divResults.length === 0) {
         return { team, currentStreak: 0, longestStreak: 0 };
@@ -164,7 +179,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
 
       return { team, currentStreak, longestStreak };
     });
-  }, [teams, ds, selectedDiv]);
+  }, [teams, ds, selectedDiv, showAllDivisions]);
 
   // Active win streaks (teams currently on a winning streak)
   const activeStreaks = useMemo(() => {
@@ -186,27 +201,51 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
     <div className="space-y-4">
       {/* Header */}
       <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <Trophy size={20} className="text-accent" />
-            {divisionName} — League Statistics
+            {showAllDivisions ? 'All Divisions' : divisionName} — League Statistics
           </h2>
 
-          {/* Min games filter */}
-          <div className="flex items-center gap-1">
-            <span className="text-xs text-gray-500">Min:</span>
-            {[5, 10, 15, 20].map(n => (
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Division filter */}
+            <div className="flex items-center gap-1">
               <button
-                key={n}
-                onClick={() => setMinGames(n)}
+                onClick={() => setShowAllDivisions(false)}
                 className={clsx(
                   'px-2.5 py-1 rounded-lg text-xs font-medium transition',
-                  minGames === n ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                  !showAllDivisions ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
                 )}
               >
-                {n}+
+                Division
               </button>
-            ))}
+              <button
+                onClick={() => setShowAllDivisions(true)}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  showAllDivisions ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                All
+              </button>
+            </div>
+
+            {/* Min games filter */}
+            <div className="flex items-center gap-1">
+              <span className="text-xs text-gray-500">Min:</span>
+              {[5, 10, 15, 20].map(n => (
+                <button
+                  key={n}
+                  onClick={() => setMinGames(n)}
+                  className={clsx(
+                    'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                    minGames === n ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                  )}
+                >
+                  {n}+
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
