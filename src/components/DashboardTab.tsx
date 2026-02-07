@@ -15,6 +15,7 @@ import {
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
 import MyTeamDashboard from './MyTeamDashboard';
+import PredictionAccuracyPanel from './PredictionAccuracyPanel';
 import {
   getRemainingFixtures,
   getTeamResults,
@@ -399,6 +400,9 @@ export default function DashboardTab({
           ) : <span className="text-xs text-gray-500">-</span>}
         </div>
       </div>
+
+      {/* Prediction Accuracy */}
+      <PredictionAccuracyPanel selectedDiv={selectedDiv} />
 
       {/* Data Freshness */}
       <div className="text-center text-xs text-gray-600">
