@@ -25,10 +25,13 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
     const list: Array<{
       name: string;
       s2526: { p: number; w: number; pct: number; bdF: number; bdA: number; forf: number } | null;
+      winPct: number | null;
+      played: number | null;
       team: string;
       bdFRate: number;
       bdARate: number;
       adjPct: number;
+      improvement: number | null;
     }> = [];
     const seen = new Set<string>();
     teams.forEach(team => {
@@ -38,7 +41,11 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
           seen.add(pl.name + ':' + team);
           const bd = calcBDStats(pl.s2526);
           const adjPct = calcBayesianPct(pl.s2526.w, pl.s2526.p);
-          list.push({ ...pl, team, bdFRate: bd.bdFRate, bdARate: bd.bdARate, adjPct });
+          // Calculate improvement: current season adj% - previous season win%
+          const improvement = pl.winPct !== null && pl.played !== null && pl.played >= 5
+            ? adjPct - (pl.winPct * 100)
+            : null;
+          list.push({ ...pl, team, bdFRate: bd.bdFRate, bdARate: bd.bdARate, adjPct, improvement });
         }
       });
     });
@@ -114,6 +121,14 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       .sort((a, b) => b.awayPct - a.awayPct)
       .slice(0, 10);
   }, [teamRecords]);
+
+  // Most improved players (current season vs previous season)
+  const mostImproved = useMemo(() => {
+    return divPlayers
+      .filter(p => p.s2526 && p.s2526.p >= minGames && p.improvement !== null)
+      .sort((a, b) => b.improvement! - a.improvement!)
+      .slice(0, 10);
+  }, [divPlayers, minGames]);
 
   return (
     <div className="space-y-4">
@@ -395,15 +410,62 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         </div>
       </div>
 
-      {/* Most Improved Section - Placeholder */}
+      {/* Most Improved Section */}
       <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <h3 className="text-sm font-semibold text-success mb-3 flex items-center gap-1.5">
           <TrendingUp size={16} />
           Most Improved Players
         </h3>
-        <div className="text-center py-8">
-          <p className="text-gray-500 text-sm">Leaderboard coming soon...</p>
-        </div>
+        {mostImproved.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500 text-sm">
+              No players with {minGames}+ games and previous season data
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Player</th>
+                  <th className="text-left p-2">Team</th>
+                  <th className="text-center p-2">P</th>
+                  <th className="text-center p-2" title="Current season adjusted win%">Now</th>
+                  <th className="text-center p-2" title="Previous season win%">Was</th>
+                  <th className="text-center p-2" title="Improvement in win percentage">+/-</th>
+                </tr>
+              </thead>
+              <tbody>
+                {mostImproved.map((p, i) => (
+                  <tr
+                    key={p.name + p.team}
+                    className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                    onClick={() => onPlayerClick(p.name)}
+                  >
+                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                    <td
+                      className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                      onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                    >
+                      {p.team}
+                    </td>
+                    <td className="p-2 text-center text-gray-300">{p.s2526!.p}</td>
+                    <td className="p-2 text-center font-medium text-white">{p.adjPct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-400">{(p.winPct! * 100).toFixed(1)}%</td>
+                    <td className={clsx(
+                      'p-2 text-center font-bold',
+                      p.improvement! > 0 ? 'text-success' : 'text-gray-500'
+                    )}>
+                      {p.improvement! > 0 ? '+' : ''}{p.improvement!.toFixed(1)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Win Streaks Section - Placeholder */}
