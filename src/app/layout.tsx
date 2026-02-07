@@ -5,6 +5,8 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { AuthProvider } from '@/lib/auth';
 import { AnalyticsInit } from '@/components/AnalyticsInit';
+import { LeagueProvider } from '@/lib/league-context';
+import { LeagueBrandingProvider } from '@/lib/league-branding';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -47,8 +49,12 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeProvider>
           <AuthProvider>
-            <AnalyticsInit />
-            {children}
+            <LeagueProvider>
+              <LeagueBrandingProvider>
+                <AnalyticsInit />
+                {children}
+              </LeagueBrandingProvider>
+            </LeagueProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

@@ -44,6 +44,7 @@ import {
 import { getAvailableMatchDates } from '@/lib/time-machine';
 import { TABS } from '@/lib/tabs';
 import { useLeague } from '@/lib/league-context';
+import { useLeagueBranding } from '@/lib/league-branding';
 
 import { useRouter } from 'next/navigation';
 import { ToastProvider, useToast } from './ToastProvider';
@@ -105,6 +106,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const { addToast } = useToast();
   const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
   const { leagues, selected, selectLeague, clearSelection } = useLeague();
+  const { logo } = useLeagueBranding();
   const nextRouter = useRouter();
 
   // Dynamic divisions from data
@@ -473,6 +475,13 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
           <div className="flex items-center justify-between gap-3">
             {/* Left: Logo + title */}
             <div className="flex items-center gap-2 shrink-0">
+              {logo && (
+                <img
+                  src={logo}
+                  alt="League logo"
+                  className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                />
+              )}
               <button
                 onClick={() => router.setTab('dashboard')}
                 className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity"
@@ -498,8 +507,9 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                             onClick={() => handleSwitchLeague(l.id)}
                             className={clsx(
                               'w-full text-left px-3 py-2 text-xs transition hover:bg-surface-elevated',
-                              isActive ? 'text-baize font-bold' : 'text-gray-300'
+                              isActive ? 'font-bold' : 'text-gray-300'
                             )}
+                            style={isActive ? { color: 'var(--league-primary)' } : undefined}
                           >
                             {l.name}
                           </button>
@@ -531,9 +541,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                     i === 0 && 'rounded-l-md',
                     i === arr.length - 1 && 'rounded-r-md',
                     selectedDiv === key
-                      ? 'bg-baize text-fixed-white shadow-sm'
+                      ? 'text-fixed-white shadow-sm'
                       : 'text-gray-400 hover:text-white'
                   )}
+                  style={selectedDiv === key ? { backgroundColor: 'var(--league-primary)' } : undefined}
                 >
                   {key}
                 </button>
@@ -746,9 +757,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                             className={clsx(
                               'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
                               l.id === selected.leagueId
-                                ? 'bg-baize text-fixed-white'
+                                ? 'text-fixed-white'
                                 : 'bg-surface-card text-gray-400'
                             )}
+                            style={l.id === selected.leagueId ? { backgroundColor: 'var(--league-primary)' } : undefined}
                           >
                             {l.shortName}
                           </button>
@@ -768,9 +780,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                           className={clsx(
                             'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
                             selectedDiv === key
-                              ? 'bg-baize text-fixed-white'
+                              ? 'text-fixed-white'
                               : 'bg-surface-card text-gray-400'
                           )}
+                          style={selectedDiv === key ? { backgroundColor: 'var(--league-primary)' } : undefined}
                         >
                           {key}
                         </button>

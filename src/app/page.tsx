@@ -1,6 +1,6 @@
 'use client';
 
-import { LeagueProvider, useLeague } from '@/lib/league-context';
+import { useLeague } from '@/lib/league-context';
 import { DataProvider } from '@/lib/data-provider';
 import LeagueSelector from '@/components/LeagueSelector';
 import App from '@/components/App';
@@ -28,9 +28,5 @@ function HomeContent() {
 }
 
 export default function Home() {
-  return (
-    <LeagueProvider>
-      <HomeContent />
-    </LeagueProvider>
-  );
+  return <HomeContent />;
 }
