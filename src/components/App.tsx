@@ -11,6 +11,7 @@ import {
   RefreshCw,
   Clock,
   ArrowLeft,
+  ChevronDown,
   Menu,
   Users,
 } from 'lucide-react';
@@ -103,7 +104,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const { data: leagueData, loading: dataLoading } = useLeagueData();
   const { addToast } = useToast();
   const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
-  const { clearSelection } = useLeague();
+  const { leagues, selected, selectLeague, clearSelection } = useLeague();
   const nextRouter = useRouter();
 
   // Dynamic divisions from data
@@ -142,6 +143,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const [searchFocusIndex, setSearchFocusIndex] = useState(-1);
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // League switcher
+  const [leagueDropdownOpen, setLeagueDropdownOpen] = useState(false);
+  const leagueDropdownRef = useRef<HTMLDivElement>(null);
 
   // Mobile hamburger menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -367,6 +372,18 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  // Click-outside to close league dropdown
+  useEffect(() => {
+    if (!leagueDropdownOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (leagueDropdownRef.current && !leagueDropdownRef.current.contains(e.target as Node)) {
+        setLeagueDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [leagueDropdownOpen]);
+
   // Click-outside to close mobile menu
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -407,6 +424,17 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
       e.preventDefault();
       handleSearchSelect(searchResults[searchFocusIndex]);
     }
+  };
+
+  // League switcher handler
+  const handleSwitchLeague = (leagueId: string) => {
+    const targetLeague = leagues.find(l => l.id === leagueId);
+    if (!targetLeague) return;
+    const currentSeason = targetLeague.seasons.find(s => s.current) || targetLeague.seasons[0];
+    if (!currentSeason) return;
+    selectLeague(leagueId, currentSeason.id);
+    setLeagueDropdownOpen(false);
+    setMobileMenuOpen(false);
   };
 
   // My team handler
@@ -451,15 +479,35 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
               >
                 <span className="text-gray-100">Pool League </span><span className="text-accent">Pro</span>
               </button>
-              {league && (
-                <button
-                  onClick={() => clearSelection()}
-                  className="hidden md:flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition px-1.5 py-0.5 rounded border border-surface-border/50 hover:border-surface-border"
-                  title="Switch League"
-                >
-                  {league.shortName}
-                  <ArrowLeft size={10} className="rotate-180" />
-                </button>
+              {selected && leagues.length > 0 && (
+                <div className="hidden md:block relative" ref={leagueDropdownRef}>
+                  <button
+                    onClick={() => setLeagueDropdownOpen(prev => !prev)}
+                    className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition px-1.5 py-0.5 rounded border border-surface-border/50 hover:border-surface-border"
+                  >
+                    {selected.league.shortName}
+                    <ChevronDown size={10} className={clsx('transition-transform', leagueDropdownOpen && 'rotate-180')} />
+                  </button>
+                  {leagueDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-1 bg-surface-card border border-surface-border rounded-lg shadow-elevated z-50 min-w-[160px] overflow-hidden">
+                      {leagues.map(l => {
+                        const isActive = l.id === selected.leagueId;
+                        return (
+                          <button
+                            key={l.id}
+                            onClick={() => handleSwitchLeague(l.id)}
+                            className={clsx(
+                              'w-full text-left px-3 py-2 text-xs transition hover:bg-surface-elevated',
+                              isActive ? 'text-baize font-bold' : 'text-gray-300'
+                            )}
+                          >
+                            {l.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               )}
               {myTeam && (
                 <button
@@ -685,6 +733,29 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                       </div>
                     )}
                   </div>
+
+                  {/* League switcher */}
+                  {selected && leagues.length > 1 && (
+                    <div>
+                      <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">League</div>
+                      <div className="flex gap-1">
+                        {leagues.map(l => (
+                          <button
+                            key={l.id}
+                            onClick={() => handleSwitchLeague(l.id)}
+                            className={clsx(
+                              'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
+                              l.id === selected.leagueId
+                                ? 'bg-baize text-fixed-white'
+                                : 'bg-surface-card text-gray-400'
+                            )}
+                          >
+                            {l.shortName}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Division pills */}
                   <div>
