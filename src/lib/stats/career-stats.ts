@@ -12,6 +12,7 @@ import type {
   PlayersMap,
   SeasonData,
   CareerTrend,
+  ImprovementMetrics,
 } from '../types';
 
 // ============================================================================
@@ -168,6 +169,51 @@ export async function fetchPlayerCareerData(
     // If Firestore is unavailable or any error occurs, return empty array
     return [];
   }
+}
+
+/**
+ * Calculate improvement rate between seasons.
+ * Compares the most recent season to the previous season to show improvement trajectory.
+ *
+ * @param seasons - Array of season summaries (sorted chronologically)
+ * @returns Improvement metrics with percentage changes and trend, or null if insufficient data
+ */
+export function calculateImprovementRate(seasons: SeasonSummary[]): ImprovementMetrics | null {
+  // Need at least 2 seasons to calculate improvement
+  if (seasons.length < 2) {
+    return null;
+  }
+
+  // Get current and previous seasons
+  const currentSeason = seasons[seasons.length - 1];
+  const previousSeason = seasons[seasons.length - 2];
+
+  // Calculate win rate change (in percentage points)
+  const winRateChange = (currentSeason.winRate - previousSeason.winRate) * 100;
+
+  // Calculate win rate percent change (relative to previous season)
+  const winRateChangePercent =
+    previousSeason.winRate > 0 ? (winRateChange / (previousSeason.winRate * 100)) * 100 : 0;
+
+  // Calculate rating change (if both seasons have ratings)
+  const ratingChange =
+    currentSeason.rating !== null && previousSeason.rating !== null
+      ? currentSeason.rating - previousSeason.rating
+      : null;
+
+  // Determine trend
+  let trend: 'improving' | 'declining' | 'stable' = 'stable';
+  const STABLE_THRESHOLD = 2; // Less than 2 percentage points is considered stable
+  if (Math.abs(winRateChange) >= STABLE_THRESHOLD) {
+    trend = winRateChange > 0 ? 'improving' : 'declining';
+  }
+
+  return {
+    winRateChange,
+    ratingChange,
+    winRateChangePercent,
+    trend,
+  };
 }
 
 /**
