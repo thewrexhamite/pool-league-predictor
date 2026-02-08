@@ -18,10 +18,13 @@ import type { DivisionCode } from '@/lib/types';
 
 interface PredictionAccuracyPanelProps {
   selectedDiv?: DivisionCode;
+  seasonId?: string;
+  seasonLabel?: string;
 }
 
-export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccuracyPanelProps) {
+export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonLabel }: PredictionAccuracyPanelProps) {
   const { predictions, accuracyStats, loading, error, refresh } = usePredictionAccuracy({
+    seasonId,
     division: selectedDiv,
   });
 
@@ -168,6 +171,11 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
           <Target size={16} />
           Prediction Accuracy
           {selectedDiv && <span className="text-xs text-gray-500">({selectedDiv})</span>}
+          {seasonLabel && (
+            <span className="text-xs text-gray-500 font-normal">
+              &bull; {seasonLabel}
+            </span>
+          )}
         </h3>
         <button
           onClick={refresh}

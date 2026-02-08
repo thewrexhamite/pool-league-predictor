@@ -971,6 +971,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                   setAwayTeam(away);
                   router.openPredict(home, away);
                 }}
+                seasonId={selected?.seasonId}
+                seasonLabel={
+                  selected?.league.seasons.find(s => s.id === selected.seasonId)?.label
+                }
               />
             )}
 

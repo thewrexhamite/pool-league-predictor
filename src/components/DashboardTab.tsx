@@ -31,6 +31,8 @@ interface DashboardTabProps {
   onTeamClick: (team: string) => void;
   onPlayerClick: (name: string) => void;
   onPredict: (home: string, away: string) => void;
+  seasonId?: string;
+  seasonLabel?: string;
 }
 
 export default function DashboardTab({
@@ -40,6 +42,8 @@ export default function DashboardTab({
   onTeamClick,
   onPlayerClick,
   onPredict,
+  seasonId,
+  seasonLabel,
 }: DashboardTabProps) {
   const { data: activeData, ds, frames } = useActiveData();
 
@@ -402,7 +406,11 @@ export default function DashboardTab({
       </div>
 
       {/* Prediction Accuracy */}
-      <PredictionAccuracyPanel selectedDiv={selectedDiv} />
+      <PredictionAccuracyPanel
+        selectedDiv={selectedDiv}
+        seasonId={seasonId}
+        seasonLabel={seasonLabel}
+      />
 
       {/* Data Freshness */}
       <div className="text-center text-xs text-gray-600">
