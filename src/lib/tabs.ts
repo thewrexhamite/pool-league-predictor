@@ -7,6 +7,7 @@ import {
   Calendar,
   Users,
   BarChart3,
+  GitCompare,
 } from 'lucide-react';
 import type { TabId } from './router';
 
@@ -27,6 +28,7 @@ export const TABS: TabConfig[] = [
   { id: 'results', label: 'Results', shortLabel: 'Results', icon: ClipboardList, primary: false },
   { id: 'simulate', label: 'Simulate', shortLabel: 'Sim', icon: Dices, primary: false },
   { id: 'players', label: 'Players', shortLabel: 'Players', icon: Users, primary: false },
+  { id: 'compare', label: 'Compare', shortLabel: 'Compare', icon: GitCompare, primary: false },
 ];
 
 export const PRIMARY_TABS = TABS.filter(t => t.primary);
