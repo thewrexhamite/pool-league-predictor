@@ -15,6 +15,7 @@ import {
   ChevronDown,
   Menu,
   Users,
+  Zap,
 } from 'lucide-react';
 import type {
   DivisionCode,
@@ -162,6 +163,9 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
   // Notification Settings modal
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
+
+  // Quick Lookup modal
+  const [quickLookupOpen, setQuickLookupOpen] = useState(false);
 
   // Scroll to top on tab change
   useEffect(() => {
@@ -824,6 +828,15 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                     </button>
                   </div>
 
+                  {/* Quick Lookup button */}
+                  <button
+                    onClick={() => { setQuickLookupOpen(true); setMobileMenuOpen(false); }}
+                    className="w-full flex items-center justify-center gap-2 bg-accent text-fixed-white px-4 py-3 rounded-lg text-base font-semibold hover:opacity-90 transition min-h-[44px]"
+                  >
+                    <Zap size={18} />
+                    Quick Lookup
+                  </button>
+
                   {/* Theme picker */}
                   <div>
                     <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Theme</div>
@@ -961,6 +974,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                   setAwayTeam(away);
                   router.openPredict(home, away);
                 }}
+                onQuickLookup={() => setQuickLookupOpen(true)}
               />
             )}
 
