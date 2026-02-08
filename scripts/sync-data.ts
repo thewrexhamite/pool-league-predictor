@@ -2,17 +2,20 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { parse as parseHTML } from 'node-html-parser';
 import { normalizePlayerName } from './normalize-players';
+import { DataSourceFactory } from './data-sources/factory';
+import { DataSourceConfig } from './data-sources/base';
 
 /**
- * LeagueAppLive → Firestore + JSON sync script.
+ * Multi-source data sync script.
  *
- * Scrapes results, fixtures, and frame-level player data from
- * LeagueAppLive leagues, then writes to Firestore and static JSON backup files.
+ * Fetches league data using configured data sources (LeagueAppLive, RackEmApp, API, etc.)
+ * and writes to Firestore and static JSON backup files.
  *
  * Usage:
  *   npx tsx scripts/sync-data.ts
  *   npx tsx scripts/sync-data.ts --league nwpa
  *   npx tsx scripts/sync-data.ts --league nwpa --dry-run
+ *   npx tsx scripts/sync-data.ts --league wrexham --source-type leagueapplive
  */
 
 const BASE_URL = 'https://live.leagueapplive.com';
@@ -66,6 +69,8 @@ function hasFlag(name: string): boolean {
 
 const leagueKey = getArg('league', 'wrexham');
 const DRY_RUN = hasFlag('dry-run');
+const sourceType = getArg('source-type', 'leagueapplive');
+const USE_DATA_SOURCE = hasFlag('use-data-source');
 
 const config = LEAGUE_CONFIGS[leagueKey];
 if (!config) {
@@ -623,15 +628,102 @@ async function writeToFirestore(data: {
   }
 }
 
+// --- Data Source Integration ---
+
+/**
+ * Fetch data using the data source factory
+ */
+async function fetchViaDataSource() {
+  log(`Using data source factory: ${sourceType}`);
+
+  // Create data source configuration
+  const dataSourceConfig: DataSourceConfig = {
+    leagueId: config.leagueId,
+    sourceType: sourceType,
+    config: {
+      url: `${BASE_URL}/?sitename=${config.site}`,
+      site: config.site,
+      divisions: config.divisions,
+      teamNameMap: config.teamNameMap,
+    },
+    enabled: true,
+  };
+
+  // Create data source instance using factory
+  const dataSource = DataSourceFactory.create(dataSourceConfig);
+
+  log(`Data source created: ${dataSource.getSourceName()}`);
+
+  if (!dataSource.validateConfig()) {
+    throw new Error(`Data source configuration is invalid`);
+  }
+
+  const fetchOptions = {
+    verbose: true,
+    dryRun: DRY_RUN,
+  };
+
+  // Fetch data from data source
+  log('Fetching divisions...');
+  const divisions = await dataSource.fetchDivisions(fetchOptions);
+
+  log('Fetching results...');
+  const results = await dataSource.fetchResults(fetchOptions);
+
+  log('Fetching fixtures...');
+  const fixtures = await dataSource.fetchFixtures(fetchOptions);
+
+  log('Fetching players...');
+  const players = await dataSource.fetchPlayers(fetchOptions);
+
+  log('Fetching frames...');
+  const frames = await dataSource.fetchFrames(fetchOptions);
+
+  return {
+    divisions,
+    results,
+    fixtures,
+    players,
+    frames,
+  };
+}
+
 // --- Main ---
 
 async function main() {
-  console.log(`=== LeagueAppLive → Firestore Sync ===`);
+  console.log(`=== Multi-Source League Data Sync ===`);
   console.log(`  League: ${config.leagueName} (${leagueKey})`);
   console.log(`  Season: ${config.seasonId}`);
+  console.log(`  Source: ${sourceType}`);
   console.log(`  Output: ${config.dataDir}`);
   if (DRY_RUN) console.log(`  Mode: DRY RUN (Firestore writes skipped)`);
+  if (USE_DATA_SOURCE) console.log(`  Using data source factory`);
   console.log('');
+
+  // Try to use data source factory first
+  try {
+    const data = await fetchViaDataSource();
+    log('Data fetched successfully via data source');
+    log(`  Divisions: ${data.divisions.length}`);
+    log(`  Results: ${data.results.length}`);
+    log(`  Fixtures: ${data.fixtures.length}`);
+    log(`  Players: ${data.players.size}`);
+    log(`  Frames: ${data.frames.length}`);
+
+    console.log('\n✅ Data source fetch complete');
+    console.log(`   Source: ${sourceType}`);
+    console.log('   Note: LeagueAppLive data source is currently a stub.');
+    console.log('   Full scraping implementation will be migrated in future subtasks.');
+    console.log('   For now, using legacy direct scraping for actual data...\n');
+
+    // Fall through to legacy scraping for now since data source is a stub
+  } catch (err) {
+    console.error('Data source factory error:', err);
+    console.log('Continuing with direct scraping...\n');
+  }
+
+  // Legacy direct scraping (will be removed once data sources are fully implemented)
+  console.log('Using direct LeagueAppLive scraping...');
 
   // 1. Scrape standings per division → team names
   console.log('Step 1: Scraping standings...');
