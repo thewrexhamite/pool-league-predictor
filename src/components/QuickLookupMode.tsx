@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { Search, X, ArrowLeft, TrendingUp, TrendingDown } from 'lucide-react';
 import clsx from 'clsx';
 import { useActiveData } from '@/lib/active-data-provider';
@@ -15,6 +15,9 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
   const { ds, frames } = useActiveData();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   // Get all players
   const allPlayers = useMemo(() => getAllLeaguePlayers(ds), [ds]);
@@ -44,17 +47,72 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
     return calcPlayerForm(selectedPlayer, frames);
   }, [selectedPlayer, frames]);
 
+  // Reset focused index when search query changes
+  useEffect(() => {
+    setFocusedIndex(-1);
+  }, [searchQuery]);
+
+  // Keyboard navigation handler
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    // Escape key - close modal or go back to search
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      if (selectedPlayer) {
+        setSelectedPlayer(null);
+      } else if (onClose) {
+        onClose();
+      }
+      return;
+    }
+
+    // Only handle arrow keys and Enter when we have results and no player selected
+    if (selectedPlayer || filteredPlayers.length === 0) return;
+
+    // Arrow Down - move focus down
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setFocusedIndex(prev => {
+        const next = prev < filteredPlayers.length - 1 ? prev + 1 : 0;
+        resultsRef.current[next]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        return next;
+      });
+    }
+
+    // Arrow Up - move focus up
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setFocusedIndex(prev => {
+        const next = prev > 0 ? prev - 1 : filteredPlayers.length - 1;
+        resultsRef.current[next]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        return next;
+      });
+    }
+
+    // Enter - select focused result
+    if (e.key === 'Enter' && focusedIndex >= 0 && focusedIndex < filteredPlayers.length) {
+      e.preventDefault();
+      setSelectedPlayer(filteredPlayers[focusedIndex].name);
+    }
+  }, [selectedPlayer, filteredPlayers, focusedIndex, onClose]);
+
+  // Add keyboard event listener
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
+
   // If a player is selected, show stats card
   if (selectedPlayer) {
     return (
-      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6" role="dialog" aria-label="Player Details">
         <button
           onClick={() => setSelectedPlayer(null)}
           className="flex items-center gap-1 text-gray-400 hover:text-white text-sm mb-4 transition"
+          aria-label="Back to search"
         >
           <ArrowLeft size={16} /> Back to search
         </button>
-        <h2 className="text-xl font-bold mb-4 text-white">{selectedPlayer}</h2>
+        <h2 className="text-xl font-bold mb-4 text-white" id="player-name">{selectedPlayer}</h2>
 
         {/* Stats Card */}
         {selectedPlayerStats && (
@@ -148,19 +206,27 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
   }
 
   return (
-    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <h2 className="text-lg font-bold mb-4 text-white">Quick Lookup</h2>
+    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6" role="dialog" aria-label="Quick Lookup">
+      <h2 className="text-lg font-bold mb-4 text-white" id="quick-lookup-title">Quick Lookup</h2>
 
       {/* Search input with large touch targets (min 44px height) */}
       <div className="relative w-full">
-        <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+        <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" aria-hidden="true" />
         <input
+          ref={searchInputRef}
           type="text"
           placeholder="Search players or teams..."
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
           className="w-full bg-surface border border-surface-border rounded-lg pl-12 pr-12 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-baize min-h-[44px]"
           autoFocus
+          aria-label="Search players or teams"
+          aria-describedby="search-instructions"
+          aria-autocomplete="list"
+          aria-controls="search-results"
+          aria-activedescendant={focusedIndex >= 0 ? `result-${focusedIndex}` : undefined}
+          role="combobox"
+          aria-expanded={filteredPlayers.length > 0}
         />
         {searchQuery && (
           <button
@@ -178,15 +244,36 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
         <div className="mt-4">
           {filteredPlayers.length > 0 ? (
             <div className="space-y-2">
-              <p className="text-gray-400 text-sm mb-3">
+              <p className="text-gray-400 text-sm mb-3" role="status" aria-live="polite">
                 {filteredPlayers.length} {filteredPlayers.length === 1 ? 'player' : 'players'} found
               </p>
-              <div className="max-h-[60vh] overflow-y-auto">
-                {filteredPlayers.map(player => (
+              <div
+                id="search-results"
+                className="max-h-[60vh] overflow-y-auto"
+                role="listbox"
+                aria-label="Search results"
+              >
+                {filteredPlayers.map((player, index) => (
                   <div
                     key={player.name}
+                    id={`result-${index}`}
+                    ref={el => { resultsRef.current[index] = el; }}
                     onClick={() => setSelectedPlayer(player.name)}
-                    className="bg-surface border border-surface-border rounded-lg p-4 hover:border-baize transition cursor-pointer"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedPlayer(player.name);
+                      }
+                    }}
+                    className={clsx(
+                      'bg-surface border rounded-lg p-4 transition cursor-pointer mb-2',
+                      focusedIndex === index
+                        ? 'border-baize ring-2 ring-baize ring-opacity-50'
+                        : 'border-surface-border hover:border-baize'
+                    )}
+                    role="option"
+                    aria-selected={focusedIndex === index}
+                    tabIndex={0}
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
@@ -215,15 +302,15 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
               </div>
             </div>
           ) : (
-            <p className="text-gray-500 text-sm text-center py-8">
+            <p className="text-gray-500 text-sm text-center py-8" role="status">
               No players found matching &quot;{searchQuery}&quot;
             </p>
           )}
         </div>
       ) : (
         <div className="mt-4">
-          <p className="text-gray-500 text-sm text-center py-8">
-            Start typing to search for players or teams
+          <p id="search-instructions" className="text-gray-500 text-sm text-center py-8">
+            Start typing to search for players or teams. Use arrow keys to navigate, Enter to select, Escape to close.
           </p>
         </div>
       )}
