@@ -1,14 +1,16 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, History } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import { useAuth } from '@/lib/auth';
+import { useLeague } from '@/lib/league-context';
 import { AIInsightsPanel } from './AIInsightsPanel';
+import SeasonComparisonChart, { type SeasonPlayerStats } from './SeasonComparisonChart';
 
 interface PlayerDetailProps {
   player: string;
@@ -20,6 +22,7 @@ interface PlayerDetailProps {
 export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick }: PlayerDetailProps) {
   const { ds, frames } = useActiveData();
   const { user, profile } = useAuth();
+  const { selected } = useLeague();
   const stats = getPlayerStats(player, ds);
   const stats2526 = getPlayerStats2526(player, ds);
   const playerTeams = getPlayerTeams(player, ds);
@@ -41,6 +44,100 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
       value: f.won ? 1 : 0,
     }));
   }, [frameHistory]);
+
+  // Historical season data
+  const [historicalSeasons, setHistoricalSeasons] = useState<SeasonPlayerStats[]>([]);
+  const [loadingHistorical, setLoadingHistorical] = useState(false);
+
+  useEffect(() => {
+    if (!selected?.league.seasons || selected.league.seasons.length <= 1) {
+      setHistoricalSeasons([]);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function fetchHistoricalStats() {
+      setLoadingHistorical(true);
+      try {
+        const { db } = await import('@/lib/firebase');
+        const { doc, getDoc } = await import('firebase/firestore');
+
+        const seasonStats: SeasonPlayerStats[] = [];
+
+        // Fetch player data from each season
+        for (const season of selected.league.seasons) {
+          const docRef = doc(db, 'leagues', selected.leagueId, 'seasons', season.id);
+          const snap = await getDoc(docRef);
+
+          if (cancelled) return;
+
+          if (snap.exists()) {
+            const data = snap.data();
+            const players = data.players || {};
+            const players2526 = data.players2526 || {};
+
+            // Try to get stats from either data source
+            let rating: number | null = null;
+            let winPct: number | null = null;
+            let gamesPlayed: number | null = null;
+
+            // Check 24/25 season data (players map)
+            if (players[player]) {
+              rating = players[player].r || null;
+              winPct = players[player].w || null;
+              gamesPlayed = players[player].p || null;
+            }
+
+            // Check 25/26 season data (players2526 map) - prefer this if available
+            if (players2526[player]) {
+              const p2526 = players2526[player];
+              if (p2526.total) {
+                gamesPlayed = p2526.total.p || null;
+                winPct = p2526.total.pct ? p2526.total.pct / 100 : null;
+                // rating stays from players map if available
+              }
+            }
+
+            // Only add season if player has some data
+            if (rating !== null || winPct !== null || gamesPlayed !== null) {
+              seasonStats.push({
+                seasonId: season.id,
+                seasonLabel: season.label,
+                rating,
+                winPct,
+                gamesPlayed,
+              });
+            }
+          }
+        }
+
+        if (!cancelled) {
+          setHistoricalSeasons(seasonStats);
+        }
+      } catch (error) {
+        // Firestore error - just show no historical data
+        if (!cancelled) {
+          setHistoricalSeasons([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingHistorical(false);
+        }
+      }
+    }
+
+    if (process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+      fetchHistoricalStats();
+    } else {
+      setHistoricalSeasons([]);
+      setLoadingHistorical(false);
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [player, selected]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -221,6 +318,27 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
           </div>
         </div>
       ) : (!stats2526 && <p className="text-gray-500 text-sm">No individual stats available.</p>)}
+
+      {/* Historical Season Comparison */}
+      {historicalSeasons.length > 1 && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+            <History size={14} />
+            Career History
+          </h3>
+          <SeasonComparisonChart
+            playerName={player}
+            seasons={historicalSeasons}
+            chartType="line"
+          />
+        </div>
+      )}
+
+      {loadingHistorical && (
+        <div className="mb-6 flex items-center justify-center py-8">
+          <div className="text-sm text-gray-500">Loading historical stats...</div>
+        </div>
+      )}
 
       <AIInsightsPanel type="player" playerName={player} />
 
