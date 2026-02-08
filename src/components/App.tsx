@@ -59,6 +59,7 @@ import PredictTab from './PredictTab';
 import FixturesTab from './FixturesTab';
 import PlayersTab from './PlayersTab';
 import StatsTab from './StatsTab';
+import LineupOptimizerTab from './LineupOptimizerTab';
 import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
@@ -1097,6 +1098,18 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                   setSimResults(null);
                   setWhatIfSimResults(null);
                 }}
+              />
+            )}
+
+            {activeTab === 'optimizer' && (
+              <LineupOptimizerTab
+                selectedDiv={selectedDiv}
+                homeTeam={homeTeam}
+                awayTeam={awayTeam}
+                onHomeTeamChange={setHomeTeam}
+                onAwayTeamChange={setAwayTeam}
+                onTeamClick={openTeamDetail}
+                onPlayerClick={openPlayerDetail}
               />
             )}
           </motion.div>
