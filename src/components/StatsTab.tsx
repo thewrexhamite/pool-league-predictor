@@ -22,6 +22,7 @@ interface StatsTabProps {
 export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: StatsTabProps) {
   const [minGames, setMinGames] = useState(5);
   const [showAllDivisions, setShowAllDivisions] = useState(false);
+  const [trendFilter, setTrendFilter] = useState<'all' | 'hot' | 'cold' | 'steady'>('all');
   const { ds } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
@@ -197,6 +198,47 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                   {n}+
                 </button>
               ))}
+            </div>
+
+            {/* Trend filter */}
+            <div className="flex items-center gap-1">
+              <span className="text-xs text-gray-500">Trend:</span>
+              <button
+                onClick={() => setTrendFilter('all')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'all' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setTrendFilter('hot')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'hot' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                🔥 Hot
+              </button>
+              <button
+                onClick={() => setTrendFilter('cold')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'cold' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                ❄️ Cold
+              </button>
+              <button
+                onClick={() => setTrendFilter('steady')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'steady' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                Steady
+              </button>
             </div>
           </div>
         </div>
