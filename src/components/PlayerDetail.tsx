@@ -51,11 +51,12 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
     if (!selected?.leagueId) return;
 
     let cancelled = false;
+    const leagueId = selected.leagueId; // Capture for closure
 
     async function fetchCareerData() {
       setCareerLoading(true);
       try {
-        const seasons = await fetchPlayerCareerData(player, selected.leagueId);
+        const seasons = await fetchPlayerCareerData(player, leagueId);
 
         if (cancelled) return;
 
