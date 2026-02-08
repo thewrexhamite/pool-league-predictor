@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import {
@@ -11,10 +11,13 @@ import {
   Activity,
   Loader2,
   RefreshCw,
+  BarChart3,
 } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, BarChart, Bar } from 'recharts';
 import { usePredictionAccuracy } from '@/hooks/use-prediction-accuracy';
-import type { DivisionCode } from '@/lib/types';
+import { useLeague } from '@/lib/league-context';
+import { getPredictions, calculateAccuracy } from '@/lib/prediction-tracking';
+import type { DivisionCode, AccuracyStats } from '@/lib/types';
 
 interface PredictionAccuracyPanelProps {
   selectedDiv?: DivisionCode;
@@ -23,6 +26,11 @@ interface PredictionAccuracyPanelProps {
 }
 
 export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonLabel }: PredictionAccuracyPanelProps) {
+  const [viewMode, setViewMode] = useState<'current' | 'all'>('current');
+  const [historicalData, setHistoricalData] = useState<Array<{ seasonLabel: string; seasonId: string; stats: AccuracyStats }>>([]);
+  const [loadingHistorical, setLoadingHistorical] = useState(false);
+  const { selected } = useLeague();
+
   const { predictions, accuracyStats, loading, error, refresh } = usePredictionAccuracy({
     seasonId,
     division: selectedDiv,
@@ -30,6 +38,53 @@ export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonL
 
   // Format percentage
   const formatPct = (val: number) => `${Math.round(val * 100)}%`;
+
+  // Fetch historical data across all seasons
+  useEffect(() => {
+    if (viewMode !== 'all' || !selected) return;
+
+    let cancelled = false;
+    setLoadingHistorical(true);
+
+    async function fetchHistoricalData() {
+      try {
+        const seasons = selected.league.seasons || [];
+        const results = await Promise.all(
+          seasons.map(async (season) => {
+            const preds = await getPredictions(season.id, selectedDiv);
+            const stats = calculateAccuracy(preds);
+            return {
+              seasonLabel: season.label,
+              seasonId: season.id,
+              stats,
+            };
+          })
+        );
+
+        if (!cancelled) {
+          // Filter out seasons with no predictions
+          const filtered = results.filter(r => r.stats.totalPredictions > 0);
+          // Sort by season ID (assumes newer seasons have higher IDs)
+          filtered.sort((a, b) => a.seasonId.localeCompare(b.seasonId));
+          setHistoricalData(filtered);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setHistoricalData([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingHistorical(false);
+        }
+      }
+    }
+
+    fetchHistoricalData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [viewMode, selected, selectedDiv]);
 
   // Get division-specific accuracy if available
   const divisionAccuracy = useMemo(() => {
@@ -97,6 +152,18 @@ export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonL
       .filter((d): d is NonNullable<typeof d> => d !== null)
       .sort((a, b) => a.predicted - b.predicted);
   }, [accuracyStats]);
+
+  // Prepare historical comparison chart data
+  const historicalChartData = useMemo(() => {
+    if (historicalData.length === 0) return [];
+
+    return historicalData.map(item => ({
+      season: item.seasonLabel,
+      accuracy: item.stats.overallAccuracy * 100,
+      total: item.stats.totalPredictions,
+      correct: item.stats.correctPredictions,
+    }));
+  }, [historicalData]);
 
   // Loading state
   if (loading) {
@@ -171,7 +238,7 @@ export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonL
           <Target size={16} />
           Prediction Accuracy
           {selectedDiv && <span className="text-xs text-gray-500">({selectedDiv})</span>}
-          {seasonLabel && (
+          {viewMode === 'current' && seasonLabel && (
             <span className="text-xs text-gray-500 font-normal">
               &bull; {seasonLabel}
             </span>
@@ -186,6 +253,178 @@ export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonL
         </button>
       </div>
 
+      {/* View Mode Toggle */}
+      {selected && selected.league.seasons.length > 1 && (
+        <div className="mb-4 flex items-center gap-2">
+          <button
+            onClick={() => setViewMode('current')}
+            className={clsx(
+              'flex-1 px-3 py-2 text-xs font-medium rounded-lg transition flex items-center justify-center gap-1.5',
+              viewMode === 'current'
+                ? 'bg-surface-elevated text-gray-200'
+                : 'bg-surface/50 text-gray-400 hover:bg-surface-elevated/50'
+            )}
+          >
+            <Target size={14} />
+            Current Season
+          </button>
+          <button
+            onClick={() => setViewMode('all')}
+            className={clsx(
+              'flex-1 px-3 py-2 text-xs font-medium rounded-lg transition flex items-center justify-center gap-1.5',
+              viewMode === 'all'
+                ? 'bg-surface-elevated text-gray-200'
+                : 'bg-surface/50 text-gray-400 hover:bg-surface-elevated/50'
+            )}
+          >
+            <BarChart3 size={14} />
+            All Seasons
+          </button>
+        </div>
+      )}
+
+      {/* Historical Comparison View */}
+      {viewMode === 'all' && (
+        <>
+          {/* Loading State */}
+          {loadingHistorical && (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="w-6 h-6 text-gray-400 animate-spin" />
+              <span className="ml-2 text-sm text-gray-400">Loading historical data...</span>
+            </div>
+          )}
+
+          {/* No Historical Data */}
+          {!loadingHistorical && historicalData.length === 0 && (
+            <div className="text-center py-6">
+              <Activity className="w-8 h-8 text-gray-500 mx-auto mb-2" />
+              <p className="text-sm text-gray-400">No historical predictions found</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Predictions will appear here once tracked across multiple seasons
+              </p>
+            </div>
+          )}
+
+          {/* Historical Data Available */}
+          {!loadingHistorical && historicalData.length > 0 && (
+            <>
+              {/* Season-over-Season Trend Chart */}
+              <div className="mb-4">
+                <h4 className="text-xs font-semibold text-gray-400 mb-2 flex items-center gap-1">
+                  <TrendingUp size={12} />
+                  Season-over-Season Trends
+                </h4>
+                <p className="text-[10px] text-gray-500 mb-3">
+                  Comparing prediction accuracy across all tracked seasons
+                </p>
+                <div className="bg-surface/50 rounded-lg p-3">
+                  <div className="h-56">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={historicalChartData} margin={{ top: 5, right: 10, bottom: 20, left: 0 }}>
+                        <XAxis
+                          dataKey="season"
+                          stroke="#6B7280"
+                          style={{ fontSize: '10px' }}
+                          label={{ value: 'Season', position: 'bottom', offset: 0, fill: '#9CA3AF', fontSize: 10 }}
+                        />
+                        <YAxis
+                          type="number"
+                          domain={[0, 100]}
+                          ticks={[0, 25, 50, 75, 100]}
+                          tickFormatter={(value) => `${value}%`}
+                          stroke="#6B7280"
+                          style={{ fontSize: '10px' }}
+                          label={{ value: 'Accuracy', angle: -90, position: 'insideLeft', fill: '#9CA3AF', fontSize: 10 }}
+                        />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: '#1a1d23',
+                            border: '1px solid #374151',
+                            borderRadius: '8px',
+                            fontSize: '12px',
+                          }}
+                          labelStyle={{ color: '#D1D5DB' }}
+                          formatter={(value?: number | string, name?: string) => {
+                            if (name === 'accuracy') {
+                              return [`${Number(value ?? 0).toFixed(1)}%`, 'Accuracy'];
+                            }
+                            return [value, name];
+                          }}
+                          labelFormatter={(label, payload) => {
+                            if (payload && payload[0]) {
+                              const data = payload[0].payload;
+                              return `${label}: ${data.correct}/${data.total} correct`;
+                            }
+                            return label;
+                          }}
+                        />
+                        <Bar
+                          dataKey="accuracy"
+                          fill="#3B82F6"
+                          radius={[4, 4, 0, 0]}
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+
+              {/* Summary Stats for Each Season */}
+              <div>
+                <h4 className="text-xs font-semibold text-gray-400 mb-2">Season Summary</h4>
+                <div className="space-y-2">
+                  {historicalData.map((item) => (
+                    <motion.div
+                      key={item.seasonId}
+                      className="bg-surface-elevated rounded-lg p-3"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-semibold text-gray-200">{item.seasonLabel}</span>
+                        <span
+                          className={clsx(
+                            'text-lg font-bold',
+                            item.stats.overallAccuracy >= 0.7 ? 'text-win' :
+                            item.stats.overallAccuracy >= 0.5 ? 'text-draw' :
+                            'text-lose'
+                          )}
+                        >
+                          {formatPct(item.stats.overallAccuracy)}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 text-xs">
+                        <div className="flex items-center gap-1">
+                          <Activity size={12} className="text-gray-400" />
+                          <span className="text-gray-400">Total:</span>
+                          <span className="text-gray-200 font-medium">{item.stats.totalPredictions}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <CheckCircle2 size={12} className="text-win" />
+                          <span className="text-gray-400">Correct:</span>
+                          <span className="text-win font-medium">{item.stats.correctPredictions}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <XCircle size={12} className="text-lose" />
+                          <span className="text-gray-400">Wrong:</span>
+                          <span className="text-lose font-medium">
+                            {item.stats.totalPredictions - item.stats.correctPredictions}
+                          </span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </>
+      )}
+
+      {/* Current Season View */}
+      {viewMode === 'current' && (
+        <>
       {/* Overall Accuracy */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
@@ -531,6 +770,8 @@ export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonL
               ))}
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );
