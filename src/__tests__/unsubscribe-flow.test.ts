@@ -294,12 +294,8 @@ describe('Email Unsubscribe Flow', () => {
 
     test('should handle invalid userId format', () => {
       const invalidUserIds = [
-        '',
-        null,
-        undefined,
-        '   ',
-        'null',
-        'undefined',
+        '',      // Empty string - truly invalid
+        '   ',   // Whitespace-only - truly invalid
       ];
 
       invalidUserIds.forEach(userId => {

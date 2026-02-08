@@ -107,7 +107,7 @@ export default function UnsubscribePage() {
                   {errorMessage}
                 </p>
                 <p className="text-sm text-base-content/70">
-                  You can also manage your email preferences in the app's notification settings.
+                  You can also manage your email preferences in the app&apos;s notification settings.
                 </p>
               </div>
             )}

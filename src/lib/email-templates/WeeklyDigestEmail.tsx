@@ -134,7 +134,7 @@ export function WeeklyDigestEmail({
       {hasFixtures && (
         <>
           <Section style={sectionHeader}>
-            <Text style={sectionTitle}>📅 This Week's Fixtures</Text>
+            <Text style={sectionTitle}>📅 This Week&apos;s Fixtures</Text>
             <Text style={sectionSubtitle}>
               {upcomingFixtures.length} upcoming {upcomingFixtures.length === 1 ? 'match' : 'matches'}
             </Text>
