@@ -59,6 +59,7 @@ import PredictTab from './PredictTab';
 import FixturesTab from './FixturesTab';
 import PlayersTab from './PlayersTab';
 import StatsTab from './StatsTab';
+import CompareTab from './CompareTab';
 import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
@@ -1009,6 +1010,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                 onTeamClick={openTeamDetail}
                 onPlayerClick={openPlayerDetail}
               />
+            )}
+
+            {activeTab === 'compare' && (
+              <CompareTab selectedDiv={selectedDiv} />
             )}
 
             {activeTab === 'stats' && (
