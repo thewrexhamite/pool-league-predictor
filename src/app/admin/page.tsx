@@ -1,12 +1,54 @@
 'use client';
 
+import { useState } from 'react';
 import { useLeague } from '@/lib/league-context';
 import { useRouter } from 'next/navigation';
 import { Plus } from 'lucide-react';
+import LeagueForm from '@/components/admin/LeagueForm';
+import type { LeagueConfig } from '@/lib/types';
 
 function AdminDashboardContent() {
   const { leagues, loading } = useLeague();
   const router = useRouter();
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formMode, setFormMode] = useState<'create' | 'edit'>('create');
+  const [selectedLeague, setSelectedLeague] = useState<LeagueConfig | null>(null);
+
+  // Handle opening the create form
+  const handleCreateLeague = () => {
+    setFormMode('create');
+    setSelectedLeague(null);
+    setIsFormOpen(true);
+  };
+
+  // Handle form submission
+  const handleFormSubmit = async (league: Partial<LeagueConfig>): Promise<boolean> => {
+    try {
+      const url = '/api/admin/leagues';
+      const method = formMode === 'create' ? 'POST' : 'PUT';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(league),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || `Failed to ${formMode} league`);
+      }
+
+      // Refresh the page to show updated leagues
+      window.location.reload();
+
+      return true;
+    } catch (error) {
+      console.error(`Error ${formMode}ing league:`, error);
+      return false;
+    }
+  };
 
   if (loading) {
     return (
@@ -35,7 +77,10 @@ function AdminDashboardContent() {
           <div className="card-body">
             <div className="flex justify-between items-center mb-4">
               <h2 className="card-title">Leagues</h2>
-              <button className="btn btn-primary gap-2">
+              <button
+                onClick={handleCreateLeague}
+                className="btn btn-primary gap-2"
+              >
                 <Plus size={20} />
                 Add League
               </button>
@@ -44,7 +89,10 @@ function AdminDashboardContent() {
             {leagues.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-base-content/60 mb-4">No leagues configured</p>
-                <button className="btn btn-primary gap-2">
+                <button
+                  onClick={handleCreateLeague}
+                  className="btn btn-primary gap-2"
+                >
                   <Plus size={20} />
                   Create Your First League
                 </button>
@@ -133,6 +181,15 @@ function AdminDashboardContent() {
           </div>
         </div>
       </div>
+
+      {/* League Form Modal */}
+      <LeagueForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        onSubmit={handleFormSubmit}
+        league={selectedLeague}
+        mode={formMode}
+      />
     </div>
   );
 }
