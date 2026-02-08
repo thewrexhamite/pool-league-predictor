@@ -21,8 +21,19 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
   const [sortKey, setSortKey] = useState<SortKey>('adjPct');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [searchQuery, setSearchQuery] = useState('');
-  const { ds, frames } = useActiveData();
+  const { ds, frames, data } = useActiveData();
   const teams = ds.divisions[selectedDiv].teams;
+
+  // Format cache age for display
+  const getCacheAgeText = (ageMs: number): string => {
+    const minutes = Math.floor(ageMs / 60000);
+    const hours = Math.floor(minutes / 60);
+    if (hours > 0) return `${hours}h ago`;
+    if (minutes > 0) return `${minutes}m ago`;
+    return 'just now';
+  };
+
+  const showCacheBadge = data.source === 'cache' || data.isOffline;
 
   const divPlayers = useMemo(() => {
     const list: Array<{
@@ -103,7 +114,15 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <h2 className="text-lg font-bold mb-4 text-white">{ds.divisions[selectedDiv].name} — Players</h2>
+      <div className="flex items-center gap-2 mb-4">
+        <h2 className="text-lg font-bold text-white">{ds.divisions[selectedDiv].name} — Players</h2>
+        {showCacheBadge && (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium bg-surface-elevated border border-surface-border rounded text-gray-400">
+            {data.isOffline ? '🔌 Offline' : '💾 Cached'}
+            {data.cacheAge > 0 && ` • ${getCacheAgeText(data.cacheAge)}`}
+          </span>
+        )}
+      </div>
 
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         {/* Search */}
