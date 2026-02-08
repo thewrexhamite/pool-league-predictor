@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { Bell, BellOff, Loader2, Check, X, Mail } from 'lucide-react';
@@ -91,6 +91,7 @@ export default function NotificationSettings({
   } = useNotifications();
 
   const {
+    email: storedEmail,
     preferences: emailPreferences,
     frequency: emailFrequency,
     isSubscribed: isEmailSubscribed,
@@ -102,6 +103,34 @@ export default function NotificationSettings({
   const [isUpdating, setIsUpdating] = useState(false);
   const [isUnsubscribing, setIsUnsubscribing] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [email, setEmail] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
+
+  // Initialize email from user or stored email
+  useEffect(() => {
+    if (storedEmail) {
+      setEmail(storedEmail);
+    } else if (user?.email) {
+      setEmail(user.email);
+    }
+  }, [storedEmail, user?.email]);
+
+  // Validate email format
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Handle email input change
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
+    setEmailError('');
+
+    // Validate email on change
+    if (value && !validateEmail(value)) {
+      setEmailError('Please enter a valid email address');
+    }
+  };
 
   // Handle toggle change
   const handleToggle = async (key: keyof NotificationPreferences) => {
@@ -396,6 +425,49 @@ export default function NotificationSettings({
           <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
             Email Notifications
           </h4>
+        </div>
+
+        {/* Email Input Field */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+          <label htmlFor="email-input" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+            Email Address
+          </label>
+          <input
+            id="email-input"
+            type="email"
+            value={email}
+            onChange={(e) => handleEmailChange(e.target.value)}
+            placeholder="Enter your email address"
+            disabled={isEmailSubscribed}
+            className={clsx(
+              'w-full px-3 py-2 text-sm rounded-lg transition-colors',
+              'bg-white dark:bg-gray-900',
+              'border',
+              emailError
+                ? 'border-red-300 dark:border-red-700 focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500',
+              'text-gray-900 dark:text-white',
+              'placeholder:text-gray-400 dark:placeholder:text-gray-500',
+              'focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800',
+              'disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60'
+            )}
+          />
+          {emailError && (
+            <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
+              <X className="w-3 h-3" />
+              {emailError}
+            </p>
+          )}
+          {isEmailSubscribed && (
+            <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+              To change your email address, unsubscribe and re-subscribe with a new email
+            </p>
+          )}
+          {!isEmailSubscribed && user?.email && email === user.email && (
+            <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+              Using your account email address
+            </p>
+          )}
         </div>
 
         {!isEmailSubscribed ? (
