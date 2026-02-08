@@ -21,12 +21,18 @@ import rostersData from '@data/rosters.json';
 import players2526Data from '@data/players2526.json';
 import framesData from '@data/frames.json';
 
+const CACHE_NAME = 'pool-league-data-v1';
+
 function cacheKey(leagueId: string, seasonId: string) {
   return `pool-league-${leagueId}-${seasonId}-data`;
 }
 
 function cacheTsKey(leagueId: string, seasonId: string) {
   return `pool-league-${leagueId}-${seasonId}-ts`;
+}
+
+function cacheUrl(leagueId: string, seasonId: string) {
+  return `/api/cache/${leagueId}/${seasonId}`;
 }
 
 export interface LeagueData {
@@ -84,7 +90,11 @@ function getEmptyData(): LeagueData {
   };
 }
 
-function getCachedData(leagueId: string, seasonId: string): LeagueData | null {
+/**
+ * Synchronous helper for initial state (localStorage only).
+ * Used during SSR and initial render where async is not possible.
+ */
+function getCachedDataSync(leagueId: string, seasonId: string): LeagueData | null {
   if (typeof window === 'undefined') return null;
   try {
     const cached = localStorage.getItem(cacheKey(leagueId, seasonId));
@@ -97,11 +107,61 @@ function getCachedData(leagueId: string, seasonId: string): LeagueData | null {
   }
 }
 
-function setCachedData(leagueId: string, seasonId: string, data: LeagueData) {
-  if (typeof window === 'undefined') return;
+/**
+ * Async function that checks Cache API first, then falls back to localStorage.
+ * Provides better offline support for PWAs.
+ */
+async function getCachedData(leagueId: string, seasonId: string): Promise<LeagueData | null> {
+  if (typeof window === 'undefined') return null;
+
+  // Try Cache API first (better for PWA/offline support)
   try {
-    const { source: _, ...rest } = data;
-    localStorage.setItem(cacheKey(leagueId, seasonId), JSON.stringify(rest));
+    if ('caches' in window) {
+      const cache = await caches.open(CACHE_NAME);
+      const response = await cache.match(cacheUrl(leagueId, seasonId));
+
+      if (response) {
+        const data = await response.json();
+        return { ...data, source: 'cache' as const };
+      }
+    }
+  } catch {
+    // Cache API failed, fall through to localStorage
+  }
+
+  // Fallback to localStorage
+  return getCachedDataSync(leagueId, seasonId);
+}
+
+/**
+ * Saves data to both Cache API and localStorage for redundancy.
+ * Cache API provides better offline support, localStorage provides quick sync access.
+ */
+async function setCachedData(leagueId: string, seasonId: string, data: LeagueData): Promise<void> {
+  if (typeof window === 'undefined') return;
+
+  const { source: _, ...rest } = data;
+  const dataStr = JSON.stringify(rest);
+
+  // Save to Cache API (better for PWA/offline)
+  try {
+    if ('caches' in window) {
+      const cache = await caches.open(CACHE_NAME);
+      const response = new Response(dataStr, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'max-age=31536000',
+        },
+      });
+      await cache.put(cacheUrl(leagueId, seasonId), response);
+    }
+  } catch {
+    // Cache API failed, continue to localStorage
+  }
+
+  // Also save to localStorage for sync access
+  try {
+    localStorage.setItem(cacheKey(leagueId, seasonId), dataStr);
     localStorage.setItem(cacheTsKey(leagueId, seasonId), String(data.lastUpdated));
   } catch {
     // localStorage full or unavailable
@@ -124,7 +184,8 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
   const isDefaultLeague = leagueId === 'wrexham' && seasonId === '2526';
 
   const [data, setData] = useState<LeagueData>(() => {
-    const cached = getCachedData(leagueId, seasonId);
+    // Use sync version for initial state (can't be async)
+    const cached = getCachedDataSync(leagueId, seasonId);
     if (cached) return cached;
     // Only use static fallback for the default league/season
     return isDefaultLeague ? getStaticData() : getEmptyData();
@@ -135,15 +196,21 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
   useEffect(() => {
     let cancelled = false;
 
-    // Reset state when league/season changes
-    const cached = getCachedData(leagueId, seasonId);
-    if (cached) {
-      setData(cached);
-    } else if (isDefaultLeague) {
-      setData(getStaticData());
-    } else {
-      setData(getEmptyData());
+    // Load from cache (async, checks Cache API then localStorage)
+    async function loadCachedData() {
+      const cached = await getCachedData(leagueId, seasonId);
+      if (cancelled) return;
+
+      if (cached) {
+        setData(cached);
+      } else if (isDefaultLeague) {
+        setData(getStaticData());
+      } else {
+        setData(getEmptyData());
+      }
     }
+
+    loadCachedData();
 
     async function fetchFromFirestore() {
       setRefreshing(true);
@@ -157,7 +224,16 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
 
         if (snap.exists()) {
           const raw = snap.data() as SeasonData;
-          const cachedTs = parseInt(localStorage.getItem(cacheTsKey(leagueId, seasonId)) || '0', 10);
+
+          // Check cached timestamp (try localStorage for quick sync access)
+          let cachedTs = 0;
+          try {
+            cachedTs = parseInt(localStorage.getItem(cacheTsKey(leagueId, seasonId)) || '0', 10);
+          } catch {
+            // If localStorage fails, check Cache API
+            const cached = await getCachedData(leagueId, seasonId);
+            cachedTs = cached?.lastUpdated || 0;
+          }
 
           if (raw.lastUpdated > cachedTs) {
             // All data, including divisions, comes from Firestore
@@ -174,7 +250,7 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
               source: 'firestore',
             };
             setData(newData);
-            setCachedData(leagueId, seasonId, newData);
+            await setCachedData(leagueId, seasonId, newData);
           }
         }
       } catch {
