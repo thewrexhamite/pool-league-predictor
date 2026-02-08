@@ -8,6 +8,7 @@ import { AuthProvider } from '@/lib/auth';
 import { AnalyticsInit } from '@/components/AnalyticsInit';
 import { LeagueProvider } from '@/lib/league-context';
 import { LeagueBrandingProvider } from '@/lib/league-branding';
+import { OfflineIndicator } from '@/components/OfflineIndicator';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -65,6 +66,7 @@ export default function RootLayout({
               <LeagueProvider>
                 <LeagueBrandingProvider>
                   <AnalyticsInit />
+                  <OfflineIndicator />
                   {children}
                 </LeagueBrandingProvider>
               </LeagueProvider>
