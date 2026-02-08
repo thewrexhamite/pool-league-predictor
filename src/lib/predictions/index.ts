@@ -42,13 +42,13 @@ export {
 
 // Analytics
 export {
-  calcBDStats,
+  calcBDStats as calcAdvancedBDStats,
   compareBDStats,
-  calcPlayerForm,
+  calcPlayerForm as calcPlayerFormAnalysis,
   analyzeH2H,
   calcTeamHomeAwaySplit,
   calcSetPerformance,
-  generateScoutingReport,
+  generateScoutingReport as generateDetailedScoutingReport,
   type AdvancedBDStats,
   type FormAnalysis,
   type H2HAnalysis,
@@ -80,4 +80,9 @@ export {
   calcTeamBDStats,
   getSquadH2H,
   getPlayerFrameHistory,
-} from '../predictions';
+  getH2HRecord,
+  calcFixtureImportance,
+  calcPlayerForm,
+  calcBDStats,
+  generateScoutingReport,
+} from '../predictions.deprecated';
