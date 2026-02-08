@@ -106,11 +106,6 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
     return playerStreaks.slice(0, 10);
   }, [playerStreaks]);
 
-  // Longest win streaks (same as active since getActiveWinStreaks returns top streaks)
-  const longestStreaks = useMemo(() => {
-    return playerStreaks.slice(0, 10);
-  }, [playerStreaks]);
-
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -474,101 +469,53 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       </div>
 
       {/* Win Streaks Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Active Win Streaks */}
-        <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
-            <Flame size={16} />
-            Active Win Streaks
-          </h3>
-          {activeStreaks.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-500 text-sm">No players on active win streaks</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
-                    <th className="text-left p-2">#</th>
-                    <th className="text-left p-2">Player</th>
-                    <th className="text-left p-2">Team</th>
-                    <th className="text-center p-2">Streak</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {activeStreaks.map((p, i) => (
-                    <tr
-                      key={p.name + p.team}
-                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
-                      onClick={() => onPlayerClick(p.name)}
+      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
+          <Flame size={16} />
+          Active Win Streaks
+        </h3>
+        {activeStreaks.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500 text-sm">No players on active win streaks</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Player</th>
+                  <th className="text-left p-2">Team</th>
+                  <th className="text-center p-2">Streak</th>
+                </tr>
+              </thead>
+              <tbody>
+                {activeStreaks.map((p, i) => (
+                  <tr
+                    key={p.name + p.team}
+                    className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                    onClick={() => onPlayerClick(p.name)}
+                  >
+                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                    <td
+                      className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                      onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
                     >
-                      <td className="p-2 text-gray-600">{i + 1}</td>
-                      <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
-                      <td
-                        className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
-                        onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
-                      >
-                        {p.team}
-                      </td>
-                      <td className="p-2 text-center">
-                        <span className="inline-flex items-center gap-1 font-bold text-warning">
-                          <Flame size={14} />
-                          {p.streak}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-
-        {/* Longest Win Streaks */}
-        <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
-            <Trophy size={16} />
-            Longest Win Streaks
-          </h3>
-          {longestStreaks.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-gray-500 text-sm">No win streaks recorded</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
-                    <th className="text-left p-2">#</th>
-                    <th className="text-left p-2">Player</th>
-                    <th className="text-left p-2">Team</th>
-                    <th className="text-center p-2">Best</th>
+                      {p.team}
+                    </td>
+                    <td className="p-2 text-center">
+                      <span className="inline-flex items-center gap-1 font-bold text-warning">
+                        <Flame size={14} />
+                        {p.streak}
+                      </span>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {longestStreaks.map((p, i) => (
-                    <tr
-                      key={p.name + p.team}
-                      className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
-                      onClick={() => onPlayerClick(p.name)}
-                    >
-                      <td className="p-2 text-gray-600">{i + 1}</td>
-                      <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
-                      <td
-                        className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
-                        onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
-                      >
-                        {p.team}
-                      </td>
-                      <td className="p-2 text-center font-bold text-accent">{p.streak}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
