@@ -119,7 +119,7 @@ export default function NotificationSettings({
               Notifications Not Supported
             </h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Your browser doesn't support push notifications. Try using a modern browser like Chrome, Firefox, or Safari.
+              Your browser doesn&apos;t support push notifications. Try using a modern browser like Chrome, Firefox, or Safari.
             </p>
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function NotificationSettings({
               Notifications Not Enabled
             </h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Enable notifications to receive updates about your team's matches, fixtures, and standings.
+              Enable notifications to receive updates about your team&apos;s matches, fixtures, and standings.
             </p>
           </div>
         </div>

@@ -3,16 +3,28 @@
 /**
  * Login Page
  *
- * OAuth-only sign in with Google, Microsoft, and Facebook.
+ * OAuth-only sign in with Google.
  */
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import { OAuthButtons } from '@/components/auth';
 import { Shield, Target, Trophy, Users } from 'lucide-react';
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginContent() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const [error, setError] = useState<string | null>(null);

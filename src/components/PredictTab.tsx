@@ -11,6 +11,7 @@ import { useActiveData } from '@/lib/active-data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 import ShareButton from './ShareButton';
 import { generatePredictionShareData } from '@/lib/share-utils';
+import { useToast } from './ToastProvider';
 
 const DEVICE_ID_KEY = 'pool-league-device-id';
 
@@ -52,6 +53,7 @@ export default function PredictTab({
   onPlayerClick,
 }: PredictTabProps) {
   const { data: activeData, ds, frames } = useActiveData();
+  const { addToast } = useToast();
   const teams = ds.divisions[selectedDiv].teams;
 
   const h2hRecords = useMemo(() => {

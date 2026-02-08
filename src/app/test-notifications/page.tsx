@@ -9,9 +9,12 @@
  * DO NOT DEPLOY TO PRODUCTION - This is for testing only!
  */
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
 import type { NotificationPreferences } from '@/lib/notifications';
+
+export const dynamic = 'force-dynamic';
 
 type NotificationType = keyof NotificationPreferences;
 
@@ -247,13 +250,13 @@ export default function TestNotificationsPage() {
               <strong>1.</strong> Sign in and enable notifications in your browser
             </li>
             <li>
-              <strong>2.</strong> Click "Use Current User" to auto-fill your user ID
+              <strong>2.</strong> Click &quot;Use Current User&quot; to auto-fill your user ID
             </li>
             <li>
               <strong>3.</strong> Select a notification type and customize the message
             </li>
             <li>
-              <strong>4.</strong> Click "Send Test Notification"
+              <strong>4.</strong> Click &quot;Send Test Notification&quot;
             </li>
             <li>
               <strong>5.</strong> Check your browser for the notification (may appear in notification center)
@@ -265,7 +268,7 @@ export default function TestNotificationsPage() {
 
           <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
             <p className="text-xs text-blue-800 dark:text-blue-200">
-              <strong>Note:</strong> If notifications don't appear, check that:
+              <strong>Note:</strong> If notifications don&apos;t appear, check that:
               <br />
               • Browser notification permissions are granted
               • Notification type is enabled in your preferences
@@ -277,12 +280,12 @@ export default function TestNotificationsPage() {
 
         {/* Quick Links */}
         <div className="mt-6 flex gap-3">
-          <a
+          <Link
             href="/"
             className="flex-1 px-4 py-2 text-center bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium"
           >
             ← Back to App
-          </a>
+          </Link>
           <a
             href="/.auto-claude/specs/008-push-notifications/E2E_TESTING_GUIDE.md"
             target="_blank"

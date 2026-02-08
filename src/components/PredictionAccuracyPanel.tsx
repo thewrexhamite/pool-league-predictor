@@ -309,8 +309,8 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
                       fontSize: '12px',
                     }}
                     labelStyle={{ color: '#D1D5DB' }}
-                    formatter={(value: number, name: string) => [
-                      `${value.toFixed(1)}%`,
+                    formatter={(value?: number | string, name?: string) => [
+                      `${Number(value ?? 0).toFixed(1)}%`,
                       name === 'actual' ? 'Actual' : 'Predicted'
                     ]}
                     labelFormatter={(_, payload) => {
@@ -381,7 +381,7 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
                       fontSize: '12px',
                     }}
                     labelStyle={{ color: '#D1D5DB' }}
-                    formatter={(value: number) => [`${value.toFixed(1)}%`, 'Accuracy']}
+                    formatter={(value?: number | string) => [`${Number(value ?? 0).toFixed(1)}%`, 'Accuracy']}
                     labelFormatter={(_, payload) => {
                       if (payload && payload[0]) {
                         const data = payload[0].payload;

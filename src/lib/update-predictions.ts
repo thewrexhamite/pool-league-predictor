@@ -51,9 +51,9 @@ export async function updatePredictionsWithResults(
       for (const prediction of matchingPredictions) {
         // Determine actual winner
         let actualWinner: 'home' | 'away' | 'draw';
-        if (result.homeScore > result.awayScore) {
+        if (result.home_score > result.away_score) {
           actualWinner = 'home';
-        } else if (result.awayScore > result.homeScore) {
+        } else if (result.away_score > result.home_score) {
           actualWinner = 'away';
         } else {
           actualWinner = 'draw';
@@ -65,8 +65,8 @@ export async function updatePredictionsWithResults(
         // Update the prediction document
         const docRef = doc(db, 'predictions', prediction.docId);
         await updateDoc(docRef, {
-          actualHomeScore: result.homeScore,
-          actualAwayScore: result.awayScore,
+          actualHomeScore: result.home_score,
+          actualAwayScore: result.away_score,
           actualWinner,
           correct,
         });

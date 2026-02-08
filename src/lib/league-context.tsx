@@ -72,6 +72,7 @@ const DEFAULT_WREXHAM_LEAGUE: LeagueMeta = {
   id: 'wrexham',
   name: 'Wrexham & District Pool League',
   shortName: 'Wrexham',
+  primaryColor: '#3b82f6',
   seasons: [
     { id: '2526', label: '2025/26', current: true, divisions: ['SD1', 'SD2', 'WD1', 'WD2'] },
   ],
@@ -103,6 +104,8 @@ export function LeagueProvider({ children }: { children: ReactNode }) {
               id: doc.id,
               name: data.name || doc.id,
               shortName: data.shortName || doc.id,
+              primaryColor: data.primaryColor || '#3b82f6',
+              logo: data.logo,
               seasons: (data.seasons || []) as SeasonMeta[],
             };
           });

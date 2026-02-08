@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
 import Script from 'next/script';
 import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
@@ -60,12 +61,14 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeProvider>
           <AuthProvider>
-            <LeagueProvider>
-              <LeagueBrandingProvider>
-                <AnalyticsInit />
-                {children}
-              </LeagueBrandingProvider>
-            </LeagueProvider>
+            <Suspense>
+              <LeagueProvider>
+                <LeagueBrandingProvider>
+                  <AnalyticsInit />
+                  {children}
+                </LeagueBrandingProvider>
+              </LeagueProvider>
+            </Suspense>
           </AuthProvider>
         </ThemeProvider>
       </body>
