@@ -586,22 +586,28 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                     <X size={14} />
                   </button>
                 )}
-                {searchOpen && searchResults.length > 0 && (
+                {searchOpen && searchQuery.length >= 2 && (
                   <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden">
-                    {searchResults.map((r, i) => (
-                      <button
-                        key={r.type + r.name}
-                        onClick={() => handleSearchSelect(r)}
-                        className={clsx(
-                          'w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-surface-elevated transition',
-                          i === searchFocusIndex && 'bg-surface-elevated'
-                        )}
-                      >
-                        {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
-                        <span className="text-white flex-1 truncate">{r.name}</span>
-                        <span className="text-gray-500 text-xs">{r.detail}</span>
-                      </button>
-                    ))}
+                    {searchResults.length === 0 ? (
+                      <div className="text-center py-8">
+                        <p className="text-gray-500 text-sm">No teams or players found</p>
+                      </div>
+                    ) : (
+                      searchResults.map((r, i) => (
+                        <button
+                          key={r.type + r.name}
+                          onClick={() => handleSearchSelect(r)}
+                          className={clsx(
+                            'w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-surface-elevated transition',
+                            i === searchFocusIndex && 'bg-surface-elevated'
+                          )}
+                        >
+                          {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
+                          <span className="text-white flex-1 truncate">{r.name}</span>
+                          <span className="text-gray-500 text-xs">{r.detail}</span>
+                        </button>
+                      ))
+                    )}
                   </div>
                 )}
               </div>
@@ -737,22 +743,28 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                         <X size={14} />
                       </button>
                     )}
-                    {searchOpen && searchResults.length > 0 && (
+                    {searchOpen && searchQuery.length >= 2 && (
                       <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden z-50">
-                        {searchResults.map((r, i) => (
-                          <button
-                            key={r.type + r.name}
-                            onClick={() => handleSearchSelect(r)}
-                            className={clsx(
-                              'w-full flex items-center gap-2 px-3 py-2.5 text-sm text-left hover:bg-surface-elevated transition',
-                              i === searchFocusIndex && 'bg-surface-elevated'
-                            )}
-                          >
-                            {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
-                            <span className="text-white flex-1 truncate">{r.name}</span>
-                            <span className="text-gray-500 text-xs">{r.detail}</span>
-                          </button>
-                        ))}
+                        {searchResults.length === 0 ? (
+                          <div className="text-center py-8">
+                            <p className="text-gray-500 text-sm">No teams or players found</p>
+                          </div>
+                        ) : (
+                          searchResults.map((r, i) => (
+                            <button
+                              key={r.type + r.name}
+                              onClick={() => handleSearchSelect(r)}
+                              className={clsx(
+                                'w-full flex items-center gap-2 px-3 py-2.5 text-sm text-left hover:bg-surface-elevated transition',
+                                i === searchFocusIndex && 'bg-surface-elevated'
+                              )}
+                            >
+                              {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
+                              <span className="text-white flex-1 truncate">{r.name}</span>
+                              <span className="text-gray-500 text-xs">{r.detail}</span>
+                            </button>
+                          ))
+                        )}
                       </div>
                     )}
                   </div>
