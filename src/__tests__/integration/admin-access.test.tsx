@@ -151,7 +151,31 @@ describe('Admin Access Integration Tests', () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({}),
+        json: () => Promise.resolve({
+          users: {
+            totalUsers: 100,
+            activeUsers: 75,
+            adminCount: 5,
+            usersWithNotifications: 40,
+          },
+          leagueData: {
+            totalPlayers: 200,
+            totalTeams: 20,
+            totalDivisions: 4,
+            totalMatches: 150,
+            totalFixtures: 50,
+          },
+          engagement: {
+            activeInLast7Days: 60,
+            activeInLast30Days: 85,
+            averageLoginsPerUser: 8.5,
+          },
+          growth: {
+            newUsersLast7Days: 10,
+            newUsersLast30Days: 25,
+            growthRate: 15,
+          },
+        }),
       })
     ) as jest.Mock;
   });
