@@ -86,7 +86,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       .slice(0, 10);
 
     return { bestHome, bestAway };
-  }, [ds.results, teams, selectedDiv, showAllDivisions]);
+  }, [ds, teams, selectedDiv, showAllDivisions]);
 
   // Most improved players (current season vs previous season)
   const mostImproved = useMemo(() => {

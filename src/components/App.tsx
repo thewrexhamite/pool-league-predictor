@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 import {
@@ -481,10 +482,13 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
             {/* Left: Logo + title */}
             <div className="flex items-center gap-2 shrink-0">
               {logo && (
-                <img
+                <Image
                   src={logo}
                   alt="League logo"
+                  width={40}
+                  height={40}
                   className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                  unoptimized
                 />
               )}
               <button

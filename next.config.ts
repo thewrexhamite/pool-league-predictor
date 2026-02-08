@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Ensure correct workspace root detection
+  outputFileTracingRoot: __dirname,
+
   // Genkit requires server-side Node.js APIs
   serverExternalPackages: ['genkit', '@genkit-ai/googleai', 'firebase-admin'],
 
