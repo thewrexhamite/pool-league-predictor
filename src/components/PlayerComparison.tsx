@@ -3,7 +3,8 @@
 import { useMemo } from 'react';
 import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane } from 'lucide-react';
 import clsx from 'clsx';
-import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm, calcPlayerHomeAway } from '@/lib/predictions';
+import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
+import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm, calcPlayerHomeAway, getPlayerFrameHistory } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import { getH2HBetween } from '@/lib/stats/head-to-head';
 
@@ -27,6 +28,30 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
   const homeAway2 = useMemo(() => frames.length > 0 ? calcPlayerHomeAway(player2, frames) : null, [player2, frames]);
 
   const h2hRecord = useMemo(() => frames.length > 0 ? getH2HBetween(player1, player2, frames) : null, [player1, player2, frames]);
+
+  const frameHistory1 = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player1, frames) : [], [player1, frames]);
+  const frameHistory2 = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player2, frames) : [], [player2, frames]);
+
+  // Create chart data combining both players' form trends
+  const formChartData = useMemo(() => {
+    const maxLength = Math.max(
+      Math.min(frameHistory1.length, 10),
+      Math.min(frameHistory2.length, 10)
+    );
+
+    if (maxLength < 3) return [];
+
+    return Array.from({ length: maxLength }, (_, i) => {
+      const p1Frame = frameHistory1[i];
+      const p2Frame = frameHistory2[i];
+
+      return {
+        idx: maxLength - i - 1,
+        player1: p1Frame ? (p1Frame.won ? 1 : 0) : null,
+        player2: p2Frame ? (p2Frame.won ? 1 : 0) : null,
+      };
+    }).reverse();
+  }, [frameHistory1, frameHistory2]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -300,6 +325,53 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
               )}
             </div>
           </div>
+
+          {/* Form Trend Chart */}
+          {formChartData.length >= 3 && (
+            <div className="mt-6 bg-surface rounded-lg p-4 shadow-card">
+              <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
+                Form Trends (Last {formChartData.length} Frames)
+              </h4>
+              <div className="flex items-center justify-center gap-6 mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-0.5 bg-win rounded" />
+                  <span className="text-xs text-gray-400">{player1}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-0.5 bg-loss rounded" />
+                  <span className="text-xs text-gray-400">{player2}</span>
+                </div>
+              </div>
+              <div className="h-32 md:h-40">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={formChartData}>
+                    <YAxis domain={[0, 1]} hide />
+                    <Line
+                      type="monotone"
+                      dataKey="player1"
+                      stroke="#0EA572"
+                      strokeWidth={2}
+                      dot={{ r: 3, fill: '#0EA572' }}
+                      connectNulls
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="player2"
+                      stroke="#EF4444"
+                      strokeWidth={2}
+                      dot={{ r: 3, fill: '#EF4444' }}
+                      connectNulls
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="text-center mt-3">
+                <div className="text-[10px] text-gray-500">
+                  Most Recent → Oldest | 1 = Win, 0 = Loss
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
