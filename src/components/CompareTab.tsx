@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search, X, GitCompare, UserX } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode } from '@/lib/types';
@@ -31,6 +31,50 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
   const { ds } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
+
+  // URL state management helpers
+  function encodePlayerParam(player: PlayerOption): string {
+    return `${encodeURIComponent(player.name)}@${encodeURIComponent(player.team)}`;
+  }
+
+  function decodePlayerParam(param: string): { name: string; team: string } | null {
+    const parts = param.split('@');
+    if (parts.length !== 2) return null;
+    return {
+      name: decodeURIComponent(parts[0]),
+      team: decodeURIComponent(parts[1]),
+    };
+  }
+
+  function updateURL() {
+    if (typeof window === 'undefined') return;
+
+    const hash = window.location.hash;
+    const baseHash = `#/compare/${selectedDiv}`;
+
+    if (!selectedPlayerA && !selectedPlayerB) {
+      // Clear player params from URL
+      if (hash !== baseHash) {
+        window.history.replaceState(null, '', baseHash);
+      }
+      return;
+    }
+
+    let newHash = baseHash;
+    if (selectedPlayerA) {
+      newHash += `/${encodePlayerParam(selectedPlayerA)}`;
+    } else {
+      newHash += '/_'; // Placeholder for empty Player A
+    }
+
+    if (selectedPlayerB) {
+      newHash += `/${encodePlayerParam(selectedPlayerB)}`;
+    }
+
+    if (hash !== newHash) {
+      window.history.replaceState(null, '', newHash);
+    }
+  }
 
   // Get all players based on division filter
   const allPlayers = useMemo(() => {
@@ -67,6 +111,52 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
     players.sort((a, b) => b.adjPct - a.adjPct);
     return players;
   }, [ds, selectedDiv, showAllDivisions, minGames]);
+
+  // Initialize from URL on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const hash = window.location.hash;
+    if (!hash.startsWith('#/compare/')) return;
+
+    const parts = hash.slice(2).split('/'); // Remove #/ prefix
+    // parts = ['compare', div, playerA?, playerB?]
+    if (parts.length < 3) return;
+
+    const playerAParam = parts[2];
+    const playerBParam = parts[3];
+
+    // Restore Player A
+    if (playerAParam && playerAParam !== '_') {
+      const decoded = decodePlayerParam(playerAParam);
+      if (decoded) {
+        const player = allPlayers.find(
+          p => p.name === decoded.name && p.team === decoded.team
+        );
+        if (player) {
+          setSelectedPlayerA(player);
+        }
+      }
+    }
+
+    // Restore Player B
+    if (playerBParam && playerBParam !== '_') {
+      const decoded = decodePlayerParam(playerBParam);
+      if (decoded) {
+        const player = allPlayers.find(
+          p => p.name === decoded.name && p.team === decoded.team
+        );
+        if (player) {
+          setSelectedPlayerB(player);
+        }
+      }
+    }
+  }, [allPlayers]); // Only run when allPlayers is ready
+
+  // Update URL when selections change
+  useEffect(() => {
+    updateURL();
+  }, [selectedPlayerA, selectedPlayerB, selectedDiv]);
 
   // Filter players for Player A dropdown (exclude Player B if selected)
   const filteredPlayersA = useMemo(() => {
