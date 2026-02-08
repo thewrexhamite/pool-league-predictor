@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import { syncLeagueData, loadLeagueConfigs } from '@/lib/sync-pipeline';
+import {
+  sendSyncErrorNotification,
+  sendPartialSyncFailureNotification,
+} from '@/lib/sync-notifications';
 
 interface SyncRequestBody {
   league?: string;
@@ -82,6 +86,16 @@ export async function POST(request: Request) {
         league: leagueKey,
         ...syncResult,
       });
+
+      // Send error notification for failed individual league sync
+      if (!syncResult.success && syncResult.error) {
+        await sendSyncErrorNotification(syncResult.error, leagueKey, {
+          results: syncResult.results,
+          fixtures: syncResult.fixtures,
+          frames: syncResult.frames,
+          players: syncResult.players,
+        });
+      }
     }
 
     // Determine overall success
@@ -90,6 +104,16 @@ export async function POST(request: Request) {
     const totalFixtures = results.reduce((sum, r) => sum + r.fixtures, 0);
     const totalFrames = results.reduce((sum, r) => sum + r.frames, 0);
     const totalPlayers = results.reduce((sum, r) => sum + r.players, 0);
+
+    // Send partial failure notification if some leagues failed
+    if (!allSuccessful && results.some((r) => r.success)) {
+      const failures = results
+        .filter((r) => !r.success)
+        .map((r) => ({ league: r.league, error: r.error || 'Unknown error' }));
+      const successes = results.filter((r) => r.success).map((r) => r.league);
+
+      await sendPartialSyncFailureNotification(failures, successes);
+    }
 
     return NextResponse.json({
       success: allSuccessful,
@@ -108,6 +132,10 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    // Send error notification for overall sync failure
+    await sendSyncErrorNotification(error instanceof Error ? error : errorMessage, 'all', {});
+
     return NextResponse.json(
       {
         error: 'Failed to sync data',
