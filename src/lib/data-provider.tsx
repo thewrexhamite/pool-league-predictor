@@ -273,6 +273,67 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
     return () => { cancelled = true; };
   }, [leagueId, seasonId, isDefaultLeague]);
 
+  // Background sync: refresh data when browser comes back online
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return;
+
+    let cancelled = false;
+
+    async function syncOnOnline() {
+      if (cancelled) return;
+
+      setRefreshing(true);
+      try {
+        const { db } = await import('./firebase');
+        const docRef = doc(db, 'leagues', leagueId, 'seasons', seasonId);
+        const snap = await getDoc(docRef);
+
+        if (cancelled) return;
+
+        if (snap.exists()) {
+          const raw = snap.data() as SeasonData;
+
+          // Check cached timestamp
+          let cachedTs = 0;
+          try {
+            cachedTs = parseInt(localStorage.getItem(cacheTsKey(leagueId, seasonId)) || '0', 10);
+          } catch {
+            const cached = await getCachedData(leagueId, seasonId);
+            cachedTs = cached?.lastUpdated || 0;
+          }
+
+          if (raw.lastUpdated > cachedTs) {
+            const newData: LeagueData = {
+              results: raw.results || [],
+              fixtures: raw.fixtures || [],
+              players: raw.players || {},
+              rosters: raw.rosters || {},
+              players2526: raw.players2526 || {},
+              frames: raw.frames || [],
+              divisions: raw.divisions || {},
+              lastUpdated: raw.lastUpdated,
+              source: 'firestore',
+            };
+            setData(newData);
+            await setCachedData(leagueId, seasonId, newData);
+          }
+        }
+      } catch {
+        // Firestore unreachable -- keep current data
+      } finally {
+        if (!cancelled) setRefreshing(false);
+      }
+    }
+
+    window.addEventListener('online', syncOnOnline);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener('online', syncOnOnline);
+    };
+  }, [leagueId, seasonId]);
+
   return (
     <DataContext.Provider value={{ data, loading, refreshing }}>
       {children}
