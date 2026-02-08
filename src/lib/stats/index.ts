@@ -14,10 +14,23 @@ export {
   calculateCurrentForm,
   getPlayerGames,
   findMilestones,
+  fetchPlayerCareerData,
+  calculateCareerTrend,
+  calculateImprovementRate,
+  calculateConsistencyMetrics,
   type SeasonStats,
   type PlayerForm,
   type CareerMilestone,
 } from './career-stats';
+
+// Career stats types (from types.ts, used by career-stats functions)
+export type {
+  SeasonSummary,
+  CareerTrend,
+  ImprovementMetrics,
+  ConsistencyMetrics,
+  CareerStats,
+} from '../types';
 
 // Head-to-head
 export {
