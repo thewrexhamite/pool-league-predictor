@@ -157,6 +157,28 @@ export async function POST(request: Request) {
 
     // Check if user has enabled this notification type
     if (preferences && preferences[type] === false) {
+      // Log filtered notification to history
+      try {
+        const historyRef = db
+          .collection('users')
+          .doc(userId)
+          .collection('notificationHistory')
+          .doc();
+
+        await historyRef.set({
+          type,
+          title: getNotificationTitle(type),
+          message: data.message,
+          deepLinkUrl: getDeepLinkUrl(type, data),
+          teamId: data.teamId || null,
+          status: 'filtered',
+          reason: 'User has disabled this notification type',
+          sentAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
+      } catch (historyError) {
+        // Don't fail the request if history logging fails
+      }
+
       return NextResponse.json({
         success: false,
         message: `User has disabled ${type} notifications`,
@@ -171,6 +193,28 @@ export async function POST(request: Request) {
       const normalizedMyTeam = myTeam.team.toLowerCase().trim();
 
       if (normalizedTeamId !== normalizedMyTeam) {
+        // Log filtered notification to history
+        try {
+          const historyRef = db
+            .collection('users')
+            .doc(userId)
+            .collection('notificationHistory')
+            .doc();
+
+          await historyRef.set({
+            type,
+            title: getNotificationTitle(type),
+            message: data.message,
+            deepLinkUrl: getDeepLinkUrl(type, data),
+            teamId: data.teamId || null,
+            status: 'filtered',
+            reason: `Team mismatch: notification for "${data.teamId}" but My Team is "${myTeam.team}"`,
+            sentAt: admin.firestore.FieldValue.serverTimestamp(),
+          });
+        } catch (historyError) {
+          // Don't fail the request if history logging fails
+        }
+
         return NextResponse.json({
           success: false,
           message: `Notification is for team "${data.teamId}" but user's My Team is "${myTeam.team}"`,
@@ -207,6 +251,29 @@ export async function POST(request: Request) {
     // Send notification via FCM
     const messaging = admin.messaging();
     const response = await messaging.send(message);
+
+    // Log notification to history
+    try {
+      const historyRef = db
+        .collection('users')
+        .doc(userId)
+        .collection('notificationHistory')
+        .doc();
+
+      await historyRef.set({
+        type,
+        title: getNotificationTitle(type),
+        message: data.message,
+        deepLinkUrl,
+        teamId: data.teamId || null,
+        status: 'sent',
+        messageId: response,
+        sentAt: admin.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch (historyError) {
+      // Don't fail the request if history logging fails
+      // The notification was already sent successfully
+    }
 
     return NextResponse.json({
       success: true,
