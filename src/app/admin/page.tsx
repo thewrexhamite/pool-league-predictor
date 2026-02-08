@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useLeague } from '@/lib/league-context';
 import { useRouter } from 'next/navigation';
-import { Plus } from 'lucide-react';
+import { Plus, Users } from 'lucide-react';
 import LeagueForm from '@/components/admin/LeagueForm';
 import type { LeagueConfig } from '@/lib/types';
 
@@ -65,11 +65,20 @@ function AdminDashboardContent() {
     <div className="min-h-screen bg-base-200">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">League Administration</h1>
-          <p className="text-base-content/70">
-            Manage leagues, data sources, and player linking
-          </p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">League Administration</h1>
+            <p className="text-base-content/70">
+              Manage leagues, data sources, and player linking
+            </p>
+          </div>
+          <button
+            onClick={() => router.push('/admin/players')}
+            className="btn btn-outline gap-2"
+          >
+            <Users size={20} />
+            Player Management
+          </button>
         </div>
 
         {/* League List */}
