@@ -100,21 +100,32 @@ export default function AppHeader({
 
   // Search
   const searchResults = useMemo(() => {
-    if (!searchQuery.trim()) return [];
+    if (searchQuery.length < 2) return [];
     const q = searchQuery.toLowerCase();
-    const teams = Object.values(ds.teams);
-    const players = getAllLeaguePlayers(ds);
+    const results: { type: 'team' | 'player'; name: string; detail: string; div?: DivisionCode }[] = [];
 
-    const teamMatches = teams
-      .filter(t => t.name.toLowerCase().includes(q))
-      .map(t => ({ type: 'team' as const, name: t.name, detail: `${t.div} \u2022 ${t.played}P`, div: t.div }));
+    // Search teams
+    for (const [divCode, divData] of Object.entries(ds.divisions) as [DivisionCode, { name: string; teams: string[] }][]) {
+      for (const team of divData.teams) {
+        if (team.toLowerCase().includes(q)) {
+          results.push({ type: 'team', name: team, detail: divCode, div: divCode });
+        }
+      }
+    }
 
-    const playerMatches = players
-      .filter(p => p.name.toLowerCase().includes(q))
-      .slice(0, 10)
-      .map(p => ({ type: 'player' as const, name: p.name, detail: `${p.played}P` }));
+    // Search players
+    const allPlayers = getAllLeaguePlayers(ds);
+    for (const player of allPlayers) {
+      if (player.name.toLowerCase().includes(q)) {
+        results.push({
+          type: 'player',
+          name: player.name,
+          detail: player.teams2526.slice(0, 2).join(', ') || 'Unknown team',
+        });
+      }
+    }
 
-    return [...teamMatches, ...playerMatches].slice(0, 10);
+    return results.slice(0, 8);
   }, [searchQuery, ds]);
 
   // Click-outside to close search

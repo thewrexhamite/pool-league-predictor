@@ -5,8 +5,12 @@ import type {
   SimulationResult,
   WhatIfResult,
   SquadOverrides,
+  PredictionResult,
 } from '../types';
 import { predictFrame } from './matchup';
+import { calcStandings, calcTeamStrength, type DataSources } from './core';
+import { calcStrengthAdjustments } from './lineup';
+import { getRemainingFixtures, getAllRemainingFixtures } from './fixtures';
 
 // Optional data sources argument for dependency injection
 export interface SimulationDataSources {
@@ -51,7 +55,7 @@ export function simulateMatch(
  * @param whatIfResults - User-specified match results to apply
  * @returns Array of simulation results sorted by average points (descending)
  */
-export function runSeasonSimulation(
+export function runSeasonSimulationCore(
   div: DivisionCode,
   strengths: Record<string, number>,
   currentStandings: Record<string, StandingEntry>,
@@ -132,4 +136,93 @@ export function runSeasonSimulation(
       ).toFixed(1),
     }))
     .sort((a, b) => parseFloat(b.avgPts) - parseFloat(a.avgPts));
+}
+
+/**
+ * Runs a quick Monte Carlo prediction for a single match (5000 iterations).
+ * Generates win/draw/loss probabilities and most likely scorelines.
+ *
+ * @param p - Frame win probability for home team (from predictFrame)
+ * @returns Prediction result with probabilities and top scorelines
+ */
+export function runPredSim(p: number): PredictionResult {
+  let hw = 0;
+  let dr = 0;
+  let aw = 0;
+  const scores: Record<string, number> = {};
+  for (let i = 0; i < 5000; i++) {
+    let hf = 0;
+    for (let j = 0; j < 10; j++) if (Math.random() < p) hf++;
+    const af = 10 - hf;
+    if (hf > af) hw++;
+    else if (hf < af) aw++;
+    else dr++;
+    const key = hf + '-' + af;
+    scores[key] = (scores[key] || 0) + 1;
+  }
+  const topScores = Object.entries(scores)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([s, c]) => ({ score: s, pct: (c / 50).toFixed(1) }));
+  return {
+    pHomeWin: (hw / 50).toFixed(1),
+    pDraw: (dr / 50).toFixed(1),
+    pAwayWin: (aw / 50).toFixed(1),
+    expectedHome: (p * 10).toFixed(1),
+    expectedAway: ((1 - p) * 10).toFixed(1),
+    topScores,
+  };
+}
+
+/**
+ * Backward-compatible wrapper for runSeasonSimulation.
+ * Maintains the original API that accepts squad overrides and computes
+ * strengths/standings/fixtures internally.
+ *
+ * @param div - Division code to simulate
+ * @param squadOverrides - Squad override configuration
+ * @param squadTopN - Top N players to consider for squad strength
+ * @param whatIfResults - User-specified match results to apply
+ * @param ds - Optional data sources
+ * @returns Array of simulation results sorted by average points (descending)
+ */
+export function runSeasonSimulation(
+  div: DivisionCode,
+  squadOverrides: SquadOverrides,
+  squadTopN: number,
+  whatIfResults: WhatIfResult[],
+  ds?: DataSources
+): SimulationResult[] {
+  // Get default data sources if not provided
+  const dataSources = ds ?? {
+    divisions: {},
+    results: [],
+    fixtures: [],
+    players: {},
+    rosters: {},
+    players2526: {},
+  };
+
+  // Extract division teams
+  const divTeams = dataSources.divisions[div]?.teams || [];
+
+  // Calculate team strengths and apply squad adjustments
+  const strengths = calcTeamStrength(div, dataSources);
+  const squadAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN, dataSources);
+  Object.entries(squadAdj).forEach(([t, adj]) => {
+    if (strengths[t] !== undefined) strengths[t] += adj;
+  });
+
+  // Calculate current standings
+  const current = calcStandings(div, dataSources);
+  const currentMap: Record<string, StandingEntry> = {};
+  current.forEach(s => {
+    currentMap[s.team] = s;
+  });
+
+  // Get remaining fixtures
+  const fixtures = getRemainingFixtures(div, dataSources);
+
+  // Call the core simulation function
+  return runSeasonSimulationCore(div, strengths, currentMap, divTeams, fixtures, whatIfResults);
 }

@@ -41,7 +41,7 @@ import {
   runSeasonSimulation,
   getDiv,
   type DataSources,
-} from '@/lib/predictions';
+} from '@/lib/predictions/index';
 import { getAvailableMatchDates } from '@/lib/time-machine';
 import { TABS } from '@/lib/tabs';
 import { useLeague } from '@/lib/league-context';

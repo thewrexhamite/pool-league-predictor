@@ -25,6 +25,7 @@ export {
 export {
   simulateMatch,
   runSeasonSimulation,
+  runPredSim,
   type SimulationDataSources,
 } from './simulation';
 
