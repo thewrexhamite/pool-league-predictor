@@ -87,6 +87,28 @@ export default function LineupOptimizerTab({
     setPlayerAvailability(prev => prev.map(p => ({ ...p, available: false })));
   };
 
+  // Handle position lock/unlock toggle
+  const handleToggleLock = (set: 1 | 2, position: number, playerName: string) => {
+    setLockedPositions(prev => {
+      const existingLock = prev.find(
+        lock => lock.set === set && lock.position === position
+      );
+
+      if (existingLock) {
+        // If already locked, unlock it
+        return prev.filter(lock => !(lock.set === set && lock.position === position));
+      } else {
+        // Lock this position with this player
+        return [...prev, { set, position, playerName }];
+      }
+    });
+  };
+
+  // Check if a position is locked
+  const isPositionLocked = (set: 1 | 2, position: number): boolean => {
+    return lockedPositions.some(lock => lock.set === set && lock.position === position);
+  };
+
   // Handle optimize button click
   const handleOptimize = () => {
     if (!homeTeam || !awayTeam || availablePlayers.length < 10) return;
@@ -242,12 +264,155 @@ export default function LineupOptimizerTab({
         </div>
       )}
 
-      {/* Placeholder for lock/unlock interface - to be implemented in subtask-2-3 */}
+      {/* Lock/unlock position interface */}
       {optimizedLineup && (
         <div className="mb-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">
-            Position Locking (to be implemented)
-          </h3>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-medium text-gray-400">
+              Optimized Lineup
+              {lockedPositions.length > 0 && (
+                <span className="ml-2 text-xs text-amber-400">
+                  ({lockedPositions.length} position{lockedPositions.length > 1 ? 's' : ''} locked)
+                </span>
+              )}
+            </h3>
+            {lockedPositions.length > 0 && (
+              <button
+                onClick={() => setLockedPositions([])}
+                className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-300 transition"
+              >
+                <Unlock size={14} />
+                Unlock All
+              </button>
+            )}
+          </div>
+          <p className="text-xs text-gray-500 mb-4">
+            Click the lock icon to lock a player in a specific position
+          </p>
+
+          {/* Set 1 */}
+          <div className="mb-4">
+            <h4 className="text-xs font-medium text-gray-400 mb-2">Set 1</h4>
+            <div className="space-y-2">
+              {optimizedLineup.set1.map((playerName, idx) => {
+                const position = idx + 1;
+                const locked = isPositionLocked(1, position);
+                const player = teamPlayers.find(p => p.name === playerName);
+
+                return (
+                  <div
+                    key={`set1-${position}`}
+                    className={clsx(
+                      'flex items-center gap-3 p-2 rounded border transition',
+                      locked
+                        ? 'bg-amber-900/20 border-amber-600/30'
+                        : 'bg-surface-elevated border-surface-border'
+                    )}
+                  >
+                    <button
+                      onClick={() => handleToggleLock(1, position, playerName)}
+                      className={clsx(
+                        'p-1 rounded transition',
+                        locked
+                          ? 'text-amber-400 hover:text-amber-300'
+                          : 'text-gray-500 hover:text-gray-400'
+                      )}
+                      title={locked ? 'Unlock position' : 'Lock position'}
+                    >
+                      {locked ? <Lock size={16} /> : <Unlock size={16} />}
+                    </button>
+                    <span className="text-xs text-gray-500 w-8">#{position}</span>
+                    <div className="flex-1 min-w-0">
+                      <button
+                        onClick={() => onPlayerClick(playerName)}
+                        className="text-sm text-gray-200 hover:text-white transition truncate text-left w-full"
+                      >
+                        {playerName}
+                      </button>
+                      {player?.rating !== null && (
+                        <div className="text-xs text-gray-400">
+                          Skill: {player?.rating?.toFixed(0) || 'N/A'}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Set 2 */}
+          <div>
+            <h4 className="text-xs font-medium text-gray-400 mb-2">Set 2</h4>
+            <div className="space-y-2">
+              {optimizedLineup.set2.map((playerName, idx) => {
+                const position = idx + 1;
+                const locked = isPositionLocked(2, position);
+                const player = teamPlayers.find(p => p.name === playerName);
+
+                return (
+                  <div
+                    key={`set2-${position}`}
+                    className={clsx(
+                      'flex items-center gap-3 p-2 rounded border transition',
+                      locked
+                        ? 'bg-amber-900/20 border-amber-600/30'
+                        : 'bg-surface-elevated border-surface-border'
+                    )}
+                  >
+                    <button
+                      onClick={() => handleToggleLock(2, position, playerName)}
+                      className={clsx(
+                        'p-1 rounded transition',
+                        locked
+                          ? 'text-amber-400 hover:text-amber-300'
+                          : 'text-gray-500 hover:text-gray-400'
+                      )}
+                      title={locked ? 'Unlock position' : 'Lock position'}
+                    >
+                      {locked ? <Lock size={16} /> : <Unlock size={16} />}
+                    </button>
+                    <span className="text-xs text-gray-500 w-8">#{position}</span>
+                    <div className="flex-1 min-w-0">
+                      <button
+                        onClick={() => onPlayerClick(playerName)}
+                        className="text-sm text-gray-200 hover:text-white transition truncate text-left w-full"
+                      >
+                        {playerName}
+                      </button>
+                      {player?.rating !== null && (
+                        <div className="text-xs text-gray-400">
+                          Skill: {player?.rating?.toFixed(0) || 'N/A'}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Win probability */}
+          <div className="mt-4 p-3 bg-surface-elevated rounded border border-surface-border">
+            <div className="text-xs text-gray-400 mb-1">Win Probability</div>
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <div className="text-sm font-medium text-baize">
+                  {(optimizedLineup.winProbability.pWin * 100).toFixed(1)}% Win
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="text-sm text-gray-300">
+                  {(optimizedLineup.winProbability.pDraw * 100).toFixed(1)}% Draw
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="text-sm text-gray-400">
+                  {(optimizedLineup.winProbability.pLoss * 100).toFixed(1)}% Loss
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
