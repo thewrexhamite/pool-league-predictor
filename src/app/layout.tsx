@@ -38,7 +38,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Pool League Pro" />
-        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-2Y3WXKZYSD"
           strategy="afterInteractive"
