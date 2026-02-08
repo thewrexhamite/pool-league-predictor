@@ -16,6 +16,7 @@ import { useAuth } from '@/lib/auth';
 import { useLeagueData } from '@/lib/data-provider';
 import DataCorrectionPanel from './DataCorrectionPanel';
 import ManualResultEntry from './ManualResultEntry';
+import PlayerMergePanel from './PlayerMergePanel';
 
 interface AdminDashboardProps {
   // Reserved for future props
@@ -271,6 +272,11 @@ export default function AdminDashboard({}: AdminDashboardProps) {
 
       {/* Data Correction Panel */}
       <DataCorrectionPanel />
+
+      {/* Player Merge Panel */}
+      <div className="mt-8">
+        <PlayerMergePanel />
+      </div>
     </div>
   );
 }
