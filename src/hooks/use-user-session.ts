@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { useUser } from '@/lib/auth/auth-context';
 import type { DivisionCode, WhatIfResult, SquadOverrides, UserSession } from '@/lib/types';
 
 const SESSION_KEY = 'pool-league-session';
@@ -56,6 +57,7 @@ export function useUserSession({
   onRestore,
 }: UseUserSessionOptions) {
   const [initialized, setInitialized] = useState(false);
+  const user = useUser();
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const deviceId = useRef('');
 
@@ -70,11 +72,14 @@ export function useUserSession({
     }
 
     // Then try Firestore (async reconciliation)
-    if (process.env.NEXT_PUBLIC_FIREBASE_API_KEY && deviceId.current) {
+    if (process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
       (async () => {
         try {
           const { db } = await import('@/lib/firebase');
-          const docRef = doc(db, 'userSessions', deviceId.current);
+          // Use userId when authenticated, deviceId when not
+          const docRef = user
+            ? doc(db, 'users', user.uid, 'userData', 'session')
+            : doc(db, 'userSessions', deviceId.current);
           const snap = await getDoc(docRef);
           if (snap.exists()) {
             const remote = snap.data() as UserSession;
@@ -112,16 +117,21 @@ export function useUserSession({
     // Debounce Firestore writes
     if (debounceTimer.current) clearTimeout(debounceTimer.current);
     debounceTimer.current = setTimeout(async () => {
-      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY || !deviceId.current) return;
+      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return;
+      // Skip Firestore write if not authenticated and no deviceId
+      if (!user && !deviceId.current) return;
       try {
         const { db } = await import('@/lib/firebase');
-        const docRef = doc(db, 'userSessions', deviceId.current);
+        // Use userId when authenticated, deviceId when not
+        const docRef = user
+          ? doc(db, 'users', user.uid, 'userData', 'session')
+          : doc(db, 'userSessions', deviceId.current);
         await setDoc(docRef, session);
       } catch {
         // Firestore unavailable
       }
     }, DEBOUNCE_MS);
-  }, [initialized, whatIfResults, squadOverrides, selectedDiv]);
+  }, [initialized, whatIfResults, squadOverrides, selectedDiv, user]);
 
   useEffect(() => {
     saveSession();
