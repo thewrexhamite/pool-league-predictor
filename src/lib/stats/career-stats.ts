@@ -13,6 +13,7 @@ import type {
   SeasonData,
   CareerTrend,
   ImprovementMetrics,
+  ConsistencyMetrics,
 } from '../types';
 
 // ============================================================================
@@ -273,6 +274,62 @@ export function calculateCareerTrend(seasons: SeasonSummary[]): CareerTrend | nu
       winRateDiff,
       ratingDiff,
     },
+  };
+}
+
+/**
+ * Calculate consistency metrics across seasons.
+ * Measures variance and standard deviation of performance over time.
+ *
+ * @param seasons - Array of season summaries (sorted chronologically)
+ * @returns Consistency metrics with variance, standard deviation, and category, or null if insufficient data
+ */
+export function calculateConsistencyMetrics(
+  seasons: SeasonSummary[]
+): ConsistencyMetrics | null {
+  // Need at least 2 seasons to calculate consistency
+  if (seasons.length < 2) {
+    return null;
+  }
+
+  // Calculate win rate variance and standard deviation
+  const winRates = seasons.map((s) => s.winRate);
+  const winRateMean = winRates.reduce((sum, wr) => sum + wr, 0) / winRates.length;
+  const winRateVariance =
+    winRates.reduce((sum, wr) => sum + Math.pow(wr - winRateMean, 2), 0) / winRates.length;
+  const winRateStdDev = Math.sqrt(winRateVariance);
+
+  // Calculate rating variance and standard deviation (if ratings exist)
+  const seasonsWithRating = seasons.filter((s) => s.rating !== null);
+  let ratingVariance: number | null = null;
+  let ratingStdDev: number | null = null;
+
+  if (seasonsWithRating.length >= 2) {
+    const ratings = seasonsWithRating.map((s) => s.rating!);
+    const ratingMean = ratings.reduce((sum, r) => sum + r, 0) / ratings.length;
+    ratingVariance =
+      ratings.reduce((sum, r) => sum + Math.pow(r - ratingMean, 2), 0) / ratings.length;
+    ratingStdDev = Math.sqrt(ratingVariance);
+  }
+
+  // Determine consistency category based on win rate standard deviation
+  // Lower std dev = more consistent
+  let consistency: 'high' | 'medium' | 'low' = 'medium';
+  const CONSISTENCY_LOW_THRESHOLD = 0.15; // 15% win rate variation
+  const CONSISTENCY_HIGH_THRESHOLD = 0.05; // 5% win rate variation
+
+  if (winRateStdDev <= CONSISTENCY_HIGH_THRESHOLD) {
+    consistency = 'high';
+  } else if (winRateStdDev >= CONSISTENCY_LOW_THRESHOLD) {
+    consistency = 'low';
+  }
+
+  return {
+    winRateVariance,
+    winRateStdDev,
+    ratingVariance,
+    ratingStdDev,
+    consistency,
   };
 }
 
