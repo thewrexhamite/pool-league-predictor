@@ -3,15 +3,15 @@ import { redirect } from 'next/navigation';
 import { RedirectClient } from './RedirectClient';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     div: string;
     home: string;
     away: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { div, home, away } = params;
+  const { div, home, away } = await params;
   const decodedHome = decodeURIComponent(home);
   const decodedAway = decodeURIComponent(away);
 
@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function SharePredictPage({ params }: PageProps) {
-  const { div, home, away } = params;
+export default async function SharePredictPage({ params }: PageProps) {
+  const { div, home, away } = await params;
   const hashUrl = `/#/predict/${div}/${home}/vs/${away}`;
 
   return <RedirectClient hashUrl={hashUrl} />;

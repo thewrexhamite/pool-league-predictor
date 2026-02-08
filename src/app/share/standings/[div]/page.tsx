@@ -3,13 +3,13 @@ import { redirect } from 'next/navigation';
 import { RedirectClient } from './RedirectClient';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     div: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { div } = params;
+  const { div } = await params;
   const decodedDiv = decodeURIComponent(div);
 
   const title = `${decodedDiv} Standings - Pool League Pro`;
@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function ShareStandingsPage({ params }: PageProps) {
-  const { div } = params;
+export default async function ShareStandingsPage({ params }: PageProps) {
+  const { div } = await params;
   const hashUrl = `/#/standings/${div}`;
 
   return <RedirectClient hashUrl={hashUrl} />;

@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { RedirectClient } from './RedirectClient';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     div: string;
     team: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { div, team } = params;
+  const { div, team } = await params;
   const decodedTeam = decodeURIComponent(team);
   const decodedDiv = decodeURIComponent(div);
 
@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function ShareTeamPage({ params }: PageProps) {
-  const { div, team } = params;
+export default async function ShareTeamPage({ params }: PageProps) {
+  const { div, team } = await params;
   const hashUrl = `/#/team/${div}/${team}`;
 
   return <RedirectClient hashUrl={hashUrl} />;
