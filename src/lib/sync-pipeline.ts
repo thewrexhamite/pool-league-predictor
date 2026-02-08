@@ -130,9 +130,9 @@ async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function log(message: string): void {
+function log(message: string, level: 'INFO' | 'WARN' | 'ERROR' = 'INFO'): void {
   const timestamp = new Date().toISOString().substring(11, 19);
-  console.log(`[${timestamp}] ${message}`);
+  console.log(`[${timestamp}] [SYNC] [${level}] ${message}`);
 }
 
 let requestCount = 0;
@@ -199,7 +199,7 @@ async function scrapeStandings(divCode: string, siteGroup: string, config: Leagu
     }
   }
 
-  console.log(`  ${divCode}: ${teams.length} teams`);
+  log(`${divCode}: ${teams.length} teams`);
   return teams;
 }
 
@@ -393,7 +393,7 @@ async function scrapeFixtures(divCode: string, siteGroup: string, config: League
     }
   }
 
-  console.log(`  ${divCode}: ${fixtures.length} fixtures`);
+  log(`${divCode}: ${fixtures.length} fixtures`);
   return fixtures;
 }
 
@@ -594,14 +594,14 @@ export async function writeToFirestore(
     if (config.leagueId === 'wrexham') {
       const legacyRef = db.collection('seasons').doc(config.seasonId);
       await legacyRef.set(seasonPayload);
-      console.log(`Firestore: seasons/${config.seasonId} (legacy) written successfully`);
+      log(`Firestore: seasons/${config.seasonId} (legacy) written successfully`);
     }
 
-    console.log(`\nFirestore: leagues/${config.leagueId}/seasons/${config.seasonId} written successfully`);
+    log(`Firestore: leagues/${config.leagueId}/seasons/${config.seasonId} written successfully`);
   } catch (err) {
-    console.error('\nFirestore write failed (credentials may not be configured):');
-    console.error(err instanceof Error ? err.message : err);
-    console.log('JSON backup files were still written successfully.');
+    log('Firestore write failed (credentials may not be configured)', 'ERROR');
+    log(err instanceof Error ? err.message : String(err), 'ERROR');
+    log('JSON backup files were still written successfully.', 'WARN');
   }
 }
 
@@ -631,15 +631,15 @@ export async function syncLeagueData(
       throw new Error(`Unknown league: "${leagueKey}". Available: ${Object.keys(LEAGUE_CONFIGS).join(', ')}`);
     }
 
-    console.log(`=== LeagueAppLive → Firestore Sync ===`);
-    console.log(`  League: ${config.leagueName} (${leagueKey})`);
-    console.log(`  Season: ${config.seasonId}`);
-    console.log(`  Output: ${config.dataDir}`);
-    if (dryRun) console.log(`  Mode: DRY RUN (Firestore writes skipped)`);
-    console.log('');
+    log(`=== LeagueAppLive → Firestore Sync ===`);
+    log(`League: ${config.leagueName} (${leagueKey})`);
+    log(`Season: ${config.seasonId}`);
+    log(`Output: ${config.dataDir}`);
+    if (dryRun) log(`Mode: DRY RUN (Firestore writes skipped)`, 'WARN');
+    log('');
 
     // 1. Scrape standings per division → team names
-    console.log('Step 1: Scraping standings...');
+    log('Step 1: Scraping standings...');
     const divisionTeams: Record<string, string[]> = {};
     for (const div of config.divisions) {
       divisionTeams[div.code] = await scrapeStandings(div.code, div.siteGroup, config);
@@ -663,7 +663,7 @@ export async function syncLeagueData(
     }
 
     // 2. Scrape team match results
-    console.log('\nStep 2: Scraping team results...');
+    log('Step 2: Scraping team results...');
     const allResults: ScrapedResult[] = [];
     const matchIdsSeen = new Set<string>();
     let crossLeagueFiltered = 0;
@@ -685,13 +685,13 @@ export async function syncLeagueData(
       }
     }
     if (crossLeagueFiltered > 0) {
-      console.log(`  Filtered ${crossLeagueFiltered} cross-league matches`);
+      log(`Filtered ${crossLeagueFiltered} cross-league matches`);
     }
-    console.log(`  Total unique results: ${allResults.length}`);
+    log(`Total unique results: ${allResults.length}`);
 
     // 2b. Resolve dates from existing results.json + fixtures.json
     // The site doesn't show dates on match detail pages
-    console.log('\n  Resolving dates from existing data...');
+    log('Resolving dates from existing data...');
     const existingResultsPath = path.join(config.dataDir, 'results.json');
     const existingFixturesPath = path.join(config.dataDir, 'fixtures.json');
     const dateMap = new Map<string, string>(); // "home:away" → date
@@ -723,13 +723,13 @@ export async function syncLeagueData(
         datesMissing++;
         // Use a placeholder -- these are new matches not in existing data
         r.date = '01-01-2026';
-        console.log(`    WARNING: No date for ${r.home} vs ${r.away} (matchId: ${r.matchId})`);
+        log(`WARNING: No date for ${r.home} vs ${r.away} (matchId: ${r.matchId})`, 'WARN');
       }
     }
-    console.log(`  Dates resolved: ${datesResolved}, missing: ${datesMissing}`);
+    log(`Dates resolved: ${datesResolved}, missing: ${datesMissing}`);
 
     // 3. Scrape frame details for each match
-    console.log('\nStep 3: Scraping frame details...');
+    log('Step 3: Scraping frame details...');
     const allFrames: ScrapedMatchFrames[] = [];
     const processedMatchIds = new Set<string>();
     let frameIdx = 0;
@@ -756,29 +756,29 @@ export async function syncLeagueData(
         allFrames.push(frameData);
       }
     }
-    console.log(`  Total matches with frames: ${allFrames.length}`);
+    log(`Total matches with frames: ${allFrames.length}`);
 
     // 4. Scrape fixtures
-    console.log('\nStep 4: Scraping fixtures...');
+    log('Step 4: Scraping fixtures...');
     const allFixtures: ScrapedFixture[] = [];
     for (const div of config.divisions) {
       const divFixtures = await scrapeFixtures(div.code, div.siteGroup, config);
       allFixtures.push(...divFixtures);
     }
-    console.log(`  Total fixtures: ${allFixtures.length}`);
+    log(`Total fixtures: ${allFixtures.length}`);
 
     // 5. Aggregate frame data into player stats and rosters
-    console.log('\nStep 5: Aggregating player stats...');
+    log('Step 5: Aggregating player stats...');
     const { players2526: scrapedPlayers2526, rosters: scrapedRosters } = aggregatePlayerStats(allFrames, config);
-    console.log(`  Players from frames: ${Object.keys(scrapedPlayers2526).length}`);
-    console.log(`  Roster entries from frames: ${Object.keys(scrapedRosters).length}`);
+    log(`Players from frames: ${Object.keys(scrapedPlayers2526).length}`);
+    log(`Roster entries from frames: ${Object.keys(scrapedRosters).length}`);
 
     // 6. Load existing data (keep what we can't scrape)
     const playersPath = path.join(config.dataDir, 'players.json');
     let players2425: Record<string, unknown> = {};
     if (fs.existsSync(playersPath)) {
       players2425 = JSON.parse(fs.readFileSync(playersPath, 'utf8'));
-      console.log(`  24/25 players loaded: ${Object.keys(players2425).length}`);
+      log(`24/25 players loaded: ${Object.keys(players2425).length}`);
     }
 
     // Load existing players2526 and rosters as fallback if scraped frame data is sparse
@@ -788,11 +788,11 @@ export async function syncLeagueData(
     let rosters = scrapedRosters;
 
     if (Object.keys(scrapedPlayers2526).length === 0 && fs.existsSync(existingPlayers2526Path)) {
-      console.log('  No frame data scraped -- keeping existing players2526.json');
+      log('No frame data scraped -- keeping existing players2526.json', 'WARN');
       players2526 = JSON.parse(fs.readFileSync(existingPlayers2526Path, 'utf8'));
     }
     if (Object.keys(scrapedRosters).length === 0 && fs.existsSync(existingRostersPath)) {
-      console.log('  No frame data scraped -- keeping existing rosters.json');
+      log('No frame data scraped -- keeping existing rosters.json', 'WARN');
       rosters = JSON.parse(fs.readFileSync(existingRostersPath, 'utf8'));
     }
 
@@ -809,7 +809,7 @@ export async function syncLeagueData(
     }));
 
     // 7. Write to JSON backup files
-    console.log('\nStep 6: Writing JSON backup files...');
+    log('Step 6: Writing JSON backup files...');
     if (!fs.existsSync(config.dataDir)) fs.mkdirSync(config.dataDir, { recursive: true });
 
     const files: [string, unknown][] = [
@@ -824,14 +824,14 @@ export async function syncLeagueData(
       const filePath = path.join(config.dataDir, filename);
       fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
       const stat = fs.statSync(filePath);
-      console.log(`  ${filename}: ${(stat.size / 1024).toFixed(1)} KB`);
+      log(`${filename}: ${(stat.size / 1024).toFixed(1)} KB`);
     }
 
     // 8. Write to Firestore (unless --dry-run)
     if (dryRun) {
-      console.log('\nStep 7: Skipping Firestore write (--dry-run)');
+      log('Step 7: Skipping Firestore write (--dry-run)', 'WARN');
     } else {
-      console.log('\nStep 7: Writing to Firestore...');
+      log('Step 7: Writing to Firestore...');
       await writeToFirestore({
         results: allResults,
         fixtures: allFixtures,
@@ -843,12 +843,12 @@ export async function syncLeagueData(
       }, config);
     }
 
-    console.log(`\n=== Sync complete ===`);
-    console.log(`  Total HTTP requests: ${requestCount}`);
-    console.log(`  Results: ${allResults.length}`);
-    console.log(`  Fixtures: ${allFixtures.length}`);
-    console.log(`  Matches with frames: ${allFrames.length}`);
-    console.log(`  Players (25/26): ${Object.keys(players2526).length}`);
+    log(`=== Sync complete ===`);
+    log(`Total HTTP requests: ${requestCount}`);
+    log(`Results: ${allResults.length}`);
+    log(`Fixtures: ${allFixtures.length}`);
+    log(`Matches with frames: ${allFrames.length}`);
+    log(`Players (25/26): ${Object.keys(players2526).length}`);
 
     return {
       success: true,
@@ -859,7 +859,7 @@ export async function syncLeagueData(
     };
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : String(err);
-    console.error('Sync failed:', errorMessage);
+    log(`Sync failed: ${errorMessage}`, 'ERROR');
     return {
       success: false,
       results: 0,
