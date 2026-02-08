@@ -17,6 +17,7 @@ import { useLeagueData } from '@/lib/data-provider';
 import DataCorrectionPanel from './DataCorrectionPanel';
 import ManualResultEntry from './ManualResultEntry';
 import PlayerMergePanel from './PlayerMergePanel';
+import LeagueHealthMetrics from './LeagueHealthMetrics';
 
 interface AdminDashboardProps {
   // Reserved for future props
@@ -258,6 +259,11 @@ export default function AdminDashboard({}: AdminDashboardProps) {
             Send notification to all users
           </button>
         </div>
+      </div>
+
+      {/* League Health Metrics */}
+      <div className="mb-8">
+        <LeagueHealthMetrics />
       </div>
 
       {/* Manual Result Entry */}
