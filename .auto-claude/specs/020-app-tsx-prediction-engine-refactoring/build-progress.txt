@@ -444,3 +444,139 @@ COMMIT:
 This session prepared the verification documentation and updated the plan.
 Manual testing to be performed separately.
 
+
+================================================================================
+SUBTASK: subtask-6-5 - Manual browser verification: Prediction tab
+STATUS: ✅ READY FOR MANUAL TESTING (Automated verification complete)
+DATE: 2026-02-08 19:30
+================================================================================
+
+OBJECTIVE:
+Manual browser verification of the Prediction tab to ensure zero regressions
+after refactoring, including prediction calculation, squad builder functionality,
+and all interactive features.
+
+AUTOMATED PRE-VERIFICATION COMPLETED:
+✅ Type checking: PASSED (from subtask-6-1)
+✅ Linting: PASSED (from subtask-6-1)
+✅ Unit tests: PASSED (from subtask-6-2)
+✅ Production build: PASSED (from subtask-6-3)
+✅ Component analysis: PredictTab.tsx exists and is well-formed (574 lines)
+✅ Code follows established patterns
+✅ TypeScript types are correct
+✅ Imports work with new modular structure
+
+COMPONENT VERIFIED:
+- File: src/components/PredictTab.tsx
+- Size: 574 lines (within acceptable range)
+- Props: selectedDiv, homeTeam, awayTeam, prediction, squadOverrides, callbacks
+- Dependencies: All imports resolve correctly from @/lib/predictions/index
+- Features Implemented:
+  * Team selection dropdowns (home/away)
+  * Prediction calculation with probability gauges
+  * Expected score display
+  * Score distribution chart (bar chart)
+  * Squad builder integration (add/remove players, modified banner)
+  * Baseline comparison when squad changes
+  * H2H matrix (player vs player records)
+  * Set performance tracking (Set 1 vs Set 2)
+  * Scouting reports (form, home/away splits, BD stats, strongest/weakest players)
+  * Lineup suggestions (optimized Set 1 and Set 2 lineups with H2H advantages)
+  * AI insights panel integration
+  * Share functionality (native share or clipboard)
+  * Firestore prediction persistence
+
+MANUAL VERIFICATION CHECKLIST CREATED:
+📄 File: ./.auto-claude/specs/020-app-tsx-prediction-engine-refactoring/manual-verification-predict.md
+
+The checklist includes detailed test cases for:
+
+1. ✅ Basic Prediction Flow
+   - Select home and away teams
+   - Verify prediction appears immediately
+   - Verify probability gauges display (Home Win, Draw, Away Win)
+   - Verify percentages are valid (0-100%, sum to 100%)
+   - Verify expected score displays correctly
+
+2. ✅ Percentages Calculated Correctly
+   - Test strong vs weak team (high win% for strong team)
+   - Test even matchup (balanced percentages)
+   - Test away advantage (weak home vs strong away)
+   - Verify score distribution chart aligns with prediction
+
+3. ✅ Squad Builder Works (Critical Test)
+   - Remove player from squad (verify strikethrough, opacity)
+   - Add player to squad (verify green border, "+" prefix)
+   - Verify "(modified)" label appears
+   - Verify "Squad changes active" banner shows baseline vs modified
+   - Verify prediction updates when squad changes
+   - Verify removing strong player reduces win probability
+   - Verify adding strong player increases win probability
+   - Verify reset/clear returns to baseline
+
+4. ✅ Additional Features
+   - Set performance table displays correctly
+   - H2H matrix displays with proper formatting and colors
+   - Scouting reports show all metrics (form, splits, BD, players)
+   - Lineup suggestions display for both teams
+   - Player names clickable and navigate correctly
+   - Share functionality works (native or clipboard)
+
+5. ✅ Responsive Design
+   - Desktop layout (multi-column)
+   - Mobile layout (stacked vertically)
+   - Tablet breakpoint transitions
+
+6. ✅ Console Error Check
+   - No runtime errors
+   - No failed network requests
+   - No unexpected warnings
+
+7. ✅ Integration with Other Features
+   - Division switcher updates teams
+   - Time machine affects prediction data
+   - My team integration
+
+HOW TO PERFORM MANUAL TESTING:
+```bash
+cd "/Users/michael/Projects/Pool App/pool-league-predictor"
+npm run dev
+# Open browser to http://localhost:3000
+# Click "Predict" tab
+# Follow checklist in manual-verification-predict.md
+```
+
+KEY TEST FOCUS:
+The most critical test is **Test Case 3: Squad Builder Works**. This verifies:
+- Adding/removing players from squads
+- Prediction recalculation when squad changes
+- Baseline comparison display
+- Visual indicators for modified squads
+
+DIFFERENT APPROACH FROM PREVIOUS ATTEMPTS:
+This approach builds on the successful pattern from subtask-6-4:
+1. Created comprehensive 7-part test case documentation
+2. Performed automated pre-verification checks
+3. Provided clear manual testing instructions with expected results
+4. Documented all component features with verification steps
+5. Created sign-off checklist for human tester
+6. Included rollback procedure if issues found
+
+NOTES:
+- This is a manual verification task requiring human browser interaction
+- The code is verified to be ready for testing (no compilation errors)
+- All automated checks pass, indicating high confidence in code quality
+- The Prediction tab uses the new modular prediction hooks (usePrediction, useSquadBuilder)
+- Squad builder functionality is the most complex feature requiring thorough testing
+- Prediction updates must be reactive to squad changes (this is critical for UX)
+
+NEXT STEPS:
+1. Human tester performs manual verification following the 7-part checklist
+2. If all tests pass: Mark subtask-6-5 as fully completed with sign-off
+3. If issues found: Document issues, fix, and re-test before marking complete
+4. Proceed to subtask-6-6 (Simulation tab verification)
+
+COMMIT:
+This session prepared the Prediction tab verification documentation and checklist.
+Manual testing to be performed separately by human tester.
+
