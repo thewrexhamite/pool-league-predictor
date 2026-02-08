@@ -30,6 +30,7 @@ type NotificationType = 'match_results' | 'upcoming_fixtures' | 'standings_updat
 
 interface NotificationData {
   teamId?: string;
+  division?: string;
   message: string;
   [key: string]: unknown;
 }
@@ -155,6 +156,52 @@ export async function POST(request: Request) {
       );
     }
 
+    // Check quiet hours
+    if (preferences?.quietHoursEnabled && preferences.quietHoursStart && preferences.quietHoursEnd) {
+      const now = new Date();
+      const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+      // Helper function to check if current time is within quiet hours
+      const isWithinQuietHours = (current: string, start: string, end: string): boolean => {
+        // Handle overnight quiet hours (e.g., 22:00 - 08:00)
+        if (start > end) {
+          return current >= start || current <= end;
+        }
+        // Handle same-day quiet hours (e.g., 09:00 - 17:00)
+        return current >= start && current <= end;
+      };
+
+      if (isWithinQuietHours(currentTime, preferences.quietHoursStart, preferences.quietHoursEnd)) {
+        // Log filtered notification to history
+        try {
+          const historyRef = db
+            .collection('users')
+            .doc(userId)
+            .collection('notificationHistory')
+            .doc();
+
+          await historyRef.set({
+            type,
+            title: getNotificationTitle(type),
+            message: data.message,
+            deepLinkUrl: getDeepLinkUrl(type, data),
+            teamId: data.teamId || null,
+            status: 'filtered',
+            reason: `Quiet hours active (${preferences.quietHoursStart} - ${preferences.quietHoursEnd})`,
+            sentAt: admin.firestore.FieldValue.serverTimestamp(),
+          });
+        } catch (historyError) {
+          // Don't fail the request if history logging fails
+        }
+
+        return NextResponse.json({
+          success: false,
+          message: 'Notification filtered due to quiet hours',
+          filtered: true,
+        });
+      }
+    }
+
     // Check if user has enabled this notification type
     if (preferences && preferences[type] === false) {
       // Log filtered notification to history
@@ -220,6 +267,85 @@ export async function POST(request: Request) {
           message: `Notification is for team "${data.teamId}" but user's My Team is "${myTeam.team}"`,
           filtered: true,
         });
+      }
+    }
+
+    // Check team filters (new advanced filtering)
+    if (preferences?.teamFilters && preferences.teamFilters.length > 0) {
+      if (data.teamId) {
+        // Normalize team names for comparison
+        const normalizedTeamId = data.teamId.toLowerCase().replace(/^team-/, '').trim();
+        const teamAllowed = preferences.teamFilters.some(
+          (team) => team.toLowerCase().trim() === normalizedTeamId
+        );
+
+        if (!teamAllowed) {
+          // Log filtered notification to history
+          try {
+            const historyRef = db
+              .collection('users')
+              .doc(userId)
+              .collection('notificationHistory')
+              .doc();
+
+            await historyRef.set({
+              type,
+              title: getNotificationTitle(type),
+              message: data.message,
+              deepLinkUrl: getDeepLinkUrl(type, data),
+              teamId: data.teamId || null,
+              status: 'filtered',
+              reason: `Team "${data.teamId}" not in user's filter list: [${preferences.teamFilters.join(', ')}]`,
+              sentAt: admin.firestore.FieldValue.serverTimestamp(),
+            });
+          } catch (historyError) {
+            // Don't fail the request if history logging fails
+          }
+
+          return NextResponse.json({
+            success: false,
+            message: `Notification filtered: team "${data.teamId}" not in user's team filters`,
+            filtered: true,
+          });
+        }
+      }
+    }
+
+    // Check division filters
+    if (preferences?.divisionFilters && preferences.divisionFilters.length > 0) {
+      if (data.division) {
+        const divisionAllowed = preferences.divisionFilters.includes(data.division);
+
+        if (!divisionAllowed) {
+          // Log filtered notification to history
+          try {
+            const historyRef = db
+              .collection('users')
+              .doc(userId)
+              .collection('notificationHistory')
+              .doc();
+
+            await historyRef.set({
+              type,
+              title: getNotificationTitle(type),
+              message: data.message,
+              deepLinkUrl: getDeepLinkUrl(type, data),
+              teamId: data.teamId || null,
+              division: data.division || null,
+              status: 'filtered',
+              reason: `Division "${data.division}" not in user's filter list: [${preferences.divisionFilters.join(', ')}]`,
+              sentAt: admin.firestore.FieldValue.serverTimestamp(),
+            });
+          } catch (historyError) {
+            // Don't fail the request if history logging fails
+          }
+
+          return NextResponse.json({
+            success: false,
+            message: `Notification filtered: division "${data.division}" not in user's division filters`,
+            filtered: true,
+          });
+        }
       }
     }
 
