@@ -96,6 +96,51 @@ export function getPlayerHistoricalStats(
   };
 }
 
+// Build search index for multi-season queries
+export interface PlayerSearchIndex {
+  name: string;
+  teams2425: string[];
+  teams2526: string[];
+  hasHistorical: boolean;
+  hasCurrent: boolean;
+  rating: number | null;
+  currentPct: number | null;
+  totalGames: number;
+}
+
+export function buildPlayerSearchIndex(ds?: DataSources): PlayerSearchIndex[] {
+  const src = ds ?? defaults();
+  const allNames = new Set([...Object.keys(src.players), ...Object.keys(src.players2526)]);
+
+  return [...allNames].map(name => {
+    const historical = src.players[name];
+    const current = src.players2526[name];
+
+    // Collect teams from 24/25 (from rosters)
+    const teams2425: string[] = [];
+    for (const [key, roster] of Object.entries(src.rosters)) {
+      if (roster.includes(name)) {
+        const team = key.split(':').slice(1).join(':');
+        teams2425.push(team);
+      }
+    }
+
+    // Collect teams from 25/26 (from player data)
+    const teams2526 = current ? current.teams.map(t => t.team) : [];
+
+    return {
+      name,
+      teams2425,
+      teams2526,
+      hasHistorical: !!historical,
+      hasCurrent: !!current,
+      rating: historical ? historical.r : null,
+      currentPct: current ? current.total.pct : null,
+      totalGames: (historical?.p || 0) + (current?.total.p || 0),
+    };
+  }).sort((a, b) => a.name.localeCompare(b.name));
+}
+
 // Bayesian confidence-adjusted win percentage
 // Pulls small samples toward 50% (prior), reducing flukes from low game counts
 const BAYESIAN_PRIOR = 0.5;
