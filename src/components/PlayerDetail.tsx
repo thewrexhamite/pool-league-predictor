@@ -199,6 +199,53 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
         </div>
       )}
 
+      {/* Consistency Metrics */}
+      {consistencyMetrics && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            Consistency
+            <span className={clsx(
+              'text-xs font-medium px-2 py-0.5 rounded-full',
+              consistencyMetrics.consistency === 'high' ? 'bg-win/20 text-win' :
+              consistencyMetrics.consistency === 'low' ? 'bg-loss/20 text-loss' :
+              'bg-gray-500/20 text-gray-400'
+            )}>
+              {consistencyMetrics.consistency === 'high' ? 'High' : consistencyMetrics.consistency === 'low' ? 'Low' : 'Medium'}
+            </span>
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Lower variance indicates more consistent performance across seasons">
+              <div className="text-lg font-bold text-white">
+                {consistencyMetrics.winRateVariance.toFixed(3)}
+              </div>
+              <div className="text-[10px] text-gray-500">Win Rate Variance</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Standard deviation of win rate across seasons">
+              <div className="text-lg font-bold text-white">
+                {consistencyMetrics.winRateStdDev.toFixed(3)}
+              </div>
+              <div className="text-[10px] text-gray-500">Std Dev</div>
+            </div>
+          </div>
+          {consistencyMetrics.ratingVariance !== null && consistencyMetrics.ratingStdDev !== null && (
+            <div className="grid grid-cols-2 gap-3 mt-3">
+              <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Variance in rating across seasons">
+                <div className="text-lg font-bold text-white">
+                  {consistencyMetrics.ratingVariance.toFixed(3)}
+                </div>
+                <div className="text-[10px] text-gray-500">Rating Variance</div>
+              </div>
+              <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Standard deviation of rating across seasons">
+                <div className="text-lg font-bold text-white">
+                  {consistencyMetrics.ratingStdDev.toFixed(3)}
+                </div>
+                <div className="text-[10px] text-gray-500">Rating Std Dev</div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Improvement Rate */}
       {improvementMetrics && (
         <div className="mb-6">
