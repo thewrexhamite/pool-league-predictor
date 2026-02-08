@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Trophy, TrendingUp, Target, Flame, Award } from 'lucide-react';
 import type { DivisionCode } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
-import { getTeamResults, getDiv } from '@/lib/predictions';
+import { getDiv } from '@/lib/predictions';
 import {
   getTopPlayers,
   getBDLeaders,
@@ -23,7 +23,7 @@ interface StatsTabProps {
 export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: StatsTabProps) {
   const [minGames, setMinGames] = useState(5);
   const [showAllDivisions, setShowAllDivisions] = useState(false);
-  const { ds } = useActiveData();
+  const { ds, frames } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
 
@@ -95,60 +95,21 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
     return getMostImprovedPlayers(ds.players2526, ds.players, division, minGames, 10);
   }, [ds.players2526, ds.players, selectedDiv, showAllDivisions, minGames]);
 
-  // Calculate win streaks for teams
-  const teamStreaks = useMemo(() => {
-    return teams.map(team => {
-      const results = getTeamResults(team, ds);
-      // Filter by division only if not showing all divisions
-      const divResults = showAllDivisions
-        ? results
-        : results.filter(r => getDiv(r.home, ds) === selectedDiv);
+  // Calculate win streaks for players using frame data
+  const playerStreaks = useMemo(() => {
+    const division = showAllDivisions ? null : selectedDiv;
+    return getActiveWinStreaks(frames, ds.players2526, division, 100);
+  }, [frames, ds.players2526, selectedDiv, showAllDivisions]);
 
-      if (divResults.length === 0) {
-        return { team, currentStreak: 0, longestStreak: 0 };
-      }
-
-      // Current streak (most recent consecutive wins)
-      let currentStreak = 0;
-      for (const r of divResults) {
-        if (r.result === 'W') {
-          currentStreak++;
-        } else {
-          break;
-        }
-      }
-
-      // Longest streak in the season
-      let longestStreak = 0;
-      let tempStreak = 0;
-      for (const r of divResults) {
-        if (r.result === 'W') {
-          tempStreak++;
-          longestStreak = Math.max(longestStreak, tempStreak);
-        } else {
-          tempStreak = 0;
-        }
-      }
-
-      return { team, currentStreak, longestStreak };
-    });
-  }, [teams, ds, selectedDiv, showAllDivisions]);
-
-  // Active win streaks (teams currently on a winning streak)
+  // Active win streaks (players currently on a winning streak)
   const activeStreaks = useMemo(() => {
-    return [...teamStreaks]
-      .filter(t => t.currentStreak > 0)
-      .sort((a, b) => b.currentStreak - a.currentStreak)
-      .slice(0, 10);
-  }, [teamStreaks]);
+    return playerStreaks.slice(0, 10);
+  }, [playerStreaks]);
 
-  // Longest win streaks this season
+  // Longest win streaks (same as active since getActiveWinStreaks returns top streaks)
   const longestStreaks = useMemo(() => {
-    return [...teamStreaks]
-      .filter(t => t.longestStreak > 0)
-      .sort((a, b) => b.longestStreak - a.longestStreak)
-      .slice(0, 10);
-  }, [teamStreaks]);
+    return playerStreaks.slice(0, 10);
+  }, [playerStreaks]);
 
   return (
     <div className="space-y-4">
@@ -522,7 +483,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
           </h3>
           {activeStreaks.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-gray-500 text-sm">No teams on active win streaks</p>
+              <p className="text-gray-500 text-sm">No players on active win streaks</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -530,23 +491,30 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                 <thead>
                   <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
                     <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Player</th>
                     <th className="text-left p-2">Team</th>
                     <th className="text-center p-2">Streak</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {activeStreaks.map((t, i) => (
+                  {activeStreaks.map((p, i) => (
                     <tr
-                      key={t.team}
+                      key={p.name + p.team}
                       className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
-                      onClick={() => onTeamClick(t.team)}
+                      onClick={() => onPlayerClick(p.name)}
                     >
                       <td className="p-2 text-gray-600">{i + 1}</td>
-                      <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                      <td
+                        className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                        onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                      >
+                        {p.team}
+                      </td>
                       <td className="p-2 text-center">
                         <span className="inline-flex items-center gap-1 font-bold text-warning">
                           <Flame size={14} />
-                          {t.currentStreak}
+                          {p.streak}
                         </span>
                       </td>
                     </tr>
@@ -573,20 +541,27 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                 <thead>
                   <tr className="text-gray-500 uppercase tracking-wider text-[10px] border-b border-surface-border">
                     <th className="text-left p-2">#</th>
+                    <th className="text-left p-2">Player</th>
                     <th className="text-left p-2">Team</th>
                     <th className="text-center p-2">Best</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {longestStreaks.map((t, i) => (
+                  {longestStreaks.map((p, i) => (
                     <tr
-                      key={t.team}
+                      key={p.name + p.team}
                       className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
-                      onClick={() => onTeamClick(t.team)}
+                      onClick={() => onPlayerClick(p.name)}
                     >
                       <td className="p-2 text-gray-600">{i + 1}</td>
-                      <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
-                      <td className="p-2 text-center font-bold text-accent">{t.longestStreak}</td>
+                      <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                      <td
+                        className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                        onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                      >
+                        {p.team}
+                      </td>
+                      <td className="p-2 text-center font-bold text-accent">{p.streak}</td>
                     </tr>
                   ))}
                 </tbody>
