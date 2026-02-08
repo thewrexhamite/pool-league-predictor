@@ -200,6 +200,17 @@ export interface NotificationPreferences {
   reminderTiming?: ReminderTiming;
 }
 
+export interface NotificationHistory {
+  id: string;
+  userId: string;
+  type: string;
+  title: string;
+  body: string;
+  sentAt: number; // timestamp
+  fixture?: Fixture;
+  read: boolean;
+}
+
 // Squad override types
 export interface SquadOverride {
   added: string[];
