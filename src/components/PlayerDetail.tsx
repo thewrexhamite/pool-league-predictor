@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, Trophy, Award } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions';
@@ -293,6 +293,47 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
       {careerTrend && (
         <div className="mb-6">
           <CareerTrendChart careerTrend={careerTrend} />
+        </div>
+      )}
+
+      {/* Career Highlights */}
+      {careerTrend && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            <Trophy size={14} className="text-gold" />
+            Career Highlights
+          </h3>
+          <div className="grid grid-cols-3 gap-3">
+            {/* Peak Win Rate */}
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Career best win rate">
+              <Award size={16} className="mx-auto text-gold mb-1" />
+              <div className="text-lg font-bold text-gold">
+                {(careerTrend.peakWinRate.value * 100).toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">Career High</div>
+            </div>
+
+            {/* Peak Season */}
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Season when peak performance was achieved">
+              <div className="text-lg font-bold text-info">
+                {careerTrend.peakWinRate.seasonId.length === 4
+                  ? `${careerTrend.peakWinRate.seasonId.slice(0,2)}/${careerTrend.peakWinRate.seasonId.slice(2,4)}`
+                  : careerTrend.peakWinRate.seasonId}
+              </div>
+              <div className="text-[10px] text-gray-500">Peak Season</div>
+            </div>
+
+            {/* Current vs Peak */}
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Current performance relative to career peak">
+              <div className={clsx(
+                'text-lg font-bold',
+                careerTrend.currentVsPeak.winRateDiff >= 0 ? 'text-win' : 'text-loss'
+              )}>
+                {careerTrend.currentVsPeak.winRateDiff >= 0 ? '+' : ''}{careerTrend.currentVsPeak.winRateDiff.toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">vs Peak</div>
+            </div>
+          </div>
         </div>
       )}
 
