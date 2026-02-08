@@ -11,6 +11,7 @@ import {
   getBDLeaders,
   getTeamHomeAwayRecord,
   getMostImprovedPlayers,
+  calculateCurrentForm,
 } from '@/lib/stats';
 
 interface StatsTabProps {
@@ -23,7 +24,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   const [minGames, setMinGames] = useState(5);
   const [showAllDivisions, setShowAllDivisions] = useState(false);
   const [trendFilter, setTrendFilter] = useState<'all' | 'hot' | 'cold' | 'steady'>('all');
-  const { ds } = useActiveData();
+  const { ds, frames } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
 
@@ -41,15 +42,27 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
     const division = showAllDivisions ? null : selectedDiv;
     const players = getTopPlayers(ds.players2526, division, minGames, 10);
 
-    // Enrich with BD stats for display
-    return players.map(p => {
+    // Enrich with BD stats and form data
+    const enrichedPlayers = players.map(p => {
       const playerData = ds.players2526[p.name];
       const teamStats = playerData?.teams.find(t => t.team === p.team);
       const bdFRate = teamStats && teamStats.p > 0 ? (teamStats.bdF / teamStats.p) * 100 : 0;
       const bdARate = teamStats && teamStats.p > 0 ? (teamStats.bdA / teamStats.p) * 100 : 0;
-      return { ...p, bdFRate, bdARate };
+
+      // Calculate current form/trend
+      const form = calculateCurrentForm(p.name, frames);
+      const trend = form?.trend || 'steady';
+
+      return { ...p, bdFRate, bdARate, trend };
     });
-  }, [ds.players2526, selectedDiv, showAllDivisions, minGames]);
+
+    // Apply trend filter
+    if (trendFilter === 'all') {
+      return enrichedPlayers;
+    }
+
+    return enrichedPlayers.filter(p => p.trend === trendFilter);
+  }, [ds.players2526, selectedDiv, showAllDivisions, minGames, trendFilter, frames]);
 
   // Break & Dish leaderboards
   const { bdFor: topBDFor, bdAgainst: topBDAgainst } = useMemo(() => {
