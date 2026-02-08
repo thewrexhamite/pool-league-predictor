@@ -17,7 +17,7 @@ import {
   type DataSources,
 } from '@/lib/predictions';
 import { RESULTS } from '@/lib/data';
-import type { DivisionCode, TeamReportData, TeamReportOutput, Divisions } from '@/lib/types';
+import type { DivisionCode, TeamReportData, TeamReportOutput, Divisions, CareerStats } from '@/lib/types';
 
 export async function analyzeMatchAction(
   homeTeam: string,
@@ -149,7 +149,8 @@ export async function getPlayerInsightAction(
   playerName: string,
   divisions: Divisions,
   results?: any[],
-  leagueName?: string
+  leagueName?: string,
+  careerStats?: CareerStats | null
 ) {
   if (!process.env.GEMINI_API_KEY) {
     throw new Error('This feature is currently unavailable. Please try again later.');
@@ -204,6 +205,22 @@ export async function getPlayerInsightAction(
           }
         : null,
       teamContext,
+      careerStats: careerStats
+        ? {
+            totalSeasons: careerStats.totalSeasons,
+            careerGamesPlayed: careerStats.careerGamesPlayed,
+            careerWins: careerStats.careerWins,
+            careerWinRate: careerStats.careerWinRate,
+            trend: careerStats.trend,
+            improvement: careerStats.improvement,
+            consistency: careerStats.consistency
+              ? {
+                  winRateStdDev: careerStats.consistency.winRateStdDev,
+                  consistency: careerStats.consistency.consistency,
+                }
+              : null,
+          }
+        : undefined,
     });
 
     return (
