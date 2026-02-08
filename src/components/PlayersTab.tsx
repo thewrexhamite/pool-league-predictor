@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { Search, X, TrendingUp, TrendingDown, ChevronUp, ChevronDown, UserX } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Search, X, TrendingUp, TrendingDown, ChevronUp, ChevronDown, UserX, Calendar } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, PlayerFormData } from '@/lib/types';
 import { getTeamPlayers, calcPlayerForm, calcBDStats, calcBayesianPct } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
+import { useLeague } from '@/lib/league-context';
 
 interface PlayersTabProps {
   selectedDiv: DivisionCode;
@@ -16,12 +17,26 @@ interface PlayersTabProps {
 type SortKey = 'pct' | 'adjPct' | 'bdF' | 'bdA' | 'form';
 type SortDir = 'asc' | 'desc';
 
+interface CrossSeasonPlayer {
+  name: string;
+  seasons: Array<{
+    seasonId: string;
+    seasonLabel: string;
+    team: string;
+    gamesPlayed: number;
+    winPct: number;
+  }>;
+}
+
 export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: PlayersTabProps) {
   const [minGames, setMinGames] = useState(5);
   const [sortKey, setSortKey] = useState<SortKey>('adjPct');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [searchQuery, setSearchQuery] = useState('');
+  const [crossSeasonResults, setCrossSeasonResults] = useState<CrossSeasonPlayer[]>([]);
+  const [searchingCrossSeason, setSearchingCrossSeason] = useState(false);
   const { ds, frames } = useActiveData();
+  const { selected } = useLeague();
   const teams = ds.divisions[selectedDiv].teams;
 
   const divPlayers = useMemo(() => {
@@ -50,6 +65,96 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
     });
     return list;
   }, [teams, frames, ds]);
+
+  // Cross-season search effect
+  useEffect(() => {
+    if (!selected?.league.seasons || selected.league.seasons.length <= 1 || searchQuery.length < 2) {
+      setCrossSeasonResults([]);
+      setSearchingCrossSeason(false);
+      return;
+    }
+
+    let cancelled = false;
+    const q = searchQuery.toLowerCase();
+
+    async function searchAcrossSeasons() {
+      setSearchingCrossSeason(true);
+      try {
+        const { db } = await import('@/lib/firebase');
+        const { doc, getDoc } = await import('firebase/firestore');
+
+        const playerMap = new Map<string, CrossSeasonPlayer>();
+
+        // Fetch player data from each season
+        for (const season of selected.league.seasons) {
+          const docRef = doc(db, 'leagues', selected.leagueId, 'seasons', season.id);
+          const snap = await getDoc(docRef);
+
+          if (cancelled) return;
+
+          if (snap.exists()) {
+            const data = snap.data();
+            const players2526 = data.players2526 || {};
+
+            // Search through players2526 map
+            Object.entries(players2526).forEach(([playerName, playerData]: [string, any]) => {
+              if (playerName.toLowerCase().includes(q)) {
+                if (!playerMap.has(playerName)) {
+                  playerMap.set(playerName, {
+                    name: playerName,
+                    seasons: [],
+                  });
+                }
+
+                // Add season data
+                if (playerData.total && playerData.total.p > 0) {
+                  const teams = playerData.teams || [];
+                  const primaryTeam = teams.length > 0 ? teams[0].team : 'Unknown';
+
+                  playerMap.get(playerName)!.seasons.push({
+                    seasonId: season.id,
+                    seasonLabel: season.label,
+                    team: primaryTeam,
+                    gamesPlayed: playerData.total.p,
+                    winPct: playerData.total.pct || 0,
+                  });
+                }
+              }
+            });
+          }
+        }
+
+        if (!cancelled) {
+          const results = Array.from(playerMap.values());
+          // Sort by total games played across all seasons
+          results.sort((a, b) => {
+            const aTotal = a.seasons.reduce((sum, s) => sum + s.gamesPlayed, 0);
+            const bTotal = b.seasons.reduce((sum, s) => sum + s.gamesPlayed, 0);
+            return bTotal - aTotal;
+          });
+          setCrossSeasonResults(results);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setCrossSeasonResults([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setSearchingCrossSeason(false);
+        }
+      }
+    }
+
+    if (process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+      searchAcrossSeasons();
+    } else {
+      setSearchingCrossSeason(false);
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [searchQuery, selected]);
 
   const filtered = useMemo(() => {
     let f = divPlayers.filter(p => p.s2526 && p.s2526.p >= minGames);
@@ -101,6 +206,9 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
       : <ChevronUp size={12} className="inline ml-0.5" />;
   }
 
+  // Show cross-season results when searching across multiple seasons
+  const showCrossSeasonResults = searchQuery.length >= 2 && crossSeasonResults.length > 0;
+
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <h2 className="text-lg font-bold mb-4 text-white">{ds.divisions[selectedDiv].name} — Players</h2>
@@ -111,7 +219,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
           <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
           <input
             type="text"
-            placeholder="Search players..."
+            placeholder="Search players across all seasons..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             className="w-full bg-surface border border-surface-border rounded-lg pl-8 pr-8 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-baize"
@@ -123,26 +231,72 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
           )}
         </div>
 
-        {/* Min games */}
-        <div className="flex items-center gap-1">
-          <span className="text-xs text-gray-500">Min:</span>
-          {[1, 3, 5, 10].map(n => (
-            <button
-              key={n}
-              onClick={() => setMinGames(n)}
-              className={clsx(
-                'px-2.5 py-1 rounded-lg text-xs font-medium transition',
-                minGames === n ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
-              )}
-            >
-              {n}+
-            </button>
-          ))}
-        </div>
-        <span className="text-xs text-gray-500">{filtered.length} players</span>
+        {/* Min games - hide when showing cross-season results */}
+        {!showCrossSeasonResults && (
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-gray-500">Min:</span>
+            {[1, 3, 5, 10].map(n => (
+              <button
+                key={n}
+                onClick={() => setMinGames(n)}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  minGames === n ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                {n}+
+              </button>
+            ))}
+          </div>
+        )}
+        <span className="text-xs text-gray-500">
+          {showCrossSeasonResults ? `${crossSeasonResults.length} players (all seasons)` : `${filtered.length} players`}
+          {searchingCrossSeason && <span className="ml-1">...</span>}
+        </span>
       </div>
 
-      {filtered.length === 0 ? (
+      {showCrossSeasonResults ? (
+        // Cross-season search results
+        <div className="space-y-3">
+          {crossSeasonResults.map(player => (
+            <div
+              key={player.name}
+              className="bg-surface rounded-lg p-3 cursor-pointer hover:bg-surface-elevated transition"
+              onClick={() => onPlayerClick(player.name)}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
+                  <h3 className="font-medium text-info hover:text-info-light text-sm md:text-base">
+                    {player.name}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-2 mt-1.5">
+                    {player.seasons.map(season => (
+                      <div
+                        key={season.seasonId}
+                        className="flex items-center gap-1.5 bg-surface-card rounded px-2 py-1 text-xs"
+                      >
+                        <Calendar size={10} className="text-gray-500" />
+                        <span className="text-gray-400">{season.seasonLabel}</span>
+                        <span className="text-gray-600">•</span>
+                        <span className="text-gray-300">{season.team}</span>
+                        <span className="text-gray-600">•</span>
+                        <span className="text-gray-400">{season.gamesPlayed}P</span>
+                        <span className="text-gray-600">•</span>
+                        <span className={clsx(
+                          'font-medium',
+                          season.winPct >= 60 ? 'text-win' : season.winPct <= 40 ? 'text-loss' : 'text-gray-300'
+                        )}>
+                          {season.winPct.toFixed(0)}%
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="text-center py-8">
           <UserX size={40} className="mx-auto text-gray-600 mb-3" />
           <p className="text-gray-500 text-sm">No players match your filters</p>
