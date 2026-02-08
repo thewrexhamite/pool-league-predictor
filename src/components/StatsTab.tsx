@@ -11,6 +11,7 @@ import {
   getBDLeaders,
   getTeamHomeAwayRecord,
   getMostImprovedPlayers,
+  getActiveWinStreaks,
 } from '@/lib/stats';
 
 interface StatsTabProps {
