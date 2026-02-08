@@ -1,9 +1,9 @@
 'use client';
 
 import { useMemo } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown } from 'lucide-react';
 import clsx from 'clsx';
-import { getPlayerStats, getPlayerStats2526, calcBayesianPct } from '@/lib/predictions';
+import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 
 interface PlayerComparisonProps {
@@ -13,11 +13,14 @@ interface PlayerComparisonProps {
 }
 
 export default function PlayerComparison({ player1, player2, onBack }: PlayerComparisonProps) {
-  const { ds } = useActiveData();
+  const { ds, frames } = useActiveData();
   const stats1 = getPlayerStats2526(player1, ds);
   const stats2 = getPlayerStats2526(player2, ds);
   const playerStats1 = getPlayerStats(player1, ds);
   const playerStats2 = getPlayerStats(player2, ds);
+
+  const form1 = useMemo(() => frames.length > 0 ? calcPlayerForm(player1, frames) : null, [player1, frames]);
+  const form2 = useMemo(() => frames.length > 0 ? calcPlayerForm(player2, frames) : null, [player2, frames]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -94,6 +97,102 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
           )}
         </div>
       </div>
+
+      {/* Form Comparison */}
+      {(form1 || form2) && (
+        <div className="mt-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
+            Form Comparison
+          </h3>
+          <div className="grid grid-cols-2 gap-4">
+            {/* Player 1 Form */}
+            <div className="bg-surface rounded-lg p-4 shadow-card">
+              {form1 ? (
+                <>
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <span className={clsx(
+                      'text-xs font-medium flex items-center gap-1',
+                      form1.trend === 'hot' ? 'text-win' : form1.trend === 'cold' ? 'text-loss' : 'text-gray-500'
+                    )}>
+                      {form1.trend === 'hot' && <TrendingUp size={14} />}
+                      {form1.trend === 'cold' && <TrendingDown size={14} />}
+                      {form1.trend === 'hot' ? 'Hot' : form1.trend === 'cold' ? 'Cold' : 'Steady'}
+                    </span>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-white">{form1.last5.pct.toFixed(0)}%</div>
+                      <div className="text-[10px] text-gray-500">Last 5 ({form1.last5.w}/{form1.last5.p})</div>
+                      <div className="w-full bg-surface rounded-full h-1.5 mt-1.5">
+                        <div className="h-1.5 rounded-full bg-info" style={{ width: `${form1.last5.pct}%` }} />
+                      </div>
+                    </div>
+                    <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-white">{form1.last10.pct.toFixed(0)}%</div>
+                      <div className="text-[10px] text-gray-500">Last 10 ({form1.last10.w}/{form1.last10.p})</div>
+                      <div className="w-full bg-surface rounded-full h-1.5 mt-1.5">
+                        <div className="h-1.5 rounded-full bg-accent" style={{ width: `${form1.last10.pct}%` }} />
+                      </div>
+                    </div>
+                    <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-white">{form1.seasonPct.toFixed(0)}%</div>
+                      <div className="text-[10px] text-gray-500">Season</div>
+                      <div className="w-full bg-surface rounded-full h-1.5 mt-1.5">
+                        <div className="h-1.5 rounded-full bg-gray-400" style={{ width: `${form1.seasonPct}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p className="text-gray-500 text-sm text-center">No form data</p>
+              )}
+            </div>
+
+            {/* Player 2 Form */}
+            <div className="bg-surface rounded-lg p-4 shadow-card">
+              {form2 ? (
+                <>
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <span className={clsx(
+                      'text-xs font-medium flex items-center gap-1',
+                      form2.trend === 'hot' ? 'text-win' : form2.trend === 'cold' ? 'text-loss' : 'text-gray-500'
+                    )}>
+                      {form2.trend === 'hot' && <TrendingUp size={14} />}
+                      {form2.trend === 'cold' && <TrendingDown size={14} />}
+                      {form2.trend === 'hot' ? 'Hot' : form2.trend === 'cold' ? 'Cold' : 'Steady'}
+                    </span>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-white">{form2.last5.pct.toFixed(0)}%</div>
+                      <div className="text-[10px] text-gray-500">Last 5 ({form2.last5.w}/{form2.last5.p})</div>
+                      <div className="w-full bg-surface rounded-full h-1.5 mt-1.5">
+                        <div className="h-1.5 rounded-full bg-info" style={{ width: `${form2.last5.pct}%` }} />
+                      </div>
+                    </div>
+                    <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-white">{form2.last10.pct.toFixed(0)}%</div>
+                      <div className="text-[10px] text-gray-500">Last 10 ({form2.last10.w}/{form2.last10.p})</div>
+                      <div className="w-full bg-surface rounded-full h-1.5 mt-1.5">
+                        <div className="h-1.5 rounded-full bg-accent" style={{ width: `${form2.last10.pct}%` }} />
+                      </div>
+                    </div>
+                    <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                      <div className="text-lg font-bold text-white">{form2.seasonPct.toFixed(0)}%</div>
+                      <div className="text-[10px] text-gray-500">Season</div>
+                      <div className="w-full bg-surface rounded-full h-1.5 mt-1.5">
+                        <div className="h-1.5 rounded-full bg-gray-400" style={{ width: `${form2.seasonPct}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p className="text-gray-500 text-sm text-center">No form data</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
