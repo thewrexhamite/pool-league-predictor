@@ -309,13 +309,10 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
                       fontSize: '12px',
                     }}
                     labelStyle={{ color: '#D1D5DB' }}
-                    formatter={(value: number | undefined, name: string) => {
-                      if (value === undefined) return ['N/A', name];
-                      return [
-                        `${value.toFixed(1)}%`,
-                        name === 'actual' ? 'Actual' : 'Predicted'
-                      ];
-                    }}
+                    formatter={(value?: number | string, name?: string) => [
+                      `${Number(value ?? 0).toFixed(1)}%`,
+                      name === 'actual' ? 'Actual' : 'Predicted'
+                    ]}
                     labelFormatter={(_, payload) => {
                       if (payload && payload[0]) {
                         const data = payload[0].payload;
@@ -384,10 +381,7 @@ export default function PredictionAccuracyPanel({ selectedDiv }: PredictionAccur
                       fontSize: '12px',
                     }}
                     labelStyle={{ color: '#D1D5DB' }}
-                    formatter={(value: number | undefined) => {
-                      if (value === undefined) return ['N/A', 'Accuracy'];
-                      return [`${value.toFixed(1)}%`, 'Accuracy'];
-                    }}
+                    formatter={(value?: number | string) => [`${Number(value ?? 0).toFixed(1)}%`, 'Accuracy']}
                     labelFormatter={(_, payload) => {
                       if (payload && payload[0]) {
                         const data = payload[0].payload;
