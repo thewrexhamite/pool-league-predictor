@@ -7,6 +7,8 @@ import { LineChart, Line, ResponsiveContainer, YAxis, BarChart, Bar, XAxis, Cart
 import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm, calcPlayerHomeAway, getPlayerFrameHistory } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import { getH2HBetween } from '@/lib/stats/head-to-head';
+import ShareButton from './ShareButton';
+import { getBaseUrl } from '@/lib/share-utils';
 
 interface PlayerComparisonProps {
   player1: string;
@@ -83,13 +85,34 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
     ];
   }, [stats1, stats2, form1, form2, player1, player2]);
 
+  // Generate share data for this comparison
+  const shareData = useMemo(() => {
+    const encodedPlayer1 = encodeURIComponent(player1);
+    const encodedPlayer2 = encodeURIComponent(player2);
+    const url = `${getBaseUrl()}/share/comparison/${encodedPlayer1}/vs/${encodedPlayer2}`;
+
+    let title = `${player1} vs ${player2} - Pool League Pro`;
+    let text = `Check out the head-to-head comparison between ${player1} and ${player2}`;
+
+    // Enhance title/text with H2H record if available
+    if (h2hRecord && h2hRecord.played > 0) {
+      title = `${player1} vs ${player2} (${h2hRecord.won}-${h2hRecord.lost}) - Pool League Pro`;
+      text = `${player1} leads ${h2hRecord.won}-${h2hRecord.lost} in their head-to-head matchup`;
+    }
+
+    return { title, text, url };
+  }, [player1, player2, h2hRecord]);
+
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <button onClick={onBack} className="flex items-center gap-1 text-gray-400 hover:text-white text-sm mb-4 transition">
         <ArrowLeft size={16} /> Back
       </button>
 
-      <h2 className="text-xl font-bold mb-6 text-white text-center">Head-to-Head Comparison</h2>
+      <div className="flex items-center justify-center gap-2 mb-6">
+        <h2 className="text-xl font-bold text-white">Head-to-Head Comparison</h2>
+        <ShareButton data={shareData} title="Share this comparison" size={18} />
+      </div>
 
       {/* Head-to-Head Record */}
       {h2hRecord && h2hRecord.played > 0 ? (
