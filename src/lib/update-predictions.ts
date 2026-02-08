@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
 import type { PredictionSnapshot, MatchResult } from './types';
 
 /**
@@ -22,18 +22,22 @@ export async function updatePredictionsWithResults(
     const { db } = await import('./firebase');
     const predictionsRef = collection(db, 'predictions');
 
-    // Fetch all predictions for this season that don't have results yet
+    // Fetch all predictions for this season
+    // Note: Filter for missing results in JavaScript since Firestore
+    // doesn't reliably query for null/undefined fields
     const q = query(
       predictionsRef,
       where('seasonId', '==', seasonId),
-      where('actualWinner', '==', null)
+      orderBy('predictedAt', 'desc')
     );
 
     const snapshot = await getDocs(q);
-    const predictions = snapshot.docs.map(doc => ({
-      docId: doc.id,
-      ...doc.data() as PredictionSnapshot
-    }));
+    const predictions = snapshot.docs
+      .map(doc => ({
+        docId: doc.id,
+        ...doc.data() as PredictionSnapshot
+      }))
+      .filter(p => p.actualWinner === undefined || p.actualWinner === null);
 
     let updatedCount = 0;
 
