@@ -111,6 +111,26 @@ async function main() {
       log(`  logo: ${config.logo || '(not set)'}`);
       log(`  seasons: []`);
       log(`  Note: Season data should be uploaded separately using upload-to-firestore.ts`);
+      log(``);
+      log(`  Example historical season metadata structure (to be added to seasons array):`);
+      log(`  {`);
+      log(`    id: "2023-24",`);
+      log(`    label: "2023/24",`);
+      log(`    current: false,`);
+      log(`    divisions: ["prem", "div1", "div2"],`);
+      log(`    champion: "The Kings Arms",  // Premier division champion`);
+      log(`    promoted: ["Rising Stars", "Challengers FC"],  // Teams promoted to higher divisions`);
+      log(`    relegated: ["Bottom Team A", "Bottom Team B"],  // Teams relegated to lower divisions`);
+      log(`    finalStandings: {`);
+      log(`      prem: [`);
+      log(`        { team: "The Kings Arms", p: 22, w: 18, d: 2, l: 2, f: 108, a: 56, pts: 56, diff: 52 },`);
+      log(`        { team: "Runner Up FC", p: 22, w: 16, d: 3, l: 3, f: 98, a: 66, pts: 51, diff: 32 },`);
+      log(`        ...`);
+      log(`      ],`);
+      log(`      div1: [ ... ],`);
+      log(`      div2: [ ... ]`);
+      log(`    }`);
+      log(`  }`);
     }
     log('\nSeed complete');
     return;
