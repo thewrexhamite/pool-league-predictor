@@ -19,19 +19,21 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Get all players
+  // Get all players - pure client-side, no API calls (offline-safe)
   const allPlayers = useMemo(() => getAllLeaguePlayers(ds), [ds]);
 
   // Filter players in real-time based on search query (max 8 results for clean UI)
+  // Optimized for sub-500ms response time with early returns
   const filteredPlayers = useMemo(() => {
     if (searchQuery.length < 2) return [];
 
     const query = searchQuery.toLowerCase().trim();
     return allPlayers
       .filter(player => {
-        const nameMatch = player.name.toLowerCase().includes(query);
-        const teamMatch = player.teams2526.some(team => team.toLowerCase().includes(query));
-        return nameMatch || teamMatch;
+        // Early return on name match - avoid checking teams if name matches
+        if (player.name.toLowerCase().includes(query)) return true;
+        // Only check teams if name didn't match
+        return player.teams2526.some(team => team.toLowerCase().includes(query));
       })
       .slice(0, 8);
   }, [searchQuery, allPlayers]);
@@ -46,6 +48,12 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
     if (!selectedPlayer || frames.length === 0) return null;
     return calcPlayerForm(selectedPlayer, frames);
   }, [selectedPlayer, frames]);
+
+  // Memoize Bayesian rating calculation to avoid recomputing on every render
+  const selectedPlayerBayesianRating = useMemo(() => {
+    if (!selectedPlayerStats) return null;
+    return calcBayesianPct(selectedPlayerStats.total.w, selectedPlayerStats.total.p);
+  }, [selectedPlayerStats]);
 
   // Reset focused index when search query changes
   useEffect(() => {
@@ -131,7 +139,7 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-baize">
-                    {calcBayesianPct(selectedPlayerStats.total.w, selectedPlayerStats.total.p).toFixed(1)}%
+                    {selectedPlayerBayesianRating?.toFixed(1)}%
                   </div>
                   <div className="text-[10px] text-gray-500">Rating</div>
                 </div>
