@@ -12,24 +12,26 @@ interface NotificationSettingsProps {
   onUnsubscribe?: () => void;
 }
 
-const NOTIFICATION_TYPES = [
+type BooleanNotificationKey = 'match_results' | 'upcoming_fixtures' | 'standings_updates' | 'prediction_updates';
+
+const NOTIFICATION_TYPES: { key: BooleanNotificationKey; label: string; description: string }[] = [
   {
-    key: 'match_results' as keyof NotificationPreferences,
+    key: 'match_results',
     label: 'Match Results',
     description: 'Get notified when your team\'s match results are synced',
   },
   {
-    key: 'upcoming_fixtures' as keyof NotificationPreferences,
+    key: 'upcoming_fixtures',
     label: 'Upcoming Fixtures',
     description: 'Reminder 24 hours before your team\'s next match',
   },
   {
-    key: 'standings_updates' as keyof NotificationPreferences,
+    key: 'standings_updates',
     label: 'Standings Updates',
     description: 'Notifications when league standings change after match nights',
   },
   {
-    key: 'prediction_updates' as keyof NotificationPreferences,
+    key: 'prediction_updates',
     label: 'Prediction Updates',
     description: 'Updates about significant changes in match predictions',
   },
@@ -54,7 +56,7 @@ export default function NotificationSettings({
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // Handle toggle change
-  const handleToggle = async (key: keyof NotificationPreferences) => {
+  const handleToggle = async (key: BooleanNotificationKey) => {
     if (!user || !isSubscribed || isUpdating) return;
 
     setIsUpdating(true);
