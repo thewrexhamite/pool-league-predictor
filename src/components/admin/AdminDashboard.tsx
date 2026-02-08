@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 import { useLeagueData } from '@/lib/data-provider';
+import DataCorrectionPanel from './DataCorrectionPanel';
 
 interface AdminDashboardProps {
   // Reserved for future props
@@ -239,7 +240,7 @@ export default function AdminDashboard({}: AdminDashboardProps) {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-surface-card rounded-card shadow-card p-6">
+      <div className="bg-surface-card rounded-card shadow-card p-6 mb-8">
         <h2 className="text-xl font-semibold text-white mb-4">Quick Actions</h2>
         <div className="space-y-2">
           <button className="w-full text-left px-4 py-2 rounded-lg bg-surface-elevated hover:bg-surface text-white transition-colors text-sm">
@@ -256,6 +257,9 @@ export default function AdminDashboard({}: AdminDashboardProps) {
           </button>
         </div>
       </div>
+
+      {/* Data Correction Panel */}
+      <DataCorrectionPanel />
     </div>
   );
 }
