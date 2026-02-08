@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { Users, Lock, Unlock } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Users, Lock, Unlock, Check, X } from 'lucide-react';
 import clsx from 'clsx';
 import type {
   DivisionCode,
@@ -54,17 +54,38 @@ export default function LineupOptimizerTab({
   }, [homeTeam, ds]);
 
   // Initialize player availability when team changes
-  useMemo(() => {
-    if (teamPlayers.length > 0 && playerAvailability.length === 0) {
+  useEffect(() => {
+    if (teamPlayers.length > 0) {
       setPlayerAvailability(teamPlayers.map(p => ({ name: p.name, available: true })));
+      setOptimizedLineup(null);
+      setAlternatives([]);
     }
-  }, [teamPlayers, playerAvailability.length]);
+  }, [homeTeam, teamPlayers.length]);
 
   // Filter available players
   const availablePlayers = useMemo(() => {
     if (teamPlayers.length === 0 || playerAvailability.length === 0) return [];
     return filterAvailablePlayers(teamPlayers, playerAvailability);
   }, [teamPlayers, playerAvailability]);
+
+  // Handle player availability toggle
+  const handleTogglePlayer = (playerName: string) => {
+    setPlayerAvailability(prev =>
+      prev.map(p =>
+        p.name === playerName ? { ...p, available: !p.available } : p
+      )
+    );
+  };
+
+  // Handle select all players
+  const handleSelectAll = () => {
+    setPlayerAvailability(prev => prev.map(p => ({ ...p, available: true })));
+  };
+
+  // Handle deselect all players
+  const handleDeselectAll = () => {
+    setPlayerAvailability(prev => prev.map(p => ({ ...p, available: false })));
+  };
 
   // Handle optimize button click
   const handleOptimize = () => {
@@ -156,15 +177,68 @@ export default function LineupOptimizerTab({
         </div>
       </div>
 
-      {/* Placeholder for player availability selector - to be implemented in subtask-2-2 */}
-      {homeTeam && teamPlayers.length > 0 && (
+      {/* Player availability selector */}
+      {homeTeam && teamPlayers.length > 0 && playerAvailability.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">
-            Player Availability (to be implemented)
-          </h3>
-          <div className="text-gray-500 text-sm">
-            {teamPlayers.length} players on roster
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-medium text-gray-400">
+              Player Availability ({availablePlayers.length} of {teamPlayers.length} available)
+            </h3>
+            <div className="flex gap-2">
+              <button
+                onClick={handleSelectAll}
+                className="flex items-center gap-1 text-xs text-baize hover:text-baize-dark transition"
+              >
+                <Check size={14} />
+                All
+              </button>
+              <button
+                onClick={handleDeselectAll}
+                className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-300 transition"
+              >
+                <X size={14} />
+                None
+              </button>
+            </div>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-64 overflow-y-auto">
+            {teamPlayers.map((player) => {
+              const availability = playerAvailability.find(p => p.name === player.name);
+              const isAvailable = availability?.available ?? true;
+
+              return (
+                <label
+                  key={player.name}
+                  className={clsx(
+                    'flex items-center gap-3 p-2 rounded border cursor-pointer transition',
+                    isAvailable
+                      ? 'bg-surface-elevated border-surface-border hover:border-baize'
+                      : 'bg-surface-card border-surface-border opacity-60'
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isAvailable}
+                    onChange={() => handleTogglePlayer(player.name)}
+                    className="w-4 h-4 rounded border-surface-border text-baize focus:ring-baize focus:ring-offset-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm text-gray-200 truncate">{player.name}</div>
+                    {player.rating !== null && (
+                      <div className="text-xs text-gray-400">
+                        Skill: {player.rating.toFixed(0)}
+                      </div>
+                    )}
+                  </div>
+                </label>
+              );
+            })}
+          </div>
+          {availablePlayers.length < 10 && (
+            <div className="mt-2 text-xs text-amber-400">
+              ⚠️ Need at least 10 available players to optimize
+            </div>
+          )}
         </div>
       )}
 
