@@ -1,9 +1,9 @@
 'use client';
 
 import { useMemo } from 'react';
-import { ArrowLeft, TrendingUp, TrendingDown } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane } from 'lucide-react';
 import clsx from 'clsx';
-import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm } from '@/lib/predictions';
+import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm, calcPlayerHomeAway } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 
 interface PlayerComparisonProps {
@@ -21,6 +21,9 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
 
   const form1 = useMemo(() => frames.length > 0 ? calcPlayerForm(player1, frames) : null, [player1, frames]);
   const form2 = useMemo(() => frames.length > 0 ? calcPlayerForm(player2, frames) : null, [player2, frames]);
+
+  const homeAway1 = useMemo(() => frames.length > 0 ? calcPlayerHomeAway(player1, frames) : null, [player1, frames]);
+  const homeAway2 = useMemo(() => frames.length > 0 ? calcPlayerHomeAway(player2, frames) : null, [player2, frames]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -188,6 +191,56 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
                 </>
               ) : (
                 <p className="text-gray-500 text-sm text-center">No form data</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Home/Away Split Comparison */}
+      {(homeAway1 || homeAway2) && (
+        <div className="mt-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
+            Home / Away Comparison
+          </h3>
+          <div className="grid grid-cols-2 gap-4">
+            {/* Player 1 Home/Away */}
+            <div className="bg-surface rounded-lg p-4 shadow-card">
+              {homeAway1 && (homeAway1.home.p > 0 || homeAway1.away.p > 0) ? (
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                    <span title="Home win %"><Home size={14} className="mx-auto text-win mb-1" /></span>
+                    <div className="text-lg font-bold text-win">{homeAway1.home.pct.toFixed(0)}%</div>
+                    <div className="text-[10px] text-gray-500">Home ({homeAway1.home.w}/{homeAway1.home.p})</div>
+                  </div>
+                  <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                    <span title="Away win %"><Plane size={14} className="mx-auto text-loss mb-1" /></span>
+                    <div className="text-lg font-bold text-loss">{homeAway1.away.pct.toFixed(0)}%</div>
+                    <div className="text-[10px] text-gray-500">Away ({homeAway1.away.w}/{homeAway1.away.p})</div>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-500 text-sm text-center">No home/away data</p>
+              )}
+            </div>
+
+            {/* Player 2 Home/Away */}
+            <div className="bg-surface rounded-lg p-4 shadow-card">
+              {homeAway2 && (homeAway2.home.p > 0 || homeAway2.away.p > 0) ? (
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                    <span title="Home win %"><Home size={14} className="mx-auto text-win mb-1" /></span>
+                    <div className="text-lg font-bold text-win">{homeAway2.home.pct.toFixed(0)}%</div>
+                    <div className="text-[10px] text-gray-500">Home ({homeAway2.home.w}/{homeAway2.home.p})</div>
+                  </div>
+                  <div className="bg-surface-elevated rounded-lg p-3 text-center">
+                    <span title="Away win %"><Plane size={14} className="mx-auto text-loss mb-1" /></span>
+                    <div className="text-lg font-bold text-loss">{homeAway2.away.pct.toFixed(0)}%</div>
+                    <div className="text-[10px] text-gray-500">Away ({homeAway2.away.w}/{homeAway2.away.p})</div>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-500 text-sm text-center">No home/away data</p>
               )}
             </div>
           </div>
