@@ -3,6 +3,8 @@
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
+import ShareButton from './ShareButton';
+import { generateStandingsShareData } from '@/lib/share-utils';
 
 interface StandingsTabProps {
   selectedDiv: DivisionCode;
@@ -15,9 +17,19 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
   const { ds } = useActiveData();
   const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
 
+  // Generate share data with top team
+  const topTeam = standings[0]?.team;
+  const shareData = generateStandingsShareData({
+    div: selectedDiv,
+    topTeam,
+  });
+
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6 overflow-x-auto">
-      <h2 className="text-lg font-bold mb-4 text-white">{divName} — Standings</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold text-white">{divName} — Standings</h2>
+        <ShareButton data={shareData} title="Share standings" />
+      </div>
       <table className="w-full text-xs md:text-sm" role="table">
         <thead>
           <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">

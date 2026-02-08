@@ -6,6 +6,8 @@ import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates, calcBayesianPct } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
+import ShareButton from './ShareButton';
+import { generateTeamShareData } from '@/lib/share-utils';
 
 interface TeamDetailProps {
   team: string;
@@ -48,7 +50,17 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
       <button onClick={onBack} className="flex items-center gap-1 text-gray-400 hover:text-white text-sm mb-4 transition">
         <ArrowLeft size={16} /> Back
       </button>
-      <h2 className="text-xl font-bold mb-1 text-white">{team}</h2>
+      <div className="flex items-center justify-between mb-1">
+        <h2 className="text-xl font-bold text-white">{team}</h2>
+        <ShareButton
+          data={generateTeamShareData({
+            div: selectedDiv,
+            team: team,
+            position: teamPos,
+            points: teamStanding?.pts,
+          })}
+        />
+      </div>
       <p className="text-gray-500 text-sm mb-4">{ds.divisions[selectedDiv].name} &bull; #{teamPos}</p>
 
       {teamStanding && (

@@ -9,7 +9,8 @@ import type { DivisionCode, PredictionResult, SquadOverrides, H2HRecord, Predict
 import { getTeamPlayers, getSquadH2H, calcSetPerformance, generateScoutingReport, suggestLineup } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
-import { useToast } from './ToastProvider';
+import ShareButton from './ShareButton';
+import { generatePredictionShareData } from '@/lib/share-utils';
 
 const DEVICE_ID_KEY = 'pool-league-device-id';
 
@@ -52,7 +53,6 @@ export default function PredictTab({
 }: PredictTabProps) {
   const { data: activeData, ds, frames } = useActiveData();
   const teams = ds.divisions[selectedDiv].teams;
-  const { addToast } = useToast();
 
   const h2hRecords = useMemo(() => {
     if (!homeTeam || !awayTeam || frames.length === 0) return [];
@@ -185,10 +185,16 @@ export default function PredictTab({
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-white">Match Prediction</h2>
-        {prediction && (
-          <button onClick={handleShare} className="p-1.5 text-gray-400 hover:text-white transition" title="Share prediction">
-            <Share2 size={18} />
-          </button>
+        {prediction && homeTeam && awayTeam && (
+          <ShareButton
+            data={generatePredictionShareData({
+              div: selectedDiv,
+              home: homeTeam,
+              away: awayTeam,
+              homeWinPct: parseFloat(prediction.pHomeWin),
+            })}
+            title="Share prediction"
+          />
         )}
       </div>
 

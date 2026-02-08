@@ -1,14 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Dices, Share2, BarChart3, Clock, ChevronDown, RotateCcw } from 'lucide-react';
+import { Dices, BarChart3, Clock, ChevronDown, RotateCcw } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import type { DivisionCode, SimulationResult, WhatIfResult, SquadOverrides } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
 import { calcStrengthAdjustments } from '@/lib/predictions';
-import { useToast } from './ToastProvider';
+import { generateSimulationShareData } from '@/lib/share-utils';
+import ShareButton from './ShareButton';
 
 interface SimulateTabProps {
   selectedDiv: DivisionCode;
@@ -41,25 +42,10 @@ export default function SimulateTab({
   onTimeMachineDateChange,
   availableDates,
 }: SimulateTabProps) {
-  const { addToast } = useToast();
   const { ds, isTimeMachine } = useActiveData();
   const [showChart, setShowChart] = useState(false);
   const [timeMachineExpanded, setTimeMachineExpanded] = useState(false);
   const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
-
-  const handleShare = () => {
-    if (!simResults) return;
-    const text = `Pool League Pro — ${divName} Simulation\n\n` +
-      simResults.slice(0, 4).map((r, i) =>
-        `${i + 1}. ${r.team}: Title ${r.pTitle}% | Top2 ${r.pTop2}%`
-      ).join('\n');
-
-    if (navigator.share) {
-      navigator.share({ text }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(text).then(() => addToast('Copied to clipboard', 'info'));
-    }
-  };
 
   const chartData = simResults?.map(r => ({
     team: r.team.length > 12 ? r.team.slice(0, 12) + '...' : r.team,
@@ -82,9 +68,14 @@ export default function SimulateTab({
             >
               <BarChart3 size={18} />
             </button>
-            <button onClick={handleShare} className="p-1.5 text-gray-400 hover:text-white transition rounded" title="Share">
-              <Share2 size={18} />
-            </button>
+            <ShareButton
+              data={generateSimulationShareData({
+                div: selectedDiv,
+                winner: simResults[0].team,
+                titlePct: parseFloat(simResults[0].pTitle),
+              })}
+              className="rounded"
+            />
           </div>
         )}
       </div>
