@@ -166,6 +166,34 @@ export default function NotificationSettings({
     }
   };
 
+  // Handle reminder timing change
+  const handleReminderTimingChange = async (timing: 'none' | '1hour' | '1day' | 'both') => {
+    if (!user || !isSubscribed || isUpdating) return;
+
+    setIsUpdating(true);
+    setMessage(null);
+
+    try {
+      const newPreferences: NotificationPreferences = {
+        ...preferences,
+        reminderTiming: timing,
+      };
+
+      const success = await updatePreferences(user.uid, newPreferences);
+
+      if (success) {
+        setMessage({ type: 'success', text: 'Reminder timing updated successfully' });
+        setTimeout(() => setMessage(null), 3000);
+      } else {
+        setMessage({ type: 'error', text: 'Failed to update reminder timing' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'An error occurred while updating reminder timing' });
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   // Handle unsubscribe
   const handleUnsubscribe = async () => {
     if (!user || !isSubscribed || isUnsubscribing) return;
@@ -273,6 +301,7 @@ export default function NotificationSettings({
         {NOTIFICATION_TYPES.map((type) => {
           const isEnabled = preferences[type.key];
           const isDisabled = isUpdating || isUnsubscribing;
+          const showReminderTiming = type.key === 'upcoming_fixtures' && isEnabled;
 
           return (
             <div key={type.key} className="p-4">
@@ -309,6 +338,71 @@ export default function NotificationSettings({
                   />
                 </button>
               </div>
+
+              {/* Reminder Timing Controls - Only show for Upcoming Fixtures when enabled */}
+              {showReminderTiming && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700"
+                >
+                  <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Reminder Timing
+                  </label>
+                  <div className="space-y-2">
+                    {[
+                      { value: 'none' as const, label: 'None', description: 'No reminders' },
+                      { value: '1hour' as const, label: '1 hour before', description: 'Reminder 1 hour before match' },
+                      { value: '1day' as const, label: '1 day before', description: 'Reminder 1 day before match' },
+                      { value: 'both' as const, label: 'Both', description: '1 hour and 1 day before' },
+                    ].map((option) => {
+                      const isSelected = (preferences.reminderTiming || 'none') === option.value;
+
+                      return (
+                        <button
+                          key={option.value}
+                          onClick={() => handleReminderTimingChange(option.value)}
+                          disabled={isDisabled}
+                          className={clsx(
+                            'w-full flex items-start gap-3 p-2.5 rounded-md border transition-colors text-left',
+                            isSelected
+                              ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-100 border-blue-300 dark:border-blue-700'
+                              : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700',
+                            isDisabled && 'opacity-50 cursor-not-allowed'
+                          )}
+                        >
+                          {/* Radio Button */}
+                          <div className="flex-shrink-0 mt-0.5">
+                            <div
+                              className={clsx(
+                                'w-4 h-4 rounded-full border-2 flex items-center justify-center',
+                                isSelected
+                                  ? 'border-blue-600 dark:border-blue-400'
+                                  : 'border-gray-300 dark:border-gray-600'
+                              )}
+                            >
+                              {isSelected && (
+                                <div className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Label and Description */}
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-medium">
+                              {option.label}
+                            </div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                              {option.description}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
             </div>
           );
         })}
