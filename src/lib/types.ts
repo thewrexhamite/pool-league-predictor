@@ -192,6 +192,16 @@ export interface SquadOverride {
 
 export type SquadOverrides = Record<string, SquadOverride>;
 
+// Player Availability types
+export interface PlayerAvailability {
+  playerId: string;
+  playerName: string;
+  fixtureDate: string; // ISO date string
+  available: boolean;
+  reason?: string;
+  updatedAt: number; // timestamp
+}
+
 // Confidence-adjusted effective percentage
 export interface EffectivePct {
   pct: number;
