@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import type { DivisionCode } from '@/lib/types';
 import { getTeamPlayers, calcBayesianPct } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
+import PlayerComparison from './PlayerComparison';
 
 interface CompareTabProps {
   selectedDiv: DivisionCode;
@@ -491,19 +492,13 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
         </div>
       </div>
 
-      {/* Placeholder for comparison display (will be implemented in later phases) */}
+      {/* Player Comparison Display */}
       {selectedPlayerA && selectedPlayerB && (
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-          <div className="text-center py-6 md:py-8">
-            <GitCompare size={32} className="mx-auto text-accent mb-2 md:mb-3" />
-            <p className="text-sm md:text-base text-white font-medium mb-1">
-              Comparing {selectedPlayerA.name} vs {selectedPlayerB.name}
-            </p>
-            <p className="text-gray-500 text-xs md:text-sm">
-              Detailed comparison coming soon
-            </p>
-          </div>
-        </div>
+        <PlayerComparison
+          player1={selectedPlayerA.name}
+          player2={selectedPlayerB.name}
+          onBack={handleClearAll}
+        />
       )}
     </div>
   );
