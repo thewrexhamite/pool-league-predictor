@@ -265,6 +265,41 @@ export interface LeagueMeta {
   logo?: string;
 }
 
+// Admin and data source types
+export interface LeagueConfig {
+  id: string;
+  name: string;
+  shortName: string;
+  primaryColor: string; // hex color code
+  logo?: string; // URL or path to logo image
+  seasons: string[]; // e.g., ["2425", "2526"]
+  createdAt: number; // timestamp
+  updatedAt: number; // timestamp
+}
+
+export type DataSourceType = 'leagueapplive' | 'manual' | 'api';
+
+export interface DataSourceConfig {
+  id: string;
+  leagueId: string;
+  sourceType: DataSourceType;
+  config: Record<string, any>; // source-specific configuration
+  enabled: boolean;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface PlayerLink {
+  id: string; // canonical player ID
+  linkedPlayers: {
+    leagueId: string;
+    playerId: string; // player name in that league
+    confidence: number; // 0-1, confidence in the match
+  }[];
+  createdAt: number;
+  updatedAt: number;
+}
+
 // Tactical edge types
 
 export interface PlayerFormData {
