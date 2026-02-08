@@ -738,8 +738,9 @@
             "command": "test ! -f ./src/lib/predictions.deprecated.ts && echo 'OK'",
             "expected": "OK"
           },
-          "notes": "Remove old predictions file after successful migration.",
-          "status": "pending"
+          "notes": "Successfully deleted predictions.deprecated.ts file. Verification passed.",
+          "status": "completed",
+          "updated_at": "2026-02-08T19:44:04.125339+00:00"
         },
         {
           "id": "subtask-7-2",
@@ -931,6 +932,6 @@
   "qa_signoff": null,
   "status": "in_progress",
   "planStatus": "in_progress",
-  "updated_at": "2026-02-08T19:43:42.175Z",
-  "last_updated": "2026-02-08T19:41:39.423636+00:00"
+  "updated_at": "2026-02-08T19:44:27.799Z",
+  "last_updated": "2026-02-08T19:44:04.125349+00:00"
 }
