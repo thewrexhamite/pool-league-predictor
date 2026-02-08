@@ -66,6 +66,7 @@ import Glossary from './Glossary';
 import ThemeToggle from './ThemeToggle';
 import { UserMenu } from './auth';
 import NotificationSettings from './NotificationSettings';
+import QuickLookupMode from './QuickLookupMode';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
@@ -1209,6 +1210,38 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
               onClick={e => e.stopPropagation()}
             >
               <NotificationSettings onUnsubscribe={() => setShowNotificationSettings(false)} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Quick Lookup Modal */}
+      <AnimatePresence>
+        {quickLookupOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 md:p-4"
+            onClick={() => setQuickLookupOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="w-full h-full md:h-auto md:max-w-2xl md:max-h-[85vh] overflow-y-auto md:rounded-card"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="relative">
+                <button
+                  onClick={() => setQuickLookupOpen(false)}
+                  className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-white transition bg-surface-card rounded-full"
+                  aria-label="Close"
+                >
+                  <X size={20} />
+                </button>
+                <QuickLookupMode onClose={() => setQuickLookupOpen(false)} />
+              </div>
             </motion.div>
           </motion.div>
         )}
