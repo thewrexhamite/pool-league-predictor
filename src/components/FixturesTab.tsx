@@ -232,8 +232,9 @@ export default function FixturesTab({
             >
               <div className="px-3 pb-3">
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Team</label>
+                  <label htmlFor="squad-builder-team" className="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Team</label>
                   <select
+                    id="squad-builder-team"
                     value={squadBuilderTeam}
                     onChange={e => { onSquadBuilderTeamChange(e.target.value); onSquadPlayerSearchChange(''); }}
                     className="w-full bg-surface border border-surface-border rounded-lg p-3 text-sm text-white focus:outline-none focus:border-baize"
@@ -434,7 +435,9 @@ export default function FixturesTab({
             >
               <div className="px-3 pb-3">
                 <div className="flex items-center gap-2 flex-wrap">
+                  <label htmlFor="must-win-team" className="text-xs text-gray-500 uppercase tracking-wide">Team:</label>
                   <select
+                    id="must-win-team"
                     value={importanceTeam}
                     onChange={(e) => { setImportanceTeam(e.target.value); setFixtureImportance(null); }}
                     className="bg-surface border border-surface-border rounded-lg p-2 text-xs flex-1 min-w-[150px] focus:outline-none focus:border-baize"
