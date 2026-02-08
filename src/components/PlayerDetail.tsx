@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck } from 'lucide-react';
 import clsx from 'clsx';
@@ -8,6 +8,9 @@ import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import { useAuth } from '@/lib/auth';
+import { useLeague } from '@/lib/league-context';
+import { fetchPlayerCareerData, calculateCareerTrend, calculateImprovementRate, calculateConsistencyMetrics } from '@/lib/stats';
+import type { CareerTrend, ImprovementMetrics, ConsistencyMetrics } from '@/lib/stats';
 import { AIInsightsPanel } from './AIInsightsPanel';
 
 interface PlayerDetailProps {
@@ -20,6 +23,7 @@ interface PlayerDetailProps {
 export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick }: PlayerDetailProps) {
   const { ds, frames } = useActiveData();
   const { user, profile } = useAuth();
+  const { selected } = useLeague();
   const stats = getPlayerStats(player, ds);
   const stats2526 = getPlayerStats2526(player, ds);
   const playerTeams = getPlayerTeams(player, ds);
@@ -29,6 +33,57 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
     if (!profile?.claimedProfiles) return false;
     return profile.claimedProfiles.some(cp => cp.name === player);
   }, [profile, player]);
+
+  // Career data state
+  const [careerTrend, setCareerTrend] = useState<CareerTrend | null>(null);
+  const [improvementMetrics, setImprovementMetrics] = useState<ImprovementMetrics | null>(null);
+  const [consistencyMetrics, setConsistencyMetrics] = useState<ConsistencyMetrics | null>(null);
+  const [careerLoading, setCareerLoading] = useState(false);
+
+  // Fetch career data when player or league changes
+  useEffect(() => {
+    // Reset state when player changes
+    setCareerTrend(null);
+    setImprovementMetrics(null);
+    setConsistencyMetrics(null);
+
+    // Only fetch if we have a league ID
+    if (!selected?.leagueId) return;
+
+    let cancelled = false;
+
+    async function fetchCareerData() {
+      setCareerLoading(true);
+      try {
+        const seasons = await fetchPlayerCareerData(player, selected.leagueId);
+
+        if (cancelled) return;
+
+        // Calculate metrics if we have season data
+        if (seasons.length > 0) {
+          const trend = calculateCareerTrend(seasons);
+          const improvement = calculateImprovementRate(seasons);
+          const consistency = calculateConsistencyMetrics(seasons);
+
+          setCareerTrend(trend);
+          setImprovementMetrics(improvement);
+          setConsistencyMetrics(consistency);
+        }
+      } catch (error) {
+        // Silently handle errors - career data is optional
+      } finally {
+        if (!cancelled) {
+          setCareerLoading(false);
+        }
+      }
+    }
+
+    fetchCareerData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [player, selected?.leagueId]);
 
   const form = useMemo(() => frames.length > 0 ? calcPlayerForm(player, frames) : null, [player, frames]);
   const frameHistory = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player, frames) : [], [player, frames]);
