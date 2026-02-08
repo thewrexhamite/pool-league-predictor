@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import type { FrameData } from './types';
-import type { DataSources } from './predictions';
+import type { DataSources } from './predictions/index';
 import type { LeagueData } from './data-provider';
 import { createTimeMachineData } from './time-machine';
 
