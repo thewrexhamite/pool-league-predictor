@@ -26,6 +26,17 @@ export function isEmailConfigured(): boolean {
 }
 
 /**
+ * Generate an unsubscribe URL for a user
+ * @param userId The user ID to unsubscribe
+ * @param baseUrl The base URL of the application (defaults to production URL)
+ * @returns The complete unsubscribe URL
+ */
+export function generateUnsubscribeUrl(userId: string, baseUrl?: string): string {
+  const base = baseUrl || process.env.NEXT_PUBLIC_APP_URL || 'https://poolleaguepredictor.com';
+  return `${base}/unsubscribe?userId=${encodeURIComponent(userId)}`;
+}
+
+/**
  * Email template types and their corresponding props
  */
 export type EmailTemplate =

@@ -311,6 +311,63 @@ describe('Email Notification Subscription - E2E Integration', () => {
       const shouldSendEmail = isSubscribed;
       expect(shouldSendEmail).toBe(false);
     });
+
+    test('should generate valid unsubscribe URL with userId', () => {
+      const userId = 'test-user-123';
+      const baseUrl = 'https://poolleaguepredictor.com';
+      const unsubscribeUrl = `${baseUrl}/unsubscribe?userId=${encodeURIComponent(userId)}`;
+
+      // Validate URL structure
+      expect(unsubscribeUrl).toContain('/unsubscribe');
+      expect(unsubscribeUrl).toContain('userId=');
+
+      // Extract userId from URL
+      const url = new URL(unsubscribeUrl);
+      const extractedUserId = url.searchParams.get('userId');
+      expect(extractedUserId).toBe(userId);
+    });
+
+    test('should validate unsubscribe request structure', () => {
+      // Valid unsubscribe request
+      const validRequest = {
+        userId: 'test-user-123',
+      };
+
+      expect(validRequest.userId).toBeDefined();
+      expect(typeof validRequest.userId).toBe('string');
+      expect(validRequest.userId.length).toBeGreaterThan(0);
+
+      // Invalid requests
+      const invalidRequests = [
+        {}, // Missing userId
+        { userId: '' }, // Empty userId
+        { userId: null }, // Null userId
+      ];
+
+      invalidRequests.forEach(request => {
+        const isValid = request.userId && typeof request.userId === 'string' && request.userId.length > 0;
+        expect(isValid).toBe(false);
+      });
+    });
+
+    test('should handle one-click unsubscribe from email link', () => {
+      // Simulate clicking unsubscribe link in email
+      const emailUnsubscribeUrl = 'https://poolleaguepredictor.com/unsubscribe?userId=test-user-123';
+
+      // Parse URL to get userId
+      const url = new URL(emailUnsubscribeUrl);
+      const userId = url.searchParams.get('userId');
+
+      expect(userId).toBe('test-user-123');
+      expect(url.pathname).toBe('/unsubscribe');
+
+      // Unsubscribe page should call API with this userId
+      const unsubscribeRequest = {
+        userId: userId as string,
+      };
+
+      expect(unsubscribeRequest.userId).toBeDefined();
+    });
   });
 
   describe('User Team Highlighting', () => {

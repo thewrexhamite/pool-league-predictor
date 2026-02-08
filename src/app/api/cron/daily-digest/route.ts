@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
-import { sendWeeklyDigestEmail } from '@/lib/email';
+import { sendWeeklyDigestEmail, generateUnsubscribeUrl } from '@/lib/email';
 
 // Check if Firebase Admin is configured with proper credentials
 function hasFirebaseCredentials(): boolean {
@@ -167,8 +167,7 @@ export async function GET(request: Request) {
           }
 
           // Generate unsubscribe URL
-          const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-          const unsubscribeUrl = `${baseUrl}/api/notifications/email/unsubscribe?userId=${userId}`;
+          const unsubscribeUrl = generateUnsubscribeUrl(userId);
 
           // Send daily digest email using the weekly digest template
           // (it works for daily digests too - just with a shorter date range)
