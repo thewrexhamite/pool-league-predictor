@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Search, X, GitCompare, UserX } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode } from '@/lib/types';
@@ -47,7 +47,7 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
     };
   }
 
-  function updateURL() {
+  const updateURL = useCallback(() => {
     if (typeof window === 'undefined') return;
 
     const hash = window.location.hash;
@@ -75,7 +75,7 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
     if (hash !== newHash) {
       window.history.replaceState(null, '', newHash);
     }
-  }
+  }, [selectedPlayerA, selectedPlayerB, selectedDiv]);
 
   // Get all players based on division filter
   const allPlayers = useMemo(() => {
@@ -157,7 +157,7 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
   // Update URL when selections change
   useEffect(() => {
     updateURL();
-  }, [selectedPlayerA, selectedPlayerB, selectedDiv]);
+  }, [updateURL]);
 
   // Filter players for Player A dropdown (exclude Player B if selected)
   const filteredPlayersA = useMemo(() => {

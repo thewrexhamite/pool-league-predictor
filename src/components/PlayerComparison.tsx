@@ -248,7 +248,7 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
                     borderRadius: '8px',
                     color: '#F3F4F6',
                   }}
-                  formatter={(value: number) => `${value.toFixed(1)}%`}
+                  formatter={(value: number | undefined) => value != null ? `${value.toFixed(1)}%` : 'N/A'}
                 />
                 <Legend
                   wrapperStyle={{ paddingTop: '20px' }}
