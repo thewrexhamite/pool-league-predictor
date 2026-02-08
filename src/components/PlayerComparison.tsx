@@ -109,46 +109,46 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
         <ArrowLeft size={16} /> Back
       </button>
 
-      <div className="flex items-center justify-center gap-2 mb-6">
-        <h2 className="text-xl font-bold text-white">Head-to-Head Comparison</h2>
+      <div className="flex items-center justify-center gap-2 mb-6 flex-wrap">
+        <h2 className="text-lg md:text-xl font-bold text-white text-center">Head-to-Head Comparison</h2>
         <ShareButton data={shareData} title="Share this comparison" size={18} />
       </div>
 
       {/* Head-to-Head Record */}
       {h2hRecord && h2hRecord.played > 0 ? (
-        <div className="mb-6 bg-surface rounded-lg p-6 shadow-card">
+        <div className="mb-6 bg-surface rounded-lg p-4 md:p-6 shadow-card">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
             Direct Record
           </h3>
 
           {/* Main H2H Stats */}
-          <div className="flex items-center justify-center gap-8 mb-6">
+          <div className="flex items-center justify-center gap-4 md:gap-8 mb-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-win">{h2hRecord.won}</div>
-              <div className="text-xs text-gray-500 mt-1">{player1}</div>
+              <div className="text-2xl md:text-3xl font-bold text-win">{h2hRecord.won}</div>
+              <div className="text-xs text-gray-500 mt-1 truncate max-w-[80px] md:max-w-none">{player1}</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-400">-</div>
-              <div className="text-xs text-gray-500 mt-1">{h2hRecord.played} Played</div>
+              <div className="text-xl md:text-2xl font-bold text-gray-400">-</div>
+              <div className="text-xs text-gray-500 mt-1 whitespace-nowrap">{h2hRecord.played} Played</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-loss">{h2hRecord.lost}</div>
-              <div className="text-xs text-gray-500 mt-1">{player2}</div>
+              <div className="text-2xl md:text-3xl font-bold text-loss">{h2hRecord.lost}</div>
+              <div className="text-xs text-gray-500 mt-1 truncate max-w-[80px] md:max-w-none">{player2}</div>
             </div>
           </div>
 
           {/* Win Percentages */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="bg-surface-elevated rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-white">{h2hRecord.winPct.toFixed(1)}%</div>
-              <div className="text-[10px] text-gray-500">{player1} Win Rate</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="bg-surface-elevated rounded-lg p-3 md:p-4 text-center">
+              <div className="text-xl md:text-2xl font-bold text-white">{h2hRecord.winPct.toFixed(1)}%</div>
+              <div className="text-[10px] text-gray-500 truncate">{player1} Win Rate</div>
               <div className="w-full bg-surface rounded-full h-2 mt-2">
                 <div className="h-2 rounded-full bg-win" style={{ width: `${h2hRecord.winPct}%` }} />
               </div>
             </div>
-            <div className="bg-surface-elevated rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-white">{(100 - h2hRecord.winPct).toFixed(1)}%</div>
-              <div className="text-[10px] text-gray-500">{player2} Win Rate</div>
+            <div className="bg-surface-elevated rounded-lg p-3 md:p-4 text-center">
+              <div className="text-xl md:text-2xl font-bold text-white">{(100 - h2hRecord.winPct).toFixed(1)}%</div>
+              <div className="text-[10px] text-gray-500 truncate">{player2} Win Rate</div>
               <div className="w-full bg-surface rounded-full h-2 mt-2">
                 <div className="h-2 rounded-full bg-loss" style={{ width: `${100 - h2hRecord.winPct}%` }} />
               </div>
@@ -158,9 +158,9 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
           {/* Streak Info */}
           {h2hRecord.streak.count > 0 && (
             <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-2 bg-surface-elevated rounded-full px-4 py-2">
+              <div className="inline-flex items-center gap-2 bg-surface-elevated rounded-full px-3 md:px-4 py-2">
                 <span className={clsx(
-                  'text-sm font-medium',
+                  'text-xs md:text-sm font-medium text-center',
                   h2hRecord.streak.type === 'win' ? 'text-win' : 'text-loss'
                 )}>
                   {h2hRecord.streak.type === 'win' ? player1 : player2} on {h2hRecord.streak.count} game {h2hRecord.streak.type === 'win' ? 'winning' : 'losing'} streak
@@ -177,7 +177,7 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
               </h4>
               <div className="space-y-2">
                 {h2hRecord.matches.slice(0, 5).map((match, idx) => (
-                  <div key={`${match.matchId}-${idx}`} className="bg-surface-elevated rounded-lg p-3 flex items-center justify-between text-xs">
+                  <div key={`${match.matchId}-${idx}`} className="bg-surface-elevated rounded-lg p-2 md:p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs">
                     <div className="flex items-center gap-2">
                       <span className={clsx(
                         'font-bold',
@@ -187,17 +187,17 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
                       </span>
                       <span className="text-gray-400">{match.date}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-500">
+                    <div className="flex items-center gap-2 md:justify-end">
+                      <span className="text-gray-500 truncate">
                         {match.wasHome ? (
                           <span className="flex items-center gap-1">
-                            <Home size={12} />
-                            {match.homeTeam} vs {match.awayTeam}
+                            <Home size={12} className="shrink-0" />
+                            <span className="truncate">{match.homeTeam} vs {match.awayTeam}</span>
                           </span>
                         ) : (
                           <span className="flex items-center gap-1">
-                            <Plane size={12} />
-                            {match.homeTeam} vs {match.awayTeam}
+                            <Plane size={12} className="shrink-0" />
+                            <span className="truncate">{match.homeTeam} vs {match.awayTeam}</span>
                           </span>
                         )}
                       </span>
@@ -209,7 +209,7 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
           )}
         </div>
       ) : (
-        <div className="mb-6 bg-surface rounded-lg p-6 shadow-card text-center">
+        <div className="mb-6 bg-surface rounded-lg p-4 md:p-6 shadow-card text-center">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
             Direct Record
           </h3>
@@ -219,11 +219,11 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
 
       {/* Comparative Bar Chart */}
       {comparisonBarData.length > 0 && (
-        <div className="mb-6 bg-surface rounded-lg p-6 shadow-card">
+        <div className="mb-6 bg-surface rounded-lg p-4 md:p-6 shadow-card">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
             Key Metrics Comparison
           </h3>
-          <div className="h-64">
+          <div className="h-48 md:h-64 overflow-x-auto">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={comparisonBarData}
@@ -263,10 +263,10 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Player 1 */}
         <div className="bg-surface rounded-lg p-4 shadow-card">
-          <h3 className="text-lg font-bold text-white text-center mb-4">{player1}</h3>
+          <h3 className="text-base md:text-lg font-bold text-white text-center mb-4 truncate" title={player1}>{player1}</h3>
           {stats1 ? (
             <div className="space-y-3">
               {playerStats1?.rating && (
@@ -299,7 +299,7 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
 
         {/* Player 2 */}
         <div className="bg-surface rounded-lg p-4 shadow-card">
-          <h3 className="text-lg font-bold text-white text-center mb-4">{player2}</h3>
+          <h3 className="text-base md:text-lg font-bold text-white text-center mb-4 truncate" title={player2}>{player2}</h3>
           {stats2 ? (
             <div className="space-y-3">
               {playerStats2?.rating && (
@@ -337,7 +337,7 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
             Form Comparison
           </h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Player 1 Form */}
             <div className="bg-surface rounded-lg p-4 shadow-card">
               {form1 ? (
@@ -431,17 +431,17 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
               <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
                 Form Trends (Last {formChartData.length} Frames)
               </h4>
-              <div className="flex items-center justify-center gap-6 mb-3">
+              <div className="flex items-center justify-center gap-4 md:gap-6 mb-3 flex-wrap">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-0.5 bg-win rounded" />
-                  <span className="text-xs text-gray-400">{player1}</span>
+                  <div className="w-6 md:w-8 h-0.5 bg-win rounded" />
+                  <span className="text-xs text-gray-400 truncate max-w-[120px]" title={player1}>{player1}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-0.5 bg-loss rounded" />
-                  <span className="text-xs text-gray-400">{player2}</span>
+                  <div className="w-6 md:w-8 h-0.5 bg-loss rounded" />
+                  <span className="text-xs text-gray-400 truncate max-w-[120px]" title={player2}>{player2}</span>
                 </div>
               </div>
-              <div className="h-32 md:h-40">
+              <div className="h-32 md:h-40 overflow-x-auto">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={formChartData}>
                     <YAxis domain={[0, 1]} hide />
@@ -480,7 +480,7 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
             Home / Away Comparison
           </h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Player 1 Home/Away */}
             <div className="bg-surface rounded-lg p-4 shadow-card">
               {homeAway1 && (homeAway1.home.p > 0 || homeAway1.away.p > 0) ? (

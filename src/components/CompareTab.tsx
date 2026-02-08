@@ -242,9 +242,10 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
       {/* Header */}
       <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <GitCompare size={20} className="text-accent" />
-            {showAllDivisions ? 'All Divisions' : divisionName} — Player Comparison
+          <h2 className="text-base md:text-lg font-bold text-white flex items-center gap-2">
+            <GitCompare size={18} className="text-accent md:hidden" />
+            <GitCompare size={20} className="text-accent hidden md:inline" />
+            <span className="truncate">{showAllDivisions ? 'All Divisions' : divisionName} — Player Comparison</span>
           </h2>
 
           <div className="flex items-center gap-3 flex-wrap">
@@ -252,11 +253,12 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
             {(selectedPlayerA || selectedPlayerB) && (
               <button
                 onClick={handleClearAll}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-loss/20 text-loss hover:bg-loss/30 transition"
+                className="flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 rounded-lg text-xs font-medium bg-loss/20 text-loss hover:bg-loss/30 transition"
                 title="Clear all selections"
               >
                 <X size={14} />
-                Clear All
+                <span className="hidden sm:inline">Clear All</span>
+                <span className="sm:hidden">Clear</span>
               </button>
             )}
 
@@ -301,7 +303,7 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
           </div>
         </div>
 
-        <p className="text-sm text-gray-400">
+        <p className="text-xs md:text-sm text-gray-400">
           Select two players to compare their stats side-by-side
         </p>
       </div>
@@ -315,26 +317,26 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
           {selectedPlayerA ? (
             <div className="bg-surface border border-surface-border rounded-lg p-3">
               <div className="flex items-center justify-between mb-2">
-                <div>
-                  <div className="font-medium text-white">{selectedPlayerA.name}</div>
-                  <div className="text-xs text-gray-400">{selectedPlayerA.team}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-white truncate" title={selectedPlayerA.name}>{selectedPlayerA.name}</div>
+                  <div className="text-xs text-gray-400 truncate" title={selectedPlayerA.team}>{selectedPlayerA.team}</div>
                 </div>
                 <button
                   onClick={handleClearPlayerA}
-                  className="text-gray-500 hover:text-white transition"
+                  className="text-gray-500 hover:text-white transition ml-2 shrink-0"
                   title="Clear selection"
                 >
                   <X size={16} />
                 </button>
               </div>
-              <div className="flex items-center gap-3 text-xs">
-                <span className="text-gray-500">
+              <div className="flex items-center gap-2 md:gap-3 text-xs flex-wrap">
+                <span className="text-gray-500 whitespace-nowrap">
                   P: <span className="text-gray-300">{selectedPlayerA.p}</span>
                 </span>
-                <span className="text-gray-500">
+                <span className="text-gray-500 whitespace-nowrap">
                   W: <span className="text-win">{selectedPlayerA.w}</span>
                 </span>
-                <span className="text-gray-500">
+                <span className="text-gray-500 whitespace-nowrap">
                   Adj%: <span className="text-white font-bold">{selectedPlayerA.adjPct.toFixed(1)}%</span>
                 </span>
               </div>
@@ -362,9 +364,9 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
 
               {searchPlayerA.length >= 2 ? (
                 filteredPlayersA.length === 0 ? (
-                  <div className="text-center py-8">
-                    <UserX size={40} className="mx-auto text-gray-600 mb-3" />
-                    <p className="text-gray-500 text-sm">No players found</p>
+                  <div className="text-center py-6 md:py-8">
+                    <UserX size={32} className="mx-auto text-gray-600 mb-2 md:mb-3" />
+                    <p className="text-gray-500 text-xs md:text-sm">No players found</p>
                   </div>
                 ) : (
                   <div className="max-h-64 overflow-y-auto">
@@ -374,12 +376,12 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
                         onClick={() => handleSelectPlayerA(player)}
                         className="w-full text-left p-2 rounded-lg hover:bg-surface-elevated transition border-b border-surface-border/30 last:border-0"
                       >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="text-sm font-medium text-info">{player.name}</div>
-                            <div className="text-xs text-gray-400">{player.team}</div>
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-medium text-info truncate" title={player.name}>{player.name}</div>
+                            <div className="text-xs text-gray-400 truncate" title={player.team}>{player.team}</div>
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-gray-500 shrink-0">
                             {player.adjPct.toFixed(1)}%
                           </div>
                         </div>
@@ -388,9 +390,9 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
                   </div>
                 )
               ) : (
-                <div className="text-center py-8">
-                  <Search size={40} className="mx-auto text-gray-600 mb-3" />
-                  <p className="text-gray-500 text-sm">Type to search players</p>
+                <div className="text-center py-6 md:py-8">
+                  <Search size={32} className="mx-auto text-gray-600 mb-2 md:mb-3" />
+                  <p className="text-gray-500 text-xs md:text-sm">Type to search players</p>
                   <p className="text-gray-600 text-xs mt-1">{allPlayers.length} players available</p>
                 </div>
               )}
@@ -405,26 +407,26 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
           {selectedPlayerB ? (
             <div className="bg-surface border border-surface-border rounded-lg p-3">
               <div className="flex items-center justify-between mb-2">
-                <div>
-                  <div className="font-medium text-white">{selectedPlayerB.name}</div>
-                  <div className="text-xs text-gray-400">{selectedPlayerB.team}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-white truncate" title={selectedPlayerB.name}>{selectedPlayerB.name}</div>
+                  <div className="text-xs text-gray-400 truncate" title={selectedPlayerB.team}>{selectedPlayerB.team}</div>
                 </div>
                 <button
                   onClick={handleClearPlayerB}
-                  className="text-gray-500 hover:text-white transition"
+                  className="text-gray-500 hover:text-white transition ml-2 shrink-0"
                   title="Clear selection"
                 >
                   <X size={16} />
                 </button>
               </div>
-              <div className="flex items-center gap-3 text-xs">
-                <span className="text-gray-500">
+              <div className="flex items-center gap-2 md:gap-3 text-xs flex-wrap">
+                <span className="text-gray-500 whitespace-nowrap">
                   P: <span className="text-gray-300">{selectedPlayerB.p}</span>
                 </span>
-                <span className="text-gray-500">
+                <span className="text-gray-500 whitespace-nowrap">
                   W: <span className="text-win">{selectedPlayerB.w}</span>
                 </span>
-                <span className="text-gray-500">
+                <span className="text-gray-500 whitespace-nowrap">
                   Adj%: <span className="text-white font-bold">{selectedPlayerB.adjPct.toFixed(1)}%</span>
                 </span>
               </div>
@@ -452,9 +454,9 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
 
               {searchPlayerB.length >= 2 ? (
                 filteredPlayersB.length === 0 ? (
-                  <div className="text-center py-8">
-                    <UserX size={40} className="mx-auto text-gray-600 mb-3" />
-                    <p className="text-gray-500 text-sm">No players found</p>
+                  <div className="text-center py-6 md:py-8">
+                    <UserX size={32} className="mx-auto text-gray-600 mb-2 md:mb-3" />
+                    <p className="text-gray-500 text-xs md:text-sm">No players found</p>
                   </div>
                 ) : (
                   <div className="max-h-64 overflow-y-auto">
@@ -464,12 +466,12 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
                         onClick={() => handleSelectPlayerB(player)}
                         className="w-full text-left p-2 rounded-lg hover:bg-surface-elevated transition border-b border-surface-border/30 last:border-0"
                       >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="text-sm font-medium text-success">{player.name}</div>
-                            <div className="text-xs text-gray-400">{player.team}</div>
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-medium text-success truncate" title={player.name}>{player.name}</div>
+                            <div className="text-xs text-gray-400 truncate" title={player.team}>{player.team}</div>
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-gray-500 shrink-0">
                             {player.adjPct.toFixed(1)}%
                           </div>
                         </div>
@@ -478,9 +480,9 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
                   </div>
                 )
               ) : (
-                <div className="text-center py-8">
-                  <Search size={40} className="mx-auto text-gray-600 mb-3" />
-                  <p className="text-gray-500 text-sm">Type to search players</p>
+                <div className="text-center py-6 md:py-8">
+                  <Search size={32} className="mx-auto text-gray-600 mb-2 md:mb-3" />
+                  <p className="text-gray-500 text-xs md:text-sm">Type to search players</p>
                   <p className="text-gray-600 text-xs mt-1">{allPlayers.length} players available</p>
                 </div>
               )}
@@ -492,12 +494,12 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
       {/* Placeholder for comparison display (will be implemented in later phases) */}
       {selectedPlayerA && selectedPlayerB && (
         <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-          <div className="text-center py-8">
-            <GitCompare size={40} className="mx-auto text-accent mb-3" />
-            <p className="text-white font-medium mb-1">
+          <div className="text-center py-6 md:py-8">
+            <GitCompare size={32} className="mx-auto text-accent mb-2 md:mb-3" />
+            <p className="text-sm md:text-base text-white font-medium mb-1">
               Comparing {selectedPlayerA.name} vs {selectedPlayerB.name}
             </p>
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-xs md:text-sm">
               Detailed comparison coming soon
             </p>
           </div>
