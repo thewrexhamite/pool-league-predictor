@@ -254,6 +254,10 @@ export interface SeasonMeta {
   label: string;
   current: boolean;
   divisions: string[];
+  champion?: string;
+  promoted?: string[];
+  relegated?: string[];
+  finalStandings?: Record<string, StandingEntry[]>;
 }
 
 export interface LeagueMeta {
