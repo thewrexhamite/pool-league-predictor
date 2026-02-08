@@ -5,9 +5,13 @@ const dotenv = require('dotenv');
 // Load environment variables from .env.local
 dotenv.config({ path: '.env.local' });
 
-// Read the template
-const template = fs.readFileSync(
+// Read both templates
+const fcmTemplate = fs.readFileSync(
   path.join(__dirname, '../public/firebase-messaging-sw.template.js'),
+  'utf-8'
+);
+const offlineTemplate = fs.readFileSync(
+  path.join(__dirname, '../public/offline-sw.template.js'),
   'utf-8'
 );
 
@@ -32,8 +36,8 @@ if (missingVars.length > 0) {
   console.warn('⚠️  Service worker will be generated but may not work without proper config');
 }
 
-// Replace placeholders with actual values
-let output = template
+// Replace placeholders in FCM template with actual values
+let fcmOutput = fcmTemplate
   .replace('REPLACE_WITH_FIREBASE_API_KEY', config.apiKey)
   .replace('REPLACE_WITH_AUTH_DOMAIN', config.authDomain)
   .replace('REPLACE_WITH_PROJECT_ID', config.projectId)
@@ -42,10 +46,27 @@ let output = template
   .replace('REPLACE_WITH_APP_ID', config.appId)
   .replace('REPLACE_WITH_MEASUREMENT_ID', config.measurementId || '');
 
-// Write the generated service worker
+// Extract the header comment and imports from FCM template
+const fcmHeaderEnd = fcmOutput.indexOf('firebase.initializeApp(firebaseConfig);');
+const fcmHeader = fcmOutput.substring(0, fcmHeaderEnd + 'firebase.initializeApp(firebaseConfig);'.length);
+
+// Extract FCM-specific handlers (everything after Firebase initialization)
+const fcmHandlers = fcmOutput.substring(fcmHeaderEnd + 'firebase.initializeApp(firebaseConfig);'.length);
+
+// Extract offline template content (skip the initial comment block)
+const offlineContentStart = offlineTemplate.indexOf('// Cache configuration');
+const offlineContent = offlineTemplate.substring(offlineContentStart);
+
+// Combine templates: FCM header + offline caching + FCM handlers
+const combinedOutput = `${fcmHeader}
+
+${offlineContent}
+${fcmHandlers}`;
+
+// Write the combined service worker
 fs.writeFileSync(
   path.join(__dirname, '../public/firebase-messaging-sw.js'),
-  output
+  combinedOutput
 );
 
-console.log('✓ Service worker generated with Firebase config');
+console.log('✓ Service worker generated with Firebase config and offline support');
