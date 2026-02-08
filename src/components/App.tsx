@@ -44,6 +44,7 @@ import {
 import { getAvailableMatchDates } from '@/lib/time-machine';
 import { TABS } from '@/lib/tabs';
 import { useLeague } from '@/lib/league-context';
+import { useLeagueBranding } from '@/lib/league-branding';
 
 import { useRouter } from 'next/navigation';
 import { ToastProvider, useToast } from './ToastProvider';
@@ -106,19 +107,20 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const { addToast } = useToast();
   const { myTeam, setMyTeam, clearMyTeam } = useMyTeam();
   const { leagues, selected, selectLeague, clearSelection } = useLeague();
+  const { logo } = useLeagueBranding();
   const nextRouter = useRouter();
 
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
   const routerOptions = useMemo(() => ({
-    validDivisions: divisionCodes.length > 0 ? divisionCodes : ['SD2'],
-    defaultDiv: divisionCodes[0] || 'SD2',
+    validDivisions: divisionCodes.length > 0 ? divisionCodes : [],
+    defaultDiv: divisionCodes[0] || '',
   }), [divisionCodes]);
   const router = useHashRouter(routerOptions);
 
   // Ensure division is valid for current league (handles switching between leagues)
   const safeDiv = useMemo(() => {
-    if (divisionCodes.length === 0) return 'SD2' as DivisionCode;
+    if (divisionCodes.length === 0) return '' as DivisionCode;
     if (ds.divisions[router.div]) return router.div;
     return (divisionCodes[0] as DivisionCode) || router.div;
   }, [router.div, ds.divisions, divisionCodes]);
@@ -474,6 +476,13 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
           <div className="flex items-center justify-between gap-3">
             {/* Left: Logo + title */}
             <div className="flex items-center gap-2 shrink-0">
+              {logo && (
+                <img
+                  src={logo}
+                  alt="League logo"
+                  className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                />
+              )}
               <button
                 onClick={() => router.setTab('dashboard')}
                 className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity"
@@ -499,8 +508,9 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                             onClick={() => handleSwitchLeague(l.id)}
                             className={clsx(
                               'w-full text-left px-3 py-2 text-xs transition hover:bg-surface-elevated',
-                              isActive ? 'text-baize font-bold' : 'text-gray-300'
+                              isActive ? 'font-bold' : 'text-gray-300'
                             )}
+                            style={isActive ? { color: 'var(--league-primary)' } : undefined}
                           >
                             {l.name}
                           </button>
@@ -532,9 +542,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                     i === 0 && 'rounded-l-md',
                     i === arr.length - 1 && 'rounded-r-md',
                     selectedDiv === key
-                      ? 'bg-baize text-fixed-white shadow-sm'
+                      ? 'text-fixed-white shadow-sm'
                       : 'text-gray-400 hover:text-white'
                   )}
+                  style={selectedDiv === key ? { backgroundColor: 'var(--league-primary)' } : undefined}
                 >
                   {key}
                 </button>
@@ -747,9 +758,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                             className={clsx(
                               'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
                               l.id === selected.leagueId
-                                ? 'bg-baize text-fixed-white'
+                                ? 'text-fixed-white'
                                 : 'bg-surface-card text-gray-400'
                             )}
+                            style={l.id === selected.leagueId ? { backgroundColor: 'var(--league-primary)' } : undefined}
                           >
                             {l.shortName}
                           </button>
@@ -769,9 +781,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                           className={clsx(
                             'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
                             selectedDiv === key
-                              ? 'bg-baize text-fixed-white'
+                              ? 'text-fixed-white'
                               : 'bg-surface-card text-gray-400'
                           )}
+                          style={selectedDiv === key ? { backgroundColor: 'var(--league-primary)' } : undefined}
                         >
                           {key}
                         </button>

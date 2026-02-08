@@ -205,6 +205,8 @@ export interface LeagueMeta {
   name: string;
   shortName: string;
   seasons: SeasonMeta[];
+  primaryColor: string;
+  logo?: string;
 }
 
 // Tactical edge types

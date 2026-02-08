@@ -6,6 +6,7 @@ import { MessageCircle, X, Send, HelpCircle } from 'lucide-react';
 import clsx from 'clsx';
 import { useAI } from '@/hooks/use-ai';
 import { useLeague } from '@/lib/league-context';
+import { useActiveData } from '@/lib/active-data-provider';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -15,12 +16,13 @@ interface Message {
 export default function AIChatPanel() {
   const { askQuestion, isLoading } = useAI();
   const { selected } = useLeague();
+  const { ds } = useActiveData();
   const leagueName = selected?.league?.name;
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([
-    'Who has the best form in SD2?',
+    'Who has the best form?',
     'Which team is most likely to win the title?',
     'Which team has the best away record?',
   ]);
@@ -32,7 +34,7 @@ export default function AIChatPanel() {
     setInput('');
     setSuggestions([]);
 
-    const result = await askQuestion(question.trim(), leagueName);
+    const result = await askQuestion(question.trim(), ds.divisions, ds.results, leagueName);
     if (result) {
       setMessages(prev => [...prev, { role: 'assistant', content: result.answer }]);
       if (result.suggestedFollowUps?.length) setSuggestions(result.suggestedFollowUps);

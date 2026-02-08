@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { collection, getDocs } from 'firebase/firestore';
 import { logEvent } from 'firebase/analytics';
 import type { LeagueMeta, SeasonMeta } from './types';
@@ -29,6 +30,19 @@ const LeagueContext = createContext<LeagueContextValue>({
   selectLeague: () => {},
   clearSelection: () => {},
 });
+
+function getSelectionFromURL(): { leagueId: string; seasonId: string } | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const leagueId = params.get('league');
+    const seasonId = params.get('season');
+    if (leagueId && seasonId) return { leagueId, seasonId };
+    return null;
+  } catch {
+    return null;
+  }
+}
 
 function getSavedSelection(): { leagueId: string; seasonId: string } | null {
   if (typeof window === 'undefined') return null;
@@ -64,6 +78,9 @@ const DEFAULT_WREXHAM_LEAGUE: LeagueMeta = {
 };
 
 export function LeagueProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [leagues, setLeagues] = useState<LeagueMeta[]>([DEFAULT_WREXHAM_LEAGUE]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<LeagueSelection | null>(null);
@@ -108,24 +125,46 @@ export function LeagueProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // Restore saved selection once leagues are loaded
+  // Priority: URL params > localStorage
   useEffect(() => {
     if (loading) return;
-    const saved = getSavedSelection();
+
+    // Try URL params first
+    const fromURL = getSelectionFromURL();
+    const saved = fromURL || getSavedSelection();
+
     if (saved) {
       const league = leagues.find(l => l.id === saved.leagueId);
       if (league) {
         const season = league.seasons.find(s => s.id === saved.seasonId);
         if (season) {
           setSelected({ leagueId: saved.leagueId, seasonId: saved.seasonId, league });
+          // If restored from localStorage, update URL to match
+          if (!fromURL) {
+            const params = new URLSearchParams(searchParams?.toString());
+            params.set('league', saved.leagueId);
+            params.set('season', saved.seasonId);
+            router.replace(`${pathname}?${params.toString()}`);
+          }
         }
       }
     }
-  }, [leagues, loading]);
+  }, [leagues, loading, pathname, router, searchParams]);
 
   const selectLeague = useCallback((leagueId: string, seasonId: string) => {
     const league = leagues.find(l => l.id === leagueId);
     if (!league) return;
+
+    // Save to localStorage
     saveSelection(leagueId, seasonId);
+
+    // Update URL with league and season params
+    const params = new URLSearchParams(searchParams?.toString());
+    params.set('league', leagueId);
+    params.set('season', seasonId);
+    router.replace(`${pathname}?${params.toString()}`);
+
+    // Update state
     setSelected({ leagueId, seasonId, league });
 
     // Track analytics
@@ -138,12 +177,22 @@ export function LeagueProvider({ children }: { children: ReactNode }) {
         });
       }
     });
-  }, [leagues]);
+  }, [leagues, pathname, router, searchParams]);
 
   const clearSelection = useCallback(() => {
+    // Clear localStorage
     clearSavedSelection();
+
+    // Clear URL params
+    const params = new URLSearchParams(searchParams?.toString());
+    params.delete('league');
+    params.delete('season');
+    const query = params.toString();
+    router.replace(`${pathname}${query ? `?${query}` : ''}`);
+
+    // Clear state
     setSelected(null);
-  }, []);
+  }, [pathname, router, searchParams]);
 
   return (
     <LeagueContext.Provider value={{ leagues, loading, selected, selectLeague, clearSelection }}>

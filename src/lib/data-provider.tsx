@@ -21,8 +21,6 @@ import rostersData from '@data/rosters.json';
 import players2526Data from '@data/players2526.json';
 import framesData from '@data/frames.json';
 
-import { DIVISIONS as STATIC_DIVISIONS } from './data';
-
 function cacheKey(leagueId: string, seasonId: string) {
   return `pool-league-${leagueId}-${seasonId}-data`;
 }
@@ -49,6 +47,11 @@ interface DataContextValue {
   refreshing: boolean;
 }
 
+/**
+ * Returns static JSON data for wrexham/2526 fallback.
+ * Note: Divisions are intentionally empty here - they should come from Firestore.
+ * Static data is only used when Firestore is unavailable or hasn't loaded yet.
+ */
 function getStaticData(): LeagueData {
   return {
     results: resultsData as MatchResult[],
@@ -57,12 +60,16 @@ function getStaticData(): LeagueData {
     rosters: rostersData as RostersMap,
     players2526: players2526Data as Players2526Map,
     frames: framesData as FrameData[],
-    divisions: STATIC_DIVISIONS,
+    divisions: {},
     lastUpdated: 0,
     source: 'static',
   };
 }
 
+/**
+ * Returns empty data structure for leagues with no data available.
+ * This is used for new leagues that haven't been configured yet.
+ */
 function getEmptyData(): LeagueData {
   return {
     results: [],
@@ -71,7 +78,7 @@ function getEmptyData(): LeagueData {
     rosters: {},
     players2526: {},
     frames: [],
-    divisions: {} as Divisions,
+    divisions: {},
     lastUpdated: 0,
     source: 'static',
   };
@@ -153,7 +160,8 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
           const cachedTs = parseInt(localStorage.getItem(cacheTsKey(leagueId, seasonId)) || '0', 10);
 
           if (raw.lastUpdated > cachedTs) {
-            const staticDiv = isDefaultLeague ? STATIC_DIVISIONS : ({} as Divisions);
+            // All data, including divisions, comes from Firestore
+            // No league gets special treatment or hardcoded fallbacks
             const newData: LeagueData = {
               results: raw.results || [],
               fixtures: raw.fixtures || [],
@@ -161,7 +169,7 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
               rosters: raw.rosters || {},
               players2526: raw.players2526 || {},
               frames: raw.frames || [],
-              divisions: raw.divisions || staticDiv,
+              divisions: raw.divisions || {},
               lastUpdated: raw.lastUpdated,
               source: 'firestore',
             };

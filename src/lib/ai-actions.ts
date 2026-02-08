@@ -14,20 +14,37 @@ import {
   getPlayerStats2526,
   getPlayerTeams,
   getTeamPlayers,
+  type DataSources,
 } from '@/lib/predictions';
-import { DIVISIONS, RESULTS } from '@/lib/data';
-import type { DivisionCode, TeamReportData, TeamReportOutput } from '@/lib/types';
+import { RESULTS } from '@/lib/data';
+import type { DivisionCode, TeamReportData, TeamReportOutput, Divisions } from '@/lib/types';
 
-export async function analyzeMatchAction(homeTeam: string, awayTeam: string, leagueName?: string) {
+export async function analyzeMatchAction(
+  homeTeam: string,
+  awayTeam: string,
+  divisions: Divisions,
+  results?: any[],
+  leagueName?: string
+) {
   if (!process.env.GEMINI_API_KEY) {
     throw new Error('This feature is currently unavailable. Please try again later.');
   }
 
-  const div = getDiv(homeTeam);
+  // Build DataSources for prediction functions
+  const ds: DataSources = {
+    divisions,
+    results: results || RESULTS,
+    fixtures: [],
+    players: {},
+    rosters: {},
+    players2526: {},
+  };
+
+  const div = getDiv(homeTeam, ds);
   if (!div) throw new Error('Could not determine division for team.');
 
-  const strengths = calcTeamStrength(div);
-  const standings = calcStandings(div);
+  const strengths = calcTeamStrength(div, ds);
+  const standings = calcStandings(div, ds);
   const homeStanding = standings.find(s => s.team === homeTeam);
   const awayStanding = standings.find(s => s.team === awayTeam);
 
@@ -42,7 +59,7 @@ export async function analyzeMatchAction(homeTeam: string, awayTeam: string, lea
     const result = await analyzeMatch({
       homeTeam,
       awayTeam,
-      division: DIVISIONS[div].name,
+      division: divisions[div].name,
       leagueName: leagueName || 'the league',
       homeStrength: strengths[homeTeam] || 0,
       awayStrength: strengths[awayTeam] || 0,
@@ -74,7 +91,12 @@ export async function analyzeMatchAction(homeTeam: string, awayTeam: string, lea
   }
 }
 
-export async function askQuestionAction(question: string, leagueName?: string) {
+export async function askQuestionAction(
+  question: string,
+  divisions: Divisions,
+  results?: any[],
+  leagueName?: string
+) {
   if (!process.env.GEMINI_API_KEY) {
     throw new Error('This feature is currently unavailable. Please try again later.');
   }
@@ -83,13 +105,23 @@ export async function askQuestionAction(question: string, leagueName?: string) {
     throw new Error('Please ask a more detailed question.');
   }
 
+  // Build DataSources for prediction functions
+  const ds: DataSources = {
+    divisions,
+    results: results || RESULTS,
+    fixtures: [],
+    players: {},
+    rosters: {},
+    players2526: {},
+  };
+
   // Build league context from current data
   const context: string[] = [];
-  const divCodes: DivisionCode[] = ['SD1', 'SD2', 'WD1', 'WD2'];
+  const divCodes: DivisionCode[] = Object.keys(divisions) as DivisionCode[];
   divCodes.forEach(div => {
-    const standings = calcStandings(div);
+    const standings = calcStandings(div, ds);
     context.push(
-      `${DIVISIONS[div].name} Standings:\n` +
+      `${divisions[div].name} Standings:\n` +
         standings
           .map(
             (s, i) =>
@@ -98,7 +130,7 @@ export async function askQuestionAction(question: string, leagueName?: string) {
           .join('\n')
     );
   });
-  context.push(`Total matches played: ${RESULTS.length}`);
+  context.push(`Total matches played: ${results?.length || RESULTS.length}`);
 
   try {
     const result = await answerLeagueQuestion({
@@ -113,10 +145,25 @@ export async function askQuestionAction(question: string, leagueName?: string) {
   }
 }
 
-export async function getPlayerInsightAction(playerName: string, leagueName?: string) {
+export async function getPlayerInsightAction(
+  playerName: string,
+  divisions: Divisions,
+  results?: any[],
+  leagueName?: string
+) {
   if (!process.env.GEMINI_API_KEY) {
     throw new Error('This feature is currently unavailable. Please try again later.');
   }
+
+  // Build DataSources for prediction functions
+  const ds: DataSources = {
+    divisions,
+    results: results || RESULTS,
+    fixtures: [],
+    players: {},
+    rosters: {},
+    players2526: {},
+  };
 
   const stats2425 = getPlayerStats(playerName);
   const stats2526 = getPlayerStats2526(playerName);
@@ -129,7 +176,7 @@ export async function getPlayerInsightAction(playerName: string, leagueName?: st
   // Build team context
   const teamContext = teams
     .map(t => {
-      const standings = calcStandings(t.div as DivisionCode);
+      const standings = calcStandings(t.div as DivisionCode, ds);
       const pos = standings.findIndex(s => s.team === t.team) + 1;
       return `Plays for ${t.team} (${t.div}, position #${pos})`;
     })

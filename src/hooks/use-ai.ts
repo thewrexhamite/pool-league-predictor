@@ -7,17 +7,23 @@ import {
   getPlayerInsightAction,
   generateTeamReportAction,
 } from '@/lib/ai-actions';
-import type { TeamReportData, TeamReportOutput } from '@/lib/types';
+import type { TeamReportData, TeamReportOutput, Divisions } from '@/lib/types';
 
 export function useAI() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const analyzeMatch = async (homeTeam: string, awayTeam: string, leagueName?: string): Promise<string | null> => {
+  const analyzeMatch = async (
+    homeTeam: string,
+    awayTeam: string,
+    divisions: Divisions,
+    results?: any[],
+    leagueName?: string
+  ): Promise<string | null> => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await analyzeMatchAction(homeTeam, awayTeam, leagueName);
+      const result = await analyzeMatchAction(homeTeam, awayTeam, divisions, results, leagueName);
       return result;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to analyze match';
@@ -30,6 +36,8 @@ export function useAI() {
 
   const askQuestion = async (
     question: string,
+    divisions: Divisions,
+    results?: any[],
     leagueName?: string
   ): Promise<{
     answer: string;
@@ -38,7 +46,7 @@ export function useAI() {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await askQuestionAction(question, leagueName);
+      const result = await askQuestionAction(question, divisions, results, leagueName);
       return {
         answer: result.answer,
         suggestedFollowUps: result.suggestedFollowUps,
@@ -52,11 +60,16 @@ export function useAI() {
     }
   };
 
-  const getPlayerInsight = async (playerName: string, leagueName?: string): Promise<string | null> => {
+  const getPlayerInsight = async (
+    playerName: string,
+    divisions: Divisions,
+    results?: any[],
+    leagueName?: string
+  ): Promise<string | null> => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await getPlayerInsightAction(playerName, leagueName);
+      const result = await getPlayerInsightAction(playerName, divisions, results, leagueName);
       return result;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to get player insight';
