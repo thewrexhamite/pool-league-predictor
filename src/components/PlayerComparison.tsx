@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane } from 'lucide-react';
 import clsx from 'clsx';
-import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, YAxis, BarChart, Bar, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm, calcPlayerHomeAway, getPlayerFrameHistory } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import { getH2HBetween } from '@/lib/stats/head-to-head';
@@ -52,6 +52,36 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
       };
     }).reverse();
   }, [frameHistory1, frameHistory2]);
+
+  // Create comparative bar chart data for key metrics
+  const comparisonBarData = useMemo(() => {
+    if (!stats1 || !stats2) return [];
+
+    const winPct1 = stats1.total.pct;
+    const winPct2 = stats2.total.pct;
+    const adjPct1 = calcBayesianPct(stats1.total.w, stats1.total.p);
+    const adjPct2 = calcBayesianPct(stats2.total.w, stats2.total.p);
+    const formPct1 = form1?.last5.pct ?? 0;
+    const formPct2 = form2?.last5.pct ?? 0;
+
+    return [
+      {
+        metric: 'Win %',
+        [player1]: winPct1,
+        [player2]: winPct2,
+      },
+      {
+        metric: 'Adj %',
+        [player1]: adjPct1,
+        [player2]: adjPct2,
+      },
+      {
+        metric: 'Form',
+        [player1]: formPct1,
+        [player2]: formPct2,
+      },
+    ];
+  }, [stats1, stats2, form1, form2, player1, player2]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -161,6 +191,52 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
             Direct Record
           </h3>
           <p className="text-gray-500 text-sm">No head-to-head matches found</p>
+        </div>
+      )}
+
+      {/* Comparative Bar Chart */}
+      {comparisonBarData.length > 0 && (
+        <div className="mb-6 bg-surface rounded-lg p-6 shadow-card">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
+            Key Metrics Comparison
+          </h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={comparisonBarData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 40 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                <XAxis
+                  dataKey="metric"
+                  tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                  tickLine={{ stroke: '#4B5563' }}
+                />
+                <YAxis
+                  domain={[0, 100]}
+                  tick={{ fill: '#9CA3AF', fontSize: 12 }}
+                  tickLine={{ stroke: '#4B5563' }}
+                  label={{ value: 'Percentage (%)', angle: -90, position: 'insideLeft', fill: '#9CA3AF', fontSize: 12 }}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#1F2937',
+                    border: '1px solid #374151',
+                    borderRadius: '8px',
+                    color: '#F3F4F6',
+                  }}
+                  formatter={(value: number) => `${value.toFixed(1)}%`}
+                />
+                <Legend
+                  wrapperStyle={{ paddingTop: '20px' }}
+                  iconType="circle"
+                  formatter={(value) => <span style={{ color: '#9CA3AF', fontSize: '12px' }}>{value}</span>}
+                />
+                <Bar dataKey={player1} fill="#0EA572" radius={[4, 4, 0, 0]} />
+                <Bar dataKey={player2} fill="#EF4444" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       )}
 
