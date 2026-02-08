@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
-import { Bell, BellOff, Loader2, Check, X } from 'lucide-react';
+import { Bell, BellOff, Loader2, Check, X, Filter } from 'lucide-react';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useAuth } from '@/lib/auth';
+import { useLeagueData } from '@/lib/data-provider';
 import type { NotificationPreferences } from '@/lib/notifications';
 
 interface NotificationSettingsProps {
@@ -50,10 +51,26 @@ export default function NotificationSettings({
     unsubscribe,
     updatePreferences,
   } = useNotifications();
+  const { data } = useLeagueData();
 
   const [isUpdating, setIsUpdating] = useState(false);
   const [isUnsubscribing, setIsUnsubscribing] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // Extract divisions and teams from league data
+  const { allDivisions, allTeams } = useMemo(() => {
+    const divisions = Object.keys(data.divisions);
+    const teamsSet = new Set<string>();
+
+    Object.values(data.divisions).forEach(division => {
+      division.teams.forEach(team => teamsSet.add(team));
+    });
+
+    return {
+      allDivisions: divisions.sort(),
+      allTeams: Array.from(teamsSet).sort(),
+    };
+  }, [data.divisions]);
 
   // Handle toggle change
   const handleToggle = async (key: BooleanNotificationKey) => {
@@ -78,6 +95,72 @@ export default function NotificationSettings({
       }
     } catch (error) {
       setMessage({ type: 'error', text: 'An error occurred while updating preferences' });
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  // Handle team filter toggle
+  const handleTeamFilterToggle = async (team: string) => {
+    if (!user || !isSubscribed || isUpdating) return;
+
+    setIsUpdating(true);
+    setMessage(null);
+
+    try {
+      const currentFilters = preferences.teamFilters || [];
+      const newFilters = currentFilters.includes(team)
+        ? currentFilters.filter(t => t !== team)
+        : [...currentFilters, team];
+
+      const newPreferences: NotificationPreferences = {
+        ...preferences,
+        teamFilters: newFilters,
+      };
+
+      const success = await updatePreferences(user.uid, newPreferences);
+
+      if (success) {
+        setMessage({ type: 'success', text: 'Team filters updated successfully' });
+        setTimeout(() => setMessage(null), 3000);
+      } else {
+        setMessage({ type: 'error', text: 'Failed to update team filters' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'An error occurred while updating team filters' });
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  // Handle division filter toggle
+  const handleDivisionFilterToggle = async (division: string) => {
+    if (!user || !isSubscribed || isUpdating) return;
+
+    setIsUpdating(true);
+    setMessage(null);
+
+    try {
+      const currentFilters = preferences.divisionFilters || [];
+      const newFilters = currentFilters.includes(division)
+        ? currentFilters.filter(d => d !== division)
+        : [...currentFilters, division];
+
+      const newPreferences: NotificationPreferences = {
+        ...preferences,
+        divisionFilters: newFilters,
+      };
+
+      const success = await updatePreferences(user.uid, newPreferences);
+
+      if (success) {
+        setMessage({ type: 'success', text: 'Division filters updated successfully' });
+        setTimeout(() => setMessage(null), 3000);
+      } else {
+        setMessage({ type: 'error', text: 'Failed to update division filters' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'An error occurred while updating division filters' });
     } finally {
       setIsUpdating(false);
     }
@@ -229,6 +312,101 @@ export default function NotificationSettings({
             </div>
           );
         })}
+      </div>
+
+      {/* Filter Controls */}
+      <div className="space-y-4">
+        {/* Team Filters */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+              Team Filters
+            </h4>
+          </div>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+            Select specific teams to receive notifications for. Leave empty to receive notifications for all teams.
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {allTeams.map(team => {
+              const isSelected = (preferences.teamFilters || []).includes(team);
+              const isDisabled = isUpdating || isUnsubscribing;
+
+              return (
+                <button
+                  key={team}
+                  onClick={() => handleTeamFilterToggle(team)}
+                  disabled={isDisabled}
+                  className={clsx(
+                    'px-3 py-2 text-xs font-medium rounded-md border transition-colors text-left',
+                    isSelected
+                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+                      : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700',
+                    isDisabled && 'opacity-50 cursor-not-allowed'
+                  )}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="truncate">{team}</span>
+                    {isSelected && (
+                      <Check className="w-3 h-3 flex-shrink-0" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          {(preferences.teamFilters || []).length > 0 && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              {preferences.teamFilters!.length} team{preferences.teamFilters!.length !== 1 ? 's' : ''} selected
+            </p>
+          )}
+        </div>
+
+        {/* Division Filters */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+              Division Filters
+            </h4>
+          </div>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+            Select specific divisions to receive notifications for. Leave empty to receive notifications for all divisions.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {allDivisions.map(division => {
+              const isSelected = (preferences.divisionFilters || []).includes(division);
+              const isDisabled = isUpdating || isUnsubscribing;
+
+              return (
+                <button
+                  key={division}
+                  onClick={() => handleDivisionFilterToggle(division)}
+                  disabled={isDisabled}
+                  className={clsx(
+                    'px-4 py-2 text-sm font-medium rounded-md border transition-colors',
+                    isSelected
+                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+                      : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700',
+                    isDisabled && 'opacity-50 cursor-not-allowed'
+                  )}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>{division}</span>
+                    {isSelected && (
+                      <Check className="w-3 h-3 flex-shrink-0" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          {(preferences.divisionFilters || []).length > 0 && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              {preferences.divisionFilters!.length} division{preferences.divisionFilters!.length !== 1 ? 's' : ''} selected
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Unsubscribe Button */}
