@@ -147,6 +147,13 @@ export default function LineupOptimizerTab({
     }
   };
 
+  // Handle selecting an alternative lineup
+  const handleSelectAlternative = (alternative: LineupAlternative) => {
+    setOptimizedLineup(alternative.lineup);
+    // Clear alternatives since we've selected one
+    setAlternatives([]);
+  };
+
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
@@ -457,12 +464,152 @@ export default function LineupOptimizerTab({
         </div>
       )}
 
-      {/* Placeholder for alternative lineups - to be implemented in subtask-2-5 */}
+      {/* Alternative lineups display */}
       {optimizedLineup && alternatives.length > 0 && (
         <div className="mt-6">
-          <h3 className="text-sm font-medium text-gray-400 mb-2">
-            Alternative Lineups (to be implemented)
-          </h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-medium text-gray-400">
+              Alternative Lineups
+            </h3>
+            <span className="text-xs text-gray-500">
+              {alternatives.length} option{alternatives.length > 1 ? 's' : ''} found
+            </span>
+          </div>
+          <p className="text-xs text-gray-500 mb-4">
+            Explore alternative lineup configurations with different probability outcomes
+          </p>
+          <div className="space-y-4">
+            {alternatives.map((alt) => {
+              const diffPercentage = (alt.probabilityDiff * 100).toFixed(1);
+              const isNegative = alt.probabilityDiff < 0;
+
+              return (
+                <div
+                  key={`alt-${alt.rank}`}
+                  className="bg-surface-elevated border border-surface-border rounded-lg p-4 hover:border-baize/50 transition"
+                >
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                        Option #{alt.rank}
+                      </span>
+                      <span
+                        className={clsx(
+                          'text-xs font-medium',
+                          isNegative ? 'text-loss' : 'text-baize'
+                        )}
+                      >
+                        {isNegative ? '' : '+'}{diffPercentage}% Win
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => handleSelectAlternative(alt)}
+                      className="text-xs text-baize hover:text-baize-dark font-medium transition"
+                    >
+                      Use This Lineup
+                    </button>
+                  </div>
+
+                  {/* Win probabilities comparison */}
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    <div className="text-center p-2 bg-surface-card rounded">
+                      <div className="text-sm font-bold text-baize">
+                        {(alt.lineup.winProbability.pWin * 100).toFixed(1)}%
+                      </div>
+                      <div className="text-xs text-gray-500">Win</div>
+                    </div>
+                    <div className="text-center p-2 bg-surface-card rounded">
+                      <div className="text-sm font-bold text-draw">
+                        {(alt.lineup.winProbability.pDraw * 100).toFixed(1)}%
+                      </div>
+                      <div className="text-xs text-gray-500">Draw</div>
+                    </div>
+                    <div className="text-center p-2 bg-surface-card rounded">
+                      <div className="text-sm font-bold text-loss">
+                        {(alt.lineup.winProbability.pLoss * 100).toFixed(1)}%
+                      </div>
+                      <div className="text-xs text-gray-500">Loss</div>
+                    </div>
+                  </div>
+
+                  {/* Expected score */}
+                  <div className="text-center py-2 mb-3 bg-surface-card rounded">
+                    <span className="text-sm font-bold text-white">
+                      {alt.lineup.winProbability.expectedHome.toFixed(1)} - {alt.lineup.winProbability.expectedAway.toFixed(1)}
+                    </span>
+                    <span className="text-gray-500 ml-2 text-xs">Expected Score</span>
+                  </div>
+
+                  {/* Lineup preview - compact view */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {/* Set 1 */}
+                    <div>
+                      <div className="text-xs text-gray-400 mb-2 font-medium">Set 1</div>
+                      <div className="space-y-1">
+                        {alt.lineup.set1.map((playerName, idx) => {
+                          const player = teamPlayers.find(p => p.name === playerName);
+                          return (
+                            <div
+                              key={`alt-${alt.rank}-set1-${idx}`}
+                              className="flex items-center gap-2 text-xs"
+                            >
+                              <span className="text-gray-500 w-6">#{idx + 1}</span>
+                              <button
+                                onClick={() => onPlayerClick(playerName)}
+                                className="text-gray-300 hover:text-white transition truncate text-left flex-1"
+                              >
+                                {playerName}
+                              </button>
+                              {player?.rating !== null && (
+                                <span className="text-gray-500 text-xs">
+                                  {player?.rating?.toFixed(0)}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Set 2 */}
+                    <div>
+                      <div className="text-xs text-gray-400 mb-2 font-medium">Set 2</div>
+                      <div className="space-y-1">
+                        {alt.lineup.set2.map((playerName, idx) => {
+                          const player = teamPlayers.find(p => p.name === playerName);
+                          return (
+                            <div
+                              key={`alt-${alt.rank}-set2-${idx}`}
+                              className="flex items-center gap-2 text-xs"
+                            >
+                              <span className="text-gray-500 w-6">#{idx + 1}</span>
+                              <button
+                                onClick={() => onPlayerClick(playerName)}
+                                className="text-gray-300 hover:text-white transition truncate text-left flex-1"
+                              >
+                                {playerName}
+                              </button>
+                              {player?.rating !== null && (
+                                <span className="text-gray-500 text-xs">
+                                  {player?.rating?.toFixed(0)}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Confidence indicator */}
+                  <div className="mt-3 pt-3 border-t border-surface-border text-xs text-gray-500">
+                    Confidence: <span className="text-white font-medium">{(alt.lineup.winProbability.confidence * 100).toFixed(1)}%</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
