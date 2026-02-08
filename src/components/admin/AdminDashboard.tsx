@@ -15,6 +15,7 @@ import {
 import { useAuth } from '@/lib/auth';
 import { useLeagueData } from '@/lib/data-provider';
 import DataCorrectionPanel from './DataCorrectionPanel';
+import ManualResultEntry from './ManualResultEntry';
 
 interface AdminDashboardProps {
   // Reserved for future props
@@ -257,6 +258,16 @@ export default function AdminDashboard({}: AdminDashboardProps) {
           </button>
         </div>
       </div>
+
+      {/* Manual Result Entry */}
+      <ManualResultEntry
+        onSubmit={async (result) => {
+          // TODO: Implement result submission
+        }}
+        onCancel={() => {
+          // TODO: Implement cancel
+        }}
+      />
 
       {/* Data Correction Panel */}
       <DataCorrectionPanel />
