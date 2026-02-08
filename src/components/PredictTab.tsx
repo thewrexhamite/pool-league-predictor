@@ -400,9 +400,9 @@ export default function PredictTab({
                 { label: awayTeam + ' scouting ' + homeTeam, report: awayScoutReport, color: 'loss' },
               ].map(side => (
                 <div key={side.label} className="bg-surface/50 rounded-lg p-4">
-                  <h4 className={clsx('font-semibold text-sm mb-3', `text-${side.color}`)}>Scout: {side.report.opponent}</h4>
+                  <h4 className={clsx('font-semibold text-sm mb-3', `text-${side.color}`)}>Scouting Report: {side.report.opponent}</h4>
                   <div className="flex items-center gap-1 mb-2">
-                    <span className="text-[10px] text-gray-600 w-10">Form:</span>
+                    <span className="text-[10px] text-gray-600 w-16">Recent Form:</span>
                     {side.report.teamForm.map((r, i) => (
                       <span key={i} className={clsx(
                         'w-5 h-5 rounded text-[10px] font-bold flex items-center justify-center',
@@ -411,22 +411,22 @@ export default function PredictTab({
                     ))}
                   </div>
                   <div className="grid grid-cols-2 gap-1 text-[10px] mb-2">
-                    <div className="text-gray-500">Home: <span className="text-white font-medium">{side.report.homeAway.home.winPct.toFixed(0)}%</span></div>
-                    <div className="text-gray-500">Away: <span className="text-white font-medium">{side.report.homeAway.away.winPct.toFixed(0)}%</span></div>
+                    <div className="text-gray-500">Home Win%: <span className="text-white font-medium">{side.report.homeAway.home.winPct.toFixed(0)}%</span></div>
+                    <div className="text-gray-500">Away Win%: <span className="text-white font-medium">{side.report.homeAway.away.winPct.toFixed(0)}%</span></div>
                     {side.report.setPerformance && (
                       <>
-                        <div className="text-gray-500">Set 1: <span className="text-white font-medium">{side.report.setPerformance.set1.pct.toFixed(0)}%</span></div>
-                        <div className="text-gray-500">Set 2: <span className="text-white font-medium">{side.report.setPerformance.set2.pct.toFixed(0)}%</span></div>
+                        <div className="text-gray-500">Set 1 Win%: <span className="text-white font-medium">{side.report.setPerformance.set1.pct.toFixed(0)}%</span></div>
+                        <div className="text-gray-500">Set 2 Win%: <span className="text-white font-medium">{side.report.setPerformance.set2.pct.toFixed(0)}%</span></div>
                       </>
                     )}
-                    <div className="text-gray-500">BD: <span className={clsx(
+                    <div className="text-gray-500">Break & Dish: <span className={clsx(
                       side.report.bdStats.netBD > 0 ? 'text-win' : side.report.bdStats.netBD < 0 ? 'text-loss' : 'text-white',
                       'font-medium'
                     )}>{side.report.bdStats.netBD > 0 ? '+' : ''}{side.report.bdStats.netBD}</span></div>
-                    <div className="text-gray-500">Forf: <span className="text-gold font-medium">{(side.report.forfeitRate * 100).toFixed(0)}%</span></div>
+                    <div className="text-gray-500">Forfeits: <span className="text-gold font-medium">{(side.report.forfeitRate * 100).toFixed(0)}%</span></div>
                   </div>
                   <div className="text-[10px] mb-1">
-                    <span className="text-gray-600">Strong: </span>
+                    <span className="text-gray-600">Strongest: </span>
                     {side.report.strongestPlayers.map((p, i) => (
                       <span key={i}>
                         <button className="text-win hover:text-win/80 transition" onClick={() => onPlayerClick(p.name)}>{p.name}</button>
@@ -437,7 +437,7 @@ export default function PredictTab({
                     ))}
                   </div>
                   <div className="text-[10px]">
-                    <span className="text-gray-600">Weak: </span>
+                    <span className="text-gray-600">Weakest: </span>
                     {side.report.weakestPlayers.map((p, i) => (
                       <span key={i}>
                         <button className="text-loss hover:text-loss/80 transition" onClick={() => onPlayerClick(p.name)}>{p.name}</button>
