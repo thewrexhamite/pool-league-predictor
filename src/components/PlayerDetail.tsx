@@ -199,6 +199,49 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
         </div>
       )}
 
+      {/* Improvement Rate */}
+      {improvementMetrics && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            Season-to-Season Change
+            <span className={clsx(
+              'text-xs font-medium px-2 py-0.5 rounded-full',
+              improvementMetrics.trend === 'improving' ? 'bg-win/20 text-win' :
+              improvementMetrics.trend === 'declining' ? 'bg-loss/20 text-loss' :
+              'bg-gray-500/20 text-gray-400'
+            )}>
+              {improvementMetrics.trend === 'improving' && <TrendingUp size={12} className="inline mr-0.5" />}
+              {improvementMetrics.trend === 'declining' && <TrendingDown size={12} className="inline mr-0.5" />}
+              {improvementMetrics.trend === 'improving' ? 'Improving' : improvementMetrics.trend === 'declining' ? 'Declining' : 'Stable'}
+            </span>
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className={clsx(
+                'text-lg font-bold',
+                improvementMetrics.winRateChange > 0 ? 'text-win' :
+                improvementMetrics.winRateChange < 0 ? 'text-loss' :
+                'text-gray-400'
+              )}>
+                {improvementMetrics.winRateChange > 0 ? '+' : ''}{improvementMetrics.winRateChange.toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">Win Rate Change</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className={clsx(
+                'text-lg font-bold',
+                improvementMetrics.winRateChangePercent > 0 ? 'text-win' :
+                improvementMetrics.winRateChangePercent < 0 ? 'text-loss' :
+                'text-gray-400'
+              )}>
+                {improvementMetrics.winRateChangePercent > 0 ? '+' : ''}{improvementMetrics.winRateChangePercent.toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">Relative Change</div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Career Trend */}
       {careerTrend && (
         <div className="mb-6">
