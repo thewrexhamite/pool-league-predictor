@@ -15,6 +15,7 @@ import {
   ChevronDown,
   Menu,
   Users,
+  Shield,
 } from 'lucide-react';
 import type {
   DivisionCode,
@@ -29,6 +30,7 @@ import { useLeagueData } from '@/lib/data-provider';
 import { ActiveDataProvider, useActiveData } from '@/lib/active-data-provider';
 import { useUserSession } from '@/hooks/use-user-session';
 import { useMyTeam } from '@/hooks/use-my-team';
+import { useAdmin } from '@/hooks/use-admin';
 import { useHashRouter, type TabId } from '@/lib/router';
 import {
   calcStandings,
@@ -111,6 +113,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const { leagues, selected, selectLeague, clearSelection } = useLeague();
   const { logo } = useLeagueBranding();
   const nextRouter = useRouter();
+  const { isAdmin } = useAdmin();
 
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
@@ -656,6 +659,18 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                 <ThemeToggle variant="icon" />
               </div>
 
+              {/* Admin link — desktop only */}
+              {isAdmin && (
+                <button
+                  onClick={() => nextRouter.push('/admin')}
+                  className="hidden md:block p-2 text-gray-400 hover:text-accent-light transition"
+                  aria-label="Admin Dashboard"
+                  title="Admin Dashboard"
+                >
+                  <Shield size={20} />
+                </button>
+              )}
+
               {/* User menu — desktop only */}
               <div className="hidden md:block">
                 <UserMenu
@@ -829,6 +844,17 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                     <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Theme</div>
                     <ThemeToggle variant="segmented" />
                   </div>
+
+                  {/* Admin link — mobile */}
+                  {isAdmin && (
+                    <button
+                      onClick={() => { setMobileMenuOpen(false); nextRouter.push('/admin'); }}
+                      className="flex items-center justify-center gap-1.5 bg-accent-muted/30 border border-accent/30 rounded-lg py-2 text-xs text-accent-light hover:bg-accent-muted/50 transition"
+                    >
+                      <Shield size={14} />
+                      Admin Dashboard
+                    </button>
+                  )}
 
                   {/* Account */}
                   <div className="flex items-center justify-between bg-surface-card border border-surface-border rounded-lg px-3 py-2">
