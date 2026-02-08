@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { doc, setDoc } from 'firebase/firestore';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Lock, PartyPopper, Search, X, UserPlus, UserMinus, Undo2 } from 'lucide-react';
 import clsx from 'clsx';
-import type { DivisionCode, WhatIfResult, FixtureImportance, SquadOverrides } from '@/lib/types';
+import type { DivisionCode, WhatIfResult, FixtureImportance, SquadOverrides, PredictionResult, PredictionSnapshot } from '@/lib/types';
 import { PLAYERS, PLAYERS_2526 } from '@/lib/data';
 import {
   getRemainingFixtures,
@@ -18,6 +19,22 @@ import {
 import { useActiveData } from '@/lib/active-data-provider';
 import WhatIfRow from './WhatIfRow';
 
+const DEVICE_ID_KEY = 'pool-league-device-id';
+
+function generateDeviceId(): string {
+  return 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+}
+
+function getDeviceId(): string {
+  if (typeof window === 'undefined') return '';
+  let id = localStorage.getItem(DEVICE_ID_KEY);
+  if (!id) {
+    id = generateDeviceId();
+    localStorage.setItem(DEVICE_ID_KEY, id);
+  }
+  return id;
+}
+
 interface FixturesTabProps {
   selectedDiv: DivisionCode;
   whatIfResults: WhatIfResult[];
@@ -26,6 +43,7 @@ interface FixturesTabProps {
   squadBuilderTeam: string;
   squadPlayerSearch: string;
   squadTopN: number;
+  fixturePredictions?: Map<string, PredictionResult>;
   onAddWhatIf: (home: string, away: string, homeScore: number, awayScore: number) => void;
   onRemoveWhatIf: (home: string, away: string) => void;
   onPredict: (home: string, away: string) => void;
@@ -50,6 +68,7 @@ export default function FixturesTab({
   squadBuilderTeam,
   squadPlayerSearch,
   squadTopN,
+  fixturePredictions,
   onAddWhatIf,
   onRemoveWhatIf,
   onPredict,
@@ -74,6 +93,77 @@ export default function FixturesTab({
   const { ds } = useActiveData();
 
   const fixtures = getRemainingFixtures(selectedDiv, ds);
+
+  // Store bulk predictions to Firestore when generated
+  const storedPredictionsRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!fixturePredictions || fixturePredictions.size === 0) return;
+
+    // Store predictions asynchronously
+    (async () => {
+      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return;
+
+      try {
+        const { db } = await import('@/lib/firebase');
+        const deviceId = getDeviceId();
+        if (!deviceId) return;
+
+        // Iterate through all fixture predictions
+        for (const [fixtureKey, prediction] of fixturePredictions) {
+          // Skip if already stored
+          if (storedPredictionsRef.current.has(fixtureKey)) continue;
+
+          // Parse fixture key (format: "home:away")
+          const [home, away] = fixtureKey.split(':');
+          if (!home || !away) continue;
+
+          // Generate prediction ID
+          const predictionId = `${deviceId}_${Date.now()}_${fixtureKey.replace(/:/g, '_')}`;
+
+          // Determine predicted winner
+          const pHome = parseFloat(prediction.pHomeWin);
+          const pDraw = parseFloat(prediction.pDraw);
+          const pAway = parseFloat(prediction.pAwayWin);
+          const maxProb = Math.max(pHome, pDraw, pAway);
+          let predictedWinner: 'home' | 'away' | 'draw';
+          if (pHome === maxProb) predictedWinner = 'home';
+          else if (pAway === maxProb) predictedWinner = 'away';
+          else predictedWinner = 'draw';
+
+          // Find the fixture date
+          const fixture = fixtures.find(f => f.home === home && f.away === away);
+          const fixtureDate = fixture?.date || new Date().toISOString().split('T')[0];
+
+          // Create prediction snapshot
+          const snapshot: PredictionSnapshot = {
+            id: predictionId,
+            seasonId: '2025-26', // Current season
+            date: fixtureDate, // Use fixture date
+            home,
+            away,
+            division: selectedDiv,
+            predictedAt: Date.now(),
+            pHomeWin: pHome / 100, // Convert percentage to 0-1
+            pDraw: pDraw / 100,
+            pAwayWin: pAway / 100,
+            expectedHome: parseFloat(prediction.expectedHome),
+            expectedAway: parseFloat(prediction.expectedAway),
+            confidence: maxProb / 100,
+            predictedWinner,
+          };
+
+          // Store to Firestore
+          const docRef = doc(db, 'predictions', predictionId);
+          await setDoc(docRef, snapshot);
+
+          // Mark as stored
+          storedPredictionsRef.current.add(fixtureKey);
+        }
+      } catch {
+        // Firestore unavailable - silent fail
+      }
+    })();
+  }, [fixturePredictions, selectedDiv, fixtures]);
   const teams = ds.divisions[selectedDiv].teams;
   const lockedKeys = new Set(whatIfResults.map(wi => wi.home + ':' + wi.away));
   const unlockedFixtures = fixtures.filter(f => !lockedKeys.has(f.home + ':' + f.away));
