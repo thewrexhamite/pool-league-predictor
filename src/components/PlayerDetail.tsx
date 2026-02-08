@@ -12,6 +12,7 @@ import { useLeague } from '@/lib/league-context';
 import { fetchPlayerCareerData, calculateCareerTrend, calculateImprovementRate, calculateConsistencyMetrics } from '@/lib/stats';
 import type { CareerTrend, ImprovementMetrics, ConsistencyMetrics } from '@/lib/stats';
 import { AIInsightsPanel } from './AIInsightsPanel';
+import CareerTrendChart from './CareerTrendChart';
 
 interface PlayerDetailProps {
   player: string;
@@ -195,6 +196,13 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
               <div className="text-[10px] text-gray-500">Away ({homeAway.away.w}/{homeAway.away.p})</div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Career Trend */}
+      {careerTrend && (
+        <div className="mb-6">
+          <CareerTrendChart careerTrend={careerTrend} />
         </div>
       )}
 
