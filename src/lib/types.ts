@@ -483,6 +483,7 @@ export interface PlayerInsightInput {
   stats2526: PlayerData2526 | null;
   teams: { div: string; team: string }[];
   divisionContext: string;
+  careerStats?: CareerStats | null;
 }
 
 export interface PlayerInsightOutput {
