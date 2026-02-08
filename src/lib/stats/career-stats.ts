@@ -11,6 +11,7 @@ import type {
   SeasonSummary,
   PlayersMap,
   SeasonData,
+  CareerTrend,
 } from '../types';
 
 // ============================================================================
@@ -167,6 +168,66 @@ export async function fetchPlayerCareerData(
     // If Firestore is unavailable or any error occurs, return empty array
     return [];
   }
+}
+
+/**
+ * Calculate career trend from season summaries.
+ * Identifies peak performance periods and compares current season to career best.
+ *
+ * @param seasons - Array of season summaries (sorted chronologically)
+ * @returns Career trend analysis with peaks and current vs peak comparison
+ */
+export function calculateCareerTrend(seasons: SeasonSummary[]): CareerTrend | null {
+  if (seasons.length === 0) {
+    return null;
+  }
+
+  // Find peak win rate season
+  let peakWinRate = seasons[0];
+  for (const season of seasons) {
+    if (season.winRate > peakWinRate.winRate) {
+      peakWinRate = season;
+    }
+  }
+
+  // Find peak rating season (if ratings exist)
+  let peakRating: { value: number; seasonId: string } | null = null;
+  const seasonsWithRating = seasons.filter((s) => s.rating !== null);
+  if (seasonsWithRating.length > 0) {
+    let peakRatingSeason = seasonsWithRating[0];
+    for (const season of seasonsWithRating) {
+      if (season.rating! > peakRatingSeason.rating!) {
+        peakRatingSeason = season;
+      }
+    }
+    peakRating = {
+      value: peakRatingSeason.rating!,
+      seasonId: peakRatingSeason.seasonId,
+    };
+  }
+
+  // Get current season (last in array)
+  const currentSeason = seasons[seasons.length - 1];
+
+  // Calculate current vs peak differences
+  const winRateDiff = (currentSeason.winRate - peakWinRate.winRate) * 100; // Convert to percentage points
+  const ratingDiff =
+    peakRating && currentSeason.rating !== null
+      ? currentSeason.rating - peakRating.value
+      : null;
+
+  return {
+    seasons,
+    peakWinRate: {
+      value: peakWinRate.winRate,
+      seasonId: peakWinRate.seasonId,
+    },
+    peakRating,
+    currentVsPeak: {
+      winRateDiff,
+      ratingDiff,
+    },
+  };
 }
 
 // ============================================================================
