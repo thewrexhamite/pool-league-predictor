@@ -68,30 +68,64 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
     return players;
   }, [ds, selectedDiv, showAllDivisions, minGames]);
 
-  // Filter players for Player A dropdown
+  // Filter players for Player A dropdown (exclude Player B if selected)
   const filteredPlayersA = useMemo(() => {
-    if (searchPlayerA.length < 2) return allPlayers;
-    const q = searchPlayerA.toLowerCase();
-    return allPlayers.filter(p =>
-      p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q)
-    );
-  }, [allPlayers, searchPlayerA]);
+    let players = allPlayers;
 
-  // Filter players for Player B dropdown
+    // Exclude Player B if already selected
+    if (selectedPlayerB) {
+      players = players.filter(p =>
+        !(p.name === selectedPlayerB.name && p.team === selectedPlayerB.team)
+      );
+    }
+
+    // Apply search filter
+    if (searchPlayerA.length >= 2) {
+      const q = searchPlayerA.toLowerCase();
+      players = players.filter(p =>
+        p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q)
+      );
+    }
+
+    return players;
+  }, [allPlayers, searchPlayerA, selectedPlayerB]);
+
+  // Filter players for Player B dropdown (exclude Player A if selected)
   const filteredPlayersB = useMemo(() => {
-    if (searchPlayerB.length < 2) return allPlayers;
-    const q = searchPlayerB.toLowerCase();
-    return allPlayers.filter(p =>
-      p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q)
-    );
-  }, [allPlayers, searchPlayerB]);
+    let players = allPlayers;
+
+    // Exclude Player A if already selected
+    if (selectedPlayerA) {
+      players = players.filter(p =>
+        !(p.name === selectedPlayerA.name && p.team === selectedPlayerA.team)
+      );
+    }
+
+    // Apply search filter
+    if (searchPlayerB.length >= 2) {
+      const q = searchPlayerB.toLowerCase();
+      players = players.filter(p =>
+        p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q)
+      );
+    }
+
+    return players;
+  }, [allPlayers, searchPlayerB, selectedPlayerA]);
 
   function handleSelectPlayerA(player: PlayerOption) {
+    // Validate: prevent selecting the same player as Player B
+    if (selectedPlayerB && player.name === selectedPlayerB.name && player.team === selectedPlayerB.team) {
+      return;
+    }
     setSelectedPlayerA(player);
     setSearchPlayerA('');
   }
 
   function handleSelectPlayerB(player: PlayerOption) {
+    // Validate: prevent selecting the same player as Player A
+    if (selectedPlayerA && player.name === selectedPlayerA.name && player.team === selectedPlayerA.team) {
+      return;
+    }
     setSelectedPlayerB(player);
     setSearchPlayerB('');
   }
@@ -106,6 +140,13 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
     setSearchPlayerB('');
   }
 
+  function handleClearAll() {
+    setSelectedPlayerA(null);
+    setSelectedPlayerB(null);
+    setSearchPlayerA('');
+    setSearchPlayerB('');
+  }
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -117,6 +158,18 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
           </h2>
 
           <div className="flex items-center gap-3 flex-wrap">
+            {/* Clear All button - only show when players are selected */}
+            {(selectedPlayerA || selectedPlayerB) && (
+              <button
+                onClick={handleClearAll}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-loss/20 text-loss hover:bg-loss/30 transition"
+                title="Clear all selections"
+              >
+                <X size={14} />
+                Clear All
+              </button>
+            )}
+
             {/* Division filter */}
             <div className="flex items-center gap-1">
               <button
