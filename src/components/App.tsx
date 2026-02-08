@@ -29,17 +29,14 @@ import { useLeagueData } from '@/lib/data-provider';
 import { ActiveDataProvider, useActiveData } from '@/lib/active-data-provider';
 import { useUserSession } from '@/hooks/use-user-session';
 import { useMyTeam } from '@/hooks/use-my-team';
+import { usePrediction } from '@/hooks/use-prediction';
+import { useSimulation } from '@/hooks/use-simulation';
+import { useSquadBuilder } from '@/hooks/use-squad-builder';
 import { useHashRouter, type TabId } from '@/lib/router';
 import {
   calcStandings,
-  calcTeamStrength,
-  calcStrengthAdjustments,
-  predictFrame,
   getAllRemainingFixtures,
   getAllLeaguePlayers,
-  runPredSim,
-  runSeasonSimulation,
-  getDiv,
   type DataSources,
 } from '@/lib/predictions/index';
 import { getAvailableMatchDates } from '@/lib/time-machine';
@@ -127,17 +124,26 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
     return (divisionCodes[0] as DivisionCode) || router.div;
   }, [router.div, ds.divisions, divisionCodes]);
 
-  const [homeTeam, setHomeTeam] = useState('');
-  const [awayTeam, setAwayTeam] = useState('');
-  const [simResults, setSimResults] = useState<SimulationResult[] | null>(null);
-  const [isSimulating, setIsSimulating] = useState(false);
-  const [prediction, setPrediction] = useState<PredictionResult | null>(null);
-  const [whatIfResults, setWhatIfResults] = useState<WhatIfResult[]>([]);
-  const [whatIfSimResults, setWhatIfSimResults] = useState<WhatIfResult[] | null>(null);
-  const [squadOverrides, setSquadOverrides] = useState<SquadOverrides>({});
-  const [squadBuilderTeam, setSquadBuilderTeam] = useState('');
-  const [squadPlayerSearch, setSquadPlayerSearch] = useState('');
-  const [squadTopN, setSquadTopN] = useState(5);
+  // Squad builder hook
+  const squadBuilder = useSquadBuilder();
+
+  // Prediction hook
+  const prediction = usePrediction({
+    ds,
+    squadOverrides: squadBuilder.squadOverrides,
+    squadTopN: squadBuilder.squadTopN,
+  });
+
+  // Simulation hook
+  const simulation = useSimulation({
+    ds,
+    selectedDiv: safeDiv,
+    squadOverrides: squadBuilder.squadOverrides,
+    squadTopN: squadBuilder.squadTopN,
+    onSimulationComplete: (message) => addToast(message, 'success'),
+    onAddWhatIf: (message) => addToast(message, 'success'),
+    onRemoveWhatIf: (message) => addToast(message, 'info'),
+  });
 
   // Time machine UI state
   const [timeMachineOpen, setTimeMachineOpen] = useState(false);
@@ -171,10 +177,9 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   // Sync predict teams from router
   useEffect(() => {
     if (router.tab === 'predict' && router.home && router.away) {
-      setHomeTeam(router.home);
-      setAwayTeam(router.away);
+      prediction.setPredictionTeams(router.home, router.away);
     }
-  }, [router.tab, router.home, router.away]);
+  }, [router.tab, router.home, router.away, prediction]);
 
   // Available match dates for time machine (always from raw data)
   const availableDates = useMemo(
@@ -183,79 +188,23 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   );
 
   const handleSessionRestore = useCallback((session: UserSession) => {
-    if (session.whatIfResults.length > 0) setWhatIfResults(session.whatIfResults);
-    if (Object.keys(session.squadOverrides).length > 0) setSquadOverrides(session.squadOverrides);
-  }, []);
+    if (session.whatIfResults.length > 0) simulation.setWhatIfResults(session.whatIfResults);
+    if (Object.keys(session.squadOverrides).length > 0) squadBuilder.restoreOverrides(session.squadOverrides);
+  }, [simulation, squadBuilder]);
 
   useUserSession({
     selectedDiv: safeDiv,
-    whatIfResults,
-    squadOverrides,
+    whatIfResults: simulation.whatIfResults,
+    squadOverrides: squadBuilder.squadOverrides,
     onRestore: handleSessionRestore,
   });
-
-  // Prediction
-  useEffect(() => {
-    if (!homeTeam || !awayTeam) {
-      setPrediction(null);
-      return;
-    }
-    const div = getDiv(homeTeam, ds);
-    if (!div) return;
-    const strengths = calcTeamStrength(div, ds);
-    const hasSquadChanges =
-      Object.keys(squadOverrides).length > 0 &&
-      (squadOverrides[homeTeam] || squadOverrides[awayTeam]);
-
-    const modStr = { ...strengths };
-    const pAdj = calcStrengthAdjustments(div, squadOverrides, squadTopN, ds);
-    Object.entries(pAdj).forEach(([t, adj]) => {
-      if (modStr[t] !== undefined) modStr[t] += adj;
-    });
-    const p = predictFrame(modStr[homeTeam] || 0, modStr[awayTeam] || 0);
-    const pred = runPredSim(p);
-
-    if (hasSquadChanges) {
-      const pBase = predictFrame(strengths[homeTeam] || 0, strengths[awayTeam] || 0);
-      const base = runPredSim(pBase);
-      pred.baseline = base;
-    }
-
-    setPrediction(pred);
-  }, [homeTeam, awayTeam, squadOverrides, squadTopN, ds]);
 
   const standings = calcStandings(safeDiv, ds);
   const totalRemaining = getAllRemainingFixtures(ds).length;
   const totalPlayed = ds.results.length;
 
-  const runSimulation = useCallback(() => {
-    setIsSimulating(true);
-    setTimeout(() => {
-      const results = runSeasonSimulation(safeDiv, squadOverrides, squadTopN, whatIfResults, ds);
-      setSimResults(results);
-      setWhatIfSimResults(whatIfResults.length > 0 ? [...whatIfResults] : null);
-      setIsSimulating(false);
-      addToast('Simulation complete — 1,000 seasons', 'success');
-    }, 100);
-  }, [safeDiv, squadOverrides, squadTopN, whatIfResults, ds, addToast]);
-
-  const addWhatIf = (home: string, away: string, homeScore: number, awayScore: number) => {
-    setWhatIfResults(prev => [
-      ...prev.filter(wi => wi.home !== home || wi.away !== away),
-      { home, away, homeScore, awayScore },
-    ]);
-    setSimResults(null);
-    addToast(`Result locked: ${home} ${homeScore}-${awayScore} ${away}`, 'success');
-  };
-
-  const removeWhatIf = (home: string, away: string) => {
-    setWhatIfResults(prev => prev.filter(wi => wi.home !== home || wi.away !== away));
-    setSimResults(null);
-    addToast('Result removed', 'info');
-  };
-
   const addSquadPlayer = (team: string, playerName: string) => {
-    setSquadOverrides(prev => {
+    squadBuilder.setSquadOverrides(prev => {
       const existing = prev[team] || { added: [], removed: [] };
       if (existing.removed.includes(playerName)) {
         const newOv = { ...existing, removed: existing.removed.filter(n => n !== playerName) };
@@ -268,12 +217,12 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
       if (existing.added.includes(playerName)) return prev;
       return { ...prev, [team]: { ...existing, added: [...existing.added, playerName] } };
     });
-    setSimResults(null);
+    simulation.clearSimulation();
     addToast(`Added ${playerName} to ${team}`, 'success');
   };
 
   const removeSquadPlayer = (team: string, playerName: string) => {
-    setSquadOverrides(prev => {
+    squadBuilder.setSquadOverrides(prev => {
       const existing = prev[team] || { added: [], removed: [] };
       if (existing.added.includes(playerName)) {
         const newOv = { ...existing, added: existing.added.filter(n => n !== playerName) };
@@ -286,12 +235,12 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
       if (existing.removed.includes(playerName)) return prev;
       return { ...prev, [team]: { ...existing, removed: [...existing.removed, playerName] } };
     });
-    setSimResults(null);
+    simulation.clearSimulation();
     addToast(`Removed ${playerName} from ${team}`, 'warning');
   };
 
   const restoreSquadPlayer = (team: string, playerName: string) => {
-    setSquadOverrides(prev => {
+    squadBuilder.setSquadOverrides(prev => {
       const existing = prev[team] || { added: [], removed: [] };
       const newOv = { ...existing, removed: existing.removed.filter(n => n !== playerName) };
       if (newOv.added.length === 0 && newOv.removed.length === 0) {
@@ -300,11 +249,11 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
       }
       return { ...prev, [team]: newOv };
     });
-    setSimResults(null);
+    simulation.clearSimulation();
   };
 
   const unaddSquadPlayer = (team: string, playerName: string) => {
-    setSquadOverrides(prev => {
+    squadBuilder.setSquadOverrides(prev => {
       const existing = prev[team] || { added: [], removed: [] };
       const newOv = { ...existing, added: existing.added.filter(n => n !== playerName) };
       if (newOv.added.length === 0 && newOv.removed.length === 0) {
@@ -313,7 +262,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
       }
       return { ...prev, [team]: newOv };
     });
-    setSimResults(null);
+    simulation.clearSimulation();
   };
 
   const openTeamDetail = (team: string) => {
@@ -326,15 +275,13 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
   const resetDivision = (key: DivisionCode) => {
     router.setDiv(key);
-    setSimResults(null);
-    setWhatIfSimResults(null);
-    setWhatIfResults([]);
-    setSquadOverrides({});
-    setSquadBuilderTeam('');
-    setSquadPlayerSearch('');
-    setSquadTopN(5);
-    setHomeTeam('');
-    setAwayTeam('');
+    simulation.clearSimulation();
+    simulation.clearWhatIfResults();
+    squadBuilder.clearAllOverrides();
+    squadBuilder.clearTeam();
+    squadBuilder.clearPlayerSearch();
+    squadBuilder.setTopN(5);
+    prediction.clearPrediction();
     setMobileMenuOpen(false);
   };
 
@@ -627,7 +574,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                       <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold">Time Machine</div>
                     </div>
                     <button
-                      onClick={() => { setTimeMachineDate(null); setTimeMachineOpen(false); setSimResults(null); }}
+                      onClick={() => { setTimeMachineDate(null); setTimeMachineOpen(false); simulation.clearSimulation(); }}
                       className={clsx(
                         'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
                         !timeMachineDate ? 'text-baize font-bold' : 'text-gray-300'
@@ -638,7 +585,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                     {[...availableDates].reverse().map(date => (
                       <button
                         key={date}
-                        onClick={() => { setTimeMachineDate(date); setTimeMachineOpen(false); setSimResults(null); addToast(`Time Machine: viewing as of ${date}`, 'info'); }}
+                        onClick={() => { setTimeMachineDate(date); setTimeMachineOpen(false); simulation.clearSimulation(); addToast(`Time Machine: viewing as of ${date}`, 'info'); }}
                         className={clsx(
                           'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
                           timeMachineDate === date ? 'text-accent font-bold' : 'text-gray-400'
@@ -847,7 +794,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                       </div>
                       <div className="max-h-48 overflow-y-auto">
                         <button
-                          onClick={() => { setTimeMachineDate(null); setTimeMachineOpen(false); setSimResults(null); }}
+                          onClick={() => { setTimeMachineDate(null); setTimeMachineOpen(false); simulation.clearSimulation(); }}
                           className={clsx(
                             'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
                             !timeMachineDate ? 'text-baize font-bold' : 'text-gray-300'
@@ -858,7 +805,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                         {[...availableDates].reverse().map(date => (
                           <button
                             key={date}
-                            onClick={() => { setTimeMachineDate(date); setTimeMachineOpen(false); setSimResults(null); addToast(`Time Machine: viewing as of ${date}`, 'info'); }}
+                            onClick={() => { setTimeMachineDate(date); setTimeMachineOpen(false); simulation.clearSimulation(); addToast(`Time Machine: viewing as of ${date}`, 'info'); }}
                             className={clsx(
                               'w-full text-left px-3 py-1.5 text-xs transition hover:bg-surface-elevated',
                               timeMachineDate === date ? 'text-accent font-bold' : 'text-gray-400'
@@ -892,7 +839,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
               <Clock size={12} className="text-accent" />
               <span className="text-accent-light font-medium">Time Machine: Viewing as of {timeMachineDate}</span>
               <button
-                onClick={() => { setTimeMachineDate(null); setSimResults(null); }}
+                onClick={() => { setTimeMachineDate(null); simulation.clearSimulation(); }}
                 className="flex items-center gap-1 text-gray-400 hover:text-white transition ml-2"
               >
                 <ArrowLeft size={12} />
@@ -957,8 +904,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                 onTeamClick={openTeamDetail}
                 onPlayerClick={openPlayerDetail}
                 onPredict={(home, away) => {
-                  setHomeTeam(home);
-                  setAwayTeam(away);
+                  prediction.setPredictionTeams(home, away);
                   router.openPredict(home, away);
                 }}
               />
@@ -1022,17 +968,17 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
             {activeTab === 'simulate' && (
               <SimulateTab
                 selectedDiv={selectedDiv}
-                simResults={simResults}
-                isSimulating={isSimulating}
-                whatIfResults={whatIfResults}
-                whatIfSimResults={whatIfSimResults}
-                squadOverrides={squadOverrides}
-                squadTopN={squadTopN}
+                simResults={simulation.simResults}
+                isSimulating={simulation.isSimulating}
+                whatIfResults={simulation.whatIfResults}
+                whatIfSimResults={simulation.whatIfSimResults}
+                squadOverrides={squadBuilder.squadOverrides}
+                squadTopN={squadBuilder.squadTopN}
                 myTeam={myTeam}
-                onRunSimulation={runSimulation}
+                onRunSimulation={simulation.runSimulation}
                 onTeamClick={openTeamDetail}
                 timeMachineDate={timeMachineDate}
-                onTimeMachineDateChange={(date) => { setTimeMachineDate(date); setSimResults(null); }}
+                onTimeMachineDateChange={(date) => { setTimeMachineDate(date); simulation.clearSimulation(); }}
                 availableDates={availableDates}
               />
             )}
@@ -1040,12 +986,12 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
             {activeTab === 'predict' && (
               <PredictTab
                 selectedDiv={selectedDiv}
-                homeTeam={homeTeam}
-                awayTeam={awayTeam}
-                prediction={prediction}
-                squadOverrides={squadOverrides}
-                onHomeTeamChange={setHomeTeam}
-                onAwayTeamChange={setAwayTeam}
+                homeTeam={prediction.homeTeam}
+                awayTeam={prediction.awayTeam}
+                prediction={prediction.prediction}
+                squadOverrides={squadBuilder.squadOverrides}
+                onHomeTeamChange={prediction.setHomeTeam}
+                onAwayTeamChange={prediction.setAwayTeam}
                 onTeamClick={openTeamDetail}
                 onPlayerClick={openPlayerDetail}
               />
@@ -1054,48 +1000,45 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
             {activeTab === 'fixtures' && (
               <FixturesTab
                 selectedDiv={selectedDiv}
-                whatIfResults={whatIfResults}
+                whatIfResults={simulation.whatIfResults}
                 myTeam={myTeam}
-                squadOverrides={squadOverrides}
-                squadBuilderTeam={squadBuilderTeam}
-                squadPlayerSearch={squadPlayerSearch}
-                squadTopN={squadTopN}
-                onAddWhatIf={addWhatIf}
-                onRemoveWhatIf={removeWhatIf}
+                squadOverrides={squadBuilder.squadOverrides}
+                squadBuilderTeam={squadBuilder.squadBuilderTeam}
+                squadPlayerSearch={squadBuilder.squadPlayerSearch}
+                squadTopN={squadBuilder.squadTopN}
+                onAddWhatIf={simulation.addWhatIf}
+                onRemoveWhatIf={simulation.removeWhatIf}
                 onPredict={(home, away) => {
-                  setHomeTeam(home);
-                  setAwayTeam(away);
+                  prediction.setPredictionTeams(home, away);
                   router.setTab('predict');
                 }}
                 onTeamClick={openTeamDetail}
                 onSimulate={() => {
                   router.setTab('simulate');
-                  setTimeout(runSimulation, 200);
+                  setTimeout(simulation.runSimulation, 200);
                 }}
                 onClearWhatIf={() => {
-                  setWhatIfResults([]);
-                  setSimResults(null);
-                  setWhatIfSimResults(null);
+                  simulation.clearWhatIfResults();
+                  simulation.clearSimulation();
                 }}
                 onSquadBuilderTeamChange={team => {
-                  setSquadBuilderTeam(team);
-                  setSquadPlayerSearch('');
+                  squadBuilder.selectTeam(team);
+                  squadBuilder.clearPlayerSearch();
                 }}
-                onSquadPlayerSearchChange={setSquadPlayerSearch}
+                onSquadPlayerSearchChange={squadBuilder.setPlayerSearch}
                 onSquadTopNChange={n => {
-                  setSquadTopN(n);
-                  setSimResults(null);
+                  squadBuilder.setTopN(n);
+                  simulation.clearSimulation();
                 }}
                 onAddSquadPlayer={addSquadPlayer}
                 onRemoveSquadPlayer={removeSquadPlayer}
                 onRestoreSquadPlayer={restoreSquadPlayer}
                 onUnaddSquadPlayer={unaddSquadPlayer}
                 onClearAll={() => {
-                  setWhatIfResults([]);
-                  setSquadOverrides({});
-                  setSquadBuilderTeam('');
-                  setSimResults(null);
-                  setWhatIfSimResults(null);
+                  simulation.clearWhatIfResults();
+                  squadBuilder.clearAllOverrides();
+                  squadBuilder.clearTeam();
+                  simulation.clearSimulation();
                 }}
               />
             )}
