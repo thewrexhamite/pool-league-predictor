@@ -45,6 +45,8 @@ export interface LeagueData {
   divisions: Divisions;
   lastUpdated: number;
   source: 'static' | 'cache' | 'firestore';
+  isOffline: boolean;
+  cacheAge: number;
 }
 
 interface DataContextValue {
@@ -69,6 +71,8 @@ function getStaticData(): LeagueData {
     divisions: {},
     lastUpdated: 0,
     source: 'static',
+    isOffline: false,
+    cacheAge: 0,
   };
 }
 
@@ -87,6 +91,8 @@ function getEmptyData(): LeagueData {
     divisions: {},
     lastUpdated: 0,
     source: 'static',
+    isOffline: false,
+    cacheAge: 0,
   };
 }
 
@@ -100,8 +106,11 @@ function getCachedDataSync(leagueId: string, seasonId: string): LeagueData | nul
     const cached = localStorage.getItem(cacheKey(leagueId, seasonId));
     const ts = localStorage.getItem(cacheTsKey(leagueId, seasonId));
     if (!cached || !ts) return null;
-    const parsed = JSON.parse(cached) as Omit<LeagueData, 'source'>;
-    return { ...parsed, source: 'cache' };
+    const parsed = JSON.parse(cached) as Omit<LeagueData, 'source' | 'isOffline' | 'cacheAge'>;
+    const now = Date.now();
+    const isOffline = !navigator.onLine;
+    const cacheAge = parsed.lastUpdated ? now - parsed.lastUpdated : 0;
+    return { ...parsed, source: 'cache', isOffline, cacheAge };
   } catch {
     return null;
   }
@@ -122,7 +131,10 @@ async function getCachedData(leagueId: string, seasonId: string): Promise<League
 
       if (response) {
         const data = await response.json();
-        return { ...data, source: 'cache' as const };
+        const now = Date.now();
+        const isOffline = !navigator.onLine;
+        const cacheAge = data.lastUpdated ? now - data.lastUpdated : 0;
+        return { ...data, source: 'cache' as const, isOffline, cacheAge };
       }
     }
   } catch {
@@ -140,7 +152,8 @@ async function getCachedData(leagueId: string, seasonId: string): Promise<League
 async function setCachedData(leagueId: string, seasonId: string, data: LeagueData): Promise<void> {
   if (typeof window === 'undefined') return;
 
-  const { source: _, ...rest } = data;
+  // Exclude computed/transient fields when saving
+  const { source: _, isOffline: __, cacheAge: ___, ...rest } = data;
   const dataStr = JSON.stringify(rest);
 
   // Save to Cache API (better for PWA/offline)
@@ -248,6 +261,8 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
               divisions: raw.divisions || {},
               lastUpdated: raw.lastUpdated,
               source: 'firestore',
+              isOffline: false,
+              cacheAge: 0,
             };
             setData(newData);
             await setCachedData(leagueId, seasonId, newData);
@@ -314,6 +329,8 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
               divisions: raw.divisions || {},
               lastUpdated: raw.lastUpdated,
               source: 'firestore',
+              isOffline: false,
+              cacheAge: 0,
             };
             setData(newData);
             await setCachedData(leagueId, seasonId, newData);
