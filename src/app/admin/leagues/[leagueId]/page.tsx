@@ -12,7 +12,8 @@ import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { ArrowLeft, Edit, Trash2, Database, Users, Calendar, Palette } from 'lucide-react';
 import LeagueForm from '@/components/admin/LeagueForm';
-import type { LeagueConfig, DataSourceConfig } from '@/lib/types';
+import DataSourceConfig from '@/components/admin/DataSourceConfig';
+import type { LeagueConfig, DataSourceConfig as DataSourceConfigType } from '@/lib/types';
 
 export default function LeagueDetailPage() {
   return (
@@ -32,11 +33,12 @@ function LeagueDetailContent() {
   const leagueId = params.leagueId as string;
 
   const [league, setLeague] = useState<LeagueConfig | null>(null);
-  const [dataSources, setDataSources] = useState<DataSourceConfig[]>([]);
+  const [dataSources, setDataSources] = useState<DataSourceConfigType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showDataSourceConfig, setShowDataSourceConfig] = useState(false);
 
   // Load league data
   useEffect(() => {
@@ -67,7 +69,7 @@ function LeagueDetailContent() {
         const dataSourcesRef = collection(db, 'dataSources');
         const dataSourcesSnap = await getDocs(dataSourcesRef);
         const sources = dataSourcesSnap.docs
-          .map(doc => ({ id: doc.id, ...doc.data() } as DataSourceConfig))
+          .map(doc => ({ id: doc.id, ...doc.data() } as DataSourceConfigType))
           .filter(ds => ds.leagueId === leagueId);
         setDataSources(sources);
 
@@ -282,19 +284,45 @@ function LeagueDetailContent() {
             {/* Data Sources */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title flex items-center gap-2">
-                  <Database size={20} />
-                  Data Sources
-                </h2>
-                {dataSources.length === 0 ? (
-                  <div className="text-center py-8">
-                    <p className="text-base-content/60 mb-4">No data sources configured</p>
-                    <button className="btn btn-sm btn-primary">
-                      Configure Data Source
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="card-title flex items-center gap-2">
+                    <Database size={20} />
+                    Data Sources
+                  </h2>
+                  {!showDataSourceConfig && (
+                    <button
+                      onClick={() => setShowDataSourceConfig(true)}
+                      className="btn btn-sm btn-primary"
+                    >
+                      {dataSources.length === 0 ? 'Configure' : 'Add Source'}
+                    </button>
+                  )}
+                </div>
+
+                {showDataSourceConfig ? (
+                  <div className="space-y-4">
+                    <DataSourceConfig
+                      leagueId={leagueId}
+                      existingConfig={dataSources[0] || null}
+                      onSave={() => {
+                        setShowDataSourceConfig(false);
+                        // Refresh data sources
+                        window.location.reload();
+                      }}
+                    />
+                    <button
+                      onClick={() => setShowDataSourceConfig(false)}
+                      className="btn btn-sm btn-ghost"
+                    >
+                      Cancel
                     </button>
                   </div>
+                ) : dataSources.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-base-content/60">No data sources configured</p>
+                  </div>
                 ) : (
-                  <div className="overflow-x-auto mt-4">
+                  <div className="overflow-x-auto">
                     <table className="table table-zebra">
                       <thead>
                         <tr>
@@ -317,7 +345,10 @@ function LeagueDetailContent() {
                               </span>
                             </td>
                             <td>
-                              <button className="btn btn-xs btn-ghost">
+                              <button
+                                onClick={() => setShowDataSourceConfig(true)}
+                                className="btn btn-xs btn-ghost"
+                              >
                                 Configure
                               </button>
                             </td>
