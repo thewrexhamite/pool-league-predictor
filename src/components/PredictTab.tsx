@@ -6,7 +6,7 @@ import { Share2 } from 'lucide-react';
 import clsx from 'clsx';
 import { RadialBarChart, RadialBar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
 import type { DivisionCode, PredictionResult, SquadOverrides, H2HRecord, PredictionSnapshot } from '@/lib/types';
-import { getTeamPlayers, getSquadH2H, calcSetPerformance, generateScoutingReport, suggestLineup } from '@/lib/predictions';
+import { getTeamPlayers, getSquadH2H, calcSetPerformance, generateScoutingReport, suggestLineup } from '@/lib/predictions/index';
 import { useActiveData } from '@/lib/active-data-provider';
 import { AIInsightsPanel } from './AIInsightsPanel';
 import ShareButton from './ShareButton';

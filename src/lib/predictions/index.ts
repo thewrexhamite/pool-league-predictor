@@ -71,3 +71,13 @@ export {
   getAllRemainingFixtures,
   getTeamResults,
 } from './fixtures';
+
+// Temporary exports from old predictions.ts for backward compatibility
+// TODO: Migrate these functions to appropriate modules
+export {
+  calcTeamHomeAway,
+  calcPlayerHomeAway,
+  calcTeamBDStats,
+  getSquadH2H,
+  getPlayerFrameHistory,
+} from '../predictions';

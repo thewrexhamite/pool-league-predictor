@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
-import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions';
+import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions/index';
 import { useActiveData } from '@/lib/active-data-provider';
 import { useAuth } from '@/lib/auth';
 import { AIInsightsPanel } from './AIInsightsPanel';

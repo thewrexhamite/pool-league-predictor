@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import type { DivisionCode, SimulationResult, WhatIfResult, SquadOverrides } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
-import { calcStrengthAdjustments } from '@/lib/predictions';
+import { calcStrengthAdjustments } from '@/lib/predictions/index';
 import { generateSimulationShareData } from '@/lib/share-utils';
 import ShareButton from './ShareButton';
 
