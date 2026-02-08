@@ -193,10 +193,11 @@ function ClaimPageContent() {
           {/* League/Season Selection */}
           <div className="mb-6 grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="claim-league-select" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 League
               </label>
               <select
+                id="claim-league-select"
                 value={selectedLeague}
                 onChange={(e) => {
                   setSelectedLeague(e.target.value);
@@ -215,10 +216,11 @@ function ClaimPageContent() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="claim-season-select" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Season
               </label>
               <select
+                id="claim-season-select"
                 value={selectedSeason}
                 onChange={(e) => setSelectedSeason(e.target.value)}
                 className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700
