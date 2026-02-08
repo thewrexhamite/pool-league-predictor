@@ -8,6 +8,7 @@ import { useNotifications } from '@/hooks/use-notifications';
 import { useAuth } from '@/lib/auth';
 import { useLeagueData } from '@/lib/data-provider';
 import type { NotificationPreferences } from '@/lib/notifications';
+import NotificationHistory from '@/components/NotificationHistory';
 
 interface NotificationSettingsProps {
   onUnsubscribe?: () => void;
@@ -532,6 +533,11 @@ export default function NotificationSettings({
         <p className="mt-2 text-xs text-center text-gray-500 dark:text-gray-400">
           You can re-enable notifications anytime from your settings
         </p>
+      </div>
+
+      {/* Notification History */}
+      <div className="pt-6">
+        <NotificationHistory />
       </div>
     </div>
   );
