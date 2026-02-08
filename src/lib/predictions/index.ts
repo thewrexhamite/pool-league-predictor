@@ -54,6 +54,12 @@ export {
   type H2HAnalysis,
 } from './analytics';
 
+// Re-export advanced analytics with original names for direct access
+export {
+  calcBDStats as calcAdvancedBDStatsNew,
+  calcPlayerForm as calcPlayerFormNew,
+} from './analytics';
+
 // Player stats
 export {
   getTeamPlayers,
@@ -72,17 +78,19 @@ export {
   getTeamResults,
 } from './fixtures';
 
-// Temporary exports from old predictions.ts for backward compatibility
-// TODO: Migrate these functions to appropriate modules
+// Re-export some functions with compatibility names
 export {
-  calcTeamHomeAway,
+  calcTeamHomeAwaySplit as calcTeamHomeAway,
+} from './analytics';
+
+export {
+  getH2HRecord,
   calcPlayerHomeAway,
   calcTeamBDStats,
   getSquadH2H,
   getPlayerFrameHistory,
-  getH2HRecord,
   calcFixtureImportance,
   calcPlayerForm,
   calcBDStats,
   generateScoutingReport,
-} from '../predictions.deprecated';
+} from './compatibility';
