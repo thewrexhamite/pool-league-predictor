@@ -4,7 +4,14 @@
  * Aggregate player statistics from season data.
  */
 
-import type { FrameData, Players2526Map, PlayerData2526 } from '../types';
+import type {
+  FrameData,
+  Players2526Map,
+  PlayerData2526,
+  SeasonSummary,
+  PlayersMap,
+  SeasonData,
+} from '../types';
 
 // ============================================================================
 // Types
@@ -84,6 +91,82 @@ export function getSeasonLabel(seasonId: string): string {
     return `20${start}/20${end}`;
   }
   return seasonId;
+}
+
+// ============================================================================
+// Multi-Season Data Fetching
+// ============================================================================
+
+/**
+ * Fetch player career data across all available seasons for a league.
+ * Returns an array of season summaries with win rate, rating, and games played.
+ *
+ * @param playerName - The player's name
+ * @param leagueId - The league ID (e.g., 'wrexham')
+ * @returns Array of season summaries, sorted by season (oldest first)
+ */
+export async function fetchPlayerCareerData(
+  playerName: string,
+  leagueId: string
+): Promise<SeasonSummary[]> {
+  try {
+    // Dynamically import Firebase (following data-provider pattern)
+    const { db } = await import('../firebase');
+    const { collection, getDocs } = await import('firebase/firestore');
+
+    // Fetch all seasons for this league
+    const seasonsRef = collection(db, 'leagues', leagueId, 'seasons');
+    const seasonsSnap = await getDocs(seasonsRef);
+
+    const seasonSummaries: SeasonSummary[] = [];
+
+    // Process each season
+    for (const seasonDoc of seasonsSnap.docs) {
+      const seasonId = seasonDoc.id;
+      const seasonData = seasonDoc.data() as SeasonData;
+
+      // Extract player stats from this season
+      let winRate = 0;
+      let rating: number | null = null;
+      let gamesPlayed = 0;
+      let wins = 0;
+
+      // Try players2526 map first (current format)
+      if (seasonData.players2526?.[playerName]) {
+        const playerData = seasonData.players2526[playerName];
+        winRate = playerData.total.pct;
+        gamesPlayed = playerData.total.p;
+        wins = playerData.total.w;
+      }
+      // Fallback to players map (legacy format)
+      else if (seasonData.players?.[playerName]) {
+        const playerStats = seasonData.players[playerName];
+        rating = playerStats.r;
+        winRate = playerStats.w;
+        gamesPlayed = playerStats.p;
+        wins = Math.round(gamesPlayed * winRate);
+      } else {
+        // Player not found in this season, skip it
+        continue;
+      }
+
+      seasonSummaries.push({
+        seasonId,
+        winRate,
+        rating,
+        gamesPlayed,
+        wins,
+      });
+    }
+
+    // Sort by season ID (oldest first)
+    seasonSummaries.sort((a, b) => a.seasonId.localeCompare(b.seasonId));
+
+    return seasonSummaries;
+  } catch (error) {
+    // If Firestore is unavailable or any error occurs, return empty array
+    return [];
+  }
 }
 
 // ============================================================================
