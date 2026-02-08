@@ -15,6 +15,8 @@ import type {
   RostersMap,
   Players2526Map,
   PlayerTeamStats2526,
+  PlayerStats2425,
+  PlayerData2526,
   FrameData,
   PlayerFormData,
   HomeAwaySplit,
@@ -77,6 +79,21 @@ export function getLatestResultDate(results: MatchResult[]): string {
     const d = parseDate(r.date);
     return d > max ? d : max;
   }, '0000-00-00');
+}
+
+// Fetch player stats across seasons (historical and current)
+export function getPlayerHistoricalStats(
+  playerName: string,
+  ds?: DataSources
+): {
+  historical: PlayerStats2425 | undefined;
+  current: PlayerData2526 | undefined;
+} {
+  const src = ds ?? defaults();
+  return {
+    historical: src.players[playerName],
+    current: src.players2526[playerName],
+  };
 }
 
 // Bayesian confidence-adjusted win percentage
