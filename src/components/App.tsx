@@ -63,6 +63,7 @@ import TeamDetail from './TeamDetail';
 import PlayerDetail from './PlayerDetail';
 import Glossary from './Glossary';
 import ThemeToggle from './ThemeToggle';
+import SeasonSelector from './SeasonSelector';
 import { UserMenu } from './auth';
 import NotificationSettings from './NotificationSettings';
 
@@ -537,6 +538,10 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                   {myTeam.team}
                 </button>
               )}
+              {/* Season Selector */}
+              <div className="hidden md:block">
+                <SeasonSelector />
+              </div>
             </div>
 
             {/* Centre: Division segmented control */}
@@ -780,6 +785,11 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
                       </div>
                     </div>
                   )}
+
+                  {/* Season Selector */}
+                  <div>
+                    <SeasonSelector />
+                  </div>
 
                   {/* Division pills */}
                   <div>
