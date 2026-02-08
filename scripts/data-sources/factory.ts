@@ -24,6 +24,7 @@ import {
   DataSourceConfig,
   FetchOptions,
 } from './base';
+import { LeagueAppLiveDataSource } from './leagueapplive';
 
 // ============================================================================
 // Data Source Registry
@@ -47,6 +48,7 @@ const DATA_SOURCE_REGISTRY: Map<string, {
       url: { type: 'string', required: true, description: 'League page URL on LeagueAppLive' },
       leagueId: { type: 'string', required: false, description: 'League ID on LeagueAppLive' },
     },
+    create: (config: DataSourceConfig) => new LeagueAppLiveDataSource(config),
   }],
   ['rackemapp', {
     name: 'RackEmApp',
