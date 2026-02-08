@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
 import { verifyAdminAuth } from '../../middleware';
-import { PlayersMap, Players2526Map, RostersMap, PlayerData2526, PlayerStats2425 } from '@/lib/types';
+import { PlayersMap, Players2526Map, RostersMap, PlayerData2526, PlayerStats2425, FrameData } from '@/lib/types';
 
 // Check if Firebase Admin is configured with proper credentials
 function hasFirebaseCredentials(): boolean {
@@ -195,12 +195,14 @@ export async function POST(request: Request) {
     const rosters: RostersMap = seasonData?.rosters || {};
     const players: PlayersMap = seasonData?.players || {};
     const players2526: Players2526Map = seasonData?.players2526 || {};
+    const frames: FrameData[] = seasonData?.frames || [];
 
     // Track changes for response
     const changes = {
       rostersUpdated: 0,
       playersRemoved: 0,
       players2526Removed: 0,
+      framesUpdated: 0,
     };
 
     // 1. Update rosters: replace source player names with target
@@ -252,11 +254,40 @@ export async function POST(request: Request) {
       updatedPlayers2526[targetPlayerName] = mergePlayerData2526(sourceData2526, targetData);
     }
 
+    // 4. Update frame data: replace source player names with target in all frames
+    const updatedFrames: FrameData[] = frames.map((frameData) => {
+      const updatedFrameData = { ...frameData };
+      let frameModified = false;
+
+      updatedFrameData.frames = frameData.frames.map((frame) => {
+        const updatedFrame = { ...frame };
+
+        if (sourcePlayerNames.includes(frame.homePlayer)) {
+          updatedFrame.homePlayer = targetPlayerName;
+          frameModified = true;
+        }
+
+        if (sourcePlayerNames.includes(frame.awayPlayer)) {
+          updatedFrame.awayPlayer = targetPlayerName;
+          frameModified = true;
+        }
+
+        return updatedFrame;
+      });
+
+      if (frameModified) {
+        changes.framesUpdated++;
+      }
+
+      return updatedFrameData;
+    });
+
     // Update season document with merged data
     await seasonRef.update({
       rosters: updatedRosters,
       players: updatedPlayers,
       players2526: updatedPlayers2526,
+      frames: updatedFrames,
       lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
     });
 
