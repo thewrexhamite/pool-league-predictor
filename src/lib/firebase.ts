@@ -2,6 +2,7 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, type Auth } from 'firebase/auth';
 import { getAnalytics, isSupported, type Analytics } from 'firebase/analytics';
+import { getMessaging, isSupported as isMessagingSupported, type Messaging } from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -29,4 +30,18 @@ export async function getFirebaseAnalytics(): Promise<Analytics | null> {
     analytics = getAnalytics(app);
   }
   return analytics;
+}
+
+// Messaging (client-side only)
+let messaging: Messaging | null = null;
+
+export async function getFirebaseMessaging(): Promise<Messaging | null> {
+  if (typeof window === 'undefined') return null;
+  if (messaging) return messaging;
+
+  const supported = await isMessagingSupported();
+  if (supported) {
+    messaging = getMessaging(app);
+  }
+  return messaging;
 }
