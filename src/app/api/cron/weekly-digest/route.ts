@@ -123,15 +123,15 @@ export async function GET(request: Request) {
         try {
           // TODO: Query actual match results from the past week
           // This would typically query a matches collection filtered by date
-          const recentResults = [];
+          const matchResults: any[] = [];
 
           // TODO: Query upcoming fixtures for the next week
           // This would typically query a fixtures collection
-          const upcomingFixtures = [];
+          const upcomingFixtures: any[] = [];
 
           // TODO: Query standings changes from the past week
           // This would typically compare current standings with last week's standings
-          const standingsHighlights = [];
+          const standingsChanges: any[] = [];
 
           // Get user's team preference for highlighting
           const notificationSubscriptionDoc = await db
@@ -141,16 +141,16 @@ export async function GET(request: Request) {
             .doc('active')
             .get();
 
-          let userTeam: string | undefined;
+          let userTeamName: string | undefined;
           if (notificationSubscriptionDoc.exists) {
             const notificationData = notificationSubscriptionDoc.data();
-            userTeam = notificationData?.myTeam?.team;
+            userTeamName = notificationData?.myTeam?.team;
           }
 
           // Filter data based on user preferences
-          const filteredResults = subscription.preferences.match_results ? recentResults : [];
+          const filteredResults = subscription.preferences.match_results ? matchResults : [];
           const filteredFixtures = subscription.preferences.upcoming_fixtures ? upcomingFixtures : [];
-          const filteredStandings = subscription.preferences.standings_updates ? standingsHighlights : [];
+          const filteredStandings = subscription.preferences.standings_updates ? standingsChanges : [];
 
           // Only send email if there's content to share
           const hasContent =
@@ -172,10 +172,10 @@ export async function GET(request: Request) {
           // Send weekly digest email
           await sendWeeklyDigestEmail(subscription.email, {
             weekRange: dateRange.weekRange,
-            recentResults: filteredResults,
+            matchResults: filteredResults,
             upcomingFixtures: filteredFixtures,
-            standingsHighlights: filteredStandings,
-            userTeam,
+            standingsChanges: filteredStandings,
+            userTeamName,
             unsubscribeUrl,
           });
 

@@ -47,7 +47,7 @@ export function BaseEmail({ preview, children, unsubscribeUrl }: BaseEmailProps)
             </Text>
             {unsubscribeUrl && (
               <Text style={footerText}>
-                Don't want these emails?{' '}
+                Don&apos;t want these emails?{' '}
                 <Link href={unsubscribeUrl} style={unsubscribeLink}>
                   Unsubscribe here
                 </Link>

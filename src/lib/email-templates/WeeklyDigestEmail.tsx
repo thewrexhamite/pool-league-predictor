@@ -72,7 +72,7 @@ export function WeeklyDigestEmail({
       {/* Intro Text */}
       <Section style={introSection}>
         <Text style={introText}>
-          Here's your weekly summary of league activity{userTeamName ? ` and updates for ${userTeamName}` : ''}.
+          Here&apos;s your weekly summary of league activity{userTeamName ? ` and updates for ${userTeamName}` : ''}.
         </Text>
       </Section>
 

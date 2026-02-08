@@ -79,10 +79,11 @@ describe('Email Unsubscribe Flow', () => {
       ];
 
       invalidRequests.forEach(request => {
-        const hasValidUserId =
+        const hasValidUserId = Boolean(
           request.userId &&
           typeof request.userId === 'string' &&
-          request.userId.length > 0;
+          request.userId.length > 0
+        );
 
         expect(hasValidUserId).toBe(false);
       });
@@ -302,7 +303,7 @@ describe('Email Unsubscribe Flow', () => {
       ];
 
       invalidUserIds.forEach(userId => {
-        const isValid = userId && typeof userId === 'string' && userId.trim().length > 0;
+        const isValid = Boolean(userId && typeof userId === 'string' && userId.trim().length > 0);
         expect(isValid).toBe(false);
       });
     });

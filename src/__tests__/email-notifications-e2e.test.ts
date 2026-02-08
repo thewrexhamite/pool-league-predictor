@@ -345,7 +345,7 @@ describe('Email Notification Subscription - E2E Integration', () => {
       ];
 
       invalidRequests.forEach(request => {
-        const isValid = request.userId && typeof request.userId === 'string' && request.userId.length > 0;
+        const isValid = Boolean(request.userId && typeof request.userId === 'string' && request.userId.length > 0);
         expect(isValid).toBe(false);
       });
     });

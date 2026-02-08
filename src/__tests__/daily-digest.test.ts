@@ -444,8 +444,8 @@ describe('Daily Digest Aggregation and Delivery', () => {
     });
 
     test('should reject invalid token', () => {
-      const authHeader = 'Bearer wrong-token';
-      const cronSecret = 'my-secret-token';
+      const authHeader: string = 'Bearer wrong-token';
+      const cronSecret: string = 'my-secret-token';
 
       const isAuthorized = authHeader === `Bearer ${cronSecret}`;
 

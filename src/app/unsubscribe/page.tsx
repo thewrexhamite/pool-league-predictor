@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { CheckCircle2, XCircle, Mail, Home } from 'lucide-react';
 
 type UnsubscribeStatus = 'loading' | 'success' | 'error' | 'missing-params';
@@ -128,23 +129,23 @@ export default function UnsubscribePage() {
             {/* Action Buttons */}
             <div className="card-actions justify-center mt-6">
               {status === 'success' && (
-                <a
+                <Link
                   href="/"
                   className="btn btn-primary"
                 >
                   <Home className="w-4 h-4" />
                   Return to Pool League Predictor
-                </a>
+                </Link>
               )}
               {(status === 'error' || status === 'missing-params') && (
                 <div className="flex flex-col sm:flex-row gap-2">
-                  <a
+                  <Link
                     href="/"
                     className="btn btn-primary"
                   >
                     <Home className="w-4 h-4" />
                     Go to App
-                  </a>
+                  </Link>
                   {status === 'error' && (
                     <button
                       onClick={() => window.location.reload()}
