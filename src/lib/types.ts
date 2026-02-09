@@ -443,3 +443,37 @@ export interface PlayerInsightOutput {
   strengths: string[];
   weaknesses: string[];
 }
+
+// Lineup optimizer types
+
+export interface PlayerAvailability {
+  name: string;
+  available: boolean;
+}
+
+export interface LockedPosition {
+  set: 1 | 2; // which set (1 or 2)
+  position: number; // position within set (1-5)
+  playerName: string;
+}
+
+export interface LineupWinProbability {
+  pWin: number; // 0-1
+  pDraw: number; // 0-1
+  pLoss: number; // 0-1
+  expectedHome: number;
+  expectedAway: number;
+  confidence: number; // max(pWin, pDraw, pLoss)
+}
+
+export interface OptimizedLineup {
+  set1: string[]; // 5 player names
+  set2: string[]; // 5 player names
+  winProbability: LineupWinProbability;
+}
+
+export interface LineupAlternative {
+  lineup: OptimizedLineup;
+  rank: number; // 1 = best alternative, 2 = second best, etc.
+  probabilityDiff: number; // difference in win probability from optimal
+}

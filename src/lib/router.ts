@@ -13,6 +13,7 @@ export type TabId =
   | 'players'
   | 'stats'
   | 'compare'
+  | 'optimizer'
   | 'team'
   | 'player';
 
@@ -37,7 +38,7 @@ const DEFAULT_OPTIONS: RouterOptions = {
 
 const VALID_TABS = new Set<string>([
   'dashboard', 'standings', 'results', 'simulate', 'predict',
-  'fixtures', 'players', 'stats', 'compare', 'team', 'player',
+  'fixtures', 'players', 'stats', 'compare', 'optimizer', 'team', 'player',
 ]);
 
 export function encodeRoute(tab: TabId, div: DivisionCode, params?: { team?: string; player?: string; home?: string; away?: string }): string {
