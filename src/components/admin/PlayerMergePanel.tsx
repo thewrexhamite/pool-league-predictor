@@ -2,11 +2,12 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, GitMerge, AlertCircle, UserCheck, TrendingUp, ChevronDown } from 'lucide-react';
+import { Search, X, GitMerge, AlertCircle, UserCheck, TrendingUp, ChevronDown, Loader2, CheckCircle } from 'lucide-react';
 import clsx from 'clsx';
 import type { LeaguePlayer } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
 import { getAllLeaguePlayers } from '@/lib/predictions';
+import { useAuth } from '@/lib/auth';
 
 interface PlayerMergePanelProps {
   // Reserved for future props
@@ -14,10 +15,14 @@ interface PlayerMergePanelProps {
 
 export default function PlayerMergePanel({}: PlayerMergePanelProps) {
   const { ds } = useActiveData();
+  const { getIdToken } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlayers, setSelectedPlayers] = useState<LeaguePlayer[]>([]);
   const [showPreview, setShowPreview] = useState(false);
   const [mergeTarget, setMergeTarget] = useState<LeaguePlayer | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   // Get all league players
   const allPlayers = useMemo(() => getAllLeaguePlayers(ds), [ds]);
@@ -53,6 +58,8 @@ export default function PlayerMergePanel({}: PlayerMergePanelProps) {
     setSelectedPlayers([]);
     setMergeTarget(null);
     setShowPreview(false);
+    setError(null);
+    setSuccess(null);
   };
 
   // Show merge preview
@@ -62,6 +69,66 @@ export default function PlayerMergePanel({}: PlayerMergePanelProps) {
       setMergeTarget(selectedPlayers[0]);
     }
     setShowPreview(true);
+  };
+
+  // Handle merge confirmation
+  const handleConfirmMerge = async () => {
+    if (!mergeTarget || selectedPlayers.length < 2) return;
+
+    setIsSubmitting(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      // Get Firebase ID token
+      const idToken = await getIdToken();
+      if (!idToken) {
+        setError('Authentication required. Please log in again.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Prepare source player names (all except target)
+      const sourcePlayerNames = selectedPlayers
+        .filter(p => p.name !== mergeTarget.name)
+        .map(p => p.name);
+
+      // Call merge API
+      const response = await fetch('/api/admin/players/merge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({
+          seasonId: '2025-26',
+          sourcePlayerNames,
+          targetPlayerName: mergeTarget.name,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to merge players');
+      }
+
+      // Success!
+      setSuccess(data.message || 'Players merged successfully');
+      setShowPreview(false);
+
+      // Clear selection after a brief delay
+      setTimeout(() => {
+        clearSelection();
+        // Reload page to refresh player data
+        window.location.reload();
+      }, 2000);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
+      setError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Calculate merged stats preview
@@ -105,6 +172,46 @@ export default function PlayerMergePanel({}: PlayerMergePanelProps) {
       <p className="text-sm text-gray-400 mb-6">
         Search for duplicate player profiles and merge them into a single record. Select 2 or more players to merge.
       </p>
+
+      {/* Error message */}
+      <AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden mb-4"
+          >
+            <div className="flex items-start gap-2 text-sm text-red-400 bg-red-900/20 rounded-lg p-3">
+              <AlertCircle size={16} className="mt-0.5 shrink-0" />
+              <div className="flex-1">{error}</div>
+              <button
+                onClick={() => setError(null)}
+                className="text-red-400/70 hover:text-red-400"
+              >
+                <X size={14} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Success message */}
+      <AnimatePresence>
+        {success && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden mb-4"
+          >
+            <div className="flex items-start gap-2 text-sm text-green-400 bg-green-900/20 rounded-lg p-3">
+              <CheckCircle size={16} className="mt-0.5 shrink-0" />
+              <div className="flex-1">{success}</div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Search */}
       <div className="mb-6">
@@ -359,21 +466,40 @@ export default function PlayerMergePanel({}: PlayerMergePanelProps) {
                 </div>
               </div>
 
+              {/* Inline error message during merge */}
+              {error && showPreview && (
+                <div className="flex items-start gap-2 text-xs text-red-400 bg-red-900/20 rounded-lg p-3 mb-4">
+                  <AlertCircle size={14} className="mt-0.5 shrink-0" />
+                  <div className="flex-1">{error}</div>
+                </div>
+              )}
+
               {/* Action buttons */}
               <div className="flex items-center gap-2 pt-3 border-t border-surface-border/30">
                 <button
-                  onClick={() => {
-                    // TODO: Implement merge logic
-                    alert('Merge functionality will be implemented in the backend');
-                  }}
-                  className="flex items-center gap-2 px-4 py-2 bg-pink-900/30 text-pink-400 rounded-lg hover:bg-pink-900/50 transition text-sm font-medium"
+                  onClick={handleConfirmMerge}
+                  disabled={isSubmitting}
+                  className="flex items-center gap-2 px-4 py-2 bg-pink-900/30 text-pink-400 rounded-lg hover:bg-pink-900/50 transition text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <GitMerge size={14} />
-                  Confirm Merge
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      Merging...
+                    </>
+                  ) : (
+                    <>
+                      <GitMerge size={14} />
+                      Confirm Merge
+                    </>
+                  )}
                 </button>
                 <button
-                  onClick={() => setShowPreview(false)}
-                  className="px-4 py-2 bg-surface-elevated text-gray-400 rounded-lg hover:bg-surface transition text-sm font-medium"
+                  onClick={() => {
+                    setShowPreview(false);
+                    setError(null);
+                  }}
+                  disabled={isSubmitting}
+                  className="px-4 py-2 bg-surface-elevated text-gray-400 rounded-lg hover:bg-surface transition text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancel
                 </button>
