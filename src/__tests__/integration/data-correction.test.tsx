@@ -16,7 +16,8 @@ import { useAdmin } from '@/hooks/use-admin';
 import DataCorrectionPanel from '@/components/admin/DataCorrectionPanel';
 import type { User } from 'firebase/auth';
 import type { UserProfile } from '@/lib/auth';
-import type { MatchResult, LeagueData } from '@/lib/types';
+import type { MatchResult } from '@/lib/types';
+import type { LeagueData } from '@/lib/data-provider';
 
 // Mock the auth hooks
 jest.mock('@/lib/auth', () => ({

@@ -60,8 +60,9 @@ describe('Player Merge E2E Workflow', () => {
     // Mock active data provider
     mockUseActiveData.mockReturnValue({
       ds: {} as any,
-      isLoading: false,
-      error: null,
+      data: {} as any,
+      frames: [],
+      isTimeMachine: false,
     });
 
     // Mock auth

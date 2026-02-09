@@ -20,6 +20,7 @@ import type {
   PlayerData2526,
 } from '@/lib/types';
 import {
+  findAllPotentialMatches,
   findPotentialMatches,
   createPlayerLink,
   mergePlayerLinks,
@@ -474,7 +475,7 @@ describe('End-to-End League Onboarding', () => {
       ];
 
       const allPlayers = [...players1, ...players2];
-      const matches = findPotentialMatches(allPlayers, { minConfidence: 0.9 });
+      const matches = findAllPotentialMatches(allPlayers, { minConfidence: 0.9 });
 
       // Should find John Smith across both leagues
       const johnSmithMatches = matches.filter(
@@ -493,7 +494,7 @@ describe('End-to-End League Onboarding', () => {
         { leagueId: 'test-league-two', playerId: 'J. Smith' },
       ];
 
-      const matches = findPotentialMatches(players, { minConfidence: 0.7 });
+      const matches = findAllPotentialMatches(players, { minConfidence: 0.7 });
 
       expect(matches.length).toBeGreaterThan(0);
       expect(matches[0].confidence).toBeGreaterThan(0.7);
@@ -506,7 +507,7 @@ describe('End-to-End League Onboarding', () => {
         { leagueId: 'test-league-one', playerId: 'Jane Doe' },
       ];
 
-      const matches = findPotentialMatches(players);
+      const matches = findAllPotentialMatches(players);
 
       expect(matches).toHaveLength(0);
     });
@@ -517,8 +518,8 @@ describe('End-to-End League Onboarding', () => {
         { leagueId: 'test-league-two', playerId: 'Jane Doe' },
       ];
 
-      const strictMatches = findPotentialMatches(players, { minConfidence: 0.9 });
-      const lenientMatches = findPotentialMatches(players, { minConfidence: 0.1 });
+      const strictMatches = findAllPotentialMatches(players, { minConfidence: 0.9 });
+      const lenientMatches = findAllPotentialMatches(players, { minConfidence: 0.1 });
 
       expect(lenientMatches.length).toBeGreaterThanOrEqual(strictMatches.length);
     });
@@ -529,7 +530,7 @@ describe('End-to-End League Onboarding', () => {
         { leagueId: 'test-league-two', playerId: 'John Smith' },
       ];
 
-      const matches = findPotentialMatches(players);
+      const matches = findAllPotentialMatches(players);
 
       expect(matches[0]).toHaveProperty('reason');
       expect(matches[0].reason).toContain('similarity');
@@ -538,16 +539,18 @@ describe('End-to-End League Onboarding', () => {
 
   describe('Step 7: Link Players Across Leagues', () => {
     it('should create player link with linked players', () => {
-      const player1: LeaguePlayer = {
+      const player1 = {
         leagueId: 'test-league-one',
         playerId: 'John Smith',
+        confidence: 1.0,
       };
-      const player2: LeaguePlayer = {
+      const player2 = {
         leagueId: 'test-league-two',
         playerId: 'John Smith',
+        confidence: 1.0,
       };
 
-      const link = createPlayerLink([player1, player2]);
+      const link = createPlayerLink('john-smith', [player1, player2]);
 
       expect(link).toHaveProperty('id');
       expect(link).toHaveProperty('linkedPlayers');
@@ -555,24 +558,24 @@ describe('End-to-End League Onboarding', () => {
     });
 
     it('should assign canonical player ID', () => {
-      const players: LeaguePlayer[] = [
-        { leagueId: 'test-league-one', playerId: 'John Smith' },
-        { leagueId: 'test-league-two', playerId: 'J. Smith' },
+      const players = [
+        { leagueId: 'test-league-one', playerId: 'John Smith', confidence: 1.0 },
+        { leagueId: 'test-league-two', playerId: 'J. Smith', confidence: 0.8 },
       ];
 
-      const link = createPlayerLink(players);
+      const link = createPlayerLink('john-smith', players);
 
       expect(link.id).toBeTruthy();
       expect(link.id.length).toBeGreaterThan(0);
     });
 
     it('should store confidence scores for each link', () => {
-      const players: LeaguePlayer[] = [
-        { leagueId: 'test-league-one', playerId: 'John Smith' },
-        { leagueId: 'test-league-two', playerId: 'John Smith' },
+      const players = [
+        { leagueId: 'test-league-one', playerId: 'John Smith', confidence: 1.0 },
+        { leagueId: 'test-league-two', playerId: 'John Smith', confidence: 1.0 },
       ];
 
-      const link = createPlayerLink(players, 1.0);
+      const link = createPlayerLink('john-smith', players);
 
       link.linkedPlayers.forEach((linkedPlayer) => {
         expect(linkedPlayer).toHaveProperty('confidence');
@@ -582,29 +585,29 @@ describe('End-to-End League Onboarding', () => {
     });
 
     it('should merge multiple player links', () => {
-      const link1 = createPlayerLink([
-        { leagueId: 'league-a', playerId: 'John Smith' },
-        { leagueId: 'league-b', playerId: 'John Smith' },
+      const link1 = createPlayerLink('john-smith-1', [
+        { leagueId: 'league-a', playerId: 'John Smith', confidence: 1.0 },
+        { leagueId: 'league-b', playerId: 'John Smith', confidence: 1.0 },
       ]);
 
-      const link2 = createPlayerLink([
-        { leagueId: 'league-b', playerId: 'John Smith' },
-        { leagueId: 'league-c', playerId: 'J. Smith' },
+      const link2 = createPlayerLink('john-smith-2', [
+        { leagueId: 'league-b', playerId: 'John Smith', confidence: 1.0 },
+        { leagueId: 'league-c', playerId: 'J. Smith', confidence: 0.8 },
       ]);
 
-      const merged = mergePlayerLinks(link1, link2);
+      const merged = mergePlayerLinks([link1, link2]);
 
       expect(merged.linkedPlayers.length).toBeGreaterThanOrEqual(2);
     });
 
     it('should prevent duplicate players in same league', () => {
-      const players: LeaguePlayer[] = [
-        { leagueId: 'test-league-one', playerId: 'John Smith' },
-        { leagueId: 'test-league-one', playerId: 'John Smith' }, // Duplicate
-        { leagueId: 'test-league-two', playerId: 'J. Smith' },
+      const players = [
+        { leagueId: 'test-league-one', playerId: 'John Smith', confidence: 1.0 },
+        { leagueId: 'test-league-one', playerId: 'John Smith', confidence: 1.0 }, // Duplicate
+        { leagueId: 'test-league-two', playerId: 'J. Smith', confidence: 0.8 },
       ];
 
-      const link = createPlayerLink(players);
+      const link = createPlayerLink('john-smith', players);
 
       // Should deduplicate by leagueId + playerId
       const uniqueLinks = new Set(
@@ -717,11 +720,14 @@ describe('End-to-End League Onboarding', () => {
         { leagueId: 'test-league-one', playerId: 'John Smith' },
         { leagueId: 'test-league-two', playerId: 'John Smith' },
       ];
-      const matches = findPotentialMatches(leaguePlayers);
+      const matches = findAllPotentialMatches(leaguePlayers);
       expect(matches.length).toBeGreaterThan(0);
 
       // Step 7: Link players
-      const link = createPlayerLink(leaguePlayers);
+      const link = createPlayerLink('john-smith', [
+        { leagueId: 'test-league-one', playerId: 'John Smith', confidence: 1.0 },
+        { leagueId: 'test-league-two', playerId: 'John Smith', confidence: 1.0 },
+      ]);
       expect(link.linkedPlayers).toHaveLength(2);
 
       // Step 8: Cross-league stats

@@ -28,61 +28,81 @@ describe('QuickLookupMode', () => {
   const mockPlayers: LeaguePlayer[] = [
     {
       name: 'John Doe',
+      rating: 5,
       teams2526: ['Team Alpha', 'Team Beta'],
+      totalPct2526: 75.0,
       adjPct2526: 75.5,
       totalPlayed2526: 20,
     },
     {
       name: 'Jane Smith',
+      rating: 4,
       teams2526: ['Team Gamma'],
+      totalPct2526: 68.0,
       adjPct2526: 68.3,
       totalPlayed2526: 15,
     },
     {
       name: 'Bob Johnson',
+      rating: 6,
       teams2526: ['Team Alpha'],
+      totalPct2526: 82.0,
       adjPct2526: 82.1,
       totalPlayed2526: 25,
     },
     {
       name: 'Alice Brown',
+      rating: 3,
       teams2526: ['Team Delta'],
+      totalPct2526: 55.0,
       adjPct2526: 55.0,
       totalPlayed2526: 10,
     },
     {
       name: 'Charlie Wilson',
+      rating: 5,
       teams2526: ['Team Epsilon'],
+      totalPct2526: 71.0,
       adjPct2526: 71.2,
       totalPlayed2526: 18,
     },
     {
       name: 'David Lee',
+      rating: 4,
       teams2526: ['Team Zeta'],
+      totalPct2526: 64.0,
       adjPct2526: 64.5,
       totalPlayed2526: 12,
     },
     {
       name: 'Emma Davis',
+      rating: 5,
       teams2526: ['Team Eta'],
+      totalPct2526: 77.0,
       adjPct2526: 77.8,
       totalPlayed2526: 22,
     },
     {
       name: 'Frank Miller',
+      rating: 3,
       teams2526: ['Team Theta'],
+      totalPct2526: 59.0,
       adjPct2526: 59.3,
       totalPlayed2526: 14,
     },
     {
       name: 'Grace Taylor',
+      rating: 5,
       teams2526: ['Team Iota'],
+      totalPct2526: 73.0,
       adjPct2526: 73.6,
       totalPlayed2526: 19,
     },
     {
       name: 'Henry Anderson',
+      rating: 4,
       teams2526: ['Team Kappa'],
+      totalPct2526: 66.0,
       adjPct2526: 66.9,
       totalPlayed2526: 16,
     },
@@ -91,14 +111,23 @@ describe('QuickLookupMode', () => {
   const mockPlayerStats = {
     total: { p: 20, w: 15, pct: 75.0 },
     teams: [
-      { team: 'Team Alpha', p: 12, w: 9, pct: 75.0, cup: false },
-      { team: 'Team Beta', p: 8, w: 6, pct: 75.0, cup: false },
+      { team: 'Team Alpha', div: 'Premier', p: 12, w: 9, pct: 75.0, lag: 0, bdF: 3, bdA: 1, forf: 0, cup: false },
+      { team: 'Team Beta', div: 'Division 1', p: 8, w: 6, pct: 75.0, lag: 0, bdF: 2, bdA: 0, forf: 0, cup: false },
     ],
   };
 
   const mockPlayerForm = {
     last5: { p: 5, w: 4, pct: 80.0 },
+    last8: { p: 8, w: 6, pct: 75.0 },
     last10: { p: 10, w: 7, pct: 70.0 },
+    seasonPct: 75.0,
+    recent: [
+      { date: '2025-10-05', won: true, opponent: 'Charlie Wilson' },
+      { date: '2025-10-04', won: true, opponent: 'Alice Brown' },
+      { date: '2025-10-03', won: false, opponent: 'Jane Smith' },
+      { date: '2025-10-02', won: true, opponent: 'Bob Johnson' },
+      { date: '2025-10-01', won: true, opponent: 'Jane Smith' },
+    ],
     trend: 'hot' as const,
   };
 
@@ -111,8 +140,10 @@ describe('QuickLookupMode', () => {
 
     // Set up default mock implementations
     mockUseActiveData.mockReturnValue({
+      data: {} as any,
       ds: mockDataSource,
       frames: mockFrames,
+      isTimeMachine: false,
     });
 
     mockGetAllLeaguePlayers.mockReturnValue(mockPlayers);
@@ -502,8 +533,10 @@ describe('QuickLookupMode', () => {
 
     it('handles null/undefined data source', () => {
       mockUseActiveData.mockReturnValue({
+        data: {} as any,
         ds: null as any,
         frames: [],
+        isTimeMachine: false,
       });
       mockGetAllLeaguePlayers.mockReturnValue([]);
 
@@ -519,7 +552,9 @@ describe('QuickLookupMode', () => {
     it('handles player with no teams (teams2526 empty)', () => {
       const playerWithNoTeams: LeaguePlayer = {
         name: 'Solo Player',
+        rating: null,
         teams2526: [],
+        totalPct2526: 50.0,
         adjPct2526: 50.0,
         totalPlayed2526: 5,
       };
