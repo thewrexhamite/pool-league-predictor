@@ -47,6 +47,7 @@ export interface UserProfile {
   claimedProfiles: ClaimedProfile[];
   createdAt: number;
   settings: UserSettings;
+  role?: 'user' | 'admin'; // Admin access control
 }
 
 // ============================================================================

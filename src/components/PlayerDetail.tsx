@@ -2,18 +2,19 @@
 
 import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, History, Trophy, Award } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, History, Trophy, Award, Globe } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions/index';
 import { useActiveData } from '@/lib/active-data-provider';
-import { useAuth } from '@/lib/auth';
 import { useLeague } from '@/lib/league-context';
+import { useAuth } from '@/lib/auth';
 import { fetchPlayerCareerData, calculateCareerTrend, calculateImprovementRate, calculateConsistencyMetrics } from '@/lib/stats';
 import type { CareerTrend, ImprovementMetrics, ConsistencyMetrics } from '@/lib/stats';
 import { AIInsightsPanel } from './AIInsightsPanel';
 import SeasonComparisonChart, { type SeasonPlayerStats } from './SeasonComparisonChart';
 import CareerTrendChart from './CareerTrendChart';
+import type { Players2526Map } from '@/lib/types';
 
 interface PlayerDetailProps {
   player: string;
@@ -24,11 +25,18 @@ interface PlayerDetailProps {
 
 export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick }: PlayerDetailProps) {
   const { ds, frames } = useActiveData();
+  const { leagues, selected } = useLeague();
   const { user, profile } = useAuth();
   const { selected } = useLeague();
   const stats = getPlayerStats(player, ds);
   const stats2526 = getPlayerStats2526(player, ds);
   const playerTeams = getPlayerTeams(player, ds);
+
+  // Cross-league data state
+  const [crossLeagueData, setCrossLeagueData] = useState<
+    Map<string, { leagueName: string; players2526: Players2526Map }>
+  >(new Map());
+  const [loadingCrossLeague, setLoadingCrossLeague] = useState(false);
 
   // Check if the current user has already claimed this player
   const isClaimedByUser = useMemo(() => {
@@ -193,6 +201,112 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
       cancelled = true;
     };
   }, [player, selected]);
+
+  // Fetch cross-league player data
+  useEffect(() => {
+    async function fetchCrossLeagueData() {
+      if (leagues.length <= 1) return; // Skip if only one league
+
+      setLoadingCrossLeague(true);
+      try {
+        const dataMap = new Map<string, { leagueName: string; players2526: Players2526Map }>();
+
+        // Fetch data for each league
+        for (const league of leagues) {
+          try {
+            const response = await fetch(`/api/leagues/${league.id}/data`);
+            if (response.ok) {
+              const data = await response.json();
+              if (data.players2526 && Object.keys(data.players2526).length > 0) {
+                dataMap.set(league.id, {
+                  leagueName: league.name,
+                  players2526: data.players2526,
+                });
+              }
+            }
+          } catch (err) {
+            // Skip leagues that don't have data available
+            console.warn(`Failed to fetch data for league ${league.name}:`, err);
+          }
+        }
+
+        // Fallback to current league data if API doesn't exist
+        if (dataMap.size === 0 && selected && stats2526) {
+          dataMap.set(selected.leagueId, {
+            leagueName: selected.league.name,
+            players2526: ds.players2526,
+          });
+        }
+
+        setCrossLeagueData(dataMap);
+      } catch (err) {
+        console.error('Error fetching cross-league data:', err);
+      } finally {
+        setLoadingCrossLeague(false);
+      }
+    }
+
+    fetchCrossLeagueData();
+  }, [leagues, player, selected, stats2526, ds.players2526]);
+
+  // Aggregate cross-league stats
+  const crossLeagueStats = useMemo(() => {
+    if (crossLeagueData.size === 0) return null;
+
+    const leagueStats: Array<{
+      leagueId: string;
+      leagueName: string;
+      p: number;
+      w: number;
+      pct: number;
+      bdF: number;
+      bdA: number;
+    }> = [];
+
+    let totalP = 0;
+    let totalW = 0;
+    let totalBdF = 0;
+    let totalBdA = 0;
+
+    crossLeagueData.forEach((leagueData, leagueId) => {
+      const playerData = leagueData.players2526[player];
+      if (playerData) {
+        const p = playerData.total.p;
+        const w = playerData.total.w;
+        const pct = p > 0 ? (w / p) * 100 : 0;
+        const bdF = playerData.total.bdF || 0;
+        const bdA = playerData.total.bdA || 0;
+
+        leagueStats.push({
+          leagueId,
+          leagueName: leagueData.leagueName,
+          p,
+          w,
+          pct,
+          bdF,
+          bdA,
+        });
+
+        totalP += p;
+        totalW += w;
+        totalBdF += bdF;
+        totalBdA += bdA;
+      }
+    });
+
+    const totalPct = totalP > 0 ? (totalW / totalP) * 100 : 0;
+
+    return {
+      leagues: leagueStats,
+      total: {
+        p: totalP,
+        w: totalW,
+        pct: totalPct,
+        bdF: totalBdF,
+        bdA: totalBdA,
+      },
+    };
+  }, [crossLeagueData, player]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -530,6 +644,73 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
       {loadingHistorical && (
         <div className="mb-6 flex items-center justify-center py-8">
           <div className="text-sm text-gray-500">Loading historical stats...</div>
+        </div>
+      )}
+
+      {/* Cross-League Stats */}
+      {crossLeagueStats && crossLeagueStats.leagues.length > 1 && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+            <Globe size={14} className="text-info" />
+            Cross-League Stats
+          </h3>
+
+          {/* Total stats across all leagues */}
+          <div className="grid grid-cols-4 gap-3 mb-4">
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className="text-2xl font-bold text-white">{crossLeagueStats.total.p}</div>
+              <div className="text-[10px] text-gray-500">Total Played</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className="text-2xl font-bold text-win">{crossLeagueStats.total.w}</div>
+              <div className="text-[10px] text-gray-500">Total Won</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className="text-2xl font-bold text-info">{crossLeagueStats.total.pct.toFixed(1)}%</div>
+              <div className="text-[10px] text-gray-500">Overall Win%</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className="text-xl font-bold text-gray-400">{crossLeagueStats.leagues.length}</div>
+              <div className="text-[10px] text-gray-500">Leagues</div>
+            </div>
+          </div>
+
+          {/* Per-league breakdown */}
+          <div className="bg-surface/50 rounded-lg p-3">
+            <div className="text-[10px] text-gray-500 mb-2 uppercase tracking-wide">League Breakdown</div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs md:text-sm">
+                <thead>
+                  <tr className="text-gray-500 border-b border-surface-border/30 uppercase tracking-wider text-[10px]">
+                    <th className="text-left p-2">League</th>
+                    <th className="text-center p-2">P</th>
+                    <th className="text-center p-2">W</th>
+                    <th className="text-center p-2">Win%</th>
+                    <th className="text-center p-2">BD+</th>
+                    <th className="text-center p-2">BD-</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {crossLeagueStats.leagues.map((league, i) => (
+                    <tr key={league.leagueId} className="border-b border-surface-border/20">
+                      <td className="p-2 text-gray-300">{league.leagueName}</td>
+                      <td className="p-2 text-center">{league.p}</td>
+                      <td className="p-2 text-center text-win">{league.w}</td>
+                      <td className="p-2 text-center font-bold">{league.pct.toFixed(1)}%</td>
+                      <td className="p-2 text-center text-win">{league.bdF}</td>
+                      <td className="p-2 text-center text-loss">{league.bdA}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {loadingCrossLeague && leagues.length > 1 && (
+        <div className="mb-6 bg-surface/50 rounded-lg p-4 text-center">
+          <div className="text-xs text-gray-500">Loading cross-league stats...</div>
         </div>
       )}
 
