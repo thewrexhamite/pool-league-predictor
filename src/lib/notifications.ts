@@ -1,14 +1,9 @@
 import { getToken as getFCMToken, deleteToken } from 'firebase/messaging';
 import { getFirebaseMessaging } from './firebase';
+import type { NotificationPreferences } from './types';
 
+export type { NotificationPreferences };
 export type NotificationPermissionStatus = 'granted' | 'denied' | 'default' | 'unsupported';
-
-export interface NotificationPreferences {
-  match_results: boolean;
-  upcoming_fixtures: boolean;
-  standings_updates: boolean;
-  prediction_updates: boolean;
-}
 
 export interface MyTeam {
   team: string;

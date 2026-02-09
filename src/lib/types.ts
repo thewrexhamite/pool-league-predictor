@@ -186,6 +186,33 @@ export interface WhatIfResult {
   awayScore: number;
 }
 
+// Notification types
+export type ReminderTiming = 'none' | '1hour' | '1day' | 'both';
+
+export interface NotificationPreferences {
+  match_results: boolean;
+  upcoming_fixtures: boolean;
+  standings_updates: boolean;
+  prediction_updates: boolean;
+  teamFilters?: string[];
+  divisionFilters?: string[];
+  quietHoursEnabled?: boolean;
+  quietHoursStart?: string; // HH:MM format
+  quietHoursEnd?: string; // HH:MM format
+  reminderTiming?: ReminderTiming;
+}
+
+export interface NotificationHistory {
+  id: string;
+  userId: string;
+  type: string;
+  title: string;
+  body: string;
+  sentAt: number; // timestamp
+  fixture?: Fixture;
+  read: boolean;
+}
+
 // Squad override types
 export interface SquadOverride {
   added: string[];

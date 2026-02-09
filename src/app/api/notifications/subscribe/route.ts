@@ -31,6 +31,12 @@ interface NotificationPreferences {
   upcoming_fixtures: boolean;
   standings_updates: boolean;
   prediction_updates: boolean;
+  teamFilters?: string[];
+  divisionFilters?: string[];
+  quietHoursEnabled?: boolean;
+  quietHoursStart?: string;
+  quietHoursEnd?: string;
+  reminderTiming?: string;
 }
 
 interface MyTeam {
@@ -67,6 +73,49 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
+    }
+
+    // Validate optional extended preferences
+    if (preferences.teamFilters !== undefined && !Array.isArray(preferences.teamFilters)) {
+      return NextResponse.json(
+        { error: 'teamFilters must be an array' },
+        { status: 400 }
+      );
+    }
+
+    if (preferences.divisionFilters !== undefined && !Array.isArray(preferences.divisionFilters)) {
+      return NextResponse.json(
+        { error: 'divisionFilters must be an array' },
+        { status: 400 }
+      );
+    }
+
+    if (preferences.quietHoursEnabled !== undefined && typeof preferences.quietHoursEnabled !== 'boolean') {
+      return NextResponse.json(
+        { error: 'quietHoursEnabled must be a boolean' },
+        { status: 400 }
+      );
+    }
+
+    if (preferences.quietHoursStart !== undefined && typeof preferences.quietHoursStart !== 'string') {
+      return NextResponse.json(
+        { error: 'quietHoursStart must be a string' },
+        { status: 400 }
+      );
+    }
+
+    if (preferences.quietHoursEnd !== undefined && typeof preferences.quietHoursEnd !== 'string') {
+      return NextResponse.json(
+        { error: 'quietHoursEnd must be a string' },
+        { status: 400 }
+      );
+    }
+
+    if (preferences.reminderTiming !== undefined && typeof preferences.reminderTiming !== 'string') {
+      return NextResponse.json(
+        { error: 'reminderTiming must be a string' },
+        { status: 400 }
+      );
     }
 
     // Check if Firebase Admin credentials are configured

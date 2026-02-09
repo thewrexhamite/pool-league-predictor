@@ -18,6 +18,7 @@ import {
 } from '@/lib/predictions';
 import { useActiveData } from '@/lib/active-data-provider';
 import WhatIfRow from './WhatIfRow';
+import CalendarExport from './CalendarExport';
 
 const DEVICE_ID_KEY = 'pool-league-device-id';
 
@@ -199,10 +200,13 @@ export default function FixturesTab({
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <h2 className="text-lg font-bold mb-4 text-white">
-        Fixtures — {ds.divisions[selectedDiv].name}
-        <span className="text-gray-500 text-sm font-normal ml-2">({fixtures.length} remaining)</span>
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold text-white">
+          Fixtures — {ds.divisions[selectedDiv].name}
+          <span className="text-gray-500 text-sm font-normal ml-2">({fixtures.length} remaining)</span>
+        </h2>
+        <CalendarExport division={selectedDiv} />
+      </div>
 
       {/* Squad Builder (collapsible) */}
       <div className="mb-4 bg-surface/50 rounded-lg border border-surface-border/30 overflow-hidden">

@@ -27,6 +27,12 @@ const DEFAULT_PREFERENCES: NotificationPreferences = {
   upcoming_fixtures: true,
   standings_updates: true,
   prediction_updates: false,
+  teamFilters: [],
+  divisionFilters: [],
+  quietHoursEnabled: false,
+  quietHoursStart: '22:00',
+  quietHoursEnd: '08:00',
+  reminderTiming: 'none',
 };
 
 export function useNotifications() {
@@ -52,7 +58,7 @@ export function useNotifications() {
         const parsed = JSON.parse(stored) as Partial<NotificationState>;
         setState({
           permission,
-          preferences: parsed.preferences || DEFAULT_PREFERENCES,
+          preferences: { ...DEFAULT_PREFERENCES, ...parsed.preferences },
           isSubscribed: parsed.isSubscribed || false,
         });
       } else {

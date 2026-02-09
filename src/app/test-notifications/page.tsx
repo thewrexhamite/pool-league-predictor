@@ -16,7 +16,7 @@ import type { NotificationPreferences } from '@/lib/notifications';
 
 export const dynamic = 'force-dynamic';
 
-type NotificationType = keyof NotificationPreferences;
+type NotificationType = 'match_results' | 'upcoming_fixtures' | 'standings_updates' | 'prediction_updates';
 
 const NOTIFICATION_TYPES: { value: NotificationType; label: string }[] = [
   { value: 'match_results', label: 'Match Results' },
@@ -25,7 +25,7 @@ const NOTIFICATION_TYPES: { value: NotificationType; label: string }[] = [
   { value: 'prediction_updates', label: 'Prediction Updates' },
 ];
 
-const SAMPLE_MESSAGES = {
+const SAMPLE_MESSAGES: Record<NotificationType, string> = {
   match_results: 'Your team won 5-2! Great performance tonight.',
   upcoming_fixtures: 'Match tomorrow at 7pm. Check the scouting report!',
   standings_updates: 'Your team moved up to 2nd place after tonight\'s matches!',

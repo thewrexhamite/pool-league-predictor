@@ -1,35 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
-import { Bell, BellOff, Loader2, Check, X } from 'lucide-react';
+import { Bell, BellOff, Loader2, Check, X, Filter } from 'lucide-react';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useAuth } from '@/lib/auth';
+import { useLeagueData } from '@/lib/data-provider';
 import type { NotificationPreferences } from '@/lib/notifications';
+import NotificationHistory from '@/components/NotificationHistory';
 
 interface NotificationSettingsProps {
   onUnsubscribe?: () => void;
 }
 
-const NOTIFICATION_TYPES = [
+type BooleanNotificationKey = 'match_results' | 'upcoming_fixtures' | 'standings_updates' | 'prediction_updates';
+
+const NOTIFICATION_TYPES: { key: BooleanNotificationKey; label: string; description: string }[] = [
   {
-    key: 'match_results' as keyof NotificationPreferences,
+    key: 'match_results',
     label: 'Match Results',
     description: 'Get notified when your team\'s match results are synced',
   },
   {
-    key: 'upcoming_fixtures' as keyof NotificationPreferences,
+    key: 'upcoming_fixtures',
     label: 'Upcoming Fixtures',
     description: 'Reminder 24 hours before your team\'s next match',
   },
   {
-    key: 'standings_updates' as keyof NotificationPreferences,
+    key: 'standings_updates',
     label: 'Standings Updates',
     description: 'Notifications when league standings change after match nights',
   },
   {
-    key: 'prediction_updates' as keyof NotificationPreferences,
+    key: 'prediction_updates',
     label: 'Prediction Updates',
     description: 'Updates about significant changes in match predictions',
   },
@@ -48,13 +52,29 @@ export default function NotificationSettings({
     unsubscribe,
     updatePreferences,
   } = useNotifications();
+  const { data } = useLeagueData();
 
   const [isUpdating, setIsUpdating] = useState(false);
   const [isUnsubscribing, setIsUnsubscribing] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
+  // Extract divisions and teams from league data
+  const { allDivisions, allTeams } = useMemo(() => {
+    const divisions = Object.keys(data.divisions);
+    const teamsSet = new Set<string>();
+
+    Object.values(data.divisions).forEach(division => {
+      division.teams.forEach(team => teamsSet.add(team));
+    });
+
+    return {
+      allDivisions: divisions.sort(),
+      allTeams: Array.from(teamsSet).sort(),
+    };
+  }, [data.divisions]);
+
   // Handle toggle change
-  const handleToggle = async (key: keyof NotificationPreferences) => {
+  const handleToggle = async (key: BooleanNotificationKey) => {
     if (!user || !isSubscribed || isUpdating) return;
 
     setIsUpdating(true);
@@ -76,6 +96,100 @@ export default function NotificationSettings({
       }
     } catch (error) {
       setMessage({ type: 'error', text: 'An error occurred while updating preferences' });
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  // Handle team filter toggle
+  const handleTeamFilterToggle = async (team: string) => {
+    if (!user || !isSubscribed || isUpdating) return;
+
+    setIsUpdating(true);
+    setMessage(null);
+
+    try {
+      const currentFilters = preferences.teamFilters || [];
+      const newFilters = currentFilters.includes(team)
+        ? currentFilters.filter(t => t !== team)
+        : [...currentFilters, team];
+
+      const newPreferences: NotificationPreferences = {
+        ...preferences,
+        teamFilters: newFilters,
+      };
+
+      const success = await updatePreferences(user.uid, newPreferences);
+
+      if (success) {
+        setMessage({ type: 'success', text: 'Team filters updated successfully' });
+        setTimeout(() => setMessage(null), 3000);
+      } else {
+        setMessage({ type: 'error', text: 'Failed to update team filters' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'An error occurred while updating team filters' });
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  // Handle division filter toggle
+  const handleDivisionFilterToggle = async (division: string) => {
+    if (!user || !isSubscribed || isUpdating) return;
+
+    setIsUpdating(true);
+    setMessage(null);
+
+    try {
+      const currentFilters = preferences.divisionFilters || [];
+      const newFilters = currentFilters.includes(division)
+        ? currentFilters.filter(d => d !== division)
+        : [...currentFilters, division];
+
+      const newPreferences: NotificationPreferences = {
+        ...preferences,
+        divisionFilters: newFilters,
+      };
+
+      const success = await updatePreferences(user.uid, newPreferences);
+
+      if (success) {
+        setMessage({ type: 'success', text: 'Division filters updated successfully' });
+        setTimeout(() => setMessage(null), 3000);
+      } else {
+        setMessage({ type: 'error', text: 'Failed to update division filters' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'An error occurred while updating division filters' });
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  // Handle reminder timing change
+  const handleReminderTimingChange = async (timing: 'none' | '1hour' | '1day' | 'both') => {
+    if (!user || !isSubscribed || isUpdating) return;
+
+    setIsUpdating(true);
+    setMessage(null);
+
+    try {
+      const newPreferences: NotificationPreferences = {
+        ...preferences,
+        reminderTiming: timing,
+      };
+
+      const success = await updatePreferences(user.uid, newPreferences);
+
+      if (success) {
+        setMessage({ type: 'success', text: 'Reminder timing updated successfully' });
+        setTimeout(() => setMessage(null), 3000);
+      } else {
+        setMessage({ type: 'error', text: 'Failed to update reminder timing' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'An error occurred while updating reminder timing' });
     } finally {
       setIsUpdating(false);
     }
@@ -188,6 +302,7 @@ export default function NotificationSettings({
         {NOTIFICATION_TYPES.map((type) => {
           const isEnabled = preferences[type.key];
           const isDisabled = isUpdating || isUnsubscribing;
+          const showReminderTiming = type.key === 'upcoming_fixtures' && isEnabled;
 
           return (
             <div key={type.key} className="p-4">
@@ -224,9 +339,169 @@ export default function NotificationSettings({
                   />
                 </button>
               </div>
+
+              {/* Reminder Timing Controls - Only show for Upcoming Fixtures when enabled */}
+              {showReminderTiming && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700"
+                >
+                  <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Reminder Timing
+                  </label>
+                  <div className="space-y-2">
+                    {[
+                      { value: 'none' as const, label: 'None', description: 'No reminders' },
+                      { value: '1hour' as const, label: '1 hour before', description: 'Reminder 1 hour before match' },
+                      { value: '1day' as const, label: '1 day before', description: 'Reminder 1 day before match' },
+                      { value: 'both' as const, label: 'Both', description: '1 hour and 1 day before' },
+                    ].map((option) => {
+                      const isSelected = (preferences.reminderTiming || 'none') === option.value;
+
+                      return (
+                        <button
+                          key={option.value}
+                          onClick={() => handleReminderTimingChange(option.value)}
+                          disabled={isDisabled}
+                          className={clsx(
+                            'w-full flex items-start gap-3 p-2.5 rounded-md border transition-colors text-left',
+                            isSelected
+                              ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-100 border-blue-300 dark:border-blue-700'
+                              : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700',
+                            isDisabled && 'opacity-50 cursor-not-allowed'
+                          )}
+                        >
+                          {/* Radio Button */}
+                          <div className="flex-shrink-0 mt-0.5">
+                            <div
+                              className={clsx(
+                                'w-4 h-4 rounded-full border-2 flex items-center justify-center',
+                                isSelected
+                                  ? 'border-blue-600 dark:border-blue-400'
+                                  : 'border-gray-300 dark:border-gray-600'
+                              )}
+                            >
+                              {isSelected && (
+                                <div className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400" />
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Label and Description */}
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-medium">
+                              {option.label}
+                            </div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                              {option.description}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
             </div>
           );
         })}
+      </div>
+
+      {/* Filter Controls */}
+      <div className="space-y-4">
+        {/* Team Filters */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+              Team Filters
+            </h4>
+          </div>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+            Select specific teams to receive notifications for. Leave empty to receive notifications for all teams.
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {allTeams.map(team => {
+              const isSelected = (preferences.teamFilters || []).includes(team);
+              const isDisabled = isUpdating || isUnsubscribing;
+
+              return (
+                <button
+                  key={team}
+                  onClick={() => handleTeamFilterToggle(team)}
+                  disabled={isDisabled}
+                  className={clsx(
+                    'px-3 py-2 text-xs font-medium rounded-md border transition-colors text-left',
+                    isSelected
+                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+                      : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700',
+                    isDisabled && 'opacity-50 cursor-not-allowed'
+                  )}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="truncate">{team}</span>
+                    {isSelected && (
+                      <Check className="w-3 h-3 flex-shrink-0" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          {(preferences.teamFilters || []).length > 0 && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              {preferences.teamFilters!.length} team{preferences.teamFilters!.length !== 1 ? 's' : ''} selected
+            </p>
+          )}
+        </div>
+
+        {/* Division Filters */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+              Division Filters
+            </h4>
+          </div>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+            Select specific divisions to receive notifications for. Leave empty to receive notifications for all divisions.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {allDivisions.map(division => {
+              const isSelected = (preferences.divisionFilters || []).includes(division);
+              const isDisabled = isUpdating || isUnsubscribing;
+
+              return (
+                <button
+                  key={division}
+                  onClick={() => handleDivisionFilterToggle(division)}
+                  disabled={isDisabled}
+                  className={clsx(
+                    'px-4 py-2 text-sm font-medium rounded-md border transition-colors',
+                    isSelected
+                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+                      : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700',
+                    isDisabled && 'opacity-50 cursor-not-allowed'
+                  )}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>{division}</span>
+                    {isSelected && (
+                      <Check className="w-3 h-3 flex-shrink-0" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          {(preferences.divisionFilters || []).length > 0 && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              {preferences.divisionFilters!.length} division{preferences.divisionFilters!.length !== 1 ? 's' : ''} selected
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Unsubscribe Button */}
@@ -258,6 +533,11 @@ export default function NotificationSettings({
         <p className="mt-2 text-xs text-center text-gray-500 dark:text-gray-400">
           You can re-enable notifications anytime from your settings
         </p>
+      </div>
+
+      {/* Notification History */}
+      <div className="pt-6">
+        <NotificationHistory />
       </div>
     </div>
   );
