@@ -66,26 +66,51 @@ export default function DataCorrectionPanel({ selectedDiv }: DataCorrectionPanel
     setSaveError(null);
 
     try {
-      // TODO: Call admin API to update result
-      // For now, just simulate a save
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Find the index of the result to update
+      const resultIndex = ds.results.findIndex(
+        r => r.home === editingResult.home &&
+             r.away === editingResult.away &&
+             r.date === editingResult.date
+      );
 
-      // In a real implementation, this would call:
-      // const response = await fetch('/api/admin/results', {
-      //   method: 'PATCH',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     date: editingResult.date,
-      //     home: editingResult.home,
-      //     away: editingResult.away,
-      //     home_score: editedHomeScore,
-      //     away_score: editedAwayScore,
-      //   }),
-      // });
+      if (resultIndex === -1) {
+        setSaveError('Result not found');
+        setIsSaving(false);
+        return;
+      }
 
+      // Call admin API to update result
+      const response = await fetch('/api/admin/results', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          seasonId: '2025-26', // Current season
+          resultIndex,
+          result: {
+            home_score: editedHomeScore,
+            away_score: editedAwayScore,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to update result');
+      }
+
+      const data = await response.json();
+
+      // Success - update local state by canceling edit
+      // The data will refresh from Firestore on next load
       cancelEditing();
+
+      // Optionally reload the page to show updated standings
+      // This ensures standings recalculate correctly
+      window.location.reload();
     } catch (error) {
-      setSaveError('Failed to save changes. Please try again.');
+      setSaveError(error instanceof Error ? error.message : 'Failed to save changes. Please try again.');
     } finally {
       setIsSaving(false);
     }
