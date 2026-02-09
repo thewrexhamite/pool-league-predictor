@@ -109,7 +109,7 @@ export function normalizePlayerName(
     normalized = normalized.toLowerCase();
   }
 
-  if (options.ignoreWhitespace) {
+  if (options.ignoreWhitespace !== false) {
     normalized = normalized.replace(/\s+/g, ' ').trim();
   }
 
@@ -266,9 +266,22 @@ export function createPlayerLink(
   canonicalId: string,
   players: { leagueId: string; playerId: string; confidence: number }[]
 ): PlayerLink {
+  // Deduplicate players by leagueId + playerId, keeping highest confidence
+  const deduped = new Map<
+    string,
+    { leagueId: string; playerId: string; confidence: number }
+  >();
+  for (const player of players) {
+    const key = `${player.leagueId}:${player.playerId}`;
+    const existing = deduped.get(key);
+    if (!existing || player.confidence > existing.confidence) {
+      deduped.set(key, player);
+    }
+  }
+
   return {
     id: canonicalId,
-    linkedPlayers: players,
+    linkedPlayers: Array.from(deduped.values()),
     createdAt: Date.now(),
     updatedAt: Date.now(),
   };
@@ -404,6 +417,8 @@ export function getLinkedPlayers(
  * Generate a canonical player ID from a player name.
  * Normalizes the name and creates a consistent identifier.
  */
+let _canonicalIdCounter = 0;
+
 export function generateCanonicalId(playerName: string): string {
   // Normalize to lowercase, remove extra whitespace
   const normalized = normalizePlayerName(playerName, {
@@ -418,8 +433,12 @@ export function generateCanonicalId(playerName: string): string {
     .replace(/-+/g, '-') // collapse multiple hyphens
     .replace(/^-|-$/g, ''); // trim hyphens
 
-  // Add a timestamp suffix to ensure uniqueness
+  // Add a timestamp + counter suffix to ensure uniqueness
   const timestamp = Date.now().toString(36);
+  const counter = (_canonicalIdCounter++).toString(36);
 
-  return `${id}-${timestamp}`;
+  if (id) {
+    return `${id}-${timestamp}${counter}`;
+  }
+  return `${timestamp}${counter}`;
 }

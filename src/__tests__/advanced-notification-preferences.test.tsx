@@ -13,6 +13,15 @@
 
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+// Mock Firebase before importing components that use it
+jest.mock('@/lib/firebase', () => ({
+  db: {},
+  auth: {},
+  getFirebaseAnalytics: jest.fn().mockResolvedValue(null),
+  getFirebaseMessaging: jest.fn().mockResolvedValue(null),
+}));
+
 import NotificationSettings from '@/components/NotificationSettings';
 import { useNotifications } from '@/hooks/use-notifications';
 import { useAuth } from '@/lib/auth';
@@ -20,7 +29,18 @@ import { useLeagueData } from '@/lib/data-provider';
 import type { NotificationPreferences } from '@/lib/notifications';
 
 // Mock dependencies
-jest.mock('@/hooks/use-notifications');
+jest.mock('@/hooks/use-notifications', () => ({
+  useNotifications: jest.fn(),
+  useEmailNotifications: jest.fn().mockReturnValue({
+    email: null,
+    preferences: null,
+    frequency: 'weekly',
+    isSubscribed: false,
+    loading: false,
+    updatePreferences: jest.fn(),
+    unsubscribe: jest.fn(),
+  }),
+}));
 jest.mock('@/lib/auth');
 jest.mock('@/lib/data-provider');
 jest.mock('@/components/NotificationHistory', () => {
@@ -162,7 +182,7 @@ describe('E2E: Advanced Notification Preferences', () => {
     test('user can select multiple team filters', async () => {
       const user = userEvent.setup();
 
-      render(<NotificationSettings />);
+      const { rerender } = render(<NotificationSettings />);
 
       // Click on first team
       const magnetAButton = screen.getByRole('button', { name: /Magnet A/i });
@@ -176,6 +196,22 @@ describe('E2E: Advanced Notification Preferences', () => {
           })
         );
       });
+
+      // Update mock to reflect the state after first team selection
+      (useNotifications as jest.Mock).mockReturnValue({
+        permission: 'granted',
+        preferences: {
+          ...mockPreferences,
+          teamFilters: ['Magnet A'],
+        },
+        isSubscribed: true,
+        isSupported: true,
+        loading: false,
+        updatePreferences: mockUpdatePreferences,
+        unsubscribe: jest.fn(),
+      });
+
+      rerender(<NotificationSettings />);
 
       // Click on second team
       const magnetBButton = screen.getByRole('button', { name: /Magnet B/i });
@@ -251,9 +287,11 @@ describe('E2E: Advanced Notification Preferences', () => {
       const reminderTimingLabel = screen.getByText('Reminder Timing');
       expect(reminderTimingLabel).toBeInTheDocument();
 
-      // Find and click "1 day before" option
-      const oneDayBeforeButton = screen.getByRole('button', { name: /1 day before/i });
-      await user.click(oneDayBeforeButton);
+      // Find and click "1 day before" option - use getAllByRole since "Both" option
+      // description also contains "1 day before"
+      const dayBeforeButtons = screen.getAllByRole('button', { name: /1 day before/i });
+      // The first match is the "1 day before" button, not the "Both" button
+      await user.click(dayBeforeButtons[0]);
 
       // Verify updatePreferences was called with reminderTiming
       await waitFor(() => {
@@ -495,8 +533,9 @@ describe('E2E: Advanced Notification Preferences', () => {
 
       rerender(<NotificationSettings />);
 
-      const oneDayBeforeButton = screen.getByRole('button', { name: /1 day before/i });
-      await user.click(oneDayBeforeButton);
+      // Use getAllByRole since "Both" option description also contains "1 day before"
+      const dayBeforeButtons = screen.getAllByRole('button', { name: /1 day before/i });
+      await user.click(dayBeforeButtons[0]);
 
       await waitFor(() => {
         expect(mockUpdatePreferences).toHaveBeenCalledWith(

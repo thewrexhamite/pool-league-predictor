@@ -11,6 +11,15 @@
 
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+// Mock Firebase before importing components that use it
+jest.mock('@/lib/firebase', () => ({
+  db: {},
+  auth: {},
+  getFirebaseAnalytics: jest.fn().mockResolvedValue(null),
+  getFirebaseMessaging: jest.fn().mockResolvedValue(null),
+}));
+
 import NotificationHistory from '@/components/NotificationHistory';
 import { useAuth } from '@/lib/auth';
 import type { NotificationHistory as NotificationHistoryType } from '@/lib/types';
@@ -208,7 +217,8 @@ describe('E2E: Notification History Display', () => {
       await waitFor(() => {
         expect(screen.getByText('Match Result: Magnet A vs North Star A')).toBeInTheDocument();
         expect(screen.getByText('Upcoming Match: Magnet B vs Magnet A')).toBeInTheDocument();
-        expect(screen.getByText('Standings Update')).toBeInTheDocument();
+        // "Standings Update" appears as both type label and title, so use getAllByText
+        expect(screen.getAllByText('Standings Update').length).toBeGreaterThanOrEqual(1);
       });
     });
 
@@ -322,7 +332,8 @@ describe('E2E: Notification History Display', () => {
       render(<NotificationHistory />);
 
       await waitFor(() => {
-        expect(screen.getByText('Standings Update')).toBeInTheDocument();
+        // "Standings Update" appears as both type label <span> and notification title <h3>
+        expect(screen.getAllByText('Standings Update').length).toBeGreaterThanOrEqual(1);
       });
     });
 
@@ -332,7 +343,10 @@ describe('E2E: Notification History Display', () => {
       await waitFor(() => {
         expect(screen.getByText('Match Result: Magnet A vs North Star A')).toBeInTheDocument();
         expect(screen.getByText('Upcoming Match: Magnet B vs Magnet A')).toBeInTheDocument();
-        expect(screen.getByText('Standings Update')).toBeInTheDocument();
+        // "Standings Update" appears as both type label and title, verify via heading
+        const headings = screen.getAllByRole('heading', { level: 3 });
+        const standingsHeading = headings.find(h => h.textContent === 'Standings Update');
+        expect(standingsHeading).toBeTruthy();
       });
     });
 
@@ -411,17 +425,13 @@ describe('E2E: Notification History Display', () => {
       render(<NotificationHistory />);
 
       await waitFor(() => {
-        const notifications = screen.getAllByRole('article', { hidden: true });
-
-        // Get all notification titles in order
-        const titles = notifications.map(notif =>
-          within(notif).queryByText(/Match Result|Upcoming Match|Standings Update/)?.textContent
-        ).filter(Boolean);
+        // Use h3 headings to verify order since motion.div mocks render as plain divs
+        const headings = screen.getAllByRole('heading', { level: 3 });
 
         // Verify order: newest (30 min ago) -> middle (2 hours ago) -> oldest (1 day ago)
-        expect(titles[0]).toContain('Match Result');
-        expect(titles[1]).toContain('Upcoming Match');
-        expect(titles[2]).toContain('Standings Update');
+        expect(headings[0]).toHaveTextContent('Match Result: Magnet A vs North Star A');
+        expect(headings[1]).toHaveTextContent('Upcoming Match: Magnet B vs Magnet A');
+        expect(headings[2]).toHaveTextContent('Standings Update');
       });
     });
 
@@ -627,7 +637,8 @@ describe('E2E: Notification History Display', () => {
       await waitFor(() => {
         expect(screen.getByText('New Match Result')).toBeInTheDocument();
         expect(screen.getByText('Test notification just sent')).toBeInTheDocument();
-        expect(screen.getByText('Match Result')).toBeInTheDocument();
+        // "Match Result" type label appears for multiple match_results notifications
+        expect(screen.getAllByText('Match Result').length).toBeGreaterThanOrEqual(1);
         expect(screen.getByText('Just now')).toBeInTheDocument();
         expect(screen.getByText('Team A vs Team B • SD1')).toBeInTheDocument();
       });
@@ -690,9 +701,11 @@ describe('E2E: Notification History Display', () => {
       render(<NotificationHistory />);
 
       await waitFor(() => {
-        expect(screen.getByText('Standings Update')).toBeInTheDocument();
-        // TrendingUp icon is rendered for standings updates
-        const standingsLabel = screen.getByText('Standings Update');
+        // "Standings Update" appears as both type label <span> and notification title <h3>
+        const standingsElements = screen.getAllByText('Standings Update');
+        expect(standingsElements.length).toBeGreaterThanOrEqual(1);
+        // The type label span has the color class
+        const standingsLabel = standingsElements.find(el => el.tagName === 'SPAN');
         expect(standingsLabel).toHaveClass('text-purple-500');
       });
     });
@@ -719,9 +732,11 @@ describe('E2E: Notification History Display', () => {
       render(<NotificationHistory />);
 
       await waitFor(() => {
-        expect(screen.getByText('Prediction Update')).toBeInTheDocument();
-        // AlertCircle icon is rendered for prediction updates
-        const predictionLabel = screen.getByText('Prediction Update');
+        // "Prediction Update" appears as both type label <span> and notification title <h3>
+        const predictionElements = screen.getAllByText('Prediction Update');
+        expect(predictionElements.length).toBeGreaterThanOrEqual(1);
+        // The type label span has the color class
+        const predictionLabel = predictionElements.find(el => el.tagName === 'SPAN');
         expect(predictionLabel).toHaveClass('text-green-500');
       });
     });

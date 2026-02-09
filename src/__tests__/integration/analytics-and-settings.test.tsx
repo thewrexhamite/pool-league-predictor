@@ -1,12 +1,29 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+
+// Mock Firebase before importing components that use it
+jest.mock('@/lib/firebase', () => ({
+  db: {},
+  auth: {},
+  getFirebaseAnalytics: jest.fn().mockResolvedValue(null),
+  getFirebaseMessaging: jest.fn().mockResolvedValue(null),
+}));
+
 import LeagueHealthMetrics from '@/components/admin/LeagueHealthMetrics';
 import LeagueSettingsPanel from '@/components/admin/LeagueSettingsPanel';
 import { useAuth } from '@/lib/auth';
 
 // Mock dependencies
 jest.mock('@/lib/auth');
+
+// Mock framer-motion to avoid animation issues in tests
+jest.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+  },
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
 
 const mockUseAuth = useAuth as jest.MockedFunction<typeof useAuth>;
 
@@ -56,12 +73,11 @@ describe('Analytics and League Settings E2E Workflow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    // Mock auth
+    // Mock auth - getIdToken must be on the user object since component calls user.getIdToken()
     mockUseAuth.mockReturnValue({
-      user: { uid: 'test-uid' } as any,
+      user: { uid: 'test-uid', getIdToken: jest.fn().mockResolvedValue('mock-token') } as any,
       profile: { isAdmin: true, displayName: 'Test Admin' } as any,
       loading: false,
-      getIdToken: jest.fn().mockResolvedValue('mock-token'),
     } as any);
 
     // Reset fetch mock
@@ -111,10 +127,12 @@ describe('Analytics and League Settings E2E Workflow', () => {
         }), 100))
       );
 
-      render(<LeagueHealthMetrics />);
+      const { container } = render(<LeagueHealthMetrics />);
 
       expect(screen.getByText(/Loading analytics/i)).toBeInTheDocument();
-      expect(screen.getByRole('generic', { hidden: true })).toHaveClass('animate-spin');
+      // The animate-spin class is on the spinner div
+      const spinner = container.querySelector('.animate-spin');
+      expect(spinner).not.toBeNull();
     });
 
     it('should display error state when analytics fetch fails', async () => {
@@ -238,6 +256,8 @@ describe('Analytics and League Settings E2E Workflow', () => {
     });
 
     it('should show dev mode indicator when present', async () => {
+      // Reset the mock from beforeEach so our dev_mode mock is used for the initial fetch
+      (global.fetch as jest.Mock).mockReset();
       (global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
         json: async () => ({
@@ -264,10 +284,11 @@ describe('Analytics and League Settings E2E Workflow', () => {
     });
 
     it('should fetch and display current league settings', async () => {
-      render(<LeagueSettingsPanel />);
+      const { container } = render(<LeagueSettingsPanel />);
 
-      // Loading state
-      expect(screen.getByRole('generic', { hidden: true })).toHaveClass('animate-spin');
+      // Loading state - the Loader2 component has animate-spin class
+      const spinner = container.querySelector('.animate-spin');
+      expect(spinner).not.toBeNull();
 
       await waitFor(() => {
         expect(screen.getByText('League Settings')).toBeInTheDocument();
@@ -382,12 +403,18 @@ describe('Analytics and League Settings E2E Workflow', () => {
         expect(screen.getByText('Enable Notifications')).toBeInTheDocument();
       });
 
-      // Find toggle buttons by their parent text
-      const notificationToggle = screen.getByText('Enable Notifications').parentElement?.querySelector('button');
-      const predictionsToggle = screen.getByText('Enable Predictions').parentElement?.querySelector('button');
+      // Find toggle buttons by navigating to the containing flex row
+      // Structure: div.flex > div > p("Enable Notifications") and div.flex > button
+      const notificationText = screen.getByText('Enable Notifications');
+      const notificationRow = notificationText.closest('.flex.items-center.justify-between');
+      const notificationToggle = notificationRow?.querySelector('button');
 
-      expect(notificationToggle).toBeInTheDocument();
-      expect(predictionsToggle).toBeInTheDocument();
+      const predictionsText = screen.getByText('Enable Predictions');
+      const predictionsRow = predictionsText.closest('.flex.items-center.justify-between');
+      const predictionsToggle = predictionsRow?.querySelector('button');
+
+      expect(notificationToggle).not.toBeNull();
+      expect(predictionsToggle).not.toBeNull();
 
       // Toggle notifications off
       fireEvent.click(notificationToggle!);
@@ -395,7 +422,7 @@ describe('Analytics and League Settings E2E Workflow', () => {
       // Toggle predictions off
       fireEvent.click(predictionsToggle!);
 
-      // Both should now be toggled
+      // Both should now be toggled off (bg-gray-600)
       expect(notificationToggle).toHaveClass('bg-gray-600');
       expect(predictionsToggle).toHaveClass('bg-gray-600');
     });
@@ -488,11 +515,8 @@ describe('Analytics and League Settings E2E Workflow', () => {
     });
 
     it('should handle save errors gracefully', async () => {
-      // Mock failed save
+      // Mock failed save (beforeEach already mocks the initial settings load)
       (global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockLeagueSettings,
-      }).mockResolvedValueOnce({
         ok: false,
         json: async () => ({ error: 'Permission denied' }),
       });
@@ -542,8 +566,10 @@ describe('Analytics and League Settings E2E Workflow', () => {
       fireEvent.change(leagueNameInput, { target: { value: 'Modified Name' } });
 
       // Save button should now be enabled
-      const saveButton = screen.getByRole('button', { name: /Save Changes/i });
-      expect(saveButton).not.toBeDisabled();
+      await waitFor(() => {
+        const saveButton = screen.getByRole('button', { name: /Save Changes/i });
+        expect(saveButton).not.toBeDisabled();
+      });
     });
 
     it('should show reset button when changes are made', async () => {
@@ -561,7 +587,9 @@ describe('Analytics and League Settings E2E Workflow', () => {
       fireEvent.change(leagueNameInput, { target: { value: 'Changed' } });
 
       // Reset button should appear
-      expect(screen.getByRole('button', { name: /Reset/i })).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /Reset/i })).toBeInTheDocument();
+      });
     });
 
     it('should reset changes when reset button is clicked', async () => {
@@ -579,21 +607,23 @@ describe('Analytics and League Settings E2E Workflow', () => {
       expect(leagueNameInput.value).toBe('Changed');
 
       // Click reset
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /Reset/i })).toBeInTheDocument();
+      });
       const resetButton = screen.getByRole('button', { name: /Reset/i });
       fireEvent.click(resetButton);
 
       // Value should be restored
-      expect(leagueNameInput.value).toBe(originalValue);
+      await waitFor(() => {
+        expect(leagueNameInput.value).toBe(originalValue);
+      });
     });
 
     it('should auto-dismiss success message after 3 seconds', async () => {
       jest.useFakeTimers();
 
-      // Mock successful save
+      // Mock successful save (beforeEach already mocks the initial settings load)
       (global.fetch as jest.Mock).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockLeagueSettings,
-      }).mockResolvedValueOnce({
         ok: true,
         json: async () => ({ message: 'Settings saved' }),
       });

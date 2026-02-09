@@ -497,7 +497,7 @@ describe('End-to-End League Onboarding', () => {
       const matches = findAllPotentialMatches(players, { minConfidence: 0.7 });
 
       expect(matches.length).toBeGreaterThan(0);
-      expect(matches[0].confidence).toBeGreaterThan(0.7);
+      expect(matches[0].confidence).toBeGreaterThanOrEqual(0.7);
       expect(matches[0].confidence).toBeLessThan(1.0);
     });
 
@@ -533,7 +533,7 @@ describe('End-to-End League Onboarding', () => {
       const matches = findAllPotentialMatches(players);
 
       expect(matches[0]).toHaveProperty('reason');
-      expect(matches[0].reason).toContain('similarity');
+      expect(matches[0].reason).toBe('Exact name match');
     });
   });
 

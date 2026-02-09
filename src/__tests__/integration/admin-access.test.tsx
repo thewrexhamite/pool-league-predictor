@@ -298,7 +298,7 @@ describe('Admin Access Integration Tests', () => {
 
       // Assert: Welcome message with admin name should be displayed
       await waitFor(() => {
-        expect(screen.getByText(/Welcome, Admin User/)).toBeTruthy();
+        expect(screen.getByText(/Welcome back, Admin User/)).toBeTruthy();
       });
     });
   });
@@ -332,12 +332,12 @@ describe('Admin Access Integration Tests', () => {
       // Assert: All admin tool cards should be present
       await waitFor(() => {
         // Core admin tools
-        expect(screen.getByText('Manage Users')).toBeTruthy();
-        expect(screen.getByText('Manage Results')).toBeTruthy();
-        expect(screen.getByText('League Analytics')).toBeTruthy();
+        expect(screen.getByText('User Management')).toBeTruthy();
+        expect(screen.getByText('Results Management')).toBeTruthy();
+        expect(screen.getByText('Analytics')).toBeTruthy();
         expect(screen.getByText('League Settings')).toBeTruthy();
-        expect(screen.getByText('Data Correction')).toBeTruthy();
-        expect(screen.getByText('Merge Players')).toBeTruthy();
+        expect(screen.getByText('Data Management')).toBeTruthy();
+        expect(screen.getByText('Player Merge')).toBeTruthy();
       });
     });
 
@@ -345,12 +345,12 @@ describe('Admin Access Integration Tests', () => {
       // Act: Render admin page
       render(<AdminPage />);
 
-      // Assert: Stats cards should be present
+      // Assert: Stats cards should be present (exact text matches to avoid conflicts with tool names)
       await waitFor(() => {
         // Look for stats section (divisions, teams, results, frames)
-        expect(screen.getByText(/Divisions/)).toBeTruthy();
-        expect(screen.getByText(/Teams/)).toBeTruthy();
-        expect(screen.getByText(/Results/)).toBeTruthy();
+        expect(screen.getByText('Divisions')).toBeTruthy();
+        expect(screen.getByText('Teams')).toBeTruthy();
+        expect(screen.getByText('Results')).toBeTruthy();
       });
     });
 

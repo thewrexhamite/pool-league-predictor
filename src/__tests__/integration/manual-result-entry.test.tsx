@@ -62,14 +62,12 @@ describe('Manual Result Entry E2E Workflow', () => {
       const mockOnSubmit = jest.fn();
       render(<ManualResultEntry onSubmit={mockOnSubmit} />);
 
-      const homeTeamSelect = screen.getByLabelText(/home team/i);
-      fireEvent.click(homeTeamSelect);
-
-      // Should include teams from all divisions when no division filter
-      expect(screen.getByText('Team A')).toBeInTheDocument();
-      expect(screen.getByText('Team B')).toBeInTheDocument();
-      expect(screen.getByText('Team D')).toBeInTheDocument();
-      expect(screen.getByText('Team E')).toBeInTheDocument();
+      // Teams appear as options in both home and away selects
+      // Use getAllByText since each team appears in both select elements
+      expect(screen.getAllByText('Team A').length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText('Team B').length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText('Team D').length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText('Team E').length).toBeGreaterThanOrEqual(1);
     });
 
     it('should filter teams by selected division', () => {
@@ -78,13 +76,11 @@ describe('Manual Result Entry E2E Workflow', () => {
         <ManualResultEntry selectedDiv="Premier" onSubmit={mockOnSubmit} />
       );
 
-      const homeTeamSelect = screen.getByLabelText(/home team/i);
-      fireEvent.click(homeTeamSelect);
-
       // Should only include teams from Premier division
-      expect(screen.getByText('Team A')).toBeInTheDocument();
-      expect(screen.getByText('Team B')).toBeInTheDocument();
-      expect(screen.getByText('Team C')).toBeInTheDocument();
+      // Teams appear as options in both select elements
+      expect(screen.getAllByText('Team A').length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText('Team B').length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText('Team C').length).toBeGreaterThanOrEqual(1);
     });
   });
 
