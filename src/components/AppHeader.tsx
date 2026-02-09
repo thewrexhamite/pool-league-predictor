@@ -28,6 +28,7 @@ import { useLeague } from '@/lib/league-context';
 import { useLeagueBranding } from '@/lib/league-branding';
 import { useToast } from './ToastProvider';
 import ThemeToggle from './ThemeToggle';
+import SeasonSelector from './SeasonSelector';
 import { UserMenu } from './auth';
 
 interface AppHeaderProps {
@@ -36,6 +37,7 @@ interface AppHeaderProps {
   setSimResults: (results: SimulationResult[] | null) => void;
   setShowMyTeamModal: (show: boolean) => void;
   setShowNotificationSettings: (show: boolean) => void;
+  setShowQuickLookup: (show: boolean) => void;
   refreshing: boolean;
   availableDates: string[];
   league?: LeagueMeta;
@@ -47,6 +49,7 @@ export default function AppHeader({
   setSimResults,
   setShowMyTeamModal,
   setShowNotificationSettings,
+  setShowQuickLookup,
   refreshing,
   availableDates,
   league,
@@ -55,7 +58,7 @@ export default function AppHeader({
   const { data: leagueData } = useLeagueData();
   const { addToast } = useToast();
   const { myTeam } = useMyTeam();
-  const { leagues, selected, selectLeague } = useLeague();
+  const { leagues, selected, selectLeague, clearSelection } = useLeague();
   const { logo } = useLeagueBranding();
   const nextRouter = useRouter();
 
@@ -242,8 +245,9 @@ export default function AppHeader({
               />
             )}
             <button
-              onClick={() => router.setTab('dashboard')}
+              onClick={() => clearSelection()}
               className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity"
+              title="Back to landing page"
             >
               <span className="text-gray-100">Pool League </span><span className="text-accent">Pro</span>
             </button>
@@ -276,6 +280,11 @@ export default function AppHeader({
                     })}
                   </div>
                 )}
+              </div>
+            )}
+            {selected && selected.league.seasons.length > 1 && (
+              <div className="hidden md:block">
+                <SeasonSelector />
               </div>
             )}
             {myTeam && (
@@ -312,6 +321,16 @@ export default function AppHeader({
 
           {/* Right: Search + Time Machine + My Team */}
           <div className="flex items-center gap-2" ref={searchRef}>
+            {/* Quick Lookup button (desktop) */}
+            <button
+              onClick={() => setShowQuickLookup(true)}
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-400 hover:text-white bg-surface-card border border-surface-border rounded-lg transition hover:border-baize"
+              title="Quick Lookup (Cmd+K)"
+            >
+              <Search size={14} />
+              <span className="text-[10px] text-gray-500 border border-surface-border rounded px-1 py-0.5 font-mono">⌘K</span>
+            </button>
+
             {/* Desktop search */}
             <div className="hidden md:block relative">
               <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
@@ -531,6 +550,14 @@ export default function AppHeader({
                   </div>
                 )}
 
+                {/* Season selector */}
+                {selected && selected.league.seasons.length > 1 && (
+                  <div>
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Season</div>
+                    <SeasonSelector />
+                  </div>
+                )}
+
                 {/* Division pills */}
                 <div>
                   <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Division</div>
@@ -553,7 +580,7 @@ export default function AppHeader({
                   </div>
                 </div>
 
-                {/* My Team + Time Machine side by side */}
+                {/* My Team + Time Machine + Quick Lookup */}
                 <div className="flex gap-2">
                   <button
                     onClick={() => { setShowMyTeamModal(true); setMobileMenuOpen(false); }}
@@ -573,6 +600,13 @@ export default function AppHeader({
                     {timeMachineDate || 'Time Machine'}
                   </button>
                 </div>
+                <button
+                  onClick={() => { setShowQuickLookup(true); setMobileMenuOpen(false); }}
+                  className="flex items-center justify-center gap-1.5 bg-surface-card border border-surface-border rounded-lg py-2 text-xs text-gray-300 hover:text-white transition"
+                >
+                  <Search size={14} />
+                  Quick Lookup
+                </button>
 
                 {/* Theme picker */}
                 <div>
