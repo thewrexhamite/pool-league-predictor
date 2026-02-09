@@ -12,6 +12,7 @@ import {
   getTeamHomeAwayRecord,
   getMostImprovedPlayers,
   getActiveWinStreaks,
+  calculateCurrentForm,
 } from '@/lib/stats';
 
 interface StatsTabProps {
@@ -23,6 +24,7 @@ interface StatsTabProps {
 export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: StatsTabProps) {
   const [minGames, setMinGames] = useState(5);
   const [showAllDivisions, setShowAllDivisions] = useState(false);
+  const [trendFilter, setTrendFilter] = useState<'all' | 'hot' | 'cold' | 'steady'>('all');
   const { ds, frames } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
@@ -41,15 +43,27 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
     const division = showAllDivisions ? null : selectedDiv;
     const players = getTopPlayers(ds.players2526, division, minGames, 10);
 
-    // Enrich with BD stats for display
-    return players.map(p => {
+    // Enrich with BD stats and form data
+    const enrichedPlayers = players.map(p => {
       const playerData = ds.players2526[p.name];
       const teamStats = playerData?.teams.find(t => t.team === p.team);
       const bdFRate = teamStats && teamStats.p > 0 ? (teamStats.bdF / teamStats.p) * 100 : 0;
       const bdARate = teamStats && teamStats.p > 0 ? (teamStats.bdA / teamStats.p) * 100 : 0;
-      return { ...p, bdFRate, bdARate };
+
+      // Calculate current form/trend
+      const form = calculateCurrentForm(p.name, frames);
+      const trend = form?.trend || 'steady';
+
+      return { ...p, bdFRate, bdARate, trend };
     });
-  }, [ds.players2526, selectedDiv, showAllDivisions, minGames]);
+
+    // Apply trend filter
+    if (trendFilter === 'all') {
+      return enrichedPlayers;
+    }
+
+    return enrichedPlayers.filter(p => p.trend === trendFilter);
+  }, [ds.players2526, selectedDiv, showAllDivisions, minGames, trendFilter, frames]);
 
   // Break & Dish leaderboards
   const { bdFor: topBDFor, bdAgainst: topBDAgainst } = useMemo(() => {
@@ -154,6 +168,47 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                   {n}+
                 </button>
               ))}
+            </div>
+
+            {/* Trend filter */}
+            <div className="flex items-center gap-1">
+              <span className="text-xs text-gray-500">Trend:</span>
+              <button
+                onClick={() => setTrendFilter('all')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'all' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setTrendFilter('hot')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'hot' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                🔥 Hot
+              </button>
+              <button
+                onClick={() => setTrendFilter('cold')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'cold' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                ❄️ Cold
+              </button>
+              <button
+                onClick={() => setTrendFilter('steady')}
+                className={clsx(
+                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  trendFilter === 'steady' ? 'bg-baize text-fixed-white' : 'bg-surface text-gray-400 hover:text-white'
+                )}
+              >
+                Steady
+              </button>
             </div>
           </div>
         </div>
