@@ -6,7 +6,7 @@ import type {
   PlayerTeamStats2526,
   PlayerData2526,
 } from './types';
-import { parseDate, type DataSources } from './predictions';
+import { parseDate, type DataSources } from './predictions/index';
 import type { LeagueData } from './data-provider';
 
 /**

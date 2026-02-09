@@ -5,7 +5,7 @@
  */
 
 import type { Players2526Map, PlayersMap, DivisionCode, MatchResult, TeamHomeAwaySplit, FrameData } from '../types';
-import { calcBayesianPct } from '../predictions';
+import { calcBayesianPct } from '../predictions/index';
 
 // ============================================================================
 // Types

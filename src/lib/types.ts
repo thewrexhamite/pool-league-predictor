@@ -1,5 +1,7 @@
 // League data types
 
+export type TabKey = 'dashboard' | 'standings' | 'results' | 'team' | 'player' | 'players' | 'stats' | 'simulate' | 'predict' | 'fixtures';
+
 export interface Division {
   name: string;
   teams: string[];

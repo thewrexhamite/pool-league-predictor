@@ -15,7 +15,7 @@ import {
   getPlayerTeams,
   getTeamPlayers,
   type DataSources,
-} from '@/lib/predictions';
+} from '@/lib/predictions/index';
 import { RESULTS } from '@/lib/data';
 import type { DivisionCode, TeamReportData, TeamReportOutput, Divisions } from '@/lib/types';
 

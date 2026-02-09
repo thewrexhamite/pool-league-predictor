@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { ArrowLeft, Home, Plane, Crosshair, Shield, TrendingUp, TrendingDown } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
-import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates, calcBayesianPct } from '@/lib/predictions';
+import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates, calcBayesianPct } from '@/lib/predictions/index';
 import { useActiveData } from '@/lib/active-data-provider';
 import ShareButton from './ShareButton';
 import { generateTeamShareData } from '@/lib/share-utils';

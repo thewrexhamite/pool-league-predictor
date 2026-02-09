@@ -128,7 +128,7 @@ export default function MyTeamDashboard({
   // Set performance
   const setPerf = useMemo(() => {
     const sp = calcSetPerformance(team, frames);
-    if (sp.set1.played === 0 && sp.set2.played === 0) return null;
+    if (!sp || (sp.set1.played === 0 && sp.set2.played === 0)) return null;
     return { set1Pct: sp.set1.pct, set2Pct: sp.set2.pct, bias: sp.bias };
   }, [team, frames]);
 
