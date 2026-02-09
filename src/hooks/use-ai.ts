@@ -7,7 +7,7 @@ import {
   getPlayerInsightAction,
   generateTeamReportAction,
 } from '@/lib/ai-actions';
-import type { TeamReportData, TeamReportOutput, Divisions } from '@/lib/types';
+import type { TeamReportData, TeamReportOutput, Divisions, CareerStats } from '@/lib/types';
 
 export function useAI() {
   const [isLoading, setIsLoading] = useState(false);
@@ -64,12 +64,13 @@ export function useAI() {
     playerName: string,
     divisions: Divisions,
     results?: any[],
-    leagueName?: string
+    leagueName?: string,
+    careerStats?: CareerStats | null
   ): Promise<string | null> => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await getPlayerInsightAction(playerName, divisions, results, leagueName);
+      const result = await getPlayerInsightAction(playerName, divisions, results, leagueName, careerStats);
       return result;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to get player insight';

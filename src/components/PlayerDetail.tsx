@@ -2,15 +2,18 @@
 
 import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, History } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, History, Trophy, Award } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions/index';
 import { useActiveData } from '@/lib/active-data-provider';
 import { useAuth } from '@/lib/auth';
 import { useLeague } from '@/lib/league-context';
+import { fetchPlayerCareerData, calculateCareerTrend, calculateImprovementRate, calculateConsistencyMetrics } from '@/lib/stats';
+import type { CareerTrend, ImprovementMetrics, ConsistencyMetrics } from '@/lib/stats';
 import { AIInsightsPanel } from './AIInsightsPanel';
 import SeasonComparisonChart, { type SeasonPlayerStats } from './SeasonComparisonChart';
+import CareerTrendChart from './CareerTrendChart';
 
 interface PlayerDetailProps {
   player: string;
@@ -32,6 +35,58 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
     if (!profile?.claimedProfiles) return false;
     return profile.claimedProfiles.some(cp => cp.name === player);
   }, [profile, player]);
+
+  // Career data state
+  const [careerTrend, setCareerTrend] = useState<CareerTrend | null>(null);
+  const [improvementMetrics, setImprovementMetrics] = useState<ImprovementMetrics | null>(null);
+  const [consistencyMetrics, setConsistencyMetrics] = useState<ConsistencyMetrics | null>(null);
+  const [careerLoading, setCareerLoading] = useState(false);
+
+  // Fetch career data when player or league changes
+  useEffect(() => {
+    // Reset state when player changes
+    setCareerTrend(null);
+    setImprovementMetrics(null);
+    setConsistencyMetrics(null);
+
+    // Only fetch if we have a league ID
+    if (!selected?.leagueId) return;
+
+    let cancelled = false;
+    const leagueId = selected.leagueId; // Capture for closure
+
+    async function fetchCareerData() {
+      setCareerLoading(true);
+      try {
+        const seasons = await fetchPlayerCareerData(player, leagueId);
+
+        if (cancelled) return;
+
+        // Calculate metrics if we have season data
+        if (seasons.length > 0) {
+          const trend = calculateCareerTrend(seasons);
+          const improvement = calculateImprovementRate(seasons);
+          const consistency = calculateConsistencyMetrics(seasons);
+
+          setCareerTrend(trend);
+          setImprovementMetrics(improvement);
+          setConsistencyMetrics(consistency);
+        }
+      } catch (error) {
+        // Silently handle errors - career data is optional
+      } finally {
+        if (!cancelled) {
+          setCareerLoading(false);
+        }
+      }
+    }
+
+    fetchCareerData();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [player, selected?.leagueId]);
 
   const form = useMemo(() => frames.length > 0 ? calcPlayerForm(player, frames) : null, [player, frames]);
   const frameHistory = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player, frames) : [], [player, frames]);
@@ -234,6 +289,144 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
               <span title="Away win %"><Plane size={14} className="mx-auto text-loss mb-1" /></span>
               <div className="text-lg font-bold text-loss">{homeAway.away.pct.toFixed(0)}%</div>
               <div className="text-[10px] text-gray-500">Away ({homeAway.away.w}/{homeAway.away.p})</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Consistency Metrics */}
+      {consistencyMetrics && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            Consistency
+            <span className={clsx(
+              'text-xs font-medium px-2 py-0.5 rounded-full',
+              consistencyMetrics.consistency === 'high' ? 'bg-win/20 text-win' :
+              consistencyMetrics.consistency === 'low' ? 'bg-loss/20 text-loss' :
+              'bg-gray-500/20 text-gray-400'
+            )}>
+              {consistencyMetrics.consistency === 'high' ? 'High' : consistencyMetrics.consistency === 'low' ? 'Low' : 'Medium'}
+            </span>
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Lower variance indicates more consistent performance across seasons">
+              <div className="text-lg font-bold text-white">
+                {consistencyMetrics.winRateVariance.toFixed(3)}
+              </div>
+              <div className="text-[10px] text-gray-500">Win Rate Variance</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Standard deviation of win rate across seasons">
+              <div className="text-lg font-bold text-white">
+                {consistencyMetrics.winRateStdDev.toFixed(3)}
+              </div>
+              <div className="text-[10px] text-gray-500">Std Dev</div>
+            </div>
+          </div>
+          {consistencyMetrics.ratingVariance !== null && consistencyMetrics.ratingStdDev !== null && (
+            <div className="grid grid-cols-2 gap-3 mt-3">
+              <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Variance in rating across seasons">
+                <div className="text-lg font-bold text-white">
+                  {consistencyMetrics.ratingVariance.toFixed(3)}
+                </div>
+                <div className="text-[10px] text-gray-500">Rating Variance</div>
+              </div>
+              <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Standard deviation of rating across seasons">
+                <div className="text-lg font-bold text-white">
+                  {consistencyMetrics.ratingStdDev.toFixed(3)}
+                </div>
+                <div className="text-[10px] text-gray-500">Rating Std Dev</div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Improvement Rate */}
+      {improvementMetrics && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            Season-to-Season Change
+            <span className={clsx(
+              'text-xs font-medium px-2 py-0.5 rounded-full',
+              improvementMetrics.trend === 'improving' ? 'bg-win/20 text-win' :
+              improvementMetrics.trend === 'declining' ? 'bg-loss/20 text-loss' :
+              'bg-gray-500/20 text-gray-400'
+            )}>
+              {improvementMetrics.trend === 'improving' && <TrendingUp size={12} className="inline mr-0.5" />}
+              {improvementMetrics.trend === 'declining' && <TrendingDown size={12} className="inline mr-0.5" />}
+              {improvementMetrics.trend === 'improving' ? 'Improving' : improvementMetrics.trend === 'declining' ? 'Declining' : 'Stable'}
+            </span>
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className={clsx(
+                'text-lg font-bold',
+                improvementMetrics.winRateChange > 0 ? 'text-win' :
+                improvementMetrics.winRateChange < 0 ? 'text-loss' :
+                'text-gray-400'
+              )}>
+                {improvementMetrics.winRateChange > 0 ? '+' : ''}{improvementMetrics.winRateChange.toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">Win Rate Change</div>
+            </div>
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card">
+              <div className={clsx(
+                'text-lg font-bold',
+                improvementMetrics.winRateChangePercent > 0 ? 'text-win' :
+                improvementMetrics.winRateChangePercent < 0 ? 'text-loss' :
+                'text-gray-400'
+              )}>
+                {improvementMetrics.winRateChangePercent > 0 ? '+' : ''}{improvementMetrics.winRateChangePercent.toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">Relative Change</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Career Trend */}
+      {careerTrend && (
+        <div className="mb-6">
+          <CareerTrendChart careerTrend={careerTrend} />
+        </div>
+      )}
+
+      {/* Career Highlights */}
+      {careerTrend && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            <Trophy size={14} className="text-gold" />
+            Career Highlights
+          </h3>
+          <div className="grid grid-cols-3 gap-3">
+            {/* Peak Win Rate */}
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Career best win rate">
+              <Award size={16} className="mx-auto text-gold mb-1" />
+              <div className="text-lg font-bold text-gold">
+                {(careerTrend.peakWinRate.value * 100).toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">Career High</div>
+            </div>
+
+            {/* Peak Season */}
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Season when peak performance was achieved">
+              <div className="text-lg font-bold text-info">
+                {careerTrend.peakWinRate.seasonId.length === 4
+                  ? `${careerTrend.peakWinRate.seasonId.slice(0,2)}/${careerTrend.peakWinRate.seasonId.slice(2,4)}`
+                  : careerTrend.peakWinRate.seasonId}
+              </div>
+              <div className="text-[10px] text-gray-500">Peak Season</div>
+            </div>
+
+            {/* Current vs Peak */}
+            <div className="bg-surface rounded-lg p-3 text-center shadow-card" title="Current performance relative to career peak">
+              <div className={clsx(
+                'text-lg font-bold',
+                careerTrend.currentVsPeak.winRateDiff >= 0 ? 'text-win' : 'text-loss'
+              )}>
+                {careerTrend.currentVsPeak.winRateDiff >= 0 ? '+' : ''}{careerTrend.currentVsPeak.winRateDiff.toFixed(1)}%
+              </div>
+              <div className="text-[10px] text-gray-500">vs Peak</div>
             </div>
           </div>
         </div>

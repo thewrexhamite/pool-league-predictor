@@ -4,7 +4,17 @@
  * Aggregate player statistics from season data.
  */
 
-import type { FrameData, Players2526Map, PlayerData2526 } from '../types';
+import type {
+  FrameData,
+  Players2526Map,
+  PlayerData2526,
+  SeasonSummary,
+  PlayersMap,
+  SeasonData,
+  CareerTrend,
+  ImprovementMetrics,
+  ConsistencyMetrics,
+} from '../types';
 
 // ============================================================================
 // Types
@@ -84,6 +94,243 @@ export function getSeasonLabel(seasonId: string): string {
     return `20${start}/20${end}`;
   }
   return seasonId;
+}
+
+// ============================================================================
+// Multi-Season Data Fetching
+// ============================================================================
+
+/**
+ * Fetch player career data across all available seasons for a league.
+ * Returns an array of season summaries with win rate, rating, and games played.
+ *
+ * @param playerName - The player's name
+ * @param leagueId - The league ID (e.g., 'wrexham')
+ * @returns Array of season summaries, sorted by season (oldest first)
+ */
+export async function fetchPlayerCareerData(
+  playerName: string,
+  leagueId: string
+): Promise<SeasonSummary[]> {
+  try {
+    // Dynamically import Firebase (following data-provider pattern)
+    const { db } = await import('../firebase');
+    const { collection, getDocs } = await import('firebase/firestore');
+
+    // Fetch all seasons for this league
+    const seasonsRef = collection(db, 'leagues', leagueId, 'seasons');
+    const seasonsSnap = await getDocs(seasonsRef);
+
+    const seasonSummaries: SeasonSummary[] = [];
+
+    // Process each season
+    for (const seasonDoc of seasonsSnap.docs) {
+      const seasonId = seasonDoc.id;
+      const seasonData = seasonDoc.data() as SeasonData;
+
+      // Extract player stats from this season
+      let winRate = 0;
+      let rating: number | null = null;
+      let gamesPlayed = 0;
+      let wins = 0;
+
+      // Try players2526 map first (current format)
+      if (seasonData.players2526?.[playerName]) {
+        const playerData = seasonData.players2526[playerName];
+        winRate = playerData.total.pct;
+        gamesPlayed = playerData.total.p;
+        wins = playerData.total.w;
+      }
+      // Fallback to players map (legacy format)
+      else if (seasonData.players?.[playerName]) {
+        const playerStats = seasonData.players[playerName];
+        rating = playerStats.r;
+        winRate = playerStats.w;
+        gamesPlayed = playerStats.p;
+        wins = Math.round(gamesPlayed * winRate);
+      } else {
+        // Player not found in this season, skip it
+        continue;
+      }
+
+      seasonSummaries.push({
+        seasonId,
+        winRate,
+        rating,
+        gamesPlayed,
+        wins,
+      });
+    }
+
+    // Sort by season ID (oldest first)
+    seasonSummaries.sort((a, b) => a.seasonId.localeCompare(b.seasonId));
+
+    return seasonSummaries;
+  } catch (error) {
+    // If Firestore is unavailable or any error occurs, return empty array
+    return [];
+  }
+}
+
+/**
+ * Calculate improvement rate between seasons.
+ * Compares the most recent season to the previous season to show improvement trajectory.
+ *
+ * @param seasons - Array of season summaries (sorted chronologically)
+ * @returns Improvement metrics with percentage changes and trend, or null if insufficient data
+ */
+export function calculateImprovementRate(seasons: SeasonSummary[]): ImprovementMetrics | null {
+  // Need at least 2 seasons to calculate improvement
+  if (seasons.length < 2) {
+    return null;
+  }
+
+  // Get current and previous seasons
+  const currentSeason = seasons[seasons.length - 1];
+  const previousSeason = seasons[seasons.length - 2];
+
+  // Calculate win rate change (in percentage points)
+  const winRateChange = (currentSeason.winRate - previousSeason.winRate) * 100;
+
+  // Calculate win rate percent change (relative to previous season)
+  const winRateChangePercent =
+    previousSeason.winRate > 0 ? (winRateChange / (previousSeason.winRate * 100)) * 100 : 0;
+
+  // Calculate rating change (if both seasons have ratings)
+  const ratingChange =
+    currentSeason.rating !== null && previousSeason.rating !== null
+      ? currentSeason.rating - previousSeason.rating
+      : null;
+
+  // Determine trend
+  let trend: 'improving' | 'declining' | 'stable' = 'stable';
+  const STABLE_THRESHOLD = 2; // Less than 2 percentage points is considered stable
+  if (Math.abs(winRateChange) >= STABLE_THRESHOLD) {
+    trend = winRateChange > 0 ? 'improving' : 'declining';
+  }
+
+  return {
+    winRateChange,
+    ratingChange,
+    winRateChangePercent,
+    trend,
+  };
+}
+
+/**
+ * Calculate career trend from season summaries.
+ * Identifies peak performance periods and compares current season to career best.
+ *
+ * @param seasons - Array of season summaries (sorted chronologically)
+ * @returns Career trend analysis with peaks and current vs peak comparison
+ */
+export function calculateCareerTrend(seasons: SeasonSummary[]): CareerTrend | null {
+  if (seasons.length === 0) {
+    return null;
+  }
+
+  // Find peak win rate season
+  let peakWinRate = seasons[0];
+  for (const season of seasons) {
+    if (season.winRate > peakWinRate.winRate) {
+      peakWinRate = season;
+    }
+  }
+
+  // Find peak rating season (if ratings exist)
+  let peakRating: { value: number; seasonId: string } | null = null;
+  const seasonsWithRating = seasons.filter((s) => s.rating !== null);
+  if (seasonsWithRating.length > 0) {
+    let peakRatingSeason = seasonsWithRating[0];
+    for (const season of seasonsWithRating) {
+      if (season.rating! > peakRatingSeason.rating!) {
+        peakRatingSeason = season;
+      }
+    }
+    peakRating = {
+      value: peakRatingSeason.rating!,
+      seasonId: peakRatingSeason.seasonId,
+    };
+  }
+
+  // Get current season (last in array)
+  const currentSeason = seasons[seasons.length - 1];
+
+  // Calculate current vs peak differences
+  const winRateDiff = (currentSeason.winRate - peakWinRate.winRate) * 100; // Convert to percentage points
+  const ratingDiff =
+    peakRating && currentSeason.rating !== null
+      ? currentSeason.rating - peakRating.value
+      : null;
+
+  return {
+    seasons,
+    peakWinRate: {
+      value: peakWinRate.winRate,
+      seasonId: peakWinRate.seasonId,
+    },
+    peakRating,
+    currentVsPeak: {
+      winRateDiff,
+      ratingDiff,
+    },
+  };
+}
+
+/**
+ * Calculate consistency metrics across seasons.
+ * Measures variance and standard deviation of performance over time.
+ *
+ * @param seasons - Array of season summaries (sorted chronologically)
+ * @returns Consistency metrics with variance, standard deviation, and category, or null if insufficient data
+ */
+export function calculateConsistencyMetrics(
+  seasons: SeasonSummary[]
+): ConsistencyMetrics | null {
+  // Need at least 2 seasons to calculate consistency
+  if (seasons.length < 2) {
+    return null;
+  }
+
+  // Calculate win rate variance and standard deviation
+  const winRates = seasons.map((s) => s.winRate);
+  const winRateMean = winRates.reduce((sum, wr) => sum + wr, 0) / winRates.length;
+  const winRateVariance =
+    winRates.reduce((sum, wr) => sum + Math.pow(wr - winRateMean, 2), 0) / winRates.length;
+  const winRateStdDev = Math.sqrt(winRateVariance);
+
+  // Calculate rating variance and standard deviation (if ratings exist)
+  const seasonsWithRating = seasons.filter((s) => s.rating !== null);
+  let ratingVariance: number | null = null;
+  let ratingStdDev: number | null = null;
+
+  if (seasonsWithRating.length >= 2) {
+    const ratings = seasonsWithRating.map((s) => s.rating!);
+    const ratingMean = ratings.reduce((sum, r) => sum + r, 0) / ratings.length;
+    ratingVariance =
+      ratings.reduce((sum, r) => sum + Math.pow(r - ratingMean, 2), 0) / ratings.length;
+    ratingStdDev = Math.sqrt(ratingVariance);
+  }
+
+  // Determine consistency category based on win rate standard deviation
+  // Lower std dev = more consistent
+  let consistency: 'high' | 'medium' | 'low' = 'medium';
+  const CONSISTENCY_LOW_THRESHOLD = 0.15; // 15% win rate variation
+  const CONSISTENCY_HIGH_THRESHOLD = 0.05; // 5% win rate variation
+
+  if (winRateStdDev <= CONSISTENCY_HIGH_THRESHOLD) {
+    consistency = 'high';
+  } else if (winRateStdDev >= CONSISTENCY_LOW_THRESHOLD) {
+    consistency = 'low';
+  }
+
+  return {
+    winRateVariance,
+    winRateStdDev,
+    ratingVariance,
+    ratingStdDev,
+    consistency,
+  };
 }
 
 // ============================================================================

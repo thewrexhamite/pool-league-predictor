@@ -62,6 +62,57 @@ export interface PlayerData2526 {
 
 export type Players2526Map = Record<string, PlayerData2526>;
 
+// Multi-season career analysis types
+export interface SeasonSummary {
+  seasonId: string; // e.g., "2425", "2526"
+  winRate: number; // 0-1
+  rating: number | null;
+  gamesPlayed: number;
+  wins: number;
+}
+
+export interface CareerTrend {
+  seasons: SeasonSummary[];
+  peakWinRate: {
+    value: number; // 0-1
+    seasonId: string;
+  };
+  peakRating: {
+    value: number;
+    seasonId: string;
+  } | null;
+  currentVsPeak: {
+    winRateDiff: number; // percentage points difference
+    ratingDiff: number | null;
+  };
+}
+
+export interface ImprovementMetrics {
+  winRateChange: number; // percentage points change vs last season
+  ratingChange: number | null; // absolute rating change vs last season
+  winRateChangePercent: number; // percent change (e.g., 10 means +10%)
+  trend: 'improving' | 'declining' | 'stable';
+}
+
+export interface ConsistencyMetrics {
+  winRateVariance: number;
+  winRateStdDev: number;
+  ratingVariance: number | null;
+  ratingStdDev: number | null;
+  consistency: 'high' | 'medium' | 'low';
+}
+
+export interface CareerStats {
+  playerName: string;
+  trend: CareerTrend;
+  improvement: ImprovementMetrics | null; // null if only 1 season
+  consistency: ConsistencyMetrics | null; // null if only 1 season
+  totalSeasons: number;
+  careerGamesPlayed: number;
+  careerWins: number;
+  careerWinRate: number; // 0-1
+}
+
 // Standings types
 export interface StandingEntry {
   team: string;
@@ -465,6 +516,7 @@ export interface PlayerInsightInput {
   stats2526: PlayerData2526 | null;
   teams: { div: string; team: string }[];
   divisionContext: string;
+  careerStats?: CareerStats | null;
 }
 
 export interface PlayerInsightOutput {

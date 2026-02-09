@@ -7,6 +7,13 @@ import clsx from 'clsx';
 import { useAI } from '@/hooks/use-ai';
 import { useLeague } from '@/lib/league-context';
 import { useActiveData } from '@/lib/active-data-provider';
+import {
+  fetchPlayerCareerData,
+  calculateCareerTrend,
+  calculateImprovementRate,
+  calculateConsistencyMetrics,
+} from '@/lib/stats/career-stats';
+import type { CareerStats } from '@/lib/types';
 
 interface AIInsightsPanelProps {
   type: 'match' | 'player';
@@ -29,8 +36,39 @@ export function AIInsightsPanel({ type, homeTeam, awayTeam, playerName }: AIInsi
       if (type === 'match' && homeTeam && awayTeam) {
         const result = await analyzeMatch(homeTeam, awayTeam, ds.divisions, ds.results, leagueName);
         if (result) setInsight(result);
-      } else if (type === 'player' && playerName) {
-        const result = await getPlayerInsight(playerName, ds.divisions, ds.results, leagueName);
+      } else if (type === 'player' && playerName && selected?.league?.id) {
+        // Fetch career data for the player
+        let careerStats: CareerStats | null = null;
+        try {
+          const seasons = await fetchPlayerCareerData(playerName, selected.league.id);
+          if (seasons.length > 0) {
+            const trend = calculateCareerTrend(seasons);
+            const improvement = calculateImprovementRate(seasons);
+            const consistency = calculateConsistencyMetrics(seasons);
+
+            if (trend) {
+              const totalGamesPlayed = seasons.reduce((sum, s) => sum + s.gamesPlayed, 0);
+              const totalWins = seasons.reduce((sum, s) => sum + s.wins, 0);
+              const careerWinRate = totalGamesPlayed > 0 ? totalWins / totalGamesPlayed : 0;
+
+              careerStats = {
+                playerName,
+                trend,
+                improvement,
+                consistency,
+                totalSeasons: seasons.length,
+                careerGamesPlayed: totalGamesPlayed,
+                careerWins: totalWins,
+                careerWinRate,
+              };
+            }
+          }
+        } catch (err) {
+          // If career data fails to fetch, continue without it
+          console.warn('Failed to fetch career data:', err);
+        }
+
+        const result = await getPlayerInsight(playerName, ds.divisions, ds.results, leagueName, careerStats);
         if (result) setInsight(result);
       }
     } catch {
