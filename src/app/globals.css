@@ -186,3 +186,134 @@ header::before {
   animation: shimmer 2s infinite linear;
   border-radius: 6px;
 }
+
+/* ===== Landing Page Premium Effects ===== */
+
+/* Animated gradient border — used on the highlighted "Predict" card.
+   Works by showing the gradient bg through the 1px padding gap. */
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.gradient-border {
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg),
+    rgb(var(--baize)),
+    rgb(var(--accent)),
+    rgb(var(--baize-light)),
+    rgb(var(--accent) / 0.7),
+    rgb(var(--baize))
+  );
+  animation: rotate-gradient 4s linear infinite;
+}
+/* Fallback: if @property isn't supported the conic-gradient is static,
+   so also add a slow hue-shift as backup visual motion. */
+@supports not (background: conic-gradient(from 0deg, red, red)) {
+  .gradient-border {
+    background: linear-gradient(135deg, rgb(var(--baize)), rgb(var(--accent)), rgb(var(--baize-light)));
+    background-size: 300% 300%;
+    animation: gradient-shift 4s ease infinite;
+  }
+}
+@keyframes rotate-gradient {
+  to { --gradient-angle: 360deg; }
+}
+
+/* Button shine sweep */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.12),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: none;
+}
+.btn-shine:hover::after {
+  animation: shine-sweep 0.6s ease-out;
+}
+@keyframes shine-sweep {
+  to { left: 150%; }
+}
+
+/* Hero background grid overlay */
+.hero-grid {
+  background-image:
+    linear-gradient(rgb(var(--surface-border) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--surface-border) / 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Floating orb animation */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.97); }
+}
+@keyframes float-slow-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 20px) scale(0.96); }
+  66% { transform: translate(20px, -25px) scale(1.04); }
+}
+
+/* Card hover glow */
+.card-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.card-glow:hover {
+  transform: translateY(-2px);
+}
+
+/* Gradient text utility for landing page */
+.text-gradient-hero {
+  background: linear-gradient(135deg, rgb(var(--baize-light)), rgb(var(--accent)), rgb(var(--baize)));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease infinite;
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Stat number gradient */
+.stat-gradient {
+  background: linear-gradient(180deg, rgb(var(--tw-white)), rgb(var(--tw-gray-400)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Pulse glow on CTA */
+.cta-glow {
+  animation: cta-pulse 3s ease-in-out infinite;
+}
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgb(var(--baize) / 0.25), 0 0 60px rgb(var(--baize) / 0.08); }
+  50% { box-shadow: 0 0 30px rgb(var(--baize) / 0.4), 0 0 80px rgb(var(--baize) / 0.15); }
+}
+
+/* Noise texture overlay (subtle) */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
