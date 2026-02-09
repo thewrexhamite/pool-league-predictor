@@ -14,8 +14,19 @@ interface StandingsTabProps {
 }
 
 export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamClick }: StandingsTabProps) {
-  const { ds } = useActiveData();
+  const { ds, data } = useActiveData();
   const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
+
+  // Format cache age for display
+  const getCacheAgeText = (ageMs: number): string => {
+    const minutes = Math.floor(ageMs / 60000);
+    const hours = Math.floor(minutes / 60);
+    if (hours > 0) return `${hours}h ago`;
+    if (minutes > 0) return `${minutes}m ago`;
+    return 'just now';
+  };
+
+  const showCacheBadge = data.source === 'cache' || data.isOffline;
 
   // Generate share data with top team
   const topTeam = standings[0]?.team;
@@ -27,7 +38,15 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6 overflow-x-auto">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-white">{divName} — Standings</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-bold text-white">{divName} — Standings</h2>
+          {showCacheBadge && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium bg-surface-elevated border border-surface-border rounded text-gray-400">
+              {data.isOffline ? '🔌 Offline' : '💾 Cached'}
+              {data.cacheAge > 0 && ` • ${getCacheAgeText(data.cacheAge)}`}
+            </span>
+          )}
+        </div>
         <ShareButton data={shareData} title="Share standings" />
       </div>
       <table className="w-full text-xs md:text-sm" role="table">

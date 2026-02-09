@@ -8,6 +8,7 @@ import { AuthProvider } from '@/lib/auth';
 import { AnalyticsInit } from '@/components/AnalyticsInit';
 import { LeagueProvider } from '@/lib/league-context';
 import { LeagueBrandingProvider } from '@/lib/league-branding';
+import { OfflineIndicator } from '@/components/OfflineIndicator';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -34,6 +35,10 @@ export default function RootLayout({
     <html lang="en" className={spaceGrotesk.variable} suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Pool League Pro" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-2Y3WXKZYSD"
           strategy="afterInteractive"
@@ -65,6 +70,7 @@ export default function RootLayout({
               <LeagueProvider>
                 <LeagueBrandingProvider>
                   <AnalyticsInit />
+                  <OfflineIndicator />
                   {children}
                 </LeagueBrandingProvider>
               </LeagueProvider>
