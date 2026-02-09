@@ -101,7 +101,7 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
                 <td className="p-2 font-medium text-info hover:text-info-light transition-colors">
                   <div className="flex items-center gap-2">
                     {s.team}
-                    {isChampion && <Trophy className="w-4 h-4 text-yellow-400" title="Champion" />}
+                    {isChampion && <span title="Champion"><Trophy className="w-4 h-4 text-yellow-400" /></span>}
                     {isHistorical && isPromoted && !isChampion && <span className="text-[10px] text-win font-semibold">↑</span>}
                     {isHistorical && isRelegated && <span className="text-[10px] text-loss font-semibold">↓</span>}
                   </div>

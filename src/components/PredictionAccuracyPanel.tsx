@@ -47,6 +47,7 @@ export default function PredictionAccuracyPanel({ selectedDiv, seasonId, seasonL
     setLoadingHistorical(true);
 
     async function fetchHistoricalData() {
+      if (!selected) return;
       try {
         const seasons = selected.league.seasons || [];
         const results = await Promise.all(

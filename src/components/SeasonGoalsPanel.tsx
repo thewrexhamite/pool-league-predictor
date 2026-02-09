@@ -25,7 +25,7 @@ export default function SeasonGoalsPanel({ simResults, team }: SeasonGoalsPanelP
           <Target size={48} className="mx-auto text-gray-600 mb-3" />
           <p className="text-sm text-gray-400">Run a simulation to see your season goals</p>
           <p className="text-xs text-gray-500 mt-1">
-            Navigate to Simulate tab and click "Run Season Simulation"
+            Navigate to Simulate tab and click &quot;Run Season Simulation&quot;
           </p>
         </div>
       </div>

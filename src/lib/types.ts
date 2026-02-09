@@ -1,6 +1,6 @@
 // League data types
 
-export type TabKey = 'dashboard' | 'standings' | 'results' | 'team' | 'player' | 'players' | 'stats' | 'simulate' | 'predict' | 'fixtures';
+export type TabKey = 'dashboard' | 'standings' | 'results' | 'team' | 'player' | 'players' | 'stats' | 'simulate' | 'predict' | 'fixtures' | 'compare' | 'optimizer' | 'captain';
 
 export interface Division {
   name: string;
@@ -26,6 +26,7 @@ export interface Fixture {
   home: string;
   away: string;
   division: string;
+  venue?: string;
 }
 
 export interface PlayerStats2425 {
@@ -574,7 +575,7 @@ export interface PlayerInsightOutput {
 
 // Lineup optimizer types
 
-export interface PlayerAvailability {
+export interface LineupPlayerAvailability {
   name: string;
   available: boolean;
 }

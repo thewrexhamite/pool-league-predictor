@@ -100,7 +100,7 @@ export default function CaptainDashboard({
                 Claim Your Team
               </h3>
               <p className="text-sm text-gray-400 mb-4">
-                The Captain's Dashboard is your mission control for match preparation.
+                The Captain&apos;s Dashboard is your mission control for match preparation.
                 To use it, you need to claim a team first.
               </p>
               <p className="text-xs text-gray-500">
@@ -125,7 +125,7 @@ export default function CaptainDashboard({
         transition={{ duration: 0.3 }}
         className="bg-surface-card rounded-card shadow-card p-4"
       >
-        <h2 className="text-lg font-bold text-white mb-1">Captain's Dashboard</h2>
+        <h2 className="text-lg font-bold text-white mb-1">Captain&apos;s Dashboard</h2>
         <p className="text-sm text-gray-400">
           {myTeam.team} • {divisionName}
         </p>

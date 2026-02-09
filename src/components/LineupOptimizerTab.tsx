@@ -5,7 +5,7 @@ import { Users, Lock, Unlock, Check, X } from 'lucide-react';
 import clsx from 'clsx';
 import type {
   DivisionCode,
-  PlayerAvailability,
+  LineupPlayerAvailability,
   LockedPosition,
   OptimizedLineup,
   LineupAlternative,
@@ -42,7 +42,7 @@ export default function LineupOptimizerTab({
   const teams = ds.divisions[selectedDiv].teams;
 
   // State management
-  const [playerAvailability, setPlayerAvailability] = useState<PlayerAvailability[]>([]);
+  const [playerAvailability, setPlayerAvailability] = useState<LineupPlayerAvailability[]>([]);
   const [lockedPositions, setLockedPositions] = useState<LockedPosition[]>([]);
   const [optimizedLineup, setOptimizedLineup] = useState<OptimizedLineup | null>(null);
   const [alternatives, setAlternatives] = useState<LineupAlternative[]>([]);

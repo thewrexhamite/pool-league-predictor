@@ -276,7 +276,7 @@ export async function POST(request: Request) {
         // Normalize team names for comparison
         const normalizedTeamId = data.teamId.toLowerCase().replace(/^team-/, '').trim();
         const teamAllowed = preferences.teamFilters.some(
-          (team) => team.toLowerCase().trim() === normalizedTeamId
+          (team: string) => team.toLowerCase().trim() === normalizedTeamId
         );
 
         if (!teamAllowed) {

@@ -15,7 +15,7 @@ interface PlayerMergePanelProps {
 
 export default function PlayerMergePanel({}: PlayerMergePanelProps) {
   const { ds } = useActiveData();
-  const { getIdToken } = useAuth();
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlayers, setSelectedPlayers] = useState<LeaguePlayer[]>([]);
   const [showPreview, setShowPreview] = useState(false);
@@ -81,7 +81,7 @@ export default function PlayerMergePanel({}: PlayerMergePanelProps) {
 
     try {
       // Get Firebase ID token
-      const idToken = await getIdToken();
+      const idToken = user ? await user.getIdToken() : null;
       if (!idToken) {
         setError('Authentication required. Please log in again.');
         setIsSubmitting(false);

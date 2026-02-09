@@ -89,6 +89,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
     const q = searchQuery.toLowerCase();
 
     async function searchAcrossSeasons() {
+      if (!selected) return;
       setSearchingCrossSeason(true);
       try {
         const { db } = await import('@/lib/firebase');

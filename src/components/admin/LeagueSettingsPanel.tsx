@@ -16,7 +16,7 @@ interface LeagueSettings {
 }
 
 export default function LeagueSettingsPanel() {
-  const { getIdToken } = useAuth();
+  const { user } = useAuth();
   const [settings, setSettings] = useState<LeagueSettings>({
     leagueName: '',
     primaryColor: '#1976d2',
@@ -43,7 +43,7 @@ export default function LeagueSettingsPanel() {
 
     try {
       // Get auth token from Firebase Auth
-      const idToken = await getIdToken();
+      const idToken = user ? await user.getIdToken() : null;
 
       const response = await fetch('/api/admin/leagues/settings', {
         headers: {
@@ -117,7 +117,7 @@ export default function LeagueSettingsPanel() {
 
     try {
       // Get auth token from Firebase Auth
-      const idToken = await getIdToken();
+      const idToken = user ? await user.getIdToken() : null;
 
       const response = await fetch('/api/admin/leagues/settings', {
         method: 'PATCH',

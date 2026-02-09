@@ -84,7 +84,7 @@ export default function HistoricalStandingsView({ onTeamClick }: HistoricalStand
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
                   {name}
                   {isChampionDiv && (
-                    <Trophy className="w-4 h-4 text-yellow-400" title="Division Champion" />
+                    <span title="Division Champion"><Trophy className="w-4 h-4 text-yellow-400" /></span>
                   )}
                 </h3>
               </div>
@@ -126,13 +126,13 @@ export default function HistoricalStandingsView({ onTeamClick }: HistoricalStand
                           <div className="flex items-center gap-1.5">
                             <span className="truncate">{s.team}</span>
                             {isTeamChampion && (
-                              <Trophy className="w-3.5 h-3.5 text-yellow-400 flex-shrink-0" title="Champion" />
+                              <span title="Champion"><Trophy className="w-3.5 h-3.5 text-yellow-400 flex-shrink-0" /></span>
                             )}
                             {isPromoted && !isTeamChampion && (
-                              <TrendingUp className="w-3.5 h-3.5 text-win flex-shrink-0" title="Promoted" />
+                              <span title="Promoted"><TrendingUp className="w-3.5 h-3.5 text-win flex-shrink-0" /></span>
                             )}
                             {isRelegated && (
-                              <TrendingDown className="w-3.5 h-3.5 text-loss flex-shrink-0" title="Relegated" />
+                              <span title="Relegated"><TrendingDown className="w-3.5 h-3.5 text-loss flex-shrink-0" /></span>
                             )}
                           </div>
                         </td>

@@ -1,6 +1,6 @@
 import type {
   DivisionCode,
-  PlayerAvailability,
+  LineupPlayerAvailability,
   LockedPosition,
   LineupWinProbability,
   OptimizedLineup,
@@ -41,7 +41,7 @@ interface ScoredPlayer {
  */
 export function filterAvailablePlayers(
   teamPlayers: TeamPlayer[],
-  availability: PlayerAvailability[]
+  availability: LineupPlayerAvailability[]
 ): TeamPlayer[] {
   const availableSet = new Set(
     availability.filter(a => a.available).map(a => a.name)
@@ -125,7 +125,7 @@ function scorePlayers(
  */
 export function optimizeLineupWithLocks(
   teamPlayers: TeamPlayer[],
-  availability: PlayerAvailability[],
+  availability: LineupPlayerAvailability[],
   locks: LockedPosition[],
   myTeam: string,
   opponent: string,
@@ -317,7 +317,7 @@ export function calculateLineupWinProbability(
 export function generateAlternativeLineups(
   optimal: OptimizedLineup,
   teamPlayers: TeamPlayer[],
-  availability: PlayerAvailability[],
+  availability: LineupPlayerAvailability[],
   locks: LockedPosition[],
   myTeam: string,
   opponent: string,

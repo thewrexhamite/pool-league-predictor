@@ -27,7 +27,6 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
   const { ds, frames } = useActiveData();
   const { leagues, selected } = useLeague();
   const { user, profile } = useAuth();
-  const { selected } = useLeague();
   const stats = getPlayerStats(player, ds);
   const stats2526 = getPlayerStats2526(player, ds);
   const playerTeams = getPlayerTeams(player, ds);
@@ -121,6 +120,7 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
     let cancelled = false;
 
     async function fetchHistoricalStats() {
+      if (!selected) return;
       setLoadingHistorical(true);
       try {
         const { db } = await import('@/lib/firebase');
@@ -274,8 +274,8 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
         const p = playerData.total.p;
         const w = playerData.total.w;
         const pct = p > 0 ? (w / p) * 100 : 0;
-        const bdF = playerData.total.bdF || 0;
-        const bdA = playerData.total.bdA || 0;
+        const bdF = (playerData.total as any).bdF || 0;
+        const bdA = (playerData.total as any).bdA || 0;
 
         leagueStats.push({
           leagueId,

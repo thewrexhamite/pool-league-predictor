@@ -5,24 +5,39 @@ import { MatchResultsEmail } from './email-templates/MatchResultsEmail';
 import { UpcomingFixturesEmail } from './email-templates/UpcomingFixturesEmail';
 import { WeeklyDigestEmail } from './email-templates/WeeklyDigestEmail';
 
-const resendApiKey = process.env.RESEND_API_KEY;
-
-if (!resendApiKey) {
-  throw new Error('RESEND_API_KEY environment variable is not set');
+/**
+ * Get the Resend API key, throwing if not set (lazy initialization)
+ */
+function getResendApiKey(): string {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    throw new Error('RESEND_API_KEY environment variable is not set');
+  }
+  return key;
 }
+
+let _resend: Resend | null = null;
 
 /**
  * Resend client instance for sending emails
- * Initialized with API key from environment variables
+ * Lazily initialized with API key from environment variables
  */
-export const resend = new Resend(resendApiKey);
+export function getResend(): Resend {
+  if (!_resend) {
+    _resend = new Resend(getResendApiKey());
+  }
+  return _resend;
+}
+
+/** @deprecated Use getResend() instead */
+export const resend = { get instance() { return getResend(); } };
 
 /**
  * Check if email service is configured
  * @returns true if Resend API key is set
  */
 export function isEmailConfigured(): boolean {
-  return !!resendApiKey;
+  return !!process.env.RESEND_API_KEY;
 }
 
 /**
@@ -74,7 +89,7 @@ export async function sendEmail(
   }
 
   // Send email using Resend
-  const response = await resend.emails.send({
+  const response = await getResend().emails.send({
     from: 'Pool League Predictor <notifications@poolleaguepredictor.com>',
     to,
     subject,

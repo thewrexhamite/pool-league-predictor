@@ -143,7 +143,7 @@ export default function NotificationHistory() {
           </div>
           <h3 className="text-lg font-semibold text-zinc-300">No notifications yet</h3>
           <p className="max-w-md text-sm text-zinc-500">
-            When you receive notifications, they'll appear here. Make sure you've enabled notifications in your settings.
+            When you receive notifications, they&apos;ll appear here. Make sure you&apos;ve enabled notifications in your settings.
           </p>
         </div>
       </div>

@@ -39,7 +39,7 @@ interface UpdateLeagueRequestBody {
 // GET /api/admin/leagues/[leagueId] - Get a specific league
 export async function GET(
   request: Request,
-  { params }: { params: { leagueId: string } }
+  { params }: { params: Promise<{ leagueId: string }> }
 ) {
   // Verify admin access
   const userId = await verifyAdminAccess(request as any);
@@ -51,7 +51,7 @@ export async function GET(
   }
 
   try {
-    const { leagueId } = params;
+    const { leagueId } = await params;
 
     if (!leagueId) {
       return NextResponse.json(
@@ -131,7 +131,7 @@ export async function GET(
 // PUT /api/admin/leagues/[leagueId] - Update a league
 export async function PUT(
   request: Request,
-  { params }: { params: { leagueId: string } }
+  { params }: { params: Promise<{ leagueId: string }> }
 ) {
   // Verify admin access
   const userId = await verifyAdminAccess(request as any);
@@ -143,7 +143,7 @@ export async function PUT(
   }
 
   try {
-    const { leagueId } = params;
+    const { leagueId } = await params;
     const body: UpdateLeagueRequestBody = await request.json();
 
     if (!leagueId) {
@@ -251,7 +251,7 @@ export async function PUT(
 // DELETE /api/admin/leagues/[leagueId] - Delete a league
 export async function DELETE(
   request: Request,
-  { params }: { params: { leagueId: string } }
+  { params }: { params: Promise<{ leagueId: string }> }
 ) {
   // Verify admin access
   const userId = await verifyAdminAccess(request as any);
@@ -263,7 +263,7 @@ export async function DELETE(
   }
 
   try {
-    const { leagueId } = params;
+    const { leagueId } = await params;
 
     if (!leagueId) {
       return NextResponse.json(

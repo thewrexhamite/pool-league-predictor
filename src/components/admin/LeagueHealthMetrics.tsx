@@ -54,7 +54,7 @@ interface AnalyticsData {
 }
 
 export default function LeagueHealthMetrics() {
-  const { getIdToken } = useAuth();
+  const { user } = useAuth();
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +69,7 @@ export default function LeagueHealthMetrics() {
       setError(null);
 
       // Get auth token from Firebase Auth
-      const idToken = await getIdToken();
+      const idToken = user ? await user.getIdToken() : null;
 
       const response = await fetch('/api/admin/analytics', {
         headers: {

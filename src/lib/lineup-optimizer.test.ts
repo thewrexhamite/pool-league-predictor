@@ -6,7 +6,7 @@ import {
 } from './lineup-optimizer';
 import type {
   TeamPlayer,
-  PlayerAvailability,
+  LineupPlayerAvailability,
   LockedPosition,
   FrameData,
   Players2526Map,
@@ -92,7 +92,7 @@ describe('filterAvailablePlayers', () => {
   ];
 
   it('should return only available players', () => {
-    const availability: PlayerAvailability[] = [
+    const availability: LineupPlayerAvailability[] = [
       { name: 'Player 1', available: true },
       { name: 'Player 2', available: false },
       { name: 'Player 3', available: true },
@@ -105,7 +105,7 @@ describe('filterAvailablePlayers', () => {
   });
 
   it('should return empty array when no players are available', () => {
-    const availability: PlayerAvailability[] = [
+    const availability: LineupPlayerAvailability[] = [
       { name: 'Player 1', available: false },
       { name: 'Player 2', available: false },
       { name: 'Player 3', available: false },
@@ -117,7 +117,7 @@ describe('filterAvailablePlayers', () => {
   });
 
   it('should return all players when all are available', () => {
-    const availability: PlayerAvailability[] = [
+    const availability: LineupPlayerAvailability[] = [
       { name: 'Player 1', available: true },
       { name: 'Player 2', available: true },
       { name: 'Player 3', available: true },
@@ -130,7 +130,7 @@ describe('filterAvailablePlayers', () => {
   });
 
   it('should handle availability list with extra names', () => {
-    const availability: PlayerAvailability[] = [
+    const availability: LineupPlayerAvailability[] = [
       { name: 'Player 1', available: true },
       { name: 'Player 2', available: true },
       { name: 'Unknown Player', available: true },
@@ -184,7 +184,7 @@ describe('optimizeLineupWithLocks', () => {
   };
 
   it('should return null when fewer than 10 players are available', () => {
-    const availability: PlayerAvailability[] = Array.from({ length: 8 }, (_, i) => ({
+    const availability: LineupPlayerAvailability[] = Array.from({ length: 8 }, (_, i) => ({
       name: `Player ${i + 1}`,
       available: true,
     }));
@@ -205,7 +205,7 @@ describe('optimizeLineupWithLocks', () => {
   });
 
   it('should create optimized lineup with no locks', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -231,7 +231,7 @@ describe('optimizeLineupWithLocks', () => {
   });
 
   it('should respect locked positions', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -259,7 +259,7 @@ describe('optimizeLineupWithLocks', () => {
   });
 
   it('should fill unlocked positions with best available players', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -289,7 +289,7 @@ describe('optimizeLineupWithLocks', () => {
   });
 
   it('should handle invalid lock positions gracefully', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -509,7 +509,7 @@ describe('generateAlternativeLineups', () => {
   };
 
   it('should generate alternative lineups', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -533,7 +533,7 @@ describe('generateAlternativeLineups', () => {
   });
 
   it('should rank alternatives correctly', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -565,7 +565,7 @@ describe('generateAlternativeLineups', () => {
   });
 
   it('should calculate probability differences correctly', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -592,7 +592,7 @@ describe('generateAlternativeLineups', () => {
   });
 
   it('should respect locked positions when generating alternatives', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -622,7 +622,7 @@ describe('generateAlternativeLineups', () => {
   });
 
   it('should not create duplicate alternatives', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
@@ -650,7 +650,7 @@ describe('generateAlternativeLineups', () => {
   });
 
   it('should return empty array when no bench players available', () => {
-    const availability: PlayerAvailability[] = optimalLineup.set1
+    const availability: LineupPlayerAvailability[] = optimalLineup.set1
       .concat(optimalLineup.set2)
       .map(name => ({ name, available: true }));
 
@@ -672,7 +672,7 @@ describe('generateAlternativeLineups', () => {
   });
 
   it('should limit number of alternatives to requested amount', () => {
-    const availability: PlayerAvailability[] = mockTeamPlayers.map(p => ({
+    const availability: LineupPlayerAvailability[] = mockTeamPlayers.map(p => ({
       name: p.name,
       available: true,
     }));
