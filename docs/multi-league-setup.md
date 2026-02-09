@@ -47,6 +47,13 @@ LeagueAppLive             LeagueAppLive              Manual Upload
 Before adding a new league, ensure you have:
 
 - [ ] **Admin access** to the Pool League Pro admin dashboard
+  - You must have the `admin` role in your user profile
+  - Sign in at http://localhost:3000 or https://poolleaguepro.com
+  - If you don't see the admin menu, contact your system administrator
+  - System admins can grant access using: `npx tsx scripts/set-admin.ts your@email.com`
+- [ ] **Firebase Authentication** configured
+  - Must be signed in with Google account
+  - Admin role must be assigned before you can access admin features
 - [ ] **League information**:
   - Full league name (e.g., "North Wales Pool Association")
   - Short name for display (max 10 characters, e.g., "NWPA")
@@ -58,6 +65,43 @@ Before adding a new league, ensure you have:
   - Manual: prepared data files
 - [ ] **Firebase credentials** configured (for production)
 - [ ] **Development environment** running (for testing)
+
+## Admin Access Setup (For System Administrators)
+
+### Granting Admin Access
+
+To grant admin privileges to a user:
+
+1. **User Must Sign In First**
+   - User must visit the site and sign in with Google OAuth at least once
+   - This creates their user profile in Firestore
+
+2. **Run Admin Assignment Script**
+   ```bash
+   GOOGLE_APPLICATION_CREDENTIALS=./service-account.json \
+   npx tsx scripts/set-admin.ts user@example.com
+   ```
+
+3. **User Must Refresh**
+   - User must sign out and sign in again
+   - Or refresh the page to load new permissions
+
+### Verifying Admin Access
+
+Admin users will see:
+- "Admin" link in the user menu
+- Admin dashboard at `/admin`
+- Admin pages and controls
+
+Non-admin users will be redirected to home if they try to access admin pages.
+
+### Security Model
+
+- All admin API endpoints require Firebase Authentication
+- Admin role is stored in `users/{uid}` Firestore document
+- Role is verified on every admin API request
+- Frontend pages check authentication before rendering
+- Non-authenticated requests receive 401 Unauthorized
 
 ## Quick Start
 

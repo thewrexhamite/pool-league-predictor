@@ -1,18 +1,64 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLeague } from '@/lib/league-context';
+import { useAuth } from '@/lib/auth';
+import { isAdmin, getAuthToken } from '@/lib/auth/admin-auth';
 import { useRouter } from 'next/navigation';
 import { Plus, Users } from 'lucide-react';
 import LeagueForm from '@/components/admin/LeagueForm';
 import type { LeagueConfig } from '@/lib/types';
 
+// Helper to make authenticated API calls
+async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const token = await getAuthToken();
+
+  if (!token) {
+    throw new Error('Not authenticated');
+  }
+
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+
 function AdminDashboardContent() {
   const { leagues, loading } = useLeague();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formMode, setFormMode] = useState<'create' | 'edit'>('create');
   const [selectedLeague, setSelectedLeague] = useState<LeagueConfig | null>(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    async function checkAuth() {
+      if (authLoading) return;
+
+      // Not logged in - redirect to home
+      if (!user) {
+        router.push('/');
+        return;
+      }
+
+      // Check admin status
+      const authorized = await isAdmin();
+      if (!authorized) {
+        router.push('/'); // Not admin - redirect to home
+        return;
+      }
+
+      setIsAuthorized(true);
+      setChecking(false);
+    }
+
+    checkAuth();
+  }, [user, authLoading, router]);
 
   // Handle opening the create form
   const handleCreateLeague = () => {
@@ -27,7 +73,7 @@ function AdminDashboardContent() {
       const url = '/api/admin/leagues';
       const method = formMode === 'create' ? 'POST' : 'PUT';
 
-      const response = await fetch(url, {
+      const response = await fetchWithAuth(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -49,6 +95,18 @@ function AdminDashboardContent() {
       return false;
     }
   };
+
+  // Show loading while checking auth
+  if (authLoading || checking || !isAuthorized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

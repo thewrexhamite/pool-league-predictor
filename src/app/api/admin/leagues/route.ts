@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
 import type { LeagueConfig } from '@/lib/types';
+import { verifyAdminAccess } from '@/lib/auth/server-auth';
 
 // Check if Firebase Admin is configured with proper credentials
 function hasFirebaseCredentials(): boolean {
@@ -37,6 +38,15 @@ interface CreateLeagueRequestBody {
 
 // GET /api/admin/leagues - List all leagues
 export async function GET(request: Request) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     // Check if Firebase Admin credentials are configured
     if (!hasFirebaseCredentials()) {
@@ -94,6 +104,15 @@ export async function GET(request: Request) {
 
 // POST /api/admin/leagues - Create a new league
 export async function POST(request: Request) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     const body: CreateLeagueRequestBody = await request.json();
     const { name, shortName, primaryColor, logo, seasons } = body;

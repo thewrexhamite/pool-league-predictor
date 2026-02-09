@@ -10,10 +10,29 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { useAuth } from '@/lib/auth';
+import { isAdmin, getAuthToken } from '@/lib/auth/admin-auth';
 import { ArrowLeft, Edit, Trash2, Database, Users, Calendar, Palette } from 'lucide-react';
 import LeagueForm from '@/components/admin/LeagueForm';
 import DataSourceConfig from '@/components/admin/DataSourceConfig';
 import type { LeagueConfig, DataSourceConfig as DataSourceConfigType } from '@/lib/types';
+
+// Helper to make authenticated API calls
+async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const token = await getAuthToken();
+
+  if (!token) {
+    throw new Error('Not authenticated');
+  }
+
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
 
 export default function LeagueDetailPage() {
   return (
@@ -31,6 +50,7 @@ function LeagueDetailContent() {
   const router = useRouter();
   const params = useParams();
   const leagueId = params.leagueId as string;
+  const { user, loading: authLoading } = useAuth();
 
   const [league, setLeague] = useState<LeagueConfig | null>(null);
   const [dataSources, setDataSources] = useState<DataSourceConfigType[]>([]);
@@ -39,6 +59,33 @@ function LeagueDetailContent() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDataSourceConfig, setShowDataSourceConfig] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  // Check authentication and authorization
+  useEffect(() => {
+    async function checkAuth() {
+      if (authLoading) return;
+
+      // Not logged in - redirect to home
+      if (!user) {
+        router.push('/');
+        return;
+      }
+
+      // Check admin status
+      const authorized = await isAdmin();
+      if (!authorized) {
+        router.push('/'); // Not admin - redirect to home
+        return;
+      }
+
+      setIsAuthorized(true);
+      setChecking(false);
+    }
+
+    checkAuth();
+  }, [user, authLoading, router]);
 
   // Load league data
   useEffect(() => {
@@ -87,7 +134,7 @@ function LeagueDetailContent() {
   // Handle form submission
   const handleFormSubmit = async (updatedLeague: Partial<LeagueConfig>): Promise<boolean> => {
     try {
-      const response = await fetch(`/api/admin/leagues/${leagueId}`, {
+      const response = await fetchWithAuth(`/api/admin/leagues/${leagueId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -118,7 +165,7 @@ function LeagueDetailContent() {
 
     setIsDeleting(true);
     try {
-      const response = await fetch(`/api/admin/leagues/${leagueId}`, {
+      const response = await fetchWithAuth(`/api/admin/leagues/${leagueId}`, {
         method: 'DELETE',
       });
 
@@ -135,6 +182,18 @@ function LeagueDetailContent() {
       setIsDeleting(false);
     }
   };
+
+  // Show loading while checking auth
+  if (authLoading || checking || !isAuthorized) {
+    return (
+      <div className="min-h-screen bg-base-200 flex items-center justify-center">
+        <div className="text-center">
+          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

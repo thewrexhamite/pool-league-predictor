@@ -4,7 +4,25 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { Database, Loader2, Check, X, Save, Settings } from 'lucide-react';
+import { getAuthToken } from '@/lib/auth/admin-auth';
 import type { DataSourceConfig as DataSourceConfigType, DataSourceType } from '@/lib/types';
+
+// Helper to make authenticated API calls
+async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const token = await getAuthToken();
+
+  if (!token) {
+    throw new Error('Not authenticated');
+  }
+
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
 
 interface DataSourceConfigProps {
   leagueId: string;
@@ -100,7 +118,7 @@ export default function DataSourceConfig({
         enabled,
       };
 
-      const response = await fetch('/api/admin/data-sources', {
+      const response = await fetchWithAuth('/api/admin/data-sources', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

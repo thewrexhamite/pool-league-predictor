@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useLeague } from '@/lib/league-context';
+import { useAuth } from '@/lib/auth';
+import { isAdmin } from '@/lib/auth/admin-auth';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import PlayerLinking from '@/components/admin/PlayerLinking';
@@ -9,12 +11,40 @@ import type { Players2526Map } from '@/lib/types';
 
 function AdminPlayersContent() {
   const { leagues, loading: leaguesLoading } = useLeague();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const [playersData, setPlayersData] = useState<
     Map<string, { leagueName: string; players2526: Players2526Map }>
   >(new Map());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  // Check authentication and authorization
+  useEffect(() => {
+    async function checkAuth() {
+      if (authLoading) return;
+
+      // Not logged in - redirect to home
+      if (!user) {
+        router.push('/');
+        return;
+      }
+
+      // Check admin status
+      const authorized = await isAdmin();
+      if (!authorized) {
+        router.push('/'); // Not admin - redirect to home
+        return;
+      }
+
+      setIsAuthorized(true);
+      setChecking(false);
+    }
+
+    checkAuth();
+  }, [user, authLoading, router]);
 
   // Fetch players data for all leagues
   useEffect(() => {
@@ -86,6 +116,18 @@ function AdminPlayersContent() {
   const handleBack = () => {
     router.push('/admin');
   };
+
+  // Show loading while checking auth
+  if (authLoading || checking || !isAuthorized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="skeleton w-12 h-12 rounded-full mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (leaguesLoading || loading) {
     return (

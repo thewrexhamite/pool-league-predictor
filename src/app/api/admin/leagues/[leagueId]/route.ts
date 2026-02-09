@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
 import type { LeagueConfig } from '@/lib/types';
+import { verifyAdminAccess } from '@/lib/auth/server-auth';
 
 // Check if Firebase Admin is configured with proper credentials
 function hasFirebaseCredentials(): boolean {
@@ -40,6 +41,15 @@ export async function GET(
   request: Request,
   { params }: { params: { leagueId: string } }
 ) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     const { leagueId } = params;
 
@@ -123,6 +133,15 @@ export async function PUT(
   request: Request,
   { params }: { params: { leagueId: string } }
 ) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     const { leagueId } = params;
     const body: UpdateLeagueRequestBody = await request.json();
@@ -234,6 +253,15 @@ export async function DELETE(
   request: Request,
   { params }: { params: { leagueId: string } }
 ) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     const { leagueId } = params;
 
@@ -276,16 +304,40 @@ export async function DELETE(
       );
     }
 
-    // Delete the league document
-    await leagueRef.delete();
+    // Fetch all subcollections and related data
+    const seasonsSnapshot = await leagueRef.collection('seasons').get();
+    const dataSourcesSnapshot = await db
+      .collection('dataSources')
+      .where('leagueId', '==', leagueId)
+      .get();
 
-    // Note: This does not delete subcollections (seasons).
-    // In a production system, you might want to delete all seasons as well
-    // or prevent deletion if seasons exist.
+    // Use batch delete for efficiency
+    const batch = db.batch();
+
+    // Delete the league document
+    batch.delete(leagueRef);
+
+    // Delete all seasons
+    seasonsSnapshot.docs.forEach(doc => {
+      batch.delete(doc.ref);
+    });
+
+    // Delete all data sources
+    dataSourcesSnapshot.docs.forEach(doc => {
+      batch.delete(doc.ref);
+    });
+
+    // Commit all deletes
+    await batch.commit();
 
     return NextResponse.json({
       success: true,
-      message: 'League deleted successfully',
+      message: `League deleted successfully (removed league, ${seasonsSnapshot.size} seasons, ${dataSourcesSnapshot.size} data sources)`,
+      details: {
+        leagueId,
+        seasonsDeleted: seasonsSnapshot.size,
+        dataSourcesDeleted: dataSourcesSnapshot.size,
+      },
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';

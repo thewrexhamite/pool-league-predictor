@@ -4,7 +4,25 @@ import { useState, useMemo } from 'react';
 import { Search, X, Link as LinkIcon, Users, Loader2, Check, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
+import { getAuthToken } from '@/lib/auth/admin-auth';
 import type { Players2526Map } from '@/lib/types';
+
+// Helper to make authenticated API calls
+async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const token = await getAuthToken();
+
+  if (!token) {
+    throw new Error('Not authenticated');
+  }
+
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
 
 interface PlayerWithLeague {
   name: string;
@@ -106,7 +124,7 @@ export default function PlayerLinking({ playersDataByLeague }: PlayerLinkingProp
       // Use the first selected player as the canonical ID
       const [canonical, ...linked] = Array.from(selectedPlayers);
 
-      const response = await fetch('/api/admin/players/link', {
+      const response = await fetchWithAuth('/api/admin/players/link', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

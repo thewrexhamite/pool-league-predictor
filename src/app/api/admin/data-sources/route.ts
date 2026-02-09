@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
 import type { DataSourceConfig, DataSourceType } from '@/lib/types';
+import { verifyAdminAccess } from '@/lib/auth/server-auth';
 
 // Check if Firebase Admin is configured with proper credentials
 function hasFirebaseCredentials(): boolean {
@@ -36,6 +37,15 @@ interface CreateDataSourceRequestBody {
 
 // GET /api/admin/data-sources - List all data sources (optionally filtered by leagueId)
 export async function GET(request: Request) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const leagueId = searchParams.get('leagueId');
@@ -102,6 +112,15 @@ export async function GET(request: Request) {
 
 // POST /api/admin/data-sources - Create a new data source configuration
 export async function POST(request: Request) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     const body: CreateDataSourceRequestBody = await request.json();
     const { leagueId, sourceType, config, enabled } = body;

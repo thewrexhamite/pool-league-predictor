@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
 import type { PlayerLink } from '@/lib/types';
+import { verifyAdminAccess } from '@/lib/auth/server-auth';
 
 // Check if Firebase Admin is configured with proper credentials
 function hasFirebaseCredentials(): boolean {
@@ -33,6 +34,15 @@ interface LinkPlayersRequestBody {
 }
 
 export async function POST(request: Request) {
+  // Verify admin access
+  const userId = await verifyAdminAccess(request as any);
+  if (!userId) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin access required' },
+      { status: 401 }
+    );
+  }
+
   try {
     const body: LinkPlayersRequestBody = await request.json();
     const { playerId, linkedPlayers } = body;
