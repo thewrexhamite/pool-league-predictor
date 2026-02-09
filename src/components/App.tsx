@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { LeagueMeta } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { ActiveDataProvider } from '@/lib/active-data-provider';
+import { useIsAuthenticated } from '@/lib/auth';
 import { useAppState } from '@/hooks/use-app-state';
 
 import { ToastProvider, useToast } from './ToastProvider';
@@ -12,6 +13,9 @@ import AppTabs from './AppTabs';
 import AppFooter from './AppFooter';
 import MyTeamModal from './MyTeamModal';
 import NotificationSettingsModal from './NotificationSettingsModal';
+import AIChatPanel from './AIChatPanel';
+import QuickLookupMode from './QuickLookupMode';
+import { NotificationPrompt } from './NotificationPrompt';
 import BottomTabBar from './BottomTabBar';
 import BackToTopButton from './BackToTopButton';
 
@@ -55,6 +59,20 @@ interface AppContentProps {
 function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
   const { addToast } = useToast();
   const appState = useAppState({ timeMachineDate, setTimeMachineDate, onToast: addToast });
+  const isAuthenticated = useIsAuthenticated();
+
+  // Cmd/Ctrl+K keyboard shortcut for Quick Lookup
+  const { setShowQuickLookup } = appState;
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setShowQuickLookup(prev => !prev);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [setShowQuickLookup]);
 
   return (
     <div className="min-h-screen text-white">
@@ -66,6 +84,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
         }}
         setShowMyTeamModal={appState.setShowMyTeamModal}
         setShowNotificationSettings={appState.setShowNotificationSettings}
+        setShowQuickLookup={appState.setShowQuickLookup}
         refreshing={refreshing}
         availableDates={appState.availableDates}
         league={league}
@@ -93,6 +112,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
           }}
           onTabChange={appState.router.setTab}
           onDivisionReset={appState.resetDivision}
+          onSetMyTeam={() => appState.setShowMyTeamModal(true)}
           prediction={appState.prediction}
           simulation={appState.simulation}
           squadBuilder={appState.squadBuilder}
@@ -118,6 +138,32 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
         isOpen={appState.showNotificationSettings}
         onClose={() => appState.setShowNotificationSettings(false)}
       />
+
+      {/* Quick Lookup overlay (Cmd/Ctrl+K) */}
+      {appState.showQuickLookup && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-lg mx-4">
+            <QuickLookupMode onClose={() => appState.setShowQuickLookup(false)} />
+          </div>
+        </div>
+      )}
+
+      {/* AI Chat FAB — auth-gated */}
+      {isAuthenticated && <AIChatPanel />}
+
+      {/* Notification opt-in prompt — auth-gated, shown after setting My Team */}
+      {isAuthenticated && appState.showNotificationPrompt && (
+        <div className="fixed bottom-20 right-4 z-40 w-80">
+          <NotificationPrompt
+            onSuccess={() => {
+              appState.setShowNotificationPrompt(false);
+              addToast('Notifications enabled!', 'success');
+            }}
+            onDismiss={() => appState.setShowNotificationPrompt(false)}
+            onError={() => appState.setShowNotificationPrompt(false)}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -24,12 +24,14 @@ interface CaptainDashboardProps {
   simResults: SimulationResult[] | null;
   onTeamClick: (team: string) => void;
   onPlayerClick: (name: string) => void;
+  onSetMyTeam?: () => void;
 }
 
 export default function CaptainDashboard({
   simResults,
   onTeamClick,
   onPlayerClick,
+  onSetMyTeam,
 }: CaptainDashboardProps) {
   const { ds } = useActiveData();
   const { myTeam } = useMyTeam();
@@ -103,10 +105,12 @@ export default function CaptainDashboard({
                 The Captain&apos;s Dashboard is your mission control for match preparation.
                 To use it, you need to claim a team first.
               </p>
-              <p className="text-xs text-gray-500">
-                Navigate to the <span className="text-accent font-medium">My Team</span> tab
-                and click on your team name to claim it.
-              </p>
+              <button
+                onClick={onSetMyTeam}
+                className="mt-1 text-sm text-accent hover:text-accent/80 font-medium transition-colors"
+              >
+                Set My Team &rarr;
+              </button>
             </div>
           </div>
         </div>

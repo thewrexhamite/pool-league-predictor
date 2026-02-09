@@ -31,6 +31,7 @@ interface AppTabsProps {
   onPredict: (home: string, away: string) => void;
   onTabChange: (tab: TabKey) => void;
   onDivisionReset: (div: DivisionCode) => void;
+  onSetMyTeam?: () => void;
   prediction: any;
   simulation: any;
   squadBuilder: any;
@@ -51,6 +52,7 @@ export default function AppTabs({
   onPredict,
   onTabChange,
   onDivisionReset,
+  onSetMyTeam,
   prediction,
   simulation,
   squadBuilder,
@@ -144,6 +146,7 @@ export default function AppTabs({
             simResults={simulation.simResults}
             onTeamClick={onTeamClick}
             onPlayerClick={onPlayerClick}
+            onSetMyTeam={onSetMyTeam}
           />
         )}
 
