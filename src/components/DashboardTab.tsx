@@ -11,6 +11,7 @@ import {
   Clock,
   Flame,
   Snowflake,
+  Zap,
 } from 'lucide-react';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
@@ -31,6 +32,7 @@ interface DashboardTabProps {
   onTeamClick: (team: string) => void;
   onPlayerClick: (name: string) => void;
   onPredict: (home: string, away: string) => void;
+  onQuickLookup?: () => void;
 }
 
 export default function DashboardTab({
@@ -40,6 +42,7 @@ export default function DashboardTab({
   onTeamClick,
   onPlayerClick,
   onPredict,
+  onQuickLookup,
 }: DashboardTabProps) {
   const { data: activeData, ds, frames } = useActiveData();
 
@@ -146,6 +149,18 @@ export default function DashboardTab({
 
   return (
     <div className="space-y-4">
+      {/* Quick Lookup button */}
+      {onQuickLookup && (
+        <button
+          onClick={onQuickLookup}
+          className="w-full flex items-center justify-center gap-2 bg-accent text-fixed-white px-4 py-3 rounded-lg text-base font-semibold shadow-card hover:opacity-90 transition min-h-[44px]"
+        >
+          <Zap size={20} />
+          <span>Quick Lookup</span>
+          <span className="text-xs opacity-80 ml-1">(Match Night Mode)</span>
+        </button>
+      )}
+
       {myTeam && myTeam.div === selectedDiv && (
         <MyTeamDashboard
           team={myTeam.team}
