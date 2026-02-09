@@ -122,7 +122,11 @@ export default function SimulateTab({
               className="overflow-hidden"
             >
               <div className="px-3 pb-3 flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                <label htmlFor="time-machine-date-select" className="text-sm text-gray-400 shrink-0">
+                  Select date:
+                </label>
                 <select
+                  id="time-machine-date-select"
                   value={timeMachineDate || ''}
                   onChange={(e) => onTimeMachineDateChange(e.target.value || null)}
                   className="bg-surface-elevated border border-surface-border rounded px-2 py-1.5 text-sm text-gray-200 flex-1 min-w-0 w-full sm:w-auto"

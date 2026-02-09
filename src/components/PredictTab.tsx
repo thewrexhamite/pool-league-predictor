@@ -202,8 +202,9 @@ export default function PredictTab({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div>
-          <label className="block text-xs text-gray-500 mb-1 uppercase tracking-wide font-medium">Home Team</label>
+          <label htmlFor="predict-home-team" className="block text-xs text-gray-500 mb-1 uppercase tracking-wide font-medium">Home Team</label>
           <select
+            id="predict-home-team"
             value={homeTeam}
             onChange={(e) => onHomeTeamChange(e.target.value)}
             className="w-full bg-surface border border-surface-border rounded-lg p-3 text-sm text-white focus:outline-none focus:border-baize"
@@ -213,8 +214,9 @@ export default function PredictTab({
           </select>
         </div>
         <div>
-          <label className="block text-xs text-gray-500 mb-1 uppercase tracking-wide font-medium">Away Team</label>
+          <label htmlFor="predict-away-team" className="block text-xs text-gray-500 mb-1 uppercase tracking-wide font-medium">Away Team</label>
           <select
+            id="predict-away-team"
             value={awayTeam}
             onChange={(e) => onAwayTeamChange(e.target.value)}
             className="w-full bg-surface border border-surface-border rounded-lg p-3 text-sm text-white focus:outline-none focus:border-baize"
