@@ -5,6 +5,15 @@ import type { NotificationPreferences } from './types';
 export type { NotificationPreferences };
 export type NotificationPermissionStatus = 'granted' | 'denied' | 'default' | 'unsupported';
 
+export interface EmailNotificationPreferences {
+  match_results: boolean;
+  upcoming_fixtures: boolean;
+  standings_updates: boolean;
+  weekly_digest: boolean;
+}
+
+export type EmailFrequency = 'instant' | 'daily' | 'weekly';
+
 export interface MyTeam {
   team: string;
   div: string;
@@ -166,6 +175,96 @@ export async function updateNotificationPreferences(
         token,
         userId,
         preferences,
+        myTeam,
+      }),
+    });
+
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Subscribe to email notifications
+ * Sends email, preferences, frequency, and optionally My Team to the backend
+ */
+export async function subscribeToEmailNotifications(
+  userId: string,
+  email: string,
+  preferences: EmailNotificationPreferences,
+  frequency: EmailFrequency,
+  myTeam?: MyTeam
+): Promise<boolean> {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    const response = await fetch('/api/notifications/email/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        email,
+        preferences,
+        frequency,
+        myTeam,
+      }),
+    });
+
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Unsubscribe from email notifications
+ * Removes email subscription from backend
+ */
+export async function unsubscribeFromEmailNotifications(userId: string): Promise<boolean> {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    const response = await fetch('/api/notifications/email/unsubscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId }),
+    });
+
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Update email notification preferences
+ * Updates email preferences, frequency, and optionally My Team in backend
+ */
+export async function updateEmailNotificationPreferences(
+  userId: string,
+  email: string,
+  preferences: EmailNotificationPreferences,
+  frequency: EmailFrequency,
+  myTeam?: MyTeam
+): Promise<boolean> {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    const response = await fetch('/api/notifications/email/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        email,
+        preferences,
+        frequency,
         myTeam,
       }),
     });
