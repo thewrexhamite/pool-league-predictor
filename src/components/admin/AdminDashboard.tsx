@@ -269,10 +269,50 @@ export default function AdminDashboard({}: AdminDashboardProps) {
       {/* Manual Result Entry */}
       <ManualResultEntry
         onSubmit={async (result) => {
-          // TODO: Implement result submission
+          // Determine division based on the teams
+          const division = Object.entries(leagueData.divisions).find(([_, div]) =>
+            div.teams.includes(result.home) && div.teams.includes(result.away)
+          )?.[0];
+
+          if (!division) {
+            throw new Error('Could not determine division for selected teams');
+          }
+
+          // Get auth token from Firebase Auth
+          const { getAuth } = await import('firebase/auth');
+          const auth = getAuth();
+          const idToken = await auth.currentUser?.getIdToken();
+
+          if (!idToken) {
+            throw new Error('Not authenticated');
+          }
+
+          // Submit to API
+          const response = await fetch('/api/admin/results', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${idToken}`,
+            },
+            body: JSON.stringify({
+              seasonId: '2025-26',
+              result: {
+                ...result,
+                division,
+              },
+            }),
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to create result');
+          }
+
+          // Reload page to refresh results and standings
+          window.location.reload();
         }}
         onCancel={() => {
-          // TODO: Implement cancel
+          // No-op: ManualResultEntry already handles form reset
         }}
       />
 
