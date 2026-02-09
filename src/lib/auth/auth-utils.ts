@@ -48,6 +48,7 @@ export interface UserProfile {
   createdAt: number;
   settings: UserSettings;
   role?: 'user' | 'admin'; // Admin access control
+  isAdmin: boolean;
 }
 
 // ============================================================================
@@ -124,6 +125,7 @@ export async function ensureUserProfile(user: User): Promise<UserProfile> {
     claimedProfiles: [],
     createdAt: Date.now(),
     settings: defaultSettings,
+    isAdmin: false,
   };
 
   await setDoc(userRef, profile);
@@ -240,4 +242,26 @@ export function getCurrentUser(): User | null {
  */
 export function isAuthenticated(): boolean {
   return getCurrentUser() !== null;
+}
+
+// ============================================================================
+// Admin Authorization
+// ============================================================================
+
+/**
+ * Check if a user profile has admin privileges.
+ */
+export function isUserAdmin(profile: UserProfile | null): boolean {
+  return profile?.isAdmin ?? false;
+}
+
+/**
+ * Set admin status for a user.
+ */
+export async function setAdminStatus(
+  userId: string,
+  isAdmin: boolean
+): Promise<void> {
+  const userRef = doc(db, 'users', userId);
+  await updateDoc(userRef, { isAdmin });
 }
