@@ -173,6 +173,51 @@ export default function SimulateTab({
         </div>
       )}
 
+      {isSimulating && (
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs md:text-sm">
+            <thead>
+              <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                <th className="text-left p-2">#</th>
+                <th className="text-left p-2">Team</th>
+                <th className="text-right p-2">Now</th>
+                <th className="text-right p-2">Pred</th>
+                <th className="text-right p-2">Title%</th>
+                <th className="text-right p-2">Top2%</th>
+                <th className="text-right p-2">Bot2%</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <tr key={i} className="border-b border-surface-border/30 animate-pulse">
+                  <td className="p-2">
+                    <div className="h-4 w-4 bg-gray-700 rounded"></div>
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 bg-gray-700 rounded" style={{ width: `${60 + Math.random() * 40}%` }}></div>
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 w-8 bg-gray-700 rounded ml-auto"></div>
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 w-8 bg-gray-700 rounded ml-auto"></div>
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 w-10 bg-gray-700 rounded ml-auto"></div>
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 w-10 bg-gray-700 rounded ml-auto"></div>
+                  </td>
+                  <td className="p-2">
+                    <div className="h-4 w-10 bg-gray-700 rounded ml-auto"></div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       {simResults && (
         <>
           {isTimeMachine && (
