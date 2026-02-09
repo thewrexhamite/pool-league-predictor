@@ -13,6 +13,8 @@ import SimulateTab from './SimulateTab';
 import PredictTab from './PredictTab';
 import FixturesTab from './FixturesTab';
 import CompareTab from './CompareTab';
+import LineupOptimizerTab from './LineupOptimizerTab';
+import CaptainDashboard from './CaptainDashboard';
 
 interface AppTabsProps {
   activeTab: TabKey;
@@ -123,6 +125,26 @@ export default function AppTabs({
 
         {activeTab === 'compare' && (
           <CompareTab selectedDiv={selectedDiv} />
+        )}
+
+        {activeTab === 'optimizer' && (
+          <LineupOptimizerTab
+            selectedDiv={selectedDiv}
+            homeTeam={prediction.homeTeam}
+            awayTeam={prediction.awayTeam}
+            onHomeTeamChange={prediction.setHomeTeam}
+            onAwayTeamChange={prediction.setAwayTeam}
+            onTeamClick={onTeamClick}
+            onPlayerClick={onPlayerClick}
+          />
+        )}
+
+        {activeTab === 'captain' && (
+          <CaptainDashboard
+            simResults={simulation.simResults}
+            onTeamClick={onTeamClick}
+            onPlayerClick={onPlayerClick}
+          />
         )}
 
         {activeTab === 'stats' && (
