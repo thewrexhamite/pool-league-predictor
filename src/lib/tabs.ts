@@ -9,6 +9,7 @@ import {
   BarChart3,
   GitCompare,
   Settings,
+  Shield,
 } from 'lucide-react';
 import type { TabId } from './router';
 
@@ -31,6 +32,7 @@ export const TABS: TabConfig[] = [
   { id: 'optimizer', label: 'Optimizer', shortLabel: 'Opt', icon: Settings, primary: false },
   { id: 'players', label: 'Players', shortLabel: 'Players', icon: Users, primary: false },
   { id: 'compare', label: 'Compare', shortLabel: 'Compare', icon: GitCompare, primary: false },
+  { id: 'captain', label: 'Captain', shortLabel: 'Captain', icon: Shield, primary: false },
 ];
 
 export const PRIMARY_TABS = TABS.filter(t => t.primary);
