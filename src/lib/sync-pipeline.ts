@@ -25,9 +25,21 @@ export interface LeagueConfig {
   teamNameMap: Record<string, string>;
 }
 
+export interface ExistingData {
+  results?: Array<{ date: string; home: string; away: string }>;
+  fixtures?: Array<{ date: string; home: string; away: string }>;
+  frames?: ScrapedMatchFrames[];
+  players?: Record<string, unknown>;
+  players2526?: Record<string, PlayerStats>;
+  rosters?: Record<string, string[]>;
+}
+
 export interface SyncOptions {
   dryRun?: boolean;
   projectRoot?: string;
+  incremental?: boolean;
+  writeJsonFiles?: boolean;
+  existingData?: ExistingData;
 }
 
 // Load league configurations from external JSON file
@@ -61,13 +73,20 @@ const HEADERS: Record<string, string> = {
   'Upgrade-Insecure-Requests': '1',
 };
 
-const BASE_DELAY = 1500;
+const BASE_DELAY = 2500;
 const BATCH_SIZE = 10;
-const BATCH_PAUSE_MIN = 10000;
-const BATCH_PAUSE_MAX = 20000;
+const BATCH_PAUSE_MIN = 15000;
+const BATCH_PAUSE_MAX = 30000;
+const REQUEST_TIMEOUT = 30000;
+const MAX_RETRIES = 3;
+
+// Adaptive backoff state
+let adaptiveMultiplier = 1.0;
+const SLOW_RESPONSE_THRESHOLD = 5000; // 5s
 
 function randomDelay(): number {
-  return BASE_DELAY + Math.random() * BASE_DELAY;
+  const jitter = 0.8 + Math.random() * 0.4; // ±20% jitter
+  return BASE_DELAY * adaptiveMultiplier * jitter;
 }
 
 // Types
@@ -142,14 +161,60 @@ async function fetchPage(url: string, config: LeagueConfig): Promise<string> {
   if (requestCount > 1) await sleep(randomDelay());
   const fullUrl = url.startsWith('http') ? url : `${BASE_URL}/${url}`;
   log(`[${requestCount}] ${fullUrl.substring(BASE_URL.length)}`);
-  const resp = await fetch(fullUrl, {
-    headers: {
-      ...HEADERS,
-      'Referer': `${BASE_URL}/?sitename=${config.site}`,
-    },
-  });
-  if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${fullUrl}`);
-  return resp.text();
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const startTime = Date.now();
+    try {
+      const resp = await fetch(fullUrl, {
+        headers: {
+          ...HEADERS,
+          'Referer': `${BASE_URL}/?sitename=${config.site}`,
+        },
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+      });
+
+      // Adaptive backoff: adjust multiplier based on response time
+      const elapsed = Date.now() - startTime;
+      if (elapsed > SLOW_RESPONSE_THRESHOLD) {
+        adaptiveMultiplier = Math.min(adaptiveMultiplier * 1.3, 3.0);
+        log(`Slow response (${elapsed}ms), increasing delay multiplier to ${adaptiveMultiplier.toFixed(1)}x`, 'WARN');
+      } else if (adaptiveMultiplier > 1.0) {
+        adaptiveMultiplier = Math.max(adaptiveMultiplier * 0.95, 1.0);
+      }
+
+      if (resp.status === 429) {
+        const backoff = [10000, 20000, 40000][attempt - 1] || 60000;
+        const jitter = 0.8 + Math.random() * 0.4;
+        log(`Rate limited (429), backing off ${Math.round(backoff * jitter / 1000)}s (attempt ${attempt}/${MAX_RETRIES})`, 'WARN');
+        await sleep(backoff * jitter);
+        continue;
+      }
+
+      if (resp.status >= 500) {
+        const backoff = [5000, 10000, 20000][attempt - 1] || 30000;
+        const jitter = 0.8 + Math.random() * 0.4;
+        log(`Server error (${resp.status}), backing off ${Math.round(backoff * jitter / 1000)}s (attempt ${attempt}/${MAX_RETRIES})`, 'WARN');
+        await sleep(backoff * jitter);
+        continue;
+      }
+
+      if (!resp.ok) throw new Error(`HTTP ${resp.status} for ${fullUrl}`);
+      return resp.text();
+    } catch (err) {
+      if (err instanceof Error && err.name === 'TimeoutError') {
+        log(`Request timeout after ${REQUEST_TIMEOUT}ms (attempt ${attempt}/${MAX_RETRIES})`, 'WARN');
+        if (attempt === MAX_RETRIES) throw new Error(`Request timed out after ${MAX_RETRIES} attempts: ${fullUrl}`);
+        await sleep(5000 * attempt);
+        continue;
+      }
+      // Re-throw non-retryable errors
+      if (attempt === MAX_RETRIES) throw err;
+      log(`Request failed: ${err instanceof Error ? err.message : err} (attempt ${attempt}/${MAX_RETRIES})`, 'WARN');
+      await sleep(5000 * attempt);
+    }
+  }
+
+  throw new Error(`Failed after ${MAX_RETRIES} attempts: ${fullUrl}`);
 }
 
 function buildUrl(page: string, params: Record<string, string>, config: LeagueConfig): string {
@@ -607,21 +672,29 @@ export async function writeToFirestore(
 
 // --- Main sync function ---
 
-export async function syncLeagueData(
-  leagueKey: string,
-  options: SyncOptions = {}
-): Promise<{
+export interface SyncResult {
   success: boolean;
   results: number;
   fixtures: number;
   frames: number;
   players: number;
+  requestCount: number;
+  skippedFrames: number;
+  durationMs: number;
   error?: string;
-}> {
-  const { dryRun = false, projectRoot = process.cwd() } = options;
+}
 
-  // Reset request counter for this sync
+export async function syncLeagueData(
+  leagueKey: string,
+  options: SyncOptions = {}
+): Promise<SyncResult> {
+  const { dryRun = false, projectRoot = process.cwd(), incremental = false, writeJsonFiles = true, existingData } = options;
+  const syncStartTime = Date.now();
+
+  // Reset state for this sync
   requestCount = 0;
+  adaptiveMultiplier = 1.0;
+  let skippedFrames = 0;
 
   try {
     // Load league configs
@@ -636,6 +709,7 @@ export async function syncLeagueData(
     log(`Season: ${config.seasonId}`);
     log(`Output: ${config.dataDir}`);
     if (dryRun) log(`Mode: DRY RUN (Firestore writes skipped)`, 'WARN');
+    if (incremental) log(`Mode: INCREMENTAL (skipping already-scraped frames)`);
     log('');
 
     // 1. Scrape standings per division → team names
@@ -689,24 +763,40 @@ export async function syncLeagueData(
     }
     log(`Total unique results: ${allResults.length}`);
 
-    // 2b. Resolve dates from existing results.json + fixtures.json
+    // 2b. Resolve dates from existing results + fixtures
     // The site doesn't show dates on match detail pages
     log('Resolving dates from existing data...');
-    const existingResultsPath = path.join(config.dataDir, 'results.json');
-    const existingFixturesPath = path.join(config.dataDir, 'fixtures.json');
     const dateMap = new Map<string, string>(); // "home:away" → date
 
-    if (fs.existsSync(existingResultsPath)) {
-      const existing = JSON.parse(fs.readFileSync(existingResultsPath, 'utf8')) as Array<{ date: string; home: string; away: string }>;
-      for (const r of existing) {
+    if (existingData?.results) {
+      for (const r of existingData.results) {
         dateMap.set(`${r.home}:${r.away}`, r.date);
       }
+      log(`Loaded ${existingData.results.length} existing results (from provided data)`);
+    } else {
+      const existingResultsPath = path.join(config.dataDir, 'results.json');
+      if (fs.existsSync(existingResultsPath)) {
+        const existing = JSON.parse(fs.readFileSync(existingResultsPath, 'utf8')) as Array<{ date: string; home: string; away: string }>;
+        for (const r of existing) {
+          dateMap.set(`${r.home}:${r.away}`, r.date);
+        }
+      }
     }
-    if (fs.existsSync(existingFixturesPath)) {
-      const existing = JSON.parse(fs.readFileSync(existingFixturesPath, 'utf8')) as Array<{ date: string; home: string; away: string }>;
-      for (const f of existing) {
+
+    if (existingData?.fixtures) {
+      for (const f of existingData.fixtures) {
         if (!dateMap.has(`${f.home}:${f.away}`)) {
           dateMap.set(`${f.home}:${f.away}`, f.date);
+        }
+      }
+    } else {
+      const existingFixturesPath = path.join(config.dataDir, 'fixtures.json');
+      if (fs.existsSync(existingFixturesPath)) {
+        const existing = JSON.parse(fs.readFileSync(existingFixturesPath, 'utf8')) as Array<{ date: string; home: string; away: string }>;
+        for (const f of existing) {
+          if (!dateMap.has(`${f.home}:${f.away}`)) {
+            dateMap.set(`${f.home}:${f.away}`, f.date);
+          }
         }
       }
     }
@@ -734,9 +824,39 @@ export async function syncLeagueData(
     const processedMatchIds = new Set<string>();
     let frameIdx = 0;
 
+    // Incremental: load existing frames to skip already-scraped matches
+    const existingFramesMap = new Map<string, ScrapedMatchFrames>();
+    if (incremental) {
+      if (existingData?.frames) {
+        for (const f of existingData.frames) {
+          existingFramesMap.set(f.matchId, f);
+        }
+        log(`Incremental: ${existingFramesMap.size} matches already have frame data (from provided data)`);
+      } else {
+        const existingFramesPath = path.join(config.dataDir, 'frames.json');
+        if (fs.existsSync(existingFramesPath)) {
+          const existingFrames = JSON.parse(fs.readFileSync(existingFramesPath, 'utf8')) as ScrapedMatchFrames[];
+          for (const f of existingFrames) {
+            existingFramesMap.set(f.matchId, f);
+          }
+          log(`Incremental: ${existingFramesMap.size} matches already have frame data`);
+        }
+      }
+    }
+
     for (const result of allResults) {
       if (processedMatchIds.has(result.matchId)) continue;
       processedMatchIds.add(result.matchId);
+
+      // Incremental: skip matches that already have frame data
+      if (incremental && existingFramesMap.has(result.matchId)) {
+        const existing = existingFramesMap.get(result.matchId)!;
+        if (existing.frames.length > 0) {
+          allFrames.push(existing);
+          skippedFrames++;
+          continue;
+        }
+      }
 
       // Batch pause every BATCH_SIZE requests
       if (frameIdx > 0 && frameIdx % BATCH_SIZE === 0) {
@@ -756,6 +876,9 @@ export async function syncLeagueData(
         allFrames.push(frameData);
       }
     }
+    if (skippedFrames > 0) {
+      log(`Incremental: skipped ${skippedFrames} already-scraped matches, fetched ${frameIdx} new`);
+    }
     log(`Total matches with frames: ${allFrames.length}`);
 
     // 4. Scrape fixtures
@@ -774,26 +897,45 @@ export async function syncLeagueData(
     log(`Roster entries from frames: ${Object.keys(scrapedRosters).length}`);
 
     // 6. Load existing data (keep what we can't scrape)
-    const playersPath = path.join(config.dataDir, 'players.json');
     let players2425: Record<string, unknown> = {};
-    if (fs.existsSync(playersPath)) {
-      players2425 = JSON.parse(fs.readFileSync(playersPath, 'utf8'));
-      log(`24/25 players loaded: ${Object.keys(players2425).length}`);
+    if (existingData?.players) {
+      players2425 = existingData.players;
+      log(`24/25 players loaded: ${Object.keys(players2425).length} (from provided data)`);
+    } else {
+      const playersPath = path.join(config.dataDir, 'players.json');
+      if (fs.existsSync(playersPath)) {
+        players2425 = JSON.parse(fs.readFileSync(playersPath, 'utf8'));
+        log(`24/25 players loaded: ${Object.keys(players2425).length}`);
+      }
     }
 
     // Load existing players2526 and rosters as fallback if scraped frame data is sparse
-    const existingPlayers2526Path = path.join(config.dataDir, 'players2526.json');
-    const existingRostersPath = path.join(config.dataDir, 'rosters.json');
     let players2526 = scrapedPlayers2526;
     let rosters = scrapedRosters;
 
-    if (Object.keys(scrapedPlayers2526).length === 0 && fs.existsSync(existingPlayers2526Path)) {
-      log('No frame data scraped -- keeping existing players2526.json', 'WARN');
-      players2526 = JSON.parse(fs.readFileSync(existingPlayers2526Path, 'utf8'));
+    if (Object.keys(scrapedPlayers2526).length === 0) {
+      if (existingData?.players2526) {
+        log('No frame data scraped -- keeping existing players2526 (from provided data)', 'WARN');
+        players2526 = existingData.players2526;
+      } else {
+        const existingPlayers2526Path = path.join(config.dataDir, 'players2526.json');
+        if (fs.existsSync(existingPlayers2526Path)) {
+          log('No frame data scraped -- keeping existing players2526.json', 'WARN');
+          players2526 = JSON.parse(fs.readFileSync(existingPlayers2526Path, 'utf8'));
+        }
+      }
     }
-    if (Object.keys(scrapedRosters).length === 0 && fs.existsSync(existingRostersPath)) {
-      log('No frame data scraped -- keeping existing rosters.json', 'WARN');
-      rosters = JSON.parse(fs.readFileSync(existingRostersPath, 'utf8'));
+    if (Object.keys(scrapedRosters).length === 0) {
+      if (existingData?.rosters) {
+        log('No frame data scraped -- keeping existing rosters (from provided data)', 'WARN');
+        rosters = existingData.rosters;
+      } else {
+        const existingRostersPath = path.join(config.dataDir, 'rosters.json');
+        if (fs.existsSync(existingRostersPath)) {
+          log('No frame data scraped -- keeping existing rosters.json', 'WARN');
+          rosters = JSON.parse(fs.readFileSync(existingRostersPath, 'utf8'));
+        }
+      }
     }
 
     // Build final results: merge scraped with existing to preserve dates
@@ -808,23 +950,27 @@ export async function syncLeagueData(
       frames: r.frames,
     }));
 
-    // 7. Write to JSON backup files
-    log('Step 6: Writing JSON backup files...');
-    if (!fs.existsSync(config.dataDir)) fs.mkdirSync(config.dataDir, { recursive: true });
+    // 7. Write to JSON backup files (skipped in cloud mode)
+    if (writeJsonFiles) {
+      log('Step 6: Writing JSON backup files...');
+      if (!fs.existsSync(config.dataDir)) fs.mkdirSync(config.dataDir, { recursive: true });
 
-    const files: [string, unknown][] = [
-      ['results.json', resultsJson],
-      ['fixtures.json', allFixtures],
-      ['rosters.json', rosters],
-      ['players2526.json', players2526],
-      ['frames.json', allFrames],
-    ];
+      const files: [string, unknown][] = [
+        ['results.json', resultsJson],
+        ['fixtures.json', allFixtures],
+        ['rosters.json', rosters],
+        ['players2526.json', players2526],
+        ['frames.json', allFrames],
+      ];
 
-    for (const [filename, data] of files) {
-      const filePath = path.join(config.dataDir, filename);
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-      const stat = fs.statSync(filePath);
-      log(`${filename}: ${(stat.size / 1024).toFixed(1)} KB`);
+      for (const [filename, data] of files) {
+        const filePath = path.join(config.dataDir, filename);
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+        const stat = fs.statSync(filePath);
+        log(`${filename}: ${(stat.size / 1024).toFixed(1)} KB`);
+      }
+    } else {
+      log('Step 6: Skipping JSON file writes (cloud mode)');
     }
 
     // 8. Write to Firestore (unless --dry-run)
@@ -843,12 +989,44 @@ export async function syncLeagueData(
       }, config);
     }
 
+    const durationMs = Date.now() - syncStartTime;
     log(`=== Sync complete ===`);
     log(`Total HTTP requests: ${requestCount}`);
+    log(`Skipped frames (incremental): ${skippedFrames}`);
     log(`Results: ${allResults.length}`);
     log(`Fixtures: ${allFixtures.length}`);
     log(`Matches with frames: ${allFrames.length}`);
     log(`Players (25/26): ${Object.keys(players2526).length}`);
+    log(`Duration: ${Math.round(durationMs / 1000)}s`);
+
+    // Write sync metadata to Firestore
+    if (!dryRun) {
+      try {
+        const admin = await import('firebase-admin');
+        if (!admin.default.apps.length) {
+          admin.default.initializeApp({
+            credential: admin.default.credential.applicationDefault(),
+          });
+        }
+        const db = admin.default.firestore();
+        await db.collection('leagues').doc(config.leagueId)
+          .collection('syncMetadata').doc('latest').set({
+            success: true,
+            syncedAt: Date.now(),
+            results: allResults.length,
+            fixtures: allFixtures.length,
+            frames: allFrames.length,
+            players: Object.keys(players2526).length,
+            requestCount,
+            skippedFrames,
+            durationMs,
+            source: !writeJsonFiles ? 'cloud-function' : 'manual',
+          });
+        log(`Sync metadata written to leagues/${config.leagueId}/syncMetadata/latest`);
+      } catch (err) {
+        log(`Failed to write sync metadata: ${err instanceof Error ? err.message : err}`, 'WARN');
+      }
+    }
 
     return {
       success: true,
@@ -856,6 +1034,9 @@ export async function syncLeagueData(
       fixtures: allFixtures.length,
       frames: allFrames.length,
       players: Object.keys(players2526).length,
+      requestCount,
+      skippedFrames,
+      durationMs,
     };
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : String(err);
@@ -866,6 +1047,9 @@ export async function syncLeagueData(
       fixtures: 0,
       frames: 0,
       players: 0,
+      requestCount,
+      skippedFrames,
+      durationMs: Date.now() - syncStartTime,
       error: errorMessage,
     };
   }

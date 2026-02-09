@@ -1,0 +1,24 @@
+{
+  "name": "pool-league-sync-functions",
+  "private": true,
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=lib/index.js --external:firebase-admin --external:firebase-functions && cp ../league-config.json lib/league-config.json",
+    "build:watch": "npm run build -- --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "deploy": "npm run build && firebase deploy --only functions"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.6.1",
+    "firebase-functions": "^6.3.0",
+    "node-html-parser": "^7.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.5.0"
+  }
+}

@@ -11,6 +11,7 @@ import { syncLeagueData, loadLeagueConfigs } from '../src/lib/sync-pipeline';
  *   npx tsx scripts/sync-data.ts
  *   npx tsx scripts/sync-data.ts --league nwpa
  *   npx tsx scripts/sync-data.ts --league nwpa --dry-run
+ *   npx tsx scripts/sync-data.ts --league wrexham --full    # skip incremental, rescrape all frames
  */
 
 // --- CLI argument parsing ---
@@ -30,6 +31,7 @@ function hasFlag(name: string): boolean {
 async function main() {
   const leagueKey = getArg('league', 'wrexham');
   const dryRun = hasFlag('dry-run');
+  const full = hasFlag('full');
   const projectRoot = path.join(__dirname, '..');
 
   // Validate league key before running sync
@@ -39,10 +41,11 @@ async function main() {
     process.exit(1);
   }
 
-  // Run sync using library function
+  // Run sync using library function (incremental by default, --full to override)
   const result = await syncLeagueData(leagueKey, {
     dryRun,
     projectRoot,
+    incremental: !full,
   });
 
   // Exit with appropriate status code

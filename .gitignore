@@ -34,6 +34,10 @@ public/firebase-messaging-sw.js
 # vercel
 .vercel
 
+# Firebase Functions build output
+functions/lib/
+functions/node_modules/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
