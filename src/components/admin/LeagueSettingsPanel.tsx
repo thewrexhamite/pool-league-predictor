@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { Settings, Loader2, Check, X, Save } from 'lucide-react';
+import { useAuth } from '@/lib/auth';
 
 interface LeagueSettings {
   leagueName: string;
@@ -15,6 +16,7 @@ interface LeagueSettings {
 }
 
 export default function LeagueSettingsPanel() {
+  const { getIdToken } = useAuth();
   const [settings, setSettings] = useState<LeagueSettings>({
     leagueName: '',
     primaryColor: '#1976d2',
@@ -40,7 +42,14 @@ export default function LeagueSettingsPanel() {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/admin/leagues/settings');
+      // Get auth token from Firebase Auth
+      const idToken = await getIdToken();
+
+      const response = await fetch('/api/admin/leagues/settings', {
+        headers: {
+          ...(idToken && { 'Authorization': `Bearer ${idToken}` }),
+        },
+      });
 
       if (!response.ok) {
         throw new Error('Failed to load settings');
@@ -107,10 +116,14 @@ export default function LeagueSettingsPanel() {
     setMessage(null);
 
     try {
+      // Get auth token from Firebase Auth
+      const idToken = await getIdToken();
+
       const response = await fetch('/api/admin/leagues/settings', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          ...(idToken && { 'Authorization': `Bearer ${idToken}` }),
         },
         body: JSON.stringify(settings),
       });

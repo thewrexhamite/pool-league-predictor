@@ -18,6 +18,7 @@ import DataCorrectionPanel from './DataCorrectionPanel';
 import ManualResultEntry from './ManualResultEntry';
 import PlayerMergePanel from './PlayerMergePanel';
 import LeagueHealthMetrics from './LeagueHealthMetrics';
+import LeagueSettingsPanel from './LeagueSettingsPanel';
 
 interface AdminDashboardProps {
   // Reserved for future props
@@ -264,6 +265,11 @@ export default function AdminDashboard({}: AdminDashboardProps) {
       {/* League Health Metrics */}
       <div className="mb-8">
         <LeagueHealthMetrics />
+      </div>
+
+      {/* League Settings */}
+      <div className="mb-8">
+        <LeagueSettingsPanel />
       </div>
 
       {/* Manual Result Entry */}

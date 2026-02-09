@@ -14,6 +14,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import clsx from 'clsx';
+import { useAuth } from '@/lib/auth';
 
 interface UserMetrics {
   totalUsers: number;
@@ -53,6 +54,7 @@ interface AnalyticsData {
 }
 
 export default function LeagueHealthMetrics() {
+  const { getIdToken } = useAuth();
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -66,10 +68,13 @@ export default function LeagueHealthMetrics() {
       setLoading(true);
       setError(null);
 
-      // TODO: Add proper auth token when auth is implemented
+      // Get auth token from Firebase Auth
+      const idToken = await getIdToken();
+
       const response = await fetch('/api/admin/analytics', {
         headers: {
           'Content-Type': 'application/json',
+          ...(idToken && { 'Authorization': `Bearer ${idToken}` }),
         },
       });
 
