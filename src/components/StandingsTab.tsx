@@ -1,8 +1,10 @@
 'use client';
 
 import clsx from 'clsx';
+import { Trophy } from 'lucide-react';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
+import { useLeague } from '@/lib/league-context';
 import ShareButton from './ShareButton';
 import { generateStandingsShareData } from '@/lib/share-utils';
 
@@ -15,6 +17,7 @@ interface StandingsTabProps {
 
 export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamClick }: StandingsTabProps) {
   const { ds, data } = useActiveData();
+  const { selected } = useLeague();
   const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
 
   // Format cache age for display
@@ -27,6 +30,15 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
   };
 
   const showCacheBadge = data.source === 'cache' || data.isOffline;
+
+  // Get current season metadata
+  const season = selected?.league.seasons.find(s => s.id === selected.seasonId);
+  const isHistorical = season?.current === false;
+
+  // Get final outcomes for historical seasons
+  const champion = season?.champion;
+  const promoted = season?.promoted || [];
+  const relegated = season?.relegated || [];
 
   // Generate share data with top team
   const topTeam = standings[0]?.team;
@@ -66,23 +78,34 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
         </thead>
         <tbody>
           {standings.map((s, i) => {
-            const isPromo = i < 2;
-            const isReleg = i >= standings.length - 2;
+            // For historical seasons, use actual final outcomes
+            // For current seasons, use positional indicators
+            const isChampion = isHistorical && i === 0 && champion === s.team;
+            const isPromoted = isHistorical ? promoted.includes(s.team) : i < 2;
+            const isRelegated = isHistorical ? relegated.includes(s.team) : i >= standings.length - 2;
             const isMyTeam = myTeam?.team === s.team && myTeam?.div === selectedDiv;
+
             return (
               <tr
                 key={s.team}
                 onClick={() => onTeamClick(s.team)}
                 className={clsx(
                   'border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50',
-                  isPromo && 'border-l-[3px] border-l-win bg-win-muted/10',
-                  isReleg && 'border-l-[3px] border-l-loss bg-loss-muted/10',
+                  isPromoted && 'border-l-[3px] border-l-win bg-win-muted/10',
+                  isRelegated && 'border-l-[3px] border-l-loss bg-loss-muted/10',
                   isMyTeam && 'bg-baize-muted/20',
-                  !isPromo && !isReleg && !isMyTeam && 'border-l-[3px] border-l-transparent'
+                  !isPromoted && !isRelegated && !isMyTeam && 'border-l-[3px] border-l-transparent'
                 )}
               >
                 <td className="p-2 text-gray-500">{i + 1}</td>
-                <td className="p-2 font-medium text-info hover:text-info-light transition-colors">{s.team}</td>
+                <td className="p-2 font-medium text-info hover:text-info-light transition-colors">
+                  <div className="flex items-center gap-2">
+                    {s.team}
+                    {isChampion && <Trophy className="w-4 h-4 text-yellow-400" title="Champion" />}
+                    {isHistorical && isPromoted && !isChampion && <span className="text-[10px] text-win font-semibold">↑</span>}
+                    {isHistorical && isRelegated && <span className="text-[10px] text-loss font-semibold">↓</span>}
+                  </div>
+                </td>
                 <td className="p-2 text-center text-gray-300">{s.p}</td>
                 <td className="p-2 text-center text-win">{s.w}</td>
                 <td className="p-2 text-center text-gray-400 hidden md:table-cell">{s.d}</td>
@@ -99,8 +122,18 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
         </tbody>
       </table>
       <div className="flex items-center gap-4 text-[10px] text-gray-500 mt-4">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-win" /> Promotion</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-loss" /> Relegation</span>
+        {isHistorical ? (
+          <>
+            <span className="flex items-center gap-1"><Trophy className="w-3 h-3 text-yellow-400" /> Champion</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-win" /> Promoted</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-loss" /> Relegated</span>
+          </>
+        ) : (
+          <>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-win" /> Promotion</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-loss" /> Relegation</span>
+          </>
+        )}
         <span className="ml-auto">Click team for details</span>
       </div>
     </div>

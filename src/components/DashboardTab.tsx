@@ -12,6 +12,8 @@ import {
   Flame,
   Snowflake,
   Zap,
+  Info,
+  History,
 } from 'lucide-react';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
@@ -33,6 +35,8 @@ interface DashboardTabProps {
   onPlayerClick: (name: string) => void;
   onPredict: (home: string, away: string) => void;
   onQuickLookup?: () => void;
+  seasonId?: string;
+  seasonLabel?: string;
 }
 
 export default function DashboardTab({
@@ -43,6 +47,8 @@ export default function DashboardTab({
   onPlayerClick,
   onPredict,
   onQuickLookup,
+  seasonId,
+  seasonLabel,
 }: DashboardTabProps) {
   const { data: activeData, ds, frames } = useActiveData();
 
@@ -147,6 +153,9 @@ export default function DashboardTab({
     return 'Just now';
   }, [activeData.lastUpdated]);
 
+  // Determine if viewing historical data
+  const isHistorical = seasonId !== undefined;
+
   return (
     <div className="space-y-4">
       {/* Quick Lookup button */}
@@ -159,6 +168,35 @@ export default function DashboardTab({
           <span>Quick Lookup</span>
           <span className="text-xs opacity-80 ml-1">(Match Night Mode)</span>
         </button>
+      )}
+
+      {/* Historical Season Banner */}
+      {isHistorical && seasonLabel && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-amber-500/10 to-amber-600/10 border border-amber-500/30 rounded-card p-4"
+        >
+          <div className="flex items-start gap-3">
+            <div className="shrink-0 w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center">
+              <History className="w-4 h-4 text-amber-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm font-semibold text-amber-300 mb-1">
+                Viewing Historical Season
+              </h3>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                You are viewing archived data from <span className="font-medium text-amber-300">{seasonLabel}</span>.
+                This is a read-only snapshot of past league standings, results, and statistics.
+                {' '}
+                <span className="inline-flex items-center gap-1 text-info hover:text-info-light cursor-help" title="Use the season selector in the header to switch between current and historical seasons">
+                  <Info className="w-3 h-3 inline" />
+                  <span className="underline decoration-dotted">Switch seasons using the calendar icon in the header.</span>
+                </span>
+              </p>
+            </div>
+          </div>
+        </motion.div>
       )}
 
       {myTeam && myTeam.div === selectedDiv && (
@@ -175,7 +213,13 @@ export default function DashboardTab({
       {/* Season Progress */}
       <div className="bg-surface-card rounded-card shadow-card p-4">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-sm font-semibold text-gray-300">Season Progress</h3>
+          <h3
+            className="text-sm font-semibold text-gray-300 flex items-center gap-1.5 cursor-help"
+            title={isHistorical ? `Historical season progress for ${seasonLabel}` : "Current season progress showing completed and remaining fixtures"}
+          >
+            Season Progress
+            {isHistorical && <Info className="w-3.5 h-3.5 text-amber-400/60" />}
+          </h3>
           <span className="text-xs text-gray-500">{pct}% complete</span>
         </div>
         <div className="w-full bg-surface-elevated rounded-full h-3 overflow-hidden">
@@ -195,9 +239,13 @@ export default function DashboardTab({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Title Race */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-win mb-3 flex items-center gap-1.5">
+          <h3
+            className="text-sm font-semibold text-win mb-3 flex items-center gap-1.5 cursor-help"
+            title={isHistorical ? `Top teams from ${seasonLabel} with their final form` : "Current top teams competing for the division title"}
+          >
             <TrendingUp size={16} />
             Title Race
+            {isHistorical && <Info className="w-3.5 h-3.5 text-amber-400/60" />}
           </h3>
           <div className="space-y-2">
             {standings.slice(0, 4).map((s, i) => {
@@ -242,9 +290,13 @@ export default function DashboardTab({
 
         {/* Relegation Battle */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-loss mb-3 flex items-center gap-1.5">
+          <h3
+            className="text-sm font-semibold text-loss mb-3 flex items-center gap-1.5 cursor-help"
+            title={isHistorical ? `Bottom teams from ${seasonLabel} and their final form` : "Teams fighting to avoid relegation"}
+          >
             <TrendingDown size={16} />
             Relegation Battle
+            {isHistorical && <Info className="w-3.5 h-3.5 text-amber-400/60" />}
           </h3>
           <div className="space-y-2">
             {standings.slice(-4).map((s, i) => {
@@ -292,9 +344,13 @@ export default function DashboardTab({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Next Matchday */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5">
+          <h3
+            className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5 cursor-help"
+            title={isHistorical ? `Upcoming fixtures that were scheduled in ${seasonLabel}` : "Next scheduled fixtures"}
+          >
             <Calendar size={16} />
             Next Matchday
+            {isHistorical && <Info className="w-3.5 h-3.5 text-amber-400/60" />}
             {nextFixtures.length > 0 && <span className="text-gray-500 font-normal text-xs ml-1">{nextFixtures[0].date}</span>}
           </h3>
           {nextFixtures.length === 0 ? (
@@ -331,9 +387,13 @@ export default function DashboardTab({
 
         {/* Recent Results */}
         <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-1.5">
+          <h3
+            className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-1.5 cursor-help"
+            title={isHistorical ? `Most recent results from ${seasonLabel}` : "Latest match results"}
+          >
             <Clock size={16} />
             Recent Results
+            {isHistorical && <Info className="w-3.5 h-3.5 text-amber-400/60" />}
             {recentResults.length > 0 && <span className="text-gray-500 font-normal text-xs ml-1">{recentResults[0].date}</span>}
           </h3>
           {recentResults.length === 0 ? (
@@ -370,10 +430,14 @@ export default function DashboardTab({
 
       {/* Hot & Cold */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="bg-surface-card rounded-card shadow-card p-3">
+        <div
+          className="bg-surface-card rounded-card shadow-card p-3 cursor-help"
+          title={isHistorical ? `Team with best form during ${seasonLabel}` : "Team with the best recent form"}
+        >
           <div className="flex items-center gap-1.5 mb-1">
             <Flame size={14} className="text-win" />
             <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">Best Form Team</span>
+            {isHistorical && <Info className="w-3 h-3 text-amber-400/60" />}
           </div>
           {bestFormTeam ? (
             <button onClick={() => onTeamClick(bestFormTeam)} className="text-sm font-medium text-white hover:text-info transition truncate block w-full text-left">
@@ -381,10 +445,14 @@ export default function DashboardTab({
             </button>
           ) : <span className="text-xs text-gray-500">-</span>}
         </div>
-        <div className="bg-surface-card rounded-card shadow-card p-3">
+        <div
+          className="bg-surface-card rounded-card shadow-card p-3 cursor-help"
+          title={isHistorical ? `Team with worst form during ${seasonLabel}` : "Team with the worst recent form"}
+        >
           <div className="flex items-center gap-1.5 mb-1">
             <Snowflake size={14} className="text-loss" />
             <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">Worst Form Team</span>
+            {isHistorical && <Info className="w-3 h-3 text-amber-400/60" />}
           </div>
           {worstFormTeam ? (
             <button onClick={() => onTeamClick(worstFormTeam)} className="text-sm font-medium text-white hover:text-info transition truncate block w-full text-left">
@@ -392,10 +460,14 @@ export default function DashboardTab({
             </button>
           ) : <span className="text-xs text-gray-500">-</span>}
         </div>
-        <div className="bg-surface-card rounded-card shadow-card p-3">
+        <div
+          className="bg-surface-card rounded-card shadow-card p-3 cursor-help"
+          title={isHistorical ? `Player with highest win rate during ${seasonLabel}` : "Player with the highest recent win rate"}
+        >
           <div className="flex items-center gap-1.5 mb-1">
             <TrendingUp size={14} className="text-win" />
             <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">Hottest Player</span>
+            {isHistorical && <Info className="w-3 h-3 text-amber-400/60" />}
           </div>
           {hotPlayer ? (
             <button onClick={() => onPlayerClick(hotPlayer.name)} className="text-sm font-medium text-white hover:text-info transition truncate block w-full text-left">
@@ -403,10 +475,14 @@ export default function DashboardTab({
             </button>
           ) : <span className="text-xs text-gray-500">-</span>}
         </div>
-        <div className="bg-surface-card rounded-card shadow-card p-3">
+        <div
+          className="bg-surface-card rounded-card shadow-card p-3 cursor-help"
+          title={isHistorical ? `Player with lowest win rate during ${seasonLabel}` : "Player with the lowest recent win rate"}
+        >
           <div className="flex items-center gap-1.5 mb-1">
             <TrendingDown size={14} className="text-loss" />
             <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">Coldest Player</span>
+            {isHistorical && <Info className="w-3 h-3 text-amber-400/60" />}
           </div>
           {coldPlayer ? (
             <button onClick={() => onPlayerClick(coldPlayer.name)} className="text-sm font-medium text-white hover:text-info transition truncate block w-full text-left">
@@ -417,11 +493,24 @@ export default function DashboardTab({
       </div>
 
       {/* Prediction Accuracy */}
-      <PredictionAccuracyPanel selectedDiv={selectedDiv} />
+      <PredictionAccuracyPanel
+        selectedDiv={selectedDiv}
+        seasonId={seasonId}
+        seasonLabel={seasonLabel}
+      />
 
       {/* Data Freshness */}
       <div className="text-center text-xs text-gray-600">
-        Data last updated: {timeAgo} &bull; Source: {activeData.source}
+        {isHistorical ? (
+          <span className="flex items-center justify-center gap-1.5">
+            <History className="w-3 h-3 text-amber-400/60" />
+            <span>Historical data from {seasonLabel}</span>
+            <span className="text-gray-700">•</span>
+            <span>Source: {activeData.source}</span>
+          </span>
+        ) : (
+          <>Data last updated: {timeAgo} &bull; Source: {activeData.source}</>
+        )}
       </div>
     </div>
   );
