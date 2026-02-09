@@ -12,6 +12,7 @@ import StatsTab from './StatsTab';
 import SimulateTab from './SimulateTab';
 import PredictTab from './PredictTab';
 import FixturesTab from './FixturesTab';
+import CompareTab from './CompareTab';
 
 interface AppTabsProps {
   activeTab: TabKey;
@@ -118,6 +119,10 @@ export default function AppTabs({
             onTeamClick={onTeamClick}
             onPlayerClick={onPlayerClick}
           />
+        )}
+
+        {activeTab === 'compare' && (
+          <CompareTab selectedDiv={selectedDiv} />
         )}
 
         {activeTab === 'stats' && (
