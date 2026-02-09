@@ -6,6 +6,7 @@ import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
 import { useLeague } from '@/lib/league-context';
 import ShareButton from './ShareButton';
+import HistoricalStandingsView from './HistoricalStandingsView';
 import { generateStandingsShareData } from '@/lib/share-utils';
 
 interface StandingsTabProps {
@@ -48,6 +49,7 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
   });
 
   return (
+    <>
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6 overflow-x-auto">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -137,5 +139,11 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
         <span className="ml-auto">Click team for details</span>
       </div>
     </div>
+    {isHistorical && (
+      <div className="mt-6">
+        <HistoricalStandingsView onTeamClick={onTeamClick} />
+      </div>
+    )}
+    </>
   );
 }

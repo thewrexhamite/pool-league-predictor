@@ -9,6 +9,7 @@ import { useAuth } from '@/lib/auth';
 import { useLeagueData } from '@/lib/data-provider';
 import type { NotificationPreferences, EmailNotificationPreferences, EmailFrequency } from '@/lib/notifications';
 import NotificationHistory from '@/components/NotificationHistory';
+import QuietHoursSettings from '@/components/QuietHoursSettings';
 
 interface NotificationSettingsProps {
   onUnsubscribe?: () => void;
@@ -659,6 +660,16 @@ export default function NotificationSettings({
           )}
         </div>
       </div>
+
+      {/* Quiet Hours */}
+      <QuietHoursSettings
+        preferences={preferences}
+        onUpdate={async (newPrefs) => {
+          if (!user) return false;
+          return updatePreferences(user.uid, newPrefs);
+        }}
+        disabled={isUpdating || isUnsubscribing}
+      />
 
       {/* Unsubscribe Button */}
       <div className="pt-2">

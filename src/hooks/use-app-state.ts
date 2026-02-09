@@ -42,6 +42,8 @@ export function useAppState({ timeMachineDate, setTimeMachineDate, onToast }: Us
   // Modal state
   const [showMyTeamModal, setShowMyTeamModal] = useState(false);
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
+  const [showQuickLookup, setShowQuickLookup] = useState(false);
+  const [showNotificationPrompt, setShowNotificationPrompt] = useState(false);
 
   // Simulation hook
   const simulation = useSimulation({
@@ -124,6 +126,7 @@ export function useAppState({ timeMachineDate, setTimeMachineDate, onToast }: Us
     setShowMyTeamModal(false);
     if (div !== router.div) resetDivision(div);
     onToast(`My Team set to ${team}`, 'success');
+    setShowNotificationPrompt(true);
   };
 
   const handleClearMyTeam = () => {
@@ -142,6 +145,10 @@ export function useAppState({ timeMachineDate, setTimeMachineDate, onToast }: Us
     setShowMyTeamModal,
     showNotificationSettings,
     setShowNotificationSettings,
+    showQuickLookup,
+    setShowQuickLookup,
+    showNotificationPrompt,
+    setShowNotificationPrompt,
     availableDates,
 
     // Hooks
