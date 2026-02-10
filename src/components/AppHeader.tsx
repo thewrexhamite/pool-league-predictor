@@ -219,7 +219,8 @@ export default function AppHeader({
     return 'just now';
   }, [leagueData.lastUpdated]);
 
-  const activeTab = router.tab;
+  // Resolve detail tabs to their parent for highlighting
+  const activeTab = router.tab === 'team' ? 'standings' : router.tab === 'player' ? 'stats' : router.tab;
   const selectedDiv = safeDiv;
 
   const totalRemaining = getAllRemainingFixtures(ds).length;

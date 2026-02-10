@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import type { DivisionCode, UserSession } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { useActiveData } from '@/lib/active-data-provider';
@@ -74,14 +74,23 @@ export function useAppState({ timeMachineDate, setTimeMachineDate, onToast }: Us
     squadTopN: squadBuilder.squadTopN,
   });
 
-  // Scroll to top on tab change
+  // Preserve scroll position per tab
+  const scrollPositions = useRef<Map<string, number>>(new Map());
+  const prevTab = useRef(router.tab);
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Save scroll position for the tab we're leaving
+    if (prevTab.current !== router.tab) {
+      scrollPositions.current.set(prevTab.current, window.scrollY);
+      // Restore saved position for new tab (or scroll to top)
+      const saved = scrollPositions.current.get(router.tab);
+      window.scrollTo({ top: saved ?? 0, behavior: 'instant' as ScrollBehavior });
+      prevTab.current = router.tab;
+    }
   }, [router.tab]);
 
   // Sync predict teams from router
   useEffect(() => {
-    if (router.tab === 'predict' && router.home && router.away) {
+    if (router.tab === 'matches' && router.home && router.away) {
       prediction.setPredictionTeams(router.home, router.away);
     }
   }, [router.tab, router.home, router.away, prediction]);

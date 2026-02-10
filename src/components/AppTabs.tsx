@@ -2,22 +2,16 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import type { DivisionCode, StandingEntry, TabKey } from '@/lib/types';
+import type { SubView } from '@/lib/router';
 import DashboardTab from './DashboardTab';
-import StandingsTab from './StandingsTab';
-import ResultsTab from './ResultsTab';
-import TeamDetail from './TeamDetail';
-import PlayerDetail from './PlayerDetail';
-import PlayersTab from './PlayersTab';
-import StatsTab from './StatsTab';
-import SimulateTab from './SimulateTab';
-import PredictTab from './PredictTab';
-import FixturesTab from './FixturesTab';
-import CompareTab from './CompareTab';
-import LineupOptimizerTab from './LineupOptimizerTab';
-import CaptainDashboard from './CaptainDashboard';
+import StandingsContainer from './tabs/StandingsContainer';
+import MatchesContainer from './tabs/MatchesContainer';
+import StatsContainer from './tabs/StatsContainer';
+import MyTeamContainer from './tabs/MyTeamContainer';
 
 interface AppTabsProps {
   activeTab: TabKey;
+  subView?: SubView;
   selectedDiv: DivisionCode;
   selectedTeam: string | null;
   selectedPlayer: string | null;
@@ -30,6 +24,7 @@ interface AppTabsProps {
   onPlayerClick: (name: string) => void;
   onPredict: (home: string, away: string) => void;
   onTabChange: (tab: TabKey) => void;
+  onSubViewChange: (sv: SubView) => void;
   onDivisionReset: (div: DivisionCode) => void;
   onSetMyTeam?: () => void;
   prediction: any;
@@ -39,6 +34,7 @@ interface AppTabsProps {
 
 export default function AppTabs({
   activeTab,
+  subView,
   selectedDiv,
   selectedTeam,
   selectedPlayer,
@@ -51,6 +47,7 @@ export default function AppTabs({
   onPlayerClick,
   onPredict,
   onTabChange,
+  onSubViewChange,
   onDivisionReset,
   onSetMyTeam,
   prediction,
@@ -60,14 +57,14 @@ export default function AppTabs({
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={activeTab + (activeTab === 'team' ? selectedTeam : '') + (activeTab === 'player' ? selectedPlayer : '')}
+        key={activeTab}
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -12 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.15 }}
         role="tabpanel"
       >
-        {activeTab === 'dashboard' && (
+        {activeTab === 'home' && (
           <DashboardTab
             selectedDiv={selectedDiv}
             standings={standings}
@@ -79,160 +76,57 @@ export default function AppTabs({
         )}
 
         {activeTab === 'standings' && (
-          <StandingsTab
+          <StandingsContainer
+            subView={subView}
+            onSubViewChange={onSubViewChange}
             selectedDiv={selectedDiv}
             standings={standings}
             myTeam={myTeam}
             onTeamClick={onTeamClick}
-          />
-        )}
-
-        {activeTab === 'results' && (
-          <ResultsTab selectedDiv={selectedDiv} onTeamClick={onTeamClick} onPlayerClick={onPlayerClick} />
-        )}
-
-        {activeTab === 'team' && selectedTeam && (
-          <TeamDetail
-            team={selectedTeam}
-            selectedDiv={selectedDiv}
-            standings={standings}
-            onBack={() => onTabChange('standings')}
-            onTeamClick={onTeamClick}
-            onPlayerClick={onPlayerClick}
-          />
-        )}
-
-        {activeTab === 'player' && selectedPlayer && (
-          <PlayerDetail
-            player={selectedPlayer}
-            selectedTeam={selectedTeam}
-            onBack={() => {
-              if (selectedTeam) onTeamClick(selectedTeam);
-              else onTabChange('players');
-            }}
-            onTeamClick={(team, div) => {
-              if (div !== selectedDiv) onDivisionReset(div as DivisionCode);
-              onTeamClick(team);
-            }}
-          />
-        )}
-
-        {activeTab === 'players' && (
-          <PlayersTab
-            selectedDiv={selectedDiv}
-            onTeamClick={onTeamClick}
-            onPlayerClick={onPlayerClick}
-          />
-        )}
-
-        {activeTab === 'compare' && (
-          <CompareTab selectedDiv={selectedDiv} />
-        )}
-
-        {activeTab === 'optimizer' && (
-          <LineupOptimizerTab
-            selectedDiv={selectedDiv}
-            homeTeam={prediction.homeTeam}
-            awayTeam={prediction.awayTeam}
-            onHomeTeamChange={prediction.setHomeTeam}
-            onAwayTeamChange={prediction.setAwayTeam}
-            onTeamClick={onTeamClick}
-            onPlayerClick={onPlayerClick}
-          />
-        )}
-
-        {activeTab === 'captain' && (
-          <CaptainDashboard
-            simResults={simulation.simResults}
-            onTeamClick={onTeamClick}
-            onPlayerClick={onPlayerClick}
-            onSetMyTeam={onSetMyTeam}
-          />
-        )}
-
-        {activeTab === 'stats' && (
-          <StatsTab
-            selectedDiv={selectedDiv}
-            onTeamClick={onTeamClick}
-            onPlayerClick={onPlayerClick}
-          />
-        )}
-
-        {activeTab === 'simulate' && (
-          <SimulateTab
-            selectedDiv={selectedDiv}
-            simResults={simulation.simResults}
-            isSimulating={simulation.isSimulating}
-            whatIfResults={simulation.whatIfResults}
-            whatIfSimResults={simulation.whatIfSimResults}
-            squadOverrides={squadBuilder.squadOverrides}
-            squadTopN={squadBuilder.squadTopN}
-            myTeam={myTeam}
-            onRunSimulation={simulation.runSimulation}
-            onTeamClick={onTeamClick}
+            simulation={simulation}
+            squadBuilder={squadBuilder}
             timeMachineDate={timeMachineDate}
             onTimeMachineDateChange={onTimeMachineDateChange}
             availableDates={availableDates}
           />
         )}
 
-        {activeTab === 'predict' && (
-          <PredictTab
+        {activeTab === 'matches' && (
+          <MatchesContainer
+            subView={subView}
+            onSubViewChange={onSubViewChange}
             selectedDiv={selectedDiv}
-            homeTeam={prediction.homeTeam}
-            awayTeam={prediction.awayTeam}
-            prediction={prediction.prediction}
-            squadOverrides={squadBuilder.squadOverrides}
-            onHomeTeamChange={prediction.setHomeTeam}
-            onAwayTeamChange={prediction.setAwayTeam}
+            onTeamClick={onTeamClick}
+            onPlayerClick={onPlayerClick}
+            onTabChange={onTabChange}
+            prediction={prediction}
+            simulation={simulation}
+            squadBuilder={squadBuilder}
+            myTeam={myTeam}
+          />
+        )}
+
+        {activeTab === 'stats' && (
+          <StatsContainer
+            subView={subView}
+            onSubViewChange={onSubViewChange}
+            selectedDiv={selectedDiv}
             onTeamClick={onTeamClick}
             onPlayerClick={onPlayerClick}
           />
         )}
 
-        {activeTab === 'fixtures' && (
-          <FixturesTab
+        {activeTab === 'myteam' && (
+          <MyTeamContainer
+            subView={subView}
+            onSubViewChange={onSubViewChange}
             selectedDiv={selectedDiv}
-            whatIfResults={simulation.whatIfResults}
-            myTeam={myTeam}
-            squadOverrides={squadBuilder.squadOverrides}
-            squadBuilderTeam={squadBuilder.squadBuilderTeam}
-            squadPlayerSearch={squadBuilder.squadPlayerSearch}
-            squadTopN={squadBuilder.squadTopN}
-            onAddWhatIf={simulation.addWhatIf}
-            onRemoveWhatIf={simulation.removeWhatIf}
-            onPredict={(home, away) => {
-              prediction.setPredictionTeams(home, away);
-              onTabChange('predict');
-            }}
             onTeamClick={onTeamClick}
-            onSimulate={() => {
-              onTabChange('simulate');
-              setTimeout(simulation.runSimulation, 200);
-            }}
-            onClearWhatIf={() => {
-              simulation.clearWhatIfResults();
-              simulation.clearSimulation();
-            }}
-            onSquadBuilderTeamChange={team => {
-              squadBuilder.selectTeam(team);
-              squadBuilder.clearPlayerSearch();
-            }}
-            onSquadPlayerSearchChange={squadBuilder.setPlayerSearch}
-            onSquadTopNChange={n => {
-              squadBuilder.setTopN(n);
-              simulation.clearSimulation();
-            }}
-            onAddSquadPlayer={squadBuilder.addSquadPlayer}
-            onRemoveSquadPlayer={squadBuilder.removeSquadPlayer}
-            onRestoreSquadPlayer={squadBuilder.restoreSquadPlayer}
-            onUnaddSquadPlayer={squadBuilder.unaddSquadPlayer}
-            onClearAll={() => {
-              simulation.clearWhatIfResults();
-              squadBuilder.clearAllOverrides();
-              squadBuilder.clearTeam();
-              simulation.clearSimulation();
-            }}
+            onPlayerClick={onPlayerClick}
+            onSetMyTeam={onSetMyTeam}
+            prediction={prediction}
+            simulation={simulation}
+            squadBuilder={squadBuilder}
           />
         )}
       </motion.div>

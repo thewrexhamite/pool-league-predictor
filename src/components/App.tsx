@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { LeagueMeta } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { ActiveDataProvider } from '@/lib/active-data-provider';
@@ -18,6 +18,10 @@ import QuickLookupMode from './QuickLookupMode';
 import { NotificationPrompt } from './NotificationPrompt';
 import BottomTabBar from './BottomTabBar';
 import BackToTopButton from './BackToTopButton';
+import DetailSheetProvider from './ui/DetailSheetProvider';
+import DetailSheet from './ui/DetailSheet';
+import SheetContent from './SheetContent';
+import { useSheetBridge } from '@/hooks/use-sheet-bridge';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
@@ -61,6 +65,23 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   const appState = useAppState({ timeMachineDate, setTimeMachineDate, onToast: addToast });
   const isAuthenticated = useIsAuthenticated();
 
+  // Track the last real (non-detail) tab so sheets don't blank the background
+  const lastRealTab = useRef(appState.router.tab === 'team' || appState.router.tab === 'player' ? 'home' as const : appState.router.tab);
+  if (appState.router.tab !== 'team' && appState.router.tab !== 'player') {
+    lastRealTab.current = appState.router.tab;
+  }
+  const visibleTab = appState.router.tab === 'team' || appState.router.tab === 'player'
+    ? lastRealTab.current
+    : appState.router.tab;
+
+  // Bridge router team/player navigation to sheet system
+  const sheet = useSheetBridge(
+    appState.router.tab,
+    appState.router.team,
+    appState.router.player,
+    appState.safeDiv,
+  );
+
   // Cmd/Ctrl+K keyboard shortcut for Quick Lookup
   const { setShowQuickLookup } = appState;
   useEffect(() => {
@@ -75,6 +96,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   }, [setShowQuickLookup]);
 
   return (
+    <DetailSheetProvider>
     <div className="min-h-screen text-white">
       <AppHeader
         timeMachineDate={timeMachineDate}
@@ -92,7 +114,8 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 
       <main className="max-w-6xl mx-auto px-4 py-6 pb-24 md:pb-6">
         <AppTabs
-          activeTab={appState.router.tab}
+          activeTab={visibleTab}
+          subView={appState.router.subView}
           selectedDiv={appState.safeDiv}
           selectedTeam={appState.router.team || null}
           selectedPlayer={appState.router.player || null}
@@ -111,6 +134,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
             appState.router.openPredict(home, away);
           }}
           onTabChange={appState.router.setTab}
+          onSubViewChange={appState.router.setSubView}
           onDivisionReset={appState.resetDivision}
           onSetMyTeam={() => appState.setShowMyTeamModal(true)}
           prediction={appState.prediction}
@@ -164,7 +188,16 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
           />
         </div>
       )}
+
+      {/* Detail Sheet overlay for team/player views */}
+      <DetailSheet>
+        <SheetContent
+          selectedDiv={appState.safeDiv}
+          standings={appState.standings}
+        />
+      </DetailSheet>
     </div>
+    </DetailSheetProvider>
   );
 }
 

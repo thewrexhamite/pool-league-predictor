@@ -44,17 +44,11 @@ interface Feature {
 }
 
 const FEATURES: Feature[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, description: 'Personalized command center with customizable widgets and at-a-glance insights', cols: 2 },
-  { id: 'standings', label: 'Standings', icon: Trophy, description: 'Live league tables with automatic updates, form tracking, and position changes', cols: 1 },
+  { id: 'home', label: 'Home', icon: LayoutDashboard, description: 'Personalized command center with customizable widgets and at-a-glance insights', cols: 2 },
+  { id: 'standings', label: 'Standings', icon: Trophy, description: 'Live league tables with projected finishes and power rankings', cols: 1 },
   { id: 'stats', label: 'Stats', icon: BarChart3, description: 'Deep player and team statistics — win rates, Bayesian ratings, and career trends', cols: 1 },
-  { id: 'predict', label: 'Predict', icon: Target, description: 'AI-powered match predictions based on player form, ratings, and historical data', cols: 2, highlighted: true },
-  { id: 'simulate', label: 'Simulate', icon: Dices, description: 'Monte Carlo season simulator — run thousands of scenarios to predict final standings', cols: 1 },
-  { id: 'compare', label: 'Compare', icon: GitCompare, description: 'Head-to-head player and team comparisons with detailed breakdowns', cols: 1 },
-  { id: 'fixtures', label: 'Fixtures', icon: Calendar, description: 'Upcoming match calendar with one-tap export to your phone', cols: 1 },
-  { id: 'results', label: 'Results', icon: ClipboardList, description: 'Complete match results with frame-by-frame scores', cols: 1 },
-  { id: 'players', label: 'Players', icon: Users, description: 'Full player database with profiles, stats, and cross-team tracking', cols: 1 },
-  { id: 'optimizer', label: 'Optimizer', icon: Settings, description: 'Squad lineup optimizer to find your strongest team for any match', cols: 1 },
-  { id: 'captain', label: 'Captain', icon: Shield, description: "Captain's command center with availability tracking and opponent scouting", cols: 4 },
+  { id: 'matches', label: 'Matches', icon: Calendar, description: 'Unified match hub — upcoming fixtures, results, and AI-powered predictions', cols: 2, highlighted: true },
+  { id: 'myteam', label: 'My Team', icon: Shield, description: "Captain's command center with squad builder, lineup optimizer, and team insights", cols: 4 },
 ];
 
 const BONUS_FEATURES = [
