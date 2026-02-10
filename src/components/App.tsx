@@ -61,6 +61,20 @@ interface AppContentProps {
 }
 
 function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
+  return (
+    <DetailSheetProvider>
+      <AppContentInner
+        league={league}
+        refreshing={refreshing}
+        timeMachineDate={timeMachineDate}
+        setTimeMachineDate={setTimeMachineDate}
+      />
+    </DetailSheetProvider>
+  );
+}
+
+/** Inner content that can safely use useDetailSheet since DetailSheetProvider wraps it */
+function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
   const { addToast } = useToast();
   const appState = useAppState({ timeMachineDate, setTimeMachineDate, onToast: addToast });
   const isAuthenticated = useIsAuthenticated();
@@ -96,7 +110,6 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
   }, [setShowQuickLookup]);
 
   return (
-    <DetailSheetProvider>
     <div className="min-h-screen text-white">
       <AppHeader
         timeMachineDate={timeMachineDate}
@@ -197,7 +210,6 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
         />
       </DetailSheet>
     </div>
-    </DetailSheetProvider>
   );
 }
 
