@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import type { LeagueMeta } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { ActiveDataProvider } from '@/lib/active-data-provider';
@@ -18,10 +18,12 @@ import QuickLookupMode from './QuickLookupMode';
 import { NotificationPrompt } from './NotificationPrompt';
 import BottomTabBar from './BottomTabBar';
 import BackToTopButton from './BackToTopButton';
+import ScrollProgress from './ui/ScrollProgress';
 import DetailSheetProvider from './ui/DetailSheetProvider';
 import DetailSheet from './ui/DetailSheet';
 import SheetContent from './SheetContent';
 import { useSheetBridge } from '@/hooks/use-sheet-bridge';
+import { withViewTransition } from '@/lib/view-transitions';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
@@ -96,6 +98,12 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
     appState.safeDiv,
   );
 
+  // Wrap tab changes in View Transition API for smooth cross-fades
+  const handleTabChange = useCallback((tab: Parameters<typeof appState.router.setTab>[0]) => {
+    withViewTransition(() => appState.router.setTab(tab));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appState.router.setTab]);
+
   // Cmd/Ctrl+K keyboard shortcut for Quick Lookup
   const { setShowQuickLookup } = appState;
   useEffect(() => {
@@ -111,6 +119,7 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
 
   return (
     <div className="min-h-screen text-white">
+      <ScrollProgress />
       <AppHeader
         timeMachineDate={timeMachineDate}
         setTimeMachineDate={setTimeMachineDate}
@@ -146,7 +155,7 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
             appState.prediction.setPredictionTeams(home, away);
             appState.router.openPredict(home, away);
           }}
-          onTabChange={appState.router.setTab}
+          onTabChange={handleTabChange}
           onSubViewChange={appState.router.setSubView}
           onDivisionReset={appState.resetDivision}
           onSetMyTeam={() => appState.setShowMyTeamModal(true)}
@@ -160,7 +169,7 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
       <BackToTopButton />
 
       <div className="md:hidden">
-        <BottomTabBar activeTab={appState.router.tab} onTabChange={appState.router.setTab} />
+        <BottomTabBar activeTab={appState.router.tab} onTabChange={handleTabChange} />
       </div>
 
       <MyTeamModal

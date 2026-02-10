@@ -63,6 +63,7 @@ export default function AppTabs({
         exit={{ opacity: 0, y: -12 }}
         transition={{ duration: 0.15 }}
         role="tabpanel"
+        className="vt-tab-content"
       >
         {activeTab === 'home' && (
           <DashboardTab

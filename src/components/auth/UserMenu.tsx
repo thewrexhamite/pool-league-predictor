@@ -98,9 +98,8 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
         />
       </button>
 
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 rounded-lg shadow-elevated
-          bg-surface-card border border-surface-border overflow-hidden z-50"
+      <div className="absolute right-0 mt-2 w-56 rounded-lg shadow-elevated
+          bg-surface-card border border-surface-border overflow-hidden z-50 dropdown-animated" hidden={!isOpen}
         >
           {/* User info */}
           <div className="px-4 py-3 border-b border-surface-border">
@@ -159,7 +158,6 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
             </button>
           </div>
         </div>
-      )}
     </div>
   );
 }

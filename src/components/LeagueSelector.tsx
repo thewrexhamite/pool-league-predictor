@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useLeague } from '@/lib/league-context';
+import { withViewTransition } from '@/lib/view-transitions';
 import { UserMenu } from '@/components/auth';
 import ThemeToggle from '@/components/ThemeToggle';
 import type { LeagueMeta, SeasonMeta } from '@/lib/types';
@@ -76,33 +77,18 @@ function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
-/* ─── count-up hook ─── */
-
-function useCountUp(target: number, inView: boolean, duration = 1400) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    let start: number | null = null;
-    let raf: number;
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(eased * target));
-      if (progress < 1) raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [target, inView, duration]);
-  return value;
-}
+/* ─── count-up hook (shared) ─── */
+import { useCountUp } from '@/hooks/useCountUp';
 
 /* ═══════════════════════════════════════════════════════════════════
    MAIN COMPONENT
    ═══════════════════════════════════════════════════════════════════ */
 
 export default function LeagueSelector() {
-  const { leagues, loading, selectLeague } = useLeague();
+  const { leagues, loading, selectLeague: _selectLeague } = useLeague();
+  const selectLeague = (leagueId: string, seasonId: string) => {
+    withViewTransition(() => _selectLeague(leagueId, seasonId));
+  };
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
 
@@ -179,7 +165,7 @@ function NavBar({ scrolled, onLoginClick }: { scrolled: boolean; onLoginClick: (
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Wordmark */}
         <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2.5 group">
-          <div className="relative">
+          <div className="relative" style={{ viewTransitionName: 'app-logo' }}>
             <Trophy className="w-5 h-5 text-accent transition-transform duration-300 group-hover:scale-110" />
             <div className="absolute inset-0 bg-accent/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>

@@ -26,6 +26,7 @@ import { getAllRemainingFixtures, getAllLeaguePlayers } from '@/lib/predictions'
 import { TABS } from '@/lib/tabs';
 import { useLeague } from '@/lib/league-context';
 import { useLeagueBranding } from '@/lib/league-branding';
+import { withViewTransition } from '@/lib/view-transitions';
 import { useToast } from './ToastProvider';
 import ThemeToggle from './ThemeToggle';
 import SeasonSelector from './SeasonSelector';
@@ -230,7 +231,7 @@ export default function AppHeader({
     : 0;
 
   return (
-    <header className="sticky top-0 z-40 bg-surface/95 backdrop-blur-sm border-b border-surface-border">
+    <header className="sticky top-0 z-40 bg-surface/95 backdrop-blur-sm border-b border-surface-border glass glass-edge header-scroll-shadow vt-header">
       <div className="max-w-6xl mx-auto px-4 py-2 md:py-3">
         <div className="flex items-center justify-between gap-3">
           {/* Left: Logo + title */}
@@ -242,11 +243,12 @@ export default function AppHeader({
                 width={40}
                 height={40}
                 className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                style={{ viewTransitionName: 'app-logo' }}
                 unoptimized
               />
             )}
             <button
-              onClick={() => clearSelection()}
+              onClick={() => withViewTransition(() => clearSelection())}
               className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity"
               title="Back to landing page"
             >
@@ -261,8 +263,7 @@ export default function AppHeader({
                   {selected.league.shortName}
                   <ChevronDown size={10} className={clsx('transition-transform', leagueDropdownOpen && 'rotate-180')} />
                 </button>
-                {leagueDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-1 bg-surface-card border border-surface-border rounded-lg shadow-elevated z-50 min-w-[160px] overflow-hidden">
+                <div className="absolute top-full left-0 mt-1 bg-surface-card border border-surface-border rounded-lg shadow-elevated z-50 min-w-[160px] overflow-hidden dropdown-animated" hidden={!leagueDropdownOpen}>
                     {leagues.map(l => {
                       const isActive = l.id === selected.leagueId;
                       return (
@@ -280,7 +281,6 @@ export default function AppHeader({
                       );
                     })}
                   </div>
-                )}
               </div>
             )}
             {selected && selected.league.seasons.length > 1 && (
@@ -300,7 +300,7 @@ export default function AppHeader({
           </div>
 
           {/* Centre: Division segmented control */}
-          <div className="hidden md:flex items-center bg-surface-card rounded-lg p-0.5">
+          <div className="hidden md:flex items-center bg-surface-card rounded-lg p-0.5 vt-division-control">
             {(Object.keys(ds.divisions) as DivisionCode[]).map((key, i, arr) => (
               <button
                 key={key}
@@ -356,8 +356,7 @@ export default function AppHeader({
                   <X size={14} />
                 </button>
               )}
-              {searchOpen && searchResults.length > 0 && (
-                <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden">
+              <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden dropdown-animated" hidden={!(searchOpen && searchResults.length > 0)}>
                   {searchResults.map((r, i) => (
                     <button
                       key={r.type + r.name}
@@ -373,7 +372,6 @@ export default function AppHeader({
                     </button>
                   ))}
                 </div>
-              )}
             </div>
 
             {/* Time Machine button (desktop only) */}
@@ -391,8 +389,7 @@ export default function AppHeader({
               >
                 <Clock size={18} />
               </button>
-              {timeMachineOpen && (
-                <div className="absolute right-0 top-full mt-1 bg-surface-card border border-surface-border rounded-lg shadow-elevated z-50 w-52 max-h-64 overflow-y-auto">
+              <div className="absolute right-0 top-full mt-1 bg-surface-card border border-surface-border rounded-lg shadow-elevated z-50 w-52 max-h-64 overflow-y-auto dropdown-animated" hidden={!timeMachineOpen}>
                   <div className="p-2 border-b border-surface-border/30">
                     <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold">Time Machine</div>
                   </div>
@@ -418,7 +415,6 @@ export default function AppHeader({
                     </button>
                   ))}
                 </div>
-              )}
             </div>
 
             {/* Theme toggle — desktop only */}

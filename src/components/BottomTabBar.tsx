@@ -20,7 +20,7 @@ export default function BottomTabBar({ activeTab, onTabChange }: BottomTabBarPro
   const highlighted = resolveHighlight(activeTab);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-sm border-t border-surface-border pb-safe">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-sm border-t border-surface-border pb-safe glass glass-edge vt-tab-bar">
       <nav className="flex items-stretch justify-around max-w-lg mx-auto">
         {TABS.map(tab => {
           const Icon = tab.icon;

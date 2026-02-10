@@ -4,6 +4,9 @@
 
 /* ===== Light Mode (default) ===== */
 :root {
+  color-scheme: light;
+  interpolate-size: allow-keywords;
+
   /* Surfaces */
   --surface: 250 250 252;
   --surface-card: 255 255 255;
@@ -58,6 +61,7 @@
 
 /* ===== Dark Mode ===== */
 .dark {
+  color-scheme: dark;
   /* Surfaces */
   --surface: 12 18 34;
   --surface-card: 22 30 46;
@@ -134,6 +138,177 @@ body {
 ::selection {
   background-color: rgb(var(--baize) / 0.3);
   color: rgb(var(--tw-white));
+}
+
+/* ===== Feature 2: Balanced text wrapping ===== */
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* ===== Feature 8: light-dark() utility vars ===== */
+@supports (color: light-dark(red, blue)) {
+  :root {
+    --subtle-hover-bg: light-dark(rgba(0,0,0,0.04), rgba(255,255,255,0.06));
+    --subtle-border: light-dark(rgba(0,0,0,0.08), rgba(255,255,255,0.08));
+  }
+}
+
+/* ===== Feature 10: @property for animated CSS variables ===== */
+@property --glow-intensity {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+@property --progress-value {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+
+.card-glow-animated {
+  --glow-intensity: 0;
+  transition: --glow-intensity 0.4s ease;
+  box-shadow: 0 0 calc(var(--glow-intensity) * 20px) calc(var(--glow-intensity) * 4px) rgb(var(--accent) / calc(var(--glow-intensity) * 0.3));
+}
+.card-glow-animated:hover {
+  --glow-intensity: 1;
+}
+
+.progress-animated {
+  --progress-value: 0%;
+  transition: --progress-value 0.6s ease-out;
+  width: var(--progress-value);
+}
+
+/* ===== Feature 6: Enhanced Glassmorphism ===== */
+@supports (backdrop-filter: blur(1px)) {
+  .glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+  }
+  .glass-subtle {
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+  }
+}
+.glass-edge {
+  box-shadow: inset 0 1px 0 0 rgb(var(--tw-white) / 0.05),
+              inset 0 0 0 1px rgb(var(--tw-white) / 0.02);
+}
+
+/* ===== Feature 7: color-mix() hover states ===== */
+@supports (background: color-mix(in srgb, red, blue)) {
+  .card-interactive:hover {
+    box-shadow: 0 8px 24px color-mix(in srgb, rgb(var(--accent)) 15%, transparent),
+                0 2px 8px color-mix(in srgb, rgb(var(--baize)) 8%, transparent);
+  }
+  .hover-mix-baize { transition: background-color 0.2s ease; }
+  .hover-mix-baize:hover {
+    background-color: color-mix(in srgb, rgb(var(--baize)) 12%, transparent);
+  }
+  .hover-mix-accent { transition: background-color 0.2s ease; }
+  .hover-mix-accent:hover {
+    background-color: color-mix(in srgb, rgb(var(--accent)) 12%, transparent);
+  }
+  .hover-mix-surface { transition: background-color 0.2s ease; }
+  .hover-mix-surface:hover {
+    background-color: color-mix(in srgb, rgb(var(--surface-elevated)) 50%, transparent);
+  }
+}
+
+/* ===== Feature 4: @starting-style dropdown animations ===== */
+.dropdown-animated {
+  opacity: 1;
+  scale: 1;
+  transform-origin: top;
+  transition: opacity 0.2s ease, scale 0.2s ease, display 0.2s allow-discrete;
+}
+@starting-style {
+  .dropdown-animated:not([hidden]) {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+.dropdown-animated[hidden] {
+  display: none;
+  opacity: 0;
+  scale: 0.95;
+}
+
+/* ===== Feature 1: Scroll-driven CSS progress bar ===== */
+@supports (animation-timeline: scroll()) {
+  @keyframes scroll-progress-grow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  .scroll-progress-css {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 60;
+    background: linear-gradient(90deg, rgb(var(--baize)), rgb(var(--accent)));
+    transform-origin: left;
+    animation: scroll-progress-grow linear;
+    animation-timeline: scroll();
+  }
+  .scroll-progress-fm-fallback {
+    display: none !important;
+  }
+}
+
+/* ===== Feature 9: Scroll-state container queries ===== */
+@supports (container-type: scroll-state) {
+  .scroll-state-container {
+    container-type: scroll-state;
+  }
+  @container scroll-state(scrolled: top) {
+    .header-scroll-shadow {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
+      border-bottom-color: rgb(var(--surface-border));
+    }
+  }
+  @container not scroll-state(scrolled: top) {
+    .header-scroll-shadow {
+      border-bottom-color: transparent;
+      box-shadow: none;
+    }
+  }
+}
+
+/* ===== Feature 5: View Transitions ===== */
+@view-transition { navigation: auto; }
+
+.vt-header    { view-transition-name: app-header; }
+.vt-tab-bar   { view-transition-name: tab-bar; }
+.vt-tab-content { view-transition-name: tab-content; }
+.vt-division-control { view-transition-name: division-control; }
+
+/* Prevent header and tab bar from default cross-fade */
+::view-transition-old(app-header),
+::view-transition-new(app-header),
+::view-transition-old(tab-bar),
+::view-transition-new(tab-bar),
+::view-transition-old(division-control),
+::view-transition-new(division-control) {
+  animation: none;
+}
+
+/* Tab content cross-fade + subtle slide */
+::view-transition-old(tab-content) {
+  animation: vt-fade-out 150ms ease-out;
+}
+::view-transition-new(tab-content) {
+  animation: vt-fade-in 150ms ease-in;
+}
+@keyframes vt-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-8px); }
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Gold accent line at top of header */
@@ -274,6 +449,59 @@ header::before {
 }
 .card-glow:hover {
   transform: translateY(-2px);
+}
+
+/* ===== Polish: Interactive Card ===== */
+/* A refined card that lifts on hover with enhanced shadow */
+.card-interactive {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.3s ease;
+}
+.card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.dark .card-interactive:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button press micro-interaction */
+.btn-press {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Animated underline on hover */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: rgb(var(--baize));
+  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* Glow ring on focus for interactive elements */
+.glow-focus:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(var(--surface)), 0 0 0 4px rgb(var(--baize) / 0.5);
+}
+
+/* Smooth section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(var(--surface-border)), transparent);
 }
 
 /* Gradient text utility for landing page */

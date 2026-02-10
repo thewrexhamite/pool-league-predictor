@@ -56,7 +56,7 @@ export default function DetailSheet({ children }: DetailSheetProps) {
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm glass-subtle"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
