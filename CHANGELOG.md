@@ -4,6 +4,16 @@ All notable changes to Pool League Pro are documented here. This project follows
 
 ---
 
+## [2026-02-10] Documentation
+
+### docs: add comprehensive README and consolidate docs into docs/ (`f7a9da6`)
+Added a full `README.md` (523 lines) covering features, architecture, deployment, data sync & maintenance, adding new leagues, admin tools, API reference, project structure, and testing. Moved 14 scattered root-level `.md` files (verification reports, test checklists, PWA guides) into a `docs/` directory.
+
+### docs: add comprehensive CHANGELOG documenting full project evolution (`ebfaa2e`)
+Created `CHANGELOG.md` documenting all 434 commits from initial build through feature branches, multi-league expansion, admin tools, and cutting-edge CSS enhancements.
+
+---
+
 ## [2026-02-10] Cutting-Edge CSS & View Transitions
 
 ### feat: add 10 cutting-edge CSS features with graceful fallbacks (`62e00f5`)
