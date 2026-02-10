@@ -606,3 +606,46 @@ export interface LineupAlternative {
   rank: number; // 1 = best alternative, 2 = second best, etc.
   probabilityDiff: number; // difference in win probability from optimal
 }
+
+// Power Rankings
+export interface PowerRanking {
+  team: string;
+  rank: number;
+  previousRank: number | null;
+  score: number;
+  components: { form: number; sos: number; mov: number; trajectory: number; points: number };
+}
+
+// Strength of Schedule
+export interface SOSEntry {
+  team: string;
+  completedSOS: number;
+  remainingSOS: number;
+  combinedSOS: number;
+  rank: number;
+}
+
+// Clutch Index
+export interface ClutchProfile {
+  player: string;
+  team: string;
+  clutchRating: number; // -1 to +1
+  closeMatchRecord: { p: number; w: number; pct: number };
+  lateFrameRecord: { p: number; w: number; pct: number };
+  overallPct: number;
+  label: 'clutch' | 'neutral' | 'choke';
+  played: number;
+}
+
+// Rivalry
+export interface RivalryRecord {
+  teamA: string;
+  teamB: string;
+  matchesPlayed: number;
+  teamAWins: number;
+  teamBWins: number;
+  draws: number;
+  significance: number;
+  lastMet: string;
+  frameDiff: number;
+}

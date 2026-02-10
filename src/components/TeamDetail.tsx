@@ -1,13 +1,19 @@
 'use client';
 
-import { useMemo } from 'react';
-import { ArrowLeft, Home, Plane, Crosshair, Shield, TrendingUp, TrendingDown } from 'lucide-react';
+import { useMemo, useState, useEffect } from 'react';
+import { ArrowLeft, Home, Plane, Crosshair, Shield, TrendingUp, TrendingDown, Grid3x3, Swords, History } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { getTeamResults, getTeamPlayers, calcTeamHomeAway, calcPlayerForm, calcSetPerformance, calcTeamBDStats, calcAppearanceRates, calcBayesianPct } from '@/lib/predictions/index';
 import { useActiveData } from '@/lib/active-data-provider';
+import { useLeague } from '@/lib/league-context';
+import { identifyRivalries } from '@/lib/stats';
+import type { MatchResult, StandingEntry as StandingEntryType } from '@/lib/types';
 import ShareButton from './ShareButton';
 import { generateTeamShareData } from '@/lib/share-utils';
+import TeamFormHeatmap from './TeamFormHeatmap';
+import RivalryPanel from './RivalryPanel';
 
 interface TeamDetailProps {
   team: string;
@@ -18,8 +24,22 @@ interface TeamDetailProps {
   onPlayerClick: (name: string) => void;
 }
 
+interface TeamSeasonRecord {
+  seasonLabel: string;
+  seasonId: string;
+  position: number;
+  pts: number;
+  w: number;
+  d: number;
+  l: number;
+  f: number;
+  a: number;
+  p: number;
+}
+
 export default function TeamDetail({ team, selectedDiv, standings, onBack, onTeamClick, onPlayerClick }: TeamDetailProps) {
   const { ds, frames } = useActiveData();
+  const { selected } = useLeague();
   const teamResults = getTeamResults(team, ds);
   const teamPlayers = getTeamPlayers(team, ds);
   const teamStanding = standings.find(s => s.team === team);
@@ -37,6 +57,10 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
     return map;
   }, [teamPlayers, frames]);
 
+  const rivalries = useMemo(() => {
+    return identifyRivalries(selectedDiv, ds).filter(r => r.teamA === team || r.teamB === team).slice(0, 5);
+  }, [selectedDiv, ds, team]);
+
   const appearanceRates = useMemo(() => {
     if (frames.length === 0) return new Map<string, { rate: number; category: 'core' | 'rotation' | 'fringe'; appearances: number; totalMatches: number }>();
     const rates = calcAppearanceRates(team, frames);
@@ -44,6 +68,124 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
     rates.forEach(r => map.set(r.name, { rate: r.rate, category: r.category, appearances: r.appearances, totalMatches: r.totalMatches }));
     return map;
   }, [team, frames]);
+
+  // Historical multi-season data
+  const [historicalSeasons, setHistoricalSeasons] = useState<TeamSeasonRecord[]>([]);
+  const [loadingHistorical, setLoadingHistorical] = useState(false);
+
+  useEffect(() => {
+    if (!selected?.league.seasons || selected.league.seasons.length <= 1) {
+      setHistoricalSeasons([]);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function fetchTeamHistory() {
+      if (!selected) return;
+      setLoadingHistorical(true);
+      try {
+        const { db } = await import('@/lib/firebase');
+        const { doc, getDoc } = await import('firebase/firestore');
+
+        const records: TeamSeasonRecord[] = [];
+
+        for (const season of selected.league.seasons) {
+          const docRef = doc(db, 'leagues', selected.leagueId, 'seasons', season.id);
+          const snap = await getDoc(docRef);
+
+          if (cancelled) return;
+
+          if (snap.exists()) {
+            const data = snap.data();
+            const results: MatchResult[] = data.results || [];
+            const divisions = data.divisions || {};
+
+            // Find which division this team is in for this season
+            let teamDiv: string | null = null;
+            for (const [divCode, divData] of Object.entries(divisions)) {
+              if ((divData as any).teams?.includes(team)) {
+                teamDiv = divCode;
+                break;
+              }
+            }
+
+            if (!teamDiv) continue;
+
+            // Calculate standings from results
+            const divTeams: string[] = (divisions[teamDiv] as any)?.teams || [];
+            const standingsMap: Record<string, { p: number; w: number; d: number; l: number; f: number; a: number; pts: number }> = {};
+            divTeams.forEach(t => {
+              standingsMap[t] = { p: 0, w: 0, d: 0, l: 0, f: 0, a: 0, pts: 0 };
+            });
+
+            for (const r of results) {
+              if (!standingsMap[r.home] || !standingsMap[r.away]) continue;
+              standingsMap[r.home].p++;
+              standingsMap[r.away].p++;
+              standingsMap[r.home].f += r.home_score;
+              standingsMap[r.home].a += r.away_score;
+              standingsMap[r.away].f += r.away_score;
+              standingsMap[r.away].a += r.home_score;
+
+              if (r.home_score > r.away_score) {
+                standingsMap[r.home].w++;
+                standingsMap[r.home].pts += 2;
+                standingsMap[r.away].l++;
+              } else if (r.home_score < r.away_score) {
+                standingsMap[r.away].w++;
+                standingsMap[r.away].pts += 3;
+                standingsMap[r.away].l++;
+              } else {
+                standingsMap[r.home].d++;
+                standingsMap[r.away].d++;
+                standingsMap[r.home].pts++;
+                standingsMap[r.away].pts++;
+              }
+            }
+
+            // Sort and find position
+            const sorted = Object.entries(standingsMap)
+              .map(([t, s]) => ({ team: t, ...s, diff: s.f - s.a }))
+              .sort((a, b) => b.pts - a.pts || b.diff - a.diff);
+
+            const teamEntry = standingsMap[team];
+            if (teamEntry && teamEntry.p > 0) {
+              const position = sorted.findIndex(s => s.team === team) + 1;
+              records.push({
+                seasonLabel: season.label,
+                seasonId: season.id,
+                position,
+                pts: teamEntry.pts,
+                w: teamEntry.w,
+                d: teamEntry.d,
+                l: teamEntry.l,
+                f: teamEntry.f,
+                a: teamEntry.a,
+                p: teamEntry.p,
+              });
+            }
+          }
+        }
+
+        if (!cancelled) {
+          setHistoricalSeasons(records);
+        }
+      } catch {
+        if (!cancelled) setHistoricalSeasons([]);
+      } finally {
+        if (!cancelled) setLoadingHistorical(false);
+      }
+    }
+
+    if (process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+      fetchTeamHistory();
+    } else {
+      setHistoricalSeasons([]);
+    }
+
+    return () => { cancelled = true; };
+  }, [team, selected, selectedDiv]);
 
   return (
     <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -160,6 +302,28 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
         </div>
       </div>
 
+      {/* Form Heatmap */}
+      {teamResults.length > 0 && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            <Grid3x3 size={14} className="text-accent" />
+            Season Form
+          </h3>
+          <TeamFormHeatmap results={teamResults} />
+        </div>
+      )}
+
+      {/* Rivalries */}
+      {rivalries.length > 0 && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            <Swords size={14} className="text-accent" />
+            Rivalries
+          </h3>
+          <RivalryPanel rivalries={rivalries} focusTeam={team} onTeamClick={onTeamClick} />
+        </div>
+      )}
+
       {/* Squad */}
       {teamPlayers.length > 0 && (
         <div className="mb-6">
@@ -203,6 +367,82 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
               );
             })}
           </div>
+        </div>
+      )}
+
+      {/* Historical Trends */}
+      {historicalSeasons.length > 1 && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            <History size={14} className="text-info" />
+            Season History
+          </h3>
+          <div className="h-48 mb-3">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={historicalSeasons.map(s => ({
+                season: s.seasonLabel,
+                pts: s.pts,
+                position: s.position,
+              }))}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                <XAxis dataKey="season" stroke="#9CA3AF" fontSize={11} tick={{ fill: '#9CA3AF' }} />
+                <YAxis stroke="#9CA3AF" fontSize={11} tick={{ fill: '#9CA3AF' }} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
+                  labelStyle={{ color: '#fff', fontSize: 12 }}
+                  itemStyle={{ fontSize: 11 }}
+                />
+                <Bar dataKey="pts" fill="#F59E0B" name="Points" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="text-gray-500 border-b border-surface-border/30 uppercase tracking-wider text-[10px]">
+                  <th className="text-left p-1.5">Season</th>
+                  <th className="text-center p-1.5">Pos</th>
+                  <th className="text-center p-1.5">P</th>
+                  <th className="text-center p-1.5">W</th>
+                  <th className="text-center p-1.5">D</th>
+                  <th className="text-center p-1.5">L</th>
+                  <th className="text-center p-1.5">Pts</th>
+                  <th className="text-center p-1.5">F-A</th>
+                </tr>
+              </thead>
+              <tbody>
+                {historicalSeasons.map((s, i) => {
+                  const prev = i > 0 ? historicalSeasons[i - 1] : null;
+                  const posChange = prev ? prev.position - s.position : 0;
+                  return (
+                    <tr key={s.seasonId} className="border-b border-surface-border/20">
+                      <td className="p-1.5 text-gray-300">{s.seasonLabel}</td>
+                      <td className="p-1.5 text-center font-medium text-white">
+                        #{s.position}
+                        {posChange !== 0 && (
+                          <span className={clsx('ml-1 text-[10px]', posChange > 0 ? 'text-win' : 'text-loss')}>
+                            {posChange > 0 ? <TrendingUp size={10} className="inline" /> : <TrendingDown size={10} className="inline" />}
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-1.5 text-center text-gray-400">{s.p}</td>
+                      <td className="p-1.5 text-center text-win">{s.w}</td>
+                      <td className="p-1.5 text-center text-draw">{s.d}</td>
+                      <td className="p-1.5 text-center text-loss">{s.l}</td>
+                      <td className="p-1.5 text-center font-bold text-gold">{s.pts}</td>
+                      <td className="p-1.5 text-center text-gray-400">{s.f}-{s.a}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {loadingHistorical && (
+        <div className="mb-6 flex items-center justify-center py-6">
+          <div className="text-sm text-gray-500">Loading historical data...</div>
         </div>
       )}
 

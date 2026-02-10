@@ -14,6 +14,13 @@ import {
   Target,
   Plus,
   Check,
+  Crown,
+  BarChart3,
+  Zap,
+  AlertTriangle,
+  Grid3x3,
+  Rocket,
+  Heart,
 } from 'lucide-react';
 import type { WidgetType } from '@/lib/dashboard-config';
 import { WIDGET_LIBRARY } from '@/lib/dashboard-config';
@@ -33,6 +40,13 @@ const ICON_MAP = {
   Clock,
   Flame,
   Target,
+  Crown,
+  BarChart3,
+  Zap,
+  AlertTriangle,
+  Grid3x3,
+  Rocket,
+  Heart,
 };
 
 export default function WidgetLibrary({ onClose }: WidgetLibraryProps) {

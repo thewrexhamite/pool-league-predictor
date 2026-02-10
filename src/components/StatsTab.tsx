@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import clsx from 'clsx';
-import { Trophy, TrendingUp, Target, Flame, Award } from 'lucide-react';
+import { Trophy, TrendingUp, Target, Flame, Award, Crown, BarChart3, Zap, Rocket, Swords } from 'lucide-react';
 import type { DivisionCode } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
 import { getDiv } from '@/lib/predictions';
@@ -13,6 +13,10 @@ import {
   getMostImprovedPlayers,
   getActiveWinStreaks,
   calculateCurrentForm,
+  calcPowerRankings,
+  calcAllTeamsSOS,
+  getClutchLeaderboard,
+  identifyRivalries,
 } from '@/lib/stats';
 
 interface StatsTabProps {
@@ -119,6 +123,37 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   const activeStreaks = useMemo(() => {
     return playerStreaks.slice(0, 10);
   }, [playerStreaks]);
+
+  // Power Rankings
+  const powerRankings = useMemo(() => {
+    if (showAllDivisions) return [];
+    return calcPowerRankings(selectedDiv, ds, frames);
+  }, [selectedDiv, ds, frames, showAllDivisions]);
+
+  // Strength of Schedule
+  const sosData = useMemo(() => {
+    if (showAllDivisions) return [];
+    return calcAllTeamsSOS(selectedDiv, ds);
+  }, [selectedDiv, ds, showAllDivisions]);
+
+  // Clutch Performers
+  const clutchProfiles = useMemo(() => {
+    if (showAllDivisions) return [];
+    return getClutchLeaderboard(selectedDiv, ds, frames, ds.players2526, 20);
+  }, [selectedDiv, ds, frames, showAllDivisions]);
+
+  // Rivalries
+  const rivalries = useMemo(() => {
+    if (showAllDivisions) return [];
+    return identifyRivalries(selectedDiv, ds).slice(0, 10);
+  }, [selectedDiv, ds, showAllDivisions]);
+
+  // Breakout Players (more than 10pp improvement, 10+ games)
+  const breakoutPlayers = useMemo(() => {
+    const division = showAllDivisions ? null : selectedDiv;
+    return getMostImprovedPlayers(ds.players2526, ds.players, division, 10, 20)
+      .filter(p => p.improvement > 10 && p.currentPlayed >= 10);
+  }, [ds.players2526, ds.players, selectedDiv, showAllDivisions]);
 
   return (
     <div className="space-y-4">
@@ -572,6 +607,255 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
           </div>
         )}
       </div>
+
+      {/* Power Rankings Section */}
+      {!showAllDivisions && powerRankings.length > 0 && (
+        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
+            <Crown size={16} />
+            Power Rankings
+          </h3>
+          <p className="text-xs text-gray-500 mb-3">
+            Algorithmic rankings based on form, margin of victory, strength of schedule, and momentum
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Team</th>
+                  <th className="text-center p-2">Score</th>
+                  <th className="text-center p-2" title="Points component">Pts</th>
+                  <th className="text-center p-2" title="Form component">Form</th>
+                  <th className="text-center p-2" title="Margin of Victory">MoV</th>
+                  <th className="text-center p-2" title="Strength of Schedule">SoS</th>
+                  <th className="text-center p-2" title="Trajectory">Traj</th>
+                </tr>
+              </thead>
+              <tbody>
+                {powerRankings.map((r) => (
+                  <tr
+                    key={r.team}
+                    className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                    onClick={() => onTeamClick(r.team)}
+                  >
+                    <td className="p-2 font-bold text-accent">{r.rank}</td>
+                    <td className="p-2 font-medium text-info hover:text-info-light transition">{r.team}</td>
+                    <td className="p-2 text-center font-bold text-white">{(r.score * 100).toFixed(1)}</td>
+                    <td className="p-2 text-center text-gray-400">{(r.components.points * 100).toFixed(0)}</td>
+                    <td className="p-2 text-center text-gray-400">{(r.components.form * 100).toFixed(0)}</td>
+                    <td className="p-2 text-center text-gray-400">{(r.components.mov * 100).toFixed(0)}</td>
+                    <td className="p-2 text-center text-gray-400">{(r.components.sos * 100).toFixed(0)}</td>
+                    <td className="p-2 text-center text-gray-400">{(r.components.trajectory * 100).toFixed(0)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Strength of Schedule Section */}
+      {!showAllDivisions && sosData.length > 0 && (
+        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h3 className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5">
+            <BarChart3 size={16} />
+            Strength of Schedule
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Team</th>
+                  <th className="text-center p-2" title="Completed schedule strength">Played</th>
+                  <th className="text-center p-2" title="Remaining schedule strength">Remaining</th>
+                  <th className="text-center p-2" title="Combined schedule strength">Combined</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sosData.map((e) => (
+                  <tr
+                    key={e.team}
+                    className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                    onClick={() => onTeamClick(e.team)}
+                  >
+                    <td className="p-2 text-gray-600">{e.rank}</td>
+                    <td className="p-2 font-medium text-info hover:text-info-light transition">{e.team}</td>
+                    <td className="p-2 text-center text-gray-400">{e.completedSOS.toFixed(3)}</td>
+                    <td className={clsx(
+                      'p-2 text-center font-medium',
+                      e.remainingSOS > 0.05 ? 'text-loss' : e.remainingSOS < -0.05 ? 'text-win' : 'text-gray-300'
+                    )}>
+                      {e.remainingSOS > 0 ? '+' : ''}{e.remainingSOS.toFixed(3)}
+                    </td>
+                    <td className="p-2 text-center text-gray-300">{e.combinedSOS.toFixed(3)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Clutch Performers Section */}
+      {!showAllDivisions && clutchProfiles.length > 0 && (
+        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
+            <Zap size={16} />
+            Clutch Performers
+          </h3>
+          <p className="text-xs text-gray-500 mb-3">
+            Players ranked by performance in close matches (decided by 1-2 frames)
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Player</th>
+                  <th className="text-left p-2">Team</th>
+                  <th className="text-center p-2">P</th>
+                  <th className="text-center p-2" title="Clutch rating">Rating</th>
+                  <th className="text-center p-2" title="Close match win%">Close%</th>
+                  <th className="text-center p-2" title="Overall win%">Overall%</th>
+                  <th className="text-center p-2">Label</th>
+                </tr>
+              </thead>
+              <tbody>
+                {clutchProfiles.map((p, i) => (
+                  <tr
+                    key={p.player}
+                    className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                    onClick={() => onPlayerClick(p.player)}
+                  >
+                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 font-medium text-info hover:text-info-light transition">{p.player}</td>
+                    <td
+                      className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                      onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                    >
+                      {p.team}
+                    </td>
+                    <td className="p-2 text-center text-gray-300">{p.played}</td>
+                    <td className={clsx(
+                      'p-2 text-center font-bold',
+                      p.clutchRating > 0.15 ? 'text-win' : p.clutchRating < -0.15 ? 'text-loss' : 'text-gray-400'
+                    )}>
+                      {p.clutchRating > 0 ? '+' : ''}{(p.clutchRating * 100).toFixed(0)}
+                    </td>
+                    <td className="p-2 text-center text-gray-300">{p.closeMatchRecord.pct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-400">{p.overallPct.toFixed(1)}%</td>
+                    <td className="p-2 text-center">
+                      <span className={clsx(
+                        'px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase',
+                        p.label === 'clutch' && 'bg-win/20 text-win',
+                        p.label === 'choke' && 'bg-loss/20 text-loss',
+                        p.label === 'neutral' && 'bg-gray-600/20 text-gray-400',
+                      )}>
+                        {p.label}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Breakout Players Section */}
+      {breakoutPlayers.length > 0 && (
+        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h3 className="text-sm font-semibold text-success mb-3 flex items-center gap-1.5">
+            <Rocket size={16} />
+            Breakout Players
+          </h3>
+          <p className="text-xs text-gray-500 mb-3">
+            Players with 10+ percentage point improvement over last season (min 10 games both seasons)
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Player</th>
+                  <th className="text-left p-2">Team</th>
+                  <th className="text-center p-2">P</th>
+                  <th className="text-center p-2">Now</th>
+                  <th className="text-center p-2">Was</th>
+                  <th className="text-center p-2">+/-</th>
+                </tr>
+              </thead>
+              <tbody>
+                {breakoutPlayers.map((p, i) => (
+                  <tr
+                    key={p.name + p.team}
+                    className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
+                    onClick={() => onPlayerClick(p.name)}
+                  >
+                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
+                    <td
+                      className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
+                      onClick={e => { e.stopPropagation(); onTeamClick(p.team); }}
+                    >
+                      {p.team}
+                    </td>
+                    <td className="p-2 text-center text-gray-300">{p.currentPlayed}</td>
+                    <td className="p-2 text-center font-medium text-white">{p.currentPct.toFixed(1)}%</td>
+                    <td className="p-2 text-center text-gray-400">{p.priorPct.toFixed(1)}%</td>
+                    <td className="p-2 text-center font-bold text-success">+{p.improvement.toFixed(1)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Top Rivalries Section */}
+      {!showAllDivisions && rivalries.length > 0 && (
+        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
+            <Swords size={16} />
+            Top Rivalries
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs md:text-sm">
+              <thead>
+                <tr className="text-gray-500 uppercase tracking-wider text-[10px] md:text-xs border-b border-surface-border">
+                  <th className="text-left p-2">#</th>
+                  <th className="text-left p-2">Matchup</th>
+                  <th className="text-center p-2">P</th>
+                  <th className="text-center p-2">Record</th>
+                  <th className="text-center p-2">D</th>
+                  <th className="text-center p-2" title="Last met">Last Met</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rivalries.map((r, i) => (
+                  <tr
+                    key={`${r.teamA}-${r.teamB}`}
+                    className="border-b border-surface-border/30"
+                  >
+                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2">
+                      <button onClick={() => onTeamClick(r.teamA)} className="text-info hover:text-info-light transition">{r.teamA}</button>
+                      <span className="text-gray-500 mx-1">vs</span>
+                      <button onClick={() => onTeamClick(r.teamB)} className="text-info hover:text-info-light transition">{r.teamB}</button>
+                    </td>
+                    <td className="p-2 text-center text-gray-300">{r.matchesPlayed}</td>
+                    <td className="p-2 text-center text-gray-300">{r.teamAWins}-{r.teamBWins}</td>
+                    <td className="p-2 text-center text-gray-400">{r.draws}</td>
+                    <td className="p-2 text-center text-gray-500 text-xs">{r.lastMet}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -9,7 +9,14 @@ export type WidgetType =
   | 'next-matchday'
   | 'recent-results'
   | 'hot-cold'
-  | 'prediction-accuracy';
+  | 'prediction-accuracy'
+  | 'power-rankings'
+  | 'strength-of-schedule'
+  | 'clutch-performers'
+  | 'match-importance'
+  | 'team-form-heatmap'
+  | 'breakout-players'
+  | 'league-health';
 
 // Widget size options
 export type WidgetSize = 'small' | 'medium' | 'large' | 'full';
@@ -108,6 +115,63 @@ export const WIDGET_LIBRARY: Record<WidgetType, WidgetMetadata> = {
     icon: 'Target',
     defaultSize: 'full',
     category: 'predictions',
+  },
+  'power-rankings': {
+    type: 'power-rankings',
+    name: 'Power Rankings',
+    description: 'Algorithmic team rankings based on form, strength of schedule, and momentum',
+    icon: 'Crown',
+    defaultSize: 'medium',
+    category: 'standings',
+  },
+  'strength-of-schedule': {
+    type: 'strength-of-schedule',
+    name: 'Strength of Schedule',
+    description: 'Compare remaining schedule difficulty across teams',
+    icon: 'BarChart3',
+    defaultSize: 'medium',
+    category: 'standings',
+  },
+  'clutch-performers': {
+    type: 'clutch-performers',
+    name: 'Clutch Performers',
+    description: 'Players who excel in close matches and pressure situations',
+    icon: 'Zap',
+    defaultSize: 'medium',
+    category: 'stats',
+  },
+  'match-importance': {
+    type: 'match-importance',
+    name: 'Match Importance',
+    description: "This week's biggest match based on title/relegation impact",
+    icon: 'AlertTriangle',
+    defaultSize: 'medium',
+    category: 'fixtures',
+  },
+  'team-form-heatmap': {
+    type: 'team-form-heatmap',
+    name: 'Team Form Heatmap',
+    description: 'Visual calendar showing your team results over the season',
+    icon: 'Grid3x3',
+    defaultSize: 'full',
+    category: 'stats',
+    requiresMyTeam: true,
+  },
+  'breakout-players': {
+    type: 'breakout-players',
+    name: 'Breakout Players',
+    description: 'Players significantly exceeding their prior season performance',
+    icon: 'Rocket',
+    defaultSize: 'medium',
+    category: 'stats',
+  },
+  'league-health': {
+    type: 'league-health',
+    name: 'League Health',
+    description: 'Division competitiveness and parity metrics',
+    icon: 'Heart',
+    defaultSize: 'medium',
+    category: 'stats',
   },
 };
 

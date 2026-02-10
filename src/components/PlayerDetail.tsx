@@ -2,14 +2,14 @@
 
 import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, History, Trophy, Award, Globe } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, UserCheck, History, Trophy, Award, Globe, Zap } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, getPlayerTeams, calcPlayerForm, getPlayerFrameHistory, calcPlayerHomeAway, calcBayesianPct } from '@/lib/predictions/index';
 import { useActiveData } from '@/lib/active-data-provider';
 import { useLeague } from '@/lib/league-context';
 import { useAuth } from '@/lib/auth';
-import { fetchPlayerCareerData, calculateCareerTrend, calculateImprovementRate, calculateConsistencyMetrics } from '@/lib/stats';
+import { fetchPlayerCareerData, calculateCareerTrend, calculateImprovementRate, calculateConsistencyMetrics, calcClutchIndex } from '@/lib/stats';
 import type { CareerTrend, ImprovementMetrics, ConsistencyMetrics } from '@/lib/stats';
 import { AIInsightsPanel } from './AIInsightsPanel';
 import SeasonComparisonChart, { type SeasonPlayerStats } from './SeasonComparisonChart';
@@ -98,6 +98,10 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
   const form = useMemo(() => frames.length > 0 ? calcPlayerForm(player, frames) : null, [player, frames]);
   const frameHistory = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player, frames) : [], [player, frames]);
   const homeAway = useMemo(() => frames.length > 0 ? calcPlayerHomeAway(player, frames) : null, [player, frames]);
+  const clutchProfile = useMemo(() => {
+    if (frames.length === 0) return null;
+    return calcClutchIndex(player, frames, ds.results);
+  }, [player, frames, ds.results]);
 
   // Sparkline data from frame history
   const sparklineData = useMemo(() => {
@@ -389,11 +393,11 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
         </div>
       )}
 
-      {/* Home/Away Split */}
+      {/* Home/Away Split - Enhanced with bar chart */}
       {homeAway && (homeAway.home.p > 0 || homeAway.away.p > 0) && (
         <div className="mb-6">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Home / Away</h3>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 mb-3">
             <div className="bg-surface rounded-lg p-3 text-center shadow-card">
               <span title="Home win %"><Home size={14} className="mx-auto text-win mb-1" /></span>
               <div className="text-lg font-bold text-win">{homeAway.home.pct.toFixed(0)}%</div>
@@ -403,6 +407,71 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
               <span title="Away win %"><Plane size={14} className="mx-auto text-loss mb-1" /></span>
               <div className="text-lg font-bold text-loss">{homeAway.away.pct.toFixed(0)}%</div>
               <div className="text-[10px] text-gray-500">Away ({homeAway.away.w}/{homeAway.away.p})</div>
+            </div>
+          </div>
+          {/* Bar visualization */}
+          {homeAway.home.p >= 2 && homeAway.away.p >= 2 && (
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-gray-500 w-10">Home</span>
+                <div className="flex-1 bg-surface rounded-full h-2">
+                  <div className="bg-info h-2 rounded-full transition-all" style={{ width: `${homeAway.home.pct}%` }} />
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-gray-500 w-10">Away</span>
+                <div className="flex-1 bg-surface rounded-full h-2">
+                  <div className="bg-warning h-2 rounded-full transition-all" style={{ width: `${homeAway.away.pct}%` }} />
+                </div>
+              </div>
+              <div className="text-[10px] text-gray-600 text-center">
+                {Math.abs(homeAway.home.pct - homeAway.away.pct) < 5
+                  ? 'Performs consistently at home and away'
+                  : homeAway.home.pct > homeAway.away.pct
+                    ? `+${(homeAway.home.pct - homeAway.away.pct).toFixed(0)}pp better at home`
+                    : `+${(homeAway.away.pct - homeAway.home.pct).toFixed(0)}pp better away`
+                }
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Clutch Badge */}
+      {clutchProfile && (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+            <Zap size={14} className={clsx(
+              clutchProfile.label === 'clutch' ? 'text-win' : clutchProfile.label === 'choke' ? 'text-loss' : 'text-gray-500'
+            )} />
+            Clutch Performance
+          </h3>
+          <div className="bg-surface rounded-lg p-3 shadow-card">
+            <div className="flex items-center justify-between mb-2">
+              <span className={clsx(
+                'px-2 py-0.5 rounded text-xs font-semibold uppercase',
+                clutchProfile.label === 'clutch' && 'bg-win/20 text-win',
+                clutchProfile.label === 'choke' && 'bg-loss/20 text-loss',
+                clutchProfile.label === 'neutral' && 'bg-gray-600/20 text-gray-400',
+              )}>
+                {clutchProfile.label}
+              </span>
+              <span className={clsx(
+                'text-lg font-bold',
+                clutchProfile.clutchRating > 0.15 ? 'text-win' : clutchProfile.clutchRating < -0.15 ? 'text-loss' : 'text-gray-400'
+              )}>
+                {clutchProfile.clutchRating > 0 ? '+' : ''}{(clutchProfile.clutchRating * 100).toFixed(0)}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <div className="text-gray-500">Close matches</div>
+                <div className="text-white font-medium">{clutchProfile.closeMatchRecord.pct.toFixed(0)}% ({clutchProfile.closeMatchRecord.w}/{clutchProfile.closeMatchRecord.p})</div>
+              </div>
+              <div>
+                <div className="text-gray-500">Late frames</div>
+                <div className="text-white font-medium">{clutchProfile.lateFrameRecord.pct.toFixed(0)}% ({clutchProfile.lateFrameRecord.w}/{clutchProfile.lateFrameRecord.p})</div>
+              </div>
             </div>
           </div>
         </div>

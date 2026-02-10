@@ -33,6 +33,13 @@ import {
   HotColdWidget,
   PredictionAccuracyWidget,
   MyTeamWidget,
+  PowerRankingsWidget,
+  StrengthOfScheduleWidget,
+  ClutchPerformersWidget,
+  MatchImportanceWidget,
+  TeamFormHeatmapWidget,
+  BreakoutPlayerWidget,
+  LeagueHealthWidget,
 } from './widgets';
 import {
   getRemainingFixtures,
@@ -290,6 +297,59 @@ export default function DashboardEditor({
 
       case 'prediction-accuracy':
         return <PredictionAccuracyWidget selectedDiv={selectedDiv} />;
+
+      case 'power-rankings':
+        return (
+          <PowerRankingsWidget
+            selectedDiv={selectedDiv}
+            onTeamClick={onTeamClick}
+          />
+        );
+
+      case 'strength-of-schedule':
+        return (
+          <StrengthOfScheduleWidget
+            selectedDiv={selectedDiv}
+            onTeamClick={onTeamClick}
+          />
+        );
+
+      case 'clutch-performers':
+        return (
+          <ClutchPerformersWidget
+            selectedDiv={selectedDiv}
+            onPlayerClick={onPlayerClick}
+          />
+        );
+
+      case 'match-importance':
+        return (
+          <MatchImportanceWidget
+            selectedDiv={selectedDiv}
+            onPredict={onPredict}
+          />
+        );
+
+      case 'team-form-heatmap':
+        if (!myTeam || myTeam.div !== selectedDiv) return null;
+        return (
+          <TeamFormHeatmapWidget
+            team={myTeam.team}
+            div={myTeam.div}
+            onTeamClick={onTeamClick}
+          />
+        );
+
+      case 'breakout-players':
+        return (
+          <BreakoutPlayerWidget
+            selectedDiv={selectedDiv}
+            onPlayerClick={onPlayerClick}
+          />
+        );
+
+      case 'league-health':
+        return <LeagueHealthWidget selectedDiv={selectedDiv} />;
 
       default:
         return null;

@@ -1,14 +1,17 @@
 'use client';
 
 import { useMemo } from 'react';
-import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Home, Plane, Trophy } from 'lucide-react';
 import clsx from 'clsx';
 import { LineChart, Line, ResponsiveContainer, YAxis, BarChart, Bar, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { getPlayerStats, getPlayerStats2526, calcBayesianPct, calcPlayerForm, calcPlayerHomeAway, getPlayerFrameHistory } from '@/lib/predictions';
+import { calcBDStats as calcAdvBDStats } from '@/lib/predictions/analytics';
 import { useActiveData } from '@/lib/active-data-provider';
 import { getH2HBetween } from '@/lib/stats/head-to-head';
+import { calcClutchIndex } from '@/lib/stats';
 import ShareButton from './ShareButton';
 import { getBaseUrl } from '@/lib/share-utils';
+import PlayerRadarChart from './PlayerRadarChart';
 
 interface PlayerComparisonProps {
   player1: string;
@@ -33,6 +36,79 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
 
   const frameHistory1 = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player1, frames) : [], [player1, frames]);
   const frameHistory2 = useMemo(() => frames.length > 0 ? getPlayerFrameHistory(player2, frames) : [], [player2, frames]);
+
+  // Clutch profiles
+  const clutch1 = useMemo(() => frames.length > 0 ? calcClutchIndex(player1, frames, ds.results) : null, [player1, frames, ds.results]);
+  const clutch2 = useMemo(() => frames.length > 0 ? calcClutchIndex(player2, frames, ds.results) : null, [player2, frames, ds.results]);
+
+  // B&D stats for comparison
+  const bd1 = useMemo(() => calcAdvBDStats(player1, null, ds.players2526), [player1, ds.players2526]);
+  const bd2 = useMemo(() => calcAdvBDStats(player2, null, ds.players2526), [player2, ds.players2526]);
+
+  // Radar chart data
+  const radarData = useMemo(() => {
+    if (!stats1 || !stats2) return null;
+
+    const winPct1 = stats1.total.pct;
+    const winPct2 = stats2.total.pct;
+    const formPct1 = form1?.last5.pct ?? 50;
+    const formPct2 = form2?.last5.pct ?? 50;
+    const clutchScore1 = clutch1 ? (clutch1.clutchRating + 1) * 50 : 50;
+    const clutchScore2 = clutch2 ? (clutch2.clutchRating + 1) * 50 : 50;
+    const h2hPct = h2hRecord && h2hRecord.played > 0 ? h2hRecord.winPct : 50;
+    const homePct1 = homeAway1?.home.pct ?? 50;
+    const homePct2 = homeAway2?.home.pct ?? 50;
+    const awayPct1 = homeAway1?.away.pct ?? 50;
+    const awayPct2 = homeAway2?.away.pct ?? 50;
+
+    return {
+      player1: { winPct: winPct1, formPct: formPct1, clutch: clutchScore1, h2hPct: h2hPct, homePct: homePct1, awayPct: awayPct1 },
+      player2: { winPct: winPct2, formPct: formPct2, clutch: clutchScore2, h2hPct: 100 - h2hPct, homePct: homePct2, awayPct: awayPct2 },
+    };
+  }, [stats1, stats2, form1, form2, clutch1, clutch2, h2hRecord, homeAway1, homeAway2]);
+
+  // Who wins verdict
+  const verdict = useMemo(() => {
+    if (!stats1 || !stats2) return null;
+
+    let p1Score = 0;
+    let p2Score = 0;
+
+    // Win % advantage
+    const adj1 = calcBayesianPct(stats1.total.w, stats1.total.p);
+    const adj2 = calcBayesianPct(stats2.total.w, stats2.total.p);
+    if (adj1 > adj2) p1Score += 2;
+    else if (adj2 > adj1) p2Score += 2;
+
+    // Form advantage
+    const f1 = form1?.last5.pct ?? 0;
+    const f2 = form2?.last5.pct ?? 0;
+    if (f1 > f2 + 5) p1Score += 1.5;
+    else if (f2 > f1 + 5) p2Score += 1.5;
+
+    // H2H advantage
+    if (h2hRecord && h2hRecord.played >= 2) {
+      if (h2hRecord.winPct > 55) p1Score += 1.5;
+      else if (h2hRecord.winPct < 45) p2Score += 1.5;
+    }
+
+    // Clutch advantage
+    const c1 = clutch1?.clutchRating ?? 0;
+    const c2 = clutch2?.clutchRating ?? 0;
+    if (c1 > c2 + 0.1) p1Score += 0.5;
+    else if (c2 > c1 + 0.1) p2Score += 0.5;
+
+    const total = p1Score + p2Score;
+    if (total === 0) return { winner: null, confidence: 0, label: 'Too close to call' };
+
+    const p1Pct = (p1Score / total) * 100;
+    if (Math.abs(p1Pct - 50) < 10) return { winner: null, confidence: 0, label: 'Too close to call' };
+
+    const winner = p1Score > p2Score ? player1 : player2;
+    const confidence = Math.abs(p1Pct - 50);
+    const label = confidence > 30 ? 'Clear advantage' : confidence > 15 ? 'Slight edge' : 'Marginal edge';
+    return { winner, confidence, label };
+  }, [stats1, stats2, form1, form2, h2hRecord, clutch1, clutch2, player1, player2]);
 
   // Create chart data combining both players' form trends
   const formChartData = useMemo(() => {
@@ -216,6 +292,76 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
           <p className="text-gray-500 text-sm">No head-to-head matches found</p>
         </div>
       )}
+
+      {/* Who Wins Verdict */}
+      {verdict && (
+        <div className="mb-6 bg-surface rounded-lg p-4 md:p-6 shadow-card text-center">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+            <Trophy size={14} className="inline mr-1 text-gold" />
+            Verdict
+          </h3>
+          {verdict.winner ? (
+            <>
+              <div className="text-xl font-bold text-white mb-1">{verdict.winner}</div>
+              <div className="text-sm text-accent">{verdict.label}</div>
+            </>
+          ) : (
+            <div className="text-lg font-bold text-gray-400">{verdict.label}</div>
+          )}
+        </div>
+      )}
+
+      {/* Radar Chart */}
+      {radarData && (
+        <div className="mb-6">
+          <PlayerRadarChart
+            player1Name={player1}
+            player2Name={player2}
+            player1Data={radarData.player1}
+            player2Data={radarData.player2}
+          />
+        </div>
+      )}
+
+      {/* B&D Comparison */}
+      <div className="mb-6 bg-surface rounded-lg p-4 md:p-6 shadow-card">
+        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 text-center">
+          Break & Dish Comparison
+        </h3>
+        <div className="grid grid-cols-3 gap-2 text-center text-xs">
+          <div>
+            <div className="text-win font-bold">{bd1.bdFPerGame.toFixed(2)}</div>
+            <div className="text-gray-500">BD+ /g</div>
+          </div>
+          <div className="text-gray-500 self-center text-[10px]">vs</div>
+          <div>
+            <div className="text-win font-bold">{bd2.bdFPerGame.toFixed(2)}</div>
+            <div className="text-gray-500">BD+ /g</div>
+          </div>
+          <div>
+            <div className="text-loss font-bold">{bd1.bdAPerGame.toFixed(2)}</div>
+            <div className="text-gray-500">BD- /g</div>
+          </div>
+          <div />
+          <div>
+            <div className="text-loss font-bold">{bd2.bdAPerGame.toFixed(2)}</div>
+            <div className="text-gray-500">BD- /g</div>
+          </div>
+          <div>
+            <div className={clsx('font-bold', bd1.bdDiff > 0 ? 'text-win' : bd1.bdDiff < 0 ? 'text-loss' : 'text-gray-400')}>
+              {bd1.bdDiff > 0 ? '+' : ''}{bd1.bdDiff}
+            </div>
+            <div className="text-gray-500">Net</div>
+          </div>
+          <div />
+          <div>
+            <div className={clsx('font-bold', bd2.bdDiff > 0 ? 'text-win' : bd2.bdDiff < 0 ? 'text-loss' : 'text-gray-400')}>
+              {bd2.bdDiff > 0 ? '+' : ''}{bd2.bdDiff}
+            </div>
+            <div className="text-gray-500">Net</div>
+          </div>
+        </div>
+      </div>
 
       {/* Comparative Bar Chart */}
       {comparisonBarData.length > 0 && (

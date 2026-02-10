@@ -59,3 +59,27 @@ export {
   type ImprovedPlayerEntry,
   type StreakLeaderEntry,
 } from './league-stats';
+
+// Power Rankings
+export { calcPowerRankings } from './power-rankings';
+
+// Strength of Schedule
+export { calcAllTeamsSOS, calcScheduleStrength } from './strength-of-schedule';
+
+// Home/Away Analytics
+export {
+  calcHomeAdvantage,
+  calcPlayerVenueBias,
+  getStrongestHomeTeams,
+  type HomeAdvantageEntry,
+  type PlayerVenueBias,
+} from './home-away-analytics';
+
+// Clutch Index
+export { calcClutchIndex, getClutchLeaderboard } from './clutch-index';
+
+// Rivalry Tracker
+export { identifyRivalries } from './rivalry-tracker';
+
+// League Health
+export { calcCompetitivenessIndex, type LeagueHealthData } from './league-health';
