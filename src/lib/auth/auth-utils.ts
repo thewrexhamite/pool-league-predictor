@@ -30,6 +30,33 @@ export interface ClaimedProfile {
 }
 
 /**
+ * A captain claim for a team in a specific league/season.
+ */
+export interface CaptainClaim {
+  league: string;
+  season: string;
+  team: string;
+  division: string;
+  claimedAt: number;
+  verified: boolean;
+  verifiedAt?: number;
+  verifiedBy?: string;
+}
+
+/**
+ * Onboarding progress tracking for new users.
+ */
+export interface OnboardingProgress {
+  completedAt?: number;
+  steps: {
+    welcome: boolean;
+    claimProfile: boolean;
+    setMyTeam: boolean;
+    enableNotifications: boolean;
+  };
+}
+
+/**
  * User settings for preferences.
  */
 export interface UserSettings {
@@ -45,10 +72,13 @@ export interface UserProfile {
   displayName: string;
   photoURL: string | null;
   claimedProfiles: ClaimedProfile[];
+  captainClaims: CaptainClaim[];
   createdAt: number;
   settings: UserSettings;
-  role?: 'user' | 'admin'; // Admin access control
+  role?: 'user' | 'captain' | 'admin';
   isAdmin: boolean;
+  onboarding?: OnboardingProgress;
+  completedTutorials?: string[];
 }
 
 // ============================================================================
@@ -123,6 +153,7 @@ export async function ensureUserProfile(user: User): Promise<UserProfile> {
     displayName: user.displayName || '',
     photoURL: user.photoURL,
     claimedProfiles: [],
+    captainClaims: [],
     createdAt: Date.now(),
     settings: defaultSettings,
     isAdmin: false,
@@ -264,4 +295,111 @@ export async function setAdminStatus(
 ): Promise<void> {
   const userRef = doc(db, 'users', userId);
   await updateDoc(userRef, { isAdmin });
+}
+
+// ============================================================================
+// Captain Claim Management
+// ============================================================================
+
+/**
+ * Add an unverified captain claim for a team.
+ */
+export async function addCaptainClaim(
+  userId: string,
+  league: string,
+  season: string,
+  team: string,
+  division: string
+): Promise<void> {
+  const userRef = doc(db, 'users', userId);
+  const claim: CaptainClaim = {
+    league,
+    season,
+    team,
+    division,
+    claimedAt: Date.now(),
+    verified: false,
+  };
+  await updateDoc(userRef, {
+    captainClaims: arrayUnion(claim),
+    role: 'captain',
+  });
+}
+
+/**
+ * Remove a captain claim.
+ */
+export async function removeCaptainClaim(
+  userId: string,
+  league: string,
+  season: string,
+  team: string
+): Promise<void> {
+  const userRef = doc(db, 'users', userId);
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) throw new Error('User profile not found');
+
+  const profile = userSnap.data() as UserProfile;
+  const updatedClaims = (profile.captainClaims || []).filter(
+    (c) => !(c.league === league && c.season === season && c.team === team)
+  );
+
+  const updates: Record<string, unknown> = { captainClaims: updatedClaims };
+  if (updatedClaims.length === 0 && profile.role === 'captain') {
+    updates.role = 'user';
+  }
+  await updateDoc(userRef, updates);
+}
+
+/**
+ * Verify a captain claim (admin action).
+ */
+export async function verifyCaptainClaim(
+  userId: string,
+  league: string,
+  season: string,
+  team: string,
+  adminUid: string
+): Promise<void> {
+  const userRef = doc(db, 'users', userId);
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) throw new Error('User profile not found');
+
+  const profile = userSnap.data() as UserProfile;
+  const updatedClaims = (profile.captainClaims || []).map((c) => {
+    if (c.league === league && c.season === season && c.team === team) {
+      return { ...c, verified: true, verifiedAt: Date.now(), verifiedBy: adminUid };
+    }
+    return c;
+  });
+
+  await updateDoc(userRef, { captainClaims: updatedClaims });
+}
+
+/**
+ * Check if a user has a captain claim for a specific team.
+ */
+export function hasCaptainClaim(
+  profile: UserProfile,
+  league: string,
+  season: string,
+  team: string
+): boolean {
+  return (profile.captainClaims || []).some(
+    (c) => c.league === league && c.season === season && c.team === team
+  );
+}
+
+/**
+ * Check if a user is a verified captain for a specific team.
+ */
+export function isVerifiedCaptain(
+  profile: UserProfile,
+  league: string,
+  season: string,
+  team: string
+): boolean {
+  return (profile.captainClaims || []).some(
+    (c) => c.league === league && c.season === season && c.team === team && c.verified
+  );
 }

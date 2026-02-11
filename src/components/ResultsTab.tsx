@@ -44,7 +44,7 @@ export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: 
   }
 
   return (
-    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+    <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <h2 className="text-lg font-bold mb-4 text-white">{ds.divisions[selectedDiv].name} — Results</h2>
       <div className="space-y-2">
         {divResults.map((r, i) => {

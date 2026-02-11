@@ -4,6 +4,7 @@ import { useState } from 'react';
 import type { DivisionCode, StandingEntry, SimulationResult, WhatIfResult, SquadOverrides } from '@/lib/types';
 import type { SubView } from '@/lib/router';
 import SegmentedControl from '../ui/SegmentedControl';
+import FadeInOnScroll from '../ui/FadeInOnScroll';
 import StandingsTab from '../StandingsTab';
 import SimulateTab from '../SimulateTab';
 
@@ -46,12 +47,14 @@ export default function StandingsContainer({
 
   return (
     <div className="space-y-4">
-      <SegmentedControl
-        segments={SEGMENTS}
-        value={active}
-        onChange={(v) => onSubViewChange(v)}
-        className="w-full"
-      />
+      <FadeInOnScroll>
+        <SegmentedControl
+          segments={SEGMENTS}
+          value={active}
+          onChange={(v) => onSubViewChange(v)}
+          className="w-full"
+        />
+      </FadeInOnScroll>
 
       {active === 'current' && (
         <StandingsTab

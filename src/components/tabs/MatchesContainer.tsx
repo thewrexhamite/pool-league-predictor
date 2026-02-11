@@ -3,6 +3,7 @@
 import type { DivisionCode, TabKey } from '@/lib/types';
 import type { SubView } from '@/lib/router';
 import SegmentedControl from '../ui/SegmentedControl';
+import FadeInOnScroll from '../ui/FadeInOnScroll';
 import FixturesTab from '../FixturesTab';
 import ResultsTab from '../ResultsTab';
 import PredictTab from '../PredictTab';
@@ -44,12 +45,14 @@ export default function MatchesContainer({
 
   return (
     <div className="space-y-4">
-      <SegmentedControl
-        segments={SEGMENTS}
-        value={active}
-        onChange={(v) => onSubViewChange(v)}
-        className="w-full"
-      />
+      <FadeInOnScroll>
+        <SegmentedControl
+          segments={SEGMENTS}
+          value={active}
+          onChange={(v) => onSubViewChange(v)}
+          className="w-full"
+        />
+      </FadeInOnScroll>
 
       {active === 'upcoming' && (
         <FixturesTab

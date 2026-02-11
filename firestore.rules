@@ -45,5 +45,37 @@ service cloud.firestore {
     match /userSessions/{deviceId} {
       allow read, write: if true;
     }
+
+    // Predictions — any authenticated user can create, only owner can read their own
+    match /predictions/{predictionId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update: if false; // server-only updates for resolution
+    }
+
+    // Gamification data — read for any auth user, write only via Cloud Functions
+    match /gamification/{userId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Mini-leagues
+    match /miniLeagues/{leagueId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null && request.auth.uid == resource.data.createdBy;
+    }
+
+    // Leaderboards — read-only for auth users, server writes only
+    match /leaderboards/{path=**} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Weekly challenges — read-only for auth users, server writes only
+    match /weeklyChallenges/{weekId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
   }
 }

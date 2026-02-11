@@ -11,15 +11,16 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
-import { User, LogOut, UserCheck, ChevronDown, Bell } from 'lucide-react';
+import { User, LogOut, UserCheck, ChevronDown, Bell, Shield, HelpCircle, Users as UsersIcon } from 'lucide-react';
 
 interface UserMenuProps {
   onLoginClick?: () => void;
   onNotificationSettingsClick?: () => void;
+  onStartTutorial?: () => void;
   variant?: 'default' | 'minimal';
 }
 
-export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 'default' }: UserMenuProps) {
+export function UserMenu({ onLoginClick, onNotificationSettingsClick, onStartTutorial, variant = 'default' }: UserMenuProps) {
   const { user, profile, loading, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -55,11 +56,11 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
       );
     }
 
-    // Default: subtle link with icon
+    // Default: visible pill button
     return (
       <button
         onClick={onLoginClick}
-        className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
+        className="flex items-center gap-1.5 text-sm font-medium text-white bg-baize hover:bg-baize-light px-3 py-1.5 rounded-full transition-colors shadow-sm"
       >
         <User className="w-4 h-4" />
         <span className="hidden sm:inline">Sign In</span>
@@ -71,6 +72,9 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
   const photoURL = profile?.photoURL || user.photoURL;
   const email = profile?.email || user.email || '';
   const claimedCount = profile?.claimedProfiles?.length || 0;
+  const captainClaims = profile?.captainClaims || [];
+  const hasVerifiedCaptain = captainClaims.some(c => c.verified);
+  const isCaptain = captainClaims.length > 0;
 
   return (
     <div className="relative" ref={menuRef}>
@@ -103,9 +107,27 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
         >
           {/* User info */}
           <div className="px-4 py-3 border-b border-surface-border">
-            <p className="font-medium text-white truncate text-sm">
-              {displayName}
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="font-medium text-white truncate text-sm">
+                {displayName}
+              </p>
+              {isCaptain && (
+                <span className={`inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
+                  hasVerifiedCaptain
+                    ? 'bg-green-900/30 text-green-400'
+                    : 'bg-amber-900/30 text-amber-400'
+                }`}>
+                  <Shield className="w-2.5 h-2.5" />
+                  {hasVerifiedCaptain ? 'Captain' : 'Unverified'}
+                </span>
+              )}
+              {profile?.isAdmin && (
+                <span className="inline-flex items-center gap-0.5 text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-purple-900/30 text-purple-400">
+                  <Shield className="w-2.5 h-2.5" />
+                  Admin
+                </span>
+              )}
+            </div>
             <p className="text-xs text-gray-500 truncate">
               {email}
             </p>
@@ -113,6 +135,17 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
 
           {/* Menu items */}
           <div className="py-1">
+            {/* My Profile */}
+            <Link
+              href="/profile"
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center gap-3 px-4 py-2 text-sm
+                text-gray-300 hover:bg-surface-elevated hover:text-white transition"
+            >
+              <User className="w-4 h-4" />
+              <span>My Profile</span>
+            </Link>
+
             {/* Claim Profile */}
             <Link
               href="/claim"
@@ -129,6 +162,17 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
               )}
             </Link>
 
+            {/* Claim Team (Captain) */}
+            <Link
+              href="/profile#captain"
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center gap-3 px-4 py-2 text-sm
+                text-gray-300 hover:bg-surface-elevated hover:text-white transition"
+            >
+              <UsersIcon className="w-4 h-4" />
+              <span>Claim Team (Captain)</span>
+            </Link>
+
             {/* Notification Settings */}
             {onNotificationSettingsClick && (
               <button
@@ -143,6 +187,36 @@ export function UserMenu({ onLoginClick, onNotificationSettingsClick, variant = 
                 <span>Notification Settings</span>
               </button>
             )}
+
+            {/* App Tour */}
+            {onStartTutorial && (
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  onStartTutorial();
+                }}
+                className="w-full flex items-center gap-3 px-4 py-2 text-sm
+                  text-gray-300 hover:bg-surface-elevated hover:text-white transition"
+              >
+                <HelpCircle className="w-4 h-4" />
+                <span>App Tour</span>
+              </button>
+            )}
+
+            {/* Admin Dashboard */}
+            {profile?.isAdmin && (
+              <Link
+                href="/admin/leagues"
+                onClick={() => setIsOpen(false)}
+                className="w-full flex items-center gap-3 px-4 py-2 text-sm
+                  text-gray-300 hover:bg-surface-elevated hover:text-white transition"
+              >
+                <Shield className="w-4 h-4" />
+                <span>Admin Dashboard</span>
+              </Link>
+            )}
+
+            <div className="border-t border-surface-border/50 my-1" />
 
             {/* Sign Out */}
             <button

@@ -25,6 +25,7 @@ export type SubView =
   | 'leaderboards'
   | 'players'
   | 'compare'
+  | 'gamification'
   // My Team sub-views
   | 'overview'
   | 'squad'
@@ -59,7 +60,7 @@ const VALID_TABS = new Set<string>([
 const VALID_SUB_VIEWS = new Set<string>([
   'current', 'projected', 'power',
   'upcoming', 'results', 'whatif',
-  'leaderboards', 'players', 'compare',
+  'leaderboards', 'players', 'compare', 'gamification',
   'overview', 'squad', 'optimizer',
 ]);
 

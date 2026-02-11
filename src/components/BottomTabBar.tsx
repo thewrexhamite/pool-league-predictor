@@ -28,6 +28,7 @@ export default function BottomTabBar({ activeTab, onTabChange }: BottomTabBarPro
           return (
             <button
               key={tab.id}
+              data-tutorial={`tab-${tab.id}`}
               onClick={() => onTabChange(tab.id)}
               className={clsx(
                 'flex flex-col items-center justify-center gap-0.5 py-2 px-3 min-w-0 flex-1 transition-colors',

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { Trophy, TrendingUp, Target, Flame, Award, Crown, BarChart3, Zap, Rocket, Swords } from 'lucide-react';
 import type { DivisionCode } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
+import FadeInOnScroll from './ui/FadeInOnScroll';
 import { getDiv } from '@/lib/predictions';
 import {
   getTopPlayers,
@@ -158,7 +159,8 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <FadeInOnScroll>
+      <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <Trophy size={20} className="text-accent" />
@@ -252,9 +254,10 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
           Comprehensive leaderboards and statistics across the league
         </p>
       </div>
+      </FadeInOnScroll>
 
       {/* Top Players Section */}
-      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
           <Trophy size={16} />
           Top Players by Win %
@@ -311,7 +314,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       {/* Break & Dish Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Best BD For */}
-        <div className="bg-surface-card rounded-card shadow-card p-4">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-win mb-3 flex items-center gap-1.5">
             <Target size={16} />
             Best Break & Dish (For)
@@ -358,7 +361,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         </div>
 
         {/* Best BD Against */}
-        <div className="bg-surface-card rounded-card shadow-card p-4">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-success mb-3 flex items-center gap-1.5">
             <Target size={16} />
             Best Break & Dish (Against)
@@ -408,7 +411,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       {/* Team Records Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Best Home Records */}
-        <div className="bg-surface-card rounded-card shadow-card p-4">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5">
             <Award size={16} />
             Best Home Records
@@ -454,7 +457,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         </div>
 
         {/* Best Away Records */}
-        <div className="bg-surface-card rounded-card shadow-card p-4">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4">
           <h3 className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5">
             <Award size={16} />
             Best Away Records
@@ -501,7 +504,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       </div>
 
       {/* Most Improved Section */}
-      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <h3 className="text-sm font-semibold text-success mb-3 flex items-center gap-1.5">
           <TrendingUp size={16} />
           Most Improved Players
@@ -559,7 +562,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       </div>
 
       {/* Win Streaks Section */}
-      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
           <Flame size={16} />
           Active Win Streaks
@@ -610,7 +613,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
 
       {/* Power Rankings Section */}
       {!showAllDivisions && powerRankings.length > 0 && (
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
             <Crown size={16} />
             Power Rankings
@@ -657,7 +660,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
 
       {/* Strength of Schedule Section */}
       {!showAllDivisions && sosData.length > 0 && (
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-info mb-3 flex items-center gap-1.5">
             <BarChart3 size={16} />
             Strength of Schedule
@@ -700,7 +703,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
 
       {/* Clutch Performers Section */}
       {!showAllDivisions && clutchProfiles.length > 0 && (
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
             <Zap size={16} />
             Clutch Performers
@@ -766,7 +769,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
 
       {/* Breakout Players Section */}
       {breakoutPlayers.length > 0 && (
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-success mb-3 flex items-center gap-1.5">
             <Rocket size={16} />
             Breakout Players
@@ -816,7 +819,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
 
       {/* Top Rivalries Section */}
       {!showAllDivisions && rivalries.length > 0 && (
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
             <Swords size={16} />
             Top Rivalries

@@ -241,7 +241,7 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+      <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
           <h2 className="text-base md:text-lg font-bold text-white flex items-center gap-2">
             <GitCompare size={18} className="text-accent md:hidden" />
@@ -312,7 +312,7 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
       {/* Player Selectors */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Player A Selector */}
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-info mb-3">Player A</h3>
 
           {selectedPlayerA ? (
@@ -402,7 +402,7 @@ export default function CompareTab({ selectedDiv }: CompareTabProps) {
         </div>
 
         {/* Player B Selector */}
-        <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-success mb-3">Player B</h3>
 
           {selectedPlayerB ? (

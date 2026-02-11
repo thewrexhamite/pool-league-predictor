@@ -9,6 +9,8 @@ import { useActiveData } from '@/lib/active-data-provider';
 import { getRemainingFixtures, getTeamResults, calcStandings } from '@/lib/predictions/index';
 import DashboardEditor from './dashboard/DashboardEditor';
 import WidgetLibrary from './dashboard/WidgetLibrary';
+import FadeInOnScroll from './ui/FadeInOnScroll';
+import StaggerList from './ui/StaggerList';
 
 interface DashboardTabProps {
   selectedDiv: DivisionCode;
@@ -100,12 +102,12 @@ export default function DashboardTab({
   return (
     <div className="relative space-y-4">
       {/* Quick Glance Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <StaggerList className="grid grid-cols-1 md:grid-cols-2 gap-3" staggerDelay={0.1}>
         {/* My Team Card */}
         {myTeam && myTeamGlance && (
           <button
             onClick={() => onTeamClick(myTeam.team)}
-            className="bg-surface-card rounded-card shadow-card p-4 text-left hover:bg-surface-elevated/50 transition group"
+            className="card-interactive bg-surface-card rounded-card shadow-card p-4 text-left hover:bg-surface-elevated/50 transition group"
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
@@ -144,7 +146,7 @@ export default function DashboardTab({
 
         {/* Match Day Card */}
         {upcomingMatches.length > 0 && (
-          <div className="bg-surface-card rounded-card shadow-card p-4">
+          <div className="card-interactive bg-surface-card rounded-card shadow-card p-4">
             <div className="flex items-center gap-2 mb-2">
               <Calendar size={14} className="text-info" />
               <span className="text-sm font-semibold text-white">Upcoming Matches</span>
@@ -169,7 +171,7 @@ export default function DashboardTab({
           <div
             key={i}
             className={clsx(
-              'bg-surface-card rounded-card shadow-card p-4 border-l-2',
+              'card-interactive bg-surface-card rounded-card shadow-card p-4 border-l-2',
               alert.type === 'title' ? 'border-l-gold' : 'border-l-loss',
             )}
           >
@@ -193,7 +195,7 @@ export default function DashboardTab({
             </div>
           </div>
         ))}
-      </div>
+      </StaggerList>
 
       {/* Control buttons */}
       <div className="flex items-center justify-end gap-2">
@@ -246,15 +248,17 @@ export default function DashboardTab({
       </AnimatePresence>
 
       {/* Dashboard with widgets */}
-      <DashboardEditor
-        selectedDiv={selectedDiv}
-        standings={standings}
-        myTeam={myTeam}
-        onTeamClick={onTeamClick}
-        onPlayerClick={onPlayerClick}
-        onPredict={onPredict}
-        isEditMode={isEditMode}
-      />
+      <FadeInOnScroll delay={0.1}>
+        <DashboardEditor
+          selectedDiv={selectedDiv}
+          standings={standings}
+          myTeam={myTeam}
+          onTeamClick={onTeamClick}
+          onPlayerClick={onPlayerClick}
+          onPredict={onPredict}
+          isEditMode={isEditMode}
+        />
+      </FadeInOnScroll>
     </div>
   );
 }

@@ -69,6 +69,48 @@ export async function getPredictions(
 }
 
 /**
+ * Retrieve predictions for a specific user, optionally filtered by season
+ * @param userId User ID to filter by
+ * @param seasonId Optional season ID to filter by
+ * @returns Promise resolving to array of prediction snapshots for that user
+ */
+export async function getUserPredictions(
+  userId: string,
+  seasonId?: string
+): Promise<PredictionSnapshot[]> {
+  if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+    return [];
+  }
+
+  try {
+    const { db } = await import('./firebase');
+    const predictionsRef = collection(db, 'predictions');
+
+    let q;
+    if (seasonId) {
+      q = query(
+        predictionsRef,
+        where('userId', '==', userId),
+        where('seasonId', '==', seasonId),
+        orderBy('predictedAt', 'desc')
+      );
+    } else {
+      q = query(
+        predictionsRef,
+        where('userId', '==', userId),
+        orderBy('predictedAt', 'desc')
+      );
+    }
+
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => doc.data() as PredictionSnapshot);
+  } catch (error) {
+    console.error('Failed to fetch user predictions:', error);
+    return [];
+  }
+}
+
+/**
  * Calculate accuracy statistics from a set of predictions
  * @param predictions Array of prediction snapshots (must include actual results)
  * @returns AccuracyStats object with overall and breakdown metrics

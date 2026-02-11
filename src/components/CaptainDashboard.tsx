@@ -94,7 +94,7 @@ export default function CaptainDashboard({
   if (!myTeam) {
     return (
       <div className="space-y-4">
-        <div className="bg-surface-card rounded-card shadow-card p-6">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-6">
           <div className="flex items-start gap-4">
             <Info className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
             <div>
@@ -127,7 +127,7 @@ export default function CaptainDashboard({
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="bg-surface-card rounded-card shadow-card p-4"
+        className="card-interactive bg-surface-card rounded-card shadow-card p-4"
       >
         <h2 className="text-lg font-bold text-white mb-1">Captain&apos;s Dashboard</h2>
         <p className="text-sm text-gray-400">
@@ -220,7 +220,7 @@ export default function CaptainDashboard({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
-          className="bg-surface-card rounded-card shadow-card p-4"
+          className="card-interactive bg-surface-card rounded-card shadow-card p-4"
         >
           <div className="flex items-start gap-3">
             <Info className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />

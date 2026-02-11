@@ -11,6 +11,7 @@ import {
   GitMerge,
   FileText,
   Bell,
+  Shield,
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 import { useLeagueData } from '@/lib/data-provider';
@@ -19,6 +20,7 @@ import ManualResultEntry from './ManualResultEntry';
 import PlayerMergePanel from './PlayerMergePanel';
 import LeagueHealthMetrics from './LeagueHealthMetrics';
 import LeagueSettingsPanel from './LeagueSettingsPanel';
+import CaptainVerificationPanel from './CaptainVerificationPanel';
 
 interface AdminDashboardProps {
   // Reserved for future props
@@ -111,6 +113,14 @@ export default function AdminDashboard({}: AdminDashboardProps) {
       color: 'text-red-400',
       bgColor: 'bg-red-900/30',
       href: '#notifications',
+    },
+    {
+      title: 'Captain Verification',
+      description: 'Verify or reject captain claims',
+      icon: Shield,
+      color: 'text-amber-400',
+      bgColor: 'bg-amber-900/30',
+      href: '#captains',
     },
   ];
 
@@ -271,6 +281,9 @@ export default function AdminDashboard({}: AdminDashboardProps) {
       <div className="mb-8">
         <LeagueSettingsPanel />
       </div>
+
+      {/* Captain Verification */}
+      <CaptainVerificationPanel />
 
       {/* Manual Result Entry */}
       <ManualResultEntry

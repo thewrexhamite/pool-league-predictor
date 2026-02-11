@@ -16,6 +16,8 @@ export {
 // Types
 export type {
   ClaimedProfile,
+  CaptainClaim,
+  OnboardingProgress,
   UserSettings,
   UserProfile,
   AuthProvider as AuthProviderType,
@@ -33,4 +35,9 @@ export {
   hasClaimedProfile,
   getCurrentUser,
   isAuthenticated,
+  addCaptainClaim,
+  removeCaptainClaim,
+  verifyCaptainClaim,
+  hasCaptainClaim,
+  isVerifiedCaptain,
 } from './auth-utils';

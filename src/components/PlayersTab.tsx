@@ -222,7 +222,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
   const showCrossSeasonResults = searchQuery.length >= 2 && crossSeasonResults.length > 0;
 
   return (
-    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+    <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <div className="flex items-center gap-2 mb-4">
         <h2 className="text-lg font-bold text-white">{ds.divisions[selectedDiv].name} — Players</h2>
         {showCacheBadge && (

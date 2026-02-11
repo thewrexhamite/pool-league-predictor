@@ -184,7 +184,7 @@ export default function PredictTab({
   })) || [];
 
   return (
-    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+    <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-white">Match Prediction</h2>
         {prediction && homeTeam && awayTeam && (

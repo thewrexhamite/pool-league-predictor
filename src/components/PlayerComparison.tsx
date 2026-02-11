@@ -180,7 +180,7 @@ export default function PlayerComparison({ player1, player2, onBack }: PlayerCom
   }, [player1, player2, h2hRecord]);
 
   return (
-    <div className="bg-surface-card rounded-card shadow-card p-4 md:p-6">
+    <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
       <button onClick={onBack} className="flex items-center gap-1 text-gray-400 hover:text-white text-sm mb-4 transition">
         <ArrowLeft size={16} /> Back
       </button>

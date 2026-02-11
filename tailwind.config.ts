@@ -74,6 +74,18 @@ const config: Config = {
         card: 'var(--shadow-card)',
         'card-hover': 'var(--shadow-card-hover)',
         elevated: 'var(--shadow-elevated)',
+        soft: '0 4px 12px rgba(0, 0, 0, 0.08)',
+        'soft-lg': '0 8px 24px rgba(0, 0, 0, 0.1)',
+        'soft-xl': '0 12px 32px rgba(0, 0, 0, 0.12)',
+      },
+      transitionDuration: {
+        micro: '150ms',
+        fast: '200ms',
+        normal: '300ms',
+        slow: '500ms',
+      },
+      transitionTimingFunction: {
+        'ease-out-soft': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       },
       keyframes: {
         'fade-in': {

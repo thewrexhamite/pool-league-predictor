@@ -173,6 +173,7 @@ export interface PredictionSnapshot {
   away: string;
   division: string;
   predictedAt: number; // timestamp when prediction was made
+  userId?: string; // authenticated user who made the prediction
   pHomeWin: number; // 0-1
   pDraw: number; // 0-1
   pAwayWin: number; // 0-1

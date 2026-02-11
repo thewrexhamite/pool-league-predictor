@@ -3,6 +3,7 @@
 import type { DivisionCode } from '@/lib/types';
 import type { SubView } from '@/lib/router';
 import SegmentedControl from '../ui/SegmentedControl';
+import FadeInOnScroll from '../ui/FadeInOnScroll';
 import CaptainDashboard from '../CaptainDashboard';
 import LineupOptimizerTab from '../LineupOptimizerTab';
 
@@ -41,12 +42,14 @@ export default function MyTeamContainer({
 
   return (
     <div className="space-y-4">
-      <SegmentedControl
-        segments={SEGMENTS}
-        value={active}
-        onChange={(v) => onSubViewChange(v)}
-        className="w-full"
-      />
+      <FadeInOnScroll>
+        <SegmentedControl
+          segments={SEGMENTS}
+          value={active}
+          onChange={(v) => onSubViewChange(v)}
+          className="w-full"
+        />
+      </FadeInOnScroll>
 
       {active === 'overview' && (
         <CaptainDashboard

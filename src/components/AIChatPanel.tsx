@@ -46,6 +46,7 @@ export default function AIChatPanel() {
   if (!isOpen) {
     return (
       <motion.button
+        data-tutorial="ai-chat"
         onClick={() => setIsOpen(true)}
         className="fixed bottom-4 right-4 bg-accent hover:bg-accent-light text-fixed-white rounded-full p-3.5 shadow-elevated transition z-50"
         title="Ask a Question"
