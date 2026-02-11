@@ -6,6 +6,8 @@
     "leagueName": "Wrexham & District Pool League",
     "shortName": "Wrexham",
     "primaryColor": "#C8102E",
+    "lat": 53.046,
+    "lng": -2.993,
     "dataDir": "data",
     "divisions": [
       { "code": "SD1", "siteGroup": "Sunday Division 1" },
@@ -22,6 +24,8 @@
     "leagueName": "North Wales Pool Association",
     "shortName": "NWPA",
     "primaryColor": "#1E40AF",
+    "lat": 53.227,
+    "lng": -3.718,
     "dataDir": "data-nwpa",
     "divisions": [
       { "code": "PREM", "siteGroup": "Premier Division" },
@@ -42,6 +46,8 @@
     "leagueName": "Chester Pool League",
     "shortName": "Chester",
     "primaryColor": "#059669",
+    "lat": 53.190,
+    "lng": -2.893,
     "dataDir": "data-chester",
     "divisions": [
       { "code": "PREM", "siteGroup": "Premier Division" },
