@@ -13,6 +13,8 @@
  *   --short-name <n>    Short name (default: Wrexham Tues)
  *   --season-id <id>    Season ID (default: 2425)
  *   --season-label <l>  Season label (default: 2024/25)
+ *   --lat <number>      Latitude (optional, auto-geocoded from league name if omitted)
+ *   --lng <number>      Longitude (optional, auto-geocoded from league name if omitted)
  *   --dry-run           Show what would be uploaded without actually uploading
  *
  * Authentication:
@@ -24,6 +26,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { initializeApp, applicationDefault, cert, type ServiceAccount } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
+import { geocodeLeagueName } from '../src/lib/geocode';
 
 // ============================================================================
 // Configuration
@@ -41,6 +44,8 @@ const LEAGUE_NAME = getArg('league-name', 'Wrexham Tuesday Pool League');
 const SHORT_NAME = getArg('short-name', 'Wrexham Tues');
 const SEASON_ID = getArg('season-id', '2425');
 const SEASON_LABEL = getArg('season-label', '2024/25');
+const CLI_LAT = getArg('lat', '');
+const CLI_LNG = getArg('lng', '');
 const DRY_RUN = args.includes('--dry-run');
 
 // ============================================================================
@@ -78,6 +83,22 @@ async function main() {
   log(`  League: ${LEAGUE_NAME} (${LEAGUE_ID})`);
   log(`  Season: ${SEASON_LABEL} (${SEASON_ID})`);
   if (DRY_RUN) log('  DRY RUN - no data will be uploaded');
+
+  // Resolve coordinates
+  let coordFields: { lat: number; lng: number } | {} = {};
+  if (CLI_LAT && CLI_LNG) {
+    coordFields = { lat: parseFloat(CLI_LAT), lng: parseFloat(CLI_LNG) };
+    log(`  Coordinates: ${CLI_LAT}, ${CLI_LNG} (from CLI args)`);
+  } else {
+    log(`  Geocoding "${LEAGUE_NAME}"...`);
+    const result = await geocodeLeagueName(LEAGUE_NAME);
+    if (result) {
+      coordFields = { lat: result.lat, lng: result.lng };
+      log(`  Coordinates: ${result.lat}, ${result.lng} (${result.displayName})`);
+    } else {
+      log(`  Geocoding failed, no coordinates will be set`);
+    }
+  }
 
   // Load all JSON files
   log('\nLoading data files...');
@@ -175,6 +196,7 @@ async function main() {
   await leagueRef.set({
     name: LEAGUE_NAME,
     shortName: SHORT_NAME,
+    ...coordFields,
     seasons: [
       {
         id: SEASON_ID,

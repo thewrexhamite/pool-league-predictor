@@ -359,6 +359,8 @@ export interface LeagueMeta {
   seasons: SeasonMeta[];
   primaryColor: string;
   logo?: string;
+  lat?: number;
+  lng?: number;
 }
 
 // Admin and data source types
@@ -368,6 +370,8 @@ export interface LeagueConfig {
   shortName: string;
   primaryColor: string; // hex color code
   logo?: string; // URL or path to logo image
+  lat?: number;
+  lng?: number;
   seasons: string[]; // e.g., ["2425", "2526"]
   createdAt: number; // timestamp
   updatedAt: number; // timestamp

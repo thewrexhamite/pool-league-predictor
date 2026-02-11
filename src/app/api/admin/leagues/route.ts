@@ -33,6 +33,8 @@ interface CreateLeagueRequestBody {
   shortName: string;
   primaryColor: string;
   logo?: string;
+  lat?: number;
+  lng?: number;
   seasons?: string[];
 }
 
@@ -80,6 +82,8 @@ export async function GET(request: Request) {
         shortName: data.shortName || '',
         primaryColor: data.primaryColor || '#000000',
         logo: data.logo,
+        ...(data.lat != null && { lat: data.lat }),
+        ...(data.lng != null && { lng: data.lng }),
         seasons: data.seasons || [],
         createdAt: data.createdAt || Date.now(),
         updatedAt: data.updatedAt || Date.now(),
@@ -115,7 +119,7 @@ export async function POST(request: Request) {
 
   try {
     const body: CreateLeagueRequestBody = await request.json();
-    const { name, shortName, primaryColor, logo, seasons } = body;
+    const { name, shortName, primaryColor, logo, lat, lng, seasons } = body;
 
     // Validate required fields
     if (!name || !shortName || !primaryColor) {
@@ -147,6 +151,8 @@ export async function POST(request: Request) {
           shortName,
           primaryColor,
           logo,
+          ...(lat != null && { lat }),
+          ...(lng != null && { lng }),
           seasons: seasons || [],
         },
       });
@@ -184,6 +190,8 @@ export async function POST(request: Request) {
       shortName,
       primaryColor,
       logo,
+      ...(lat != null && { lat }),
+      ...(lng != null && { lng }),
       seasons: seasons || [],
       createdAt: now,
       updatedAt: now,

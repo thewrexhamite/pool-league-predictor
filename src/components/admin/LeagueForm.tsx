@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
-import { X, Loader2, Check, AlertCircle, Plus, Trash2 } from 'lucide-react';
+import { X, Loader2, Check, AlertCircle, Plus, Trash2, MapPin } from 'lucide-react';
 import type { LeagueConfig } from '@/lib/types';
+import { geocodeLeagueName } from '@/lib/geocode';
 
 interface LeagueFormProps {
   isOpen: boolean;
@@ -31,6 +32,8 @@ export default function LeagueForm({
 
   const [seasonInput, setSeasonInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGeocoding, setIsGeocoding] = useState(false);
+  const [geocodePlace, setGeocodePlace] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -42,6 +45,8 @@ export default function LeagueForm({
         shortName: league.shortName,
         primaryColor: league.primaryColor,
         logo: league.logo || '',
+        lat: league.lat,
+        lng: league.lng,
         seasons: league.seasons || [],
       });
     } else {
@@ -55,6 +60,7 @@ export default function LeagueForm({
     }
     setErrors({});
     setMessage(null);
+    setGeocodePlace(null);
   }, [mode, league, isOpen]);
 
   // Validate form
@@ -144,6 +150,33 @@ export default function LeagueForm({
     });
   };
 
+  // Handle geocode lookup
+  const handleGeocodeLookup = async () => {
+    if (!formData.name?.trim()) return;
+    setIsGeocoding(true);
+    setGeocodePlace(null);
+    try {
+      const result = await geocodeLeagueName(formData.name);
+      if (result) {
+        setFormData(prev => ({ ...prev, lat: result.lat, lng: result.lng }));
+        setGeocodePlace(result.displayName);
+      } else {
+        setGeocodePlace('No results found');
+      }
+    } catch {
+      setGeocodePlace('Lookup failed');
+    } finally {
+      setIsGeocoding(false);
+    }
+  };
+
+  // Auto-geocode when name field loses focus if lat/lng are empty
+  const handleNameBlur = () => {
+    if (formData.name?.trim() && formData.lat == null && formData.lng == null) {
+      handleGeocodeLookup();
+    }
+  };
+
   // Don't render if not open
   if (!isOpen) return null;
 
@@ -219,6 +252,7 @@ export default function LeagueForm({
                     onChange={e =>
                       setFormData({ ...formData, name: e.target.value })
                     }
+                    onBlur={handleNameBlur}
                     disabled={isSubmitting}
                     className={clsx(
                       'w-full px-4 py-2 bg-surface-elevated border rounded-lg text-white',
@@ -351,6 +385,76 @@ export default function LeagueForm({
                       />
                     </div>
                   )}
+                </div>
+
+                {/* Coordinates */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-medium text-white">
+                      Coordinates
+                    </label>
+                    <button
+                      type="button"
+                      onClick={handleGeocodeLookup}
+                      disabled={isSubmitting || isGeocoding || !formData.name?.trim()}
+                      className="px-3 py-1 text-xs bg-surface-elevated text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                    >
+                      {isGeocoding ? (
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                      ) : (
+                        <MapPin size={12} />
+                      )}
+                      Lookup
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <input
+                        type="number"
+                        id="lat"
+                        value={formData.lat ?? ''}
+                        onChange={e =>
+                          setFormData({ ...formData, lat: e.target.value ? parseFloat(e.target.value) : undefined })
+                        }
+                        disabled={isSubmitting}
+                        step="any"
+                        className={clsx(
+                          'w-full px-4 py-2 bg-surface-elevated border rounded-lg text-white',
+                          'focus:outline-none focus:ring-2 focus:ring-baize focus:border-transparent',
+                          'disabled:opacity-50 disabled:cursor-not-allowed',
+                          'border-surface-border hover:border-gray-600'
+                        )}
+                        placeholder="Latitude"
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="number"
+                        id="lng"
+                        value={formData.lng ?? ''}
+                        onChange={e =>
+                          setFormData({ ...formData, lng: e.target.value ? parseFloat(e.target.value) : undefined })
+                        }
+                        disabled={isSubmitting}
+                        step="any"
+                        className={clsx(
+                          'w-full px-4 py-2 bg-surface-elevated border rounded-lg text-white',
+                          'focus:outline-none focus:ring-2 focus:ring-baize focus:border-transparent',
+                          'disabled:opacity-50 disabled:cursor-not-allowed',
+                          'border-surface-border hover:border-gray-600'
+                        )}
+                        placeholder="Longitude"
+                      />
+                    </div>
+                  </div>
+                  {geocodePlace && (
+                    <p className="mt-1 text-xs text-gray-400">
+                      {geocodePlace}
+                    </p>
+                  )}
+                  <p className="mt-1 text-xs text-gray-400">
+                    Auto-filled from league name, or enter manually
+                  </p>
                 </div>
 
                 {/* Seasons */}

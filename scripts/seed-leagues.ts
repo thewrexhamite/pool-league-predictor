@@ -21,6 +21,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { initializeApp, applicationDefault, cert, type ServiceAccount } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
+import { geocodeLeagueName } from '../src/lib/geocode';
 
 // ============================================================================
 // Types
@@ -37,6 +38,8 @@ interface LeagueConfig {
   teamNameMap: Record<string, string>;
   primaryColor?: string;
   logo?: string;
+  lat?: number;
+  lng?: number;
 }
 
 // ============================================================================
@@ -101,14 +104,35 @@ async function main() {
     log(`    - ${key}: ${config.leagueName} (${config.shortName})`);
   }
 
+  // Resolve coordinates for each league
+  const resolvedCoords: Record<string, { lat: number; lng: number; source: string }> = {};
+  for (const [key, config] of Object.entries(configsToSeed)) {
+    if (config.lat != null && config.lng != null) {
+      resolvedCoords[key] = { lat: config.lat, lng: config.lng, source: 'config' };
+      log(`  ${key}: using config coordinates (${config.lat}, ${config.lng})`);
+    } else {
+      log(`  ${key}: no coordinates in config, geocoding "${config.leagueName}"...`);
+      const result = await geocodeLeagueName(config.leagueName);
+      if (result) {
+        resolvedCoords[key] = { lat: result.lat, lng: result.lng, source: 'geocoded' };
+        log(`    → resolved to ${result.lat}, ${result.lng} (${result.displayName})`);
+      } else {
+        log(`    → geocoding failed, no coordinates will be set`);
+      }
+    }
+  }
+
   if (DRY_RUN) {
     log('\n=== DRY RUN - Would seed: ===');
     for (const [key, config] of Object.entries(configsToSeed)) {
+      const coords = resolvedCoords[key];
       log(`\nLeague document: leagues/${config.leagueId}`);
       log(`  name: ${config.leagueName}`);
       log(`  shortName: ${config.shortName}`);
       log(`  primaryColor: ${config.primaryColor || '(not set)'}`);
       log(`  logo: ${config.logo || '(not set)'}`);
+      log(`  lat: ${coords?.lat ?? '(not set)'}`);
+      log(`  lng: ${coords?.lng ?? '(not set)'}`);
       log(`  seasons: []`);
       log(`  Note: Season data should be uploaded separately using upload-to-firestore.ts`);
       log(``);
@@ -190,6 +214,9 @@ async function main() {
     // Check if league already exists
     const existingDoc = await leagueRef.get();
 
+    const coords = resolvedCoords[key];
+    const coordFields = coords ? { lat: coords.lat, lng: coords.lng } : {};
+
     if (existingDoc.exists) {
       log(`  Updating leagues/${config.leagueId}`);
       // Update metadata but preserve existing seasons array
@@ -199,6 +226,7 @@ async function main() {
         shortName: config.shortName,
         ...(config.primaryColor && { primaryColor: config.primaryColor }),
         ...(config.logo && { logo: config.logo }),
+        ...coordFields,
         // Preserve existing seasons if they exist
         seasons: existingData?.seasons || [],
       });
@@ -210,6 +238,7 @@ async function main() {
         shortName: config.shortName,
         ...(config.primaryColor && { primaryColor: config.primaryColor }),
         ...(config.logo && { logo: config.logo }),
+        ...coordFields,
         seasons: [],
       });
     }
