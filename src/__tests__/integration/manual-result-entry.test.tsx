@@ -406,7 +406,9 @@ describe('Manual Result Entry E2E Workflow', () => {
       await user.click(cancelButton);
 
       // Form should reset
-      expect(homeTeamSelect).toHaveValue('');
+      await waitFor(() => {
+        expect(homeTeamSelect).toHaveValue('');
+      });
       expect(mockOnCancel).toHaveBeenCalled();
       expect(mockOnSubmit).not.toHaveBeenCalled();
     });
