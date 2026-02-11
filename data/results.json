@@ -90,6 +90,15 @@
     "frames": 10
   },
   {
+    "date": "08-02-2026",
+    "home": "Magnet A",
+    "away": "Breakroom Llay",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
     "date": "02-11-2025",
     "home": "Gresford Colliery",
     "away": "Gwersyllt Club",
@@ -162,65 +171,11 @@
     "frames": 10
   },
   {
-    "date": "09-11-2025",
-    "home": "Magnet A",
-    "away": "Gwersyllt WMC",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "SD1",
-    "frames": 10
-  },
-  {
-    "date": "16-11-2025",
-    "home": "Magnet A",
+    "date": "08-02-2026",
+    "home": "Gwersyllt Club",
     "away": "Gresford Colliery",
     "home_score": 7,
     "away_score": 3,
-    "division": "SD1",
-    "frames": 10
-  },
-  {
-    "date": "23-11-2025",
-    "home": "Johnstown Legion",
-    "away": "Magnet A",
-    "home_score": 4,
-    "away_score": 6,
-    "division": "SD1",
-    "frames": 10
-  },
-  {
-    "date": "30-11-2025",
-    "home": "Magnet A",
-    "away": "Miners Brymbo",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "SD1",
-    "frames": 10
-  },
-  {
-    "date": "04-01-2026",
-    "home": "Magnet A",
-    "away": "Breakroom Lions",
-    "home_score": 9,
-    "away_score": 1,
-    "division": "SD1",
-    "frames": 10
-  },
-  {
-    "date": "11-01-2026",
-    "home": "Y Tai",
-    "away": "Magnet A",
-    "home_score": 4,
-    "away_score": 6,
-    "division": "SD1",
-    "frames": 10
-  },
-  {
-    "date": "25-01-2026",
-    "home": "Red Lion Marchweil",
-    "away": "Magnet A",
-    "home_score": 5,
-    "away_score": 5,
     "division": "SD1",
     "frames": 10
   },
@@ -261,6 +216,15 @@
     "frames": 10
   },
   {
+    "date": "23-11-2025",
+    "home": "Johnstown Legion",
+    "away": "Magnet A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
     "date": "04-01-2026",
     "home": "Johnstown Legion",
     "away": "Miners Brymbo",
@@ -284,6 +248,69 @@
     "away": "Johnstown Legion",
     "home_score": 4,
     "away_score": 6,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Johnstown Legion",
+    "away": "Red Lion Marchweil",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
+    "date": "09-11-2025",
+    "home": "Magnet A",
+    "away": "Gwersyllt WMC",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
+    "date": "16-11-2025",
+    "home": "Magnet A",
+    "away": "Gresford Colliery",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
+    "date": "30-11-2025",
+    "home": "Magnet A",
+    "away": "Miners Brymbo",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
+    "date": "04-01-2026",
+    "home": "Magnet A",
+    "away": "Breakroom Lions",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
+    "date": "11-01-2026",
+    "home": "Y Tai",
+    "away": "Magnet A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
+    "date": "25-01-2026",
+    "home": "Red Lion Marchweil",
+    "away": "Magnet A",
+    "home_score": 5,
+    "away_score": 5,
     "division": "SD1",
     "frames": 10
   },
@@ -342,6 +369,15 @@
     "frames": 10
   },
   {
+    "date": "08-02-2026",
+    "home": "Miners Brymbo",
+    "away": "Gwersyllt WMC",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "SD1",
+    "frames": 10
+  },
+  {
     "date": "30-11-2025",
     "home": "Gresford Colliery",
     "away": "Breakroom Lions",
@@ -392,15 +428,6 @@
     "away": "Red Lion Marchweil",
     "home_score": 7,
     "away_score": 3,
-    "division": "SD1",
-    "frames": 10
-  },
-  {
-    "date": "01-01-2026",
-    "home": "Flintshire A",
-    "away": "Gwersyllt WMC",
-    "home_score": 23,
-    "away_score": 17,
     "division": "SD1",
     "frames": 10
   },
@@ -549,6 +576,15 @@
     "frames": 10
   },
   {
+    "date": "08-02-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Magnet B",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
     "date": "26-10-2025",
     "home": "Four Dogs A",
     "away": "Rollers B",
@@ -639,74 +675,11 @@
     "frames": 10
   },
   {
-    "date": "02-11-2025",
-    "home": "Rollers B",
-    "away": "Brymbo Sports",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "09-11-2025",
-    "home": "Rollers B",
-    "away": "Sun Rhos",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "23-11-2025",
-    "home": "Rhos Snooker Club",
-    "away": "Rollers B",
-    "home_score": 3,
-    "away_score": 7,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "30-11-2025",
-    "home": "Rollers B",
-    "away": "Cross Foxes Coedpoeth",
+    "date": "08-02-2026",
+    "home": "Four Dogs A",
+    "away": "The Drunk Monk",
     "home_score": 8,
     "away_score": 2,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "07-12-2025",
-    "home": "Rollers A",
-    "away": "Rollers B",
-    "home_score": 4,
-    "away_score": 6,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "11-01-2026",
-    "home": "Four Dogs B",
-    "away": "Rollers B",
-    "home_score": 1,
-    "away_score": 9,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "18-01-2026",
-    "home": "Rollers B",
-    "away": "Old Black Horse",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "25-01-2026",
-    "home": "The Drunk Monk",
-    "away": "Rollers B",
-    "home_score": 4,
-    "away_score": 6,
     "division": "SD2",
     "frames": 10
   },
@@ -725,6 +698,15 @@
     "away": "Old Black Horse",
     "home_score": 4,
     "away_score": 6,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "09-11-2025",
+    "home": "Rollers B",
+    "away": "Sun Rhos",
+    "home_score": 5,
+    "away_score": 5,
     "division": "SD2",
     "frames": 10
   },
@@ -783,6 +765,150 @@
     "frames": 10
   },
   {
+    "date": "08-02-2026",
+    "home": "Old Black Horse",
+    "away": "Sun Rhos",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "02-11-2025",
+    "home": "Rollers B",
+    "away": "Brymbo Sports",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "23-11-2025",
+    "home": "Rhos Snooker Club",
+    "away": "Rollers B",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "30-11-2025",
+    "home": "Rollers B",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "07-12-2025",
+    "home": "Rollers A",
+    "away": "Rollers B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "11-01-2026",
+    "home": "Four Dogs B",
+    "away": "Rollers B",
+    "home_score": 1,
+    "away_score": 9,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "18-01-2026",
+    "home": "Rollers B",
+    "away": "Old Black Horse",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "25-01-2026",
+    "home": "The Drunk Monk",
+    "away": "Rollers B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Brymbo Sports",
+    "away": "Rollers B",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "02-11-2025",
+    "home": "Four Dogs B",
+    "away": "Rhos Snooker Club",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "09-11-2025",
+    "home": "Rhos Snooker Club",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "30-11-2025",
+    "home": "Brymbo Sports",
+    "away": "Rhos Snooker Club",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "18-01-2026",
+    "home": "The Drunk Monk",
+    "away": "Rhos Snooker Club",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "25-01-2026",
+    "home": "Rollers A",
+    "away": "Rhos Snooker Club",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Four Dogs B",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Old Black Horse",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "SD2",
+    "frames": 10
+  },
+  {
     "date": "26-10-2025",
     "home": "Old Black Horse",
     "away": "The Drunk Monk",
@@ -833,60 +959,6 @@
     "away": "Old Black Horse",
     "home_score": 5,
     "away_score": 5,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "01-01-2026",
-    "home": "Rhos Snooker Club",
-    "away": "Old Black Horse",
-    "home_score": 3,
-    "away_score": 7,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "02-11-2025",
-    "home": "Four Dogs B",
-    "away": "Rhos Snooker Club",
-    "home_score": 4,
-    "away_score": 6,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "09-11-2025",
-    "home": "Rhos Snooker Club",
-    "away": "Cross Foxes Coedpoeth",
-    "home_score": 8,
-    "away_score": 2,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "30-11-2025",
-    "home": "Brymbo Sports",
-    "away": "Rhos Snooker Club",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "18-01-2026",
-    "home": "The Drunk Monk",
-    "away": "Rhos Snooker Club",
-    "home_score": 3,
-    "away_score": 7,
-    "division": "SD2",
-    "frames": 10
-  },
-  {
-    "date": "25-01-2026",
-    "home": "Rollers A",
-    "away": "Rhos Snooker Club",
-    "home_score": 3,
-    "away_score": 7,
     "division": "SD2",
     "frames": 10
   },

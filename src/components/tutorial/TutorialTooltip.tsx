@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { TutorialStep } from '@/lib/tutorial';
@@ -18,52 +18,101 @@ interface TutorialTooltipProps {
 
 interface Position {
   top?: number;
-  bottom?: number;
   left?: number;
-  right?: number;
-  transform?: string;
+  maxWidth?: number;
 }
 
-function getTooltipPosition(target: string, placement: TutorialStep['placement']): Position {
+/** Viewport margin — tooltip stays at least this far from edges */
+const EDGE_MARGIN = 12;
+/** Gap between tooltip and target element */
+const GAP = 16;
+
+/**
+ * Calculate tooltip position that stays within viewport bounds.
+ * Uses a two-pass approach: calculates ideal position, then clamps to viewport.
+ */
+function getTooltipPosition(
+  target: string,
+  placement: TutorialStep['placement'],
+  tooltipEl: HTMLDivElement | null
+): Position {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const availableWidth = vw - EDGE_MARGIN * 2;
+  const tooltipMaxWidth = Math.min(340, availableWidth);
+
+  // Center fallback if target not found
   const el = document.querySelector(`[data-tutorial="${target}"]`);
-  if (!el) return { top: window.innerHeight / 2, left: window.innerWidth / 2, transform: 'translate(-50%, -50%)' };
+  if (!el) {
+    const tw = tooltipEl?.offsetWidth ?? tooltipMaxWidth;
+    const th = tooltipEl?.offsetHeight ?? 200;
+    return {
+      top: Math.max(EDGE_MARGIN, (vh - th) / 2),
+      left: Math.max(EDGE_MARGIN, (vw - tw) / 2),
+      maxWidth: tooltipMaxWidth,
+    };
+  }
 
   const rect = el.getBoundingClientRect();
-  const gap = 16;
+  const tw = tooltipEl?.offsetWidth ?? tooltipMaxWidth;
+  const th = tooltipEl?.offsetHeight ?? 200;
 
-  switch (placement) {
-    case 'bottom':
-      return {
-        top: rect.bottom + gap,
-        left: rect.left + rect.width / 2,
-        transform: 'translateX(-50%)',
-      };
-    case 'top':
-      return {
-        bottom: window.innerHeight - rect.top + gap,
-        left: rect.left + rect.width / 2,
-        transform: 'translateX(-50%)',
-      };
-    case 'left':
-      return {
-        top: rect.top + rect.height / 2,
-        right: window.innerWidth - rect.left + gap,
-        transform: 'translateY(-50%)',
-      };
-    case 'right':
-      return {
-        top: rect.top + rect.height / 2,
-        left: rect.right + gap,
-        transform: 'translateY(-50%)',
-      };
-    case 'center':
-    default:
-      return {
-        top: window.innerHeight / 2,
-        left: window.innerWidth / 2,
-        transform: 'translate(-50%, -50%)',
-      };
+  let top: number;
+  let left: number;
+
+  // Determine vertical position based on placement
+  if (placement === 'center') {
+    top = (vh - th) / 2;
+    left = (vw - tw) / 2;
+  } else if (placement === 'top' || placement === 'left' || placement === 'right') {
+    // Try to place above the target
+    const aboveTop = rect.top - GAP - th;
+    const belowTop = rect.bottom + GAP;
+
+    if (aboveTop >= EDGE_MARGIN) {
+      // Fits above
+      top = aboveTop;
+    } else if (belowTop + th <= vh - EDGE_MARGIN) {
+      // Doesn't fit above, try below
+      top = belowTop;
+    } else {
+      // Neither fits perfectly — pick whichever has more space
+      const spaceAbove = rect.top - GAP;
+      const spaceBelow = vh - rect.bottom - GAP;
+      top = spaceAbove > spaceBelow ? Math.max(EDGE_MARGIN, aboveTop) : belowTop;
+    }
+
+    // Horizontal: center on target
+    left = rect.left + rect.width / 2 - tw / 2;
+  } else {
+    // placement === 'bottom'
+    const belowTop = rect.bottom + GAP;
+    const aboveTop = rect.top - GAP - th;
+
+    if (belowTop + th <= vh - EDGE_MARGIN) {
+      // Fits below
+      top = belowTop;
+    } else if (aboveTop >= EDGE_MARGIN) {
+      // Doesn't fit below, try above
+      top = aboveTop;
+    } else {
+      // Neither fits perfectly — pick whichever has more space
+      const spaceAbove = rect.top - GAP;
+      const spaceBelow = vh - rect.bottom - GAP;
+      top = spaceBelow >= spaceAbove ? belowTop : Math.max(EDGE_MARGIN, aboveTop);
+    }
+
+    // Horizontal: center on target
+    left = rect.left + rect.width / 2 - tw / 2;
   }
+
+  // Clamp horizontal to viewport
+  left = Math.max(EDGE_MARGIN, Math.min(left, vw - tw - EDGE_MARGIN));
+
+  // Clamp vertical to viewport
+  top = Math.max(EDGE_MARGIN, Math.min(top, vh - th - EDGE_MARGIN));
+
+  return { top, left, maxWidth: tooltipMaxWidth };
 }
 
 export default function TutorialTooltip({
@@ -77,18 +126,22 @@ export default function TutorialTooltip({
   userName,
 }: TutorialTooltipProps) {
   const [position, setPosition] = useState<Position>({});
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const updatePosition = useCallback(() => {
-    setPosition(getTooltipPosition(step.target, step.placement));
+    setPosition(getTooltipPosition(step.target, step.placement, tooltipRef.current));
   }, [step.target, step.placement]);
 
   useEffect(() => {
-    // Small delay to let the spotlight animate first
+    // Initial position (small delay for spotlight animation)
     const timer = setTimeout(updatePosition, 100);
+    // Second pass after render to use actual tooltip dimensions
+    const timer2 = setTimeout(updatePosition, 200);
     window.addEventListener('scroll', updatePosition, true);
     window.addEventListener('resize', updatePosition);
     return () => {
       clearTimeout(timer);
+      clearTimeout(timer2);
       window.removeEventListener('scroll', updatePosition, true);
       window.removeEventListener('resize', updatePosition);
     };
@@ -105,6 +158,7 @@ export default function TutorialTooltip({
     <AnimatePresence mode="wait">
       <motion.div
         key={step.id}
+        ref={tooltipRef}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
@@ -113,8 +167,9 @@ export default function TutorialTooltip({
         style={{
           position: 'fixed',
           zIndex: 10000,
-          maxWidth: 340,
-          ...position,
+          maxWidth: position.maxWidth ?? Math.min(340, window.innerWidth - EDGE_MARGIN * 2),
+          top: position.top,
+          left: position.left,
         }}
       >
         <div className="bg-white/[0.08] dark:bg-white/[0.08] light:bg-white/85 backdrop-blur-2xl border border-white/[0.12] dark:border-white/[0.12] light:border-black/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.1)] p-5">

@@ -1,26 +1,8 @@
 [
   {
-    "date": "08-02-2026",
-    "home": "Magnet A",
-    "away": "Breakroom Llay",
-    "division": "SD1"
-  },
-  {
-    "date": "08-02-2026",
-    "home": "Gwersyllt Club",
-    "away": "Gresford Colliery",
-    "division": "SD1"
-  },
-  {
-    "date": "08-02-2026",
-    "home": "Johnstown Legion",
-    "away": "Red Lion Marchweil",
-    "division": "SD1"
-  },
-  {
-    "date": "08-02-2026",
-    "home": "Miners Brymbo",
-    "away": "Gwersyllt WMC",
+    "date": "01-03-2026",
+    "home": "Breakroom Lions",
+    "away": "Johnstown Legion",
     "division": "SD1"
   },
   {
@@ -195,30 +177,6 @@
     "date": "04-01-2026",
     "home": "Old Black Horse",
     "away": "Rhos Snooker Club",
-    "division": "SD2"
-  },
-  {
-    "date": "08-02-2026",
-    "home": "Four Dogs A",
-    "away": "The Drunk Monk",
-    "division": "SD2"
-  },
-  {
-    "date": "08-02-2026",
-    "home": "Old Black Horse",
-    "away": "Sun Rhos",
-    "division": "SD2"
-  },
-  {
-    "date": "08-02-2026",
-    "home": "Rhos Snooker Club",
-    "away": "Four Dogs B",
-    "division": "SD2"
-  },
-  {
-    "date": "08-02-2026",
-    "home": "Cross Foxes Coedpoeth",
-    "away": "Magnet B",
     "division": "SD2"
   },
   {
@@ -637,12 +595,6 @@
   },
   {
     "date": "11-02-2026",
-    "home": "Ruabon Cons B",
-    "away": "White Lion Hope",
-    "division": "WD2"
-  },
-  {
-    "date": "11-02-2026",
     "home": "White Lion Hope",
     "away": "Crown Caergwrle",
     "division": "WD2"
@@ -687,6 +639,12 @@
     "date": "11-03-2026",
     "home": "Greyhound",
     "away": "Kings Mills",
+    "division": "WD2"
+  },
+  {
+    "date": "11-03-2026",
+    "home": "Ruabon Cons B",
+    "away": "White Lion Hope",
     "division": "WD2"
   },
   {

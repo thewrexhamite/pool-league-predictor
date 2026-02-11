@@ -1,18 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 512 512">
-  <!-- Background -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="96" fill="#0C1222"/>
-  <!-- Left handle (filled arc shape) -->
   <path d="M155 110 C80 110 60 190 140 220 L155 220 L155 200 C100 195 95 130 155 130 Z" fill="#D4A855"/>
-  <!-- Right handle (filled arc shape) -->
   <path d="M357 110 C432 110 452 190 372 220 L357 220 L357 200 C412 195 417 130 357 130 Z" fill="#D4A855"/>
-  <!-- Trophy cup body -->
   <path d="M150 90 L362 90 L340 240 C330 280 290 310 256 320 C222 310 182 280 172 240 Z" fill="#D4A855"/>
-  <!-- Cup inner highlight -->
-  <path d="M192 115 L194 210 C198 255 228 285 256 295" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" stroke-opacity="0.2"/>
-  <!-- Stem -->
   <rect x="236" y="315" width="40" height="40" rx="4" fill="#D4A855"/>
-  <!-- Base top -->
   <rect x="196" y="350" width="120" height="18" rx="9" fill="#D4A855"/>
-  <!-- Base bottom -->
   <rect x="176" y="365" width="160" height="22" rx="11" fill="#D4A855"/>
 </svg>

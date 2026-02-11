@@ -29,17 +29,20 @@ function initializeFirebaseAdmin(): admin.app.App | null {
 }
 
 interface CreateResultRequestBody {
+  leagueId?: string;
   seasonId: string;
   result: Omit<MatchResult, 'frames'> & { frames?: number };
 }
 
 interface UpdateResultRequestBody {
+  leagueId?: string;
   seasonId: string;
   resultIndex: number;
   result: Partial<MatchResult>;
 }
 
 interface DeleteResultRequestBody {
+  leagueId?: string;
   seasonId: string;
   resultIndex: number;
 }
@@ -89,6 +92,7 @@ export async function GET(request: Request) {
   try {
     // Parse query parameters
     const { searchParams } = new URL(request.url);
+    const leagueId = searchParams.get('leagueId') || 'wrexham';
     const seasonId = searchParams.get('seasonId');
     const division = searchParams.get('division');
     const team = searchParams.get('team');
@@ -129,9 +133,9 @@ export async function GET(request: Request) {
       );
     }
 
-    // Get season data from Firestore
+    // Get season data from Firestore (multi-league path)
     const db = admin.firestore();
-    const seasonRef = db.collection('seasons').doc(seasonId);
+    const seasonRef = db.collection('leagues').doc(leagueId).collection('seasons').doc(seasonId);
     const seasonDoc = await seasonRef.get();
 
     if (!seasonDoc.exists) {
@@ -188,7 +192,7 @@ export async function POST(request: Request) {
 
   try {
     const body: CreateResultRequestBody = await request.json();
-    const { seasonId, result } = body;
+    const { seasonId, result, leagueId = 'wrexham' } = body;
 
     // Validate required fields
     if (!seasonId) {
@@ -240,9 +244,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // Add result to season in Firestore
+    // Add result to season in Firestore (multi-league path)
     const db = admin.firestore();
-    const seasonRef = db.collection('seasons').doc(seasonId);
+    const seasonRef = db.collection('leagues').doc(leagueId).collection('seasons').doc(seasonId);
 
     // Check if season exists
     const seasonDoc = await seasonRef.get();
@@ -289,7 +293,7 @@ export async function PATCH(request: Request) {
 
   try {
     const body: UpdateResultRequestBody = await request.json();
-    const { seasonId, resultIndex, result } = body;
+    const { seasonId, resultIndex, result, leagueId = 'wrexham' } = body;
 
     // Validate required fields
     if (!seasonId) {
@@ -333,9 +337,9 @@ export async function PATCH(request: Request) {
       );
     }
 
-    // Update result in season in Firestore
+    // Update result in season in Firestore (multi-league path)
     const db = admin.firestore();
-    const seasonRef = db.collection('seasons').doc(seasonId);
+    const seasonRef = db.collection('leagues').doc(leagueId).collection('seasons').doc(seasonId);
 
     // Get current season data
     const seasonDoc = await seasonRef.get();
@@ -409,7 +413,7 @@ export async function DELETE(request: Request) {
 
   try {
     const body: DeleteResultRequestBody = await request.json();
-    const { seasonId, resultIndex } = body;
+    const { seasonId, resultIndex, leagueId = 'wrexham' } = body;
 
     // Validate required fields
     if (!seasonId) {
@@ -445,9 +449,9 @@ export async function DELETE(request: Request) {
       );
     }
 
-    // Delete result from season in Firestore
+    // Delete result from season in Firestore (multi-league path)
     const db = admin.firestore();
-    const seasonRef = db.collection('seasons').doc(seasonId);
+    const seasonRef = db.collection('leagues').doc(leagueId).collection('seasons').doc(seasonId);
 
     // Get current season data
     const seasonDoc = await seasonRef.get();

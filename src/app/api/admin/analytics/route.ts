@@ -178,9 +178,8 @@ export async function GET(request: Request) {
       notificationSubscriptions = usersWithNotifications;
     }
 
-    // Fetch league data metrics from current season
-    const currentSeasonRef = db.collection('seasons').doc('2025-26');
-    const currentSeasonDoc = await currentSeasonRef.get();
+    // Fetch league data metrics across all leagues' current seasons
+    const leaguesSnapshot = await db.collection('leagues').get();
 
     let totalPlayers = 0;
     let totalTeams = 0;
@@ -188,35 +187,43 @@ export async function GET(request: Request) {
     let totalMatches = 0;
     let totalFixtures = 0;
 
-    if (currentSeasonDoc.exists) {
-      const seasonData = currentSeasonDoc.data();
+    for (const leagueDoc of leaguesSnapshot.docs) {
+      const leagueData = leagueDoc.data();
+      const currentSeason = leagueData.seasons?.find((s: any) => s.current);
+      if (!currentSeason) continue;
 
-      // Count players (check both new and legacy field names)
+      const seasonRef = db.collection('leagues').doc(leagueDoc.id).collection('seasons').doc(currentSeason.id);
+      const seasonDoc = await seasonRef.get();
+      if (!seasonDoc.exists) continue;
+
+      const seasonData = seasonDoc.data();
+
+      // Count players
       const playerStats = seasonData?.playerStats || seasonData?.players2526;
       if (playerStats) {
-        totalPlayers = Object.keys(playerStats).length;
+        totalPlayers += Object.keys(playerStats).length;
       }
 
       // Count teams and divisions
       if (seasonData?.divisions) {
-        totalDivisions = Object.keys(seasonData.divisions).length;
+        totalDivisions += Object.keys(seasonData.divisions).length;
         const teamsSet = new Set<string>();
         Object.values(seasonData.divisions).forEach((division: any) => {
           if (division.teams && Array.isArray(division.teams)) {
             division.teams.forEach((team: string) => teamsSet.add(team));
           }
         });
-        totalTeams = teamsSet.size;
+        totalTeams += teamsSet.size;
       }
 
       // Count matches
       if (seasonData?.results && Array.isArray(seasonData.results)) {
-        totalMatches = seasonData.results.length;
+        totalMatches += seasonData.results.length;
       }
 
       // Count fixtures
       if (seasonData?.fixtures && Array.isArray(seasonData.fixtures)) {
-        totalFixtures = seasonData.fixtures.length;
+        totalFixtures += seasonData.fixtures.length;
       }
     }
 

@@ -990,6 +990,105 @@
     ]
   },
   {
+    "matchId": "2274275",
+    "date": "08-02-2026",
+    "home": "Magnet A",
+    "away": "Breakroom Llay",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Derry \"the thing\" Flinders",
+        "awayPlayer": "Defyn Gwillam",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Adrian Naggington",
+        "awayPlayer": "Gordon Bird",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Grant Williams",
+        "awayPlayer": "Joe Walters",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Simon Roberts",
+        "awayPlayer": "Danny Frayne",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Steve Williams",
+        "awayPlayer": "Matty Redmond",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Pete James",
+        "awayPlayer": "Max Walker",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Lee Roberts",
+        "awayPlayer": "Joe Walters",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Adrian Naggington",
+        "awayPlayer": "Matty Redmond",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Steve Williams",
+        "awayPlayer": "Gordon Bird",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Grant Williams",
+        "awayPlayer": "Callum Fuge",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
     "matchId": "2274208",
     "date": "02-11-2025",
     "home": "Gresford Colliery",
@@ -1782,6 +1881,987 @@
     ]
   },
   {
+    "matchId": "2274274",
+    "date": "08-02-2026",
+    "home": "Gwersyllt Club",
+    "away": "Gresford Colliery",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Laurence Travis",
+        "awayPlayer": "Rich Williams",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Liam Roberts",
+        "awayPlayer": "Col Richards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "John Bagnall",
+        "awayPlayer": "Gareth Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Owen Barry",
+        "awayPlayer": "Nathan Stephens",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Terry Roberts",
+        "awayPlayer": "Paul Marubbi",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Ian Jenkins",
+        "awayPlayer": "Col Richards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Liam Roberts",
+        "awayPlayer": "Rich Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Laurence Travis",
+        "awayPlayer": "Paul Marubbi",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "John Bagnall",
+        "awayPlayer": "Gareth Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Terry Roberts",
+        "awayPlayer": "Nathan Stephens",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274212",
+    "date": "26-10-2025",
+    "home": "Johnstown Legion",
+    "away": "Gresford Colliery",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Phil Jones",
+        "winner": "home",
+        "breakDish": true,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Rich Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Col Richards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Robert Salisbury",
+        "awayPlayer": "Paul Marubbi",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Paul Williams",
+        "awayPlayer": "Nathan Stephens",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Col Richards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Rich Williams",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Phil Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Paul Williams",
+        "awayPlayer": "Paul Marubbi",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274207",
+    "date": "02-11-2025",
+    "home": "Red Lion Marchweil",
+    "away": "Johnstown Legion",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Aaron Edwards",
+        "awayPlayer": "Tim Williams",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Shay Moran",
+        "awayPlayer": "James Owen",
+        "winner": "away",
+        "breakDish": true,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Steven Lambord",
+        "awayPlayer": "Paul Williams",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Gary Evans",
+        "awayPlayer": "Nathaniel Wright",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Chris Roberts",
+        "awayPlayer": "Robert Salisbury",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Shay Moran",
+        "awayPlayer": "Jason Bowen",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Jordan Holmes",
+        "awayPlayer": "James Owen",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Dan Davies",
+        "awayPlayer": "Nathaniel Wright",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Aaron Edwards",
+        "awayPlayer": "Tim Williams",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Jonny Craven",
+        "awayPlayer": "Wayne Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274256",
+    "date": "09-11-2025",
+    "home": "Johnstown Legion",
+    "away": "Breakroom Lions",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Robert Salisbury",
+        "awayPlayer": "Craig Ingman",
+        "winner": "away",
+        "breakDish": true,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Graham Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Paul Williams",
+        "awayPlayer": "Brian Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Nathaniel Wright",
+        "awayPlayer": "Stu Hughes",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Ken Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Shane Rhys",
+        "awayPlayer": "Craig Ingman",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Graham Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Brian Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Robert Salisbury",
+        "awayPlayer": "Stu Hughes",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Wayne Edwards",
+        "awayPlayer": "Ken Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274201",
+    "date": "16-11-2025",
+    "home": "Johnstown Legion",
+    "away": "Gwersyllt WMC",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Shane Rhys",
+        "awayPlayer": "Dale Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Dewi Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Shaun Edwards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Martin Gwilliam",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Robert Salisbury",
+        "awayPlayer": "Lyndon Hamilton",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Daf Edwards",
+        "awayPlayer": "Ben Thomas",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Nathaniel Wright",
+        "awayPlayer": "Lyndon Hamilton",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Shane Rhys",
+        "awayPlayer": "Dewi Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Carl Bagnall",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Wayne Edwards",
+        "awayPlayer": "Martin Gwilliam",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274223",
+    "date": "23-11-2025",
+    "home": "Johnstown Legion",
+    "away": "Magnet A",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Daf Edwards",
+        "awayPlayer": "Adrian Naggington",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Derry \"the thing\" Flinders",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Simon Roberts",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Shane Rhys",
+        "awayPlayer": "Lee Roberts",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Steve Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Paul Williams",
+        "awayPlayer": "Derry \"the thing\" Flinders",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Robert Salisbury",
+        "awayPlayer": "Lee Roberts",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Simon Roberts",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Marcel Cheetham",
+        "awayPlayer": "Robbie Wojdyta",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Wayne Edwards",
+        "awayPlayer": "Steve Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274245",
+    "date": "04-01-2026",
+    "home": "Johnstown Legion",
+    "away": "Miners Brymbo",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Nathaniel Wright",
+        "awayPlayer": "George Thomas",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Nathan Roberts",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Kingsley Strafford",
+        "winner": "home",
+        "breakDish": true,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Robert Salisbury",
+        "awayPlayer": "Stephen Brindley",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Paul Williams",
+        "awayPlayer": "Jack Brindley",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Jamie West",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Wayne Edwards",
+        "awayPlayer": "Mathew Thacker",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Nathaniel Wright",
+        "awayPlayer": "Julian Henshaw",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Steve Thomas",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Paul Williams",
+        "awayPlayer": "Stephen Brindley",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274260",
+    "date": "25-01-2026",
+    "home": "Y Tai",
+    "away": "Johnstown Legion",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Simon Hallam",
+        "awayPlayer": "Daf Edwards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Dan Read",
+        "awayPlayer": "Jason Bowen",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Bryan Williams",
+        "awayPlayer": "James Owen",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Ian Brindley",
+        "awayPlayer": "Nathaniel Wright",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Matt Dempsey",
+        "awayPlayer": "Wayne Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Liam Sanger",
+        "awayPlayer": "James Owen",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Stuart Roberts",
+        "awayPlayer": "Daf Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Dean Sanger",
+        "awayPlayer": "Jason Bowen",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Steve Roberts",
+        "awayPlayer": "Tim Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Gareth Steven’s",
+        "awayPlayer": "Nathaniel Wright",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274278",
+    "date": "01-02-2026",
+    "home": "Gresford Colliery",
+    "away": "Johnstown Legion",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Col Richards",
+        "awayPlayer": "Tim Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Rich Williams",
+        "awayPlayer": "Daf Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Gareth Evans",
+        "awayPlayer": "Jason Bowen",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Paul Marubbi",
+        "awayPlayer": "Shane Rhys",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Nathan Stephens",
+        "awayPlayer": "James Owen",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Col Richards",
+        "awayPlayer": "Tim Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Nathan Stephens",
+        "awayPlayer": "Nathaniel Wright",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Rich Williams",
+        "awayPlayer": "Robert Salisbury",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Gareth Evans",
+        "awayPlayer": "Daf Edwards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Paul Marubbi",
+        "awayPlayer": "Wayne Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274273",
+    "date": "08-02-2026",
+    "home": "Johnstown Legion",
+    "away": "Red Lion Marchweil",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Daf Edwards",
+        "awayPlayer": "Dan Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Nathaniel Wright",
+        "awayPlayer": "Shay Moran",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Gary Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Steven Lambord",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Jordan Holmes",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "James Owen",
+        "awayPlayer": "Shay Moran",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Jason Bowen",
+        "awayPlayer": "Gary Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Daf Edwards",
+        "awayPlayer": "Martin Edwards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Tim Williams",
+        "awayPlayer": "Dan Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Wayne Edwards",
+        "awayPlayer": "Jordan Holmes",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
     "matchId": "2274254",
     "date": "09-11-2025",
     "home": "Magnet A",
@@ -1974,105 +3054,6 @@
         "homePlayer": "Steve Williams",
         "awayPlayer": "Tony Jones",
         "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274223",
-    "date": "23-11-2025",
-    "home": "Johnstown Legion",
-    "away": "Magnet A",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Daf Edwards",
-        "awayPlayer": "Adrian Naggington",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Derry \"the thing\" Flinders",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Jason Bowen",
-        "awayPlayer": "Simon Roberts",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Shane Rhys",
-        "awayPlayer": "Lee Roberts",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Steve Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Paul Williams",
-        "awayPlayer": "Derry \"the thing\" Flinders",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Robert Salisbury",
-        "awayPlayer": "Lee Roberts",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Simon Roberts",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Marcel Cheetham",
-        "awayPlayer": "Robbie Wojdyta",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Wayne Edwards",
-        "awayPlayer": "Steve Williams",
-        "winner": "away",
         "breakDish": false,
         "forfeit": false
       }
@@ -2468,690 +3449,6 @@
         "set": 2,
         "homePlayer": "Jonny Craven",
         "awayPlayer": "Steve Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274212",
-    "date": "26-10-2025",
-    "home": "Johnstown Legion",
-    "away": "Gresford Colliery",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Phil Jones",
-        "winner": "home",
-        "breakDish": true,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Jason Bowen",
-        "awayPlayer": "Rich Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Col Richards",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Robert Salisbury",
-        "awayPlayer": "Paul Marubbi",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Paul Williams",
-        "awayPlayer": "Nathan Stephens",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Col Richards",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Rich Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Jason Bowen",
-        "awayPlayer": "Phil Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Paul Williams",
-        "awayPlayer": "Paul Marubbi",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274207",
-    "date": "02-11-2025",
-    "home": "Red Lion Marchweil",
-    "away": "Johnstown Legion",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Aaron Edwards",
-        "awayPlayer": "Tim Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Shay Moran",
-        "awayPlayer": "James Owen",
-        "winner": "away",
-        "breakDish": true,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Steven Lambord",
-        "awayPlayer": "Paul Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Gary Evans",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Chris Roberts",
-        "awayPlayer": "Robert Salisbury",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Shay Moran",
-        "awayPlayer": "Jason Bowen",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Jordan Holmes",
-        "awayPlayer": "James Owen",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Dan Davies",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Aaron Edwards",
-        "awayPlayer": "Tim Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Jonny Craven",
-        "awayPlayer": "Wayne Edwards",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274256",
-    "date": "09-11-2025",
-    "home": "Johnstown Legion",
-    "away": "Breakroom Lions",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Robert Salisbury",
-        "awayPlayer": "Craig Ingman",
-        "winner": "away",
-        "breakDish": true,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Graham Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Paul Williams",
-        "awayPlayer": "Brian Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Nathaniel Wright",
-        "awayPlayer": "Stu Hughes",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Ken Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Shane Rhys",
-        "awayPlayer": "Craig Ingman",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Graham Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Brian Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Robert Salisbury",
-        "awayPlayer": "Stu Hughes",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Wayne Edwards",
-        "awayPlayer": "Ken Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274201",
-    "date": "16-11-2025",
-    "home": "Johnstown Legion",
-    "away": "Gwersyllt WMC",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Shane Rhys",
-        "awayPlayer": "Dale Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Dewi Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Jason Bowen",
-        "awayPlayer": "Shaun Edwards",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Martin Gwilliam",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Robert Salisbury",
-        "awayPlayer": "Lyndon Hamilton",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Daf Edwards",
-        "awayPlayer": "Ben Thomas",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Nathaniel Wright",
-        "awayPlayer": "Lyndon Hamilton",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Shane Rhys",
-        "awayPlayer": "Dewi Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Tim Williams",
-        "awayPlayer": "Carl Bagnall",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Wayne Edwards",
-        "awayPlayer": "Martin Gwilliam",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274245",
-    "date": "04-01-2026",
-    "home": "Johnstown Legion",
-    "away": "Miners Brymbo",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Nathaniel Wright",
-        "awayPlayer": "George Thomas",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Nathan Roberts",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Jason Bowen",
-        "awayPlayer": "Kingsley Strafford",
-        "winner": "home",
-        "breakDish": true,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Robert Salisbury",
-        "awayPlayer": "Stephen Brindley",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Paul Williams",
-        "awayPlayer": "Jack Brindley",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "James Owen",
-        "awayPlayer": "Jamie West",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Wayne Edwards",
-        "awayPlayer": "Mathew Thacker",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Nathaniel Wright",
-        "awayPlayer": "Julian Henshaw",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Jason Bowen",
-        "awayPlayer": "Steve Thomas",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Paul Williams",
-        "awayPlayer": "Stephen Brindley",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274260",
-    "date": "25-01-2026",
-    "home": "Y Tai",
-    "away": "Johnstown Legion",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Simon Hallam",
-        "awayPlayer": "Daf Edwards",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Dan Read",
-        "awayPlayer": "Jason Bowen",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Bryan Williams",
-        "awayPlayer": "James Owen",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Ian Brindley",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Matt Dempsey",
-        "awayPlayer": "Wayne Edwards",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Liam Sanger",
-        "awayPlayer": "James Owen",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Stuart Roberts",
-        "awayPlayer": "Daf Edwards",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Dean Sanger",
-        "awayPlayer": "Jason Bowen",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Steve Roberts",
-        "awayPlayer": "Tim Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Gareth Steven’s",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274278",
-    "date": "01-02-2026",
-    "home": "Gresford Colliery",
-    "away": "Johnstown Legion",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Col Richards",
-        "awayPlayer": "Tim Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Rich Williams",
-        "awayPlayer": "Daf Edwards",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Gareth Evans",
-        "awayPlayer": "Jason Bowen",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Paul Marubbi",
-        "awayPlayer": "Shane Rhys",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Nathan Stephens",
-        "awayPlayer": "James Owen",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Col Richards",
-        "awayPlayer": "Tim Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Nathan Stephens",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Rich Williams",
-        "awayPlayer": "Robert Salisbury",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Gareth Evans",
-        "awayPlayer": "Daf Edwards",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Paul Marubbi",
-        "awayPlayer": "Wayne Edwards",
         "winner": "away",
         "breakDish": false,
         "forfeit": false
@@ -3753,6 +4050,105 @@
     ]
   },
   {
+    "matchId": "2274272",
+    "date": "08-02-2026",
+    "home": "Miners Brymbo",
+    "away": "Gwersyllt WMC",
+    "division": "SD1",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "George Thomas",
+        "awayPlayer": "Dale Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Kingsley Strafford",
+        "awayPlayer": "Martin Gwilliam",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Jack Brindley",
+        "awayPlayer": "Dewi Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Jamie West",
+        "awayPlayer": "Shaun Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Stephen Brindley",
+        "awayPlayer": "Carl Bagnall",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Steve Thomas",
+        "awayPlayer": "Dale Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Mathew Thacker",
+        "awayPlayer": "Lyndon Hamilton",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Nathan Roberts",
+        "awayPlayer": "Dewi Williams",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Stephen Brindley",
+        "awayPlayer": "Shaun Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Kingsley Strafford",
+        "awayPlayer": "Martin Gwilliam",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
     "matchId": "2274230",
     "date": "30-11-2025",
     "home": "Gresford Colliery",
@@ -4340,375 +4736,6 @@
         "set": 2,
         "homePlayer": "Lyndon Hamilton",
         "awayPlayer": "Dan Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2275688",
-    "date": "01-01-2026",
-    "home": "Flintshire A",
-    "away": "Gwersyllt WMC",
-    "division": "SD1",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Craig Sheehan",
-        "awayPlayer": "Dale Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "John Smith",
-        "awayPlayer": "Lyndon Hamilton",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Stephen Jones",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Will Roberts",
-        "awayPlayer": "Steve Brindley",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Ally Mcchristie",
-        "awayPlayer": "Tim Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 1,
-        "homePlayer": "Paul Fleming",
-        "awayPlayer": "Harvey Cunnah",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 1,
-        "homePlayer": "John Dunne",
-        "awayPlayer": "Martin Gwilliam",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 1,
-        "homePlayer": "Lee Vacher",
-        "awayPlayer": "Cameron Hamilton",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Scott Ellams",
-        "awayPlayer": "Lyndon Hamilton",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "John Smith",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 11,
-        "set": 2,
-        "homePlayer": "Will Roberts",
-        "awayPlayer": "Dale Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 12,
-        "set": 2,
-        "homePlayer": "Craig Sheehan",
-        "awayPlayer": "Tim Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 13,
-        "set": 2,
-        "homePlayer": "Ally Mcchristie",
-        "awayPlayer": "Steve Brindley",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 14,
-        "set": 2,
-        "homePlayer": "Paul Fleming",
-        "awayPlayer": "Martin Gwilliam",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 15,
-        "set": 2,
-        "homePlayer": "Lee Vacher",
-        "awayPlayer": "Cameron Hamilton",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 16,
-        "set": 2,
-        "homePlayer": "John Dunne",
-        "awayPlayer": "Harvey Cunnah",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 17,
-        "set": 3,
-        "homePlayer": "Stephen Jones",
-        "awayPlayer": "Nathan Price",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 18,
-        "set": 3,
-        "homePlayer": "Scott Ellams",
-        "awayPlayer": "Tim Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 19,
-        "set": 3,
-        "homePlayer": "John Smith",
-        "awayPlayer": "Nathaniel Wright",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 20,
-        "set": 3,
-        "homePlayer": "Paul Fleming",
-        "awayPlayer": "Dale Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 21,
-        "set": 3,
-        "homePlayer": "Lee Vacher",
-        "awayPlayer": "Martin Gwilliam",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 22,
-        "set": 3,
-        "homePlayer": "Will Roberts",
-        "awayPlayer": "Paul Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 23,
-        "set": 3,
-        "homePlayer": "Craig Sheehan",
-        "awayPlayer": "Harvey Cunnah",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 24,
-        "set": 3,
-        "homePlayer": "John Dunne",
-        "awayPlayer": "Steve Brindley",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 25,
-        "set": 4,
-        "homePlayer": "Ally Mcchristie",
-        "awayPlayer": "Lyndon Hamilton",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 26,
-        "set": 4,
-        "homePlayer": "Stephen Jones",
-        "awayPlayer": "Jack Brindley",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 27,
-        "set": 4,
-        "homePlayer": "John Smith",
-        "awayPlayer": "Dale Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 28,
-        "set": 4,
-        "homePlayer": "Will Roberts",
-        "awayPlayer": "Nathan Price",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 29,
-        "set": 4,
-        "homePlayer": "Lee Vacher",
-        "awayPlayer": "Tim Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 30,
-        "set": 4,
-        "homePlayer": "Paul Fleming",
-        "awayPlayer": "Martin Gwilliam",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 31,
-        "set": 4,
-        "homePlayer": "John Dunne",
-        "awayPlayer": "Cameron Hamilton",
-        "winner": "home",
-        "breakDish": true,
-        "forfeit": false
-      },
-      {
-        "frameNum": 32,
-        "set": 4,
-        "homePlayer": "Craig Sheehan",
-        "awayPlayer": "Paul Williams",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 33,
-        "set": 5,
-        "homePlayer": "Stephen Jones",
-        "awayPlayer": "Jack Brindley",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 34,
-        "set": 5,
-        "homePlayer": "Paul Fleming",
-        "awayPlayer": "Harvey Cunnah",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 35,
-        "set": 5,
-        "homePlayer": "Ally Mcchristie",
-        "awayPlayer": "Dale Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 36,
-        "set": 5,
-        "homePlayer": "John Dunne",
-        "awayPlayer": "Nathan Price",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 37,
-        "set": 5,
-        "homePlayer": "Scott Ellams",
-        "awayPlayer": "Tim Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 38,
-        "set": 5,
-        "homePlayer": "Will Roberts",
-        "awayPlayer": "Martin Gwilliam",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 39,
-        "set": 5,
-        "homePlayer": "John Smith",
-        "awayPlayer": "Cameron Hamilton",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 40,
-        "set": 5,
-        "homePlayer": "Lee Vacher",
-        "awayPlayer": "Paul Williams",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -6291,6 +6318,105 @@
     ]
   },
   {
+    "matchId": "2274403",
+    "date": "08-02-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Magnet B",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Marsden Parry",
+        "awayPlayer": "Lewis West",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Logan Morris",
+        "awayPlayer": "Adam Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Mike Robbins",
+        "awayPlayer": "Arron Rigby",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Jamie Austin",
+        "awayPlayer": "Harvey Cunnah",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Brett Taylor",
+        "awayPlayer": "Taylor dodd Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Kayden Davies",
+        "awayPlayer": "Jack Mitchell",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Marsden Parry",
+        "awayPlayer": "Dan Parry",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Jamie Austin",
+        "awayPlayer": "Harvey Cunnah",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Logan Morris",
+        "awayPlayer": "Lewis West",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Brett Taylor",
+        "awayPlayer": "Adam Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
     "matchId": "2274343",
     "date": "26-10-2025",
     "home": "Four Dogs A",
@@ -7281,26 +7407,26 @@
     ]
   },
   {
-    "matchId": "2274341",
-    "date": "02-11-2025",
-    "home": "Rollers B",
-    "away": "Brymbo Sports",
+    "matchId": "2274406",
+    "date": "08-02-2026",
+    "home": "Four Dogs A",
+    "away": "The Drunk Monk",
     "division": "SD2",
     "frames": [
       {
         "frameNum": 1,
         "set": 1,
-        "homePlayer": "Mike Prydderch",
-        "awayPlayer": "Keiron Taylor",
-        "winner": "away",
+        "homePlayer": "Paul Bailey",
+        "awayPlayer": "Josh Artell",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 2,
         "set": 1,
-        "homePlayer": "Steve Rogers",
-        "awayPlayer": "Tom Rawlinson",
+        "homePlayer": "Brad Sandford",
+        "awayPlayer": "Ross Kearney",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -7308,17 +7434,17 @@
       {
         "frameNum": 3,
         "set": 1,
-        "homePlayer": "Steve Cousins",
-        "awayPlayer": "James Roberts",
-        "winner": "away",
+        "homePlayer": "Rob Williams",
+        "awayPlayer": "Kieran Irwin",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 4,
         "set": 1,
-        "homePlayer": "Andy Gould",
-        "awayPlayer": "Lloyd Baker",
+        "homePlayer": "Leighton Roberts",
+        "awayPlayer": "Sam Jones",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -7326,17 +7452,17 @@
       {
         "frameNum": 5,
         "set": 1,
-        "homePlayer": "Chris Jones",
-        "awayPlayer": "Mike Parry",
-        "winner": "away",
+        "homePlayer": "Dylan Owen",
+        "awayPlayer": "Peter Bennett",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 6,
         "set": 2,
-        "homePlayer": "Alan Jenkins",
-        "awayPlayer": "Gavin Edwards",
+        "homePlayer": "Craig \"tree\" Jones",
+        "awayPlayer": "David Rathbone",
         "winner": "away",
         "breakDish": false,
         "forfeit": false
@@ -7344,8 +7470,8 @@
       {
         "frameNum": 7,
         "set": 2,
-        "homePlayer": "Steve Rogers",
-        "awayPlayer": "Keiron Taylor",
+        "homePlayer": "Leighton Roberts",
+        "awayPlayer": "Ross Kearney",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -7353,8 +7479,8 @@
       {
         "frameNum": 8,
         "set": 2,
-        "homePlayer": "Mike Prydderch",
-        "awayPlayer": "Mike Parry",
+        "homePlayer": "Brad Sandford",
+        "awayPlayer": "Peter Bennett",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -7362,8 +7488,107 @@
       {
         "frameNum": 9,
         "set": 2,
-        "homePlayer": "Andy Gould",
-        "awayPlayer": "James Roberts",
+        "homePlayer": "Paul Bailey",
+        "awayPlayer": "Kayden Clout",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Dylan Owen",
+        "awayPlayer": "Josh Artell",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274345",
+    "date": "26-10-2025",
+    "home": "Rhos Snooker Club",
+    "away": "Sun Rhos",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "John Richards",
+        "awayPlayer": "Ian Phillips",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Joel Baines",
+        "awayPlayer": "Matt Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Keith Baines",
+        "awayPlayer": "Karl Thomas",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Eryl Roberts",
+        "awayPlayer": "Darryl Bithell",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Kris Fox",
+        "awayPlayer": "Nev Jenkins",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Neil Jones",
+        "awayPlayer": "Chris Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Josh Jones",
+        "awayPlayer": "Phil Bennett",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Arron Jones",
+        "awayPlayer": "Ian Phillips",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Neil Hudson",
+        "awayPlayer": "Matt Jones",
         "winner": "away",
         "breakDish": false,
         "forfeit": false
@@ -7371,9 +7596,108 @@
       {
         "frameNum": 10,
         "set": 2,
-        "homePlayer": "Steve Cousins",
-        "awayPlayer": "Lloyd Baker",
+        "homePlayer": "Ioan Parry",
+        "awayPlayer": "Nev Jenkins",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274339",
+    "date": "02-11-2025",
+    "home": "Sun Rhos",
+    "away": "Old Black Horse",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Neil Phillips",
+        "awayPlayer": "Steve Evans",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Ian Jones",
+        "awayPlayer": "Dylan Smith",
         "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Matt Jones",
+        "awayPlayer": "Mark Simpson",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Phil Bennett",
+        "awayPlayer": "Martin Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Ian Phillips",
+        "awayPlayer": "Ollie Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Chris Williams",
+        "awayPlayer": "Steve Evans",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Gary Ellis",
+        "awayPlayer": "Ollie Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Paul Pemberton",
+        "awayPlayer": "Dylan Smith",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Darryl Bithell",
+        "awayPlayer": "Martin Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Nev Jenkins",
+        "awayPlayer": "Mark Simpson",
+        "winner": "away",
         "breakDish": false,
         "forfeit": false
       }
@@ -7473,6 +7797,699 @@
         "homePlayer": "Steve Rogers",
         "awayPlayer": "Nev Jenkins",
         "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274358",
+    "date": "23-11-2025",
+    "home": "Rollers A",
+    "away": "Sun Rhos",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Dan Roberts",
+        "awayPlayer": "Ian Phillips",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Lewis Pugh",
+        "awayPlayer": "Neil Phillips",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Ben Williams",
+        "awayPlayer": "Nev Jenkins",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Bec Johns",
+        "awayPlayer": "Matt Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Gary Williams",
+        "awayPlayer": "Karl Thomas",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Dan Roberts",
+        "awayPlayer": "Phil Bennett",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Lewis Pugh",
+        "awayPlayer": "Gary Ellis",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Iain Siddle",
+        "awayPlayer": "Darryl Bithell",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Brad Wynne",
+        "awayPlayer": "Matt Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Steve Edwards",
+        "awayPlayer": "Nev Jenkins",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274371",
+    "date": "07-12-2025",
+    "home": "Four Dogs B",
+    "away": "Sun Rhos",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Ewan Picken",
+        "awayPlayer": "Ian Phillips",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Callum Millington",
+        "awayPlayer": "Gary Ellis",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Reilly Mcleod",
+        "awayPlayer": "Karl Thomas",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Tomos Williams",
+        "awayPlayer": "Nev Jenkins",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Mathew Perrin",
+        "awayPlayer": "Paul Pemberton",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Carl White",
+        "awayPlayer": "Chris Williams",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Aled Bennet",
+        "awayPlayer": "Phil Bennett",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Callum Millington",
+        "awayPlayer": "Matt Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Jeff Dsouza",
+        "awayPlayer": "Darryl Bithell",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Mathew Perrin",
+        "awayPlayer": "Karl Thomas",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274383",
+    "date": "11-01-2026",
+    "home": "Sun Rhos",
+    "away": "The Drunk Monk",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Ian Phillips",
+        "awayPlayer": "Ross Kearney",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Neil Phillips",
+        "awayPlayer": "David Rathbone",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Gary Ellis",
+        "awayPlayer": "Peter Bennett",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Darryl Bithell",
+        "awayPlayer": "Kieran Irwin",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Karl Thomas",
+        "awayPlayer": "Lee Morris",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Chris Williams",
+        "awayPlayer": "Ross Kearney",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Matt Jones",
+        "awayPlayer": "Peter Bennett",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Paul Pemberton",
+        "awayPlayer": "David Rathbone",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Nev Jenkins",
+        "awayPlayer": "Kieran Irwin",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Darryl Bithell",
+        "awayPlayer": "Lee Morris",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274394",
+    "date": "25-01-2026",
+    "home": "Sun Rhos",
+    "away": "Brymbo Sports",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Phil Bennett",
+        "awayPlayer": "Keiron Taylor",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Ian Phillips",
+        "awayPlayer": "Gavin Edwards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Neil Phillips",
+        "awayPlayer": "James Roberts",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Karl Thomas",
+        "awayPlayer": "Tom Rawlinson",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Matt Jones",
+        "awayPlayer": "Mike Parry",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Chris Williams",
+        "awayPlayer": "James Roberts",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Paul Pemberton",
+        "awayPlayer": "Keiron Taylor",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Darryl Bithell",
+        "awayPlayer": "Mike Parry",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Nev Jenkins",
+        "awayPlayer": "Gavin Edwards",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "David Sides",
+        "awayPlayer": "Tom Rawlinson",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274411",
+    "date": "01-02-2026",
+    "home": "Sun Rhos",
+    "away": "Rhos Snooker Club",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Paul Pemberton",
+        "awayPlayer": "Arron Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Ian Phillips",
+        "awayPlayer": "Kev Austin",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Phil Bennett",
+        "awayPlayer": "Joel Baines",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Karl Thomas",
+        "awayPlayer": "Eryl Roberts",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Ian Jones",
+        "awayPlayer": "Kris Fox",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Chris Williams",
+        "awayPlayer": "Neil Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Matt Jones",
+        "awayPlayer": "Keith Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Darryl Bithell",
+        "awayPlayer": "Josh Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Neil Phillips",
+        "awayPlayer": "Joel Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Nev Jenkins",
+        "awayPlayer": "Steve Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274405",
+    "date": "08-02-2026",
+    "home": "Old Black Horse",
+    "away": "Sun Rhos",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Steve Evans",
+        "awayPlayer": "Ian Phillips",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Dylan Smith",
+        "awayPlayer": "Phil Bennett",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Mark Simpson",
+        "awayPlayer": "Karl Thomas",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Martin Jones",
+        "awayPlayer": "Matt Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Ollie Evans",
+        "awayPlayer": "Nev Jenkins",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Steve Evans",
+        "awayPlayer": "Paul Pemberton",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Dylan Smith",
+        "awayPlayer": "Neil Phillips",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Mark Simpson",
+        "awayPlayer": "Ian Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Martin Jones",
+        "awayPlayer": "Darryl Bithell",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Ollie Evans",
+        "awayPlayer": "Matt Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274341",
+    "date": "02-11-2025",
+    "home": "Rollers B",
+    "away": "Brymbo Sports",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Mike Prydderch",
+        "awayPlayer": "Keiron Taylor",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Steve Rogers",
+        "awayPlayer": "Tom Rawlinson",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Steve Cousins",
+        "awayPlayer": "James Roberts",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Andy Gould",
+        "awayPlayer": "Lloyd Baker",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Chris Jones",
+        "awayPlayer": "Mike Parry",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Alan Jenkins",
+        "awayPlayer": "Gavin Edwards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Steve Rogers",
+        "awayPlayer": "Keiron Taylor",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Mike Prydderch",
+        "awayPlayer": "Mike Parry",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Andy Gould",
+        "awayPlayer": "James Roberts",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Steve Cousins",
+        "awayPlayer": "Lloyd Baker",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       }
@@ -8073,17 +9090,17 @@
     ]
   },
   {
-    "matchId": "2274345",
-    "date": "26-10-2025",
-    "home": "Rhos Snooker Club",
-    "away": "Sun Rhos",
+    "matchId": "2274407",
+    "date": "01-01-2026",
+    "home": "Brymbo Sports",
+    "away": "Rollers B",
     "division": "SD2",
     "frames": [
       {
         "frameNum": 1,
         "set": 1,
-        "homePlayer": "John Richards",
-        "awayPlayer": "Ian Phillips",
+        "homePlayer": "Keiron Taylor",
+        "awayPlayer": "Steve Rogers",
         "winner": "away",
         "breakDish": false,
         "forfeit": false
@@ -8091,17 +9108,17 @@
       {
         "frameNum": 2,
         "set": 1,
-        "homePlayer": "Joel Baines",
-        "awayPlayer": "Matt Jones",
-        "winner": "away",
+        "homePlayer": "James Roberts",
+        "awayPlayer": "Stephen Rowlands",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 3,
         "set": 1,
-        "homePlayer": "Keith Baines",
-        "awayPlayer": "Karl Thomas",
+        "homePlayer": "Lewis Griffiths",
+        "awayPlayer": "Andy Gould",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -8109,17 +9126,17 @@
       {
         "frameNum": 4,
         "set": 1,
-        "homePlayer": "Eryl Roberts",
-        "awayPlayer": "Darryl Bithell",
-        "winner": "home",
+        "homePlayer": "Gavin Edwards",
+        "awayPlayer": "Mike Shaw",
+        "winner": "away",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 5,
         "set": 1,
-        "homePlayer": "Kris Fox",
-        "awayPlayer": "Nev Jenkins",
+        "homePlayer": "Lloyd Baker",
+        "awayPlayer": "Steve Cousins",
         "winner": "away",
         "breakDish": false,
         "forfeit": false
@@ -8127,17 +9144,17 @@
       {
         "frameNum": 6,
         "set": 2,
-        "homePlayer": "Neil Jones",
-        "awayPlayer": "Chris Williams",
-        "winner": "away",
+        "homePlayer": "Mike Parry",
+        "awayPlayer": "Steve Rogers",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 7,
         "set": 2,
-        "homePlayer": "Josh Jones",
-        "awayPlayer": "Phil Bennett",
+        "homePlayer": "James Roberts",
+        "awayPlayer": "Mike Shaw",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -8145,8 +9162,8 @@
       {
         "frameNum": 8,
         "set": 2,
-        "homePlayer": "Arron Jones",
-        "awayPlayer": "Ian Phillips",
+        "homePlayer": "Lewis Griffiths",
+        "awayPlayer": "Steve Cousins",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -8154,242 +9171,44 @@
       {
         "frameNum": 9,
         "set": 2,
-        "homePlayer": "Neil Hudson",
-        "awayPlayer": "Matt Jones",
-        "winner": "away",
+        "homePlayer": "Keiron Taylor",
+        "awayPlayer": "Andy Gould",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 10,
         "set": 2,
-        "homePlayer": "Ioan Parry",
-        "awayPlayer": "Nev Jenkins",
-        "winner": "away",
+        "homePlayer": "Tom Rawlinson",
+        "awayPlayer": "Steven Pugh",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       }
     ]
   },
   {
-    "matchId": "2274339",
+    "matchId": "2274338",
     "date": "02-11-2025",
-    "home": "Sun Rhos",
-    "away": "Old Black Horse",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Neil Phillips",
-        "awayPlayer": "Steve Evans",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Ian Jones",
-        "awayPlayer": "Dylan Smith",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Matt Jones",
-        "awayPlayer": "Mark Simpson",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Phil Bennett",
-        "awayPlayer": "Martin Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Ian Phillips",
-        "awayPlayer": "Ollie Evans",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Chris Williams",
-        "awayPlayer": "Steve Evans",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Gary Ellis",
-        "awayPlayer": "Ollie Evans",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Paul Pemberton",
-        "awayPlayer": "Dylan Smith",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Darryl Bithell",
-        "awayPlayer": "Martin Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Nev Jenkins",
-        "awayPlayer": "Mark Simpson",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274358",
-    "date": "23-11-2025",
-    "home": "Rollers A",
-    "away": "Sun Rhos",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Dan Roberts",
-        "awayPlayer": "Ian Phillips",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Lewis Pugh",
-        "awayPlayer": "Neil Phillips",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Ben Williams",
-        "awayPlayer": "Nev Jenkins",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Bec Johns",
-        "awayPlayer": "Matt Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Gary Williams",
-        "awayPlayer": "Karl Thomas",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Dan Roberts",
-        "awayPlayer": "Phil Bennett",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Lewis Pugh",
-        "awayPlayer": "Gary Ellis",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Iain Siddle",
-        "awayPlayer": "Darryl Bithell",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Brad Wynne",
-        "awayPlayer": "Matt Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Steve Edwards",
-        "awayPlayer": "Nev Jenkins",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274371",
-    "date": "07-12-2025",
     "home": "Four Dogs B",
-    "away": "Sun Rhos",
+    "away": "Rhos Snooker Club",
     "division": "SD2",
     "frames": [
       {
         "frameNum": 1,
         "set": 1,
-        "homePlayer": "Ewan Picken",
-        "awayPlayer": "Ian Phillips",
-        "winner": "away",
+        "homePlayer": "Sam Roberts",
+        "awayPlayer": "Josh Jones",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 2,
         "set": 1,
-        "homePlayer": "Callum Millington",
-        "awayPlayer": "Gary Ellis",
+        "homePlayer": "Aled Bennet",
+        "awayPlayer": "Kris Fox",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -8398,7 +9217,7 @@
         "frameNum": 3,
         "set": 1,
         "homePlayer": "Reilly Mcleod",
-        "awayPlayer": "Karl Thomas",
+        "awayPlayer": "Keith Baines",
         "winner": "away",
         "breakDish": false,
         "forfeit": false
@@ -8406,304 +9225,7 @@
       {
         "frameNum": 4,
         "set": 1,
-        "homePlayer": "Tomos Williams",
-        "awayPlayer": "Nev Jenkins",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Mathew Perrin",
-        "awayPlayer": "Paul Pemberton",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Carl White",
-        "awayPlayer": "Chris Williams",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Aled Bennet",
-        "awayPlayer": "Phil Bennett",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Callum Millington",
-        "awayPlayer": "Matt Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
         "homePlayer": "Jeff Dsouza",
-        "awayPlayer": "Darryl Bithell",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Mathew Perrin",
-        "awayPlayer": "Karl Thomas",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274383",
-    "date": "11-01-2026",
-    "home": "Sun Rhos",
-    "away": "The Drunk Monk",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Ian Phillips",
-        "awayPlayer": "Ross Kearney",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Neil Phillips",
-        "awayPlayer": "David Rathbone",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Gary Ellis",
-        "awayPlayer": "Peter Bennett",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Darryl Bithell",
-        "awayPlayer": "Kieran Irwin",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Karl Thomas",
-        "awayPlayer": "Lee Morris",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Chris Williams",
-        "awayPlayer": "Ross Kearney",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Matt Jones",
-        "awayPlayer": "Peter Bennett",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Paul Pemberton",
-        "awayPlayer": "David Rathbone",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Nev Jenkins",
-        "awayPlayer": "Kieran Irwin",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Darryl Bithell",
-        "awayPlayer": "Lee Morris",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274394",
-    "date": "25-01-2026",
-    "home": "Sun Rhos",
-    "away": "Brymbo Sports",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Phil Bennett",
-        "awayPlayer": "Keiron Taylor",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Ian Phillips",
-        "awayPlayer": "Gavin Edwards",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Neil Phillips",
-        "awayPlayer": "James Roberts",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Karl Thomas",
-        "awayPlayer": "Tom Rawlinson",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Matt Jones",
-        "awayPlayer": "Mike Parry",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Chris Williams",
-        "awayPlayer": "James Roberts",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Paul Pemberton",
-        "awayPlayer": "Keiron Taylor",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Darryl Bithell",
-        "awayPlayer": "Mike Parry",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Nev Jenkins",
-        "awayPlayer": "Gavin Edwards",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "David Sides",
-        "awayPlayer": "Tom Rawlinson",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274411",
-    "date": "01-02-2026",
-    "home": "Sun Rhos",
-    "away": "Rhos Snooker Club",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Paul Pemberton",
-        "awayPlayer": "Arron Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Ian Phillips",
-        "awayPlayer": "Kev Austin",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Phil Bennett",
-        "awayPlayer": "Joel Baines",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Karl Thomas",
         "awayPlayer": "Eryl Roberts",
         "winner": "home",
         "breakDish": false,
@@ -8712,25 +9234,25 @@
       {
         "frameNum": 5,
         "set": 1,
-        "homePlayer": "Ian Jones",
-        "awayPlayer": "Kris Fox",
-        "winner": "away",
+        "homePlayer": "Ewan Picken",
+        "awayPlayer": "Joel Baines",
+        "winner": "home",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 6,
         "set": 2,
-        "homePlayer": "Chris Williams",
-        "awayPlayer": "Neil Jones",
-        "winner": "home",
+        "homePlayer": "Debbie Lynch",
+        "awayPlayer": "Arron Jones",
+        "winner": "away",
         "breakDish": false,
         "forfeit": false
       },
       {
         "frameNum": 7,
         "set": 2,
-        "homePlayer": "Matt Jones",
+        "homePlayer": "Jake Reilly",
         "awayPlayer": "Keith Baines",
         "winner": "away",
         "breakDish": false,
@@ -8739,8 +9261,8 @@
       {
         "frameNum": 8,
         "set": 2,
-        "homePlayer": "Darryl Bithell",
-        "awayPlayer": "Josh Jones",
+        "homePlayer": "Sam Roberts",
+        "awayPlayer": "Kev Austin",
         "winner": "away",
         "breakDish": false,
         "forfeit": false
@@ -8748,7 +9270,295 @@
       {
         "frameNum": 9,
         "set": 2,
-        "homePlayer": "Neil Phillips",
+        "homePlayer": "Aled Bennet",
+        "awayPlayer": "Neil Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Jeff Dsouza",
+        "awayPlayer": "Steve Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274389",
+    "date": "09-11-2025",
+    "home": "Rhos Snooker Club",
+    "away": "Cross Foxes Coedpoeth",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Kris Fox",
+        "awayPlayer": "Annmarie Robbins",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Arron Jones",
+        "awayPlayer": "David Williaimson",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Keith Baines",
+        "awayPlayer": "Lee Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Eryl Roberts",
+        "awayPlayer": "Mike Robbins",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 2,
+        "homePlayer": "Steve Jones",
+        "awayPlayer": "David Williaimson",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Josh Jones",
+        "awayPlayer": "Lee Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Kev Austin",
+        "awayPlayer": "Annmarie Robbins",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Joel Baines",
+        "awayPlayer": "Mike Robbins",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Ioan Parry",
+        "awayPlayer": "Kayden Davies",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274364",
+    "date": "30-11-2025",
+    "home": "Brymbo Sports",
+    "away": "Rhos Snooker Club",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Keiron Taylor",
+        "awayPlayer": "Arron Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Gavin Edwards",
+        "awayPlayer": "Kris Fox",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Lloyd Baker",
+        "awayPlayer": "Keith Baines",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "James Roberts",
+        "awayPlayer": "Eryl Roberts",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Tom Rawlinson",
+        "awayPlayer": "Josh Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Keiron Taylor",
+        "awayPlayer": "Joel Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Gavin Edwards",
+        "awayPlayer": "Neil Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "James Roberts",
+        "awayPlayer": "Kev Austin",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Tom Rawlinson",
+        "awayPlayer": "Steve Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Lloyd Baker",
+        "awayPlayer": "Keith Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274351",
+    "date": "18-01-2026",
+    "home": "The Drunk Monk",
+    "away": "Rhos Snooker Club",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Ross Kearney",
+        "awayPlayer": "Josh Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Peter Bennett",
+        "awayPlayer": "Neil Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Lewis Clout",
+        "awayPlayer": "Arron Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Kayden Clout",
+        "awayPlayer": "Eryl Roberts",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Sam Jones",
+        "awayPlayer": "Joel Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Lewis Clout",
+        "awayPlayer": "Kev Austin",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Ross Kearney",
+        "awayPlayer": "Steve Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Peter Bennett",
+        "awayPlayer": "John Richards",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Sam Jones",
         "awayPlayer": "Joel Baines",
         "winner": "away",
         "breakDish": false,
@@ -8757,8 +9567,296 @@
       {
         "frameNum": 10,
         "set": 2,
-        "homePlayer": "Nev Jenkins",
+        "homePlayer": "Kayden Clout",
+        "awayPlayer": "Arron Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274391",
+    "date": "25-01-2026",
+    "home": "Rollers A",
+    "away": "Rhos Snooker Club",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Ben Williams",
+        "awayPlayer": "Neil Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Lewis Pugh",
+        "awayPlayer": "Joel Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Gary Williams",
+        "awayPlayer": "Keith Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Brad Wynne",
+        "awayPlayer": "Eryl Roberts",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Bec Johns",
+        "awayPlayer": "Josh Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Iain Siddle",
+        "awayPlayer": "Kris Fox",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Ben Williams",
+        "awayPlayer": "Arron Jones",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Brad Wynne",
         "awayPlayer": "Steve Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Gary Williams",
+        "awayPlayer": "Joel Baines",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Steve Edwards",
+        "awayPlayer": "Josh Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274404",
+    "date": "08-02-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Four Dogs B",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Josh Jones",
+        "awayPlayer": "Mathew Perrin",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Joel Baines",
+        "awayPlayer": "Aled Bennet",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Keith Baines",
+        "awayPlayer": "Oscar Egerton",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Eryl Roberts",
+        "awayPlayer": "Jeff Dsouza",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Arron Jones",
+        "awayPlayer": "Ewan Picken",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Kris Fox",
+        "awayPlayer": "Mathew Perrin",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Steve Jones",
+        "awayPlayer": "Aled Bennet",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Neil Jones",
+        "awayPlayer": "Oscar Egerton",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Josh Jones",
+        "awayPlayer": "Jeff Dsouza",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 10,
+        "set": 2,
+        "homePlayer": "Joel Baines",
+        "awayPlayer": "Ewan Picken",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      }
+    ]
+  },
+  {
+    "matchId": "2274443",
+    "date": "01-01-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Old Black Horse",
+    "division": "SD2",
+    "frames": [
+      {
+        "frameNum": 1,
+        "set": 1,
+        "homePlayer": "Josh Jones",
+        "awayPlayer": "Nathan Price",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 2,
+        "set": 1,
+        "homePlayer": "Keith Baines",
+        "awayPlayer": "Martin Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 3,
+        "set": 1,
+        "homePlayer": "Joel Baines",
+        "awayPlayer": "Dylan Smith",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 4,
+        "set": 1,
+        "homePlayer": "Eryl Roberts",
+        "awayPlayer": "Mark Vallence",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 5,
+        "set": 1,
+        "homePlayer": "Kris Fox",
+        "awayPlayer": "Ollie Evans",
+        "winner": "home",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 6,
+        "set": 2,
+        "homePlayer": "Arron Jones",
+        "awayPlayer": "Nathan Price",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 7,
+        "set": 2,
+        "homePlayer": "Kev Austin",
+        "awayPlayer": "Martin Jones",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 8,
+        "set": 2,
+        "homePlayer": "Joel Baines",
+        "awayPlayer": "Dylan Smith",
+        "winner": "away",
+        "breakDish": false,
+        "forfeit": false
+      },
+      {
+        "frameNum": 9,
+        "set": 2,
+        "homePlayer": "Neil Jones",
+        "awayPlayer": "Ollie Evans",
         "winner": "home",
         "breakDish": false,
         "forfeit": false
@@ -9344,582 +10442,6 @@
         "set": 2,
         "homePlayer": "Lee Morris",
         "awayPlayer": "Mervyn Thomas",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274443",
-    "date": "01-01-2026",
-    "home": "Rhos Snooker Club",
-    "away": "Old Black Horse",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Josh Jones",
-        "awayPlayer": "Nathan Price",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Keith Baines",
-        "awayPlayer": "Martin Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Joel Baines",
-        "awayPlayer": "Dylan Smith",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Eryl Roberts",
-        "awayPlayer": "Mark Vallence",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Kris Fox",
-        "awayPlayer": "Ollie Evans",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Arron Jones",
-        "awayPlayer": "Nathan Price",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Kev Austin",
-        "awayPlayer": "Martin Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Joel Baines",
-        "awayPlayer": "Dylan Smith",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Neil Jones",
-        "awayPlayer": "Ollie Evans",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274338",
-    "date": "02-11-2025",
-    "home": "Four Dogs B",
-    "away": "Rhos Snooker Club",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Sam Roberts",
-        "awayPlayer": "Josh Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Aled Bennet",
-        "awayPlayer": "Kris Fox",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Reilly Mcleod",
-        "awayPlayer": "Keith Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Jeff Dsouza",
-        "awayPlayer": "Eryl Roberts",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Ewan Picken",
-        "awayPlayer": "Joel Baines",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Debbie Lynch",
-        "awayPlayer": "Arron Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Jake Reilly",
-        "awayPlayer": "Keith Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Sam Roberts",
-        "awayPlayer": "Kev Austin",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Aled Bennet",
-        "awayPlayer": "Neil Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Jeff Dsouza",
-        "awayPlayer": "Steve Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274389",
-    "date": "09-11-2025",
-    "home": "Rhos Snooker Club",
-    "away": "Cross Foxes Coedpoeth",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Kris Fox",
-        "awayPlayer": "Annmarie Robbins",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Arron Jones",
-        "awayPlayer": "David Williaimson",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Keith Baines",
-        "awayPlayer": "Lee Evans",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Eryl Roberts",
-        "awayPlayer": "Mike Robbins",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 2,
-        "homePlayer": "Steve Jones",
-        "awayPlayer": "David Williaimson",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Josh Jones",
-        "awayPlayer": "Lee Evans",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Kev Austin",
-        "awayPlayer": "Annmarie Robbins",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Joel Baines",
-        "awayPlayer": "Mike Robbins",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Ioan Parry",
-        "awayPlayer": "Kayden Davies",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274364",
-    "date": "30-11-2025",
-    "home": "Brymbo Sports",
-    "away": "Rhos Snooker Club",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Keiron Taylor",
-        "awayPlayer": "Arron Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Gavin Edwards",
-        "awayPlayer": "Kris Fox",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Lloyd Baker",
-        "awayPlayer": "Keith Baines",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "James Roberts",
-        "awayPlayer": "Eryl Roberts",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Tom Rawlinson",
-        "awayPlayer": "Josh Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Keiron Taylor",
-        "awayPlayer": "Joel Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Gavin Edwards",
-        "awayPlayer": "Neil Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "James Roberts",
-        "awayPlayer": "Kev Austin",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Tom Rawlinson",
-        "awayPlayer": "Steve Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Lloyd Baker",
-        "awayPlayer": "Keith Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274351",
-    "date": "18-01-2026",
-    "home": "The Drunk Monk",
-    "away": "Rhos Snooker Club",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Ross Kearney",
-        "awayPlayer": "Josh Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Peter Bennett",
-        "awayPlayer": "Neil Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Lewis Clout",
-        "awayPlayer": "Arron Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Kayden Clout",
-        "awayPlayer": "Eryl Roberts",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Sam Jones",
-        "awayPlayer": "Joel Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Lewis Clout",
-        "awayPlayer": "Kev Austin",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Ross Kearney",
-        "awayPlayer": "Steve Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Peter Bennett",
-        "awayPlayer": "John Richards",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Sam Jones",
-        "awayPlayer": "Joel Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Kayden Clout",
-        "awayPlayer": "Arron Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      }
-    ]
-  },
-  {
-    "matchId": "2274391",
-    "date": "25-01-2026",
-    "home": "Rollers A",
-    "away": "Rhos Snooker Club",
-    "division": "SD2",
-    "frames": [
-      {
-        "frameNum": 1,
-        "set": 1,
-        "homePlayer": "Ben Williams",
-        "awayPlayer": "Neil Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 2,
-        "set": 1,
-        "homePlayer": "Lewis Pugh",
-        "awayPlayer": "Joel Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 3,
-        "set": 1,
-        "homePlayer": "Gary Williams",
-        "awayPlayer": "Keith Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 4,
-        "set": 1,
-        "homePlayer": "Brad Wynne",
-        "awayPlayer": "Eryl Roberts",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 5,
-        "set": 1,
-        "homePlayer": "Bec Johns",
-        "awayPlayer": "Josh Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 6,
-        "set": 2,
-        "homePlayer": "Iain Siddle",
-        "awayPlayer": "Kris Fox",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 7,
-        "set": 2,
-        "homePlayer": "Ben Williams",
-        "awayPlayer": "Arron Jones",
-        "winner": "home",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 8,
-        "set": 2,
-        "homePlayer": "Brad Wynne",
-        "awayPlayer": "Steve Jones",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 9,
-        "set": 2,
-        "homePlayer": "Gary Williams",
-        "awayPlayer": "Joel Baines",
-        "winner": "away",
-        "breakDish": false,
-        "forfeit": false
-      },
-      {
-        "frameNum": 10,
-        "set": 2,
-        "homePlayer": "Steve Edwards",
-        "awayPlayer": "Josh Jones",
         "winner": "away",
         "breakDish": false,
         "forfeit": false

@@ -185,15 +185,9 @@ export async function POST(request: Request) {
     // Extract leagueId from request body if provided, default to wrexham
     const leagueId = (body as any).leagueId || 'wrexham';
 
-    // Try multi-league path first
-    let seasonRef = db.collection('leagues').doc(leagueId).collection('seasons').doc(seasonId);
-    let seasonDoc = await seasonRef.get();
-
-    // Fall back to legacy path
-    if (!seasonDoc.exists) {
-      seasonRef = db.collection('seasons').doc(seasonId);
-      seasonDoc = await seasonRef.get();
-    }
+    // Multi-league path
+    const seasonRef = db.collection('leagues').doc(leagueId).collection('seasons').doc(seasonId);
+    const seasonDoc = await seasonRef.get();
 
     if (!seasonDoc.exists) {
       return NextResponse.json(

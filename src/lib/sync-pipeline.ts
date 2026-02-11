@@ -589,9 +589,28 @@ export async function writeToFirestore(
     const admin = await import('firebase-admin');
 
     if (!admin.default.apps.length) {
-      admin.default.initializeApp({
-        credential: admin.default.credential.applicationDefault(),
-      });
+      // Try service account key file first, then Application Default Credentials
+      const keyPaths = [
+        path.resolve('service-account.json'),
+        path.resolve('serviceAccountKey.json'),
+      ];
+      let initialized = false;
+      for (const keyPath of keyPaths) {
+        if (fs.existsSync(keyPath)) {
+          const serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf-8'));
+          admin.default.initializeApp({
+            credential: admin.default.credential.cert(serviceAccount),
+            projectId: serviceAccount.project_id,
+          });
+          initialized = true;
+          break;
+        }
+      }
+      if (!initialized) {
+        admin.default.initializeApp({
+          credential: admin.default.credential.applicationDefault(),
+        });
+      }
     }
 
     const db = admin.default.firestore();
@@ -1055,9 +1074,27 @@ export async function syncLeagueData(
       try {
         const admin = await import('firebase-admin');
         if (!admin.default.apps.length) {
-          admin.default.initializeApp({
-            credential: admin.default.credential.applicationDefault(),
-          });
+          const keyPaths = [
+            path.resolve('service-account.json'),
+            path.resolve('serviceAccountKey.json'),
+          ];
+          let initialized = false;
+          for (const keyPath of keyPaths) {
+            if (fs.existsSync(keyPath)) {
+              const serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf-8'));
+              admin.default.initializeApp({
+                credential: admin.default.credential.cert(serviceAccount),
+                projectId: serviceAccount.project_id,
+              });
+              initialized = true;
+              break;
+            }
+          }
+          if (!initialized) {
+            admin.default.initializeApp({
+              credential: admin.default.credential.applicationDefault(),
+            });
+          }
         }
         const db = admin.default.firestore();
         await db.collection('leagues').doc(config.leagueId)

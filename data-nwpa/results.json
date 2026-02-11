@@ -9,11 +9,11 @@
     "frames": 10
   },
   {
-    "date": "01-01-2026",
-    "home": "Newtown",
-    "away": "Rhyl A",
-    "home_score": 23,
-    "away_score": 17,
+    "date": "08-02-2026",
+    "home": "Wrexham Union",
+    "away": "Osw Ex-Servicemans",
+    "home_score": 26,
+    "away_score": 14,
     "division": "PREM",
     "frames": 10
   },
@@ -27,12 +27,30 @@
     "frames": 10
   },
   {
+    "date": "08-02-2026",
+    "home": "Holyhead",
+    "away": "Rhyl A",
+    "home_score": 22,
+    "away_score": 18,
+    "division": "PREM",
+    "frames": 10
+  },
+  {
     "date": "01-01-2026",
-    "home": "Flintshire A",
-    "away": "Gwersyllt WMC",
+    "home": "Newtown",
+    "away": "Rhyl A",
     "home_score": 23,
     "away_score": 17,
-    "division": "D1",
+    "division": "PREM",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Bangor Blues",
+    "away": "Newtown",
+    "home_score": 23,
+    "away_score": 17,
+    "division": "PREM",
     "frames": 10
   },
   {
@@ -41,6 +59,24 @@
     "away": "The Breakroom",
     "home_score": 20,
     "away_score": 20,
+    "division": "D1",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Conwy C",
+    "away": "Dreigiau Caernarfon",
+    "home_score": 25,
+    "away_score": 15,
+    "division": "D1",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "The Breakroom",
+    "away": "Gwersyllt WMC",
+    "home_score": 24,
+    "away_score": 16,
     "division": "D1",
     "frames": 10
   },
@@ -54,11 +90,56 @@
     "frames": 10
   },
   {
+    "date": "08-02-2026",
+    "home": "Melrose Deeside A",
+    "away": "Flintshire A",
+    "home_score": 21,
+    "away_score": 19,
+    "division": "D1",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Flintshire A",
+    "away": "Gwersyllt WMC",
+    "home_score": 23,
+    "away_score": 17,
+    "division": "D1",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Wrexham 8 Ball",
+    "away": "Bangor Aces",
+    "home_score": 23,
+    "away_score": 17,
+    "division": "D2",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Wrexham 8 Ball",
+    "away": "Tanat Valley",
+    "home_score": 21,
+    "away_score": 19,
+    "division": "D2",
+    "frames": 10
+  },
+  {
     "date": "01-01-2026",
     "home": "Monty Dragons",
     "away": "Flintshire 8 Ball",
     "home_score": 25,
     "away_score": 15,
+    "division": "D2",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Monty Dragons",
+    "away": "Bangor Aces",
+    "home_score": 20,
+    "away_score": 20,
     "division": "D2",
     "frames": 10
   },
@@ -72,11 +153,11 @@
     "frames": 10
   },
   {
-    "date": "01-01-2026",
-    "home": "Wrexham 8 Ball",
-    "away": "Bangor Aces",
-    "home_score": 23,
-    "away_score": 17,
+    "date": "08-02-2026",
+    "home": "Flintshire 8 Ball",
+    "away": "North Anglesey",
+    "home_score": 22,
+    "away_score": 18,
     "division": "D2",
     "frames": 10
   },
@@ -91,11 +172,11 @@
   },
   {
     "date": "01-01-2026",
-    "home": "Welshpool Tigers",
-    "away": "Mach Blues",
-    "home_score": 23,
-    "away_score": 17,
-    "division": "D4",
+    "home": "South Flintshire A",
+    "away": "Melrose Deeside B",
+    "home_score": 25,
+    "away_score": 15,
+    "division": "D3",
     "frames": 10
   },
   {
@@ -109,20 +190,47 @@
   },
   {
     "date": "01-01-2026",
-    "home": "Conwy B",
-    "away": "Welshpool Warriors",
-    "home_score": 11,
-    "away_score": 29,
+    "home": "Rhyl B",
+    "away": "Wellmans Select",
+    "home_score": 18,
+    "away_score": 22,
+    "division": "D4",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Welshpool Tigers",
+    "away": "Mach Blues",
+    "home_score": 23,
+    "away_score": 17,
+    "division": "D4",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Welshpool Tigers",
+    "away": "Croesoswallt Dragons A",
+    "home_score": 23,
+    "away_score": 17,
+    "division": "D4",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Llanrwst B",
+    "away": "Flintshire 9Ball",
+    "home_score": 13,
+    "away_score": 27,
     "division": "D5",
     "frames": 10
   },
   {
     "date": "01-01-2026",
-    "home": "The Breakroom Union",
-    "away": "Mold 8Ball",
-    "home_score": 27,
-    "away_score": 13,
-    "division": "D6",
+    "home": "Conwy B",
+    "away": "Welshpool Warriors",
+    "home_score": 11,
+    "away_score": 29,
+    "division": "D5",
     "frames": 10
   },
   {
@@ -136,10 +244,46 @@
   },
   {
     "date": "01-01-2026",
+    "home": "Mach Mischiefs",
+    "away": "Croesoswallt Dragons B",
+    "home_score": 13,
+    "away_score": 27,
+    "division": "D6",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "The Breakroom Union",
+    "away": "Mold 8Ball",
+    "home_score": 27,
+    "away_score": 13,
+    "division": "D6",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Mon Celts",
+    "away": "Mold 8Ball",
+    "home_score": 22,
+    "away_score": 18,
+    "division": "D6",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
     "home": "Jolly Sailor",
     "away": "Corner Pocket Crusaders",
     "home_score": 27,
     "away_score": 13,
+    "division": "D7",
+    "frames": 10
+  },
+  {
+    "date": "08-02-2026",
+    "home": "Ex Serv Amigos",
+    "away": "Corner Pocket Crusaders",
+    "home_score": 13,
+    "away_score": 27,
     "division": "D7",
     "frames": 10
   },
@@ -149,6 +293,15 @@
     "away": "Ex Serv Amigos",
     "home_score": 26,
     "away_score": 14,
+    "division": "D7",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Ifton Miners",
+    "away": "Holyhead B",
+    "home_score": 23,
+    "away_score": 17,
     "division": "D7",
     "frames": 10
   }
