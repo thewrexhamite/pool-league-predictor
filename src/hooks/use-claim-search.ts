@@ -4,16 +4,16 @@
  * useClaimSearch Hook
  *
  * Orchestrates cross-league player search for the claim page:
- * - Fetches all leagues and their player data in parallel
+ * - Fetches player index docs (lightweight, denormalized) instead of full season docs
  * - Requests browser geolocation (non-blocking)
  * - Generates suggested profiles from display name
  * - Provides debounced cross-league search
  */
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import type { LeagueMeta, Players2526Map } from '@/lib/types';
+import type { LeagueMeta, PlayerIndexDoc } from '@/lib/types';
 import type { UserProfile } from '@/lib/auth';
 import {
   getUserLocation,
@@ -92,7 +92,7 @@ export function useClaimSearch(profile: UserProfile | null): UseClaimSearchResul
     };
   }, [searchQuery]);
 
-  // Fetch all leagues on mount
+  // Fetch leagues and player index on mount
   useEffect(() => {
     async function loadLeagues() {
       try {
@@ -110,10 +110,65 @@ export function useClaimSearch(profile: UserProfile | null): UseClaimSearchResul
       }
     }
 
-    async function loadAllPlayers(leagueList: LeagueMeta[]) {
+    async function loadPlayerIndex(leagueList: LeagueMeta[]) {
       const results: AllLeagueData[] = [];
 
-      // Fetch all leagues' current season data in parallel
+      try {
+        // Fetch player index docs (lightweight, one per league/season)
+        const indexRef = collection(db, 'players_index');
+        const indexSnap = await getDocs(indexRef);
+
+        // Build a lookup of league metadata
+        const leagueMap = new Map<string, LeagueMeta>();
+        for (const league of leagueList) {
+          leagueMap.set(league.id, league);
+        }
+
+        for (const doc of indexSnap.docs) {
+          const data = doc.data() as PlayerIndexDoc;
+          const league = leagueMap.get(data.leagueId);
+          if (!league) continue;
+
+          // Convert PlayerIndexEntry to Players2526Map shape for compatibility
+          const players: Record<string, { teams: { team: string; div: string; p: number; w: number; pct: number; lag: number; bdF: number; bdA: number; forf: number; cup: boolean }[]; total: { p: number; w: number; pct: number } }> = {};
+          for (const [name, entry] of Object.entries(data.players)) {
+            players[name] = {
+              teams: entry.teams.map(team => ({
+                team,
+                div: '',
+                p: entry.p,
+                w: entry.w,
+                pct: entry.pct,
+                lag: 0,
+                bdF: 0,
+                bdA: 0,
+                forf: 0,
+                cup: false,
+              })),
+              total: { p: entry.p, w: entry.w, pct: entry.pct },
+            };
+          }
+
+          results.push({
+            leagueId: data.leagueId,
+            seasonId: data.seasonId,
+            league,
+            players,
+          });
+        }
+      } catch (err) {
+        console.error('Failed to load player index, falling back to season docs:', err);
+        // Fallback: load from season docs (legacy behavior)
+        return loadAllPlayersLegacy(leagueList);
+      }
+
+      return results;
+    }
+
+    async function loadAllPlayersLegacy(leagueList: LeagueMeta[]) {
+      const { doc, getDoc } = await import('firebase/firestore');
+      const results: AllLeagueData[] = [];
+
       const promises = leagueList.map(async (league) => {
         const currentSeason = league.seasons.find((s) => s.current);
         if (!currentSeason) return null;
@@ -128,7 +183,7 @@ export function useClaimSearch(profile: UserProfile | null): UseClaimSearchResul
               leagueId: league.id,
               seasonId: currentSeason.id,
               league,
-              players: (data.players2526 || {}) as Players2526Map,
+              players: (data.playerStats || data.players2526 || {}) as AllLeagueData['players'],
             };
           }
         } catch (err) {
@@ -148,7 +203,7 @@ export function useClaimSearch(profile: UserProfile | null): UseClaimSearchResul
     async function init() {
       setLoading(true);
       const leagueList = await loadLeagues();
-      const playerData = await loadAllPlayers(leagueList);
+      const playerData = await loadPlayerIndex(leagueList);
       setAllLeagueData(playerData);
       setLoading(false);
     }

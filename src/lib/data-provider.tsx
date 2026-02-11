@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import type {
   MatchResult,
   Fixture,
@@ -249,6 +249,22 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
           }
 
           if (raw.lastUpdated > cachedTs) {
+            // Load frames from subcollection (or fall back to inline for backward compat)
+            let frames: FrameData[] = [];
+            if (raw.frames && raw.frames.length > 0) {
+              // Legacy: frames still inline on the season doc
+              frames = raw.frames;
+            } else {
+              // New structure: frames in subcollection
+              try {
+                const framesRef = collection(db, 'leagues', leagueId, 'seasons', seasonId, 'frames');
+                const framesSnap = await getDocs(framesRef);
+                frames = framesSnap.docs.map(d => d.data() as FrameData);
+              } catch {
+                // Frames subcollection may not exist yet
+              }
+            }
+
             // All data, including divisions, comes from Firestore
             // No league gets special treatment or hardcoded fallbacks
             const newData: LeagueData = {
@@ -256,8 +272,8 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
               fixtures: raw.fixtures || [],
               players: raw.players || {},
               rosters: raw.rosters || {},
-              players2526: raw.players2526 || {},
-              frames: raw.frames || [],
+              players2526: raw.playerStats || raw.players2526 || {},
+              frames,
               divisions: raw.divisions || {},
               lastUpdated: raw.lastUpdated,
               source: 'firestore',
@@ -319,13 +335,27 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
           }
 
           if (raw.lastUpdated > cachedTs) {
+            // Load frames from subcollection (or fall back to inline)
+            let frames: FrameData[] = [];
+            if (raw.frames && raw.frames.length > 0) {
+              frames = raw.frames;
+            } else {
+              try {
+                const framesRef = collection(db, 'leagues', leagueId, 'seasons', seasonId, 'frames');
+                const framesSnap = await getDocs(framesRef);
+                frames = framesSnap.docs.map(d => d.data() as FrameData);
+              } catch {
+                // Frames subcollection may not exist yet
+              }
+            }
+
             const newData: LeagueData = {
               results: raw.results || [],
               fixtures: raw.fixtures || [],
               players: raw.players || {},
               rosters: raw.rosters || {},
-              players2526: raw.players2526 || {},
-              frames: raw.frames || [],
+              players2526: raw.playerStats || raw.players2526 || {},
+              frames,
               divisions: raw.divisions || {},
               lastUpdated: raw.lastUpdated,
               source: 'firestore',

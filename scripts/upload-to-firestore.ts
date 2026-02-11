@@ -208,22 +208,60 @@ async function main() {
   });
   log(`  Created leagues/${LEAGUE_ID}`);
 
-  // Upload season data
+  // Upload season data (without frames — those go to subcollection)
   log('\nUploading season data...');
   const seasonRef = leagueRef.collection('seasons').doc(SEASON_ID);
 
   await seasonRef.set({
     results,
     fixtures,
-    frames,
     players,
-    players2526,
+    playerStats: players2526,
     rosters,
     divisions,
     lastUpdated: Date.now(),
     lastSyncedFrom: 'rackemapp-scraper',
   });
   log(`  Created leagues/${LEAGUE_ID}/seasons/${SEASON_ID}`);
+
+  // Upload frames to subcollection (one doc per match)
+  log('\nUploading frames to subcollection...');
+  const framesArray = frames as Array<{ matchId: string; [key: string]: unknown }>;
+  const BATCH_LIMIT = 500;
+  for (let i = 0; i < framesArray.length; i += BATCH_LIMIT) {
+    const batch = db.batch();
+    const chunk = framesArray.slice(i, i + BATCH_LIMIT);
+    for (const frame of chunk) {
+      const matchId = frame.matchId || `match_${i}`;
+      const frameDocRef = seasonRef.collection('frames').doc(String(matchId));
+      batch.set(frameDocRef, frame);
+    }
+    await batch.commit();
+    log(`  Wrote batch ${Math.floor(i / BATCH_LIMIT) + 1} (${chunk.length} frame docs)`);
+  }
+  log(`  Total: ${framesArray.length} frame docs written to subcollection`);
+
+  // Write player search index
+  log('\nWriting player search index...');
+  const indexId = `${LEAGUE_ID}_${SEASON_ID}`;
+  const playersSummary: Record<string, { p: number; w: number; pct: number; teams: string[] }> = {};
+  for (const [name, data] of Object.entries(players2526 as Record<string, { total: { p: number; w: number; pct: number }; teams: { team: string }[] }>)) {
+    playersSummary[name] = {
+      p: data.total.p,
+      w: data.total.w,
+      pct: data.total.pct,
+      teams: data.teams.map((t: { team: string }) => t.team),
+    };
+  }
+  await db.collection('players_index').doc(indexId).set({
+    leagueId: LEAGUE_ID,
+    seasonId: SEASON_ID,
+    leagueName: LEAGUE_NAME,
+    leagueShortName: SHORT_NAME,
+    players: playersSummary,
+    lastUpdated: Date.now(),
+  });
+  log(`  Created players_index/${indexId} (${Object.keys(playersSummary).length} players)`);
 
   log('\nDone! The league should now appear in the app.');
   log(`Select "${LEAGUE_NAME}" from the league picker to view the data.`);

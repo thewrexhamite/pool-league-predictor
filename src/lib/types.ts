@@ -328,13 +328,16 @@ export interface UserSession {
 }
 
 // Season document shape in Firestore
+// After migration, frames are stored in a subcollection (leagues/{id}/seasons/{id}/frames/{matchId})
+// and player stats use the generic 'playerStats' field name (not season-specific 'players2526').
 export interface SeasonData {
   results: MatchResult[];
   fixtures: Fixture[];
-  frames: FrameData[];
-  players: PlayersMap;
+  frames?: FrameData[]; // Legacy: was inline, now in subcollection
+  players: PlayersMap; // Legacy 24/25 season stats
   rosters: RostersMap;
-  players2526: Players2526Map;
+  playerStats?: Players2526Map; // Canonical field name (new)
+  players2526?: Players2526Map; // Legacy field name (backward compat)
   divisions: Record<DivisionCode, Division>;
   lastUpdated: number; // timestamp
   lastSyncedFrom: string;
@@ -345,6 +348,9 @@ export interface SeasonMeta {
   id: string;
   label: string;
   current: boolean;
+  status?: 'pre-season' | 'active' | 'completed';
+  startDate?: string; // e.g. "2025-09-01"
+  endDate?: string;   // e.g. "2026-05-31"
   divisions: string[];
   champion?: string;
   promoted?: string[];
@@ -361,6 +367,24 @@ export interface LeagueMeta {
   logo?: string;
   lat?: number;
   lng?: number;
+}
+
+// Player search index (denormalized for cross-league search)
+export interface PlayerIndexEntry {
+  p: number;
+  w: number;
+  pct: number;
+  teams: string[];
+}
+
+export interface PlayerIndexDoc {
+  leagueId: string;
+  seasonId: string;
+  leagueName: string;
+  leagueShortName: string;
+  leagueColor?: string;
+  players: Record<string, PlayerIndexEntry>;
+  lastUpdated: number;
 }
 
 // Admin and data source types

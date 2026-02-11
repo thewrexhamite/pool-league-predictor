@@ -191,9 +191,10 @@ export async function GET(request: Request) {
     if (currentSeasonDoc.exists) {
       const seasonData = currentSeasonDoc.data();
 
-      // Count players
-      if (seasonData?.players2526) {
-        totalPlayers = Object.keys(seasonData.players2526).length;
+      // Count players (check both new and legacy field names)
+      const playerStats = seasonData?.playerStats || seasonData?.players2526;
+      if (playerStats) {
+        totalPlayers = Object.keys(playerStats).length;
       }
 
       // Count teams and divisions

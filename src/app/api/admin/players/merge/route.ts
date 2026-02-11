@@ -179,10 +179,21 @@ export async function POST(request: Request) {
       );
     }
 
-    // Get season data from Firestore
+    // Get season data from Firestore (try multi-league path first, fall back to legacy)
     const db = admin.firestore();
-    const seasonRef = db.collection('seasons').doc(seasonId);
-    const seasonDoc = await seasonRef.get();
+
+    // Extract leagueId from request body if provided, default to wrexham
+    const leagueId = (body as any).leagueId || 'wrexham';
+
+    // Try multi-league path first
+    let seasonRef = db.collection('leagues').doc(leagueId).collection('seasons').doc(seasonId);
+    let seasonDoc = await seasonRef.get();
+
+    // Fall back to legacy path
+    if (!seasonDoc.exists) {
+      seasonRef = db.collection('seasons').doc(seasonId);
+      seasonDoc = await seasonRef.get();
+    }
 
     if (!seasonDoc.exists) {
       return NextResponse.json(
@@ -194,8 +205,18 @@ export async function POST(request: Request) {
     const seasonData = seasonDoc.data();
     const rosters: RostersMap = seasonData?.rosters || {};
     const players: PlayersMap = seasonData?.players || {};
-    const players2526: Players2526Map = seasonData?.players2526 || {};
-    const frames: FrameData[] = seasonData?.frames || [];
+    const players2526: Players2526Map = seasonData?.playerStats || seasonData?.players2526 || {};
+
+    // Load frames from subcollection if not inline
+    let frames: FrameData[] = seasonData?.frames || [];
+    if (frames.length === 0) {
+      try {
+        const framesSnap = await seasonRef.collection('frames').get();
+        frames = framesSnap.docs.map(d => d.data() as FrameData);
+      } catch {
+        // Frames subcollection may not exist
+      }
+    }
 
     // Track changes for response
     const changes = {
@@ -283,13 +304,39 @@ export async function POST(request: Request) {
     });
 
     // Update season document with merged data
-    await seasonRef.update({
-      rosters: updatedRosters,
-      players: updatedPlayers,
-      players2526: updatedPlayers2526,
-      frames: updatedFrames,
-      lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
-    });
+    // Check if frames are in subcollection or inline
+    const hasFramesSubcollection = !seasonData?.frames || seasonData.frames.length === 0;
+
+    if (hasFramesSubcollection && changes.framesUpdated > 0) {
+      // Update frames in subcollection using batched writes
+      const BATCH_LIMIT = 500;
+      for (let i = 0; i < updatedFrames.length; i += BATCH_LIMIT) {
+        const batch = db.batch();
+        const chunk = updatedFrames.slice(i, i + BATCH_LIMIT);
+        for (const frame of chunk) {
+          const frameDocRef = seasonRef.collection('frames').doc(frame.matchId);
+          batch.set(frameDocRef, frame);
+        }
+        await batch.commit();
+      }
+
+      // Update season doc without frames field
+      await seasonRef.update({
+        rosters: updatedRosters,
+        players: updatedPlayers,
+        playerStats: updatedPlayers2526,
+        lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+      });
+    } else {
+      // Legacy: frames inline on season doc
+      await seasonRef.update({
+        rosters: updatedRosters,
+        players: updatedPlayers,
+        playerStats: updatedPlayers2526,
+        frames: updatedFrames,
+        lastUpdated: admin.firestore.FieldValue.serverTimestamp(),
+      });
+    }
 
     return NextResponse.json({
       success: true,

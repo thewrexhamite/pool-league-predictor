@@ -613,6 +613,8 @@ export async function writeToFirestore(
       })),
     }));
 
+    // Season payload WITHOUT frames (frames go to subcollection)
+    // Use generic field name 'playerStats' instead of season-specific 'players2526'
     const seasonPayload = {
       results: data.results.map(r => ({
         date: r.date,
@@ -624,10 +626,9 @@ export async function writeToFirestore(
         frames: r.frames,
       })),
       fixtures: data.fixtures,
-      frames: frameData,
       players: data.players,
       rosters: data.rosters,
-      players2526: data.players2526,
+      playerStats: data.players2526,
       divisions: data.divisions,
       lastUpdated: Date.now(),
       lastSyncedFrom: 'leagueapplive',
@@ -636,6 +637,23 @@ export async function writeToFirestore(
     // Write to new multi-league path
     const leagueSeasonRef = db.collection('leagues').doc(config.leagueId).collection('seasons').doc(config.seasonId);
     await leagueSeasonRef.set(seasonPayload);
+
+    // Write frames to subcollection (one doc per match)
+    const framesCollectionRef = leagueSeasonRef.collection('frames');
+    const BATCH_LIMIT = 500; // Firestore batch limit
+    for (let i = 0; i < frameData.length; i += BATCH_LIMIT) {
+      const batch = db.batch();
+      const chunk = frameData.slice(i, i + BATCH_LIMIT);
+      for (const frame of chunk) {
+        const frameDocRef = framesCollectionRef.doc(frame.matchId);
+        batch.set(frameDocRef, frame);
+      }
+      await batch.commit();
+    }
+    log(`Firestore: ${frameData.length} frame docs written to subcollection`);
+
+    // Write player search index (denormalized for cross-league search)
+    await writePlayerIndex(db, data.players2526, config);
 
     // Also write/update league metadata
     const leagueRef = db.collection('leagues').doc(config.leagueId);
@@ -650,16 +668,10 @@ export async function writeToFirestore(
           id: config.seasonId,
           label: `20${config.seasonId.slice(0, 2)}/${config.seasonId.slice(2)}`,
           current: true,
+          status: 'active',
           divisions: divisionCodes,
         }],
       });
-    }
-
-    // Write to legacy path for backward compatibility (wrexham only)
-    if (config.leagueId === 'wrexham') {
-      const legacyRef = db.collection('seasons').doc(config.seasonId);
-      await legacyRef.set(seasonPayload);
-      log(`Firestore: seasons/${config.seasonId} (legacy) written successfully`);
     }
 
     log(`Firestore: leagues/${config.leagueId}/seasons/${config.seasonId} written successfully`);
@@ -667,6 +679,45 @@ export async function writeToFirestore(
     log('Firestore write failed (credentials may not be configured)', 'ERROR');
     log(err instanceof Error ? err.message : String(err), 'ERROR');
     log('JSON backup files were still written successfully.', 'WARN');
+  }
+}
+
+/**
+ * Write a denormalized player index for cross-league search.
+ * Each index doc contains league metadata + player names with summary stats.
+ */
+async function writePlayerIndex(
+  db: FirebaseFirestore.Firestore,
+  players2526: Record<string, PlayerStats>,
+  config: LeagueConfig
+) {
+  try {
+    const indexId = `${config.leagueId}_${config.seasonId}`;
+    const indexRef = db.collection('players_index').doc(indexId);
+
+    // Build a lightweight player map with just search-relevant data
+    const playersSummary: Record<string, { p: number; w: number; pct: number; teams: string[] }> = {};
+    for (const [name, data] of Object.entries(players2526)) {
+      playersSummary[name] = {
+        p: data.total.p,
+        w: data.total.w,
+        pct: data.total.pct,
+        teams: data.teams.map(t => t.team),
+      };
+    }
+
+    await indexRef.set({
+      leagueId: config.leagueId,
+      seasonId: config.seasonId,
+      leagueName: config.leagueName,
+      leagueShortName: config.shortName,
+      players: playersSummary,
+      lastUpdated: Date.now(),
+    });
+
+    log(`Firestore: players_index/${indexId} written (${Object.keys(playersSummary).length} players)`);
+  } catch (err) {
+    log(`Failed to write player index: ${err instanceof Error ? err.message : err}`, 'WARN');
   }
 }
 

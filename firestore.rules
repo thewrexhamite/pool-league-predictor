@@ -15,7 +15,19 @@ service cloud.firestore {
       match /seasons/{seasonId} {
         allow read: if true;
         allow write: if false;
+
+        // Frame-level data subcollection (one doc per match)
+        match /frames/{matchId} {
+          allow read: if true;
+          allow write: if false;
+        }
       }
+    }
+
+    // Cross-league player search index (denormalized, read-optimized)
+    match /players_index/{indexId} {
+      allow read: if true;
+      allow write: if false;
     }
 
     // User profiles - authenticated users can read/write their own

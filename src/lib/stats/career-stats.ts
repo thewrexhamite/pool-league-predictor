@@ -134,9 +134,10 @@ export async function fetchPlayerCareerData(
       let gamesPlayed = 0;
       let wins = 0;
 
-      // Try players2526 map first (current format)
-      if (seasonData.players2526?.[playerName]) {
-        const playerData = seasonData.players2526[playerName];
+      // Try playerStats/players2526 map first (current format)
+      const currentPlayers = seasonData.playerStats || seasonData.players2526;
+      if (currentPlayers?.[playerName]) {
+        const playerData = currentPlayers[playerName];
         winRate = playerData.total.pct;
         gamesPlayed = playerData.total.p;
         wins = playerData.total.w;
