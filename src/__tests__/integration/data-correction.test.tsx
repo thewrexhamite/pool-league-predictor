@@ -131,6 +131,7 @@ const createMockAdminProfile = (): UserProfile => ({
   displayName: 'Admin User',
   photoURL: null,
   claimedProfiles: [],
+  captainClaims: [],
   createdAt: Date.now(),
   settings: {
     notifications: false,
