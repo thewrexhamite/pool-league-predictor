@@ -13,6 +13,10 @@ import {
 
 initializeApp();
 
+// Cloud Functions
+export { resolvePredictions } from './resolvePredictions';
+export { recalculateLabels } from './recalculateLabels';
+
 // league-config.json is copied to lib/ at build time, so __dirname resolves it
 const PROJECT_ROOT = path.resolve(__dirname);
 const LEAGUE_CONFIGS = loadLeagueConfigs(PROJECT_ROOT);

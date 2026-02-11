@@ -4,8 +4,11 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import type { LeagueMeta } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { ActiveDataProvider } from '@/lib/active-data-provider';
-import { useIsAuthenticated } from '@/lib/auth';
+import { useAuth, useIsAuthenticated } from '@/lib/auth';
 import { useAppState } from '@/hooks/use-app-state';
+import { OnboardingModal } from './auth/OnboardingModal';
+import { TutorialProvider, useTutorial } from './tutorial/TutorialProvider';
+import TutorialWelcomeToast from './tutorial/TutorialWelcomeToast';
 
 import { ToastProvider, useToast } from './ToastProvider';
 import AppHeader from './AppHeader';
@@ -24,6 +27,7 @@ import DetailSheet from './ui/DetailSheet';
 import SheetContent from './SheetContent';
 import { useSheetBridge } from '@/hooks/use-sheet-bridge';
 import { withViewTransition } from '@/lib/view-transitions';
+import { GamificationProvider } from '@/lib/gamification/GamificationProvider';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
@@ -63,15 +67,21 @@ interface AppContentProps {
 }
 
 function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
+  const { user } = useAuth();
+
   return (
-    <DetailSheetProvider>
-      <AppContentInner
-        league={league}
-        refreshing={refreshing}
-        timeMachineDate={timeMachineDate}
-        setTimeMachineDate={setTimeMachineDate}
-      />
-    </DetailSheetProvider>
+    <GamificationProvider userId={user?.uid || null}>
+      <TutorialProvider>
+        <DetailSheetProvider>
+          <AppContentInner
+            league={league}
+            refreshing={refreshing}
+            timeMachineDate={timeMachineDate}
+            setTimeMachineDate={setTimeMachineDate}
+          />
+        </DetailSheetProvider>
+      </TutorialProvider>
+    </GamificationProvider>
   );
 }
 
@@ -80,6 +90,15 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
   const { addToast } = useToast();
   const appState = useAppState({ timeMachineDate, setTimeMachineDate, onToast: addToast });
   const isAuthenticated = useIsAuthenticated();
+  const { profile } = useAuth();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Show onboarding modal for new sign-ups
+  useEffect(() => {
+    if (isAuthenticated && profile && !profile.onboarding?.completedAt) {
+      setShowOnboarding(true);
+    }
+  }, [isAuthenticated, profile]);
 
   // Track the last real (non-detail) tab so sheets don't blank the background
   const lastRealTab = useRef(appState.router.tab === 'team' || appState.router.tab === 'player' ? 'home' as const : appState.router.tab);
@@ -218,6 +237,25 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
           standings={appState.standings}
         />
       </DetailSheet>
+
+      {/* First-visit tutorial prompt */}
+      <TutorialWelcomeToast />
+
+      {/* Onboarding modal for new sign-ups */}
+      <OnboardingModal
+        isOpen={showOnboarding}
+        onClose={() => setShowOnboarding(false)}
+        onClaimProfile={() => {
+          setShowOnboarding(false);
+          window.location.href = '/claim';
+        }}
+        onSetMyTeam={() => {
+          appState.setShowMyTeamModal(true);
+        }}
+        onEnableNotifications={() => {
+          appState.setShowNotificationSettings(true);
+        }}
+      />
     </div>
   );
 }

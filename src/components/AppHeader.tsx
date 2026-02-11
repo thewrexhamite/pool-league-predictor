@@ -231,7 +231,7 @@ export default function AppHeader({
     : 0;
 
   return (
-    <header className="sticky top-0 z-40 bg-surface/95 backdrop-blur-sm border-b border-surface-border glass glass-edge header-scroll-shadow vt-header">
+    <header data-tutorial="header" className="sticky top-0 z-40 bg-surface/95 backdrop-blur-sm border-b border-surface-border glass glass-edge header-scroll-shadow vt-header">
       <div className="max-w-6xl mx-auto px-4 py-2 md:py-3">
         <div className="flex items-center justify-between gap-3">
           {/* Left: Logo + title */}
@@ -255,7 +255,7 @@ export default function AppHeader({
               <span className="text-gray-100">Pool League </span><span className="text-accent">Pro</span>
             </button>
             {selected && leagues.length > 0 && (
-              <div className="hidden md:block relative" ref={leagueDropdownRef}>
+              <div data-tutorial="league-switcher" className="hidden md:block relative" ref={leagueDropdownRef}>
                 <button
                   onClick={() => setLeagueDropdownOpen(prev => !prev)}
                   className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition px-1.5 py-0.5 rounded border border-surface-border/50 hover:border-surface-border"
@@ -333,7 +333,7 @@ export default function AppHeader({
             </button>
 
             {/* Desktop search */}
-            <div className="hidden md:block relative">
+            <div data-tutorial="search" className="hidden md:block relative">
               <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
               <input
                 ref={searchInputRef}
@@ -418,12 +418,12 @@ export default function AppHeader({
             </div>
 
             {/* Theme toggle — desktop only */}
-            <div className="hidden md:block">
+            <div data-tutorial="theme-toggle" className="hidden md:block">
               <ThemeToggle variant="icon" />
             </div>
 
             {/* User menu — desktop only */}
-            <div className="hidden md:block">
+            <div data-tutorial="user-menu" className="hidden md:block">
               <UserMenu
                 onLoginClick={() => nextRouter.push('/auth/login')}
                 onNotificationSettingsClick={() => setShowNotificationSettings(true)}
@@ -698,6 +698,7 @@ export default function AppHeader({
               return (
                 <button
                   key={tab.id}
+                  data-tutorial={`tab-${tab.id}`}
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => { setMobileMenuOpen(false); router.setTab(tab.id); }}
@@ -720,3 +721,4 @@ export default function AppHeader({
     </header>
   );
 }
+
