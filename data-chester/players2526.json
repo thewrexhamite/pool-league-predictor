@@ -1,0 +1,10610 @@
+{
+  "Joseph Walters": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Jamie Fitzgerald": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Robbie Maxwell": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Carl Ferris": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Chris Fraser": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 6,
+        "w": 5,
+        "pct": 83.33333333333334,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 5,
+      "pct": 83.33333333333334
+    }
+  },
+  "Andy Byrne": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Danny Garston": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Gary Parkinson": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 7,
+        "w": 6,
+        "pct": 85.71428571428571,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 6,
+      "pct": 75
+    }
+  },
+  "Ian Massey": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Tom Silvester": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Frazer Herald": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Mike Findley": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Mickey Fenner": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 7,
+        "w": 4,
+        "pct": 57.14285714285714,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Graham Green": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Martin Roberts": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jason Merritt": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Dave Randles": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 8,
+        "w": 5,
+        "pct": 62.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 5,
+      "pct": 62.5
+    }
+  },
+  "Alan Edwards": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 6,
+        "w": 2,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 2,
+      "pct": 33.33333333333333
+    }
+  },
+  "Peter Bostock": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Paul Ewin": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Jim Bateman": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Brian Healey": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Neil Craig": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 6,
+        "w": 6,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 6,
+      "pct": 100
+    }
+  },
+  "Shaun Done": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jamie Evans": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 7,
+        "w": 4,
+        "pct": 57.14285714285714,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Micky Jones": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Jacob Rhoden": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Owen Harris": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Sam Walsh": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Ben Fisher": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Andy Jones": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Mike Coleclough": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Ray Cheers": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Adam Cheers": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Jordan Parkinson": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 7,
+        "w": 6,
+        "pct": 85.71428571428571,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 6,
+      "pct": 75
+    }
+  },
+  "Dan Goulding": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Neil Harris": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Mark Hunt": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Richard Watson": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Richie Powis": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Dave Jones": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Gaz Thomas": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Mick Harris": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 7,
+        "w": 2,
+        "pct": 28.57142857142857,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Ben Whiteside": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Rob Chapman": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Chris Peters": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Steve Coote": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Paul Linekar": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Cliff Hirst": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Mike Ankers": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Baz Mayers": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Ste Greenwood": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Liam Maddrell": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Derek Richards": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Ben Ashton": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Kev Green": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Garth Andresen": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Andy Thallon": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 6,
+        "w": 5,
+        "pct": 83.33333333333334,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 5,
+      "pct": 71.42857142857143
+    }
+  },
+  "Daniel Coombes": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Jon Parkins": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 6,
+        "w": 2,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 2,
+      "pct": 33.33333333333333
+    }
+  },
+  "Jason White": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Rich Towers": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Jack Collo": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Eddie Lloyd": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Jason Sollars": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Matt Barnes": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Ali Cameron": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Steve Jones": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "James Stanger": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Neil Cardus": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "M Smith": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Colan Burns": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Stan Dean": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Dave Davies": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Gaz Sudlow": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Dom Betteridge": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jack Salisbury": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 6,
+        "w": 5,
+        "pct": 83.33333333333334,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 5,
+      "pct": 83.33333333333334
+    }
+  },
+  "Simon Crawford": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Pat Murray": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Matt Rollings": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Dean Port": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Bud Crawford": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Kieron Stevenson": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Mike Nield": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Christopher Harper": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Graeme White": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Owen Lythe": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Mike Dixon": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Michael Bowell": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "John Richards": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Paul Butler": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Dave Williams": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Simon Lowe": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Ronan Ferguson": {
+    "teams": [
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Paul Cartwright": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Jack azbo Harris": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "St Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Blowy Gaulton": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Matt Sims": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 6,
+        "w": 2,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 2,
+      "pct": 33.33333333333333
+    }
+  },
+  "Bob Burrows": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Paul Halliwell": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Adam Pickett": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Iain Bruce": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dave Lyth": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Joe Phillips": {
+    "teams": [
+      {
+        "team": "Foxes Legends",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Hayden Morris": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Kev Ashley": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Paul Phillips": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Tom Foden": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Dan Gittins": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Nigel Sollars": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Ben Davies": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Lewis Ronaldson": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Danny Vel": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Josh Dutton": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Matty Edwards": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Rob Williams": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Graham Craven": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Nathan Morris": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Mike O": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "#x27;Neill": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Dean Brawn": {
+    "teams": [
+      {
+        "team": "Egerton Arms A",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "George Mccabe": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Craig Jones": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Matthew Renshaw": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Rob Lythe": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Paul Wheatley": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Ted Aird": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Simon Molloy": {
+    "teams": [
+      {
+        "team": "Egerton FCB",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Brendan Hughes": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Rob Mcburney": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Pete Healey": {
+    "teams": [
+      {
+        "team": "Taom Chaukees",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Rob Parry": {
+    "teams": [
+      {
+        "team": "Centurion",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Lee Coote": {
+    "teams": [
+      {
+        "team": "Werburghs",
+        "div": "PREM",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Richard Curtis": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dale Williams": {
+    "teams": [
+      {
+        "team": "Little Oak Pickles",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Scott Dilley": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Natalie Carswell": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dan Carswell": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Brad Ferguson": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Chris Colegate": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Liam Roberts": {
+    "teams": [
+      {
+        "team": "Chaukees Wrongens",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Dan Snowden": {
+    "teams": [
+      {
+        "team": "Egerton Mavericks",
+        "div": "PREM",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "paul Holliefield": {
+    "teams": [
+      {
+        "team": "Little Oak Studs",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Peter Duxbury": {
+    "teams": [
+      {
+        "team": "The Bridge Inn A",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Amy Lettsome": {
+    "teams": [
+      {
+        "team": "Grosvenor Arms",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Barry Chambers": {
+    "teams": [
+      {
+        "team": "Number Fifteen",
+        "div": "PREM",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "#x27;connor": {
+    "teams": [
+      {
+        "team": "Saltney Tavern",
+        "div": "PREM",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jon Sands": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Rob Taylor": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 8,
+        "w": 3,
+        "pct": 37.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 3,
+      "pct": 37.5
+    }
+  },
+  "Ray Lee": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 7,
+        "w": 5,
+        "pct": 71.42857142857143,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 5,
+      "pct": 71.42857142857143
+    }
+  },
+  "Simon Rogers": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 7,
+        "w": 4,
+        "pct": 57.14285714285714,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "I Hewitt": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Andrew Lloyd": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 7,
+        "w": 4,
+        "pct": 57.14285714285714,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Brett Shacklady": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 7,
+        "w": 6,
+        "pct": 85.71428571428571,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 6,
+      "pct": 85.71428571428571
+    }
+  },
+  "Bws Davies": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "A Nield": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 3,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "John Ainscough": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Phil Piercy": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 7,
+        "w": 5,
+        "pct": 71.42857142857143,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 6,
+      "pct": 75
+    }
+  },
+  "Mike Lloyd": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Steve Tittle": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 7,
+        "w": 5,
+        "pct": 71.42857142857143,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 5,
+      "pct": 71.42857142857143
+    }
+  },
+  "Rob McDonough": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Callum Harrison": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Steve Harris": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Alan Thorpe": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Amanda McAleer": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Adam Lloyd": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Luke Evans": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Jarred Knox": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Matt Tarbuck": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 8,
+        "w": 5,
+        "pct": 62.5,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 5,
+      "pct": 62.5
+    }
+  },
+  "Dave Galloway": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Des Smith": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Matthew Jones": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Jasmine McAleer": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "George Parsonage": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Paul McAleer": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Stewart Monteith": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 7,
+        "w": 4,
+        "pct": 57.14285714285714,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Nathan Dean": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 8,
+        "w": 5,
+        "pct": 62.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 5,
+      "pct": 62.5
+    }
+  },
+  "Gavin Russell": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Matt Boulton": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 5,
+      "pct": 83.33333333333334
+    }
+  },
+  "Tracey Whibberley": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Phil Wright": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 2,
+      "pct": 33.33333333333333
+    }
+  },
+  "Anthony Latham": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Stephen Connally": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Flynn Jones": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Derek Knowles": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Marc Hawkes": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Paul Walker": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Peter Ingram": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Andrew Donnelly": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Matt Hines": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Mark Harrison": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 6,
+        "w": 2,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 2,
+      "pct": 33.33333333333333
+    }
+  },
+  "Paul Hughes": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Belinda Hipkin": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Gareth Metcalfe": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Gordon Quinn": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Phil Challenor": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Jonathan Rule": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "James Fielding": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Andrew Sadler": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Andy Quinn": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Dave Tilston": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Ricky Robbins": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Craig Spencer": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 6,
+        "w": 5,
+        "pct": 83.33333333333334,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 5,
+      "pct": 83.33333333333334
+    }
+  },
+  "Ryan Tilston": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Neil Gilmartin": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Daniel Lloyd": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Harold Hughes": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ian Taylor": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Jake Jamieson": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Josh Decruz": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Nicole Stewart": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Kev Kent": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 7,
+        "w": 4,
+        "pct": 57.14285714285714,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Lewis Smith": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Graham Duckers": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Logan Mackin": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "James Denman": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Richard Dalton": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Dave Parker": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Robert Nacey": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Tom Daltrey": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Thomas Maginnis": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Colin Robertson": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Chris Sergio Welsh": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Jack Caswell": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Lewis Mitchell": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Mark Cook": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Giles Farmer": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ben Beadles": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Bugsie Cothier": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Kieran Green": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Dave Smith": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Kieran Allen": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "P Dagnall": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Louise Burton": {
+    "teams": [
+      {
+        "team": "Egerton Arms B",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Andrew Hodson": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Tom Murray": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Taylor Dougherty": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Elliot Smith": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Tommy Pinnington": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Kenny Brown": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Colin Richards": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Danny Beck": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Matt Boylen": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Zach Bragg": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 3,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Adam Devenney": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Jordan Andrews": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Graham Collins": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Ben Todd": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Peter Chaloner": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Max Connally": {
+    "teams": [
+      {
+        "team": "Bridge Inn",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Adrian Hickson": {
+    "teams": [
+      {
+        "team": "The Blazing Saddle",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Jack Redford": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Kieran Dodd": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Mike Booth": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Liam Simcox": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Gazmend Shehu": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Danny Foster": {
+    "teams": [
+      {
+        "team": "Upton Legion",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Andrew Palmer": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Ian Lloyd": {
+    "teams": [
+      {
+        "team": "The Stanleys Studs",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Nic Bell": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "S Hudson": {
+    "teams": [
+      {
+        "team": "Carlton Tavern B",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Paul Cook": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Colin Jones": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "George Hutchins-cook": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Stu McIntyre": {
+    "teams": [
+      {
+        "team": "The Piper",
+        "div": "D1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Nicky Boyd": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Ste Grove": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Sean Chaloner": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Tristan Smith": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Nathan May": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Joe Smith": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Joe Delamere": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ash Law": {
+    "teams": [
+      {
+        "team": "Chichester A",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Dan Jones": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Luke Coulter": {
+    "teams": [
+      {
+        "team": "Chaukees Renegades",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Chris Graham": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Georgi Grahovski": {
+    "teams": [
+      {
+        "team": "Bridgewater Arms",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Andy Boylin": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Todd Hogkinson": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Conah Ward": {
+    "teams": [
+      {
+        "team": "Waggon A",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Scott Smith": {
+    "teams": [
+      {
+        "team": "Chaukees Ultras",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Gary Whitley": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Wesley Gilmartin": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Timmy Bailey": {
+    "teams": [
+      {
+        "team": "Saltney Tavern B",
+        "div": "D1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Laura Jordan": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Cameron Rosteron": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 7,
+        "w": 3,
+        "pct": 42.857142857142854,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 3,
+      "pct": 42.857142857142854
+    }
+  },
+  "Liz Mcgrady": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 8,
+        "w": 2,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 2,
+      "pct": 25
+    }
+  },
+  "Gary Roberts": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Elinor Green": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 7,
+        "w": 2,
+        "pct": 28.57142857142857,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Adam Jones": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Fern Mitchell": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 5,
+        "w": 1,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Mark Woodward": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Anneka Burek": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 7,
+        "w": 2,
+        "pct": 28.57142857142857,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Haydon Rowe": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Leanne Presley": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Nataya Beadles": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Debbie Miller": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 7,
+        "w": 2,
+        "pct": 28.57142857142857,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 3,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Leon Davied": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 7,
+        "w": 4,
+        "pct": 57.14285714285714,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 4,
+      "pct": 57.14285714285714
+    }
+  },
+  "Tom Hall": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Paul Jones": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 8,
+        "w": 5,
+        "pct": 62.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 5,
+      "pct": 62.5
+    }
+  },
+  "Harry Harding": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Will Davies": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Anthony Grubb": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Andrew Short": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 6,
+        "w": 5,
+        "pct": 83.33333333333334,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 5,
+      "pct": 83.33333333333334
+    }
+  },
+  "Phil Harding": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Neil Lockwood": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Rich Herety": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Rick Chard": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Matt McCarthy": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 7,
+        "w": 6,
+        "pct": 85.71428571428571,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 6,
+      "pct": 85.71428571428571
+    }
+  },
+  "Shaun Jackson": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 1,
+      "pct": 14.285714285714285
+    }
+  },
+  "Gaz Axon": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Nige Sephton": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Arthur Fletcher": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Ian Mcnay": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "William Davies": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "John Gillet": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 6,
+        "w": 2,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Elliot Paige": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Josh Clorley": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 5,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Joshua Ellison": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Elisha Leqaiwa": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 7,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jay Kennedy": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Andrew Pinches": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 7,
+        "w": 1,
+        "pct": 14.285714285714285,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 2,
+      "pct": 25
+    }
+  },
+  "Jamie Pickavance": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 5,
+      "pct": 100
+    }
+  },
+  "Tony Crellin": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Jack Murray": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Adrian Furnival": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 5,
+        "w": 5,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 5,
+      "pct": 83.33333333333334
+    }
+  },
+  "Matt Holt": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Wesley Carroll": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 6,
+        "w": 5,
+        "pct": 83.33333333333334,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 6,
+      "pct": 85.71428571428571
+    }
+  },
+  "Nick Brookman": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Chris Roberts": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 7,
+        "w": 7,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 7,
+      "pct": 100
+    }
+  },
+  "Barry Neale": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "John Carr": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 5,
+      "pct": 71.42857142857143
+    }
+  },
+  "Kane Stevenson": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "John Ellis": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Brad Harley": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Jake Tong": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Harley Fearon": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 7,
+        "w": 2,
+        "pct": 28.57142857142857,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 2,
+      "pct": 28.57142857142857
+    }
+  },
+  "Eric Lloyd": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Chris Caswell": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 8,
+        "w": 6,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 6,
+      "pct": 75
+    }
+  },
+  "Chris Hulley": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 8,
+        "w": 3,
+        "pct": 37.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 3,
+      "pct": 37.5
+    }
+  },
+  "James Hormby": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Emily Herbert": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Robin Lane": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Steve Charlton": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "~Lewis Moore": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Nicholas Allen": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 7,
+        "w": 5,
+        "pct": 71.42857142857143,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 5,
+      "pct": 71.42857142857143
+    }
+  },
+  "Kaz Williams": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "James Coe": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Jason Winterson": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 6,
+        "w": 2,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 2,
+      "pct": 33.33333333333333
+    }
+  },
+  "Sudip Gautam": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Tom Williams": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 3,
+      "pct": 42.857142857142854
+    }
+  },
+  "Pat Chesters": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "David Casey": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Gaz Brierley": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Johnny Hall": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Terry Watts": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ryan Jones": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Harry Brown": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Will Totty": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 5,
+        "w": 2,
+        "pct": 40,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 2,
+      "pct": 40
+    }
+  },
+  "Isaac Wilson": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Luke Allman": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Gary Meaney": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 5,
+        "w": 3,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 3,
+      "pct": 60
+    }
+  },
+  "Scott Maynard": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Colin Johnston": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Ian Mitchell": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 7,
+        "w": 6,
+        "pct": 85.71428571428571,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 6,
+      "pct": 85.71428571428571
+    }
+  },
+  "Shaun Arathoon": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Roy Waters": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Michael Watson": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jessica Dane": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Steve Dee": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Steve Fowles": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "Ciaran Rees": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Owen Williams": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 1,
+      "pct": 20
+    }
+  },
+  "Steve Lloyd": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 6,
+        "w": 4,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.66666666666666
+    }
+  },
+  "alex davies": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Taylor Woodiwiss": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Archie Stretch": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Jake Bragg": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Linda Long": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 6,
+        "w": 1,
+        "pct": 16.666666666666664,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.666666666666664
+    }
+  },
+  "Matty Allen": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Faruq Amalare": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jacob Griffiths": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Nathan Payton": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Sam Inchukul": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Jennifer Cundy": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Bryan Tong": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "David Molloy": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Rachael Wigglesworth": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 4,
+        "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Dean Hitchmough": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Wayne Derby": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Martin Johnson": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Lianne Turner": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 5,
+        "w": 4,
+        "pct": 80,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 5,
+      "w": 4,
+      "pct": 80
+    }
+  },
+  "Michelle Mason": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Darren Davidson": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Hannah Quinn": {
+    "teams": [
+      {
+        "team": "Carlton Tavern A",
+        "div": "D2",
+        "p": 4,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Nathan Williams": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Mark Pouchly": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Phil Steer": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Archie Milne": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Luke Antill": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Harrison Aitkem": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Georgia Worsfold": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Conor Randles": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Mike Webb": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Leon Lockwood": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Jack Davies": {
+    "teams": [
+      {
+        "team": "Saughall Arms B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Danny Griffiths": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 3,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Alun Ravenscroft": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Alfie Cheers": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Aiden Renney": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 4,
+        "w": 3,
+        "pct": 75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 3,
+      "pct": 75
+    }
+  },
+  "Sam Tilston": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Jake Smith": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "David Pell": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Shay Walters": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 4,
+        "w": 4,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 4,
+      "pct": 100
+    }
+  },
+  "Jack Hall": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 3,
+        "w": 3,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 3,
+      "pct": 100
+    }
+  },
+  "Jeff Edwards": {
+    "teams": [
+      {
+        "team": "Chichester Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Temitope Showole": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Claire Arathoon": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Mike Shaw": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Keilan Gwynne": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Thomas Molloy": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 2,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Stew Saunders": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ray Plumley": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Andy Rogan": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Craig Molloy": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Ellis O": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "#x2019;Sullivan": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 2,
+        "w": 2,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 2,
+      "pct": 100
+    }
+  },
+  "Martin Owens": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Thomas Lloyd": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Chris Barlow": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Andrew Hatton": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33333333333333,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33333333333333
+    }
+  },
+  "Zak Evans": {
+    "teams": [
+      {
+        "team": "The Cheshire",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 2,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      },
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Debbie Daniels": {
+    "teams": [
+      {
+        "team": "Foxes C",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Cliff Hughes": {
+    "teams": [
+      {
+        "team": "The Saints",
+        "div": "D2",
+        "p": 4,
+        "w": 2,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 2,
+      "pct": 50
+    }
+  },
+  "Luke Andrews": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Matthew Lettsome": {
+    "teams": [
+      {
+        "team": "St Theresas",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Nathan Milner": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Charl Clare": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Chris Kendal": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Dave Boy": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Armstrong Aminah": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Paul McGuire": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Gary Standring": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Oliver Formstone": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Nasser Pourghorban": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 3,
+        "w": 2,
+        "pct": 66.66666666666666,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 2,
+      "pct": 66.66666666666666
+    }
+  },
+  "Neil Littler": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Kas Cotton": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Dan Bownes": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Elliot Johnson": {
+    "teams": [
+      {
+        "team": "Cheshire B",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Joe Waters": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Tony Ellis": {
+    "teams": [
+      {
+        "team": "Saughall Arms A",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Mark Novak": {
+    "teams": [
+      {
+        "team": "Brewery Arms",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Wayne Lavender": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "D Williams": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Andrew Hallal": {
+    "teams": [
+      {
+        "team": "Waggon B",
+        "div": "D2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Ceri Roberts": {
+    "teams": [
+      {
+        "team": "Union Vaults",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Felix Clark": {
+    "teams": [
+      {
+        "team": "Chaukees Chancers",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Paul Joseph Gavin": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Jason Cope": {
+    "teams": [
+      {
+        "team": "The Foxes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Sarah Adler": {
+    "teams": [
+      {
+        "team": "Stanleys Vigilantes",
+        "div": "D2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  }
+}

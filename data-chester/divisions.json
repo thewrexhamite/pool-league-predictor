@@ -1,0 +1,62 @@
+{
+  "PREM": {
+    "name": "Premium",
+    "teams": [
+      "Centurion",
+      "Chaukees Wrongens",
+      "Egerton Arms A",
+      "Egerton FCB",
+      "Egerton Mavericks",
+      "Foxes Legends",
+      "Grosvenor Arms",
+      "Little Oak Pickles",
+      "Little Oak Studs",
+      "Number Fifteen",
+      "Saltney Tavern",
+      "St Chaukees",
+      "Taom Chaukees",
+      "The Bridge Inn A",
+      "Werburghs"
+    ]
+  },
+  "D1": {
+    "name": "Division 1",
+    "teams": [
+      "Bridge Inn",
+      "Bridgewater Arms",
+      "Carlton Tavern B",
+      "Chaukees Renegades",
+      "Chaukees Ultras",
+      "Cherry Orchard",
+      "Chichester A",
+      "Clubbies",
+      "Egerton Arms B",
+      "Saltney Tavern B",
+      "The Blazing Saddle",
+      "The Piper",
+      "The Stanleys Studs",
+      "Upton Legion",
+      "Waggon A"
+    ]
+  },
+  "D2": {
+    "name": "Division 2",
+    "teams": [
+      "Brewery Arms",
+      "Carlton Tavern A",
+      "Chaukees Chancers",
+      "Cheshire B",
+      "Chichester Arms",
+      "Foxes C",
+      "Saughall Arms A",
+      "Saughall Arms B",
+      "St Theresas",
+      "Stanleys Vigilantes",
+      "The Cheshire",
+      "The Foxes",
+      "The Saints",
+      "Union Vaults",
+      "Waggon B"
+    ]
+  }
+}

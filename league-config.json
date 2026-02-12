@@ -40,19 +40,20 @@
     "teamNameMap": {}
   },
   "chester": {
-    "site": "chester",
+    "site": "rackemapp",
+    "rackemappLeague": "ChesterPoolLeague",
     "leagueId": "chester",
     "seasonId": "2526",
-    "leagueName": "Chester Pool League",
+    "leagueName": "Chester & District Pool League",
     "shortName": "Chester",
     "primaryColor": "#059669",
     "lat": 53.190,
     "lng": -2.893,
     "dataDir": "data-chester",
     "divisions": [
-      { "code": "PREM", "siteGroup": "Premier Division" },
-      { "code": "D1", "siteGroup": "Division One" },
-      { "code": "D2", "siteGroup": "Division Two" }
+      { "code": "PREM", "rackemappId": "2824", "siteGroup": "Premium" },
+      { "code": "D1", "rackemappId": "2825", "siteGroup": "Division 1" },
+      { "code": "D2", "rackemappId": "2826", "siteGroup": "Division 2" }
     ],
     "teamNameMap": {}
   }

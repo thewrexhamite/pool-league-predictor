@@ -1,0 +1,2924 @@
+[
+  {
+    "date": "12-02-2026",
+    "home": "Centurion",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Egerton Mavericks",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Little Oak Pickles",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Saltney Tavern",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Taom Chaukees",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Werburghs",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Egerton Arms A",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Egerton FCB",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Foxes Legends",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Grosvenor Arms",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Little Oak Studs",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "St Chaukees",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "The Bridge Inn A",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Centurion",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Egerton Mavericks",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Little Oak Pickles",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Number Fifteen",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Saltney Tavern",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Werburghs",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chaukees Ultras",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Egerton FCB",
+    "away": "St Theresas",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Cheshire B",
+    "away": "The Piper",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Werburghs",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Carlton Tavern B",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Carlton Tavern A",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chaukees Chancers",
+    "away": "Waggon B",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chichester Arms",
+    "away": "The Saints",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Union Vaults",
+    "away": "Bridgewater Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Waggon A",
+    "away": "Saughall Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Bridge Inn",
+    "away": "Egerton Arms B",
+    "division": "PREM"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Brewery Arms",
+    "away": "Chichester A",
+    "division": "PREM"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Egerton Arms A",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Egerton FCB",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Foxes Legends",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Grosvenor Arms",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Little Oak Studs",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "St Chaukees",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Taom Chaukees",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Centurion",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Egerton Mavericks",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Little Oak Pickles",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Number Fifteen",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "The Bridge Inn A",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Werburghs",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Centurion",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Egerton Arms A",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Egerton Mavericks",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Little Oak Pickles",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Number Fifteen",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "The Bridge Inn A",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Foxes Legends",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Grosvenor Arms",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Little Oak Studs",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Saltney Tavern",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "St Chaukees",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Taom Chaukees",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Werburghs",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Saltney Tavern B",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "The Cheshire",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "The Blazing Saddle",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Chaukees Renegades",
+    "away": "Upton Legion",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Foxes Legends",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Taom Chaukees",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Bridge Inn",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "St Chaukees",
+    "away": "The Stanleys Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Centurion",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Egerton Arms A",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Egerton FCB",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Little Oak Pickles",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Number Fifteen",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "The Bridge Inn A",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Egerton Mavericks",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Foxes Legends",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Grosvenor Arms",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Little Oak Studs",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Saltney Tavern",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Taom Chaukees",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Werburghs",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Centurion",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Egerton Arms A",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Egerton FCB",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Little Oak Pickles",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Number Fifteen",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "St Chaukees",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "The Bridge Inn A",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Egerton Mavericks",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Foxes Legends",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Little Oak Studs",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Saltney Tavern",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Taom Chaukees",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Werburghs",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Egerton Arms A",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Egerton FCB",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Grosvenor Arms",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Little Oak Pickles",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Number Fifteen",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "St Chaukees",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "The Bridge Inn A",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Centurion",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Egerton Mavericks",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Foxes Legends",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Saltney Tavern",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Taom Chaukees",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Werburghs",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Egerton Arms A",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Egerton FCB",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Grosvenor Arms",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Little Oak Studs",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Number Fifteen",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "St Chaukees",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "The Bridge Inn A",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Centurion",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Egerton Mavericks",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Little Oak Pickles",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Saltney Tavern",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Taom Chaukees",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Werburghs",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Egerton Arms A",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Egerton FCB",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Foxes Legends",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Grosvenor Arms",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Little Oak Studs",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "St Chaukees",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "The Bridge Inn A",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Centurion",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Chaukees Wrongens",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Egerton Mavericks",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Little Oak Pickles",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Number Fifteen",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Saltney Tavern",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Werburghs",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Egerton Arms A",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Egerton FCB",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Foxes Legends",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Grosvenor Arms",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Little Oak Studs",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "St Chaukees",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Taom Chaukees",
+    "away": "Saltney Tavern",
+    "division": "PREM"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Centurion",
+    "away": "Grosvenor Arms",
+    "division": "PREM"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Chaukees Wrongens",
+    "away": "Little Oak Studs",
+    "division": "PREM"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Egerton Mavericks",
+    "away": "Foxes Legends",
+    "division": "PREM"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Little Oak Pickles",
+    "away": "St Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Number Fifteen",
+    "away": "Egerton FCB",
+    "division": "PREM"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "The Bridge Inn A",
+    "away": "Egerton Arms A",
+    "division": "PREM"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Werburghs",
+    "away": "Taom Chaukees",
+    "division": "PREM"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Egerton FCB",
+    "away": "The Bridge Inn A",
+    "division": "PREM"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Foxes Legends",
+    "away": "Chaukees Wrongens",
+    "division": "PREM"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Grosvenor Arms",
+    "away": "Little Oak Pickles",
+    "division": "PREM"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Little Oak Studs",
+    "away": "Centurion",
+    "division": "PREM"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Saltney Tavern",
+    "away": "Werburghs",
+    "division": "PREM"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "St Chaukees",
+    "away": "Number Fifteen",
+    "division": "PREM"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Taom Chaukees",
+    "away": "Egerton Mavericks",
+    "division": "PREM"
+  },
+  {
+    "date": "22-01-2026",
+    "home": "Cherry Orchard",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "05-02-2026",
+    "home": "Bridgewater Arms",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "05-02-2026",
+    "home": "Saltney Tavern B",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Bridge Inn",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Carlton Tavern B",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Chichester A",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Clubbies",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Egerton Arms B",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Upton Legion",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Waggon A",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Bridgewater Arms",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Chaukees Renegades",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Chaukees Ultras",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Cherry Orchard",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Saltney Tavern B",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "The Blazing Saddle",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "The Stanleys Studs",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Carlton Tavern B",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Chaukees Renegades",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Chichester A",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Clubbies",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Egerton Arms B",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Upton Legion",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Waggon A",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chaukees Ultras",
+    "away": "Egerton Mavericks",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Egerton FCB",
+    "away": "St Theresas",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Cheshire B",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Werburghs",
+    "away": "Centurion",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Carlton Tavern B",
+    "away": "Number Fifteen",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Carlton Tavern A",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chaukees Chancers",
+    "away": "Waggon B",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chichester Arms",
+    "away": "The Saints",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Union Vaults",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Waggon A",
+    "away": "Saughall Arms A",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Bridge Inn",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Brewery Arms",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Bridgewater Arms",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Chaukees Ultras",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Cherry Orchard",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Saltney Tavern B",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "The Blazing Saddle",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "The Piper",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "The Stanleys Studs",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Carlton Tavern B",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Chaukees Renegades",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Chichester A",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Clubbies",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Saltney Tavern B",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Upton Legion",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Waggon A",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Carlton Tavern B",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Chaukees Renegades",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Chichester A",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Clubbies",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Saltney Tavern B",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Upton Legion",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Waggon A",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Bridge Inn",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Chaukees Ultras",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Cherry Orchard",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Egerton Arms B",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "The Blazing Saddle",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "The Piper",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "The Stanleys Studs",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Saltney Tavern B",
+    "away": "Grosvenor Arms",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "The Cheshire",
+    "away": "Chaukees Wrongens",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "The Blazing Saddle",
+    "away": "Saltney Tavern",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Chaukees Renegades",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Foxes Legends",
+    "away": "Egerton Arms A",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Taom Chaukees",
+    "away": "Little Oak Studs",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Bridge Inn",
+    "away": "Little Oak Pickles",
+    "division": "D1"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "St Chaukees",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Bridgewater Arms",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Carlton Tavern B",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Chaukees Renegades",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Clubbies",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Saltney Tavern B",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "The Blazing Saddle",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Waggon A",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Bridge Inn",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Chaukees Ultras",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Cherry Orchard",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Chichester A",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Egerton Arms B",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "The Piper",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "The Stanleys Studs",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Bridgewater Arms",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Chaukees Renegades",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Chaukees Ultras",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Clubbies",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Saltney Tavern B",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "The Blazing Saddle",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Waggon A",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Bridge Inn",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Cherry Orchard",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Chichester A",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Egerton Arms B",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "The Piper",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "The Stanleys Studs",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Upton Legion",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Bridgewater Arms",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Carlton Tavern B",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Chaukees Ultras",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Saltney Tavern B",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "The Blazing Saddle",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "The Stanleys Studs",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Waggon A",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Bridge Inn",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Cherry Orchard",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Chichester A",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Clubbies",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Egerton Arms B",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "The Piper",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Upton Legion",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Bridgewater Arms",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Chaukees Renegades",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Chaukees Ultras",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Saltney Tavern B",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "The Piper",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "The Stanleys Studs",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Waggon A",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Bridge Inn",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Carlton Tavern B",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Cherry Orchard",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Chichester A",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Clubbies",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Egerton Arms B",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Upton Legion",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Bridgewater Arms",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Chaukees Renegades",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Chaukees Ultras",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Cherry Orchard",
+    "away": "Bridge Inn",
+    "division": "D1"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Saltney Tavern B",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "The Blazing Saddle",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "The Piper",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Bridge Inn",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Carlton Tavern B",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Chichester A",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Clubbies",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Egerton Arms B",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Upton Legion",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Waggon A",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Bridge Inn",
+    "away": "Egerton Arms B",
+    "division": "D1"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Bridgewater Arms",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Chaukees Ultras",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Saltney Tavern B",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "The Blazing Saddle",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "The Piper",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "The Stanleys Studs",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Carlton Tavern B",
+    "away": "Chaukees Ultras",
+    "division": "D1"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Chaukees Renegades",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Chichester A",
+    "away": "Cherry Orchard",
+    "division": "D1"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Clubbies",
+    "away": "The Stanleys Studs",
+    "division": "D1"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Egerton Arms B",
+    "away": "Bridgewater Arms",
+    "division": "D1"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Upton Legion",
+    "away": "The Piper",
+    "division": "D1"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Waggon A",
+    "away": "The Blazing Saddle",
+    "division": "D1"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Bridge Inn",
+    "away": "Chichester A",
+    "division": "D1"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Bridgewater Arms",
+    "away": "Saltney Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Chaukees Ultras",
+    "away": "Waggon A",
+    "division": "D1"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Cherry Orchard",
+    "away": "Upton Legion",
+    "division": "D1"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "The Blazing Saddle",
+    "away": "Chaukees Renegades",
+    "division": "D1"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "The Piper",
+    "away": "Clubbies",
+    "division": "D1"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "The Stanleys Studs",
+    "away": "Carlton Tavern B",
+    "division": "D1"
+  },
+  {
+    "date": "11-12-2025",
+    "home": "Brewery Arms",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "15-01-2026",
+    "home": "Brewery Arms",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "15-01-2026",
+    "home": "Chichester Arms",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "05-02-2026",
+    "home": "Brewery Arms",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Chaukees Chancers",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Saughall Arms B",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "St Theresas",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "The Cheshire",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "The Foxes",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "12-02-2026",
+    "home": "Union Vaults",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Brewery Arms",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Carlton Tavern A",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Cheshire B",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Chichester Arms",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Foxes C",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "The Saints",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "19-02-2026",
+    "home": "Waggon B",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Chaukees Chancers",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Saughall Arms A",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "St Theresas",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "The Cheshire",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "The Foxes",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "26-02-2026",
+    "home": "Union Vaults",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chaukees Ultras",
+    "away": "Egerton Mavericks",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Egerton FCB",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Cheshire B",
+    "away": "The Piper",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Werburghs",
+    "away": "Centurion",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Carlton Tavern B",
+    "away": "Number Fifteen",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chaukees Chancers",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Chichester Arms",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Union Vaults",
+    "away": "Bridgewater Arms",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Waggon A",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Bridge Inn",
+    "away": "Egerton Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "05-03-2026",
+    "home": "Brewery Arms",
+    "away": "Chichester A",
+    "division": "D2"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Brewery Arms",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Carlton Tavern A",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Cheshire B",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Foxes C",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Saughall Arms B",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "The Saints",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "12-03-2026",
+    "home": "Waggon B",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Chaukees Chancers",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Foxes C",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Saughall Arms A",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "St Theresas",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "The Cheshire",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "19-03-2026",
+    "home": "Union Vaults",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Chaukees Chancers",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Foxes C",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Saughall Arms A",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "The Cheshire",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "The Saints",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "26-03-2026",
+    "home": "Union Vaults",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Brewery Arms",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Cheshire B",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Chichester Arms",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Saughall Arms B",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "St Theresas",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "The Foxes",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "02-04-2026",
+    "home": "Waggon B",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Saltney Tavern B",
+    "away": "Grosvenor Arms",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "The Cheshire",
+    "away": "Chaukees Wrongens",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "The Blazing Saddle",
+    "away": "Saltney Tavern",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Chaukees Renegades",
+    "away": "Upton Legion",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Foxes Legends",
+    "away": "Egerton Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Taom Chaukees",
+    "away": "Little Oak Studs",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "Bridge Inn",
+    "away": "Little Oak Pickles",
+    "division": "D2"
+  },
+  {
+    "date": "09-04-2026",
+    "home": "St Chaukees",
+    "away": "The Stanleys Studs",
+    "division": "D2"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Chaukees Chancers",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Chichester Arms",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Foxes C",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Saughall Arms A",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "The Saints",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "16-04-2026",
+    "home": "Union Vaults",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Brewery Arms",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Carlton Tavern A",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Cheshire B",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "St Theresas",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "The Cheshire",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "The Foxes",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "23-04-2026",
+    "home": "Waggon B",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Cheshire B",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Chichester Arms",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Foxes C",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Saughall Arms A",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "The Saints",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "30-04-2026",
+    "home": "Union Vaults",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Brewery Arms",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Carlton Tavern A",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Chaukees Chancers",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Saughall Arms B",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "The Cheshire",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "The Foxes",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "07-05-2026",
+    "home": "Waggon B",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Brewery Arms",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Cheshire B",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Chichester Arms",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Foxes C",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Saughall Arms A",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "The Saints",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "14-05-2026",
+    "home": "Union Vaults",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Carlton Tavern A",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Saughall Arms B",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "St Theresas",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "The Cheshire",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "The Foxes",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "28-05-2026",
+    "home": "Waggon B",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Brewery Arms",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Carlton Tavern A",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Cheshire B",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Chichester Arms",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Foxes C",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "Saughall Arms A",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "04-06-2026",
+    "home": "The Saints",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Chaukees Chancers",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Saughall Arms B",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "St Theresas",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "The Cheshire",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "The Foxes",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "11-06-2026",
+    "home": "Waggon B",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Brewery Arms",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Carlton Tavern A",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Cheshire B",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Chichester Arms",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Foxes C",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Saughall Arms A",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "25-06-2026",
+    "home": "Waggon B",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Chaukees Chancers",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Saughall Arms B",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "St Theresas",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Chichester Arms",
+    "division": "D2"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "The Cheshire",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "The Foxes",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "02-07-2026",
+    "home": "Union Vaults",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Brewery Arms",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Carlton Tavern A",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Cheshire B",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Chichester Arms",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Saughall Arms B",
+    "away": "The Foxes",
+    "division": "D2"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "The Saints",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "16-07-2026",
+    "home": "Waggon B",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Chaukees Chancers",
+    "away": "Carlton Tavern A",
+    "division": "D2"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Saughall Arms A",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "St Theresas",
+    "away": "Saughall Arms B",
+    "division": "D2"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Stanleys Vigilantes",
+    "away": "Brewery Arms",
+    "division": "D2"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "The Cheshire",
+    "away": "Waggon B",
+    "division": "D2"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "The Foxes",
+    "away": "The Saints",
+    "division": "D2"
+  },
+  {
+    "date": "23-07-2026",
+    "home": "Union Vaults",
+    "away": "Cheshire B",
+    "division": "D2"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Brewery Arms",
+    "away": "Union Vaults",
+    "division": "D2"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Carlton Tavern A",
+    "away": "Stanleys Vigilantes",
+    "division": "D2"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Chichester Arms",
+    "away": "Saughall Arms A",
+    "division": "D2"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Saughall Arms B",
+    "away": "The Cheshire",
+    "division": "D2"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "The Foxes",
+    "away": "St Theresas",
+    "division": "D2"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "The Saints",
+    "away": "Foxes C",
+    "division": "D2"
+  },
+  {
+    "date": "30-07-2026",
+    "home": "Waggon B",
+    "away": "Chaukees Chancers",
+    "division": "D2"
+  }
+]
