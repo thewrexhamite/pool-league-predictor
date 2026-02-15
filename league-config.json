@@ -15,6 +15,9 @@
       { "code": "WD1", "siteGroup": "Wednesday Division 1" },
       { "code": "WD2", "siteGroup": "Wednesday Division 2" }
     ],
+    "cupGroups": [
+      { "code": "CUP", "siteGroup": "Cup" }
+    ],
     "teamNameMap": {}
   },
   "nwpa": {

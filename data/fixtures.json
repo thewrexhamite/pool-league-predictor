@@ -390,27 +390,9 @@
     "division": "SD2"
   },
   {
-    "date": "11-02-2026",
-    "home": "Breakroom Lions.",
-    "away": "War Memorial A",
-    "division": "WD1"
-  },
-  {
-    "date": "11-02-2026",
-    "home": "Golden Lion Wxm",
-    "away": "Miners Brymbo.",
-    "division": "WD1"
-  },
-  {
-    "date": "11-02-2026",
-    "home": "Gwersyllt Union",
-    "away": "Gwersyllt Club.",
-    "division": "WD1"
-  },
-  {
-    "date": "11-02-2026",
-    "home": "Colliers Dogs",
-    "away": "Golden Lion Cp",
+    "date": "04-03-2026",
+    "home": "War Memorial A",
+    "away": "Golden Lion Wxm",
     "division": "WD1"
   },
   {
@@ -582,33 +564,9 @@
     "division": "WD1"
   },
   {
-    "date": "11-02-2026",
-    "home": "Y Tai.",
-    "away": "Plough Gresford",
-    "division": "WD2"
-  },
-  {
-    "date": "11-02-2026",
-    "home": "Ruabon Cons A",
-    "away": "Hafod Club Rhos",
-    "division": "WD2"
-  },
-  {
-    "date": "11-02-2026",
-    "home": "White Lion Hope",
-    "away": "Crown Caergwrle",
-    "division": "WD2"
-  },
-  {
-    "date": "11-02-2026",
-    "home": "Kings Mills",
-    "away": "Ruabon Cons B",
-    "division": "WD2"
-  },
-  {
-    "date": "11-02-2026",
-    "home": "Gresford Legion",
-    "away": "Greyhound",
+    "date": "04-03-2026",
+    "home": "Plough Gresford",
+    "away": "Ruabon Cons A",
     "division": "WD2"
   },
   {
@@ -826,5 +784,124 @@
     "home": "Kings Mills",
     "away": "War Memorial B",
     "division": "WD2"
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Breakroom Llay",
+    "away": "Gwersyllt WMC",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Rollers B",
+    "away": "Breakroom Lions",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Magnet B",
+    "away": "Johnstown Legion",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Four Dogs A",
+    "away": "Magnet A",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Gwersyllt Club",
+    "away": "The Drunk Monk",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Old Black Horse",
+    "away": "Brymbo Sports",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Red Lion Marchweil",
+    "away": "Sun Rhos",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Rhos Snooker Club",
+    "away": "Miners Brymbo",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "15-02-2026",
+    "home": "Cross Foxes Coedpoeth",
+    "away": "Rollers A",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "War Memorial A",
+    "away": "Gwersyllt Club.",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "Greyhound",
+    "away": "Ruabon Cons A",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "Golden Lion Wxm",
+    "away": "Hill Street Social",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "Golden Lion Cp",
+    "away": "War Memorial B",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "Ruabon Cons B",
+    "away": "Crown Caergwrle",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "Gwersyllt Union",
+    "away": "Hafod Club Rhos",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "Colliers Dogs",
+    "away": "Y Tai.",
+    "division": "CUP",
+    "cup": true
+  },
+  {
+    "date": "18-02-2026",
+    "home": "Miners Brymbo.",
+    "away": "Breakroom Lions.",
+    "division": "CUP",
+    "cup": true
   }
 ]

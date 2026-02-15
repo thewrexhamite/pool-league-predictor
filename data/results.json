@@ -108,7 +108,7 @@
     "frames": 10
   },
   {
-    "date": "09-11-2025",
+    "date": "14-12-2025",
     "home": "Gwersyllt Club",
     "away": "Y Tai",
     "home_score": 7,
@@ -396,7 +396,7 @@
     "frames": 10
   },
   {
-    "date": "04-01-2026",
+    "date": "14-12-2025",
     "home": "Gresford Colliery",
     "away": "Gwersyllt WMC",
     "home_score": 7,
@@ -468,7 +468,7 @@
     "frames": 10
   },
   {
-    "date": "23-11-2025",
+    "date": "14-12-2025",
     "home": "Breakroom Lions",
     "away": "Red Lion Marchweil",
     "home_score": 6,
@@ -612,7 +612,7 @@
     "frames": 10
   },
   {
-    "date": "30-11-2025",
+    "date": "14-12-2025",
     "home": "Four Dogs A",
     "away": "Old Black Horse",
     "home_score": 4,
@@ -1053,7 +1053,7 @@
     "frames": 10
   },
   {
-    "date": "04-01-2026",
+    "date": "14-12-2025",
     "home": "The Drunk Monk",
     "away": "Four Dogs B",
     "home_score": 5,
@@ -1152,6 +1152,15 @@
     "frames": 10
   },
   {
+    "date": "11-02-2026",
+    "home": "Gwersyllt Union",
+    "away": "Gwersyllt Club.",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
     "date": "29-10-2025",
     "home": "War Memorial A",
     "away": "Breakroom Lions.",
@@ -1224,6 +1233,15 @@
     "frames": 10
   },
   {
+    "date": "11-02-2026",
+    "home": "Breakroom Lions.",
+    "away": "War Memorial A",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
     "date": "22-10-2025",
     "home": "Miners Brymbo.",
     "away": "Colliers Dogs",
@@ -1233,7 +1251,7 @@
     "frames": 10
   },
   {
-    "date": "29-10-2025",
+    "date": "10-12-2025",
     "home": "Miners Brymbo.",
     "away": "Golden Lion Wxm",
     "home_score": 6,
@@ -1296,65 +1314,11 @@
     "frames": 10
   },
   {
-    "date": "22-10-2025",
-    "home": "Breakroom Lions.",
-    "away": "Golden Lion Wxm",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "WD1",
-    "frames": 10
-  },
-  {
-    "date": "12-11-2025",
+    "date": "11-02-2026",
     "home": "Golden Lion Wxm",
-    "away": "Gwersyllt Club.",
-    "home_score": 6,
-    "away_score": 4,
-    "division": "WD1",
-    "frames": 10
-  },
-  {
-    "date": "03-12-2025",
-    "home": "Colliers Dogs",
-    "away": "Golden Lion Wxm",
-    "home_score": 4,
-    "away_score": 6,
-    "division": "WD1",
-    "frames": 10
-  },
-  {
-    "date": "14-01-2026",
-    "home": "Hill Street Social",
-    "away": "Golden Lion Wxm",
-    "home_score": 7,
-    "away_score": 3,
-    "division": "WD1",
-    "frames": 10
-  },
-  {
-    "date": "21-01-2026",
-    "home": "Golden Lion Wxm",
-    "away": "Crown Summerhill",
-    "home_score": 9,
-    "away_score": 1,
-    "division": "WD1",
-    "frames": 10
-  },
-  {
-    "date": "28-01-2026",
-    "home": "Golden Lion Cp",
-    "away": "Golden Lion Wxm",
-    "home_score": 7,
-    "away_score": 3,
-    "division": "WD1",
-    "frames": 10
-  },
-  {
-    "date": "04-02-2026",
-    "home": "Golden Lion Wxm",
-    "away": "Breakroom Lions.",
-    "home_score": 5,
-    "away_score": 5,
+    "away": "Miners Brymbo.",
+    "home_score": 3,
+    "away_score": 7,
     "division": "WD1",
     "frames": 10
   },
@@ -1395,11 +1359,83 @@
     "frames": 10
   },
   {
+    "date": "03-12-2025",
+    "home": "Colliers Dogs",
+    "away": "Golden Lion Wxm",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
     "date": "28-01-2026",
     "home": "Hill Street Social",
     "away": "Colliers Dogs",
     "home_score": 4,
     "away_score": 6,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Colliers Dogs",
+    "away": "Golden Lion Cp",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
+    "date": "22-10-2025",
+    "home": "Breakroom Lions.",
+    "away": "Golden Lion Wxm",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
+    "date": "12-11-2025",
+    "home": "Golden Lion Wxm",
+    "away": "Gwersyllt Club.",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
+    "date": "14-01-2026",
+    "home": "Hill Street Social",
+    "away": "Golden Lion Wxm",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
+    "date": "21-01-2026",
+    "home": "Golden Lion Wxm",
+    "away": "Crown Summerhill",
+    "home_score": 9,
+    "away_score": 1,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
+    "date": "28-01-2026",
+    "home": "Golden Lion Cp",
+    "away": "Golden Lion Wxm",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "WD1",
+    "frames": 10
+  },
+  {
+    "date": "04-02-2026",
+    "home": "Golden Lion Wxm",
+    "away": "Breakroom Lions.",
+    "home_score": 5,
+    "away_score": 5,
     "division": "WD1",
     "frames": 10
   },
@@ -1413,7 +1449,7 @@
     "frames": 10
   },
   {
-    "date": "26-11-2025",
+    "date": "10-12-2025",
     "home": "Gwersyllt Club.",
     "away": "Crown Summerhill",
     "home_score": 2,
@@ -1602,6 +1638,15 @@
     "frames": 10
   },
   {
+    "date": "11-02-2026",
+    "home": "Kings Mills",
+    "away": "Ruabon Cons B",
+    "home_score": 10,
+    "away_score": 0,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
     "date": "22-10-2025",
     "home": "Y Tai.",
     "away": "Ruabon Cons A",
@@ -1692,6 +1737,15 @@
     "frames": 10
   },
   {
+    "date": "11-02-2026",
+    "home": "Ruabon Cons A",
+    "away": "Hafod Club Rhos",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
     "date": "22-10-2025",
     "home": "Crown Caergwrle",
     "away": "Gresford Legion",
@@ -1773,6 +1827,159 @@
     "frames": 10
   },
   {
+    "date": "11-02-2026",
+    "home": "White Lion Hope",
+    "away": "Crown Caergwrle",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "29-10-2025",
+    "home": "Greyhound",
+    "away": "Gresford Legion",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "05-11-2025",
+    "home": "Gresford Legion",
+    "away": "Ruabon Cons B",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "12-11-2025",
+    "home": "Gresford Legion",
+    "away": "War Memorial B",
+    "home_score": 4,
+    "away_score": 6,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "19-11-2025",
+    "home": "Gresford Legion",
+    "away": "Hafod Club Rhos",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "26-11-2025",
+    "home": "Plough Gresford",
+    "away": "Gresford Legion",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "03-12-2025",
+    "home": "Gresford Legion",
+    "away": "Y Tai.",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "14-01-2026",
+    "home": "Gresford Legion",
+    "away": "White Lion Hope",
+    "home_score": 8,
+    "away_score": 2,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Gresford Legion",
+    "away": "Greyhound",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "01-01-2026",
+    "home": "Plough Gresford",
+    "away": "White Lion Hope",
+    "home_score": 6,
+    "away_score": 0,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "29-10-2025",
+    "home": "Plough Gresford",
+    "away": "Y Tai.",
+    "home_score": 7,
+    "away_score": 3,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "03-12-2025",
+    "home": "War Memorial B",
+    "away": "Plough Gresford",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "07-01-2026",
+    "home": "Plough Gresford",
+    "away": "Greyhound",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "14-01-2026",
+    "home": "Ruabon Cons B",
+    "away": "Plough Gresford",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "28-01-2026",
+    "home": "Hafod Club Rhos",
+    "away": "Plough Gresford",
+    "home_score": 5,
+    "away_score": 5,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "04-02-2026",
+    "home": "White Lion Hope",
+    "away": "Plough Gresford",
+    "home_score": 6,
+    "away_score": 4,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
+    "date": "11-02-2026",
+    "home": "Y Tai.",
+    "away": "Plough Gresford",
+    "home_score": 3,
+    "away_score": 7,
+    "division": "WD2",
+    "frames": 10
+  },
+  {
     "date": "22-10-2025",
     "home": "Ruabon Cons B",
     "away": "War Memorial B",
@@ -1791,29 +1998,11 @@
     "frames": 10
   },
   {
-    "date": "12-11-2025",
-    "home": "Gresford Legion",
-    "away": "War Memorial B",
-    "home_score": 4,
-    "away_score": 6,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
     "date": "26-11-2025",
     "home": "Hafod Club Rhos",
     "away": "War Memorial B",
     "home_score": 7,
     "away_score": 3,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "03-12-2025",
-    "home": "War Memorial B",
-    "away": "Plough Gresford",
-    "home_score": 5,
-    "away_score": 5,
     "division": "WD2",
     "frames": 10
   },
@@ -1845,115 +2034,7 @@
     "frames": 10
   },
   {
-    "date": "29-10-2025",
-    "home": "Greyhound",
-    "away": "Gresford Legion",
-    "home_score": 4,
-    "away_score": 6,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "05-11-2025",
-    "home": "Gresford Legion",
-    "away": "Ruabon Cons B",
-    "home_score": 6,
-    "away_score": 4,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "19-11-2025",
-    "home": "Gresford Legion",
-    "away": "Hafod Club Rhos",
-    "home_score": 7,
-    "away_score": 3,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "26-11-2025",
-    "home": "Plough Gresford",
-    "away": "Gresford Legion",
-    "home_score": 6,
-    "away_score": 4,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "03-12-2025",
-    "home": "Gresford Legion",
-    "away": "Y Tai.",
-    "home_score": 6,
-    "away_score": 4,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "14-01-2026",
-    "home": "Gresford Legion",
-    "away": "White Lion Hope",
-    "home_score": 8,
-    "away_score": 2,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "01-01-2026",
-    "home": "Plough Gresford",
-    "away": "White Lion Hope",
-    "home_score": 6,
-    "away_score": 0,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "29-10-2025",
-    "home": "Plough Gresford",
-    "away": "Y Tai.",
-    "home_score": 7,
-    "away_score": 3,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "07-01-2026",
-    "home": "Plough Gresford",
-    "away": "Greyhound",
-    "home_score": 6,
-    "away_score": 4,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "14-01-2026",
-    "home": "Ruabon Cons B",
-    "away": "Plough Gresford",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "28-01-2026",
-    "home": "Hafod Club Rhos",
-    "away": "Plough Gresford",
-    "home_score": 5,
-    "away_score": 5,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "04-02-2026",
-    "home": "White Lion Hope",
-    "away": "Plough Gresford",
-    "home_score": 6,
-    "away_score": 4,
-    "division": "WD2",
-    "frames": 10
-  },
-  {
-    "date": "05-11-2025",
+    "date": "10-12-2025",
     "home": "White Lion Hope",
     "away": "Hafod Club Rhos",
     "home_score": 3,
@@ -2041,5 +2122,275 @@
     "away_score": 7,
     "division": "WD2",
     "frames": 10
+  },
+  {
+    "date": "03-12-2025",
+    "home": "Gwersyllt Club.",
+    "away": "Hill Street Social",
+    "home_score": 11,
+    "away_score": 10,
+    "division": "CUP",
+    "frames": 21,
+    "cup": true
+  },
+  {
+    "date": "03-12-2025",
+    "home": "Greyhound",
+    "away": "Crown Caergwrle",
+    "home_score": 5,
+    "away_score": 15,
+    "division": "CUP",
+    "frames": 20,
+    "cup": true
+  },
+  {
+    "date": "03-12-2025",
+    "home": "War Memorial B",
+    "away": "Golden Lion Cp",
+    "home_score": 11,
+    "away_score": 4,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "03-12-2025",
+    "home": "Colliers Dogs",
+    "away": "Gresford Legion",
+    "home_score": 11,
+    "away_score": 8,
+    "division": "CUP",
+    "frames": 19,
+    "cup": true
+  },
+  {
+    "date": "03-12-2025",
+    "home": "Y Tai.",
+    "away": "Miners Brymbo",
+    "home_score": 8,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 19,
+    "cup": true
+  },
+  {
+    "date": "07-12-2025",
+    "home": "Gwersyllt Club",
+    "away": "Brymbo Sports",
+    "home_score": 12,
+    "away_score": 3,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "07-12-2025",
+    "home": "Sun Rhos",
+    "away": "Miners Brymbo",
+    "home_score": 4,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "07-12-2025",
+    "home": "Breakroom Lions.",
+    "away": "Cross Foxes Coedpoeth",
+    "home_score": 11,
+    "away_score": 1,
+    "division": "CUP",
+    "frames": 12,
+    "cup": true
+  },
+  {
+    "date": "07-12-2025",
+    "home": "Rhos Snooker Club",
+    "away": "Magnet A",
+    "home_score": 3,
+    "away_score": 12,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "07-12-2025",
+    "home": "Rollers A",
+    "away": "Gwersyllt WMC",
+    "home_score": 5,
+    "away_score": 15,
+    "division": "CUP",
+    "frames": 20,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "Miners Brymbo",
+    "away": "Golden Lion Wxm",
+    "home_score": 11,
+    "away_score": 7,
+    "division": "CUP",
+    "frames": 18,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "Gwersyllt Club.",
+    "away": "Crown Summerhill",
+    "home_score": 11,
+    "away_score": 4,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "White Lion Hope",
+    "away": "Hafod Club Rhos",
+    "home_score": 4,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "Ruabon Cons A",
+    "away": "Breakroom Lions.",
+    "home_score": 7,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 18,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "Colliers Dogs",
+    "away": "Gwersyllt Union",
+    "home_score": 3,
+    "away_score": 15,
+    "division": "CUP",
+    "frames": 18,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "Miners Brymbo.",
+    "away": "Golden Lion Wxm",
+    "home_score": 11,
+    "away_score": 7,
+    "division": "CUP",
+    "frames": 18,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "Crown Caergwrle",
+    "away": "War Memorial B",
+    "home_score": 11,
+    "away_score": 10,
+    "division": "CUP",
+    "frames": 21,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "War Memorial A",
+    "away": "Kings Mills",
+    "home_score": 11,
+    "away_score": 7,
+    "division": "CUP",
+    "frames": 18,
+    "cup": true
+  },
+  {
+    "date": "10-12-2025",
+    "home": "Plough Gresford",
+    "away": "Ruabon Cons B",
+    "home_score": 9,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 20,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "Gresford Colliery",
+    "away": "Gwersyllt WMC",
+    "home_score": 8,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 19,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "Gwersyllt Club",
+    "away": "Y Tai",
+    "home_score": 12,
+    "away_score": 3,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "The Drunk Monk",
+    "away": "Four Dogs B",
+    "home_score": 15,
+    "away_score": 5,
+    "division": "CUP",
+    "frames": 20,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "Magnet A",
+    "away": "Magnet B",
+    "home_score": 14,
+    "away_score": 6,
+    "division": "CUP",
+    "frames": 20,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "Johnstown Legion",
+    "away": "Breakroom Llay",
+    "home_score": 6,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 17,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "Four Dogs A",
+    "away": "Old Black Horse",
+    "home_score": 11,
+    "away_score": 4,
+    "division": "CUP",
+    "frames": 15,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "Breakroom Lions",
+    "away": "Red Lion Marchweil",
+    "home_score": 10,
+    "away_score": 10,
+    "division": "CUP",
+    "frames": 20,
+    "cup": true
+  },
+  {
+    "date": "14-12-2025",
+    "home": "Miners Brymbo",
+    "away": "Rollers B",
+    "home_score": 10,
+    "away_score": 11,
+    "division": "CUP",
+    "frames": 21,
+    "cup": true
   }
 ]

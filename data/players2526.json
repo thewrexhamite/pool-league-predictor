@@ -79,9 +79,9 @@
       {
         "team": "Crown Caergwrle",
         "div": "WD2",
-        "p": 13,
-        "w": 7,
-        "pct": 53.85,
+        "p": 15,
+        "w": 9,
+        "pct": 60,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -90,9 +90,9 @@
       }
     ],
     "total": {
-      "p": 32,
-      "w": 20,
-      "pct": 62.5
+      "p": 34,
+      "w": 22,
+      "pct": 64.71
     }
   },
   "Brad Ferguson": {
@@ -133,9 +133,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 12,
-        "w": 7,
-        "pct": 58.33,
+        "p": 14,
+        "w": 9,
+        "pct": 64.29,
         "lag": 0,
         "bdF": 1,
         "bdA": 0,
@@ -144,9 +144,9 @@
       }
     ],
     "total": {
-      "p": 31,
-      "w": 22,
-      "pct": 70.97
+      "p": 33,
+      "w": 24,
+      "pct": 72.73
     }
   },
   "Neil Roberts": {
@@ -229,9 +229,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 12,
-        "w": 7,
-        "pct": 58.33,
+        "p": 14,
+        "w": 9,
+        "pct": 64.29,
         "lag": 0,
         "bdF": 1,
         "bdA": 0,
@@ -240,9 +240,9 @@
       }
     ],
     "total": {
-      "p": 27,
-      "w": 21,
-      "pct": 77.78
+      "p": 29,
+      "w": 23,
+      "pct": 79.31
     }
   },
   "Owen Barry": {
@@ -325,9 +325,9 @@
       {
         "team": "Crown Caergwrle",
         "div": "WD2",
-        "p": 14,
-        "w": 10,
-        "pct": 71.43,
+        "p": 16,
+        "w": 12,
+        "pct": 75,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -336,9 +336,9 @@
       }
     ],
     "total": {
-      "p": 24,
-      "w": 16,
-      "pct": 66.67
+      "p": 26,
+      "w": 18,
+      "pct": 69.23
     }
   },
   "Dave Laszlo": {
@@ -379,9 +379,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 11,
+        "p": 12,
         "w": 6,
-        "pct": 54.55,
+        "pct": 50,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -390,9 +390,9 @@
       }
     ],
     "total": {
-      "p": 28,
+      "p": 29,
       "w": 13,
-      "pct": 46.43
+      "pct": 44.83
     }
   },
   "Derry \"the thing\" Flinders": {
@@ -412,9 +412,9 @@
       {
         "team": "Gwersyllt Union",
         "div": "WD1",
-        "p": 6,
-        "w": 3,
-        "pct": 50,
+        "p": 8,
+        "w": 5,
+        "pct": 62.5,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -423,9 +423,9 @@
       }
     ],
     "total": {
-      "p": 23,
-      "w": 9,
-      "pct": 39.13
+      "p": 25,
+      "w": 11,
+      "pct": 44
     }
   },
   "Grant Williams": {
@@ -466,9 +466,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 10,
-        "w": 5,
-        "pct": 50,
+        "p": 11,
+        "w": 6,
+        "pct": 54.55,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -477,9 +477,9 @@
       }
     ],
     "total": {
-      "p": 29,
-      "w": 18,
-      "pct": 62.07
+      "p": 30,
+      "w": 19,
+      "pct": 63.33
     }
   },
   "Ben Turnbull": {
@@ -520,9 +520,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 11,
+        "p": 12,
         "w": 11,
-        "pct": 100,
+        "pct": 91.67,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -531,9 +531,9 @@
       }
     ],
     "total": {
-      "p": 28,
+      "p": 29,
       "w": 23,
-      "pct": 82.14
+      "pct": 79.31
     }
   },
   "Robbie Wojdyta": {
@@ -946,9 +946,9 @@
       {
         "team": "Breakroom Lions.",
         "div": "WD1",
-        "p": 14,
-        "w": 6,
-        "pct": 42.86,
+        "p": 16,
+        "w": 7,
+        "pct": 43.75,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -957,9 +957,9 @@
       }
     ],
     "total": {
-      "p": 32,
-      "w": 12,
-      "pct": 37.5
+      "p": 34,
+      "w": 13,
+      "pct": 38.24
     }
   },
   "Eirian (Aero) Ingman": {
@@ -979,9 +979,9 @@
       {
         "team": "Breakroom Lions.",
         "div": "WD1",
-        "p": 14,
-        "w": 11,
-        "pct": 78.57,
+        "p": 16,
+        "w": 12,
+        "pct": 75,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -990,9 +990,9 @@
       }
     ],
     "total": {
-      "p": 28,
-      "w": 21,
-      "pct": 75
+      "p": 30,
+      "w": 22,
+      "pct": 73.33
     }
   },
   "Dan Gittins": {
@@ -1066,9 +1066,9 @@
       {
         "team": "Breakroom Lions.",
         "div": "WD1",
-        "p": 14,
+        "p": 15,
         "w": 2,
-        "pct": 14.29,
+        "pct": 13.33,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -1077,9 +1077,9 @@
       }
     ],
     "total": {
-      "p": 31,
+      "p": 32,
       "w": 6,
-      "pct": 19.35
+      "pct": 18.75
     }
   },
   "Brian Davies": {
@@ -1099,9 +1099,9 @@
       {
         "team": "Breakroom Lions.",
         "div": "WD1",
-        "p": 15,
+        "p": 17,
         "w": 4,
-        "pct": 26.67,
+        "pct": 23.53,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -1110,9 +1110,9 @@
       }
     ],
     "total": {
-      "p": 30,
+      "p": 32,
       "w": 6,
-      "pct": 20
+      "pct": 18.75
     }
   },
   "Stuart Roberts": {
@@ -1198,9 +1198,9 @@
       {
         "team": "Y Tai.",
         "div": "WD2",
-        "p": 13,
-        "w": 10,
-        "pct": 76.92,
+        "p": 15,
+        "w": 12,
+        "pct": 80,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -1209,9 +1209,9 @@
       }
     ],
     "total": {
-      "p": 26,
-      "w": 16,
-      "pct": 61.54
+      "p": 28,
+      "w": 18,
+      "pct": 64.29
     }
   },
   "Ian Brindley": {
@@ -1339,8 +1339,8 @@
       {
         "team": "Gwersyllt Club.",
         "div": "WD1",
-        "p": 10,
-        "w": 5,
+        "p": 12,
+        "w": 6,
         "pct": 50,
         "lag": 0,
         "bdF": 0,
@@ -1350,9 +1350,9 @@
       }
     ],
     "total": {
-      "p": 29,
-      "w": 17,
-      "pct": 58.62
+      "p": 31,
+      "w": 18,
+      "pct": 58.06
     }
   },
   "Lyndon Hamilton": {
@@ -1492,9 +1492,9 @@
       {
         "team": "Gwersyllt Club.",
         "div": "WD1",
-        "p": 18,
+        "p": 20,
         "w": 10,
-        "pct": 55.56,
+        "pct": 50,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -1503,9 +1503,9 @@
       }
     ],
     "total": {
-      "p": 32,
+      "p": 34,
       "w": 18,
-      "pct": 56.25
+      "pct": 52.94
     }
   },
   "Nathaniel Wright": {
@@ -1663,9 +1663,9 @@
       {
         "team": "Colliers Dogs",
         "div": "WD1",
-        "p": 17,
-        "w": 6,
-        "pct": 35.29,
+        "p": 19,
+        "w": 8,
+        "pct": 42.11,
         "lag": 0,
         "bdF": 1,
         "bdA": 1,
@@ -1674,9 +1674,9 @@
       }
     ],
     "total": {
-      "p": 39,
-      "w": 15,
-      "pct": 38.46
+      "p": 41,
+      "w": 17,
+      "pct": 41.46
     }
   },
   "Gareth Evans": {
@@ -1783,9 +1783,9 @@
       {
         "team": "Miners Brymbo.",
         "div": "WD1",
-        "p": 18,
-        "w": 12,
-        "pct": 66.67,
+        "p": 20,
+        "w": 14,
+        "pct": 70,
         "lag": 0,
         "bdF": 0,
         "bdA": 1,
@@ -1794,9 +1794,9 @@
       }
     ],
     "total": {
-      "p": 40,
-      "w": 26,
-      "pct": 65
+      "p": 42,
+      "w": 28,
+      "pct": 66.67
     }
   },
   "Adrian Naggington": {
@@ -1837,9 +1837,9 @@
       {
         "team": "Miners Brymbo.",
         "div": "WD1",
-        "p": 9,
-        "w": 7,
-        "pct": 77.78,
+        "p": 10,
+        "w": 8,
+        "pct": 80,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -1848,9 +1848,9 @@
       }
     ],
     "total": {
-      "p": 21,
-      "w": 14,
-      "pct": 66.67
+      "p": 22,
+      "w": 15,
+      "pct": 68.18
     }
   },
   "Ian Jenkins": {
@@ -1945,7 +1945,7 @@
       {
         "team": "Y Tai.",
         "div": "WD2",
-        "p": 4,
+        "p": 6,
         "w": 0,
         "pct": 0,
         "lag": 0,
@@ -1956,7 +1956,7 @@
       }
     ],
     "total": {
-      "p": 7,
+      "p": 9,
       "w": 0,
       "pct": 0
     }
@@ -2149,9 +2149,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 7,
+        "p": 8,
         "w": 4,
-        "pct": 57.14,
+        "pct": 50,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -2160,9 +2160,9 @@
       }
     ],
     "total": {
-      "p": 9,
+      "p": 10,
       "w": 5,
-      "pct": 55.56
+      "pct": 50
     }
   },
   "Robert Salisbury": {
@@ -2287,9 +2287,9 @@
       {
         "team": "Gwersyllt Club.",
         "div": "WD1",
-        "p": 8,
-        "w": 6,
-        "pct": 75,
+        "p": 10,
+        "w": 8,
+        "pct": 80,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -2298,9 +2298,9 @@
       }
     ],
     "total": {
-      "p": 11,
-      "w": 7,
-      "pct": 63.64
+      "p": 13,
+      "w": 9,
+      "pct": 69.23
     }
   },
   "Marcel Cheetham": {
@@ -2503,8 +2503,8 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 7,
-        "w": 7,
+        "p": 8,
+        "w": 8,
         "pct": 100,
         "lag": 0,
         "bdF": 0,
@@ -2514,9 +2514,9 @@
       }
     ],
     "total": {
-      "p": 28,
-      "w": 26,
-      "pct": 92.86
+      "p": 29,
+      "w": 27,
+      "pct": 93.1
     }
   },
   "Lewis Pugh": {
@@ -2695,9 +2695,9 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 6,
-        "w": 3,
-        "pct": 50,
+        "p": 7,
+        "w": 4,
+        "pct": 57.14,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -2706,9 +2706,9 @@
       }
     ],
     "total": {
-      "p": 24,
-      "w": 12,
-      "pct": 50
+      "p": 25,
+      "w": 13,
+      "pct": 52
     }
   },
   "Jack Mitchell": {
@@ -2953,9 +2953,9 @@
       {
         "team": "Golden Lion Wxm",
         "div": "WD1",
-        "p": 16,
-        "w": 10,
-        "pct": 62.5,
+        "p": 18,
+        "w": 11,
+        "pct": 61.11,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -2964,9 +2964,9 @@
       }
     ],
     "total": {
-      "p": 34,
-      "w": 22,
-      "pct": 64.71
+      "p": 36,
+      "w": 23,
+      "pct": 63.89
     }
   },
   "Paul Bailey": {
@@ -3073,9 +3073,9 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 18,
-        "w": 14,
-        "pct": 77.78,
+        "p": 19,
+        "w": 15,
+        "pct": 78.95,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3084,9 +3084,9 @@
       }
     ],
     "total": {
-      "p": 41,
-      "w": 35,
-      "pct": 85.37
+      "p": 42,
+      "w": 36,
+      "pct": 85.71
     }
   },
   "Wade Davies": {
@@ -3106,9 +3106,9 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 2,
-        "w": 1,
-        "pct": 50,
+        "p": 3,
+        "w": 2,
+        "pct": 66.67,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3117,9 +3117,9 @@
       }
     ],
     "total": {
-      "p": 6,
-      "w": 2,
-      "pct": 33.33
+      "p": 7,
+      "w": 3,
+      "pct": 42.86
     }
   },
   "Josh Jones": {
@@ -3139,9 +3139,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 15,
-        "w": 8,
-        "pct": 53.33,
+        "p": 16,
+        "w": 9,
+        "pct": 56.25,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3150,9 +3150,9 @@
       }
     ],
     "total": {
-      "p": 30,
-      "w": 16,
-      "pct": 53.33
+      "p": 31,
+      "w": 17,
+      "pct": 54.84
     }
   },
   "Joel Baines": {
@@ -3172,9 +3172,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 12,
-        "w": 8,
-        "pct": 66.67,
+        "p": 13,
+        "w": 9,
+        "pct": 69.23,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3183,9 +3183,9 @@
       }
     ],
     "total": {
-      "p": 29,
-      "w": 20,
-      "pct": 68.97
+      "p": 30,
+      "w": 21,
+      "pct": 70
     }
   },
   "Keith Baines": {
@@ -3205,9 +3205,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 3,
+        "p": 4,
         "w": 3,
-        "pct": 100,
+        "pct": 75,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3216,9 +3216,9 @@
       }
     ],
     "total": {
-      "p": 16,
+      "p": 17,
       "w": 12,
-      "pct": 75
+      "pct": 70.59
     }
   },
   "Eryl Roberts": {
@@ -3238,9 +3238,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 14,
+        "p": 15,
         "w": 6,
-        "pct": 42.86,
+        "pct": 40,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3249,9 +3249,9 @@
       }
     ],
     "total": {
-      "p": 26,
+      "p": 27,
       "w": 10,
-      "pct": 38.46
+      "pct": 37.04
     }
   },
   "Neil Jones": {
@@ -3271,9 +3271,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 5,
+        "p": 6,
         "w": 1,
-        "pct": 20,
+        "pct": 16.67,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3282,9 +3282,9 @@
       }
     ],
     "total": {
-      "p": 16,
+      "p": 17,
       "w": 6,
-      "pct": 37.5
+      "pct": 35.29
     }
   },
   "Kev Austin": {
@@ -3358,9 +3358,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 8,
-        "w": 4,
-        "pct": 50,
+        "p": 9,
+        "w": 5,
+        "pct": 55.56,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3369,9 +3369,9 @@
       }
     ],
     "total": {
-      "p": 18,
-      "w": 11,
-      "pct": 61.11
+      "p": 19,
+      "w": 12,
+      "pct": 63.16
     }
   },
   "Kris Fox": {
@@ -3391,9 +3391,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 10,
+        "p": 11,
         "w": 5,
-        "pct": 50,
+        "pct": 45.45,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -3402,9 +3402,9 @@
       }
     ],
     "total": {
-      "p": 21,
+      "p": 22,
       "w": 11,
-      "pct": 52.38
+      "pct": 50
     }
   },
   "Arron Jones": {
@@ -4579,9 +4579,9 @@
       {
         "team": "Y Tai.",
         "div": "WD2",
-        "p": 9,
+        "p": 11,
         "w": 4,
-        "pct": 44.44,
+        "pct": 36.36,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -4590,9 +4590,9 @@
       }
     ],
     "total": {
-      "p": 17,
+      "p": 19,
       "w": 7,
-      "pct": 41.18
+      "pct": 36.84
     }
   },
   "Jamie Jones": {
@@ -4909,9 +4909,9 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 12,
-        "w": 6,
-        "pct": 50,
+        "p": 13,
+        "w": 7,
+        "pct": 53.85,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -4920,9 +4920,9 @@
       }
     ],
     "total": {
-      "p": 19,
-      "w": 10,
-      "pct": 52.63
+      "p": 20,
+      "w": 11,
+      "pct": 55
     }
   },
   "Jake Reilly": {
@@ -5089,9 +5089,9 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 8,
+        "p": 9,
         "w": 5,
-        "pct": 62.5,
+        "pct": 55.56,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -5100,9 +5100,9 @@
       }
     ],
     "total": {
-      "p": 10,
+      "p": 11,
       "w": 5,
-      "pct": 50
+      "pct": 45.45
     }
   },
   "Oscar Egerton": {
@@ -5404,9 +5404,9 @@
       {
         "team": "Gwersyllt Union",
         "div": "WD1",
-        "p": 19,
-        "w": 15,
-        "pct": 78.95,
+        "p": 21,
+        "w": 17,
+        "pct": 80.95,
         "lag": 0,
         "bdF": 2,
         "bdA": 0,
@@ -5415,9 +5415,9 @@
       }
     ],
     "total": {
-      "p": 19,
-      "w": 15,
-      "pct": 78.95
+      "p": 21,
+      "w": 17,
+      "pct": 80.95
     }
   },
   "Chris “reggie” Colegate": {
@@ -5425,9 +5425,9 @@
       {
         "team": "Gwersyllt Union",
         "div": "WD1",
-        "p": 13,
+        "p": 15,
         "w": 8,
-        "pct": 61.54,
+        "pct": 53.33,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -5436,9 +5436,9 @@
       }
     ],
     "total": {
-      "p": 13,
+      "p": 15,
       "w": 8,
-      "pct": 61.54
+      "pct": 53.33
     }
   },
   "Steve Bird": {
@@ -5488,9 +5488,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 11,
-        "w": 4,
-        "pct": 36.36,
+        "p": 12,
+        "w": 5,
+        "pct": 41.67,
         "lag": 0,
         "bdF": 1,
         "bdA": 1,
@@ -5499,9 +5499,9 @@
       }
     ],
     "total": {
-      "p": 11,
-      "w": 4,
-      "pct": 36.36
+      "p": 12,
+      "w": 5,
+      "pct": 41.67
     }
   },
   "Brad “boring” Ferguson": {
@@ -5509,9 +5509,9 @@
       {
         "team": "Gwersyllt Union",
         "div": "WD1",
-        "p": 20,
-        "w": 16,
-        "pct": 80,
+        "p": 22,
+        "w": 18,
+        "pct": 81.82,
         "lag": 0,
         "bdF": 2,
         "bdA": 1,
@@ -5520,9 +5520,9 @@
       }
     ],
     "total": {
-      "p": 20,
-      "w": 16,
-      "pct": 80
+      "p": 22,
+      "w": 18,
+      "pct": 81.82
     }
   },
   "Laurence “you guys” Travis": {
@@ -5530,9 +5530,9 @@
       {
         "team": "Gwersyllt Union",
         "div": "WD1",
-        "p": 13,
+        "p": 14,
         "w": 7,
-        "pct": 53.85,
+        "pct": 50,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -5541,9 +5541,9 @@
       }
     ],
     "total": {
-      "p": 13,
+      "p": 14,
       "w": 7,
-      "pct": 53.85
+      "pct": 50
     }
   },
   "Neil “ice” Roberts": {
@@ -5551,9 +5551,9 @@
       {
         "team": "Gwersyllt Union",
         "div": "WD1",
-        "p": 11,
+        "p": 12,
         "w": 8,
-        "pct": 72.73,
+        "pct": 66.67,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -5562,9 +5562,9 @@
       }
     ],
     "total": {
-      "p": 11,
+      "p": 12,
       "w": 8,
-      "pct": 72.73
+      "pct": 66.67
     }
   },
   "James Ellis": {
@@ -5572,9 +5572,9 @@
       {
         "team": "War Memorial A",
         "div": "WD1",
-        "p": 11,
+        "p": 12,
         "w": 6,
-        "pct": 54.55,
+        "pct": 50,
         "lag": 0,
         "bdF": 1,
         "bdA": 0,
@@ -5583,9 +5583,9 @@
       }
     ],
     "total": {
-      "p": 11,
+      "p": 12,
       "w": 6,
-      "pct": 54.55
+      "pct": 50
     }
   },
   "Shane Jones": {
@@ -5635,9 +5635,9 @@
       {
         "team": "Gwersyllt Club.",
         "div": "WD1",
-        "p": 10,
+        "p": 12,
         "w": 4,
-        "pct": 40,
+        "pct": 33.33,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -5646,9 +5646,9 @@
       }
     ],
     "total": {
-      "p": 10,
+      "p": 12,
       "w": 4,
-      "pct": 40
+      "pct": 33.33
     }
   },
   "Merv Owen": {
@@ -5656,9 +5656,9 @@
       {
         "team": "Miners Brymbo.",
         "div": "WD1",
-        "p": 15,
+        "p": 16,
         "w": 9,
-        "pct": 60,
+        "pct": 56.25,
         "lag": 0,
         "bdF": 0,
         "bdA": 1,
@@ -5667,9 +5667,9 @@
       }
     ],
     "total": {
-      "p": 15,
+      "p": 16,
       "w": 9,
-      "pct": 60
+      "pct": 56.25
     }
   },
   "Steve Brindley": {
@@ -5677,9 +5677,51 @@
       {
         "team": "Miners Brymbo.",
         "div": "WD1",
+        "p": 20,
+        "w": 12,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 20,
+      "w": 12,
+      "pct": 60
+    }
+  },
+  "Dave Owen": {
+    "teams": [
+      {
+        "team": "Miners Brymbo.",
+        "div": "WD1",
+        "p": 13,
+        "w": 7,
+        "pct": 53.85,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 13,
+      "w": 7,
+      "pct": 53.85
+    }
+  },
+  "Anthony Edwards": {
+    "teams": [
+      {
+        "team": "Golden Lion Cp",
+        "div": "WD1",
         "p": 18,
-        "w": 10,
-        "pct": 55.56,
+        "w": 6,
+        "pct": 33.33,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -5689,39 +5731,18 @@
     ],
     "total": {
       "p": 18,
-      "w": 10,
-      "pct": 55.56
-    }
-  },
-  "Dave Owen": {
-    "teams": [
-      {
-        "team": "Miners Brymbo.",
-        "div": "WD1",
-        "p": 11,
-        "w": 6,
-        "pct": 54.55,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 11,
       "w": 6,
-      "pct": 54.55
+      "pct": 33.33
     }
   },
-  "Anthony Edwards": {
+  "Tim Roberts": {
     "teams": [
       {
         "team": "Golden Lion Cp",
         "div": "WD1",
         "p": 17,
-        "w": 6,
-        "pct": 35.29,
+        "w": 11,
+        "pct": 64.71,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -5731,29 +5752,8 @@
     ],
     "total": {
       "p": 17,
-      "w": 6,
-      "pct": 35.29
-    }
-  },
-  "Tim Roberts": {
-    "teams": [
-      {
-        "team": "Golden Lion Cp",
-        "div": "WD1",
-        "p": 16,
-        "w": 10,
-        "pct": 62.5,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 16,
-      "w": 10,
-      "pct": 62.5
+      "w": 11,
+      "pct": 64.71
     }
   },
   "Lewis Richards": {
@@ -5761,7 +5761,7 @@
       {
         "team": "Golden Lion Cp",
         "div": "WD1",
-        "p": 8,
+        "p": 9,
         "w": 0,
         "pct": 0,
         "lag": 0,
@@ -5772,7 +5772,7 @@
       }
     ],
     "total": {
-      "p": 8,
+      "p": 9,
       "w": 0,
       "pct": 0
     }
@@ -5803,8 +5803,197 @@
       {
         "team": "Golden Lion Cp",
         "div": "WD1",
-        "p": 12,
+        "p": 13,
         "w": 8,
+        "pct": 61.54,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 13,
+      "w": 8,
+      "pct": 61.54
+    }
+  },
+  "Claire Biddle": {
+    "teams": [
+      {
+        "team": "Breakroom Lions.",
+        "div": "WD1",
+        "p": 13,
+        "w": 6,
+        "pct": 46.15,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 13,
+      "w": 6,
+      "pct": 46.15
+    }
+  },
+  "Mathew Cartwright": {
+    "teams": [
+      {
+        "team": "Golden Lion Wxm",
+        "div": "WD1",
+        "p": 16,
+        "w": 6,
+        "pct": 37.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 16,
+      "w": 6,
+      "pct": 37.5
+    }
+  },
+  "Steve Barber": {
+    "teams": [
+      {
+        "team": "Golden Lion Wxm",
+        "div": "WD1",
+        "p": 16,
+        "w": 7,
+        "pct": 43.75,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 16,
+      "w": 7,
+      "pct": 43.75
+    }
+  },
+  "Rich Williams (Golden Lion)": {
+    "teams": [
+      {
+        "team": "Golden Lion Wxm",
+        "div": "WD1",
+        "p": 17,
+        "w": 12,
+        "pct": 70.59,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 17,
+      "w": 12,
+      "pct": 70.59
+    }
+  },
+  "Rio Bailey": {
+    "teams": [
+      {
+        "team": "Golden Lion Wxm",
+        "div": "WD1",
+        "p": 6,
+        "w": 3,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 3,
+      "pct": 50
+    }
+  },
+  "Tommy Pinnington": {
+    "teams": [
+      {
+        "team": "Colliers Dogs",
+        "div": "WD1",
+        "p": 17,
+        "w": 11,
+        "pct": 64.71,
+        "lag": 0,
+        "bdF": 1,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 17,
+      "w": 11,
+      "pct": 64.71
+    }
+  },
+  "Alex Ward": {
+    "teams": [
+      {
+        "team": "Colliers Dogs",
+        "div": "WD1",
+        "p": 18,
+        "w": 9,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 1,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 18,
+      "w": 9,
+      "pct": 50
+    }
+  },
+  "Steve Parry": {
+    "teams": [
+      {
+        "team": "Colliers Dogs",
+        "div": "WD1",
+        "p": 18,
+        "w": 6,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 18,
+      "w": 6,
+      "pct": 33.33
+    }
+  },
+  "Curt Griffiths": {
+    "teams": [
+      {
+        "team": "Colliers Dogs",
+        "div": "WD1",
+        "p": 9,
+        "w": 6,
         "pct": 66.67,
         "lag": 0,
         "bdF": 0,
@@ -5814,198 +6003,9 @@
       }
     ],
     "total": {
-      "p": 12,
-      "w": 8,
-      "pct": 66.67
-    }
-  },
-  "Claire Biddle": {
-    "teams": [
-      {
-        "team": "Breakroom Lions.",
-        "div": "WD1",
-        "p": 11,
-        "w": 5,
-        "pct": 45.45,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 11,
-      "w": 5,
-      "pct": 45.45
-    }
-  },
-  "Mathew Cartwright": {
-    "teams": [
-      {
-        "team": "Golden Lion Wxm",
-        "div": "WD1",
-        "p": 14,
-        "w": 6,
-        "pct": 42.86,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 1,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 14,
+      "p": 9,
       "w": 6,
-      "pct": 42.86
-    }
-  },
-  "Steve Barber": {
-    "teams": [
-      {
-        "team": "Golden Lion Wxm",
-        "div": "WD1",
-        "p": 14,
-        "w": 7,
-        "pct": 50,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 14,
-      "w": 7,
-      "pct": 50
-    }
-  },
-  "Rich Williams (Golden Lion)": {
-    "teams": [
-      {
-        "team": "Golden Lion Wxm",
-        "div": "WD1",
-        "p": 16,
-        "w": 11,
-        "pct": 68.75,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 16,
-      "w": 11,
-      "pct": 68.75
-    }
-  },
-  "Rio Bailey": {
-    "teams": [
-      {
-        "team": "Golden Lion Wxm",
-        "div": "WD1",
-        "p": 5,
-        "w": 2,
-        "pct": 40,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 5,
-      "w": 2,
-      "pct": 40
-    }
-  },
-  "Tommy Pinnington": {
-    "teams": [
-      {
-        "team": "Colliers Dogs",
-        "div": "WD1",
-        "p": 15,
-        "w": 9,
-        "pct": 60,
-        "lag": 0,
-        "bdF": 1,
-        "bdA": 1,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 15,
-      "w": 9,
-      "pct": 60
-    }
-  },
-  "Alex Ward": {
-    "teams": [
-      {
-        "team": "Colliers Dogs",
-        "div": "WD1",
-        "p": 16,
-        "w": 8,
-        "pct": 50,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 1,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 16,
-      "w": 8,
-      "pct": 50
-    }
-  },
-  "Steve Parry": {
-    "teams": [
-      {
-        "team": "Colliers Dogs",
-        "div": "WD1",
-        "p": 16,
-        "w": 5,
-        "pct": 31.25,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 16,
-      "w": 5,
-      "pct": 31.25
-    }
-  },
-  "Curt Griffiths": {
-    "teams": [
-      {
-        "team": "Colliers Dogs",
-        "div": "WD1",
-        "p": 7,
-        "w": 4,
-        "pct": 57.14,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 7,
-      "w": 4,
-      "pct": 57.14
+      "pct": 66.67
     }
   },
   "Gareth Powell": {
@@ -6239,6 +6239,27 @@
       "pct": 85.71
     }
   },
+  "Cameron Hamilton": {
+    "teams": [
+      {
+        "team": "Gwersyllt Club.",
+        "div": "WD1",
+        "p": 14,
+        "w": 6,
+        "pct": 42.86,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 14,
+      "w": 6,
+      "pct": 42.86
+    }
+  },
   "Sion Wood": {
     "teams": [
       {
@@ -6328,9 +6349,9 @@
       {
         "team": "Golden Lion Cp",
         "div": "WD1",
-        "p": 13,
+        "p": 14,
         "w": 7,
-        "pct": 53.85,
+        "pct": 50,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6339,30 +6360,9 @@
       }
     ],
     "total": {
-      "p": 13,
+      "p": 14,
       "w": 7,
-      "pct": 53.85
-    }
-  },
-  "Cameron Hamilton": {
-    "teams": [
-      {
-        "team": "Gwersyllt Club.",
-        "div": "WD1",
-        "p": 12,
-        "w": 5,
-        "pct": 41.67,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 12,
-      "w": 5,
-      "pct": 41.67
+      "pct": 50
     }
   },
   "Richard Williams": {
@@ -6370,9 +6370,9 @@
       {
         "team": "Miners Brymbo.",
         "div": "WD1",
-        "p": 13,
-        "w": 10,
-        "pct": 76.92,
+        "p": 15,
+        "w": 11,
+        "pct": 73.33,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6381,9 +6381,30 @@
       }
     ],
     "total": {
-      "p": 13,
-      "w": 10,
-      "pct": 76.92
+      "p": 15,
+      "w": 11,
+      "pct": 73.33
+    }
+  },
+  "Andy Offless": {
+    "teams": [
+      {
+        "team": "Breakroom Lions.",
+        "div": "WD1",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
     }
   },
   "Hywel Roberts": {
@@ -6428,6 +6449,48 @@
       "pct": 33.33
     }
   },
+  "Joey Jones": {
+    "teams": [
+      {
+        "team": "Golden Lion Wxm",
+        "div": "WD1",
+        "p": 3,
+        "w": 1,
+        "pct": 33.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 3,
+      "w": 1,
+      "pct": 33.33
+    }
+  },
+  "Frankie Griffiths": {
+    "teams": [
+      {
+        "team": "Golden Lion Cp",
+        "div": "WD1",
+        "p": 9,
+        "w": 2,
+        "pct": 22.22,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 9,
+      "w": 2,
+      "pct": 22.22
+    }
+  },
   "Paul Parry": {
     "teams": [
       {
@@ -6447,6 +6510,48 @@
       "p": 5,
       "w": 3,
       "pct": 60
+    }
+  },
+  "Harvey Lloyd": {
+    "teams": [
+      {
+        "team": "Golden Lion Cp",
+        "div": "WD1",
+        "p": 2,
+        "w": 1,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 1,
+      "pct": 50
+    }
+  },
+  "Zack Beton": {
+    "teams": [
+      {
+        "team": "Golden Lion Cp",
+        "div": "WD1",
+        "p": 6,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 0,
+      "pct": 0
     }
   },
   "Nicholas Jones": {
@@ -6470,77 +6575,14 @@
       "pct": 57.14
     }
   },
-  "Frankie Griffiths": {
-    "teams": [
-      {
-        "team": "Golden Lion Cp",
-        "div": "WD1",
-        "p": 7,
-        "w": 2,
-        "pct": 28.57,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 7,
-      "w": 2,
-      "pct": 28.57
-    }
-  },
-  "Joey Jones": {
-    "teams": [
-      {
-        "team": "Golden Lion Wxm",
-        "div": "WD1",
-        "p": 1,
-        "w": 1,
-        "pct": 100,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 1,
-      "w": 1,
-      "pct": 100
-    }
-  },
-  "Zack Beton": {
-    "teams": [
-      {
-        "team": "Golden Lion Cp",
-        "div": "WD1",
-        "p": 5,
-        "w": 0,
-        "pct": 0,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 5,
-      "w": 0,
-      "pct": 0
-    }
-  },
   "Defyn Gillan": {
     "teams": [
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 15,
-        "w": 12,
-        "pct": 80,
+        "p": 16,
+        "w": 13,
+        "pct": 81.25,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6549,9 +6591,9 @@
       }
     ],
     "total": {
-      "p": 15,
-      "w": 12,
-      "pct": 80
+      "p": 16,
+      "w": 13,
+      "pct": 81.25
     }
   },
   "Craig Wynn": {
@@ -6580,9 +6622,9 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 7,
-        "w": 5,
-        "pct": 71.43,
+        "p": 8,
+        "w": 6,
+        "pct": 75,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6591,9 +6633,9 @@
       }
     ],
     "total": {
-      "p": 7,
-      "w": 5,
-      "pct": 71.43
+      "p": 8,
+      "w": 6,
+      "pct": 75
     }
   },
   "Connor Wynn": {
@@ -6601,7 +6643,7 @@
       {
         "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 9,
+        "p": 10,
         "w": 0,
         "pct": 0,
         "lag": 0,
@@ -6612,7 +6654,7 @@
       }
     ],
     "total": {
-      "p": 9,
+      "p": 10,
       "w": 0,
       "pct": 0
     }
@@ -6706,9 +6748,9 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 7,
-        "w": 4,
-        "pct": 57.14,
+        "p": 8,
+        "w": 5,
+        "pct": 62.5,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6717,9 +6759,9 @@
       }
     ],
     "total": {
-      "p": 7,
-      "w": 4,
-      "pct": 57.14
+      "p": 8,
+      "w": 5,
+      "pct": 62.5
     }
   },
   "Martin Lorenzo": {
@@ -6727,9 +6769,9 @@
       {
         "team": "Ruabon Cons B",
         "div": "WD2",
-        "p": 10,
+        "p": 12,
         "w": 2,
-        "pct": 20,
+        "pct": 16.67,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6738,9 +6780,9 @@
       }
     ],
     "total": {
-      "p": 10,
+      "p": 12,
       "w": 2,
-      "pct": 20
+      "pct": 16.67
     }
   },
   "Lucas Howson": {
@@ -6748,9 +6790,9 @@
       {
         "team": "Ruabon Cons B",
         "div": "WD2",
-        "p": 18,
+        "p": 20,
         "w": 5,
-        "pct": 27.78,
+        "pct": 25,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6759,9 +6801,9 @@
       }
     ],
     "total": {
-      "p": 18,
+      "p": 20,
       "w": 5,
-      "pct": 27.78
+      "pct": 25
     }
   },
   "Riley Stenner": {
@@ -6790,9 +6832,9 @@
       {
         "team": "Ruabon Cons B",
         "div": "WD2",
-        "p": 18,
+        "p": 20,
         "w": 4,
-        "pct": 22.22,
+        "pct": 20,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6801,9 +6843,9 @@
       }
     ],
     "total": {
-      "p": 18,
+      "p": 20,
       "w": 4,
-      "pct": 22.22
+      "pct": 20
     }
   },
   "Adam Edward’s": {
@@ -6811,9 +6853,9 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 13,
-        "w": 9,
-        "pct": 69.23,
+        "p": 14,
+        "w": 10,
+        "pct": 71.43,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -6822,9 +6864,9 @@
       }
     ],
     "total": {
-      "p": 13,
-      "w": 9,
-      "pct": 69.23
+      "p": 14,
+      "w": 10,
+      "pct": 71.43
     }
   },
   "Anthony Murphy": {
@@ -6832,8 +6874,8 @@
       {
         "team": "Kings Mills",
         "div": "WD2",
-        "p": 2,
-        "w": 2,
+        "p": 3,
+        "w": 3,
         "pct": 100,
         "lag": 0,
         "bdF": 0,
@@ -6843,8 +6885,8 @@
       }
     ],
     "total": {
-      "p": 2,
-      "w": 2,
+      "p": 3,
+      "w": 3,
       "pct": 100
     }
   },
@@ -7042,9 +7084,9 @@
       {
         "team": "Greyhound",
         "div": "WD2",
-        "p": 9,
+        "p": 11,
         "w": 4,
-        "pct": 44.44,
+        "pct": 36.36,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7053,9 +7095,9 @@
       }
     ],
     "total": {
-      "p": 9,
+      "p": 11,
       "w": 4,
-      "pct": 44.44
+      "pct": 36.36
     }
   },
   "Mark Rowland": {
@@ -7063,9 +7105,9 @@
       {
         "team": "Greyhound",
         "div": "WD2",
-        "p": 18,
-        "w": 7,
-        "pct": 38.89,
+        "p": 20,
+        "w": 8,
+        "pct": 40,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7074,9 +7116,9 @@
       }
     ],
     "total": {
-      "p": 18,
-      "w": 7,
-      "pct": 38.89
+      "p": 20,
+      "w": 8,
+      "pct": 40
     }
   },
   "Alexander Jackson": {
@@ -7084,9 +7126,9 @@
       {
         "team": "Greyhound",
         "div": "WD2",
-        "p": 18,
-        "w": 5,
-        "pct": 27.78,
+        "p": 20,
+        "w": 6,
+        "pct": 30,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7095,9 +7137,9 @@
       }
     ],
     "total": {
-      "p": 18,
-      "w": 5,
-      "pct": 27.78
+      "p": 20,
+      "w": 6,
+      "pct": 30
     }
   },
   "James Collier": {
@@ -7126,9 +7168,9 @@
       {
         "team": "Greyhound",
         "div": "WD2",
-        "p": 10,
+        "p": 11,
         "w": 1,
-        "pct": 10,
+        "pct": 9.09,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7137,9 +7179,9 @@
       }
     ],
     "total": {
-      "p": 10,
+      "p": 11,
       "w": 1,
-      "pct": 10
+      "pct": 9.09
     }
   },
   "Lisa Groom": {
@@ -7147,9 +7189,9 @@
       {
         "team": "Greyhound",
         "div": "WD2",
-        "p": 16,
+        "p": 17,
         "w": 2,
-        "pct": 12.5,
+        "pct": 11.76,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7158,9 +7200,9 @@
       }
     ],
     "total": {
-      "p": 16,
+      "p": 17,
       "w": 2,
-      "pct": 12.5
+      "pct": 11.76
     }
   },
   "David Smith": {
@@ -7168,9 +7210,9 @@
       {
         "team": "Plough Gresford",
         "div": "WD2",
-        "p": 9,
-        "w": 4,
-        "pct": 44.44,
+        "p": 11,
+        "w": 6,
+        "pct": 54.55,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7179,9 +7221,9 @@
       }
     ],
     "total": {
-      "p": 9,
-      "w": 4,
-      "pct": 44.44
+      "p": 11,
+      "w": 6,
+      "pct": 54.55
     }
   },
   "Lee Robert’s": {
@@ -7231,30 +7273,9 @@
       {
         "team": "Plough Gresford",
         "div": "WD2",
-        "p": 18,
-        "w": 8,
-        "pct": 44.44,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 18,
-      "w": 8,
-      "pct": 44.44
-    }
-  },
-  "Mark Postle": {
-    "teams": [
-      {
-        "team": "Plough Gresford",
-        "div": "WD2",
         "p": 20,
-        "w": 13,
-        "pct": 65,
+        "w": 10,
+        "pct": 50,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7264,8 +7285,29 @@
     ],
     "total": {
       "p": 20,
-      "w": 13,
-      "pct": 65
+      "w": 10,
+      "pct": 50
+    }
+  },
+  "Mark Postle": {
+    "teams": [
+      {
+        "team": "Plough Gresford",
+        "div": "WD2",
+        "p": 22,
+        "w": 15,
+        "pct": 68.18,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 22,
+      "w": 15,
+      "pct": 68.18
     }
   },
   "Blake Westhead": {
@@ -7294,9 +7336,9 @@
       {
         "team": "Y Tai.",
         "div": "WD2",
-        "p": 12,
-        "w": 3,
-        "pct": 25,
+        "p": 14,
+        "w": 4,
+        "pct": 28.57,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7305,9 +7347,9 @@
       }
     ],
     "total": {
-      "p": 12,
-      "w": 3,
-      "pct": 25
+      "p": 14,
+      "w": 4,
+      "pct": 28.57
     }
   },
   "Andy Pearson": {
@@ -7315,9 +7357,9 @@
       {
         "team": "Ruabon Cons A",
         "div": "WD2",
-        "p": 15,
-        "w": 12,
-        "pct": 80,
+        "p": 17,
+        "w": 14,
+        "pct": 82.35,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7326,9 +7368,9 @@
       }
     ],
     "total": {
-      "p": 15,
-      "w": 12,
-      "pct": 80
+      "p": 17,
+      "w": 14,
+      "pct": 82.35
     }
   },
   "Sam Ansloos": {
@@ -7357,114 +7399,9 @@
       {
         "team": "Ruabon Cons A",
         "div": "WD2",
-        "p": 12,
-        "w": 7,
-        "pct": 58.33,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 12,
-      "w": 7,
-      "pct": 58.33
-    }
-  },
-  "Ian Morris": {
-    "teams": [
-      {
-        "team": "Ruabon Cons A",
-        "div": "WD2",
-        "p": 8,
-        "w": 6,
-        "pct": 75,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 8,
-      "w": 6,
-      "pct": 75
-    }
-  },
-  "Wright Nathaniel": {
-    "teams": [
-      {
-        "team": "Ruabon Cons A",
-        "div": "WD2",
-        "p": 17,
-        "w": 14,
-        "pct": 82.35,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 17,
-      "w": 14,
-      "pct": 82.35
-    }
-  },
-  "Carl Hill": {
-    "teams": [
-      {
-        "team": "Ruabon Cons A",
-        "div": "WD2",
-        "p": 15,
-        "w": 9,
-        "pct": 60,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 15,
-      "w": 9,
-      "pct": 60
-    }
-  },
-  "Martin Lawrence": {
-    "teams": [
-      {
-        "team": "White Lion Hope",
-        "div": "WD2",
-        "p": 6,
-        "w": 1,
-        "pct": 16.67,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 6,
-      "w": 1,
-      "pct": 16.67
-    }
-  },
-  "Shaun Considine": {
-    "teams": [
-      {
-        "team": "White Lion Hope",
-        "div": "WD2",
         "p": 13,
-        "w": 3,
-        "pct": 23.08,
+        "w": 8,
+        "pct": 61.54,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7474,18 +7411,18 @@
     ],
     "total": {
       "p": 13,
-      "w": 3,
-      "pct": 23.08
+      "w": 8,
+      "pct": 61.54
     }
   },
-  "Sam Churchill": {
+  "Ian Morris": {
     "teams": [
       {
-        "team": "White Lion Hope",
+        "team": "Ruabon Cons A",
         "div": "WD2",
-        "p": 12,
-        "w": 6,
-        "pct": 50,
+        "p": 10,
+        "w": 7,
+        "pct": 70,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7494,9 +7431,114 @@
       }
     ],
     "total": {
-      "p": 12,
-      "w": 6,
-      "pct": 50
+      "p": 10,
+      "w": 7,
+      "pct": 70
+    }
+  },
+  "Wright Nathaniel": {
+    "teams": [
+      {
+        "team": "Ruabon Cons A",
+        "div": "WD2",
+        "p": 19,
+        "w": 15,
+        "pct": 78.95,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 19,
+      "w": 15,
+      "pct": 78.95
+    }
+  },
+  "Carl Hill": {
+    "teams": [
+      {
+        "team": "Ruabon Cons A",
+        "div": "WD2",
+        "p": 16,
+        "w": 10,
+        "pct": 62.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 16,
+      "w": 10,
+      "pct": 62.5
+    }
+  },
+  "Martin Lawrence": {
+    "teams": [
+      {
+        "team": "White Lion Hope",
+        "div": "WD2",
+        "p": 8,
+        "w": 1,
+        "pct": 12.5,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 8,
+      "w": 1,
+      "pct": 12.5
+    }
+  },
+  "Shaun Considine": {
+    "teams": [
+      {
+        "team": "White Lion Hope",
+        "div": "WD2",
+        "p": 15,
+        "w": 3,
+        "pct": 20,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 15,
+      "w": 3,
+      "pct": 20
+    }
+  },
+  "Sam Churchill": {
+    "teams": [
+      {
+        "team": "White Lion Hope",
+        "div": "WD2",
+        "p": 13,
+        "w": 7,
+        "pct": 53.85,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 13,
+      "w": 7,
+      "pct": 53.85
     }
   },
   "Rachael Prandel": {
@@ -7525,20 +7567,20 @@
       {
         "team": "White Lion Hope",
         "div": "WD2",
-        "p": 13,
-        "w": 3,
-        "pct": 23.08,
+        "p": 14,
+        "w": 4,
+        "pct": 28.57,
         "lag": 0,
-        "bdF": 0,
+        "bdF": 1,
         "bdA": 0,
         "forf": 0,
         "cup": false
       }
     ],
     "total": {
-      "p": 13,
-      "w": 3,
-      "pct": 23.08
+      "p": 14,
+      "w": 4,
+      "pct": 28.57
     }
   },
   "Tim Hughes": {
@@ -7567,9 +7609,135 @@
       {
         "team": "White Lion Hope",
         "div": "WD2",
+        "p": 12,
+        "w": 3,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 12,
+      "w": 3,
+      "pct": 25
+    }
+  },
+  "Joe Jones": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 15,
+        "w": 11,
+        "pct": 73.33,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 15,
+      "w": 11,
+      "pct": 73.33
+    }
+  },
+  "Marcus Lewis": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 7,
+        "w": 3,
+        "pct": 42.86,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 7,
+      "w": 3,
+      "pct": 42.86
+    }
+  },
+  "Neil Garbutt": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 21,
+        "w": 14,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 21,
+      "w": 14,
+      "pct": 66.67
+    }
+  },
+  "Rob Oldfield": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 19,
+        "w": 12,
+        "pct": 63.16,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 19,
+      "w": 12,
+      "pct": 63.16
+    }
+  },
+  "Michael Foulkes": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 14,
+        "w": 9,
+        "pct": 64.29,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 14,
+      "w": 9,
+      "pct": 64.29
+    }
+  },
+  "Paul Dixon": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
         "p": 10,
-        "w": 2,
-        "pct": 20,
+        "w": 6,
+        "pct": 60,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7579,134 +7747,8 @@
     ],
     "total": {
       "p": 10,
-      "w": 2,
-      "pct": 20
-    }
-  },
-  "Joe Jones": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 13,
-        "w": 9,
-        "pct": 69.23,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 13,
-      "w": 9,
-      "pct": 69.23
-    }
-  },
-  "Marcus Lewis": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 6,
-        "w": 3,
-        "pct": 50,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 6,
-      "w": 3,
-      "pct": 50
-    }
-  },
-  "Neil Garbutt": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 20,
-        "w": 13,
-        "pct": 65,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 20,
-      "w": 13,
-      "pct": 65
-    }
-  },
-  "Rob Oldfield": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 18,
-        "w": 11,
-        "pct": 61.11,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 18,
-      "w": 11,
-      "pct": 61.11
-    }
-  },
-  "Michael Foulkes": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 13,
-        "w": 8,
-        "pct": 61.54,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 13,
-      "w": 8,
-      "pct": 61.54
-    }
-  },
-  "Paul Dixon": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 9,
-        "w": 5,
-        "pct": 55.56,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 9,
-      "w": 5,
-      "pct": 55.56
+      "w": 6,
+      "pct": 60
     }
   },
   "Owian Walker": {
@@ -7714,9 +7756,9 @@
       {
         "team": "Gresford Legion",
         "div": "WD2",
-        "p": 9,
+        "p": 10,
         "w": 1,
-        "pct": 11.11,
+        "pct": 10,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7725,9 +7767,9 @@
       }
     ],
     "total": {
-      "p": 9,
+      "p": 10,
       "w": 1,
-      "pct": 11.11
+      "pct": 10
     }
   },
   "Rob Ackerley": {
@@ -7735,9 +7777,9 @@
       {
         "team": "Gresford Legion",
         "div": "WD2",
-        "p": 9,
-        "w": 5,
-        "pct": 55.56,
+        "p": 10,
+        "w": 6,
+        "pct": 60,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7746,9 +7788,9 @@
       }
     ],
     "total": {
-      "p": 9,
-      "w": 5,
-      "pct": 55.56
+      "p": 10,
+      "w": 6,
+      "pct": 60
     }
   },
   "Preston Cunnah": {
@@ -7835,6 +7877,48 @@
       "pct": 0
     }
   },
+  "Mark Fergal": {
+    "teams": [
+      {
+        "team": "Ruabon Cons B",
+        "div": "WD2",
+        "p": 10,
+        "w": 6,
+        "pct": 60,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 10,
+      "w": 6,
+      "pct": 60
+    }
+  },
+  "Mark Griffiths": {
+    "teams": [
+      {
+        "team": "Ruabon Cons B",
+        "div": "WD2",
+        "p": 12,
+        "w": 5,
+        "pct": 41.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 12,
+      "w": 5,
+      "pct": 41.67
+    }
+  },
   "Benny Hill": {
     "teams": [
       {
@@ -7861,9 +7945,9 @@
       {
         "team": "Ruabon Cons A",
         "div": "WD2",
-        "p": 9,
+        "p": 10,
         "w": 6,
-        "pct": 66.67,
+        "pct": 60,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -7872,9 +7956,9 @@
       }
     ],
     "total": {
-      "p": 9,
+      "p": 10,
       "w": 6,
-      "pct": 66.67
+      "pct": 60
     }
   },
   "Paul Evison": {
@@ -8050,30 +8134,9 @@
       {
         "team": "Ruabon Cons A",
         "div": "WD2",
-        "p": 7,
-        "w": 5,
-        "pct": 71.43,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 7,
-      "w": 5,
-      "pct": 71.43
-    }
-  },
-  "Trow Barry": {
-    "teams": [
-      {
-        "team": "Greyhound",
-        "div": "WD2",
         "p": 8,
-        "w": 4,
-        "pct": 50,
+        "w": 6,
+        "pct": 75,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -8083,7 +8146,28 @@
     ],
     "total": {
       "p": 8,
-      "w": 4,
+      "w": 6,
+      "pct": 75
+    }
+  },
+  "Trow Barry": {
+    "teams": [
+      {
+        "team": "Greyhound",
+        "div": "WD2",
+        "p": 10,
+        "w": 5,
+        "pct": 50,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 10,
+      "w": 5,
       "pct": 50
     }
   },
@@ -8105,27 +8189,6 @@
     "total": {
       "p": 4,
       "w": 2,
-      "pct": 50
-    }
-  },
-  "Mark Griffiths": {
-    "teams": [
-      {
-        "team": "Ruabon Cons B",
-        "div": "WD2",
-        "p": 10,
-        "w": 5,
-        "pct": 50,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 10,
-      "w": 5,
       "pct": 50
     }
   },
@@ -8171,14 +8234,14 @@
       "pct": 25
     }
   },
-  "Adam Chamberlain": {
+  "Kieran Byrne": {
     "teams": [
       {
-        "team": "Crown Caergwrle",
+        "team": "Hafod Club Rhos",
         "div": "WD2",
-        "p": 13,
-        "w": 9,
-        "pct": 69.23,
+        "p": 1,
+        "w": 0,
+        "pct": 0,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -8187,9 +8250,30 @@
       }
     ],
     "total": {
-      "p": 13,
-      "w": 9,
-      "pct": 69.23
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Adam Chamberlain": {
+    "teams": [
+      {
+        "team": "Crown Caergwrle",
+        "div": "WD2",
+        "p": 15,
+        "w": 10,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 15,
+      "w": 10,
+      "pct": 66.67
     }
   },
   "Rob Venn": {
@@ -8302,7 +8386,7 @@
       {
         "team": "Crown Caergwrle",
         "div": "WD2",
-        "p": 1,
+        "p": 2,
         "w": 0,
         "pct": 0,
         "lag": 0,
@@ -8313,7 +8397,7 @@
       }
     ],
     "total": {
-      "p": 1,
+      "p": 2,
       "w": 0,
       "pct": 0
     }
@@ -8386,20 +8470,20 @@
       {
         "team": "Crown Caergwrle",
         "div": "WD2",
-        "p": 7,
+        "p": 9,
         "w": 4,
-        "pct": 57.14,
+        "pct": 44.44,
         "lag": 0,
         "bdF": 0,
-        "bdA": 0,
+        "bdA": 1,
         "forf": 0,
         "cup": false
       }
     ],
     "total": {
-      "p": 7,
+      "p": 9,
       "w": 4,
-      "pct": 57.14
+      "pct": 44.44
     }
   },
   "Geraint Thompson": {
@@ -8428,9 +8512,9 @@
       {
         "team": "Crown Caergwrle",
         "div": "WD2",
-        "p": 3,
-        "w": 2,
-        "pct": 66.67,
+        "p": 4,
+        "w": 3,
+        "pct": 75,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -8439,9 +8523,9 @@
       }
     ],
     "total": {
-      "p": 3,
-      "w": 2,
-      "pct": 66.67
+      "p": 4,
+      "w": 3,
+      "pct": 75
     }
   },
   "Ross Tomlinson": {
@@ -8470,9 +8554,9 @@
       {
         "team": "Plough Gresford",
         "div": "WD2",
-        "p": 5,
-        "w": 2,
-        "pct": 40,
+        "p": 7,
+        "w": 3,
+        "pct": 42.86,
         "lag": 0,
         "bdF": 0,
         "bdA": 0,
@@ -8481,9 +8565,9 @@
       }
     ],
     "total": {
-      "p": 5,
-      "w": 2,
-      "pct": 40
+      "p": 7,
+      "w": 3,
+      "pct": 42.86
     }
   },
   "Huw Garbutt": {
@@ -8491,8 +8575,29 @@
       {
         "team": "Gresford Legion",
         "div": "WD2",
-        "p": 3,
+        "p": 4,
         "w": 1,
+        "pct": 25,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 4,
+      "w": 1,
+      "pct": 25
+    }
+  },
+  "Loz Jones": {
+    "teams": [
+      {
+        "team": "White Lion Hope",
+        "div": "WD2",
+        "p": 6,
+        "w": 2,
         "pct": 33.33,
         "lag": 0,
         "bdF": 0,
@@ -8502,9 +8607,177 @@
       }
     ],
     "total": {
-      "p": 3,
-      "w": 1,
+      "p": 6,
+      "w": 2,
       "pct": 33.33
+    }
+  },
+  "Chris Chang": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Vincent Jute": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 1,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Simon Tyler": {
+    "teams": [
+      {
+        "team": "Gresford Legion",
+        "div": "WD2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Martin Millis": {
+    "teams": [
+      {
+        "team": "Hafod Club Rhos",
+        "div": "WD2",
+        "p": 1,
+        "w": 1,
+        "pct": 100,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 1,
+      "w": 1,
+      "pct": 100
+    }
+  },
+  "Lance Evans": {
+    "teams": [
+      {
+        "team": "White Lion Hope",
+        "div": "WD2",
+        "p": 6,
+        "w": 4,
+        "pct": 66.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 4,
+      "pct": 66.67
+    }
+  },
+  "Calum Millington": {
+    "teams": [
+      {
+        "team": "Plough Gresford",
+        "div": "WD2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
+    }
+  },
+  "Mark Stokes": {
+    "teams": [
+      {
+        "team": "Plough Gresford",
+        "div": "WD2",
+        "p": 6,
+        "w": 1,
+        "pct": 16.67,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 6,
+      "w": 1,
+      "pct": 16.67
+    }
+  },
+  "Derek Williams": {
+    "teams": [
+      {
+        "team": "Y Tai.",
+        "div": "WD2",
+        "p": 2,
+        "w": 0,
+        "pct": 0,
+        "lag": 0,
+        "bdF": 0,
+        "bdA": 0,
+        "forf": 0,
+        "cup": false
+      }
+    ],
+    "total": {
+      "p": 2,
+      "w": 0,
+      "pct": 0
     }
   },
   "Toni Bennion": {
@@ -8570,48 +8843,6 @@
       "pct": 0
     }
   },
-  "Simon Tyler": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 2,
-        "w": 0,
-        "pct": 0,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 2,
-      "w": 0,
-      "pct": 0
-    }
-  },
-  "Calum Millington": {
-    "teams": [
-      {
-        "team": "Plough Gresford",
-        "div": "WD2",
-        "p": 2,
-        "w": 0,
-        "pct": 0,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 2,
-      "w": 0,
-      "pct": 0
-    }
-  },
   "Gaz Stevens": {
     "teams": [
       {
@@ -8633,27 +8864,6 @@
       "pct": 25
     }
   },
-  "Mark Fergal": {
-    "teams": [
-      {
-        "team": "Ruabon Cons B",
-        "div": "WD2",
-        "p": 8,
-        "w": 6,
-        "pct": 75,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 8,
-      "w": 6,
-      "pct": 75
-    }
-  },
   "Curtis Dawson": {
     "teams": [
       {
@@ -8673,132 +8883,6 @@
       "p": 1,
       "w": 1,
       "pct": 100
-    }
-  },
-  "Chris Chang": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 2,
-        "w": 0,
-        "pct": 0,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 2,
-      "w": 0,
-      "pct": 0
-    }
-  },
-  "Vincent Jute": {
-    "teams": [
-      {
-        "team": "Gresford Legion",
-        "div": "WD2",
-        "p": 1,
-        "w": 0,
-        "pct": 0,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 1,
-      "w": 0,
-      "pct": 0
-    }
-  },
-  "Martin Millis": {
-    "teams": [
-      {
-        "team": "Hafod Club Rhos",
-        "div": "WD2",
-        "p": 1,
-        "w": 1,
-        "pct": 100,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 1,
-      "w": 1,
-      "pct": 100
-    }
-  },
-  "Loz Jones": {
-    "teams": [
-      {
-        "team": "White Lion Hope",
-        "div": "WD2",
-        "p": 4,
-        "w": 1,
-        "pct": 25,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 4,
-      "w": 1,
-      "pct": 25
-    }
-  },
-  "Lance Evans": {
-    "teams": [
-      {
-        "team": "White Lion Hope",
-        "div": "WD2",
-        "p": 6,
-        "w": 4,
-        "pct": 66.67,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 6,
-      "w": 4,
-      "pct": 66.67
-    }
-  },
-  "Mark Stokes": {
-    "teams": [
-      {
-        "team": "Plough Gresford",
-        "div": "WD2",
-        "p": 4,
-        "w": 1,
-        "pct": 25,
-        "lag": 0,
-        "bdF": 0,
-        "bdA": 0,
-        "forf": 0,
-        "cup": false
-      }
-    ],
-    "total": {
-      "p": 4,
-      "w": 1,
-      "pct": 25
     }
   },
   "Walsh Vic": {

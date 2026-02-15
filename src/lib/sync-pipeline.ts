@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { parse as parseHTML } from 'node-html-parser';
 import { normalizePlayerName } from '../../scripts/normalize-players';
+import { syncRackEmAppLeague } from './rackemapp-scraper';
 
 /**
  * LeagueAppLive → Firestore + JSON sync library.
@@ -15,13 +16,15 @@ const BASE_URL = 'https://live.leagueapplive.com';
 // --- League configuration ---
 
 export interface LeagueConfig {
-  site: string;           // LeagueAppLive sitename parameter
+  site: string;           // LeagueAppLive sitename parameter, or 'rackemapp'
+  rackemappLeague?: string; // rackemapp league URL slug (e.g. 'ChesterPoolLeague')
   leagueId: string;       // Firestore league ID
   seasonId: string;       // Firestore season ID
   leagueName: string;     // Full display name
   shortName: string;      // Short display name
   dataDir: string;        // Output directory for JSON files
-  divisions: { code: string; siteGroup: string }[];
+  divisions: { code: string; siteGroup: string; rackemappId?: string }[];
+  cupGroups?: { code: string; siteGroup: string }[];
   teamNameMap: Record<string, string>;
 }
 
@@ -99,6 +102,7 @@ export interface ScrapedResult {
   division: string;
   frames: number;
   matchId: string;
+  cup?: boolean;
 }
 
 export interface ScrapedFixture {
@@ -106,6 +110,7 @@ export interface ScrapedFixture {
   home: string;
   away: string;
   division: string;
+  cup?: boolean;
 }
 
 export interface ScrapedFrame {
@@ -462,6 +467,85 @@ async function scrapeFixtures(divCode: string, siteGroup: string, config: League
   return fixtures;
 }
 
+async function scrapeCupResults(cupCode: string, siteGroup: string, config: LeagueConfig): Promise<ScrapedResult[]> {
+  const html = await fetchPage(buildUrl('results.php', { sel_group: siteGroup }, config), config);
+  const root = parseHTML(html);
+  const results: ScrapedResult[] = [];
+
+  const rows = root.querySelectorAll('table tr');
+  for (const row of rows) {
+    const cells = row.querySelectorAll('td');
+    if (cells.length < 5) continue;
+
+    const cellTexts = cells.map(c => c.text.trim());
+
+    // Skip header rows
+    if (cellTexts[0].toLowerCase() === 'date' || cellTexts[0] === '') continue;
+
+    // Format: Date | Time | Home | Score | Away
+    const datePattern = /^\d{2}-\d{2}-\d{4}$/;
+    if (!datePattern.test(cellTexts[0])) continue;
+
+    const date = cellTexts[0];
+    const home = mapTeamName(cellTexts[2], config);
+    const scoreText = cellTexts[3]; // "11 - 10"
+    const away = mapTeamName(cellTexts[4], config);
+
+    const scoreMatch = scoreText.match(/^(\d+)\s*-\s*(\d+)$/);
+    if (!scoreMatch) continue;
+
+    const homeScore = parseInt(scoreMatch[1], 10);
+    const awayScore = parseInt(scoreMatch[2], 10);
+
+    // Generate a synthetic matchId for cup results (no frame-level data available)
+    const matchId = `cup-${date}-${home}-${away}`.replace(/\s+/g, '_');
+
+    results.push({
+      date,
+      home,
+      away,
+      home_score: homeScore,
+      away_score: awayScore,
+      division: cupCode,
+      frames: homeScore + awayScore,
+      matchId,
+      cup: true,
+    });
+  }
+
+  log(`${cupCode}: ${results.length} cup results`);
+  return results;
+}
+
+async function scrapeCupFixtures(cupCode: string, siteGroup: string, config: LeagueConfig): Promise<ScrapedFixture[]> {
+  const html = await fetchPage(buildUrl('fixture1.php', { sel_group: siteGroup }, config), config);
+  const root = parseHTML(html);
+  const fixtures: ScrapedFixture[] = [];
+
+  const rows = root.querySelectorAll('table tr');
+  for (const row of rows) {
+    const cells = row.querySelectorAll('td');
+    if (cells.length < 4) continue;
+
+    const cellTexts = cells.map(c => c.text.trim());
+
+    // Format: Date | Time | Home | Away | Venue | Tables
+    const datePattern = /^\d{2}-\d{2}-\d{4}$/;
+    if (!datePattern.test(cellTexts[0])) continue;
+
+    const date = cellTexts[0];
+    const home = mapTeamName(cellTexts[2], config);
+    const away = mapTeamName(cellTexts[3], config);
+
+    if (home && away) {
+      fixtures.push({ date, home, away, division: cupCode, cup: true });
+    }
+  }
+
+  log(`${cupCode}: ${fixtures.length} cup fixtures`);
+  return fixtures;
+}
+
 // --- Aggregation ---
 
 export function aggregatePlayerStats(
@@ -643,6 +727,7 @@ export async function writeToFirestore(
         away_score: r.away_score,
         division: r.division,
         frames: r.frames,
+        ...(r.cup ? { cup: true } : {}),
       })),
       fixtures: data.fixtures,
       players: data.players,
@@ -650,7 +735,7 @@ export async function writeToFirestore(
       playerStats: data.players2526,
       divisions: data.divisions,
       lastUpdated: Date.now(),
-      lastSyncedFrom: 'leagueapplive',
+      lastSyncedFrom: config.site,
     };
 
     // Write to new multi-league path
@@ -740,6 +825,192 @@ async function writePlayerIndex(
   }
 }
 
+// --- RackEmApp sync pipeline ---
+
+async function syncRackEmAppPipeline(
+  leagueKey: string,
+  config: LeagueConfig,
+  options: SyncOptions
+): Promise<SyncResult> {
+  const { dryRun = false, writeJsonFiles = true, existingData } = options;
+  const syncStartTime = Date.now();
+
+  try {
+    log(`=== RackEmApp → Firestore Sync ===`);
+    log(`League: ${config.leagueName} (${leagueKey})`);
+    log(`Season: ${config.seasonId}`);
+    log(`Output: ${config.dataDir}`);
+    if (dryRun) log(`Mode: DRY RUN (Firestore writes skipped)`, 'WARN');
+    log('');
+
+    // Run the rackemapp scraper
+    const scraped = await syncRackEmAppLeague(config, options);
+
+    // Load existing players.json (24/25 historical data)
+    let players2425: Record<string, unknown> = {};
+    if (existingData?.players) {
+      players2425 = existingData.players;
+      log(`24/25 players loaded: ${Object.keys(players2425).length} (from provided data)`);
+    } else {
+      const playersPath = path.join(config.dataDir, 'players.json');
+      if (fs.existsSync(playersPath)) {
+        players2425 = JSON.parse(fs.readFileSync(playersPath, 'utf8'));
+        log(`24/25 players loaded: ${Object.keys(players2425).length}`);
+      }
+    }
+
+    // Use scraped data, fallback to existing if scraped is empty
+    let players2526 = scraped.players2526;
+    let rosters = scraped.rosters;
+
+    if (Object.keys(scraped.players2526).length === 0) {
+      if (existingData?.players2526) {
+        log('No frame data scraped -- keeping existing players2526 (from provided data)', 'WARN');
+        players2526 = existingData.players2526;
+      } else {
+        const existingPlayers2526Path = path.join(config.dataDir, 'players2526.json');
+        if (fs.existsSync(existingPlayers2526Path)) {
+          log('No frame data scraped -- keeping existing players2526.json', 'WARN');
+          players2526 = JSON.parse(fs.readFileSync(existingPlayers2526Path, 'utf8'));
+        }
+      }
+    }
+    if (Object.keys(scraped.rosters).length === 0) {
+      if (existingData?.rosters) {
+        log('No frame data scraped -- keeping existing rosters (from provided data)', 'WARN');
+        rosters = existingData.rosters;
+      } else {
+        const existingRostersPath = path.join(config.dataDir, 'rosters.json');
+        if (fs.existsSync(existingRostersPath)) {
+          log('No frame data scraped -- keeping existing rosters.json', 'WARN');
+          rosters = JSON.parse(fs.readFileSync(existingRostersPath, 'utf8'));
+        }
+      }
+    }
+
+    // Write JSON backup files
+    if (writeJsonFiles) {
+      log('Writing JSON backup files...');
+      if (!fs.existsSync(config.dataDir)) fs.mkdirSync(config.dataDir, { recursive: true });
+
+      const files: [string, unknown][] = [
+        ['results.json', scraped.results],
+        ['fixtures.json', scraped.fixtures],
+        ['rosters.json', rosters],
+        ['players2526.json', players2526],
+        ['frames.json', scraped.frames],
+      ];
+
+      for (const [filename, data] of files) {
+        const filePath = path.join(config.dataDir, filename);
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+        const stat = fs.statSync(filePath);
+        log(`${filename}: ${(stat.size / 1024).toFixed(1)} KB`);
+      }
+    } else {
+      log('Skipping JSON file writes (cloud mode)');
+    }
+
+    // Write to Firestore
+    if (dryRun) {
+      log('Skipping Firestore write (--dry-run)', 'WARN');
+    } else {
+      log('Writing to Firestore...');
+      await writeToFirestore({
+        results: scraped.results,
+        fixtures: scraped.fixtures,
+        frames: scraped.frames,
+        players: players2425,
+        rosters,
+        players2526,
+        divisions: scraped.divisions,
+      }, config);
+    }
+
+    const durationMs = Date.now() - syncStartTime;
+    log(`=== Sync complete ===`);
+    log(`Total HTTP requests: ${scraped.requestCount}`);
+    log(`Skipped frames (incremental): ${scraped.skippedFrames}`);
+    log(`Results: ${scraped.results.length}`);
+    log(`Fixtures: ${scraped.fixtures.length}`);
+    log(`Matches with frames: ${scraped.frames.length}`);
+    log(`Players (25/26): ${Object.keys(players2526).length}`);
+    log(`Duration: ${Math.round(durationMs / 1000)}s`);
+
+    // Write sync metadata
+    if (!dryRun) {
+      try {
+        const admin = await import('firebase-admin');
+        if (!admin.default.apps.length) {
+          const keyPaths = [
+            path.resolve('service-account.json'),
+            path.resolve('serviceAccountKey.json'),
+          ];
+          let initialized = false;
+          for (const keyPath of keyPaths) {
+            if (fs.existsSync(keyPath)) {
+              const serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf-8'));
+              admin.default.initializeApp({
+                credential: admin.default.credential.cert(serviceAccount),
+                projectId: serviceAccount.project_id,
+              });
+              initialized = true;
+              break;
+            }
+          }
+          if (!initialized) {
+            admin.default.initializeApp({
+              credential: admin.default.credential.applicationDefault(),
+            });
+          }
+        }
+        const db = admin.default.firestore();
+        await db.collection('leagues').doc(config.leagueId)
+          .collection('syncMetadata').doc('latest').set({
+            success: true,
+            syncedAt: Date.now(),
+            results: scraped.results.length,
+            fixtures: scraped.fixtures.length,
+            frames: scraped.frames.length,
+            players: Object.keys(players2526).length,
+            requestCount: scraped.requestCount,
+            skippedFrames: scraped.skippedFrames,
+            durationMs,
+            source: !writeJsonFiles ? 'cloud-function' : 'manual',
+          });
+        log(`Sync metadata written to leagues/${config.leagueId}/syncMetadata/latest`);
+      } catch (err) {
+        log(`Failed to write sync metadata: ${err instanceof Error ? err.message : err}`, 'WARN');
+      }
+    }
+
+    return {
+      success: true,
+      results: scraped.results.length,
+      fixtures: scraped.fixtures.length,
+      frames: scraped.frames.length,
+      players: Object.keys(players2526).length,
+      requestCount: scraped.requestCount,
+      skippedFrames: scraped.skippedFrames,
+      durationMs,
+    };
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    log(`RackEmApp sync failed: ${errorMessage}`, 'ERROR');
+    return {
+      success: false,
+      results: 0,
+      fixtures: 0,
+      frames: 0,
+      players: 0,
+      requestCount: 0,
+      skippedFrames: 0,
+      durationMs: Date.now() - syncStartTime,
+      error: errorMessage,
+    };
+  }
+}
+
 // --- Main sync function ---
 
 export interface SyncResult {
@@ -772,6 +1043,11 @@ export async function syncLeagueData(
     const config = LEAGUE_CONFIGS[leagueKey];
     if (!config) {
       throw new Error(`Unknown league: "${leagueKey}". Available: ${Object.keys(LEAGUE_CONFIGS).join(', ')}`);
+    }
+
+    // Dispatch to rackemapp scraper if this is a rackemapp league
+    if (config.site === 'rackemapp') {
+      return syncRackEmAppPipeline(leagueKey, config, options);
     }
 
     log(`=== LeagueAppLive → Firestore Sync ===`);
@@ -888,6 +1164,29 @@ export async function syncLeagueData(
     }
     log(`Dates resolved: ${datesResolved}, missing: ${datesMissing}`);
 
+    // 2c. Scrape cup results
+    if (config.cupGroups && config.cupGroups.length > 0) {
+      log('Step 2c: Scraping cup results...');
+      for (const cup of config.cupGroups) {
+        const cupResults = await scrapeCupResults(cup.code, cup.siteGroup, config);
+        const cupTeams = new Set<string>();
+        for (const r of cupResults) {
+          if (!matchIdsSeen.has(r.matchId)) {
+            matchIdsSeen.add(r.matchId);
+            allResults.push(r);
+          }
+          cupTeams.add(r.home);
+          cupTeams.add(r.away);
+        }
+        // Add cup division to divisions map
+        divisionsMap[cup.code] = {
+          name: 'Cup',
+          teams: [...cupTeams].sort(),
+        };
+      }
+      log(`Total results (incl. cup): ${allResults.length}`);
+    }
+
     // 3. Scrape frame details for each match
     log('Step 3: Scraping frame details...');
     const allFrames: ScrapedMatchFrames[] = [];
@@ -917,6 +1216,9 @@ export async function syncLeagueData(
     for (const result of allResults) {
       if (processedMatchIds.has(result.matchId)) continue;
       processedMatchIds.add(result.matchId);
+
+      // Skip cup results (no frame-level data available on site)
+      if (result.cup) continue;
 
       // Incremental: skip matches that already have frame data
       if (incremental && existingFramesMap.has(result.matchId)) {
@@ -951,12 +1253,18 @@ export async function syncLeagueData(
     }
     log(`Total matches with frames: ${allFrames.length}`);
 
-    // 4. Scrape fixtures
+    // 4. Scrape fixtures (league + cup)
     log('Step 4: Scraping fixtures...');
     const allFixtures: ScrapedFixture[] = [];
     for (const div of config.divisions) {
       const divFixtures = await scrapeFixtures(div.code, div.siteGroup, config);
       allFixtures.push(...divFixtures);
+    }
+    if (config.cupGroups && config.cupGroups.length > 0) {
+      for (const cup of config.cupGroups) {
+        const cupFixtures = await scrapeCupFixtures(cup.code, cup.siteGroup, config);
+        allFixtures.push(...cupFixtures);
+      }
     }
     log(`Total fixtures: ${allFixtures.length}`);
 
@@ -1018,6 +1326,7 @@ export async function syncLeagueData(
       away_score: r.away_score,
       division: r.division,
       frames: r.frames,
+      ...(r.cup ? { cup: true } : {}),
     }));
 
     // 7. Write to JSON backup files (skipped in cloud mode)

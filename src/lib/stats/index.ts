@@ -83,3 +83,20 @@ export { identifyRivalries } from './rivalry-tracker';
 
 // League Health
 export { calcCompetitivenessIndex, type LeagueHealthData } from './league-health';
+
+// Cross-League Comparison
+export {
+  findIntraLeagueBridgePlayers,
+  findCrossLeagueBridgePlayers,
+  findAllBridgePlayers,
+} from './bridge-players';
+
+export { calculateDivisionStrengths } from './division-strength';
+
+export { calculateLeagueStrengths } from './league-strength';
+
+export {
+  getAdjustedPlayerRating,
+  getAdjustedTeamRating,
+  computeGlobalPercentiles,
+} from './adjusted-ratings';

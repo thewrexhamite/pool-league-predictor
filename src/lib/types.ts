@@ -19,6 +19,7 @@ export interface MatchResult {
   away_score: number;
   division: string;
   frames: number;
+  cup?: boolean;
 }
 
 export interface Fixture {
@@ -309,6 +310,7 @@ export interface FrameData {
   home: string;
   away: string;
   division: string;
+  cup?: boolean;
   frames: {
     frameNum: number;
     homePlayer: string;
@@ -677,4 +679,56 @@ export interface RivalryRecord {
   significance: number;
   lastMet: string;
   frameDiff: number;
+}
+
+// Cross-league comparison types
+
+export interface BridgePlayer {
+  name: string;
+  canonicalName: string;
+  contexts: {
+    leagueId: string;
+    divisionCode: string;
+    stats: PlayerTeamStats2526;
+  }[];
+  matchConfidence: number;
+}
+
+export interface DivisionStrength {
+  divisionCode: string;
+  leagueId: string;
+  strengthOffset: number;
+  confidence: number;
+  bridgePlayerCount: number;
+  sampleSize: number;
+}
+
+export interface LeagueStrength {
+  leagueId: string;
+  strengthOffset: number;
+  confidence: number;
+  bridgePlayerCount: number;
+  divisionStrengths: DivisionStrength[];
+}
+
+export interface AdjustedRating {
+  rawPct: number;
+  bayesianPct: number;
+  adjustedPct: number;
+  zScore: number;
+  leaguePercentile: number;
+  globalPercentile: number;
+  confidence: number;
+  adjustmentBreakdown: {
+    divisionOffset: number;
+    leagueOffset: number;
+    totalAdjustment: number;
+  };
+}
+
+// MultiLeagueData uses LeagueData from data-provider.tsx
+// Import { LeagueData } from './data-provider' when using this type
+export interface MultiLeagueDataState {
+  loading: boolean;
+  error: string | null;
 }
