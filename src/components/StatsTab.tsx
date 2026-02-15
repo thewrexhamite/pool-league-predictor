@@ -289,7 +289,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                     onClick={() => onPlayerClick(p.name)}
                   >
-                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 text-gray-500">{i + 1}</td>
                     <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
                     <td
                       className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
@@ -342,7 +342,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                       className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                       onClick={() => onPlayerClick(p.name)}
                     >
-                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 text-gray-500">{i + 1}</td>
                       <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
                       <td
                         className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
@@ -389,7 +389,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                       className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                       onClick={() => onPlayerClick(p.name)}
                     >
-                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 text-gray-500">{i + 1}</td>
                       <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
                       <td
                         className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
@@ -441,7 +441,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                       className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                       onClick={() => onTeamClick(t.team)}
                     >
-                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 text-gray-500">{i + 1}</td>
                       <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
                       <td className="p-2 text-center text-gray-300">{t.home.p}</td>
                       <td className="p-2 text-center text-win">{t.home.w}</td>
@@ -487,7 +487,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                       className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                       onClick={() => onTeamClick(t.team)}
                     >
-                      <td className="p-2 text-gray-600">{i + 1}</td>
+                      <td className="p-2 text-gray-500">{i + 1}</td>
                       <td className="p-2 font-medium text-info hover:text-info-light transition">{t.team}</td>
                       <td className="p-2 text-center text-gray-300">{t.away.p}</td>
                       <td className="p-2 text-center text-win">{t.away.w}</td>
@@ -536,7 +536,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                     onClick={() => onPlayerClick(p.name)}
                   >
-                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 text-gray-500">{i + 1}</td>
                     <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
                     <td
                       className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
@@ -593,7 +593,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                     onClick={() => onPlayerClick(p.name)}
                   >
-                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 text-gray-500">{i + 1}</td>
                     <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
                     <td
                       className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
@@ -697,7 +697,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                     onClick={() => onTeamClick(e.team)}
                   >
-                    <td className="p-2 text-gray-600">{e.rank}</td>
+                    <td className="p-2 text-gray-500">{e.rank}</td>
                     <td className="p-2 font-medium text-info hover:text-info-light transition">{e.team}</td>
                     <td className="p-2 text-center text-gray-400">{e.completedSOS.toFixed(3)}</td>
                     <td className={clsx(
@@ -756,7 +756,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                     onClick={() => onPlayerClick(p.player)}
                   >
-                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 text-gray-500">{i + 1}</td>
                     <td className="p-2 font-medium text-info hover:text-info-light transition">{p.player}</td>
                     <td
                       className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
@@ -821,7 +821,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                     onClick={() => onPlayerClick(p.name)}
                   >
-                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 text-gray-500">{i + 1}</td>
                     <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
                     <td
                       className="p-2 text-gray-400 cursor-pointer hover:text-info transition"
@@ -866,7 +866,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
                     key={`${r.teamA}-${r.teamB}`}
                     className="border-b border-surface-border/30"
                   >
-                    <td className="p-2 text-gray-600">{i + 1}</td>
+                    <td className="p-2 text-gray-500">{i + 1}</td>
                     <td className="p-2">
                       <button onClick={() => onTeamClick(r.teamA)} className="text-info hover:text-info-light transition">{r.teamA}</button>
                       <span className="text-gray-500 mx-1">vs</span>

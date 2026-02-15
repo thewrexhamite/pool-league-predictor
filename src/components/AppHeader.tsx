@@ -411,6 +411,7 @@ export default function AppHeader({
             <div className="hidden md:block relative">
               <button
                 onClick={() => setTimeMachineOpen(!timeMachineOpen)}
+                aria-expanded={timeMachineOpen}
                 className={clsx(
                   'p-2 rounded transition',
                   timeMachineDate

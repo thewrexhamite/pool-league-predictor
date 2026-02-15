@@ -356,7 +356,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
                   className="border-b border-surface-border/30 cursor-pointer transition hover:bg-surface-elevated/50"
                   onClick={() => onPlayerClick(p.name)}
                 >
-                  <td className="p-2 text-gray-600">{i + 1}</td>
+                  <td className="p-2 text-gray-500">{i + 1}</td>
                   <td className="p-2 font-medium text-info hover:text-info-light transition">{p.name}</td>
                   <td
                     className="p-2 text-gray-400 cursor-pointer hover:text-info transition"

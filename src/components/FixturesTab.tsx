@@ -212,6 +212,7 @@ export default function FixturesTab({
       <div className="mb-4 bg-surface/50 rounded-lg border border-surface-border/30 overflow-hidden">
         <button
           onClick={() => setSquadBuilderOpen(!squadBuilderOpen)}
+          aria-expanded={squadBuilderOpen}
           className="w-full flex items-center justify-between p-3 text-left hover:bg-surface-elevated/30 transition"
         >
           <h3 className="text-sm font-semibold text-accent-light flex items-center gap-1.5">
@@ -423,6 +424,7 @@ export default function FixturesTab({
       <div className="mb-4 bg-surface/50 rounded-lg border border-surface-border/30 overflow-hidden">
         <button
           onClick={() => setMustWinOpen(!mustWinOpen)}
+          aria-expanded={mustWinOpen}
           className="w-full flex items-center justify-between p-3 text-left hover:bg-surface-elevated/30 transition"
         >
           <h3 className="text-sm font-semibold text-gold">Must-Win Analysis</h3>

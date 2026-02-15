@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import NotificationSettings from './NotificationSettings';
 
@@ -12,6 +13,13 @@ export default function NotificationSettingsModal({
   isOpen,
   onClose,
 }: NotificationSettingsModalProps) {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (

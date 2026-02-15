@@ -96,6 +96,7 @@ export default function SimulateTab({
       )}>
         <button
           onClick={() => setTimeMachineExpanded(e => !e)}
+          aria-expanded={timeMachineExpanded || isTimeMachine}
           className="w-full flex items-center justify-between px-3 py-2.5 text-sm"
         >
           <span className="flex items-center gap-2 text-gray-300 font-medium">

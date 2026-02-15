@@ -718,8 +718,12 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
       )}
 
       {loadingHistorical && (
-        <div className="mb-6 flex items-center justify-center py-8">
-          <div className="text-sm text-gray-500">Loading historical stats...</div>
+        <div className="mb-6">
+          <div className="skeleton h-4 w-40 mb-3" />
+          <div className="space-y-2">
+            <div className="skeleton h-8 w-full" />
+            <div className="skeleton h-8 w-full" />
+          </div>
         </div>
       )}
 

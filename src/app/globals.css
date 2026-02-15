@@ -102,7 +102,7 @@
   --tw-gray-300: 209 213 219;
   --tw-gray-400: 156 163 175;
   --tw-gray-500: 107 114 128;
-  --tw-gray-600: 75 85 99;
+  --tw-gray-600: 95 105 120;
   --tw-gray-700: 55 65 81;
   --tw-gray-800: 31 41 55;
   --tw-gray-900: 17 24 39;
@@ -342,6 +342,16 @@ header::before {
 *:focus-visible {
   outline: 2px solid rgb(var(--baize));
   outline-offset: 2px;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Safe area padding for iOS notch devices */
