@@ -336,12 +336,14 @@ export default function MyTeamDashboard({
       </div>
 
       {/* c) Recent Results */}
-      {recentResults.length > 0 && (
-        <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-1.5">
-            <FileText size={16} />
-            Recent Results
-          </h3>
+      <div className="bg-surface-card rounded-card shadow-card p-4">
+        <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-1.5">
+          <FileText size={16} />
+          Recent Results
+        </h3>
+        {recentResults.length === 0 ? (
+          <p className="text-xs text-gray-500">No results yet this season.</p>
+        ) : (
           <div className="space-y-1.5">
             {recentResults.map((r, i) => (
               <div key={i} className="flex items-center text-sm p-2 rounded-lg bg-surface/50">
@@ -367,16 +369,18 @@ export default function MyTeamDashboard({
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* d) Squad Status */}
-      {squadData.length > 0 && (
-        <div className="bg-surface-card rounded-card shadow-card p-4">
-          <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-1.5">
-            <Users size={16} />
-            Squad Status
-          </h3>
+      <div className="bg-surface-card rounded-card shadow-card p-4">
+        <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-1.5">
+          <Users size={16} />
+          Squad Status
+        </h3>
+        {squadData.length === 0 ? (
+          <p className="text-xs text-gray-500">No player data available yet.</p>
+        ) : (
           <div className="space-y-1">
             {squadData.map(p => (
               <div key={p.name} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-surface-elevated transition">
@@ -413,8 +417,8 @@ export default function MyTeamDashboard({
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* e) Team Report Section */}
       <div className="bg-surface-card rounded-card shadow-card p-4">

@@ -26,6 +26,9 @@ export default function RelegationWidget({
         Relegation Battle
       </h3>
       <div className="space-y-2">
+        {standings.length === 0 && (
+          <p className="text-xs text-gray-500 text-center py-4">No standings data yet.</p>
+        )}
         {standings.slice(-4).map((s, i) => {
           const pos = standings.length - 4 + i + 1;
           const safetyLine = standings.length > 2 ? standings[standings.length - 3].pts : 0;

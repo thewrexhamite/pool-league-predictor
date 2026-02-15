@@ -28,6 +28,9 @@ export default function TitleRaceWidget({
         Title Race
       </h3>
       <div className="space-y-2">
+        {standings.length === 0 && (
+          <p className="text-xs text-gray-500 text-center py-4">No standings data yet.</p>
+        )}
         {standings.slice(0, 4).map((s, i) => {
           const gap = leader ? leader.pts - s.pts : 0;
           const isMyTeam = myTeam?.team === s.team && myTeam?.div === selectedDiv;

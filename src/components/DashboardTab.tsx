@@ -103,6 +103,14 @@ export default function DashboardTab({
     <div className="relative space-y-4">
       {/* Quick Glance Cards */}
       <StaggerList className="grid grid-cols-1 md:grid-cols-2 gap-3" staggerDelay={0.1}>
+        {/* Empty state when no cards to show */}
+        {!myTeamGlance && upcomingMatches.length === 0 && alerts.length === 0 && (
+          <div className="col-span-full bg-surface-card rounded-card shadow-card p-6 text-center">
+            <Star size={24} className="mx-auto text-gray-600 mb-2" />
+            <p className="text-sm text-gray-400">Set your team for a personalised dashboard.</p>
+          </div>
+        )}
+
         {/* My Team Card */}
         {myTeam && myTeamGlance && (
           <button
@@ -237,6 +245,7 @@ export default function DashboardTab({
                   onClick={() => setShowWidgetLibrary(false)}
                   className="p-1 rounded-lg hover:bg-surface-elevated transition-colors"
                   title="Close"
+                  aria-label="Close widget library"
                 >
                   <X size={18} className="text-gray-400" />
                 </button>

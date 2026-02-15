@@ -245,7 +245,7 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
             className="w-full bg-surface border border-surface-border rounded-lg pl-8 pr-8 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-baize"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white">
+            <button onClick={() => setSearchQuery('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white" aria-label="Clear search">
               <X size={14} />
             </button>
           )}
@@ -331,19 +331,19 @@ export default function PlayersTab({ selectedDiv, onTeamClick, onPlayerClick }: 
                 <th className="text-left p-2">Team</th>
                 <th className="text-center p-2">P</th>
                 <th className="text-center p-2">W</th>
-                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('adjPct')} title="Confidence-adjusted win%">
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('adjPct')} role="columnheader" aria-sort={sortKey === 'adjPct' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'} title="Confidence-adjusted win%">
                   Adj%<SortIcon k="adjPct" />
                 </th>
-                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('pct')}>
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('pct')} role="columnheader" aria-sort={sortKey === 'pct' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}>
                   Win%<SortIcon k="pct" />
                 </th>
-                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('form')} title="Last 5 form">
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('form')} role="columnheader" aria-sort={sortKey === 'form' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'} title="Last 5 form">
                   Form<SortIcon k="form" />
                 </th>
-                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdF')} title="Break & Dish won per game">
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdF')} role="columnheader" aria-sort={sortKey === 'bdF' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'} title="Break & Dish won per game">
                   BD+<SortIcon k="bdF" />
                 </th>
-                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdA')} title="Break & Dish conceded per game">
+                <th className="text-center p-2 cursor-pointer hover:text-white select-none" onClick={() => handleSort('bdA')} role="columnheader" aria-sort={sortKey === 'bdA' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'} title="Break & Dish conceded per game">
                   BD-<SortIcon k="bdA" />
                 </th>
                 <th className="text-right p-2" title="Last season rating">24/25</th>

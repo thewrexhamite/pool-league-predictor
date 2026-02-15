@@ -65,6 +65,7 @@ export default function SimulateTab({
               onClick={() => setShowChart(!showChart)}
               className="p-1.5 text-gray-400 hover:text-white transition rounded"
               title={showChart ? 'Show table' : 'Show chart'}
+              aria-label={showChart ? 'Switch to table view' : 'Switch to chart view'}
             >
               <BarChart3 size={18} />
             </button>
