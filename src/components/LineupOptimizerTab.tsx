@@ -167,6 +167,12 @@ export default function LineupOptimizerTab({
         Select your team and opponent, mark available players, and get optimized lineup suggestions
       </p>
 
+      {frames.length === 0 && (
+        <div className="mb-4 bg-amber-900/20 border border-amber-600/30 rounded-lg px-3 py-2 text-xs text-amber-300">
+          No frame data found for this league. Optimization will use aggregate stats only and may be less accurate.
+        </div>
+      )}
+
       {/* Team Selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div>

@@ -567,7 +567,11 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
           <Flame size={16} />
           Active Win Streaks
         </h3>
-        {activeStreaks.length === 0 ? (
+        {frames.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500 text-sm">No frame data found for this league.</p>
+          </div>
+        ) : activeStreaks.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-gray-500 text-sm">No players on active win streaks</p>
           </div>
@@ -612,7 +616,17 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       </div>
 
       {/* Power Rankings Section */}
-      {!showAllDivisions && powerRankings.length > 0 && (
+      {!showAllDivisions && (frames.length === 0 ? (
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
+            <Crown size={16} />
+            Power Rankings
+          </h3>
+          <div className="text-center py-8">
+            <p className="text-gray-500 text-sm">No frame data found for this league.</p>
+          </div>
+        </div>
+      ) : powerRankings.length > 0 && (
         <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-accent mb-3 flex items-center gap-1.5">
             <Crown size={16} />
@@ -656,7 +670,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
             </table>
           </div>
         </div>
-      )}
+      ))}
 
       {/* Strength of Schedule Section */}
       {!showAllDivisions && sosData.length > 0 && (
@@ -702,7 +716,17 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
       )}
 
       {/* Clutch Performers Section */}
-      {!showAllDivisions && clutchProfiles.length > 0 && (
+      {!showAllDivisions && (frames.length === 0 ? (
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
+            <Zap size={16} />
+            Clutch Performers
+          </h3>
+          <div className="text-center py-8">
+            <p className="text-gray-500 text-sm">No frame data found for this league.</p>
+          </div>
+        </div>
+      ) : clutchProfiles.length > 0 && (
         <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
           <h3 className="text-sm font-semibold text-warning mb-3 flex items-center gap-1.5">
             <Zap size={16} />
@@ -765,7 +789,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
             </table>
           </div>
         </div>
-      )}
+      ))}
 
       {/* Breakout Players Section */}
       {breakoutPlayers.length > 0 && (

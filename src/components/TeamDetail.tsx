@@ -265,7 +265,12 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
       )}
 
       {/* Set Performance */}
-      {setPerf && (setPerf.set1.played > 0 || setPerf.set2.played > 0) && (
+      {frames.length === 0 ? (
+        <div className="mb-6">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Set Performance</h3>
+          <p className="text-xs text-gray-500 text-center py-3">No frame data found for this league.</p>
+        </div>
+      ) : setPerf && (setPerf.set1.played > 0 || setPerf.set2.played > 0) && (
         <div className="mb-6">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Set Performance</h3>
           <div className="grid grid-cols-2 gap-3">
@@ -328,6 +333,9 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
       {teamPlayers.length > 0 && (
         <div className="mb-6">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Squad</h3>
+          {frames.length === 0 && (
+            <p className="text-[10px] text-gray-600 mb-1">Form and appearance data unavailable — no frame data found.</p>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
             {teamPlayers.map(pl => {
               const pf = playerForms.get(pl.name);

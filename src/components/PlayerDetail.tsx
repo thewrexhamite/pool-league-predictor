@@ -331,6 +331,13 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
         </div>
       )}
 
+      {/* No frame data notice */}
+      {frames.length === 0 && (
+        <div className="mb-6 bg-surface rounded-lg p-3 text-center">
+          <p className="text-xs text-gray-500">No frame data found — form, home/away and clutch stats are unavailable for this league.</p>
+        </div>
+      )}
+
       {/* Form section */}
       {form && (
         <div className="mb-6">
