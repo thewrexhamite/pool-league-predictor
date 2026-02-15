@@ -314,7 +314,7 @@ export default function PlayerDetail({ player, selectedTeam, onBack, onTeamClick
 
   return (
     <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <button onClick={onBack} className="flex items-center gap-1 text-gray-400 hover:text-white text-sm mb-4 transition">
+      <button onClick={onBack} className="flex items-center gap-1.5 text-gray-400 hover:text-white text-sm mb-4 transition -ml-2 px-2 py-1.5 rounded-lg hover:bg-surface-elevated/50 min-h-[44px]">
         <ArrowLeft size={16} /> Back
       </button>
       <h2 className="text-xl font-bold mb-1 text-white">{player}</h2>

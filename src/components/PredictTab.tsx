@@ -378,7 +378,7 @@ export default function PredictTab({
                           return (
                             <td key={ap} className={clsx(
                               'p-1.5 text-center font-bold',
-                              favorable ? 'text-win bg-win-muted/10' : unfavorable ? 'text-loss bg-loss-muted/10' : 'text-gray-400'
+                              favorable ? 'text-win bg-win-muted/10 border-l-2 border-win' : unfavorable ? 'text-loss bg-loss-muted/10 border-l-2 border-loss' : 'text-gray-400'
                             )} title={`${hp} vs ${ap}: ${record.wins}W-${record.losses}L`}>
                               {record.wins}-{record.losses}
                               {total >= 3 && <div className="text-[9px] font-normal text-gray-600">{((record.wins / total) * 100).toFixed(0)}%</div>}

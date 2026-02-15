@@ -318,7 +318,7 @@ export default function AppHeader({
                 key={key}
                 onClick={() => resetDivision(key)}
                 className={clsx(
-                  'px-3 py-1.5 text-xs font-medium transition-all',
+                  'px-3 py-1.5 text-xs font-medium transition-all focus-visible:ring-2 focus-visible:ring-baize focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
                   i === 0 && 'rounded-l-md',
                   cupDivCodes.length === 0 && i === leagueDivCodes.length - 1 && 'rounded-r-md',
                   selectedDiv === key
@@ -338,7 +338,7 @@ export default function AppHeader({
                     key={key}
                     onClick={() => resetDivision(key)}
                     className={clsx(
-                      'px-3 py-1.5 text-xs font-medium transition-all',
+                      'px-3 py-1.5 text-xs font-medium transition-all focus-visible:ring-2 focus-visible:ring-baize focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
                       i === cupDivCodes.length - 1 && 'rounded-r-md',
                       selectedDiv === key
                         ? 'text-fixed-white shadow-sm'
@@ -597,7 +597,7 @@ export default function AppHeader({
                         key={key}
                         onClick={() => resetDivision(key)}
                         className={clsx(
-                          'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
+                          'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center focus-visible:ring-2 focus-visible:ring-baize',
                           selectedDiv === key
                             ? 'text-fixed-white'
                             : 'bg-surface-card text-gray-400'
@@ -618,7 +618,7 @@ export default function AppHeader({
                           key={key}
                           onClick={() => resetDivision(key)}
                           className={clsx(
-                            'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
+                            'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center focus-visible:ring-2 focus-visible:ring-baize',
                             selectedDiv === key
                               ? 'text-fixed-white'
                               : 'bg-surface-card text-gray-400'

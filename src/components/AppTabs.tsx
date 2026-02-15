@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { DivisionCode, StandingEntry, TabKey, KnockoutCompetition } from '@/lib/types';
 import type { SubView } from '@/lib/router';
@@ -56,6 +57,10 @@ export default function AppTabs({
   simulation,
   squadBuilder,
 }: AppTabsProps) {
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [activeTab, selectedDiv]);
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
