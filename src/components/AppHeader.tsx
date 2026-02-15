@@ -65,6 +65,18 @@ export default function AppHeader({
 
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
+  const knockoutCodes = useMemo(
+    () => new Set((leagueData.knockouts || []).map(k => k.code)),
+    [leagueData.knockouts]
+  );
+  const leagueDivCodes = useMemo(
+    () => divisionCodes.filter(c => !knockoutCodes.has(c)) as DivisionCode[],
+    [divisionCodes, knockoutCodes]
+  );
+  const cupDivCodes = useMemo(
+    () => divisionCodes.filter(c => knockoutCodes.has(c)) as DivisionCode[],
+    [divisionCodes, knockoutCodes]
+  );
   const routerOptions = useMemo(() => ({
     validDivisions: divisionCodes.length > 0 ? divisionCodes : [],
     defaultDiv: divisionCodes[0] || '',
@@ -301,14 +313,14 @@ export default function AppHeader({
 
           {/* Centre: Division segmented control */}
           <div className="hidden md:flex items-center bg-surface-card rounded-lg p-0.5 vt-division-control">
-            {(Object.keys(ds.divisions) as DivisionCode[]).map((key, i, arr) => (
+            {leagueDivCodes.map((key, i) => (
               <button
                 key={key}
                 onClick={() => resetDivision(key)}
                 className={clsx(
                   'px-3 py-1.5 text-xs font-medium transition-all',
                   i === 0 && 'rounded-l-md',
-                  i === arr.length - 1 && 'rounded-r-md',
+                  cupDivCodes.length === 0 && i === leagueDivCodes.length - 1 && 'rounded-r-md',
                   selectedDiv === key
                     ? 'text-fixed-white shadow-sm'
                     : 'text-gray-400 hover:text-white'
@@ -318,6 +330,27 @@ export default function AppHeader({
                 {key}
               </button>
             ))}
+            {cupDivCodes.length > 0 && (
+              <>
+                <div className="w-px h-5 bg-surface-border/50 mx-1" />
+                {cupDivCodes.map((key, i) => (
+                  <button
+                    key={key}
+                    onClick={() => resetDivision(key)}
+                    className={clsx(
+                      'px-3 py-1.5 text-xs font-medium transition-all',
+                      i === cupDivCodes.length - 1 && 'rounded-r-md',
+                      selectedDiv === key
+                        ? 'text-fixed-white shadow-sm'
+                        : 'text-gray-400 hover:text-white'
+                    )}
+                    style={selectedDiv === key ? { backgroundColor: 'var(--league-primary)' } : undefined}
+                  >
+                    {ds.divisions[key]?.name || key}
+                  </button>
+                ))}
+              </>
+            )}
           </div>
 
           {/* Right: Search + Time Machine + My Team */}
@@ -558,8 +591,8 @@ export default function AppHeader({
                 {/* Division pills */}
                 <div>
                   <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Division</div>
-                  <div className="flex gap-1">
-                    {(Object.keys(ds.divisions) as DivisionCode[]).map((key) => (
+                  <div className="flex flex-wrap gap-1">
+                    {leagueDivCodes.map((key) => (
                       <button
                         key={key}
                         onClick={() => resetDivision(key)}
@@ -576,6 +609,28 @@ export default function AppHeader({
                     ))}
                   </div>
                 </div>
+                {cupDivCodes.length > 0 && (
+                  <div>
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold mb-1">Cup</div>
+                    <div className="flex flex-wrap gap-1">
+                      {cupDivCodes.map((key) => (
+                        <button
+                          key={key}
+                          onClick={() => resetDivision(key)}
+                          className={clsx(
+                            'flex-1 py-1.5 rounded-lg text-xs font-medium transition text-center',
+                            selectedDiv === key
+                              ? 'text-fixed-white'
+                              : 'bg-surface-card text-gray-400'
+                          )}
+                          style={selectedDiv === key ? { backgroundColor: 'var(--league-primary)' } : undefined}
+                        >
+                          {ds.divisions[key]?.name || key}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* My Team + Time Machine + Quick Lookup */}
                 <div className="flex gap-2">

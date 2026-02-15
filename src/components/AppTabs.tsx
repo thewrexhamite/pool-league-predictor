@@ -107,6 +107,7 @@ export default function AppTabs({
             simulation={simulation}
             squadBuilder={squadBuilder}
             myTeam={myTeam}
+            knockouts={knockouts}
           />
         )}
 

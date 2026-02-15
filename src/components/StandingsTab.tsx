@@ -22,6 +22,17 @@ export default function StandingsTab({ selectedDiv, standings, myTeam, onTeamCli
   const { selected } = useLeague();
   const divName = ds.divisions[selectedDiv]?.name || selectedDiv;
 
+  if (standings.length === 0) {
+    return (
+      <FadeInOnScroll>
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-6 md:p-8 text-center">
+          <Trophy size={32} className="mx-auto text-gray-500 mb-3" />
+          <p className="text-sm text-gray-400">No standings available for {divName}.</p>
+        </div>
+      </FadeInOnScroll>
+    );
+  }
+
   // Format cache age for display
   const getCacheAgeText = (ageMs: number): string => {
     const minutes = Math.floor(ageMs / 60000);

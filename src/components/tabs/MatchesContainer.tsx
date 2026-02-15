@@ -1,6 +1,7 @@
 'use client';
 
-import type { DivisionCode, TabKey } from '@/lib/types';
+import { Trophy } from 'lucide-react';
+import type { DivisionCode, TabKey, KnockoutCompetition } from '@/lib/types';
 import type { SubView } from '@/lib/router';
 import SegmentedControl from '../ui/SegmentedControl';
 import FadeInOnScroll from '../ui/FadeInOnScroll';
@@ -27,6 +28,7 @@ interface MatchesContainerProps {
   simulation: any;
   squadBuilder: any;
   myTeam: { team: string; div: DivisionCode } | null;
+  knockouts?: KnockoutCompetition[];
 }
 
 export default function MatchesContainer({
@@ -40,8 +42,31 @@ export default function MatchesContainer({
   simulation,
   squadBuilder,
   myTeam,
+  knockouts,
 }: MatchesContainerProps) {
   const active = (subView as MatchesSubView) || 'upcoming';
+
+  // Check if selected division is a knockout competition
+  const knockoutMatch = knockouts?.find(k => k.code === selectedDiv);
+  if (knockoutMatch) {
+    return (
+      <FadeInOnScroll>
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-6 md:p-8 text-center">
+          <Trophy size={32} className="mx-auto text-accent mb-3" />
+          <h3 className="text-lg font-bold text-white mb-2">{knockoutMatch.name}</h3>
+          <p className="text-sm text-gray-400 mb-4">
+            This is a knockout competition. View the bracket in the Standings tab.
+          </p>
+          <button
+            onClick={() => onTabChange('standings')}
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-baize hover:bg-baize-light rounded-lg transition"
+          >
+            View Bracket
+          </button>
+        </div>
+      </FadeInOnScroll>
+    );
+  }
 
   return (
     <div className="space-y-4">

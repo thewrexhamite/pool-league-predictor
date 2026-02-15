@@ -211,7 +211,7 @@ export default function TutorialTooltip({
             <button
               onClick={onBack}
               disabled={isFirstStep}
-              className="flex items-center gap-1 text-xs text-gray-500 hover:text-white disabled:opacity-30 disabled:hover:text-gray-500 transition"
+              className="flex items-center justify-center gap-1 text-xs text-gray-500 hover:text-white disabled:opacity-30 disabled:hover:text-gray-500 transition min-h-[44px] min-w-[44px]"
             >
               <ChevronLeft size={14} />
               Back
@@ -219,14 +219,14 @@ export default function TutorialTooltip({
 
             <button
               onClick={onSkip}
-              className="text-[10px] text-gray-600 hover:text-gray-400 transition"
+              className="text-xs text-gray-600 hover:text-gray-400 transition py-1"
             >
               I&apos;ll explore on my own
             </button>
 
             <button
               onClick={onNext}
-              className="flex items-center gap-1 text-xs font-medium text-white bg-baize hover:bg-baize-light px-3 py-1.5 rounded-lg transition"
+              className="flex items-center justify-center gap-1 text-xs font-medium text-white bg-baize hover:bg-baize-light px-4 py-2 rounded-lg transition min-h-[44px] min-w-[44px]"
             >
               {isLastStep ? 'Done' : 'Next'}
               {!isLastStep && <ChevronRight size={14} />}
