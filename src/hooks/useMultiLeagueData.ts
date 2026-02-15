@@ -76,6 +76,7 @@ export function useMultiLeagueData() {
                 players2526: raw.playerStats || raw.players2526 || {},
                 frames,
                 divisions: raw.divisions || {},
+                knockouts: raw.knockouts || [],
                 lastUpdated: raw.lastUpdated,
                 source: 'firestore',
                 isOffline: false,

@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import type { DivisionCode, StandingEntry, SimulationResult, WhatIfResult, SquadOverrides } from '@/lib/types';
+import type { DivisionCode, StandingEntry, KnockoutCompetition } from '@/lib/types';
 import type { SubView } from '@/lib/router';
 import SegmentedControl from '../ui/SegmentedControl';
 import FadeInOnScroll from '../ui/FadeInOnScroll';
 import StandingsTab from '../StandingsTab';
 import SimulateTab from '../SimulateTab';
+import KnockoutBracket from '../KnockoutBracket';
 
 type StandingsSubView = 'current' | 'projected' | 'power';
 
@@ -28,6 +28,7 @@ interface StandingsContainerProps {
   timeMachineDate: string | null;
   onTimeMachineDateChange: (date: string | null) => void;
   availableDates: string[];
+  knockouts: KnockoutCompetition[];
 }
 
 export default function StandingsContainer({
@@ -42,7 +43,14 @@ export default function StandingsContainer({
   timeMachineDate,
   onTimeMachineDateChange,
   availableDates,
+  knockouts,
 }: StandingsContainerProps) {
+  // Check if selected division is a knockout competition
+  const knockout = knockouts.find(k => k.code === selectedDiv);
+  if (knockout) {
+    return <KnockoutBracket competition={knockout} onTeamClick={onTeamClick} />;
+  }
+
   const active = (subView as StandingsSubView) || 'current';
 
   return (

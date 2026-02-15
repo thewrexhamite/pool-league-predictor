@@ -11,6 +11,7 @@ import type {
   FrameData,
   Divisions,
   SeasonData,
+  KnockoutCompetition,
 } from './types';
 
 // Static JSON imports (fallback for wrexham/2526)
@@ -43,6 +44,7 @@ export interface LeagueData {
   players2526: Players2526Map;
   frames: FrameData[];
   divisions: Divisions;
+  knockouts: KnockoutCompetition[];
   lastUpdated: number;
   source: 'static' | 'cache' | 'firestore';
   isOffline: boolean;
@@ -69,6 +71,7 @@ function getStaticData(): LeagueData {
     players2526: players2526Data as Players2526Map,
     frames: framesData as FrameData[],
     divisions: {},
+    knockouts: [],
     lastUpdated: 0,
     source: 'static',
     isOffline: false,
@@ -89,6 +92,7 @@ function getEmptyData(): LeagueData {
     players2526: {},
     frames: [],
     divisions: {},
+    knockouts: [],
     lastUpdated: 0,
     source: 'static',
     isOffline: false,
@@ -275,6 +279,7 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
               players2526: raw.playerStats || raw.players2526 || {},
               frames,
               divisions: raw.divisions || {},
+              knockouts: raw.knockouts || [],
               lastUpdated: raw.lastUpdated,
               source: 'firestore',
               isOffline: false,
@@ -357,6 +362,7 @@ export function DataProvider({ leagueId = 'wrexham', seasonId = '2526', children
               players2526: raw.playerStats || raw.players2526 || {},
               frames,
               divisions: raw.divisions || {},
+              knockouts: raw.knockouts || [],
               lastUpdated: raw.lastUpdated,
               source: 'firestore',
               isOffline: false,

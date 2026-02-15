@@ -88,6 +88,7 @@ function AppContent({ league, refreshing, timeMachineDate, setTimeMachineDate }:
 /** Inner content that can safely use useDetailSheet since DetailSheetProvider wraps it */
 function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDate }: AppContentProps) {
   const { addToast } = useToast();
+  const { data: leagueData } = useLeagueData();
   const appState = useAppState({ timeMachineDate, setTimeMachineDate, onToast: addToast });
   const isAuthenticated = useIsAuthenticated();
   const { profile } = useAuth();
@@ -164,6 +165,7 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
           myTeam={appState.myTeam}
           timeMachineDate={timeMachineDate}
           availableDates={appState.availableDates}
+          knockouts={leagueData.knockouts}
           onTimeMachineDateChange={(date) => {
             setTimeMachineDate(date);
             appState.simulation.clearSimulation();

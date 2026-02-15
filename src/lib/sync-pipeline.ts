@@ -25,6 +25,7 @@ export interface LeagueConfig {
   dataDir: string;        // Output directory for JSON files
   divisions: { code: string; siteGroup: string; rackemappId?: string }[];
   cupGroups?: { code: string; siteGroup: string }[];
+  knockouts?: { code: string; name: string; competitionId: string }[];
   teamNameMap: Record<string, string>;
 }
 
@@ -546,6 +547,184 @@ async function scrapeCupFixtures(cupCode: string, siteGroup: string, config: Lea
   return fixtures;
 }
 
+// --- Knockout scraping ---
+
+interface KnockoutMatchData {
+  matchNum: number;
+  round: string;
+  roundIndex: number;
+  teamA: string;
+  teamB: string | null;
+  scoreA: number | null;
+  scoreB: number | null;
+  venue: string;
+  date: string;
+  time: string;
+  status: 'played' | 'scheduled' | 'bye';
+  winner: string | null;
+}
+
+interface KnockoutRoundData {
+  name: string;
+  index: number;
+  matches: KnockoutMatchData[];
+}
+
+interface KnockoutCompetitionData {
+  code: string;
+  name: string;
+  competitionId: string;
+  rounds: KnockoutRoundData[];
+}
+
+const ROUND_INDEX_MAP: Record<string, number> = {
+  'final': 1,
+  'finals': 1,
+  'semi-finals': 2,
+  'semi finals': 2,
+  'quarter-finals': 3,
+  'quarter finals': 3,
+  'last 16': 4,
+  'last 32': 5,
+  'last 64': 6,
+};
+
+function parseRoundIndex(roundName: string): number {
+  const lower = roundName.toLowerCase().trim();
+  return ROUND_INDEX_MAP[lower] || 7;
+}
+
+async function scrapeKnockout(
+  knockout: { code: string; name: string; competitionId: string },
+  config: LeagueConfig
+): Promise<KnockoutCompetitionData> {
+  const url = buildUrl('knockout.php', {
+    SetCompetitionId: knockout.competitionId,
+    SetRoundId: '0', // 0 = all rounds
+  }, config);
+  const html = await fetchPage(url, config);
+  const root = parseHTML(html);
+
+  const rounds: KnockoutRoundData[] = [];
+  let currentRound: KnockoutRoundData | null = null;
+
+  // Walk through all nested tables to find round headers and match rows
+  const allTables = root.querySelectorAll('table[bgcolor]');
+
+  for (const table of allTables) {
+    const bgcolor = (table.getAttribute('bgcolor') || '').toUpperCase();
+
+    // Round header: cyan background
+    if (bgcolor === '#77FFFF') {
+      const bold = table.querySelector('b');
+      if (bold) {
+        const roundName = bold.text.trim();
+        const roundIndex = parseRoundIndex(roundName);
+        currentRound = { name: roundName, index: roundIndex, matches: [] };
+        rounds.push(currentRound);
+      }
+      continue;
+    }
+
+    // Match row: colored background
+    if (!currentRound) continue;
+    if (!['#FFBBBB', '#FFFFBB', '#BBFFBB', '#EEEEEE'].includes(bgcolor)) continue;
+
+    // Determine status from bgcolor
+    let status: 'played' | 'scheduled' | 'bye';
+    if (bgcolor === '#FFBBBB') status = 'played';
+    else if (bgcolor === '#EEEEEE') status = 'bye';
+    else status = 'scheduled';
+
+    // Extract p1, p4, p2 custom tags
+    const td = table.querySelector('td');
+    if (!td) continue;
+    const innerHTML = td.innerHTML;
+
+    // Parse p1: match info
+    const p1Match = innerHTML.match(/<p1[^>]*>(.*?)<\/p1>/i);
+    const p1Text = p1Match ? p1Match[1].trim() : '';
+
+    // Parse p4 tags: scores
+    const p4Matches = [...innerHTML.matchAll(/<p4[^>]*>(.*?)<\/p4>/gi)];
+    const scoreAText = p4Matches[0] ? p4Matches[0][1].trim() : '';
+    const scoreBText = p4Matches[1] ? p4Matches[1][1].trim() : '';
+
+    // Parse p2 tags: table, time, date
+    const p2Matches = [...innerHTML.matchAll(/<p2[^>]*>(.*?)<\/p2>/gi)];
+    const timeText = p2Matches[1] ? p2Matches[1][1].trim() : '';
+    const dateText = p2Matches[2] ? p2Matches[2][1].trim() : '';
+
+    // Parse team names and venue from p1
+    // Format: "1 TeamA v TeamB (Venue)" or "1 ---------- v ----------"
+    let matchNum = 0;
+    let teamA = '';
+    let teamB: string | null = null;
+    let venue = '';
+
+    const isBye = p1Text.includes('----------');
+
+    if (isBye) {
+      const byeNumMatch = p1Text.match(/^(\d+)/);
+      matchNum = byeNumMatch ? parseInt(byeNumMatch[1], 10) : 0;
+      status = 'bye';
+    } else {
+      // Try with venue in parentheses
+      const withVenue = p1Text.match(/^(\d+)\s+(.+?)\s+v\s+(.+?)\s*\(([^)]*)\)\s*$/);
+      if (withVenue) {
+        matchNum = parseInt(withVenue[1], 10);
+        teamA = mapTeamName(withVenue[2].replace(/\.+$/, '').trim(), config);
+        teamB = mapTeamName(withVenue[3].replace(/\.+$/, '').trim(), config);
+        venue = withVenue[4].trim();
+      } else {
+        // Without venue
+        const noVenue = p1Text.match(/^(\d+)\s+(.+?)\s+v\s+(.+)$/);
+        if (noVenue) {
+          matchNum = parseInt(noVenue[1], 10);
+          teamA = mapTeamName(noVenue[2].replace(/\.+$/, '').trim(), config);
+          teamB = mapTeamName(noVenue[3].replace(/\.+$/, '').trim(), config);
+        }
+      }
+    }
+
+    const scoreA = status === 'played' && scoreAText && /^\d+$/.test(scoreAText) ? parseInt(scoreAText, 10) : null;
+    const scoreB = status === 'played' && scoreBText && /^\d+$/.test(scoreBText) ? parseInt(scoreBText, 10) : null;
+
+    // Determine winner
+    let winner: string | null = null;
+    if (status === 'played' && scoreA !== null && scoreB !== null && teamA && teamB) {
+      winner = scoreA > scoreB ? teamA : scoreB > scoreA ? teamB : null;
+    }
+
+    currentRound.matches.push({
+      matchNum,
+      round: currentRound.name,
+      roundIndex: currentRound.index,
+      teamA,
+      teamB,
+      scoreA,
+      scoreB,
+      venue,
+      date: dateText,
+      time: timeText,
+      status,
+      winner,
+    });
+  }
+
+  // Sort rounds: highest index first (earliest rounds first: Last 16 → QF → SF → F)
+  rounds.sort((a, b) => b.index - a.index);
+
+  log(`${knockout.code}: ${rounds.length} rounds, ${rounds.reduce((s, r) => s + r.matches.length, 0)} matches`);
+
+  return {
+    code: knockout.code,
+    name: knockout.name,
+    competitionId: knockout.competitionId,
+    rounds,
+  };
+}
+
 // --- Aggregation ---
 
 export function aggregatePlayerStats(
@@ -665,6 +844,7 @@ export async function writeToFirestore(
     rosters: Record<string, string[]>;
     players2526: Record<string, PlayerStats>;
     divisions: Record<string, { name: string; teams: string[] }>;
+    knockouts?: KnockoutCompetitionData[];
   },
   config: LeagueConfig
 ) {
@@ -734,6 +914,7 @@ export async function writeToFirestore(
       rosters: data.rosters,
       playerStats: data.players2526,
       divisions: data.divisions,
+      ...(data.knockouts && data.knockouts.length > 0 ? { knockouts: data.knockouts } : {}),
       lastUpdated: Date.now(),
       lastSyncedFrom: config.site,
     };
@@ -1268,6 +1449,30 @@ export async function syncLeagueData(
     }
     log(`Total fixtures: ${allFixtures.length}`);
 
+    // 4b. Scrape knockout brackets
+    const allKnockouts: KnockoutCompetitionData[] = [];
+    if (config.knockouts && config.knockouts.length > 0) {
+      log('Step 4b: Scraping knockout brackets...');
+      for (const ko of config.knockouts) {
+        const competition = await scrapeKnockout(ko, config);
+        allKnockouts.push(competition);
+
+        // Extract teams from knockout matches and add to divisionsMap
+        const koTeams = new Set<string>();
+        for (const round of competition.rounds) {
+          for (const match of round.matches) {
+            if (match.teamA) koTeams.add(match.teamA);
+            if (match.teamB) koTeams.add(match.teamB);
+          }
+        }
+        divisionsMap[ko.code] = {
+          name: ko.name,
+          teams: [...koTeams].sort(),
+        };
+      }
+      log(`Knockout competitions scraped: ${allKnockouts.length}`);
+    }
+
     // 5. Aggregate frame data into player stats and rosters
     log('Step 5: Aggregating player stats...');
     const { players2526: scrapedPlayers2526, rosters: scrapedRosters } = aggregatePlayerStats(allFrames, config);
@@ -1341,6 +1546,9 @@ export async function syncLeagueData(
         ['players2526.json', players2526],
         ['frames.json', allFrames],
       ];
+      if (allKnockouts.length > 0) {
+        files.push(['knockouts.json', allKnockouts]);
+      }
 
       for (const [filename, data] of files) {
         const filePath = path.join(config.dataDir, filename);
@@ -1365,6 +1573,7 @@ export async function syncLeagueData(
         rosters,
         players2526,
         divisions: divisionsMap,
+        knockouts: allKnockouts,
       }, config);
     }
 

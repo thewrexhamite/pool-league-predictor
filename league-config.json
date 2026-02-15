@@ -15,8 +15,11 @@
       { "code": "WD1", "siteGroup": "Wednesday Division 1" },
       { "code": "WD2", "siteGroup": "Wednesday Division 2" }
     ],
-    "cupGroups": [
-      { "code": "CUP", "siteGroup": "Cup" }
+    "knockouts": [
+      { "code": "WCUP", "name": "Wed Cup", "competitionId": "246" },
+      { "code": "WCON", "name": "Wed Cons Cup", "competitionId": "247" },
+      { "code": "SCUP", "name": "Sun Super Cup", "competitionId": "249" },
+      { "code": "SCON", "name": "Sun Cons Cup", "competitionId": "250" }
     ],
     "teamNameMap": {}
   },

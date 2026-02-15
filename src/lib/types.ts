@@ -115,6 +115,35 @@ export interface CareerStats {
   careerWinRate: number; // 0-1
 }
 
+// Knockout bracket types
+export interface KnockoutMatch {
+  matchNum: number;
+  round: string;
+  roundIndex: number; // 1=Finals, 2=Semis, 3=QF, 4=Last16, 5=Last32
+  teamA: string;
+  teamB: string | null;
+  scoreA: number | null;
+  scoreB: number | null;
+  venue: string;
+  date: string;
+  time: string;
+  status: 'played' | 'scheduled' | 'bye';
+  winner: string | null;
+}
+
+export interface KnockoutRound {
+  name: string;
+  index: number;
+  matches: KnockoutMatch[];
+}
+
+export interface KnockoutCompetition {
+  code: string;
+  name: string;
+  competitionId: string;
+  rounds: KnockoutRound[];
+}
+
 // Standings types
 export interface StandingEntry {
   team: string;
@@ -341,6 +370,7 @@ export interface SeasonData {
   playerStats?: Players2526Map; // Canonical field name (new)
   players2526?: Players2526Map; // Legacy field name (backward compat)
   divisions: Record<DivisionCode, Division>;
+  knockouts?: KnockoutCompetition[];
   lastUpdated: number; // timestamp
   lastSyncedFrom: string;
 }

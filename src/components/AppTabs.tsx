@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import type { DivisionCode, StandingEntry, TabKey } from '@/lib/types';
+import type { DivisionCode, StandingEntry, TabKey, KnockoutCompetition } from '@/lib/types';
 import type { SubView } from '@/lib/router';
 import DashboardTab from './DashboardTab';
 import StandingsContainer from './tabs/StandingsContainer';
@@ -19,6 +19,7 @@ interface AppTabsProps {
   myTeam: { team: string; div: DivisionCode } | null;
   timeMachineDate: string | null;
   availableDates: string[];
+  knockouts: KnockoutCompetition[];
   onTimeMachineDateChange: (date: string | null) => void;
   onTeamClick: (team: string) => void;
   onPlayerClick: (name: string) => void;
@@ -42,6 +43,7 @@ export default function AppTabs({
   myTeam,
   timeMachineDate,
   availableDates,
+  knockouts,
   onTimeMachineDateChange,
   onTeamClick,
   onPlayerClick,
@@ -89,6 +91,7 @@ export default function AppTabs({
             timeMachineDate={timeMachineDate}
             onTimeMachineDateChange={onTimeMachineDateChange}
             availableDates={availableDates}
+            knockouts={knockouts}
           />
         )}
 
