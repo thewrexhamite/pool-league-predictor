@@ -16,6 +16,7 @@ import {
   ChevronDown,
   Menu,
   Users,
+  CircleDot,
 } from 'lucide-react';
 import type { DivisionCode, LeagueMeta, SimulationResult } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
@@ -31,6 +32,7 @@ import { useToast } from './ToastProvider';
 import ThemeToggle from './ThemeToggle';
 import SeasonSelector from './SeasonSelector';
 import { UserMenu } from './auth';
+import { useTutorial } from './tutorial/TutorialProvider';
 
 interface AppHeaderProps {
   timeMachineDate: string | null;
@@ -42,6 +44,7 @@ interface AppHeaderProps {
   refreshing: boolean;
   availableDates: string[];
   league?: LeagueMeta;
+  isKnockout?: boolean;
 }
 
 export default function AppHeader({
@@ -54,6 +57,7 @@ export default function AppHeader({
   refreshing,
   availableDates,
   league,
+  isKnockout = false,
 }: AppHeaderProps) {
   const { ds } = useActiveData();
   const { data: leagueData } = useLeagueData();
@@ -62,6 +66,11 @@ export default function AppHeader({
   const { leagues, selected, selectLeague, clearSelection } = useLeague();
   const { logo } = useLeagueBranding();
   const nextRouter = useRouter();
+  const { startTutorial, completedTutorials, availableTutorials } = useTutorial();
+  const handleStartTutorial = () => {
+    const next = availableTutorials.find(t => !completedTutorials.includes(t.id));
+    startTutorial(next?.id || 'command-centre');
+  };
 
   // Dynamic divisions from data
   const divisionCodes = useMemo(() => Object.keys(ds.divisions), [ds.divisions]);
@@ -241,6 +250,11 @@ export default function AppHeader({
   const seasonPct = totalPlayed + totalRemaining > 0
     ? Math.round((totalPlayed / (totalPlayed + totalRemaining)) * 100)
     : 0;
+
+  const visibleTabs = useMemo(
+    () => isKnockout ? TABS.filter(t => t.id === 'home' || t.id === 'standings') : TABS,
+    [isKnockout]
+  );
 
   return (
     <header data-tutorial="header" className="sticky top-0 z-40 bg-surface/95 backdrop-blur-sm border-b border-surface-border glass glass-edge header-scroll-shadow vt-header">
@@ -461,6 +475,7 @@ export default function AppHeader({
               <UserMenu
                 onLoginClick={() => nextRouter.push('/auth/login')}
                 onNotificationSettingsClick={() => setShowNotificationSettings(true)}
+                onStartTutorial={handleStartTutorial}
               />
             </div>
 
@@ -660,6 +675,13 @@ export default function AppHeader({
                   <Search size={14} />
                   Quick Lookup
                 </button>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); nextRouter.push('/kiosk'); }}
+                  className="flex items-center justify-center gap-1.5 bg-surface-card border border-surface-border rounded-lg py-2 text-xs text-gray-300 hover:text-white transition"
+                >
+                  <CircleDot size={14} />
+                  The Chalk
+                </button>
 
                 {/* Theme picker */}
                 <div>
@@ -673,6 +695,7 @@ export default function AppHeader({
                   <UserMenu
                     onLoginClick={() => { setMobileMenuOpen(false); nextRouter.push('/auth/login'); }}
                     onNotificationSettingsClick={() => { setMobileMenuOpen(false); setShowNotificationSettings(true); }}
+                    onStartTutorial={handleStartTutorial}
                   />
                 </div>
 
@@ -748,7 +771,7 @@ export default function AppHeader({
       <div className="hidden md:block border-t border-surface-border/50">
         <div className="max-w-6xl mx-auto px-4">
           <nav className="flex overflow-x-auto scrollbar-none -mb-px" role="tablist">
-            {TABS.map(tab => {
+            {visibleTabs.map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
               return (

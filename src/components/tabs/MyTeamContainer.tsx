@@ -6,6 +6,7 @@ import SegmentedControl from '../ui/SegmentedControl';
 import FadeInOnScroll from '../ui/FadeInOnScroll';
 import CaptainDashboard from '../CaptainDashboard';
 import LineupOptimizerTab from '../LineupOptimizerTab';
+import SquadBuilderPanel from '../SquadBuilderPanel';
 
 type MyTeamSubView = 'overview' | 'squad' | 'optimizer';
 
@@ -61,12 +62,27 @@ export default function MyTeamContainer({
       )}
 
       {active === 'squad' && (
-        <CaptainDashboard
-          simResults={simulation.simResults}
-          onTeamClick={onTeamClick}
-          onPlayerClick={onPlayerClick}
-          onSetMyTeam={onSetMyTeam}
-        />
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
+          <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            Squad Builder
+          </h2>
+          <SquadBuilderPanel
+            selectedDiv={selectedDiv}
+            squadOverrides={squadBuilder.squadOverrides}
+            squadBuilderTeam={squadBuilder.squadBuilderTeam}
+            squadPlayerSearch={squadBuilder.squadPlayerSearch}
+            squadTopN={squadBuilder.squadTopN}
+            onSquadBuilderTeamChange={squadBuilder.onSquadBuilderTeamChange}
+            onSquadPlayerSearchChange={squadBuilder.onSquadPlayerSearchChange}
+            onSquadTopNChange={squadBuilder.onSquadTopNChange}
+            onAddSquadPlayer={squadBuilder.onAddSquadPlayer}
+            onRemoveSquadPlayer={squadBuilder.onRemoveSquadPlayer}
+            onRestoreSquadPlayer={squadBuilder.onRestoreSquadPlayer}
+            onUnaddSquadPlayer={squadBuilder.onUnaddSquadPlayer}
+            onClearAll={squadBuilder.onClearAll}
+            onTeamClick={onTeamClick}
+          />
+        </div>
       )}
 
       {active === 'optimizer' && (

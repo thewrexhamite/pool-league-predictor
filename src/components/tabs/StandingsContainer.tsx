@@ -1,12 +1,15 @@
 'use client';
 
-import type { DivisionCode, StandingEntry, KnockoutCompetition } from '@/lib/types';
+import { useState } from 'react';
+import type { DivisionCode, StandingEntry, KnockoutCompetition, KnockoutMatch } from '@/lib/types';
 import type { SubView } from '@/lib/router';
 import SegmentedControl from '../ui/SegmentedControl';
 import FadeInOnScroll from '../ui/FadeInOnScroll';
 import StandingsTab from '../StandingsTab';
 import SimulateTab from '../SimulateTab';
+import PowerRankingsTab from '../PowerRankingsTab';
 import KnockoutBracket from '../KnockoutBracket';
+import KnockoutMatchDetail from '../KnockoutMatchDetail';
 
 type StandingsSubView = 'current' | 'projected' | 'power';
 
@@ -47,8 +50,25 @@ export default function StandingsContainer({
 }: StandingsContainerProps) {
   // Check if selected division is a knockout competition
   const knockout = knockouts.find(k => k.code === selectedDiv);
+  const [selectedMatch, setSelectedMatch] = useState<KnockoutMatch | null>(null);
+
   if (knockout) {
-    return <KnockoutBracket competition={knockout} onTeamClick={onTeamClick} />;
+    return (
+      <>
+        <KnockoutBracket
+          competition={knockout}
+          onTeamClick={onTeamClick}
+          onMatchClick={setSelectedMatch}
+        />
+        {selectedMatch && (
+          <KnockoutMatchDetail
+            match={selectedMatch}
+            onClose={() => setSelectedMatch(null)}
+            onTeamClick={onTeamClick}
+          />
+        )}
+      </>
+    );
   }
 
   const active = (subView as StandingsSubView) || 'current';
@@ -92,9 +112,8 @@ export default function StandingsContainer({
       )}
 
       {active === 'power' && (
-        <StandingsTab
+        <PowerRankingsTab
           selectedDiv={selectedDiv}
-          standings={standings}
           myTeam={myTeam}
           onTeamClick={onTeamClick}
         />

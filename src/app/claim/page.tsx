@@ -8,6 +8,8 @@
 
 import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import { useAuth, addClaimedProfile, type ClaimedProfile } from '@/lib/auth';
 import { AuthGuard } from '@/components/auth';
 import { formatWinPct } from '@/lib/stats';
@@ -64,6 +66,12 @@ function ClaimPageContent() {
         selectedPlayer.name
       );
       await refreshProfile();
+      // Auto-enable insights for the user
+      await setDoc(
+        doc(db, 'gamification', user.uid),
+        { insightsEnabled: true, usageTrackingEnabled: true },
+        { merge: true }
+      );
       clearSelection();
     } catch (err) {
       console.error('Failed to claim profile:', err);
