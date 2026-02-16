@@ -2,10 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, Plus, X, Star, Calendar, TrendingUp, TrendingDown, ChevronRight, Trophy, AlertTriangle } from 'lucide-react';
+import { Settings, Plus, X, Star, Calendar, TrendingUp, TrendingDown, ChevronRight, Trophy, AlertTriangle, ScanLine } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
+import { useIsAuthenticated } from '@/lib/auth';
 import { getRemainingFixtures, getTeamResults, calcStandings } from '@/lib/predictions/index';
 import DashboardEditor from './dashboard/DashboardEditor';
 import WidgetLibrary from './dashboard/WidgetLibrary';
@@ -20,6 +21,7 @@ interface DashboardTabProps {
   onPlayerClick: (name: string) => void;
   onPredict: (home: string, away: string) => void;
   onQuickLookup?: () => void;
+  onJoinTable?: () => void;
   seasonId?: string;
   seasonLabel?: string;
 }
@@ -32,12 +34,14 @@ export default function DashboardTab({
   onPlayerClick,
   onPredict,
   onQuickLookup,
+  onJoinTable,
   seasonId,
   seasonLabel,
 }: DashboardTabProps) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showWidgetLibrary, setShowWidgetLibrary] = useState(false);
   const { ds } = useActiveData();
+  const isAuthenticated = useIsAuthenticated();
 
   // My Team quick glance
   const myTeamGlance = useMemo(() => {
@@ -101,6 +105,23 @@ export default function DashboardTab({
 
   return (
     <div className="relative space-y-4">
+      {/* Join a Table card — authenticated users only */}
+      {isAuthenticated && onJoinTable && (
+        <div className="bg-gradient-to-r from-baize/5 to-transparent border border-baize/20 rounded-card shadow-card p-4 flex items-center justify-between gap-4">
+          <div>
+            <h3 className="text-sm font-semibold text-white">Join a Table</h3>
+            <p className="text-xs text-gray-400 mt-0.5">Scan a kiosk QR code to join the queue</p>
+          </div>
+          <button
+            onClick={onJoinTable}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-baize rounded-lg hover:bg-baize-light transition active:scale-[0.98] shrink-0"
+          >
+            <ScanLine size={16} />
+            Scan QR
+          </button>
+        </div>
+      )}
+
       {/* Quick Glance Cards */}
       <StaggerList className="grid grid-cols-1 md:grid-cols-2 gap-3" staggerDelay={0.1}>
         {/* Empty state when no cards to show */}

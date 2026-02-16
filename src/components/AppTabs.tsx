@@ -29,6 +29,7 @@ interface AppTabsProps {
   onSubViewChange: (sv: SubView) => void;
   onDivisionReset: (div: DivisionCode) => void;
   onSetMyTeam?: () => void;
+  onJoinTable?: () => void;
   prediction: any;
   simulation: any;
   squadBuilder: any;
@@ -53,6 +54,7 @@ export default function AppTabs({
   onSubViewChange,
   onDivisionReset,
   onSetMyTeam,
+  onJoinTable,
   prediction,
   simulation,
   squadBuilder,
@@ -80,6 +82,7 @@ export default function AppTabs({
             onTeamClick={onTeamClick}
             onPlayerClick={onPlayerClick}
             onPredict={onPredict}
+            onJoinTable={onJoinTable}
           />
         )}
 

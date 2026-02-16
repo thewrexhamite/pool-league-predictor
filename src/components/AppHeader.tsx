@@ -17,10 +17,13 @@ import {
   Menu,
   Users,
   CircleDot,
+  ScanLine,
+  User,
 } from 'lucide-react';
 import type { DivisionCode, LeagueMeta, SimulationResult } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { useActiveData } from '@/lib/active-data-provider';
+import { useAuth, useIsAuthenticated } from '@/lib/auth';
 import { useMyTeam } from '@/hooks/use-my-team';
 import { useHashRouter } from '@/lib/router';
 import { getAllRemainingFixtures, getAllLeaguePlayers } from '@/lib/predictions';
@@ -45,6 +48,7 @@ interface AppHeaderProps {
   availableDates: string[];
   league?: LeagueMeta;
   isKnockout?: boolean;
+  setShowQRScanner: (show: boolean) => void;
 }
 
 export default function AppHeader({
@@ -58,9 +62,12 @@ export default function AppHeader({
   availableDates,
   league,
   isKnockout = false,
+  setShowQRScanner,
 }: AppHeaderProps) {
   const { ds } = useActiveData();
   const { data: leagueData } = useLeagueData();
+  const { user, profile } = useAuth();
+  const isAuthenticated = useIsAuthenticated();
   const { addToast } = useToast();
   const { myTeam } = useMyTeam();
   const { leagues, selected, selectLeague, clearSelection } = useLeague();
@@ -504,6 +511,53 @@ export default function AppHeader({
                 {timeAgo}
               </button>
             )}
+
+            {/* Mobile QR scan button */}
+            <button
+              onClick={() => {
+                if (isAuthenticated) {
+                  setShowQRScanner(true);
+                } else {
+                  nextRouter.push('/auth/login');
+                }
+              }}
+              className="md:hidden p-2 text-gray-400 hover:text-white transition"
+              aria-label="Scan QR code"
+            >
+              <ScanLine size={20} />
+            </button>
+
+            {/* Mobile profile avatar */}
+            <button
+              onClick={() => {
+                if (isAuthenticated) {
+                  nextRouter.push('/profile');
+                } else {
+                  nextRouter.push('/auth/login');
+                }
+              }}
+              className="md:hidden flex items-center justify-center transition"
+              aria-label="Profile"
+            >
+              {isAuthenticated && profile?.photoURL ? (
+                <Image
+                  src={profile.photoURL}
+                  alt="Profile"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7 rounded-full object-cover ring-1 ring-surface-border"
+                  unoptimized
+                />
+              ) : isAuthenticated && profile?.displayName ? (
+                <div className="w-7 h-7 rounded-full bg-baize/20 text-baize flex items-center justify-center text-xs font-bold ring-1 ring-surface-border">
+                  {profile.displayName.charAt(0).toUpperCase()}
+                </div>
+              ) : (
+                <div className="w-7 h-7 rounded-full bg-surface-card flex items-center justify-center ring-1 ring-surface-border">
+                  <User size={14} className="text-gray-400" />
+                </div>
+              )}
+            </button>
 
             {/* Mobile hamburger button */}
             <button

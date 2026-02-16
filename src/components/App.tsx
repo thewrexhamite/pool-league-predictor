@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import type { LeagueMeta } from '@/lib/types';
 import { useLeagueData } from '@/lib/data-provider';
 import { ActiveDataProvider } from '@/lib/active-data-provider';
@@ -28,6 +28,7 @@ import SheetContent from './SheetContent';
 import { useSheetBridge } from '@/hooks/use-sheet-bridge';
 import { withViewTransition } from '@/lib/view-transitions';
 import { GamificationProvider } from '@/lib/gamification/GamificationProvider';
+import { QRScanner } from './chalk/join/QRScanner';
 
 /** Outer shell: owns time-machine state + wraps children with ActiveDataProvider */
 function AppInner({ league }: { league?: LeagueMeta }) {
@@ -93,6 +94,7 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
   const isAuthenticated = useIsAuthenticated();
   const { profile } = useAuth();
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showQRScanner, setShowQRScanner] = useState(false);
 
   // Show onboarding modal for new sign-ups
   useEffect(() => {
@@ -124,6 +126,23 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appState.router.setTab]);
 
+  // Check if current division is a knockout cup
+  const knockoutCodes = useMemo(
+    () => new Set((leagueData.knockouts || []).map(k => k.code)),
+    [leagueData.knockouts]
+  );
+  const isKnockout = knockoutCodes.has(appState.safeDiv);
+
+  // Auto-switch to standings when selecting a cup division while on a hidden tab
+  useEffect(() => {
+    if (isKnockout) {
+      const currentTab = appState.router.tab;
+      if (currentTab === 'matches' || currentTab === 'stats' || currentTab === 'myteam') {
+        appState.router.setTab('standings');
+      }
+    }
+  }, [isKnockout, appState.router.tab, appState.router]);
+
   // Cmd/Ctrl+K keyboard shortcut for Quick Lookup
   const { setShowQuickLookup } = appState;
   useEffect(() => {
@@ -152,6 +171,8 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
         refreshing={refreshing}
         availableDates={appState.availableDates}
         league={league}
+        isKnockout={isKnockout}
+        setShowQRScanner={setShowQRScanner}
       />
 
       <main className="max-w-6xl mx-auto px-4 py-6 pb-24 md:pb-6">
@@ -183,6 +204,7 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
           prediction={appState.prediction}
           simulation={appState.simulation}
           squadBuilder={appState.squadBuilder}
+          onJoinTable={() => setShowQRScanner(true)}
         />
         <AppFooter />
       </main>
@@ -190,7 +212,7 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
       <BackToTopButton />
 
       <div className="md:hidden">
-        <BottomTabBar activeTab={appState.router.tab} onTabChange={handleTabChange} />
+        <BottomTabBar activeTab={appState.router.tab} onTabChange={handleTabChange} isKnockout={isKnockout} />
       </div>
 
       <MyTeamModal
@@ -258,6 +280,16 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
           appState.setShowNotificationSettings(true);
         }}
       />
+
+      {showQRScanner && (
+        <QRScanner
+          onScan={(tableId) => {
+            setShowQRScanner(false);
+            window.location.href = `/join/${tableId}`;
+          }}
+          onClose={() => setShowQRScanner(false)}
+        />
+      )}
     </div>
   );
 }
