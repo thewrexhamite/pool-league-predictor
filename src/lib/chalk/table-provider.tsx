@@ -138,7 +138,7 @@ export function ChalkTableProvider({
       return {
         queue: result.queue,
         currentGame: result.currentGame,
-        status: 'active' as const,
+        status: t.session.isPrivate ? 'private' as const : 'active' as const,
         lastActiveAt: Date.now(),
         idleSince: null,
       };

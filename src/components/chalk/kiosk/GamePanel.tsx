@@ -40,6 +40,18 @@ export function GamePanel({ table }: GamePanelProps) {
   const waitingPlayers = table.queue.filter((e) => e.status === 'waiting');
   const canStartGame = !currentGame && waitingPlayers.length >= 2;
 
+  // Compute the actual next matchup (mirroring game-engine logic for challenge mode)
+  let nextHolder = waitingPlayers[0];
+  let nextChallenger = waitingPlayers[1];
+  if (canStartGame) {
+    const challengeEntry = waitingPlayers.find((e) => e.gameMode === 'challenge');
+    if (challengeEntry) {
+      const holderEntry = waitingPlayers.find((e) => e.id !== challengeEntry.id);
+      nextHolder = holderEntry ?? waitingPlayers[0];
+      nextChallenger = challengeEntry;
+    }
+  }
+
   // Check for called entries with active no-show deadlines
   const calledEntries = table.queue.filter((e) => e.status === 'called' && e.noShowDeadline);
 
@@ -159,10 +171,13 @@ export function GamePanel({ table }: GamePanelProps) {
                 <div className="text-center space-y-2">
                   <p className="text-lg text-gray-400">Next up:</p>
                   <p className="text-2xl font-bold">
-                    {waitingPlayers[0].playerNames.join(' & ')}
+                    {nextHolder.playerNames.join(' & ')}
                     {' vs '}
-                    {waitingPlayers[1].playerNames.join(' & ')}
+                    {nextChallenger.playerNames.join(' & ')}
                   </p>
+                  {nextChallenger.gameMode === 'challenge' && (
+                    <p className="text-sm text-accent">Challenge match</p>
+                  )}
                 </div>
                 <ChalkButton
                   size="lg"

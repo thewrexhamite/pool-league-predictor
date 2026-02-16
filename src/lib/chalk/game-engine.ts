@@ -192,12 +192,15 @@ export function processResult(
     return { queue: updatedQueue, currentGame: null };
   }
 
-  // Winner stays at front — reset their status to waiting
-  updatedQueue = updatedQueue.map((e) =>
-    e.id === winnerPlayer.queueEntryId
-      ? { ...e, status: 'waiting' as const, noShowDeadline: null }
-      : e
-  );
+  // Winner stays at front — move to position 0 and reset status
+  const winnerEntry = updatedQueue.find((e) => e.id === winnerPlayer.queueEntryId);
+  if (winnerEntry) {
+    updatedQueue = updatedQueue.filter((e) => e.id !== winnerPlayer.queueEntryId);
+    updatedQueue = [
+      { ...winnerEntry, status: 'waiting' as const, noShowDeadline: null },
+      ...updatedQueue,
+    ];
+  }
 
   // No more game right now — wait for explicit start
   return { queue: updatedQueue, currentGame: null };

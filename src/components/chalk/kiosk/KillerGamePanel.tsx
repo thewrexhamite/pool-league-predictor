@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import type { ChalkTable } from '@/lib/chalk/types';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
@@ -16,19 +17,41 @@ interface KillerGamePanelProps {
 export function KillerGamePanel({ table }: KillerGamePanelProps) {
   const { eliminateKillerPlayer, cancelGame, finishKillerGame } = useChalkTable();
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [finishing, setFinishing] = useState(false);
 
-  const game = table.currentGame!;
+  if (!table.currentGame?.killerState) {
+    return (
+      <div className="chalk-kiosk-game flex items-center justify-center p-8">
+        <p className="text-gray-400">No active killer game</p>
+      </div>
+    );
+  }
+
+  const game = table.currentGame;
   const killerState = game.killerState!;
   const gameOver = isKillerGameOver(killerState);
   const winner = getKillerWinner(killerState);
 
-  function handleEliminate(playerName: string) {
-    eliminateKillerPlayer({ eliminatedPlayerName: playerName });
+  async function handleEliminate(playerName: string) {
+    setActionError(null);
+    try {
+      await eliminateKillerPlayer({ eliminatedPlayerName: playerName });
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : 'Failed to eliminate player');
+    }
   }
 
-  function handleFinishKiller() {
-    if (winner) {
-      finishKillerGame(winner);
+  async function handleFinishKiller() {
+    if (!winner) return;
+    setFinishing(true);
+    setActionError(null);
+    try {
+      await finishKillerGame(winner);
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : 'Failed to finish game');
+    } finally {
+      setFinishing(false);
     }
   }
 
@@ -45,8 +68,8 @@ export function KillerGamePanel({ table }: KillerGamePanelProps) {
         <div className="text-center space-y-4 chalk-animate-in">
           <CrownIcon size={48} animated className="mx-auto" />
           <p className="text-3xl font-bold text-accent">{winner} wins!</p>
-          <ChalkButton size="lg" onClick={handleFinishKiller}>
-            Finish Game
+          <ChalkButton size="lg" onClick={handleFinishKiller} disabled={finishing}>
+            {finishing ? 'Finishing…' : 'Finish Game'}
           </ChalkButton>
         </div>
       ) : (
@@ -92,6 +115,10 @@ export function KillerGamePanel({ table }: KillerGamePanelProps) {
             Cancel game
           </ChalkButton>
         </>
+      )}
+
+      {actionError && (
+        <p className="text-loss text-sm" role="alert">{actionError}</p>
       )}
     </div>
   );

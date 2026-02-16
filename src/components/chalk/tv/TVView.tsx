@@ -37,6 +37,7 @@ export function TVView() {
       return;
     }
 
+    setActivePanel(panels[0]);
     let index = 0;
     const interval = setInterval(() => {
       index = (index + 1) % panels.length;
