@@ -53,6 +53,7 @@ export function addToQueue(
     holdUntil: null,
     noShowDeadline: null,
     gameMode: payload.gameMode,
+    ...(payload.userId && { userId: payload.userId }),
   };
 
   const newQueue = [...queue, entry];

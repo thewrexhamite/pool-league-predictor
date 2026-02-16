@@ -18,10 +18,12 @@ import {
   TrendingUp,
   Eye,
   EyeOff,
+  ScanLine,
 } from 'lucide-react';
 import { useAuth, updateUserProfile } from '@/lib/auth';
 import { AuthGuard } from '@/components/auth';
 import { CaptainClaimModal } from '@/components/auth/CaptainClaimModal';
+import { QRScanner } from '@/components/chalk/join/QRScanner';
 import { usePlayerInsights, usePlayerLabels } from '@/hooks/use-gamification';
 import PlayerLabels from '@/components/gamification/PlayerLabels';
 
@@ -29,6 +31,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const { user, profile, signOut, refreshProfile } = useAuth();
   const [showCaptainClaim, setShowCaptainClaim] = useState(false);
+  const [showQRScanner, setShowQRScanner] = useState(false);
   const [notifPref, setNotifPref] = useState(profile?.settings?.notifications ?? false);
   const [publicProfile, setPublicProfile] = useState(profile?.settings?.publicProfile ?? true);
 
@@ -147,6 +150,26 @@ export default function ProfilePage() {
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Scan Table QR */}
+          <div className="bg-surface-card border border-surface-border rounded-card p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-semibold text-white flex items-center gap-2">
+                  <ScanLine className="w-4 h-4 text-baize" />
+                  Join a Table
+                </h3>
+                <p className="text-xs text-gray-500 mt-1">Scan a kiosk QR code to join the queue</p>
+              </div>
+              <button
+                onClick={() => setShowQRScanner(true)}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-baize rounded-lg hover:bg-baize-light transition active:scale-[0.98]"
+              >
+                <ScanLine className="w-4 h-4" />
+                Scan QR
+              </button>
             </div>
           </div>
 
@@ -390,6 +413,16 @@ export default function ProfilePage() {
         onClose={() => setShowCaptainClaim(false)}
         onSuccess={() => refreshProfile()}
       />
+
+      {showQRScanner && (
+        <QRScanner
+          onScan={(tableId) => {
+            setShowQRScanner(false);
+            router.push(`/join/${tableId}`);
+          }}
+          onClose={() => setShowQRScanner(false)}
+        />
+      )}
     </div>
   );
 }

@@ -34,6 +34,7 @@ export interface QueueEntry {
   holdUntil: number | null;
   noShowDeadline: number | null;
   gameMode: GameMode;
+  userId?: string;
 }
 
 export interface GamePlayer {
@@ -141,6 +142,7 @@ export interface CreateTablePayload {
 export interface AddToQueuePayload {
   playerNames: string[];
   gameMode: GameMode;
+  userId?: string;
 }
 
 export interface ReportResultPayload {

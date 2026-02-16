@@ -8,11 +8,13 @@ import { ChalkButton } from '../shared/ChalkButton';
 interface JoinAddSelfProps {
   table: ChalkTable;
   onClose: () => void;
+  prefillName?: string | null;
+  userId?: string | null;
 }
 
-export function JoinAddSelf({ table, onClose }: JoinAddSelfProps) {
+export function JoinAddSelf({ table, onClose, prefillName, userId }: JoinAddSelfProps) {
   const { addToQueue } = useChalkTable();
-  const [name, setName] = useState('');
+  const [name, setName] = useState(prefillName ?? '');
   const [gameMode, setGameMode] = useState<GameMode>('singles');
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,13 +26,13 @@ export function JoinAddSelf({ table, onClose }: JoinAddSelfProps) {
     setAdding(true);
     setError(null);
     try {
-      await addToQueue({ playerNames: [trimmed], gameMode });
+      await addToQueue({ playerNames: [trimmed], gameMode, ...(userId && { userId }) });
       onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to add to queue');
       setAdding(false);
     }
-  }, [name, gameMode, addToQueue, onClose]);
+  }, [name, gameMode, userId, addToQueue, onClose]);
 
   return (
     <div className="space-y-3">

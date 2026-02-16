@@ -2,14 +2,17 @@
 
 import { useState } from 'react';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
+import { useQueueIdentity } from '@/hooks/chalk/use-queue-identity';
 import { ConnectionStatus } from '../shared/ConnectionStatus';
 import { JoinQueueView } from './JoinQueueView';
 import { JoinAddSelf } from './JoinAddSelf';
+import { JoinQuickAdd } from './JoinQuickAdd';
 import { ChalkButton } from '../shared/ChalkButton';
 
 export function JoinView() {
   const { table, loading, error, connectionStatus } = useChalkTable();
-  const [showAdd, setShowAdd] = useState(false);
+  const { isResolved, displayName, userId } = useQueueIdentity();
+  const [showManual, setShowManual] = useState(false);
 
   if (loading) {
     return (
@@ -30,6 +33,39 @@ export function JoinView() {
     );
   }
 
+  const renderBottomAction = () => {
+    // Manual mode — show JoinAddSelf (with prefill if authenticated)
+    if (showManual) {
+      return (
+        <JoinAddSelf
+          table={table}
+          onClose={() => setShowManual(false)}
+          prefillName={displayName}
+          userId={userId}
+        />
+      );
+    }
+
+    // Authenticated with resolved name — show one-tap quick join
+    if (isResolved && displayName && userId) {
+      return (
+        <JoinQuickAdd
+          table={table}
+          displayName={displayName}
+          userId={userId}
+          onSwitchToManual={() => setShowManual(true)}
+        />
+      );
+    }
+
+    // Anonymous / loading — show "Chalk My Name Up" button
+    return (
+      <ChalkButton fullWidth size="lg" onClick={() => setShowManual(true)}>
+        Chalk My Name Up
+      </ChalkButton>
+    );
+  };
+
   return (
     <div className="chalk-phone min-h-screen flex flex-col">
       <ConnectionStatus status={connectionStatus} />
@@ -47,16 +83,7 @@ export function JoinView() {
 
       {/* Fixed bottom action */}
       <div className="p-4 border-t border-surface-border bg-surface-card">
-        {showAdd ? (
-          <JoinAddSelf
-            table={table}
-            onClose={() => setShowAdd(false)}
-          />
-        ) : (
-          <ChalkButton fullWidth size="lg" onClick={() => setShowAdd(true)}>
-            Chalk My Name Up
-          </ChalkButton>
-        )}
+        {renderBottomAction()}
       </div>
     </div>
   );

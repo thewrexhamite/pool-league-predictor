@@ -77,16 +77,21 @@ export function ChalkTableProvider({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableId]);
 
-  // Connection health check
+  // Connection health check — only flag reconnecting for active tables
   useEffect(() => {
     const interval = setInterval(() => {
       const elapsed = Date.now() - lastSnapshotRef.current;
       if (lastSnapshotRef.current > 0 && elapsed > 30000) {
-        setConnectionStatus('reconnecting');
+        // Only flag reconnecting if the table should be receiving updates
+        // (has active game or non-empty queue). Idle tables get no updates naturally.
+        const t = table;
+        if (t && (t.currentGame || t.queue.length > 0)) {
+          setConnectionStatus('reconnecting');
+        }
       }
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [table]);
 
   // ===== Queue actions =====
 
