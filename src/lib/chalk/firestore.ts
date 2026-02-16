@@ -12,22 +12,27 @@ import {
   runTransaction,
   onSnapshot,
   enableIndexedDbPersistence,
+  arrayUnion,
+  arrayRemove,
   type Unsubscribe,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import type {
   ChalkTable,
   ChalkTableIndex,
+  ChalkVenue,
   GameHistoryRecord,
   CreateTablePayload,
+  CreateVenuePayload,
   ChalkSettings,
 } from './types';
 import {
   DEFAULT_SETTINGS,
   DEFAULT_SESSION_STATS,
   DEFAULT_SESSION,
+  VENUES_COLLECTION,
 } from './constants';
-import { hashPin } from './pin-utils';
+import { hashPin, verifyPin } from './pin-utils';
 import { generateShortCode } from './short-code';
 
 // ===== Enable offline persistence =====
@@ -68,6 +73,10 @@ function indexRef(shortCode: string) {
   return doc(db, INDEX_COLLECTION, shortCode);
 }
 
+function venueRef(venueId: string) {
+  return doc(db, VENUES_COLLECTION, venueId);
+}
+
 // ===== Create table =====
 
 export async function createTable(payload: CreateTablePayload): Promise<ChalkTable> {
@@ -83,6 +92,7 @@ export async function createTable(payload: CreateTablePayload): Promise<ChalkTab
     shortCode,
     name: `${payload.venueName} - ${payload.tableName}`,
     venueName: payload.venueName,
+    venueId: payload.venueId ?? null,
     status: 'idle',
     createdAt: now,
     lastActiveAt: now,
@@ -113,6 +123,12 @@ export async function createTable(payload: CreateTablePayload): Promise<ChalkTab
     }
     transaction.set(tableDoc, table);
     transaction.set(indexRef(shortCode), indexEntry);
+    // If created within a venue, add to venue's tableIds
+    if (payload.venueId) {
+      transaction.update(venueRef(payload.venueId), {
+        tableIds: arrayUnion(tableId),
+      });
+    }
   });
 
   return table;
@@ -234,5 +250,146 @@ export async function deleteTable(tableId: string): Promise<void> {
   await runTransaction(db, async (transaction) => {
     transaction.delete(tableRef(tableId));
     transaction.delete(indexRef(table.shortCode));
+    // Remove from venue if linked
+    if (table.venueId) {
+      transaction.update(venueRef(table.venueId), {
+        tableIds: arrayRemove(tableId),
+      });
+    }
   });
+}
+
+// ===== Venue CRUD =====
+
+export async function createVenue(
+  payload: CreateVenuePayload,
+  userId: string,
+  userName: string
+): Promise<ChalkVenue> {
+  const venueDoc = doc(collection(db, VENUES_COLLECTION));
+  const venue: ChalkVenue = {
+    id: venueDoc.id,
+    name: payload.name,
+    ownerId: userId,
+    ownerName: userName,
+    createdAt: Date.now(),
+    tableIds: [],
+  };
+  await setDoc(venueDoc, venue);
+  return venue;
+}
+
+export async function getVenue(venueId: string): Promise<ChalkVenue | null> {
+  const snap = await getDoc(venueRef(venueId));
+  return snap.exists() ? (snap.data() as ChalkVenue) : null;
+}
+
+export async function getVenuesByOwner(userId: string): Promise<ChalkVenue[]> {
+  const q = query(
+    collection(db, VENUES_COLLECTION),
+    where('ownerId', '==', userId)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => d.data() as ChalkVenue);
+}
+
+export async function updateVenue(
+  venueId: string,
+  data: Partial<Pick<ChalkVenue, 'name'>>
+): Promise<void> {
+  await updateDoc(venueRef(venueId), data);
+}
+
+export async function deleteVenue(venueId: string): Promise<void> {
+  const venue = await getVenue(venueId);
+  if (!venue) return;
+  if (venue.tableIds.length > 0) {
+    throw new Error('Cannot delete venue with tables. Remove all tables first.');
+  }
+  await deleteDoc(venueRef(venueId));
+}
+
+export async function addTableToVenue(
+  venueId: string,
+  tableId: string
+): Promise<void> {
+  await updateDoc(venueRef(venueId), {
+    tableIds: arrayUnion(tableId),
+  });
+}
+
+export async function removeTableFromVenue(
+  venueId: string,
+  tableId: string
+): Promise<void> {
+  await updateDoc(venueRef(venueId), {
+    tableIds: arrayRemove(tableId),
+  });
+  await updateDoc(tableRef(tableId), { venueId: null });
+}
+
+export async function claimTable(
+  venueId: string,
+  shortCode: string,
+  pin: string
+): Promise<ChalkTable> {
+  const indexSnap = await getDoc(indexRef(shortCode));
+  if (!indexSnap.exists()) {
+    throw new Error('Table not found. Check the code and try again.');
+  }
+  const { tableId } = indexSnap.data() as ChalkTableIndex;
+
+  return await runTransaction(db, async (transaction) => {
+    const tableSnap = await transaction.get(tableRef(tableId));
+    if (!tableSnap.exists()) {
+      throw new Error('Table not found');
+    }
+    const table = tableSnap.data() as ChalkTable;
+
+    // Verify PIN
+    const pinValid = await verifyPin(pin, table.settings.pinHash);
+    if (!pinValid) {
+      throw new Error('Incorrect PIN');
+    }
+
+    if (table.venueId && table.venueId !== venueId) {
+      throw new Error('This table is already claimed by another venue');
+    }
+
+    // Set venueId on table and add to venue's tableIds
+    transaction.update(tableRef(tableId), { venueId });
+    transaction.update(venueRef(venueId), {
+      tableIds: arrayUnion(tableId),
+    });
+
+    return { ...table, venueId };
+  });
+}
+
+export async function getTablesForVenue(venueId: string): Promise<ChalkTable[]> {
+  const q = query(
+    collection(db, TABLES_COLLECTION),
+    where('venueId', '==', venueId)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => d.data() as ChalkTable);
+}
+
+export function subscribeToVenueTables(
+  venueId: string,
+  onData: (tables: ChalkTable[]) => void,
+  onError: (error: Error) => void
+): Unsubscribe {
+  const q = query(
+    collection(db, TABLES_COLLECTION),
+    where('venueId', '==', venueId)
+  );
+  return onSnapshot(
+    q,
+    (snap) => {
+      const tables = snap.docs.map((d) => d.data() as ChalkTable);
+      onData(tables);
+    },
+    onError
+  );
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { deleteTable } from '@/lib/chalk/firestore';
+import { clearKioskConfig } from '@/hooks/chalk/use-kiosk-persistence';
 import { ChalkCard } from '../shared/ChalkCard';
 import { ChalkButton } from '../shared/ChalkButton';
 import { ChalkModal } from '../shared/ChalkModal';
@@ -41,6 +42,27 @@ export function DangerZone({ tableId }: DangerZoneProps) {
         <h2 className="text-lg font-bold text-loss mb-4">Danger Zone</h2>
 
         <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium">Forget this table</p>
+              <p className="text-sm text-gray-400">
+                Stop this device auto-resuming to this table
+              </p>
+            </div>
+            <ChalkButton
+              variant="danger"
+              size="sm"
+              onClick={() => {
+                clearKioskConfig();
+                router.push('/kiosk');
+              }}
+            >
+              Forget
+            </ChalkButton>
+          </div>
+
+          <div className="h-px bg-surface-border" />
+
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Reset session</p>

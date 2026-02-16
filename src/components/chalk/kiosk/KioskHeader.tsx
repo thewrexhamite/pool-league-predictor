@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import type { ChalkTable } from '@/lib/chalk/types';
+import { useAuth } from '@/lib/auth';
 import { CrownIcon } from '../shared/CrownIcon';
 import { QRCodeDisplay } from './QRCodeDisplay';
 import { PrivateModeToggle } from './PrivateModeToggle';
@@ -11,6 +12,8 @@ interface KioskHeaderProps {
 }
 
 export function KioskHeader({ table }: KioskHeaderProps) {
+  const { user } = useAuth();
+
   return (
     <header className="chalk-kiosk-header flex items-center justify-between px-6 bg-surface-card border-b border-surface-border">
       <div className="flex items-center gap-4">
@@ -31,6 +34,14 @@ export function KioskHeader({ table }: KioskHeaderProps) {
       </div>
 
       <div className="flex items-center gap-3">
+        {table.venueId && user && (
+          <Link
+            href={`/manage/venue/${table.venueId}`}
+            className="text-xs text-gray-500 hover:text-baize transition-colors"
+          >
+            Manage
+          </Link>
+        )}
         <PrivateModeToggle
           isPrivate={table.session.isPrivate}
           privatePlayerNames={table.session.privatePlayerNames}

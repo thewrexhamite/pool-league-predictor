@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { createTable } from '@/lib/chalk/firestore';
 import { CHALK_DEFAULTS } from '@/lib/chalk/constants';
 
@@ -136,6 +137,18 @@ export default function CreateTablePage() {
           >
             {creating ? 'Creating…' : 'Create Table'}
           </button>
+
+          <div className="rounded-xl bg-surface-card border border-surface-border p-4 text-center">
+            <p className="text-sm text-gray-400">
+              Got multiple tables?{' '}
+              <Link
+                href="/manage"
+                className="text-baize hover:text-baize-light transition-colors"
+              >
+                Sign in to manage your tables
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

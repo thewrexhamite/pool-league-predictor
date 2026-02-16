@@ -95,6 +95,7 @@ export interface ChalkTable {
   shortCode: string;
   name: string;
   venueName: string;
+  venueId: string | null;
   status: TableStatus;
   createdAt: number;
   lastActiveAt: number;
@@ -105,6 +106,17 @@ export interface ChalkTable {
   sessionStats: SessionStats;
   recentNames: string[];
   session: ChalkSession;
+}
+
+// ===== Venue Types =====
+
+export interface ChalkVenue {
+  id: string;
+  name: string;
+  ownerId: string;
+  ownerName: string;
+  createdAt: number;
+  tableIds: string[];
 }
 
 // ===== Game History =====
@@ -136,6 +148,16 @@ export interface ChalkTableIndex {
 export interface CreateTablePayload {
   venueName: string;
   tableName: string;
+  pin: string;
+  venueId?: string;
+}
+
+export interface CreateVenuePayload {
+  name: string;
+}
+
+export interface ClaimTablePayload {
+  shortCode: string;
   pin: string;
 }
 

@@ -62,3 +62,9 @@ export const FOUL_RULE_LABELS: Record<string, string> = {
   two_shots: 'Two shots',
   ball_in_hand: 'Ball in hand',
 };
+
+// ===== Venue + Kiosk constants =====
+
+export const VENUES_COLLECTION = 'chalkVenues';
+export const KIOSK_PERSISTENCE_KEY = 'chalk-kiosk-config';
+export const KIOSK_PERSISTENCE_MAX_AGE_DAYS = 90;

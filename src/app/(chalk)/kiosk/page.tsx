@@ -1,15 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getTableByShortCode } from '@/lib/chalk/firestore';
 import { isValidShortCode, normalizeShortCode } from '@/lib/chalk/short-code';
+import { loadKioskConfig } from '@/hooks/chalk/use-kiosk-persistence';
 
 export default function KioskSetupPage() {
   const router = useRouter();
   const [code, setCode] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [resuming, setResuming] = useState<string | null>(null);
+
+  // Auto-resume from localStorage if this is a kiosk tablet
+  useEffect(() => {
+    const config = loadKioskConfig();
+    if (config) {
+      setResuming(config.tableName);
+      router.replace(`/kiosk/${config.tableId}`);
+    }
+  }, [router]);
 
   async function handleJoinByCode() {
     const normalized = normalizeShortCode(code);
@@ -33,6 +44,19 @@ export default function KioskSetupPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (resuming) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <div className="text-center space-y-3">
+          <p className="text-lg text-gray-300">Resuming {resuming}...</p>
+          <div className="h-1 w-32 mx-auto rounded-full bg-surface-border overflow-hidden">
+            <div className="h-full w-full bg-baize animate-pulse rounded-full" />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

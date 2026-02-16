@@ -92,6 +92,15 @@ service cloud.firestore {
 
     // ===== Chalk (Pub Pool Queue) =====
 
+    // Chalk venues — owner-managed
+    match /chalkVenues/{venueId} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if request.auth != null
+        && resource.data.ownerId == request.auth.uid;
+    }
+
     // Chalk tables — open read, validated write
     match /chalkTables/{tableId} {
       allow read: if true;
@@ -102,7 +111,9 @@ service cloud.firestore {
       allow update: if true
         && request.resource.data.queue is list
         && request.resource.data.queue.size() <= 30;
-      allow delete: if true;
+      allow delete: if resource.data.venueId == null
+        || (request.auth != null
+            && get(/databases/$(database)/documents/chalkVenues/$(resource.data.venueId)).data.ownerId == request.auth.uid);
 
       // Game history — immutable records
       match /history/{gameId} {
