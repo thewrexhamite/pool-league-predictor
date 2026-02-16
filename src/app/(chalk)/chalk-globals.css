@@ -1,0 +1,264 @@
+/* ===== Chalk Kiosk — Dark-only overrides ===== */
+
+/* Force dark mode variables for the chalk route group.
+   Uses the same CSS variable names so all Tailwind utilities work. */
+.chalk-root {
+  color-scheme: dark;
+
+  /* Darker surfaces optimised for pub lighting */
+  --surface: 8 12 24;
+  --surface-card: 16 22 38;
+  --surface-elevated: 30 40 58;
+  --surface-border: 48 60 78;
+
+  /* Brand greens — slightly brighter for kiosk visibility */
+  --baize: 16 185 129;
+  --baize-light: 52 211 153;
+  --baize-dark: 10 130 90;
+  --baize-muted: 10 61 46;
+
+  /* Win / Loss / Draw */
+  --win: 34 197 94;
+  --win-muted: 22 101 52;
+  --loss: 239 68 68;
+  --loss-muted: 127 29 29;
+  --draw: 148 163 184;
+
+  /* Accent (gold) */
+  --accent: 212 168 85;
+  --accent-light: 228 196 122;
+  --accent-muted: 61 46 15;
+
+  /* Info (blue) */
+  --info: 74 173 232;
+  --info-light: 125 211 252;
+  --info-muted: 12 74 110;
+
+  /* Gold */
+  --gold: 212 168 85;
+
+  /* Gray scale */
+  --tw-white: 255 255 255;
+  --tw-gray-50: 249 250 251;
+  --tw-gray-100: 243 244 246;
+  --tw-gray-200: 229 231 235;
+  --tw-gray-300: 209 213 219;
+  --tw-gray-400: 156 163 175;
+  --tw-gray-500: 107 114 128;
+  --tw-gray-600: 95 105 120;
+  --tw-gray-700: 55 65 81;
+  --tw-gray-800: 31 41 55;
+  --tw-gray-900: 17 24 39;
+  --tw-gray-950: 3 7 18;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 4px 16px rgba(212, 168, 85, 0.12);
+  --shadow-elevated: 0 4px 12px rgba(0,0,0,0.5);
+
+  /* Chalk-specific variables */
+  --chalk-queue-bg: 12 16 28;
+  --chalk-game-bg: 16 22 38;
+  --chalk-header-height: 64px;
+
+  color: rgb(var(--tw-white));
+  background: rgb(var(--surface));
+}
+
+/* ===== Kiosk-specific styles ===== */
+
+.chalk-root {
+  /* Prevent text selection on touch devices */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* Disable double-tap zoom */
+  touch-action: manipulation;
+
+  /* Prevent pull-to-refresh */
+  overscroll-behavior: none;
+
+  /* Base font size for kiosk readability */
+  font-size: 18px;
+  line-height: 1.5;
+
+  /* Anti-aliasing for dark background */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Kiosk fullscreen mode */
+.chalk-kiosk {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* TV view — larger base font */
+.chalk-tv {
+  font-size: 28px;
+}
+
+/* Phone view — standard mobile size */
+.chalk-phone {
+  font-size: 16px;
+}
+
+/* ===== Touch targets ===== */
+
+.chalk-touch {
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Landscape kiosk grid ===== */
+
+.chalk-kiosk-grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: var(--chalk-header-height) 1fr;
+  height: 100vh;
+  height: 100dvh;
+  gap: 0;
+}
+
+.chalk-kiosk-header {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.chalk-kiosk-queue {
+  grid-column: 1;
+  grid-row: 2;
+  background: rgb(var(--chalk-queue-bg));
+  overflow-y: auto;
+  border-right: 1px solid rgb(var(--surface-border));
+}
+
+.chalk-kiosk-game {
+  grid-column: 2;
+  grid-row: 2;
+  background: rgb(var(--chalk-game-bg));
+  overflow-y: auto;
+}
+
+/* ===== Scrollbar for kiosk ===== */
+
+.chalk-root ::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chalk-root ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chalk-root ::-webkit-scrollbar-thumb {
+  background: rgb(var(--surface-border));
+  border-radius: 2px;
+}
+
+/* ===== Animations ===== */
+
+@keyframes chalk-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chalk-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes chalk-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes chalk-crown-bounce {
+  0% { transform: scale(0) rotate(-15deg); }
+  50% { transform: scale(1.2) rotate(5deg); }
+  70% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes chalk-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.chalk-animate-in {
+  animation: chalk-slide-up 0.3s ease-out;
+}
+
+.chalk-animate-fade {
+  animation: chalk-fade-in 0.3s ease-out;
+}
+
+.chalk-animate-pulse {
+  animation: chalk-pulse 2s ease-in-out infinite;
+}
+
+.chalk-animate-crown {
+  animation: chalk-crown-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chalk-animate-shake {
+  animation: chalk-shake 0.5s ease-in-out;
+}
+
+/* ===== No-show overlay ===== */
+
+.chalk-no-show-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+/* ===== Bottom sheet ===== */
+
+.chalk-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  border-radius: 24px 24px 0 0;
+  background: rgb(var(--surface-card));
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.chalk-bottom-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* ===== Respect reduced motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .chalk-root *,
+  .chalk-root *::before,
+  .chalk-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
