@@ -8,9 +8,10 @@ import FadeInOnScroll from './ui/FadeInOnScroll';
 interface KnockoutBracketProps {
   competition: KnockoutCompetition;
   onTeamClick: (team: string) => void;
+  onMatchClick?: (match: KnockoutMatch) => void;
 }
 
-export default function KnockoutBracket({ competition, onTeamClick }: KnockoutBracketProps) {
+export default function KnockoutBracket({ competition, onTeamClick, onMatchClick }: KnockoutBracketProps) {
   const { rounds } = competition;
   const [selectedRoundIdx, setSelectedRoundIdx] = useState(0);
 
@@ -50,7 +51,7 @@ export default function KnockoutBracket({ competition, onTeamClick }: KnockoutBr
         <FadeInOnScroll>
           <div className="space-y-2 mt-3">
             {selectedRound.matches.map((match, i) => (
-              <MatchCard key={`${match.round}-${match.matchNum}-${i}`} match={match} onTeamClick={onTeamClick} />
+              <MatchCard key={`${match.round}-${match.matchNum}-${i}`} match={match} onTeamClick={onTeamClick} onMatchClick={onMatchClick} />
             ))}
           </div>
         </FadeInOnScroll>
@@ -68,7 +69,7 @@ export default function KnockoutBracket({ competition, onTeamClick }: KnockoutBr
                 <div className="flex flex-col justify-around flex-1 gap-2">
                   {round.matches.map((match, i) => (
                     <div key={`${match.round}-${match.matchNum}-${i}`} className="flex items-center">
-                      <MatchCard match={match} onTeamClick={onTeamClick} compact />
+                      <MatchCard match={match} onTeamClick={onTeamClick} onMatchClick={onMatchClick} compact />
                       {/* Connector line to next round */}
                       {round.index > 1 && (
                         <div className="w-4 border-t border-surface-border/50" />
@@ -88,10 +89,12 @@ export default function KnockoutBracket({ competition, onTeamClick }: KnockoutBr
 function MatchCard({
   match,
   onTeamClick,
+  onMatchClick,
   compact = false,
 }: {
   match: KnockoutMatch;
   onTeamClick: (team: string) => void;
+  onMatchClick?: (match: KnockoutMatch) => void;
   compact?: boolean;
 }) {
   const isBye = match.status === 'bye';
@@ -113,14 +116,18 @@ function MatchCard({
   const teamBWon = match.winner === match.teamB;
 
   return (
-    <div className={clsx(
-      'rounded-lg border overflow-hidden',
-      compact ? 'w-52' : '',
-      isPlayed ? 'border-surface-border bg-surface-card' : 'border-surface-border/50 bg-surface-card/50',
-    )}>
+    <div
+      className={clsx(
+        'rounded-lg border overflow-hidden transition-colors',
+        compact ? 'w-52' : '',
+        isPlayed ? 'border-surface-border bg-surface-card' : 'border-surface-border/50 bg-surface-card/50',
+        onMatchClick && 'cursor-pointer hover:border-baize/50',
+      )}
+      onClick={() => onMatchClick?.(match)}
+    >
       {/* Team A */}
       <button
-        onClick={() => match.teamA && onTeamClick(match.teamA)}
+        onClick={(e) => { e.stopPropagation(); match.teamA && onTeamClick(match.teamA); }}
         disabled={!match.teamA}
         className={clsx(
           'w-full flex items-center justify-between px-3 py-2 text-sm transition-colors text-left',
@@ -151,7 +158,7 @@ function MatchCard({
 
       {/* Team B */}
       <button
-        onClick={() => match.teamB && onTeamClick(match.teamB)}
+        onClick={(e) => { e.stopPropagation(); match.teamB && onTeamClick(match.teamB); }}
         disabled={!match.teamB}
         className={clsx(
           'w-full flex items-center justify-between px-3 py-2 text-sm transition-colors text-left',

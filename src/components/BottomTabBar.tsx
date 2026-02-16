@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import clsx from 'clsx';
 import { TABS } from '@/lib/tabs';
 import type { TabId } from '@/lib/router';
@@ -7,6 +8,7 @@ import type { TabId } from '@/lib/router';
 interface BottomTabBarProps {
   activeTab: TabId;
   onTabChange: (tab: TabId) => void;
+  isKnockout?: boolean;
 }
 
 /** Maps detail-view tabs to the parent tab that should highlight */
@@ -16,13 +18,17 @@ function resolveHighlight(tab: TabId): TabId {
   return tab;
 }
 
-export default function BottomTabBar({ activeTab, onTabChange }: BottomTabBarProps) {
+export default function BottomTabBar({ activeTab, onTabChange, isKnockout = false }: BottomTabBarProps) {
   const highlighted = resolveHighlight(activeTab);
+  const visibleTabs = useMemo(
+    () => isKnockout ? TABS.filter(t => t.id === 'home' || t.id === 'standings') : TABS,
+    [isKnockout]
+  );
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-sm border-t border-surface-border pb-safe glass glass-edge vt-tab-bar">
       <nav className="flex items-stretch justify-around max-w-lg mx-auto">
-        {TABS.map(tab => {
+        {visibleTabs.map(tab => {
           const Icon = tab.icon;
           const isActive = highlighted === tab.id;
           return (
