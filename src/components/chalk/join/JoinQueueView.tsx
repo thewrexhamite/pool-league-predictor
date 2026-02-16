@@ -12,7 +12,7 @@ interface JoinQueueViewProps {
 
 export function JoinQueueView({ table }: JoinQueueViewProps) {
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
-  const waitingEntries = table.queue.filter((e) => e.status !== 'on_hold');
+  const waitingEntries = table.queue.filter((e) => e.status === 'waiting');
 
   return (
     <div className="p-4 space-y-4">

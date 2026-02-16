@@ -62,7 +62,7 @@ export function updateStatsAfterGame(
   let kingOfTable = stats.kingOfTable;
 
   if (consecutiveWins >= 3) {
-    const kingName = winnerNames[0] ?? winnerPlayerNames[0];
+    const kingName = winnerPlayerNames[0] ?? winnerNames[0];
     if (
       !kingOfTable ||
       consecutiveWins > kingOfTable.consecutiveWins
