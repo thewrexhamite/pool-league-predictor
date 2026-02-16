@@ -8,6 +8,7 @@ import { CHALK_DEFAULTS } from '@/lib/chalk/constants';
 import { ChalkButton } from '../shared/ChalkButton';
 import { PlayerNameInput } from '../shared/PlayerNameInput';
 import { GameModeSelector } from './GameModeSelector';
+import { QRCodeDisplay } from './QRCodeDisplay';
 
 interface AddToQueueSheetProps {
   table: ChalkTable;
@@ -91,6 +92,17 @@ export function AddToQueueSheet({ table, onClose }: AddToQueueSheetProps) {
                 <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>
+          </div>
+
+          {/* Scan to join CTA */}
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-baize/10 border border-baize/20">
+            <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={80} showLabel={false} />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-baize">Join from your phone</p>
+              <p className="text-xs text-gray-400 mt-0.5">
+                Scan this QR code with your camera to jump in the queue instantly
+              </p>
+            </div>
           </div>
 
           {isFull ? (

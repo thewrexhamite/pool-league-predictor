@@ -6,9 +6,10 @@ interface QRCodeDisplayProps {
   tableId: string;
   shortCode: string;
   size?: number;
+  showLabel?: boolean;
 }
 
-export function QRCodeDisplay({ tableId, shortCode, size = 128 }: QRCodeDisplayProps) {
+export function QRCodeDisplay({ tableId, shortCode, size = 128, showLabel = true }: QRCodeDisplayProps) {
   const joinUrl = getJoinUrl(tableId);
 
   // Use a QR code API for generation. This is a simple approach
@@ -25,10 +26,12 @@ export function QRCodeDisplay({ tableId, shortCode, size = 128 }: QRCodeDisplayP
         height={size}
         className="rounded-lg"
       />
-      <div className="text-center">
-        <p className="text-xs text-gray-400">Scan to join</p>
-        <p className="text-sm font-mono text-baize">{shortCode}</p>
-      </div>
+      {showLabel && (
+        <div className="text-center">
+          <p className="text-xs text-gray-400">Scan to join</p>
+          <p className="text-sm font-mono text-baize">{shortCode}</p>
+        </div>
+      )}
     </div>
   );
 }
