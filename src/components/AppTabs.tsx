@@ -83,6 +83,7 @@ export default function AppTabs({
             onPlayerClick={onPlayerClick}
             onPredict={onPredict}
             onJoinTable={onJoinTable}
+            onSetMyTeam={onSetMyTeam}
           />
         )}
 

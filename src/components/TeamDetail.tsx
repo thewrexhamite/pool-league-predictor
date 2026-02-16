@@ -11,6 +11,7 @@ import { useLeague } from '@/lib/league-context';
 import { identifyRivalries } from '@/lib/stats';
 import type { MatchResult, StandingEntry as StandingEntryType } from '@/lib/types';
 import ShareButton from './ShareButton';
+import CalendarExport from './CalendarExport';
 import { generateTeamShareData } from '@/lib/share-utils';
 import TeamFormHeatmap from './TeamFormHeatmap';
 import RivalryPanel from './RivalryPanel';
@@ -194,14 +195,17 @@ export default function TeamDetail({ team, selectedDiv, standings, onBack, onTea
       </button>
       <div className="flex items-center justify-between mb-1">
         <h2 className="text-xl font-bold text-white">{team}</h2>
-        <ShareButton
-          data={generateTeamShareData({
-            div: selectedDiv,
-            team: team,
-            position: teamPos,
-            points: teamStanding?.pts,
-          })}
-        />
+        <div className="flex items-center gap-1.5">
+          <CalendarExport division={selectedDiv} />
+          <ShareButton
+            data={generateTeamShareData({
+              div: selectedDiv,
+              team: team,
+              position: teamPos,
+              points: teamStanding?.pts,
+            })}
+          />
+        </div>
       </div>
       <p className="text-gray-500 text-sm mb-4">{ds.divisions[selectedDiv].name} &bull; #{teamPos}</p>
 

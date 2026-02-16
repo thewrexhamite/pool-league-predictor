@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 import {
-  Trophy,
   Search,
   X,
   Star,
@@ -15,7 +14,6 @@ import {
   ArrowLeft,
   ChevronDown,
   Menu,
-  Users,
   CircleDot,
   ScanLine,
   User,
@@ -26,7 +24,7 @@ import { useActiveData } from '@/lib/active-data-provider';
 import { useAuth, useIsAuthenticated } from '@/lib/auth';
 import { useMyTeam } from '@/hooks/use-my-team';
 import { useHashRouter } from '@/lib/router';
-import { getAllRemainingFixtures, getAllLeaguePlayers } from '@/lib/predictions';
+import { getAllRemainingFixtures } from '@/lib/predictions';
 import { TABS } from '@/lib/tabs';
 import { useLeague } from '@/lib/league-context';
 import { useLeagueBranding } from '@/lib/league-branding';
@@ -109,13 +107,6 @@ export default function AppHeader({
   // Time machine UI state
   const [timeMachineOpen, setTimeMachineOpen] = useState(false);
 
-  // Search state
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchFocusIndex, setSearchFocusIndex] = useState(-1);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const searchInputRef = useRef<HTMLInputElement>(null);
-
   // League switcher
   const [leagueDropdownOpen, setLeagueDropdownOpen] = useState(false);
   const leagueDropdownRef = useRef<HTMLDivElement>(null);
@@ -129,48 +120,6 @@ export default function AppHeader({
     setSimResults(null);
     setMobileMenuOpen(false);
   };
-
-  // Search
-  const searchResults = useMemo(() => {
-    if (searchQuery.length < 2) return [];
-    const q = searchQuery.toLowerCase();
-    const results: { type: 'team' | 'player'; name: string; detail: string; div?: DivisionCode }[] = [];
-
-    // Search teams
-    for (const [divCode, divData] of Object.entries(ds.divisions) as [DivisionCode, { name: string; teams: string[] }][]) {
-      for (const team of divData.teams) {
-        if (team.toLowerCase().includes(q)) {
-          results.push({ type: 'team', name: team, detail: divCode, div: divCode });
-        }
-      }
-    }
-
-    // Search players
-    const allPlayers = getAllLeaguePlayers(ds);
-    for (const player of allPlayers) {
-      if (player.name.toLowerCase().includes(q)) {
-        results.push({
-          type: 'player',
-          name: player.name,
-          detail: player.teams2526.slice(0, 2).join(', ') || 'Unknown team',
-        });
-      }
-    }
-
-    return results.slice(0, 8);
-  }, [searchQuery, ds]);
-
-  // Click-outside to close search
-  useEffect(() => {
-    if (!searchOpen) return;
-    function handleClick(e: MouseEvent) {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setSearchOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [searchOpen]);
 
   // Click-outside to close league dropdown
   useEffect(() => {
@@ -195,36 +144,6 @@ export default function AppHeader({
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, [mobileMenuOpen]);
-
-  const handleSearchSelect = (result: typeof searchResults[0]) => {
-    setSearchQuery('');
-    setSearchOpen(false);
-    setMobileMenuOpen(false);
-    if (result.type === 'team' && result.div) {
-      if (result.div !== router.div) {
-        resetDivision(result.div);
-      }
-      router.openTeam(result.name);
-    } else if (result.type === 'player') {
-      router.openPlayer(result.name);
-    }
-  };
-
-  const handleSearchKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      setSearchOpen(false);
-      setSearchQuery('');
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setSearchFocusIndex(i => Math.min(i + 1, searchResults.length - 1));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setSearchFocusIndex(i => Math.max(i - 1, 0));
-    } else if (e.key === 'Enter' && searchFocusIndex >= 0 && searchResults[searchFocusIndex]) {
-      e.preventDefault();
-      handleSearchSelect(searchResults[searchFocusIndex]);
-    }
-  };
 
   // League switcher handler
   const handleSwitchLeague = (leagueId: string) => {
@@ -375,7 +294,7 @@ export default function AppHeader({
           </div>
 
           {/* Right: Search + Time Machine + My Team */}
-          <div className="flex items-center gap-2" ref={searchRef}>
+          <div className="flex items-center gap-2">
             {/* Quick Lookup button (desktop) */}
             <button
               onClick={() => setShowQuickLookup(true)}
@@ -386,47 +305,7 @@ export default function AppHeader({
               <span className="text-[10px] text-gray-500 border border-surface-border rounded px-1 py-0.5 font-mono">⌘K</span>
             </button>
 
-            {/* Desktop search */}
-            <div data-tutorial="search" className="hidden md:block relative">
-              <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Search teams, players..."
-                value={searchQuery}
-                onChange={e => {
-                  setSearchQuery(e.target.value);
-                  setSearchFocusIndex(-1);
-                }}
-                onFocus={() => setSearchOpen(true)}
-                onKeyDown={handleSearchKeyDown}
-                className="bg-surface-card border border-surface-border rounded-lg pl-8 pr-8 py-1.5 text-sm text-white placeholder-gray-500 w-52 focus:w-72 transition-all focus:outline-none focus:border-baize"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => { setSearchQuery(''); setSearchFocusIndex(-1); }}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
-                >
-                  <X size={14} />
-                </button>
-              )}
-              <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden dropdown-animated" hidden={!(searchOpen && searchResults.length > 0)}>
-                  {searchResults.map((r, i) => (
-                    <button
-                      key={r.type + r.name}
-                      onClick={() => handleSearchSelect(r)}
-                      className={clsx(
-                        'w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-surface-elevated transition',
-                        i === searchFocusIndex && 'bg-surface-elevated'
-                      )}
-                    >
-                      {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
-                      <span className="text-white flex-1 truncate">{r.name}</span>
-                      <span className="text-gray-500 text-xs">{r.detail}</span>
-                    </button>
-                  ))}
-                </div>
-            </div>
+            {/* Desktop search — uses Quick Lookup overlay */}
 
             {/* Time Machine button (desktop only) */}
             <div className="hidden md:block relative">
@@ -582,50 +461,6 @@ export default function AppHeader({
               className="md:hidden overflow-hidden"
             >
               <div className="pt-3 pb-2 space-y-3 border-t border-surface-border/50 mt-2">
-                {/* Search */}
-                <div className="relative" ref={searchRef}>
-                  <Search size={16} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Search teams, players..."
-                    value={searchQuery}
-                    onChange={e => {
-                      setSearchQuery(e.target.value);
-                      setSearchFocusIndex(-1);
-                    }}
-                    onFocus={() => setSearchOpen(true)}
-                    onKeyDown={handleSearchKeyDown}
-                    className="w-full bg-surface-card border border-surface-border rounded-lg pl-8 pr-8 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-baize"
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => { setSearchQuery(''); setSearchFocusIndex(-1); }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
-                    >
-                      <X size={14} />
-                    </button>
-                  )}
-                  {searchOpen && searchResults.length > 0 && (
-                    <div className="absolute top-full mt-1 w-full bg-surface-card border border-surface-border rounded-lg shadow-elevated overflow-hidden z-50">
-                      {searchResults.map((r, i) => (
-                        <button
-                          key={r.type + r.name}
-                          onClick={() => handleSearchSelect(r)}
-                          className={clsx(
-                            'w-full flex items-center gap-2 px-3 py-2.5 text-sm text-left hover:bg-surface-elevated transition',
-                            i === searchFocusIndex && 'bg-surface-elevated'
-                          )}
-                        >
-                          {r.type === 'team' ? <Trophy size={14} className="text-baize shrink-0" /> : <Users size={14} className="text-info shrink-0" />}
-                          <span className="text-white flex-1 truncate">{r.name}</span>
-                          <span className="text-gray-500 text-xs">{r.detail}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
                 {/* League switcher */}
                 {selected && leagues.length > 1 && (
                   <div>

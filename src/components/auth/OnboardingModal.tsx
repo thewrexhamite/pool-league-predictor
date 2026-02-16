@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, UserCheck, Star, Bell, ChevronRight, ChevronLeft, Check } from 'lucide-react';
 import { useAuth, updateUserProfile } from '@/lib/auth';
 import type { OnboardingProgress } from '@/lib/auth';
+import { ClaimProfileInline } from './ClaimProfileInline';
 
 interface OnboardingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onClaimProfile?: () => void;
   onSetMyTeam?: () => void;
   onEnableNotifications?: () => void;
 }
@@ -24,7 +24,6 @@ const STEPS = [
 export function OnboardingModal({
   isOpen,
   onClose,
-  onClaimProfile,
   onSetMyTeam,
   onEnableNotifications,
 }: OnboardingModalProps) {
@@ -144,31 +143,27 @@ export function OnboardingModal({
             )}
 
             {step.key === 'claimProfile' && (
-              <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-blue-900/30 flex items-center justify-center mx-auto mb-4">
-                  <UserCheck className="w-8 h-8 text-blue-400" />
+              <div>
+                <div className="text-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-blue-900/30 flex items-center justify-center mx-auto mb-3">
+                    <UserCheck className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <h2 className="text-lg font-bold text-white mb-1">
+                    Claim Your Player Profile
+                  </h2>
+                  <p className="text-xs text-gray-400">
+                    Link your name to see personal stats, form, and match history.
+                  </p>
                 </div>
-                <h2 className="text-lg font-bold text-white mb-2">
-                  Claim Your Player Profile
-                </h2>
-                <p className="text-sm text-gray-400 mb-6">
-                  Link your name to your account to see personal stats, form, and match history.
-                </p>
                 {completedSteps.claimProfile ? (
                   <div className="flex items-center justify-center gap-2 text-green-400 text-sm">
                     <Check size={16} />
                     <span>Profile claimed!</span>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => {
-                      markStepDone('claimProfile');
-                      onClaimProfile?.();
-                    }}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition"
-                  >
-                    Claim Profile
-                  </button>
+                  <ClaimProfileInline
+                    onComplete={() => markStepDone('claimProfile')}
+                  />
                 )}
               </div>
             )}

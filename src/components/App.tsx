@@ -20,6 +20,7 @@ import AIChatPanel from './AIChatPanel';
 import QuickLookupMode from './QuickLookupMode';
 import { NotificationPrompt } from './NotificationPrompt';
 import BottomTabBar from './BottomTabBar';
+import DivisionBar from './DivisionBar';
 import BackToTopButton from './BackToTopButton';
 import ScrollProgress from './ui/ScrollProgress';
 import DetailSheetProvider from './ui/DetailSheetProvider';
@@ -175,6 +176,8 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
         setShowQRScanner={setShowQRScanner}
       />
 
+      <DivisionBar selectedDiv={appState.safeDiv} onDivisionChange={appState.resetDivision} />
+
       <main className="max-w-6xl mx-auto px-4 py-6 pb-24 md:pb-6">
         <AppTabs
           activeTab={visibleTab}
@@ -232,7 +235,17 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
       {appState.showQuickLookup && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] bg-black/60 backdrop-blur-sm">
           <div className="w-full max-w-lg mx-4">
-            <QuickLookupMode onClose={() => appState.setShowQuickLookup(false)} />
+            <QuickLookupMode
+              onClose={() => appState.setShowQuickLookup(false)}
+              onTeamClick={(team) => {
+                appState.setShowQuickLookup(false);
+                appState.openTeamDetail(team);
+              }}
+              onPlayerClick={(name) => {
+                appState.setShowQuickLookup(false);
+                appState.openPlayerDetail(name);
+              }}
+            />
           </div>
         </div>
       )}
@@ -269,10 +282,6 @@ function AppContentInner({ league, refreshing, timeMachineDate, setTimeMachineDa
       <OnboardingModal
         isOpen={showOnboarding}
         onClose={() => setShowOnboarding(false)}
-        onClaimProfile={() => {
-          setShowOnboarding(false);
-          window.location.href = '/claim';
-        }}
         onSetMyTeam={() => {
           appState.setShowMyTeamModal(true);
         }}

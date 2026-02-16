@@ -2,12 +2,12 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, Plus, X, Star, Calendar, TrendingUp, TrendingDown, ChevronRight, Trophy, AlertTriangle, ScanLine } from 'lucide-react';
+import { Settings, Plus, X, Star, Calendar, TrendingUp, TrendingDown, ChevronRight, Trophy, AlertTriangle, ScanLine, Flame, Users } from 'lucide-react';
 import clsx from 'clsx';
 import type { DivisionCode, StandingEntry } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
 import { useIsAuthenticated } from '@/lib/auth';
-import { getRemainingFixtures, getTeamResults, calcStandings } from '@/lib/predictions/index';
+import { getRemainingFixtures, getTeamResults, calcStandings, calcPlayerForm } from '@/lib/predictions/index';
 import DashboardEditor from './dashboard/DashboardEditor';
 import WidgetLibrary from './dashboard/WidgetLibrary';
 import FadeInOnScroll from './ui/FadeInOnScroll';
@@ -22,6 +22,7 @@ interface DashboardTabProps {
   onPredict: (home: string, away: string) => void;
   onQuickLookup?: () => void;
   onJoinTable?: () => void;
+  onSetMyTeam?: () => void;
   seasonId?: string;
   seasonLabel?: string;
 }
@@ -35,12 +36,13 @@ export default function DashboardTab({
   onPredict,
   onQuickLookup,
   onJoinTable,
+  onSetMyTeam,
   seasonId,
   seasonLabel,
 }: DashboardTabProps) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showWidgetLibrary, setShowWidgetLibrary] = useState(false);
-  const { ds } = useActiveData();
+  const { ds, frames } = useActiveData();
   const isAuthenticated = useIsAuthenticated();
 
   // My Team quick glance
@@ -103,6 +105,56 @@ export default function DashboardTab({
     return items;
   }, [standings]);
 
+  // Title race data for anonymous dashboard
+  const titleRace = useMemo(() => {
+    if (standings.length < 3) return null;
+    const top3 = standings.slice(0, 3);
+    return top3.map(s => {
+      const results = getTeamResults(s.team, ds);
+      const form = results.slice(0, 5).map(r => r.result);
+      const gap = top3[0].pts - s.pts;
+      return { ...s, form, gap };
+    });
+  }, [standings, ds]);
+
+  // Best form team + hottest player for anonymous dashboard
+  const formSpotlight = useMemo(() => {
+    if (standings.length === 0) return null;
+    let bestTeam: string | null = null;
+    let bestTeamPts = -1;
+    for (const s of standings) {
+      const results = getTeamResults(s.team, ds);
+      const last5 = results.slice(0, 5).map(r => r.result);
+      const pts = last5.reduce((acc, r) => acc + (r === 'W' ? 3 : r === 'D' ? 1 : 0), 0);
+      if (pts > bestTeamPts) {
+        bestTeamPts = pts;
+        bestTeam = s.team;
+      }
+    }
+
+    let hotPlayer: { name: string; pct: number } | null = null;
+    if (frames.length > 0) {
+      const teams = ds.divisions[selectedDiv]?.teams || [];
+      const seen = new Set<string>();
+      for (const frame of frames.slice(0, 30)) {
+        for (const f of frame.frames) {
+          for (const team of teams) {
+            const name = frame.home === team ? f.homePlayer : frame.away === team ? f.awayPlayer : null;
+            if (!name || seen.has(name)) continue;
+            seen.add(name);
+            const form = calcPlayerForm(name, frames);
+            if (!form || form.last5.p < 3) continue;
+            if (!hotPlayer || form.last5.pct > hotPlayer.pct) {
+              hotPlayer = { name, pct: form.last5.pct };
+            }
+          }
+        }
+      }
+    }
+
+    return { bestTeam, hotPlayer };
+  }, [standings, ds, frames, selectedDiv]);
+
   return (
     <div className="relative space-y-4">
       {/* Join a Table card — authenticated users only */}
@@ -124,12 +176,108 @@ export default function DashboardTab({
 
       {/* Quick Glance Cards */}
       <StaggerList className="grid grid-cols-1 md:grid-cols-2 gap-3" staggerDelay={0.1}>
-        {/* Empty state when no cards to show */}
+        {/* League highlights for anonymous/no-team users */}
         {!myTeamGlance && upcomingMatches.length === 0 && alerts.length === 0 && (
-          <div className="col-span-full bg-surface-card rounded-card shadow-card p-6 text-center">
-            <Star size={24} className="mx-auto text-gray-600 mb-2" />
-            <p className="text-sm text-gray-400">Set your team for a personalised dashboard.</p>
-          </div>
+          <>
+            {/* Title Race card */}
+            {titleRace && (
+              <div className="col-span-full bg-surface-card rounded-card shadow-card p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Trophy size={14} className="text-gold" />
+                  <span className="text-sm font-semibold text-white">Title Race</span>
+                </div>
+                <div className="space-y-2">
+                  {titleRace.map((team, i) => (
+                    <button
+                      key={team.team}
+                      onClick={() => onTeamClick(team.team)}
+                      className="w-full flex items-center gap-3 text-left hover:bg-surface-elevated/50 rounded-lg p-2 transition"
+                    >
+                      <span className={clsx(
+                        'w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0',
+                        i === 0 ? 'bg-gold/20 text-gold' : 'bg-surface-elevated text-gray-400'
+                      )}>
+                        {i + 1}
+                      </span>
+                      <span className="text-sm text-white flex-1 truncate">{team.team}</span>
+                      <div className="flex gap-0.5 shrink-0">
+                        {team.form.map((r, j) => (
+                          <span key={j} className={clsx(
+                            'w-3.5 h-3.5 rounded text-[8px] font-bold flex items-center justify-center',
+                            r === 'W' ? 'bg-win-muted text-win' : r === 'L' ? 'bg-loss-muted text-loss' : 'bg-surface-elevated text-draw'
+                          )}>{r}</span>
+                        ))}
+                      </div>
+                      <span className="text-xs text-gray-400 w-12 text-right shrink-0">
+                        <span className="text-gold font-bold">{team.pts}</span> pts
+                      </span>
+                      {i > 0 && (
+                        <span className="text-[10px] text-gray-600 w-6 text-right shrink-0">-{team.gap}</span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Form Spotlight card */}
+            {formSpotlight && (formSpotlight.bestTeam || formSpotlight.hotPlayer) && (
+              <div className="bg-surface-card rounded-card shadow-card p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Flame size={14} className="text-orange-400" />
+                  <span className="text-sm font-semibold text-white">Form Spotlight</span>
+                </div>
+                <div className="space-y-2">
+                  {formSpotlight.bestTeam && (
+                    <button
+                      onClick={() => onTeamClick(formSpotlight.bestTeam!)}
+                      className="w-full flex items-center justify-between text-left hover:bg-surface-elevated/50 rounded-lg p-2 transition"
+                    >
+                      <div className="flex items-center gap-2">
+                        <TrendingUp size={12} className="text-win" />
+                        <span className="text-xs text-gray-400">Best Form</span>
+                      </div>
+                      <span className="text-sm text-white font-medium">{formSpotlight.bestTeam}</span>
+                    </button>
+                  )}
+                  {formSpotlight.hotPlayer && (
+                    <button
+                      onClick={() => onPlayerClick(formSpotlight.hotPlayer!.name)}
+                      className="w-full flex items-center justify-between text-left hover:bg-surface-elevated/50 rounded-lg p-2 transition"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Users size={12} className="text-info" />
+                        <span className="text-xs text-gray-400">Hottest Player</span>
+                      </div>
+                      <span className="text-sm text-white font-medium">
+                        {formSpotlight.hotPlayer.name}
+                        <span className="text-baize ml-1 text-xs">{formSpotlight.hotPlayer.pct.toFixed(0)}%</span>
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Set My Team CTA */}
+            <div className="bg-gradient-to-r from-accent-muted/10 to-transparent border border-accent/20 rounded-card shadow-card p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <Star size={14} className="text-accent" />
+                <span className="text-sm font-semibold text-white">Follow Your Team</span>
+              </div>
+              <p className="text-xs text-gray-400 mb-3">
+                Follow your team&apos;s fixtures, form & predictions.
+              </p>
+              {onSetMyTeam && (
+                <button
+                  onClick={onSetMyTeam}
+                  className="px-4 py-2 bg-accent hover:bg-accent-light text-white rounded-lg text-sm font-medium transition"
+                >
+                  Set My Team
+                </button>
+              )}
+            </div>
+          </>
         )}
 
         {/* My Team Card */}

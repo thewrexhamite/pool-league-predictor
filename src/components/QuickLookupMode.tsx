@@ -1,17 +1,21 @@
 'use client';
 
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { Search, X, ArrowLeft, TrendingUp, TrendingDown } from 'lucide-react';
+import { Search, X, ArrowLeft, TrendingUp, TrendingDown, Trophy, Users } from 'lucide-react';
 import clsx from 'clsx';
 import { useActiveData } from '@/lib/active-data-provider';
 import { getAllLeaguePlayers, getPlayerStats2526, calcPlayerForm, calcBayesianPct } from '@/lib/predictions';
-import type { LeaguePlayer } from '@/lib/types';
+import type { DivisionCode, LeaguePlayer } from '@/lib/types';
 
 interface QuickLookupModeProps {
   onClose?: () => void;
+  onTeamClick?: (team: string) => void;
+  onPlayerClick?: (name: string) => void;
 }
 
-export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
+type SearchResult = { type: 'team'; name: string; div: DivisionCode } | { type: 'player'; player: LeaguePlayer };
+
+export default function QuickLookupMode({ onClose, onTeamClick, onPlayerClick }: QuickLookupModeProps) {
   const { ds, frames } = useActiveData();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
@@ -22,21 +26,41 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
   // Get all players - pure client-side, no API calls (offline-safe)
   const allPlayers = useMemo(() => getAllLeaguePlayers(ds), [ds]);
 
+  // Search teams across all divisions
+  const filteredTeams = useMemo(() => {
+    if (searchQuery.length < 2) return [] as { name: string; div: DivisionCode }[];
+    const query = searchQuery.toLowerCase().trim();
+    const teams: { name: string; div: DivisionCode }[] = [];
+    for (const [divCode, divData] of Object.entries(ds.divisions)) {
+      for (const team of (divData as { teams: string[] }).teams) {
+        if (team.toLowerCase().includes(query)) {
+          teams.push({ name: team, div: divCode as DivisionCode });
+        }
+      }
+    }
+    return teams.slice(0, 4);
+  }, [searchQuery, ds.divisions]);
+
   // Filter players in real-time based on search query (max 8 results for clean UI)
-  // Optimized for sub-500ms response time with early returns
   const filteredPlayers = useMemo(() => {
     if (searchQuery.length < 2) return [];
 
     const query = searchQuery.toLowerCase().trim();
     return allPlayers
       .filter(player => {
-        // Early return on name match - avoid checking teams if name matches
         if (player.name.toLowerCase().includes(query)) return true;
-        // Only check teams if name didn't match
         return player.teams2526.some(team => team.toLowerCase().includes(query));
       })
       .slice(0, 8);
   }, [searchQuery, allPlayers]);
+
+  // Combined results for keyboard navigation
+  const allResults = useMemo<SearchResult[]>(() => {
+    const results: SearchResult[] = [];
+    for (const t of filteredTeams) results.push({ type: 'team', name: t.name, div: t.div });
+    for (const p of filteredPlayers) results.push({ type: 'player', player: p });
+    return results;
+  }, [filteredTeams, filteredPlayers]);
 
   // Calculate stats for selected player
   const selectedPlayerStats = useMemo(() => {
@@ -74,13 +98,13 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
     }
 
     // Only handle arrow keys and Enter when we have results and no player selected
-    if (selectedPlayer || filteredPlayers.length === 0) return;
+    if (selectedPlayer || allResults.length === 0) return;
 
     // Arrow Down - move focus down
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setFocusedIndex(prev => {
-        const next = prev < filteredPlayers.length - 1 ? prev + 1 : 0;
+        const next = prev < allResults.length - 1 ? prev + 1 : 0;
         resultsRef.current[next]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         return next;
       });
@@ -90,18 +114,29 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       setFocusedIndex(prev => {
-        const next = prev > 0 ? prev - 1 : filteredPlayers.length - 1;
+        const next = prev > 0 ? prev - 1 : allResults.length - 1;
         resultsRef.current[next]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         return next;
       });
     }
 
     // Enter - select focused result
-    if (e.key === 'Enter' && focusedIndex >= 0 && focusedIndex < filteredPlayers.length) {
+    if (e.key === 'Enter' && focusedIndex >= 0 && focusedIndex < allResults.length) {
       e.preventDefault();
-      setSelectedPlayer(filteredPlayers[focusedIndex].name);
+      const result = allResults[focusedIndex];
+      if (result.type === 'team') {
+        onTeamClick?.(result.name);
+        onClose?.();
+      } else {
+        if (onPlayerClick) {
+          onPlayerClick(result.player.name);
+          onClose?.();
+        } else {
+          setSelectedPlayer(result.player.name);
+        }
+      }
     }
-  }, [selectedPlayer, filteredPlayers, focusedIndex, onClose]);
+  }, [selectedPlayer, allResults, focusedIndex, onClose, onTeamClick, onPlayerClick]);
 
   // Add keyboard event listener
   useEffect(() => {
@@ -234,7 +269,7 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
           aria-controls="search-results"
           aria-activedescendant={focusedIndex >= 0 ? `result-${focusedIndex}` : undefined}
           role="combobox"
-          aria-expanded={filteredPlayers.length > 0}
+          aria-expanded={allResults.length > 0}
         />
         {searchQuery && (
           <button
@@ -250,10 +285,10 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
       {/* Search results */}
       {searchQuery.length >= 2 ? (
         <div className="mt-4">
-          {filteredPlayers.length > 0 ? (
+          {allResults.length > 0 ? (
             <div className="space-y-2">
               <p className="text-gray-400 text-sm mb-3" role="status" aria-live="polite">
-                {filteredPlayers.length} {filteredPlayers.length === 1 ? 'player' : 'players'} found
+                {allResults.length} result{allResults.length !== 1 ? 's' : ''} found
               </p>
               <div
                 id="search-results"
@@ -261,57 +296,119 @@ export default function QuickLookupMode({ onClose }: QuickLookupModeProps) {
                 role="listbox"
                 aria-label="Search results"
               >
-                {filteredPlayers.map((player, index) => (
-                  <div
-                    key={player.name}
-                    id={`result-${index}`}
-                    ref={el => { resultsRef.current[index] = el; }}
-                    onClick={() => setSelectedPlayer(player.name)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setSelectedPlayer(player.name);
-                      }
-                    }}
-                    className={clsx(
-                      'bg-surface border rounded-lg p-4 transition cursor-pointer mb-2',
-                      focusedIndex === index
-                        ? 'border-baize ring-2 ring-baize ring-opacity-50'
-                        : 'border-surface-border hover:border-baize'
+                {/* Team results */}
+                {filteredTeams.length > 0 && (
+                  <>
+                    {filteredTeams.map((team, i) => {
+                      const idx = i;
+                      return (
+                        <div
+                          key={`team-${team.name}`}
+                          id={`result-${idx}`}
+                          ref={el => { resultsRef.current[idx] = el; }}
+                          onClick={() => {
+                            onTeamClick?.(team.name);
+                            onClose?.();
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              onTeamClick?.(team.name);
+                              onClose?.();
+                            }
+                          }}
+                          className={clsx(
+                            'bg-surface border rounded-lg p-3 transition cursor-pointer mb-2 flex items-center gap-3',
+                            focusedIndex === idx
+                              ? 'border-baize ring-2 ring-baize ring-opacity-50'
+                              : 'border-surface-border hover:border-baize'
+                          )}
+                          role="option"
+                          aria-selected={focusedIndex === idx}
+                          tabIndex={0}
+                        >
+                          <Trophy size={16} className="text-baize shrink-0" />
+                          <span className="font-semibold text-white flex-1 truncate">{team.name}</span>
+                          <span className="text-[10px] text-gray-500 px-1.5 py-0.5 bg-surface-elevated rounded">{team.div}</span>
+                        </div>
+                      );
+                    })}
+                    {filteredPlayers.length > 0 && (
+                      <div className="border-t border-surface-border/30 my-2" />
                     )}
-                    role="option"
-                    aria-selected={focusedIndex === index}
-                    tabIndex={0}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-white truncate">{player.name}</h3>
-                        {player.teams2526.length > 0 && (
-                          <p className="text-sm text-gray-400 mt-1 truncate">
-                            {player.teams2526.join(', ')}
-                          </p>
-                        )}
-                      </div>
-                      <div className="ml-4 text-right flex-shrink-0">
-                        {player.adjPct2526 !== null && (
-                          <p className="text-lg font-bold text-baize">
-                            {player.adjPct2526.toFixed(1)}%
-                          </p>
-                        )}
-                        {player.totalPlayed2526 !== null && player.totalPlayed2526 > 0 && (
-                          <p className="text-xs text-gray-500 mt-1">
-                            {player.totalPlayed2526} {player.totalPlayed2526 === 1 ? 'game' : 'games'}
-                          </p>
-                        )}
+                  </>
+                )}
+
+                {/* Player results */}
+                {filteredPlayers.map((player, i) => {
+                  const idx = filteredTeams.length + i;
+                  return (
+                    <div
+                      key={player.name}
+                      id={`result-${idx}`}
+                      ref={el => { resultsRef.current[idx] = el; }}
+                      onClick={() => {
+                        if (onPlayerClick) {
+                          onPlayerClick(player.name);
+                          onClose?.();
+                        } else {
+                          setSelectedPlayer(player.name);
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          if (onPlayerClick) {
+                            onPlayerClick(player.name);
+                            onClose?.();
+                          } else {
+                            setSelectedPlayer(player.name);
+                          }
+                        }
+                      }}
+                      className={clsx(
+                        'bg-surface border rounded-lg p-4 transition cursor-pointer mb-2',
+                        focusedIndex === idx
+                          ? 'border-baize ring-2 ring-baize ring-opacity-50'
+                          : 'border-surface-border hover:border-baize'
+                      )}
+                      role="option"
+                      aria-selected={focusedIndex === idx}
+                      tabIndex={0}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-white truncate flex items-center gap-2">
+                            <Users size={14} className="text-info shrink-0" />
+                            {player.name}
+                          </h3>
+                          {player.teams2526.length > 0 && (
+                            <p className="text-sm text-gray-400 mt-1 truncate pl-[22px]">
+                              {player.teams2526.join(', ')}
+                            </p>
+                          )}
+                        </div>
+                        <div className="ml-4 text-right flex-shrink-0">
+                          {player.adjPct2526 !== null && (
+                            <p className="text-lg font-bold text-baize">
+                              {player.adjPct2526.toFixed(1)}%
+                            </p>
+                          )}
+                          {player.totalPlayed2526 !== null && player.totalPlayed2526 > 0 && (
+                            <p className="text-xs text-gray-500 mt-1">
+                              {player.totalPlayed2526} {player.totalPlayed2526 === 1 ? 'game' : 'games'}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ) : (
             <p className="text-gray-500 text-sm text-center py-8" role="status">
-              No players found matching &quot;{searchQuery}&quot;
+              No results found matching &quot;{searchQuery}&quot;
             </p>
           )}
         </div>
