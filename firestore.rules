@@ -89,5 +89,35 @@ service cloud.firestore {
       allow read: if request.auth != null;
       allow write: if false;
     }
+
+    // ===== Chalk (Pub Pool Queue) =====
+
+    // Chalk tables — open read, validated write
+    match /chalkTables/{tableId} {
+      allow read: if true;
+      allow create: if true
+        && request.resource.data.keys().hasAll(['id', 'shortCode', 'name', 'venueName', 'status', 'settings', 'queue', 'sessionStats'])
+        && request.resource.data.queue is list
+        && request.resource.data.queue.size() <= 30;
+      allow update: if true
+        && request.resource.data.queue is list
+        && request.resource.data.queue.size() <= 30;
+      allow delete: if true;
+
+      // Game history — immutable records
+      match /history/{gameId} {
+        allow read: if true;
+        allow create: if true;
+        allow update, delete: if false;
+      }
+    }
+
+    // Chalk table index — short code to table ID lookup
+    match /chalkTableIndex/{shortCode} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if false;
+      allow delete: if true;
+    }
   }
 }
