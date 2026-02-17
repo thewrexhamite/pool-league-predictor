@@ -16,6 +16,7 @@ import { AttractMode } from './AttractMode';
 const CLAIM_PROMPT_TIMEOUT = 10_000;
 const QUEUE_INTERSTITIAL_TIMEOUT = 15_000;
 const LOCAL_ADD_SUPPRESS_MS = 3_000;
+const ATTRACT_CYCLE_MS = 30_000;
 
 export function KioskView() {
   const { table, loading, error, connectionStatus } = useChalkTable();
@@ -46,6 +47,21 @@ export function KioskView() {
 
   const attractTimeout = table?.settings.attractModeTimeoutMinutes ?? 5;
   const { isIdle, wake } = useIdleDetector(attractTimeout);
+  const [showAttract, setShowAttract] = useState(false);
+
+  // Alternate between attract and main view every 30s while idle
+  useEffect(() => {
+    if (!isIdle) {
+      setShowAttract(false);
+      return;
+    }
+    // Start with attract screen when going idle
+    setShowAttract(true);
+    const interval = setInterval(() => {
+      setShowAttract((prev) => !prev);
+    }, ATTRACT_CYCLE_MS);
+    return () => clearInterval(interval);
+  }, [isIdle]);
 
   // Handle wake from attract mode — show claim prompt if table is idle
   const handleWake = useCallback(() => {
@@ -136,7 +152,7 @@ export function KioskView() {
     );
   }
 
-  if (isIdle && !table.currentGame && table.queue.length === 0) {
+  if (isIdle && showAttract) {
     return <AttractMode table={table} onWake={handleWake} onClaim={handleClaim} />;
   }
 
