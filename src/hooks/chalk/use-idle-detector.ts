@@ -7,13 +7,14 @@ export function useIdleDetector(timeoutMinutes: number) {
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
   const lastActivityRef = useRef<number>(Date.now());
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
-  const timeoutMs = timeoutMinutes * 60 * 1000;
+  const timeoutMsRef = useRef(timeoutMinutes * 60 * 1000);
+  timeoutMsRef.current = timeoutMinutes * 60 * 1000;
 
   const checkIdle = useCallback(() => {
-    if (Date.now() - lastActivityRef.current >= timeoutMs) {
+    if (Date.now() - lastActivityRef.current >= timeoutMsRef.current) {
       setIsIdle(true);
     }
-  }, [timeoutMs]);
+  }, []);
 
   const resetTimer = useCallback(() => {
     lastActivityRef.current = Date.now();
@@ -21,8 +22,8 @@ export function useIdleDetector(timeoutMinutes: number) {
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       setIsIdle(true);
-    }, timeoutMs);
-  }, [timeoutMs]);
+    }, timeoutMsRef.current);
+  }, []);
 
   useEffect(() => {
     const events = ['touchstart', 'mousedown', 'mousemove', 'keydown'];
