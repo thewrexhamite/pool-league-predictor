@@ -1,22 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  TouchSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
 import type { ChalkTable } from '@/lib/chalk/types';
-import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useVmin } from '@/hooks/chalk/use-vmin';
 import { ChalkButton } from '../shared/ChalkButton';
 import { QueueEntry } from './QueueEntry';
@@ -28,28 +12,8 @@ interface QueuePanelProps {
 }
 
 export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
-  const { reorderQueue } = useChalkTable();
   const vmin = useVmin();
   const qrSize = Math.round(Math.max(140, Math.min(360, vmin * 24)));
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 8 } }),
-    useSensor(KeyboardSensor)
-  );
-
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event;
-      if (!over || active.id === over.id) return;
-
-      const newIndex = table.queue.findIndex((e) => e.id === over.id);
-      if (newIndex !== -1) {
-        reorderQueue(active.id as string, newIndex);
-      }
-    },
-    [table.queue, reorderQueue]
-  );
 
   const waitingCount = table.queue.filter((e) => e.status === 'waiting').length;
   const holdCount = table.queue.filter((e) => e.status === 'on_hold').length;
@@ -85,25 +49,16 @@ export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
             </div>
           </div>
         ) : (
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext
-              items={table.queue.map((e) => e.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {table.queue.map((entry, index) => (
-                <QueueEntry
-                  key={entry.id}
-                  entry={entry}
-                  position={index + 1}
-                  isCurrentHolder={index === 0 && !!table.currentGame}
-                />
-              ))}
-            </SortableContext>
-          </DndContext>
+          <>
+            {table.queue.map((entry, index) => (
+              <QueueEntry
+                key={entry.id}
+                entry={entry}
+                position={index + 1}
+                isCurrentHolder={index === 0 && !!table.currentGame}
+              />
+            ))}
+          </>
         )}
       </div>
     </div>

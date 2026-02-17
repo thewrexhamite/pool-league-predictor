@@ -1,7 +1,5 @@
 'use client';
 
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import type { QueueEntry as QueueEntryType } from '@/lib/chalk/types';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useHoldTimer } from '@/hooks/chalk/use-hold-timer';
@@ -18,31 +16,14 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
   const { removeFromQueue, holdPosition, unholdPosition } = useChalkTable();
   const { minutesLeft, isExpired: holdExpired } = useHoldTimer(entry.holdUntil);
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: entry.id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
   const isOnHold = entry.status === 'on_hold';
   const isCalled = entry.status === 'called';
   const playerLabel = entry.playerNames.join(' & ');
 
   return (
     <div
-      ref={setNodeRef}
-      style={style}
       className={clsx(
         'rounded-[1.1vmin] border p-[1.1vmin] transition-colors chalk-animate-in',
-        isDragging && 'opacity-50 shadow-elevated z-10',
         isOnHold && !holdExpired && 'bg-accent/5 border-accent/20',
         isOnHold && holdExpired && 'bg-loss/5 border-loss/20',
         isCalled && 'bg-baize/10 border-baize/30',
@@ -50,23 +31,6 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
       )}
     >
       <div className="flex items-center gap-[1.1vmin]">
-        {/* Drag handle */}
-        <div
-          {...attributes}
-          {...listeners}
-          className="chalk-touch cursor-grab active:cursor-grabbing text-gray-600 hover:text-gray-400 touch-none"
-          aria-label={`Reorder ${playerLabel}`}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <circle cx="5" cy="3" r="1.5" />
-            <circle cx="11" cy="3" r="1.5" />
-            <circle cx="5" cy="8" r="1.5" />
-            <circle cx="11" cy="8" r="1.5" />
-            <circle cx="5" cy="13" r="1.5" />
-            <circle cx="11" cy="13" r="1.5" />
-          </svg>
-        </div>
-
         {/* Position number */}
         <span
           className={clsx(
