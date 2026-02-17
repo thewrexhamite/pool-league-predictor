@@ -20,7 +20,7 @@ export function AddToQueueSheet({ table, onClose }: AddToQueueSheetProps) {
   const { addToQueue } = useChalkTable();
   const { play } = useChalkSound(table.settings.soundEnabled, table.settings.soundVolume);
   const vmin = useVmin();
-  const qrSize = Math.round(Math.max(60, Math.min(120, vmin * 7.4)));
+  const qrSize = Math.round(Math.max(100, Math.min(220, vmin * 14)));
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [gameMode, setGameMode] = useState<GameMode>('singles');
   const [adding, setAdding] = useState(false);

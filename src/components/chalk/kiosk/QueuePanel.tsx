@@ -30,7 +30,7 @@ interface QueuePanelProps {
 export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
   const { reorderQueue } = useChalkTable();
   const vmin = useVmin();
-  const qrSize = Math.round(Math.max(80, Math.min(200, vmin * 13)));
+  const qrSize = Math.round(Math.max(140, Math.min(360, vmin * 24)));
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
