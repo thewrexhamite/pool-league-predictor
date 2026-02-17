@@ -42,7 +42,7 @@ export default function MyTeamContainer({
   const active = (subView as MyTeamSubView) || 'overview';
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 md:space-y-4">
       <FadeInOnScroll>
         <SegmentedControl
           segments={SEGMENTS}
@@ -62,8 +62,8 @@ export default function MyTeamContainer({
       )}
 
       {active === 'squad' && (
-        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
-          <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-3 md:p-6">
+          <h2 className="text-base md:text-lg font-bold text-white mb-3 md:mb-4 flex items-center gap-2">
             Squad Builder
           </h2>
           <SquadBuilderPanel

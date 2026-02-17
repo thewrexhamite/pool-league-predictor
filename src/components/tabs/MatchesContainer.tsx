@@ -51,8 +51,8 @@ export default function MatchesContainer({
   if (knockoutMatch) {
     return (
       <FadeInOnScroll>
-        <div className="card-interactive bg-surface-card rounded-card shadow-card p-6 md:p-8 text-center">
-          <Trophy size={32} className="mx-auto text-accent mb-3" />
+        <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-8 text-center">
+          <Trophy size={28} className="mx-auto text-accent mb-3" />
           <h3 className="text-lg font-bold text-white mb-2">{knockoutMatch.name}</h3>
           <p className="text-sm text-gray-400 mb-4">
             This is a knockout competition. View the bracket in the Standings tab.
@@ -69,7 +69,7 @@ export default function MatchesContainer({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 md:space-y-4">
       <FadeInOnScroll>
         <SegmentedControl
           segments={SEGMENTS}

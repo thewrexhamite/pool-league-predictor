@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import clsx from 'clsx';
-import { Trophy, TrendingUp, Target, Flame, Award, Crown, BarChart3, Zap, Rocket, Swords } from 'lucide-react';
+import { Trophy, TrendingUp, Target, Flame, Award, Crown, BarChart3, Zap, Rocket, Swords, ChevronDown } from 'lucide-react';
 import type { DivisionCode } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
 import FadeInOnScroll from './ui/FadeInOnScroll';
@@ -30,6 +30,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   const [minGames, setMinGames] = useState(5);
   const [showAllDivisions, setShowAllDivisions] = useState(false);
   const [trendFilter, setTrendFilter] = useState<'all' | 'hot' | 'cold' | 'steady'>('all');
+  const [showAdvancedMobile, setShowAdvancedMobile] = useState(false);
   const { ds, frames } = useActiveData();
 
   const divisionName = ds.divisions[selectedDiv]?.name || selectedDiv;
@@ -157,7 +158,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
   }, [ds.players2526, ds.players, selectedDiv, showAllDivisions]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 md:space-y-4">
       {/* Header */}
       <FadeInOnScroll>
       <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
@@ -503,6 +504,16 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
         </div>
       </div>
 
+      <button
+        onClick={() => setShowAdvancedMobile(prev => !prev)}
+        className="md:hidden w-full flex items-center justify-between bg-surface-card border border-surface-border rounded-lg px-3 py-2.5 text-left"
+        aria-expanded={showAdvancedMobile}
+      >
+        <span className="text-sm font-medium text-white">More Analytics</span>
+        <ChevronDown size={16} className={clsx('text-gray-400 transition-transform', showAdvancedMobile && 'rotate-180')} />
+      </button>
+
+      <div className={clsx('space-y-3 md:space-y-4', !showAdvancedMobile && 'hidden md:block')}>
       {/* Most Improved Section */}
       <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
         <h3 className="text-sm font-semibold text-success mb-3 flex items-center gap-1.5">
@@ -883,6 +894,7 @@ export default function StatsTab({ selectedDiv, onTeamClick, onPlayerClick }: St
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

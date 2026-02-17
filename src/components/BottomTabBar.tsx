@@ -37,11 +37,13 @@ export default function BottomTabBar({ activeTab, onTabChange, isKnockout = fals
               data-tutorial={`tab-${tab.id}`}
               onClick={() => onTabChange(tab.id)}
               className={clsx(
-                'flex flex-col items-center justify-center gap-0.5 py-3 px-3 min-w-0 flex-1 transition-colors',
-                isActive ? 'text-baize' : 'text-gray-500'
+                'relative flex flex-col items-center justify-center gap-0.5 py-3 px-3 min-w-0 flex-1 rounded-xl mx-1 my-1.5 btn-press',
+                isActive ? 'text-baize bg-baize/10' : 'text-gray-500 hover:text-gray-300'
               )}
+              aria-current={isActive ? 'page' : undefined}
             >
-              <Icon size={20} />
+              {isActive && <span className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-baize" />}
+              <Icon size={20} className={clsx('transition-transform duration-200', isActive && 'scale-105')} />
               <span className="text-[10px] font-medium leading-tight">{tab.shortLabel}</span>
             </button>
           );

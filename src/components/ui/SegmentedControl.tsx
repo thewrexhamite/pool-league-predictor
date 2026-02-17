@@ -60,7 +60,7 @@ export default function SegmentedControl<T extends string = string>({
     <div
       ref={containerRef}
       className={clsx(
-        'relative inline-flex items-center bg-surface-card rounded-lg p-0.5',
+        'relative inline-flex items-center bg-surface-card rounded-lg p-0.5 overflow-x-auto max-w-full',
         className,
       )}
     >
@@ -83,7 +83,7 @@ export default function SegmentedControl<T extends string = string>({
             data-segment
             onClick={() => onChange(seg.value)}
             className={clsx(
-              'relative z-10 px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap',
+              'relative z-10 px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-medium transition-colors whitespace-nowrap',
               isActive ? 'text-fixed-white' : 'text-gray-400 hover:text-gray-200',
             )}
           >

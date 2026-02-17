@@ -10,6 +10,7 @@ import {
   Home,
   Plane,
   Info,
+  ChevronDown,
 } from 'lucide-react';
 import type { SimulationResult } from '@/lib/types';
 import { useActiveData } from '@/lib/active-data-provider';
@@ -36,6 +37,7 @@ export default function CaptainDashboard({
   const { ds } = useActiveData();
   const { myTeam } = useMyTeam();
   const [timeLeft, setTimeLeft] = useState<string>('');
+  const [showAnalysisMobile, setShowAnalysisMobile] = useState(false);
 
   // Get next fixture
   const nextFixture = useMemo(() => {
@@ -121,7 +123,7 @@ export default function CaptainDashboard({
   const divisionName = ds.divisions[myTeam.div]?.name ?? myTeam.div;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 md:space-y-4">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
@@ -129,7 +131,7 @@ export default function CaptainDashboard({
         transition={{ duration: 0.3 }}
         className="card-interactive bg-surface-card rounded-card shadow-card p-4"
       >
-        <h2 className="text-lg font-bold text-white mb-1">Captain&apos;s Dashboard</h2>
+        <h2 className="text-base md:text-lg font-bold text-white mb-1">Captain&apos;s Dashboard</h2>
         <p className="text-sm text-gray-400">
           {myTeam.team} • {divisionName}
         </p>
@@ -248,9 +250,21 @@ export default function CaptainDashboard({
         />
       </motion.div>
 
+      {/* Mobile toggle for deeper analysis */}
+      {opponent && nextFixture && (
+        <button
+          onClick={() => setShowAnalysisMobile(prev => !prev)}
+          className="md:hidden w-full flex items-center justify-between bg-surface-card border border-surface-border rounded-lg px-3 py-2.5 text-left"
+          aria-expanded={showAnalysisMobile}
+        >
+          <span className="text-sm font-medium text-white">Match Analysis</span>
+          <ChevronDown size={16} className={clsx('text-gray-400 transition-transform', showAnalysisMobile && 'rotate-180')} />
+        </button>
+      )}
+
       {/* Opponent Scouting & Lineup - Only show if we have a next fixture */}
       {opponent && nextFixture && (
-        <>
+        <div className={clsx('space-y-3 md:space-y-4', !showAnalysisMobile && 'hidden md:block')}>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -274,7 +288,7 @@ export default function CaptainDashboard({
               onPlayerClick={onPlayerClick}
             />
           </motion.div>
-        </>
+        </div>
       )}
 
       {/* Season Goals */}

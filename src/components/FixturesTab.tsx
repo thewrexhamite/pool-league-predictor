@@ -81,6 +81,7 @@ export default function FixturesTab({
   onClearAll,
 }: FixturesTabProps) {
   const [showAllFixtures, setShowAllFixtures] = useState(false);
+  const [showAllLockedResults, setShowAllLockedResults] = useState(false);
   const [importanceTeam, setImportanceTeam] = useState('');
   const [fixtureImportance, setFixtureImportance] = useState<FixtureImportance[] | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
@@ -163,7 +164,8 @@ export default function FixturesTab({
   const teams = ds.divisions[selectedDiv].teams;
   const lockedKeys = new Set(whatIfResults.map(wi => wi.home + ':' + wi.away));
   const unlockedFixtures = fixtures.filter(f => !lockedKeys.has(f.home + ':' + f.away));
-  const displayedFixtures = showAllFixtures ? unlockedFixtures : unlockedFixtures.slice(0, 10);
+  const displayedFixtures = showAllFixtures ? unlockedFixtures : unlockedFixtures.slice(0, 6);
+  const displayedLockedResults = showAllLockedResults ? whatIfResults : whatIfResults.slice(0, 3);
 
   const importanceLookup = new Map<string, FixtureImportance>();
   if (fixtureImportance) {
@@ -194,9 +196,9 @@ export default function FixturesTab({
   }
 
   return (
-    <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-white">
+    <div className="card-interactive bg-surface-card rounded-card shadow-card p-3 md:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+        <h2 className="text-base md:text-lg font-bold text-white">
           Fixtures — {ds.divisions[selectedDiv].name}
           <span className="text-gray-500 text-sm font-normal ml-2">({fixtures.length} remaining)</span>
         </h2>
@@ -352,7 +354,7 @@ export default function FixturesTab({
             Locked Results ({whatIfResults.length})
           </h3>
           <div className="space-y-1.5">
-            {whatIfResults.map(wi => (
+            {displayedLockedResults.map(wi => (
               <div
                 key={wi.home + ':' + wi.away}
                 className="flex items-center justify-between bg-amber-900/20 border border-amber-600/20 rounded-lg p-3 text-sm"
@@ -366,6 +368,14 @@ export default function FixturesTab({
               </div>
             ))}
           </div>
+          {whatIfResults.length > 3 && (
+            <button
+              onClick={() => setShowAllLockedResults(!showAllLockedResults)}
+              className="mt-2 text-[11px] md:text-xs text-info hover:text-info-light transition"
+            >
+              {showAllLockedResults ? 'Show fewer locked results' : `Show ${whatIfResults.length - 3} more locked result${whatIfResults.length - 3 === 1 ? '' : 's'}`}
+            </button>
+          )}
         </div>
       )}
 
@@ -388,18 +398,18 @@ export default function FixturesTab({
         })}
       </div>
 
-      {unlockedFixtures.length > 10 && (
+      {unlockedFixtures.length > 6 && (
         <button
           onClick={() => setShowAllFixtures(!showAllFixtures)}
           className="w-full mt-3 text-info hover:text-info-light text-sm py-2 transition"
         >
-          {showAllFixtures ? 'Show Less' : `Show All (${unlockedFixtures.length - 10} more)`}
+          {showAllFixtures ? 'Show Less' : `Show All (${unlockedFixtures.length - 6} more)`}
         </button>
       )}
 
       {/* Action buttons */}
       {(whatIfResults.length > 0 || Object.keys(squadOverrides).length > 0) && (
-        <div className="flex gap-3 mt-4">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4">
           <button onClick={onSimulate} className="flex-1 bg-baize hover:bg-baize-dark font-bold py-3 px-6 rounded-lg transition text-fixed-white shadow-card">
             Simulate with {whatIfResults.length > 0 ? `${whatIfResults.length} Locked Result${whatIfResults.length > 1 ? 's' : ''}` : 'Squad Changes'}
           </button>

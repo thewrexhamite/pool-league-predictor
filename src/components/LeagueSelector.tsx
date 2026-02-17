@@ -129,8 +129,12 @@ export default function LeagueSelector() {
         onContinue={() => saved && selectLeague(saved.leagueId, saved.seasonId)}
       />
       <FeatureGrid />
-      <BonusStrip />
-      <StatsSection leagueCount={leagues.length} />
+      <div className="hidden md:block">
+        <BonusStrip />
+      </div>
+      <div className="hidden md:block">
+        <StatsSection leagueCount={leagues.length} />
+      </div>
       <LeagueSelection
         leagues={leagues}
         selectLeague={selectLeague}
@@ -278,7 +282,7 @@ function HeroSection({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35, ease }}
-          className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed"
+          className="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed px-1 sm:px-0"
         >
           AI-powered predictions, Monte Carlo simulations, deep player stats,
           and everything your pool league needs — all in one beautiful app.
@@ -315,7 +319,7 @@ function HeroSection({
           </button>
           <button
             onClick={() => scrollTo('features')}
-            className="flex items-center gap-2 border border-surface-border/60 hover:border-gray-400 text-gray-300 hover:text-white px-7 py-3.5 rounded-full transition-all duration-200 text-base backdrop-blur-sm hover:bg-surface-elevated/30"
+            className="hidden sm:flex items-center gap-2 border border-surface-border/60 hover:border-gray-400 text-gray-300 hover:text-white px-7 py-3.5 rounded-full transition-all duration-200 text-base backdrop-blur-sm hover:bg-surface-elevated/30"
           >
             See Features
             <ChevronRight className="w-4 h-4" />

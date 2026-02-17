@@ -13,6 +13,6 @@
       "@/*": ["../src/*"]
     }
   },
-  "include": ["src/**/*.ts", "../src/lib/sync-pipeline.ts", "../scripts/normalize-players.ts"],
+  "include": ["src/**/*.ts", "../src/lib/sync-pipeline.ts", "../src/lib/rackemapp-scraper.ts", "../scripts/normalize-players.ts"],
   "exclude": ["node_modules"]
 }

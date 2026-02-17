@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-02-11T13:36:02.334Z",
+  "leagues": [
+    {
+      "league": "wrexham",
+      "result": {
+        "success": true,
+        "results": 227,
+        "fixtures": 138,
+        "frames": 223,
+        "players": 379,
+        "requestCount": 277,
+        "skippedFrames": 0,
+        "durationMs": 1328010
+      },
+      "startedAt": "2026-02-11T13:06:53.040Z",
+      "finishedAt": "2026-02-11T13:29:01.181Z"
+    },
+    {
+      "league": "nwpa",
+      "result": {
+        "success": true,
+        "results": 34,
+        "fixtures": 136,
+        "frames": 34,
+        "players": 434,
+        "requestCount": 93,
+        "skippedFrames": 0,
+        "durationMs": 345368
+      },
+      "startedAt": "2026-02-11T13:29:31.182Z",
+      "finishedAt": "2026-02-11T13:35:16.653Z"
+    },
+    {
+      "league": "chester",
+      "result": {
+        "success": true,
+        "results": 0,
+        "fixtures": 0,
+        "frames": 0,
+        "players": 0,
+        "requestCount": 6,
+        "skippedFrames": 0,
+        "durationMs": 15558
+      },
+      "startedAt": "2026-02-11T13:35:46.654Z",
+      "finishedAt": "2026-02-11T13:36:02.334Z"
+    }
+  ],
+  "allSucceeded": true
+}

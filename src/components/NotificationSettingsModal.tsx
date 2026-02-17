@@ -27,14 +27,17 @@ export default function NotificationSettingsModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 p-0 sm:p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Notification settings"
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            className="bg-surface-card border border-surface-border rounded-card shadow-elevated p-6 w-full max-w-md max-h-[80vh] overflow-y-auto"
+            initial={{ scale: 0.98, opacity: 0, y: 24 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.98, opacity: 0, y: 24 }}
+            className="bg-surface-card border border-surface-border sm:rounded-card rounded-t-2xl shadow-elevated p-4 sm:p-6 w-full max-w-md max-h-[90dvh] sm:max-h-[80vh] overflow-y-auto"
             onClick={e => e.stopPropagation()}
           >
             <NotificationSettings onUnsubscribe={onClose} />

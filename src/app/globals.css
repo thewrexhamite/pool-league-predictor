@@ -57,6 +57,14 @@
   --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
   --shadow-card-hover: 0 4px 16px rgba(212,168,85,0.15);
   --shadow-elevated: 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-premium: 0 14px 40px rgba(4, 120, 87, 0.12), 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  /* Motion tokens */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snappy: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 140ms;
+  --dur-med: 260ms;
+  --dur-slow: 420ms;
 }
 
 /* ===== Dark Mode ===== */
@@ -112,6 +120,7 @@
   --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
   --shadow-card-hover: 0 4px 16px rgba(212, 168, 85, 0.08);
   --shadow-elevated: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-premium: 0 16px 48px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.28);
 }
 
 html {
@@ -119,9 +128,38 @@ html {
 }
 
 body {
+  min-height: 100dvh;
   background: rgb(var(--surface));
   background-image: radial-gradient(circle, rgb(var(--baize) / 0.03) 1px, transparent 1px);
   background-size: 20px 20px;
+  text-rendering: optimizeLegibility;
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    line-height: 1.55;
+  }
+
+  p,
+  li {
+    line-height: 1.6;
+  }
+
+  h1 {
+    line-height: 1.12;
+  }
+
+  h2 {
+    line-height: 1.18;
+  }
+
+  h3 {
+    line-height: 1.24;
+  }
 }
 
 /* Override antialiased in light mode for heavier, more readable text rendering.
@@ -320,9 +358,14 @@ header::before {
 }
 
 /* Custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--surface-border)) transparent;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -330,18 +373,36 @@ header::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--surface-border));
-  border-radius: 3px;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--surface-border)),
+    rgb(var(--surface-elevated))
+  );
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--surface-elevated));
+  background: linear-gradient(
+    180deg,
+    rgb(var(--baize) / 0.6),
+    rgb(var(--accent) / 0.65)
+  );
+  background-clip: content-box;
 }
 
 /* Focus visible ring */
-*:focus-visible {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role='button']:focus-visible,
+[role='tab']:focus-visible {
   outline: 2px solid rgb(var(--baize));
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgb(var(--baize) / 0.16);
 }
 
 /* Respect prefers-reduced-motion */
@@ -368,7 +429,7 @@ header::before {
     rgb(var(--surface-card)) 75%
   );
   background-size: 200% 100%;
-  animation: shimmer 2s infinite linear;
+  animation: shimmer 1.5s infinite linear;
   border-radius: 6px;
 }
 
@@ -464,24 +525,37 @@ header::before {
 /* ===== Polish: Interactive Card ===== */
 /* A refined card that lifts on hover with enhanced shadow */
 .card-interactive {
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              border-color 0.3s ease;
+  will-change: transform, box-shadow;
+  transition: transform var(--dur-med) var(--ease-premium),
+              box-shadow var(--dur-med) var(--ease-premium),
+              border-color var(--dur-fast) var(--ease-snappy);
 }
 .card-interactive:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-premium);
 }
 .dark .card-interactive:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-premium);
 }
 
 /* Button press micro-interaction */
 .btn-press {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform var(--dur-fast) var(--ease-snappy), box-shadow var(--dur-fast) var(--ease-snappy);
 }
 .btn-press:active {
   transform: scale(0.97);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition: color var(--dur-fast) var(--ease-snappy),
+              background-color var(--dur-fast) var(--ease-snappy),
+              border-color var(--dur-fast) var(--ease-snappy),
+              box-shadow var(--dur-fast) var(--ease-snappy),
+              transform var(--dur-fast) var(--ease-snappy);
 }
 
 /* Animated underline on hover */

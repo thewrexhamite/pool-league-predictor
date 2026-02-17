@@ -201,7 +201,7 @@ export default function AppHeader({
             )}
             <button
               onClick={() => withViewTransition(() => clearSelection())}
-              className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity"
+              className="text-lg md:text-xl font-bold hover:opacity-80 transition-opacity btn-press"
               title="Back to landing page"
             >
               <span className="text-gray-100">Pool League </span><span className="text-accent">Pro</span>
@@ -210,7 +210,7 @@ export default function AppHeader({
               <div data-tutorial="league-switcher" className="hidden md:block relative" ref={leagueDropdownRef}>
                 <button
                   onClick={() => setLeagueDropdownOpen(prev => !prev)}
-                  className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition px-1.5 py-0.5 rounded border border-surface-border/50 hover:border-surface-border"
+                  className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition px-1.5 py-0.5 rounded border border-surface-border/50 hover:border-surface-border btn-press"
                 >
                   {selected.league.shortName}
                   <ChevronDown size={10} className={clsx('transition-transform', leagueDropdownOpen && 'rotate-180')} />
@@ -298,7 +298,7 @@ export default function AppHeader({
             {/* Quick Lookup button (desktop) */}
             <button
               onClick={() => setShowQuickLookup(true)}
-              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-400 hover:text-white bg-surface-card border border-surface-border rounded-lg transition hover:border-baize"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-gray-400 hover:text-white bg-surface-card border border-surface-border rounded-lg transition hover:border-baize btn-press"
               title="Quick Lookup (Cmd+K)"
             >
               <Search size={14} />
@@ -313,7 +313,7 @@ export default function AppHeader({
                 onClick={() => setTimeMachineOpen(!timeMachineOpen)}
                 aria-expanded={timeMachineOpen}
                 className={clsx(
-                  'p-2 rounded transition',
+                  'p-2 rounded transition btn-press',
                   timeMachineDate
                     ? 'text-accent bg-accent-muted/30'
                     : 'text-gray-400 hover:text-white'
@@ -369,7 +369,7 @@ export default function AppHeader({
             {!myTeam && (
               <button
                 onClick={() => setShowMyTeamModal(true)}
-                className="hidden md:block p-2 text-gray-400 hover:text-accent-light transition"
+                className="hidden md:block p-2 text-gray-400 hover:text-accent-light transition btn-press"
                 aria-label="Set My Team"
                 title="Set My Team"
               >
@@ -400,7 +400,7 @@ export default function AppHeader({
                   nextRouter.push('/auth/login');
                 }
               }}
-              className="md:hidden p-2 text-gray-400 hover:text-white transition"
+              className="md:hidden p-2 text-gray-400 hover:text-white transition btn-press"
               aria-label="Scan QR code"
             >
               <ScanLine size={20} />
@@ -415,7 +415,7 @@ export default function AppHeader({
                   nextRouter.push('/auth/login');
                 }
               }}
-              className="md:hidden flex items-center justify-center transition"
+              className="md:hidden flex items-center justify-center transition btn-press"
               aria-label="Profile"
             >
               {isAuthenticated && profile?.photoURL ? (
@@ -441,7 +441,7 @@ export default function AppHeader({
             {/* Mobile hamburger button */}
             <button
               onClick={() => setMobileMenuOpen(prev => !prev)}
-              className="md:hidden p-2 text-gray-400 hover:text-white transition"
+              className="md:hidden p-2 text-gray-400 hover:text-white transition btn-press"
               aria-label="Menu"
             >
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -689,4 +689,3 @@ export default function AppHeader({
     </header>
   );
 }
-

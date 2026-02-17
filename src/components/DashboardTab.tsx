@@ -42,6 +42,8 @@ export default function DashboardTab({
 }: DashboardTabProps) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showWidgetLibrary, setShowWidgetLibrary] = useState(false);
+  const [showAllUpcomingMobile, setShowAllUpcomingMobile] = useState(false);
+  const [showAllAlertsMobile, setShowAllAlertsMobile] = useState(false);
   const { ds, frames } = useActiveData();
   const isAuthenticated = useIsAuthenticated();
 
@@ -155,18 +157,29 @@ export default function DashboardTab({
     return { bestTeam, hotPlayer };
   }, [standings, ds, frames, selectedDiv]);
 
+  const visibleUpcomingMatches = useMemo(
+    () => (showAllUpcomingMobile ? upcomingMatches : upcomingMatches.slice(0, 2)),
+    [showAllUpcomingMobile, upcomingMatches]
+  );
+  const hiddenUpcomingCount = Math.max(0, upcomingMatches.length - visibleUpcomingMatches.length);
+  const visibleAlerts = useMemo(
+    () => (showAllAlertsMobile ? alerts : alerts.slice(0, 1)),
+    [showAllAlertsMobile, alerts]
+  );
+  const hiddenAlertsCount = Math.max(0, alerts.length - visibleAlerts.length);
+
   return (
-    <div className="relative space-y-4">
+    <div className="relative space-y-3 md:space-y-4">
       {/* Join a Table card — authenticated users only */}
       {isAuthenticated && onJoinTable && (
-        <div className="bg-gradient-to-r from-baize/5 to-transparent border border-baize/20 rounded-card shadow-card p-4 flex items-center justify-between gap-4">
+        <div className="bg-gradient-to-r from-baize/5 to-transparent border border-baize/20 rounded-card shadow-card p-3 md:p-4 flex items-center justify-between gap-3 md:gap-4">
           <div>
             <h3 className="text-sm font-semibold text-white">Join a Table</h3>
-            <p className="text-xs text-gray-400 mt-0.5">Scan a kiosk QR code to join the queue</p>
+            <p className="text-[11px] md:text-xs text-gray-400 mt-0.5">Scan a kiosk QR code to join the queue</p>
           </div>
           <button
             onClick={onJoinTable}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-baize rounded-lg hover:bg-baize-light transition active:scale-[0.98] shrink-0"
+            className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 text-xs md:text-sm font-medium text-white bg-baize rounded-lg hover:bg-baize-light transition active:scale-[0.98] shrink-0"
           >
             <ScanLine size={16} />
             Scan QR
@@ -181,7 +194,7 @@ export default function DashboardTab({
           <>
             {/* Title Race card */}
             {titleRace && (
-              <div className="col-span-full bg-surface-card rounded-card shadow-card p-4">
+              <div className="col-span-full bg-surface-card rounded-card shadow-card p-3 md:p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Trophy size={14} className="text-gold" />
                   <span className="text-sm font-semibold text-white">Title Race</span>
@@ -222,7 +235,7 @@ export default function DashboardTab({
 
             {/* Form Spotlight card */}
             {formSpotlight && (formSpotlight.bestTeam || formSpotlight.hotPlayer) && (
-              <div className="bg-surface-card rounded-card shadow-card p-4">
+              <div className="bg-surface-card rounded-card shadow-card p-3 md:p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Flame size={14} className="text-orange-400" />
                   <span className="text-sm font-semibold text-white">Form Spotlight</span>
@@ -260,7 +273,7 @@ export default function DashboardTab({
             )}
 
             {/* Set My Team CTA */}
-            <div className="bg-gradient-to-r from-accent-muted/10 to-transparent border border-accent/20 rounded-card shadow-card p-4">
+            <div className="bg-gradient-to-r from-accent-muted/10 to-transparent border border-accent/20 rounded-card shadow-card p-3 md:p-4">
               <div className="flex items-center gap-2 mb-1">
                 <Star size={14} className="text-accent" />
                 <span className="text-sm font-semibold text-white">Follow Your Team</span>
@@ -284,7 +297,7 @@ export default function DashboardTab({
         {myTeam && myTeamGlance && (
           <button
             onClick={() => onTeamClick(myTeam.team)}
-            className="card-interactive bg-surface-card rounded-card shadow-card p-4 text-left hover:bg-surface-elevated/50 transition group"
+            className="card-interactive bg-surface-card rounded-card shadow-card p-3 md:p-4 text-left hover:bg-surface-elevated/50 transition group"
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
@@ -323,13 +336,13 @@ export default function DashboardTab({
 
         {/* Match Day Card */}
         {upcomingMatches.length > 0 && (
-          <div className="card-interactive bg-surface-card rounded-card shadow-card p-4">
+          <div className="card-interactive bg-surface-card rounded-card shadow-card p-3 md:p-4">
             <div className="flex items-center gap-2 mb-2">
               <Calendar size={14} className="text-info" />
               <span className="text-sm font-semibold text-white">Upcoming Matches</span>
             </div>
             <div className="space-y-1.5">
-              {upcomingMatches.map((f, i) => (
+              {visibleUpcomingMatches.map((f, i) => (
                 <div key={i} className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1.5">
                     <button onClick={() => onTeamClick(f.home)} className="text-gray-200 hover:text-info transition">{f.home}</button>
@@ -339,16 +352,32 @@ export default function DashboardTab({
                   <span className="text-gray-600 text-[10px]">{f.date}</span>
                 </div>
               ))}
+              {hiddenUpcomingCount > 0 && (
+                <button
+                  onClick={() => setShowAllUpcomingMobile(true)}
+                  className="md:hidden mt-1 text-[11px] text-info hover:text-info-light transition"
+                >
+                  Show {hiddenUpcomingCount} more match{hiddenUpcomingCount === 1 ? '' : 'es'}
+                </button>
+              )}
+              {showAllUpcomingMobile && upcomingMatches.length > 2 && (
+                <button
+                  onClick={() => setShowAllUpcomingMobile(false)}
+                  className="md:hidden mt-1 text-[11px] text-gray-500 hover:text-gray-300 transition"
+                >
+                  Show fewer matches
+                </button>
+              )}
             </div>
           </div>
         )}
 
         {/* Alert Cards */}
-        {alerts.map((alert, i) => (
+        {visibleAlerts.map((alert, i) => (
           <div
             key={i}
             className={clsx(
-              'card-interactive bg-surface-card rounded-card shadow-card p-4 border-l-2',
+              'card-interactive bg-surface-card rounded-card shadow-card p-3 md:p-4 border-l-2',
               alert.type === 'title' ? 'border-l-gold' : 'border-l-loss',
             )}
           >
@@ -372,13 +401,29 @@ export default function DashboardTab({
             </div>
           </div>
         ))}
+        {hiddenAlertsCount > 0 && (
+          <button
+            onClick={() => setShowAllAlertsMobile(true)}
+            className="md:hidden text-[11px] text-info hover:text-info-light transition justify-self-start"
+          >
+            Show {hiddenAlertsCount} more alert{hiddenAlertsCount === 1 ? '' : 's'}
+          </button>
+        )}
+        {showAllAlertsMobile && alerts.length > 1 && (
+          <button
+            onClick={() => setShowAllAlertsMobile(false)}
+            className="md:hidden text-[11px] text-gray-500 hover:text-gray-300 transition justify-self-start"
+          >
+            Show fewer alerts
+          </button>
+        )}
       </StaggerList>
 
       {/* Control buttons */}
       <div className="flex items-center justify-end gap-2">
         <button
           onClick={() => setShowWidgetLibrary(!showWidgetLibrary)}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-surface-card hover:bg-surface-elevated text-gray-300 transition-colors"
+          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-surface-card hover:bg-surface-elevated text-gray-300 transition-colors"
           title="Add widgets"
         >
           <Plus size={14} />

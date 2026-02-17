@@ -15,8 +15,9 @@ interface ResultsTabProps {
 }
 
 export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: ResultsTabProps) {
-  const { data: activeData, ds, frames } = useActiveData();
+  const { ds, frames } = useActiveData();
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
+  const [showAllResults, setShowAllResults] = useState(false);
 
   const divResults = ds.results
     .filter(r => getDiv(r.home, ds) === selectedDiv)
@@ -34,6 +35,9 @@ export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: 
     setExpandedKey(prev => (prev === key ? null : key));
   };
 
+  const visibleResults = showAllResults ? divResults : divResults.slice(0, 8);
+  const hiddenResultsCount = Math.max(0, divResults.length - visibleResults.length);
+
   if (divResults.length === 0) {
     return (
       <div className="bg-surface-card rounded-card shadow-card p-8 text-center">
@@ -44,10 +48,10 @@ export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: 
   }
 
   return (
-    <div className="card-interactive bg-surface-card rounded-card shadow-card p-4 md:p-6">
-      <h2 className="text-lg font-bold mb-4 text-white">{ds.divisions[selectedDiv].name} — Results</h2>
+    <div className="card-interactive bg-surface-card rounded-card shadow-card p-3 md:p-6">
+      <h2 className="text-base md:text-lg font-bold mb-3 md:mb-4 text-white">{ds.divisions[selectedDiv].name} — Results</h2>
       <div className="space-y-2">
-        {divResults.map((r, i) => {
+        {visibleResults.map((r, i) => {
           const key = `${r.home}|${r.away}|${r.date}`;
           const isExpanded = expandedKey === key;
           const frameData = frameLookup.get(key);
@@ -110,6 +114,22 @@ export default function ResultsTab({ selectedDiv, onTeamClick, onPlayerClick }: 
           );
         })}
       </div>
+      {hiddenResultsCount > 0 && (
+        <button
+          onClick={() => setShowAllResults(true)}
+          className="md:hidden mt-3 text-[11px] text-info hover:text-info-light transition"
+        >
+          Show {hiddenResultsCount} more result{hiddenResultsCount === 1 ? '' : 's'}
+        </button>
+      )}
+      {showAllResults && divResults.length > 8 && (
+        <button
+          onClick={() => setShowAllResults(false)}
+          className="md:hidden mt-1 text-[11px] text-gray-500 hover:text-gray-300 transition"
+        >
+          Show fewer results
+        </button>
+      )}
     </div>
   );
 }

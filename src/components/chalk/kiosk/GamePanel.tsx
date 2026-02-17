@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import type { ChalkTable } from '@/lib/chalk/types';
+import { findCompatibleChallenger } from '@/lib/chalk/game-engine';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
 import { useChalkSound } from '@/hooks/chalk/use-chalk-sound';
@@ -38,19 +39,22 @@ export function GamePanel({ table }: GamePanelProps) {
 
   const currentGame = table.currentGame;
   const waitingPlayers = table.queue.filter((e) => e.status === 'waiting');
-  const canStartGame = !currentGame && waitingPlayers.length >= 2;
 
-  // Compute the actual next matchup (mirroring game-engine logic for challenge mode)
+  // Compute the actual next matchup (mirroring game-engine logic)
   let nextHolder = waitingPlayers[0];
-  let nextChallenger = waitingPlayers[1];
-  if (canStartGame) {
+  let nextChallenger: typeof nextHolder | null = waitingPlayers[1] ?? null;
+  if (!currentGame && waitingPlayers.length >= 2) {
     const challengeEntry = waitingPlayers.find((e) => e.gameMode === 'challenge');
     if (challengeEntry) {
       const holderEntry = waitingPlayers.find((e) => e.id !== challengeEntry.id);
       nextHolder = holderEntry ?? waitingPlayers[0];
       nextChallenger = challengeEntry;
+    } else {
+      // Skip incompatible game modes (e.g. singles vs doubles)
+      nextChallenger = findCompatibleChallenger(waitingPlayers, nextHolder);
     }
   }
+  const canStartGame = !currentGame && !!nextHolder && !!nextChallenger;
 
   // Check for called entries with active no-show deadlines
   const calledEntries = table.queue.filter((e) => e.status === 'called' && e.noShowDeadline);
@@ -166,7 +170,7 @@ export function GamePanel({ table }: GamePanelProps) {
         <>
           {/* No active game */}
           <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-6">
-            {canStartGame ? (
+            {canStartGame && nextChallenger ? (
               <>
                 <div className="text-center space-y-2">
                   <p className="text-lg text-gray-400">Next up:</p>

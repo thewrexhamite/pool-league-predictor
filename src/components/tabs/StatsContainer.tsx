@@ -41,7 +41,7 @@ export default function StatsContainer({
     : SEGMENTS;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 md:space-y-4">
       <FadeInOnScroll>
         <SegmentedControl
           segments={segments}

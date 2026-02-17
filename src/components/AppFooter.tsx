@@ -10,11 +10,11 @@ export default function AppFooter() {
       <Glossary />
       <div className="section-divider mt-6 mb-4" />
       <p className="text-center text-gray-500 text-xs mb-1">
-        <Link href="/kiosk" className="hover:text-gray-300 transition">
+        <Link href="/kiosk" className="hover:text-gray-300 transition hover-underline">
           The Chalk &mdash; Live Table Queue
         </Link>
       </p>
-      <p className="text-center text-gray-600 text-xs">
+      <p className="text-center text-gray-600 text-xs tracking-wide">
         &copy; Mike Lewis {new Date().getFullYear()} &bull; Pool League Pro
       </p>
     </FadeInOnScroll>

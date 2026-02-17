@@ -43,7 +43,12 @@ export function startNextGame(
       throw new Error('Need at least 2 players in queue');
     }
     holder = waiting[0];
-    challenger = waiting[1];
+    // Find the first compatible challenger — skip entries with mismatched game modes
+    const compatibleChallenger = findCompatibleChallenger(waiting, holder);
+    if (!compatibleChallenger) {
+      throw new Error('No compatible challenger in queue');
+    }
+    challenger = compatibleChallenger;
   }
 
   // Handle killer mode — need 3+ players
@@ -248,6 +253,27 @@ export function cancelCurrentGame(
       : e
   );
   return { queue: updatedQueue };
+}
+
+/**
+ * Find the first queue entry compatible with the holder's game mode.
+ * Singles matches singles, doubles matches doubles. Killer is handled separately.
+ * Challenge is compatible with any mode (it inherits the holder's mode).
+ */
+export function findCompatibleChallenger(
+  waiting: QueueEntry[],
+  holder: QueueEntry
+): QueueEntry | null {
+  for (let i = 1; i < waiting.length; i++) {
+    const entry = waiting[i];
+    // Challenge is always compatible — the challenger accepts the holder's mode
+    if (entry.gameMode === 'challenge') return entry;
+    // Killer is handled by a separate path, skip here
+    if (entry.gameMode === 'killer' || holder.gameMode === 'killer') continue;
+    // Singles must match singles, doubles must match doubles
+    if (entry.gameMode === holder.gameMode) return entry;
+  }
+  return null;
 }
 
 function determineBreaker(
