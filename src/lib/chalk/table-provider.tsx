@@ -264,6 +264,21 @@ export function ChalkTableProvider({
     }));
   }, [tableId]);
 
+  // ===== Claim queue spot =====
+
+  const handleClaimQueueSpot = useCallback(async (entryId: string, playerName: string, userId: string) => {
+    await transactTable(tableId, (t) => {
+      const queue = t.queue.map((e) => {
+        if (e.id !== entryId) return e;
+        if (!e.playerNames.includes(playerName)) return e;
+        const existing = e.userIds ?? {};
+        if (existing[playerName]) return e; // Already claimed
+        return { ...e, userIds: { ...existing, [playerName]: userId } };
+      });
+      return { queue };
+    });
+  }, [tableId]);
+
   // ===== Settings actions =====
 
   const handleUpdateSettings = useCallback(async (settings: Partial<ChalkSettings>) => {
@@ -309,6 +324,7 @@ export function ChalkTableProvider({
     updateSettings: handleUpdateSettings,
     resetTable: handleResetTable,
     togglePrivateMode: handleTogglePrivateMode,
+    claimQueueSpot: handleClaimQueueSpot,
   };
 
   return (

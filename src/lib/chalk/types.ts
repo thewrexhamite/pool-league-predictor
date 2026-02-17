@@ -35,6 +35,7 @@ export interface QueueEntry {
   noShowDeadline: number | null;
   gameMode: GameMode;
   userId?: string;
+  userIds?: Record<string, string>; // playerName → Firebase UID
 }
 
 export interface GamePlayer {
@@ -203,4 +204,6 @@ export interface ChalkTableContextValue {
   resetTable: () => Promise<void>;
   // Private mode
   togglePrivateMode: (playerNames?: string[]) => Promise<void>;
+  // Claim queue spot
+  claimQueueSpot: (entryId: string, playerName: string, userId: string) => Promise<void>;
 }

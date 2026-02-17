@@ -1,7 +1,10 @@
 'use client';
 
-import type { ChalkTable } from '@/lib/chalk/types';
+import { useState } from 'react';
+import type { ChalkTable, QueueEntry } from '@/lib/chalk/types';
 import { GAME_MODE_LABELS } from '@/lib/chalk/constants';
+import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
+import { useQueueIdentity } from '@/hooks/chalk/use-queue-identity';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
 import { CrownIcon } from '../shared/CrownIcon';
 import clsx from 'clsx';
@@ -10,9 +13,52 @@ interface JoinQueueViewProps {
   table: ChalkTable;
 }
 
+function ClaimButton({
+  entry,
+  playerName,
+  userId,
+}: {
+  entry: QueueEntry;
+  playerName: string;
+  userId: string;
+}) {
+  const { claimQueueSpot } = useChalkTable();
+  const [claiming, setClaiming] = useState(false);
+
+  const isClaimed = entry.userIds?.[playerName];
+  if (isClaimed) return null;
+
+  async function handleClaim() {
+    setClaiming(true);
+    try {
+      await claimQueueSpot(entry.id, playerName, userId);
+    } catch {
+      setClaiming(false);
+    }
+  }
+
+  return (
+    <button
+      onClick={handleClaim}
+      disabled={claiming}
+      className="text-xs text-baize hover:text-baize-light transition-colors font-medium disabled:opacity-50"
+    >
+      {claiming ? '…' : "That's me"}
+    </button>
+  );
+}
+
 export function JoinQueueView({ table }: JoinQueueViewProps) {
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
+  const { userId } = useQueueIdentity();
   const waitingEntries = table.queue.filter((e) => e.status === 'waiting');
+
+  // Check if this user has already claimed any spot in the queue
+  const alreadyClaimed = userId
+    ? table.queue.some((e) =>
+        e.userIds && Object.values(e.userIds).includes(userId)
+      )
+    : true;
 
   return (
     <div className="p-4 space-y-4">
@@ -81,9 +127,28 @@ export function JoinQueueView({ table }: JoinQueueViewProps) {
                 >
                   {index + 1}
                 </span>
-                <span className="flex-1 font-medium text-sm">
-                  {entry.playerNames.join(' & ')}
-                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {entry.playerNames.map((name, i) => {
+                      const claimed = entry.userIds?.[name];
+                      const isMe = claimed === userId;
+                      const canClaim = userId && !claimed && !alreadyClaimed;
+                      return (
+                        <span key={name} className="flex items-center gap-1.5">
+                          {i > 0 && <span className="text-gray-500 text-xs">&</span>}
+                          <span className="font-medium text-sm">{name}</span>
+                          {isMe ? (
+                            <span className="w-1.5 h-1.5 rounded-full bg-baize shrink-0" title="You" />
+                          ) : claimed ? (
+                            <span className="w-1.5 h-1.5 rounded-full bg-gray-500 shrink-0" title="Signed in" />
+                          ) : canClaim ? (
+                            <ClaimButton entry={entry} playerName={name} userId={userId} />
+                          ) : null}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
                 {entry.gameMode !== 'singles' && (
                   <span className="text-xs text-gray-500">
                     {GAME_MODE_LABELS[entry.gameMode]}
