@@ -50,7 +50,7 @@ export function TVView() {
   if (loading) {
     return (
       <div className="chalk-kiosk chalk-tv flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-baize border-t-transparent rounded-full animate-spin" />
+        <div className="w-[6vmin] h-[6vmin] border-4 border-baize border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -58,7 +58,7 @@ export function TVView() {
   if (error || !table) {
     return (
       <div className="chalk-kiosk chalk-tv flex items-center justify-center">
-        <p className="text-loss text-3xl">{error ?? 'Table not found'}</p>
+        <p className="text-loss text-[2.8vmin]">{error ?? 'Table not found'}</p>
       </div>
     );
   }
@@ -72,20 +72,20 @@ export function TVView() {
       <ConnectionStatus status={connectionStatus} />
 
       {/* Header */}
-      <div className="flex items-center justify-between px-8 py-4 border-b border-surface-border">
+      <div className="flex items-center justify-between px-[3vmin] py-[1.5vmin] border-b border-surface-border">
         <div>
-          <h1 className="text-2xl font-bold">{table.name}</h1>
-          <p className="text-base text-gray-400">
+          <h1 className="text-[2.2vmin] font-bold">{table.name}</h1>
+          <p className="text-[1.5vmin] text-gray-400">
             {table.sessionStats.gamesPlayed} games played
           </p>
         </div>
-        <div className="text-right text-base text-gray-400">
+        <div className="text-right text-[1.5vmin] text-gray-400">
           <p>Join: <span className="text-baize font-mono">{table.shortCode}</span></p>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-hidden p-8">
+      <div className="flex-1 overflow-hidden p-[3vmin]">
         {activePanel === 'game' && table.currentGame && (
           <TVCurrentGame table={table} />
         )}
