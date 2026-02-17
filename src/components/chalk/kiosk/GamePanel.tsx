@@ -92,7 +92,7 @@ export function GamePanel({ table }: GamePanelProps) {
 
       {/* No-show overlay */}
       {calledEntries.length > 0 && (
-        <NoShowOverlay entries={calledEntries} settings={table.settings} />
+        <NoShowOverlay entries={calledEntries} settings={table.settings} currentGame={table.currentGame} />
       )}
 
       {currentGame ? (
