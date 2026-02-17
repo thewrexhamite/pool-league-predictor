@@ -10,6 +10,25 @@ interface AttractModeProps {
   onClaim: () => void;
 }
 
+/** Returns the current vmin in pixels, updating on resize. */
+function useVmin() {
+  const [vmin, setVmin] = useState(() =>
+    typeof window !== 'undefined'
+      ? Math.min(window.innerWidth, window.innerHeight) / 100
+      : 10.8
+  );
+
+  useEffect(() => {
+    function update() {
+      setVmin(Math.min(window.innerWidth, window.innerHeight) / 100);
+    }
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  return vmin;
+}
+
 function LiveClock() {
   const [time, setTime] = useState('');
 
@@ -43,6 +62,8 @@ function useQueueStatus(table: ChalkTable) {
 
 export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const queueStatus = useQueueStatus(table);
+  const vmin = useVmin();
+  const qrSize = Math.round(Math.max(120, Math.min(500, vmin * 28)));
   const [ripple, setRipple] = useState<{ x: number; y: number; id: number } | null>(null);
 
   const handleTap = useCallback(
@@ -87,35 +108,35 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
       </div>
 
       {/* Top — branding */}
-      <div className="relative z-10 flex-none text-center pt-16 pb-8 chalk-animate-fade">
-        <h1 className="text-8xl font-bold tracking-tight chalk-attract-title">
+      <div className="relative z-10 flex-none text-center pt-[6vmin] pb-[3vmin] chalk-animate-fade">
+        <h1 className="text-[9vmin] font-bold tracking-tight chalk-attract-title">
           Chalk It Up!
         </h1>
-        <p className="text-2xl text-gray-400 mt-4">{table.venueName}</p>
+        <p className="text-[2.2vmin] text-gray-400 mt-[1.5vmin]">{table.venueName}</p>
         {table.name && table.name !== table.venueName && (
-          <p className="text-xl text-gray-500 mt-2">{table.name}</p>
+          <p className="text-[1.9vmin] text-gray-500 mt-[0.75vmin]">{table.name}</p>
         )}
       </div>
 
       {/* Middle — CTA + QR code */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-10 chalk-animate-fade">
-        <p className="text-4xl font-semibold text-baize">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3.7vmin] chalk-animate-fade">
+        <p className="text-[3.3vmin] font-semibold text-baize">
           Put your name down to play
         </p>
 
-        <div className="flex flex-col items-center gap-6 p-8 rounded-3xl bg-surface-card border-2 border-baize chalk-attract-glow">
-          <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={300} showLabel={false} />
-          <p className="text-baize font-semibold text-2xl">Scan to join the queue</p>
-          <p className="text-gray-400 font-mono text-2xl tracking-wider">{table.shortCode}</p>
+        <div className="flex flex-col items-center gap-[2.2vmin] p-[3vmin] rounded-[2.2vmin] bg-surface-card border-2 border-baize chalk-attract-glow">
+          <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} showLabel={false} />
+          <p className="text-baize font-semibold text-[2.2vmin]">Scan to join the queue</p>
+          <p className="text-gray-400 font-mono text-[2.2vmin] tracking-wider">{table.shortCode}</p>
         </div>
       </div>
 
       {/* Queue snapshot */}
       {(table.currentGame || table.queue.length > 0) && (
-        <div className="relative z-10 flex-none mx-auto w-full max-w-md px-6 pb-4 chalk-animate-fade">
-          <div className="rounded-2xl bg-surface-card/60 border border-surface-border px-6 py-5 space-y-3">
+        <div className="relative z-10 flex-none mx-auto w-full max-w-[42vmin] px-[2.2vmin] pb-[1.5vmin] chalk-animate-fade">
+          <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[1.1vmin]">
             {table.currentGame && (
-              <div className="flex items-center gap-3 text-xl">
+              <div className="flex items-center gap-[1.1vmin] text-[1.9vmin]">
                 <span className="text-baize font-medium">Now playing</span>
                 <span className="text-gray-300">
                   {table.currentGame.players.map((p) => p.name).join(' vs ')}
@@ -123,18 +144,18 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               </div>
             )}
             {table.queue.slice(0, 5).map((entry, i) => (
-              <div key={entry.id} className="flex items-center gap-3 text-xl">
-                <span className="w-7 text-right text-gray-600 font-mono">{i + 1}.</span>
+              <div key={entry.id} className="flex items-center gap-[1.1vmin] text-[1.9vmin]">
+                <span className="w-[2.6vmin] text-right text-gray-600 font-mono">{i + 1}.</span>
                 <span className={i === 0 && !table.currentGame ? 'text-baize font-medium' : 'text-gray-400'}>
                   {formatNames(entry)}
                 </span>
                 {entry.status === 'on_hold' && (
-                  <span className="text-sm text-gray-600">(hold)</span>
+                  <span className="text-[1.3vmin] text-gray-600">(hold)</span>
                 )}
               </div>
             ))}
             {table.queue.length > 5 && (
-              <p className="text-gray-600 text-base pl-10">
+              <p className="text-gray-600 text-[1.5vmin] pl-[3.7vmin]">
                 +{table.queue.length - 5} more
               </p>
             )}
@@ -143,21 +164,21 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
       )}
 
       {/* Bottom — tap CTA + stats + status */}
-      <div className="relative z-10 flex-none text-center pb-12 space-y-6 chalk-animate-fade">
-        <p className="text-gray-400 text-2xl">
+      <div className="relative z-10 flex-none text-center pb-[4.5vmin] space-y-[2.2vmin] chalk-animate-fade">
+        <p className="text-gray-400 text-[2.2vmin]">
           or tap here to add your name
         </p>
 
         <button
           onClick={(e) => { e.stopPropagation(); onClaim(); }}
           onTouchStart={(e) => { e.stopPropagation(); }}
-          className="text-baize/70 hover:text-baize text-lg underline underline-offset-4 transition-colors"
+          className="text-baize/70 hover:text-baize text-[1.7vmin] underline underline-offset-4 transition-colors"
         >
           Already at the table? Tap here
         </button>
 
         {table.sessionStats.gamesPlayed > 0 && (
-          <div className="text-lg text-gray-600">
+          <div className="text-[1.7vmin] text-gray-600">
             {table.sessionStats.gamesPlayed} games played this session
             {table.sessionStats.kingOfTable && (
               <> &mdash; King: {table.sessionStats.kingOfTable.playerName}</>
@@ -165,10 +186,10 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
           </div>
         )}
 
-        <div className="flex items-center justify-center gap-3 text-lg text-gray-600">
-          <span className="inline-block w-2.5 h-2.5 rounded-full bg-baize chalk-animate-pulse" />
+        <div className="flex items-center justify-center gap-[1.1vmin] text-[1.7vmin] text-gray-600">
+          <span className="inline-block w-[0.9vmin] h-[0.9vmin] rounded-full bg-baize chalk-animate-pulse" />
           <span>{queueStatus}</span>
-          <span className="mx-1">&middot;</span>
+          <span className="mx-[0.4vmin]">&middot;</span>
           <LiveClock />
         </div>
       </div>
