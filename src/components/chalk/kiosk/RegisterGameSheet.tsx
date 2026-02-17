@@ -84,17 +84,17 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
         role="dialog"
         aria-label="Register current game"
       >
-        <div className="p-6 space-y-5">
+        <div className="p-[2.2vmin] space-y-[1.85vmin]">
           {/* Handle bar */}
           <div className="flex justify-center">
-            <div className="w-12 h-1 rounded-full bg-surface-border" />
+            <div className="w-[4.4vmin] h-[0.37vmin] rounded-full bg-surface-border" />
           </div>
 
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">Who&apos;s playing right now?</h2>
+            <h2 className="text-[1.9vmin] font-bold">Who&apos;s playing right now?</h2>
             <button
               onClick={onClose}
-              className="chalk-touch p-2 rounded-lg text-gray-400 hover:text-white transition-colors"
+              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-gray-400 hover:text-white transition-colors"
               aria-label="Close"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -111,8 +111,8 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
           />
 
           {/* Player/Team 1 */}
-          <div className="space-y-3">
-            <label className="block text-sm font-medium text-gray-300">
+          <div className="space-y-[1.1vmin]">
+            <label className="block text-[1.3vmin] font-medium text-gray-300">
               {gameMode === 'doubles' ? 'Team 1 (2 players)' : 'Player 1'}
             </label>
             <PlayerNameInput
@@ -128,11 +128,11 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
               }
             />
             {holderNames.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-[0.75vmin]">
                 {holderNames.map((name) => (
                   <span
                     key={name}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-baize/20 text-baize text-sm font-medium"
+                    className="inline-flex items-center gap-[0.55vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/20 text-baize text-[1.3vmin] font-medium"
                   >
                     {name}
                     <button
@@ -151,8 +151,8 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
           </div>
 
           {/* Player/Team 2 */}
-          <div className="space-y-3">
-            <label className="block text-sm font-medium text-gray-300">
+          <div className="space-y-[1.1vmin]">
+            <label className="block text-[1.3vmin] font-medium text-gray-300">
               {gameMode === 'doubles' ? 'Team 2 (2 players)' : 'Player 2'}
             </label>
             <PlayerNameInput
@@ -168,11 +168,11 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
               }
             />
             {challengerNames.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-[0.75vmin]">
                 {challengerNames.map((name) => (
                   <span
                     key={name}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-baize/20 text-baize text-sm font-medium"
+                    className="inline-flex items-center gap-[0.55vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/20 text-baize text-[1.3vmin] font-medium"
                   >
                     {name}
                     <button
@@ -192,7 +192,7 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
 
           {/* Error */}
           {error && (
-            <p className="text-loss text-sm chalk-animate-shake" role="alert">{error}</p>
+            <p className="text-loss text-[1.3vmin] chalk-animate-shake" role="alert">{error}</p>
           )}
 
           {/* Submit */}

@@ -364,7 +364,7 @@
   left: 0;
   right: 0;
   z-index: 40;
-  border-radius: 24px 24px 0 0;
+  border-radius: 2.2vmin 2.2vmin 0 0;
   background: rgb(var(--surface-card));
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
   max-height: 80vh;
