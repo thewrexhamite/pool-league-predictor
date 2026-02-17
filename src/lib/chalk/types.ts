@@ -157,6 +157,7 @@ export interface GameHistoryRecord {
   consecutiveWins: number;
   killerState: KillerState | null;
   playerUids?: Record<string, string>;
+  playerUidList?: string[];
 }
 
 // ===== Short Code Index =====

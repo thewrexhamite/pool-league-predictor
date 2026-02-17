@@ -22,6 +22,7 @@ import {
   Target,
   Flame,
   Zap,
+  Clock,
 } from 'lucide-react';
 import type { GameMode, ChalkLifetimeStats } from '@/lib/chalk/types';
 import { useAuth, updateUserProfile } from '@/lib/auth';
@@ -29,6 +30,8 @@ import { AuthGuard } from '@/components/auth';
 import { CaptainClaimModal } from '@/components/auth/CaptainClaimModal';
 import { QRScanner } from '@/components/chalk/join/QRScanner';
 import { usePlayerInsights, usePlayerLabels } from '@/hooks/use-gamification';
+import { useUserGameHistory } from '@/hooks/chalk/use-match-history';
+import { GameHistoryRow } from '@/components/chalk/shared/GameHistoryRow';
 import PlayerLabels from '@/components/gamification/PlayerLabels';
 
 export default function ProfilePage() {
@@ -41,6 +44,7 @@ export default function ProfilePage() {
 
   const { insights } = usePlayerInsights();
   const { active: activeLabels } = usePlayerLabels();
+  const { games: matchHistory, loading: historyLoading, loadingMore, hasMore, loadMore } = useUserGameHistory(user?.uid);
 
   const captainClaims = profile?.captainClaims || [];
   const claimedProfiles = profile?.claimedProfiles || [];
@@ -260,6 +264,42 @@ export default function ProfilePage() {
               </div>
             );
           })()}
+
+          {/* Match History */}
+          {user && (
+            <div className="bg-surface-card border border-surface-border rounded-card p-6 space-y-4">
+              <h3 className="font-semibold text-white flex items-center gap-2">
+                <Clock className="w-4 h-4 text-baize" />
+                Match History
+              </h3>
+              {historyLoading ? (
+                <div className="flex justify-center py-6">
+                  <div className="w-5 h-5 border-2 border-baize border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : matchHistory.length === 0 ? (
+                <p className="text-sm text-gray-500 py-4 text-center">
+                  No match history yet. Play some games to see your results here.
+                </p>
+              ) : (
+                <>
+                  <div className="space-y-1.5">
+                    {matchHistory.map((game) => (
+                      <GameHistoryRow key={game.id} game={game} highlightUid={user.uid} />
+                    ))}
+                  </div>
+                  {hasMore && (
+                    <button
+                      onClick={loadMore}
+                      disabled={loadingMore}
+                      className="w-full text-center text-sm text-baize hover:text-baize-light transition py-2 disabled:opacity-50"
+                    >
+                      {loadingMore ? 'Loading...' : 'Load more'}
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+          )}
 
           {/* Player Insights Summary */}
           {insights.insightsEnabled && (

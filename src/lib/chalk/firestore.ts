@@ -5,9 +5,13 @@ import {
   updateDoc,
   deleteDoc,
   collection,
+  collectionGroup,
   addDoc,
   query,
   where,
+  orderBy,
+  limit,
+  startAfter,
   getDocs,
   runTransaction,
   onSnapshot,
@@ -15,6 +19,7 @@ import {
   arrayUnion,
   arrayRemove,
   type Unsubscribe,
+  type QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import type {
@@ -224,6 +229,49 @@ export async function addGameHistory(
 export async function getGameHistory(tableId: string): Promise<GameHistoryRecord[]> {
   const snap = await getDocs(historyCollection(tableId));
   return snap.docs.map((d) => d.data() as GameHistoryRecord);
+}
+
+export async function getTableHistory(
+  tableId: string,
+  pageSize: number = 20
+): Promise<GameHistoryRecord[]> {
+  const q = query(
+    historyCollection(tableId),
+    orderBy('endedAt', 'desc'),
+    limit(pageSize)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => d.data() as GameHistoryRecord);
+}
+
+export async function getUserGameHistory(
+  uid: string,
+  pageSize: number = 20,
+  afterDoc?: QueryDocumentSnapshot
+): Promise<{ games: GameHistoryRecord[]; lastDoc: QueryDocumentSnapshot | null; hasMore: boolean }> {
+  const cg = collectionGroup(db, 'history');
+  const q = afterDoc
+    ? query(
+        cg,
+        where('playerUidList', 'array-contains', uid),
+        orderBy('endedAt', 'desc'),
+        startAfter(afterDoc),
+        limit(pageSize + 1)
+      )
+    : query(
+        cg,
+        where('playerUidList', 'array-contains', uid),
+        orderBy('endedAt', 'desc'),
+        limit(pageSize + 1)
+      );
+  const snap = await getDocs(q);
+  const hasMore = snap.docs.length > pageSize;
+  const docs = hasMore ? snap.docs.slice(0, pageSize) : snap.docs;
+  return {
+    games: docs.map((d) => d.data() as GameHistoryRecord),
+    lastDoc: docs.length > 0 ? docs[docs.length - 1] : null,
+    hasMore,
+  };
 }
 
 // ===== Reset table =====

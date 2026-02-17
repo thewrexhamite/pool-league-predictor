@@ -216,6 +216,7 @@ export function ChalkTableProvider({
       const playerUidMap = extractPlayerUids(t.currentGame.players, t.queue);
 
       // Capture history data to write after transaction (avoids duplicates on retry)
+      const playerUidList = Object.values(playerUidMap);
       historyData = {
         id: t.currentGame.id,
         tableId,
@@ -229,6 +230,7 @@ export function ChalkTableProvider({
         consecutiveWins: newConsecutiveWins,
         killerState: t.currentGame.killerState,
         playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
+        playerUidList: playerUidList.length > 0 ? playerUidList : undefined,
       };
 
       // Build lifetime stats results for players with UIDs
@@ -287,6 +289,7 @@ export function ChalkTableProvider({
       const playerUidMap = extractPlayerUids(t.currentGame.players, t.queue);
 
       // Capture history data to write after transaction
+      const playerUidList = Object.values(playerUidMap);
       historyData = {
         id: t.currentGame.id,
         tableId,
@@ -300,6 +303,7 @@ export function ChalkTableProvider({
         consecutiveWins: 0,
         killerState: t.currentGame.killerState,
         playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
+        playerUidList: playerUidList.length > 0 ? playerUidList : undefined,
       };
 
       // Build lifetime stats results for players with UIDs

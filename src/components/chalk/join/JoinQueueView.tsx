@@ -6,7 +6,9 @@ import { GAME_MODE_LABELS } from '@/lib/chalk/constants';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useQueueIdentity } from '@/hooks/chalk/use-queue-identity';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
+import { useTableHistory } from '@/hooks/chalk/use-match-history';
 import { CrownIcon } from '../shared/CrownIcon';
+import { GameHistoryRow } from '../shared/GameHistoryRow';
 import clsx from 'clsx';
 
 interface JoinQueueViewProps {
@@ -51,6 +53,8 @@ function ClaimButton({
 export function JoinQueueView({ table }: JoinQueueViewProps) {
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
   const { userId } = useQueueIdentity();
+  const { games: recentGames, loading: historyLoading } = useTableHistory(table.id);
+  const [showAllGames, setShowAllGames] = useState(false);
   const waitingEntries = table.queue.filter((e) => e.status === 'waiting');
 
   // Check if this user has already claimed any spot in the queue
@@ -175,6 +179,28 @@ export function JoinQueueView({ table }: JoinQueueViewProps) {
               </span>
             )}
           </div>
+        </div>
+      )}
+
+      {/* Recent Games */}
+      {!historyLoading && recentGames.length > 0 && (
+        <div className="space-y-2">
+          <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wider">
+            Recent Games
+          </h2>
+          <div className="space-y-1.5">
+            {(showAllGames ? recentGames : recentGames.slice(0, 3)).map((game) => (
+              <GameHistoryRow key={game.id} game={game} compact />
+            ))}
+          </div>
+          {recentGames.length > 3 && (
+            <button
+              onClick={() => setShowAllGames(!showAllGames)}
+              className="text-xs text-baize hover:text-baize-light transition w-full text-center py-1"
+            >
+              {showAllGames ? 'Show less' : `Show all ${recentGames.length} games`}
+            </button>
+          )}
         </div>
       )}
     </div>
