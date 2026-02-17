@@ -8,6 +8,7 @@ import { useVmin } from '@/hooks/chalk/use-vmin';
 import { useTablePeriodStats } from '@/hooks/chalk/use-table-period-stats';
 import { QRCodeDisplay } from './QRCodeDisplay';
 import { CrownIcon } from '../shared/CrownIcon';
+import { ListOrdered, BarChart3, Smartphone } from 'lucide-react';
 
 interface AttractModeProps {
   table: ChalkTable;
@@ -52,7 +53,83 @@ function formatDuration(ms: number): string {
   return `${mins}m`;
 }
 
-type Slide = 'qr' | 'stats';
+const APP_DOWNLOAD_URL = 'https://pool-league-predictor-1--pool-league-predictor.us-east4.hosted.app/';
+
+type Slide = 'qr' | 'stats' | 'hero';
+
+const SLIDE_ORDER: Slide[] = ['qr', 'stats', 'hero'];
+const SLIDE_ORDER_NO_STATS: Slide[] = ['qr', 'hero'];
+
+function nextSlide(current: Slide, order: Slide[]): Slide {
+  const idx = order.indexOf(current);
+  return order[(idx + 1) % order.length];
+}
+
+function TrophyLogo({ size }: { size: number }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 512 512">
+      <path d="M155 110 C80 110 60 190 140 220 L155 220 L155 200 C100 195 95 130 155 130 Z" fill="#D4A855"/>
+      <path d="M357 110 C432 110 452 190 372 220 L357 220 L357 200 C412 195 417 130 357 130 Z" fill="#D4A855"/>
+      <path d="M150 90 L362 90 L340 240 C330 280 290 310 256 320 C222 310 182 280 172 240 Z" fill="#D4A855"/>
+      <path d="M192 115 L194 210 C198 255 228 285 256 295" fill="none" stroke="white" strokeWidth="10" strokeLinecap="round" strokeOpacity="0.2"/>
+      <rect x="236" y="315" width="40" height="40" rx="4" fill="#D4A855"/>
+      <rect x="196" y="350" width="120" height="18" rx="9" fill="#D4A855"/>
+      <rect x="176" y="365" width="160" height="22" rx="11" fill="#D4A855"/>
+    </svg>
+  );
+}
+
+function HeroSlide({ vmin }: { vmin: number }) {
+  const qrSize = Math.round(Math.max(80, Math.min(300, vmin * 18)));
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(APP_DOWNLOAD_URL)}&bgcolor=FFFFFF&color=0C1222&format=svg`;
+
+  return (
+    <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3vmin] chalk-animate-fade">
+      {/* Trophy logo */}
+      <TrophyLogo size={Math.round(vmin * 14)} />
+
+      {/* Wordmark */}
+      <h2 className="text-[5vmin] font-bold tracking-tight">
+        Pool League <span className="text-accent">Pro</span>
+      </h2>
+
+      {/* Tagline */}
+      <p className="text-[2.5vmin] text-gray-400">
+        The smart way to manage your pool table
+      </p>
+
+      {/* Feature pills */}
+      <div className="flex items-stretch gap-[2.5vmin] mt-[1vmin]">
+        {[
+          { icon: ListOrdered, label: 'Fair Queues' },
+          { icon: BarChart3, label: 'Live Stats' },
+          { icon: Smartphone, label: 'Play From Your Phone' },
+        ].map(({ icon: Icon, label }) => (
+          <div
+            key={label}
+            className="flex flex-col items-center gap-[1vmin] rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.5vmin] py-[2vmin]"
+          >
+            <Icon size={Math.round(vmin * 3.5)} className="text-baize" />
+            <span className="text-[1.7vmin] font-medium text-gray-300">{label}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Download QR */}
+      <div className="flex flex-col items-center gap-[1.5vmin] mt-[2vmin] p-[2.5vmin] rounded-[2vmin] bg-surface-card border-2 border-baize chalk-attract-glow">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={qrUrl}
+          alt="QR code to download Pool League Pro"
+          width={qrSize}
+          height={qrSize}
+          className="rounded-[0.7vmin]"
+        />
+        <p className="text-baize font-semibold text-[2vmin]">Get the app</p>
+      </div>
+    </div>
+  );
+}
 
 export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const queueStatus = useQueueStatus(table);
@@ -73,14 +150,11 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
     });
   }, [table.venueId]);
 
-  // Alternate between QR and stats slides every 15s (only if there's stats data)
+  // Rotate slides every 15s: qr → stats → hero (or qr → hero when no stats)
   useEffect(() => {
-    if (daily.gamesPlayed === 0) {
-      setSlide('qr');
-      return;
-    }
+    const order = daily.gamesPlayed > 0 ? SLIDE_ORDER : SLIDE_ORDER_NO_STATS;
     const id = setInterval(() => {
-      setSlide((prev) => (prev === 'qr' ? 'stats' : 'qr'));
+      setSlide((prev) => nextSlide(prev, order));
     }, 15_000);
     return () => clearInterval(id);
   }, [daily.gamesPlayed]);
@@ -147,7 +221,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
         <div className="chalk-dust chalk-dust-8" />
       </div>
 
-      {slide === 'qr' ? (
+      {slide === 'qr' && (
         <>
           {/* Top — branding */}
           <div className="relative z-10 flex-none text-center pt-[6vmin] pb-[3vmin] chalk-animate-fade">
@@ -262,7 +336,11 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             </div>
           )}
         </>
-      ) : (
+      )}
+
+      {slide === 'hero' && <HeroSlide vmin={vmin} />}
+
+      {slide === 'stats' && (
         /* Stats slide */
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-[4vmin] gap-[3vmin] chalk-animate-fade">
           {/* Tonight's Champion */}
