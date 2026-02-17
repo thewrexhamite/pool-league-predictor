@@ -17,6 +17,8 @@ import type {
   ReportResultPayload,
   KillerEliminationPayload,
   ChalkSettings,
+  GamePlayer,
+  QueueEntry,
 } from './types';
 import {
   subscribeToTable,
@@ -29,6 +31,18 @@ import {
 import { addToQueue, removeFromQueue, reorderQueue, holdEntry, unholdEntry, expireHeldEntries } from './queue-engine';
 import { startNextGame, processResult, processKillerResult, eliminateKillerPlayer, cancelCurrentGame } from './game-engine';
 import { updateStatsAfterGame, updateStatsAfterKillerGame } from './stats-engine';
+import { updateUserLifetimeStats, type UserGameResult } from './user-stats';
+
+function extractPlayerUids(players: GamePlayer[], queue: QueueEntry[]): Record<string, string> {
+  const uidMap: Record<string, string> = {};
+  for (const player of players) {
+    const entry = queue.find((e) => e.id === player.queueEntryId);
+    if (entry?.userIds?.[player.name]) {
+      uidMap[player.name] = entry.userIds[player.name];
+    }
+  }
+  return uidMap;
+}
 
 const ChalkTableContext = createContext<ChalkTableContextValue | null>(null);
 
@@ -152,6 +166,7 @@ export function ChalkTableProvider({
 
   const handleReportResult = useCallback(async (payload: ReportResultPayload) => {
     let historyData: Parameters<typeof addGameHistory>[1] | null = null;
+    let statsResults: UserGameResult[] = [];
 
     await transactTable(tableId, (t) => {
       if (!t.currentGame) throw new Error('No active game');
@@ -162,6 +177,9 @@ export function ChalkTableProvider({
       const newConsecutiveWins = payload.winningSide === 'holder'
         ? t.currentGame.consecutiveWins + 1
         : 1;
+
+      // Extract UIDs before queue state changes
+      const playerUidMap = extractPlayerUids(t.currentGame.players, t.queue);
 
       // Capture history data to write after transaction (avoids duplicates on retry)
       historyData = {
@@ -176,7 +194,18 @@ export function ChalkTableProvider({
         duration: now - t.currentGame.startedAt,
         consecutiveWins: newConsecutiveWins,
         killerState: t.currentGame.killerState,
+        playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
       };
+
+      // Build lifetime stats results for players with UIDs
+      statsResults = t.currentGame.players
+        .filter((p) => playerUidMap[p.name])
+        .map((p) => ({
+          uid: playerUidMap[p.name],
+          playerName: p.name,
+          won: p.side === payload.winningSide,
+          mode: t.currentGame!.mode,
+        }));
 
       return {
         queue: result.queue,
@@ -190,6 +219,11 @@ export function ChalkTableProvider({
     if (historyData) {
       addGameHistory(tableId, historyData)
         .catch((err) => console.error('Failed to write game history:', err));
+    }
+
+    if (statsResults.length > 0) {
+      updateUserLifetimeStats(statsResults)
+        .catch((err) => console.error('Failed to update user lifetime stats:', err));
     }
   }, [tableId]);
 
@@ -206,6 +240,7 @@ export function ChalkTableProvider({
 
   const handleFinishKillerGame = useCallback(async (winnerName: string) => {
     let historyData: Parameters<typeof addGameHistory>[1] | null = null;
+    let statsResults: UserGameResult[] = [];
 
     await transactTable(tableId, (t) => {
       if (!t.currentGame?.killerState) throw new Error('No active killer game');
@@ -213,6 +248,9 @@ export function ChalkTableProvider({
       const result = processKillerResult(t.currentGame, t.queue, winnerName);
       const stats = updateStatsAfterKillerGame(t.sessionStats, t.currentGame, winnerName);
       const now = Date.now();
+
+      // Extract UIDs before queue state changes
+      const playerUidMap = extractPlayerUids(t.currentGame.players, t.queue);
 
       // Capture history data to write after transaction
       historyData = {
@@ -227,7 +265,18 @@ export function ChalkTableProvider({
         duration: now - t.currentGame.startedAt,
         consecutiveWins: 0,
         killerState: t.currentGame.killerState,
+        playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
       };
+
+      // Build lifetime stats results for players with UIDs
+      statsResults = t.currentGame.players
+        .filter((p) => playerUidMap[p.name])
+        .map((p) => ({
+          uid: playerUidMap[p.name],
+          playerName: p.name,
+          won: p.name === winnerName,
+          mode: 'killer' as const,
+        }));
 
       return {
         queue: result.queue,
@@ -241,6 +290,11 @@ export function ChalkTableProvider({
     if (historyData) {
       addGameHistory(tableId, historyData)
         .catch((err) => console.error('Failed to write game history:', err));
+    }
+
+    if (statsResults.length > 0) {
+      updateUserLifetimeStats(statsResults)
+        .catch((err) => console.error('Failed to update user lifetime stats:', err));
     }
   }, [tableId]);
 

@@ -124,6 +124,24 @@ export interface ChalkVenue {
   logoUrl: string | null;
 }
 
+// ===== Lifetime Stats =====
+
+export interface ChalkModeStats {
+  wins: number;
+  losses: number;
+  gamesPlayed: number;
+}
+
+export interface ChalkLifetimeStats {
+  gamesPlayed: number;
+  wins: number;
+  losses: number;
+  currentStreak: number;
+  bestStreak: number;
+  lastGameAt: number;
+  byMode: Partial<Record<GameMode, ChalkModeStats>>;
+}
+
 // ===== Game History =====
 
 export interface GameHistoryRecord {
@@ -138,6 +156,7 @@ export interface GameHistoryRecord {
   duration: number;
   consecutiveWins: number;
   killerState: KillerState | null;
+  playerUids?: Record<string, string>;
 }
 
 // ===== Short Code Index =====

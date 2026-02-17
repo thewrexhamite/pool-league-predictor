@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '../firebase';
+import type { ChalkLifetimeStats } from '../chalk/types';
 
 // ============================================================================
 // Types
@@ -79,6 +80,7 @@ export interface UserProfile {
   isAdmin: boolean;
   onboarding?: OnboardingProgress;
   completedTutorials?: string[];
+  chalkStats?: ChalkLifetimeStats;
 }
 
 // ============================================================================

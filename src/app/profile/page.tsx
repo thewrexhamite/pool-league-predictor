@@ -19,7 +19,11 @@ import {
   Eye,
   EyeOff,
   ScanLine,
+  Target,
+  Flame,
+  Zap,
 } from 'lucide-react';
+import type { GameMode, ChalkLifetimeStats } from '@/lib/chalk/types';
 import { useAuth, updateUserProfile } from '@/lib/auth';
 import { AuthGuard } from '@/components/auth';
 import { CaptainClaimModal } from '@/components/auth/CaptainClaimModal';
@@ -172,6 +176,90 @@ export default function ProfilePage() {
               </button>
             </div>
           </div>
+
+          {/* Chalk Stats */}
+          {profile?.chalkStats && profile.chalkStats.gamesPlayed > 0 && (() => {
+            const cs = profile.chalkStats;
+            const winPct = cs.gamesPlayed > 0 ? Math.round((cs.wins / cs.gamesPlayed) * 100) : 0;
+            const modeLabels: Record<GameMode, string> = {
+              singles: 'Singles',
+              doubles: 'Doubles',
+              killer: 'Killer',
+              challenge: 'Challenge',
+            };
+            const playedModes = (Object.entries(cs.byMode) as [GameMode, { wins: number; losses: number; gamesPlayed: number }][])
+              .filter(([, s]) => s.gamesPlayed > 0);
+            const timeAgo = (ts: number) => {
+              const diff = Date.now() - ts;
+              const mins = Math.floor(diff / 60000);
+              if (mins < 1) return 'just now';
+              if (mins < 60) return `${mins}m ago`;
+              const hrs = Math.floor(mins / 60);
+              if (hrs < 24) return `${hrs}h ago`;
+              const days = Math.floor(hrs / 24);
+              return `${days}d ago`;
+            };
+            return (
+              <div className="bg-surface-card border border-surface-border rounded-card p-6 space-y-4">
+                <h3 className="font-semibold text-white flex items-center gap-2">
+                  <Target className="w-4 h-4 text-baize" />
+                  Chalk Stats
+                </h3>
+
+                {/* Big stat numbers */}
+                <div className="flex gap-6">
+                  <div>
+                    <div className="text-2xl font-bold text-green-400">{cs.wins}</div>
+                    <div className="text-[10px] text-gray-500">Wins</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-red-400">{cs.losses}</div>
+                    <div className="text-[10px] text-gray-500">Losses</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-white">{winPct}%</div>
+                    <div className="text-[10px] text-gray-500">Win Rate</div>
+                  </div>
+                </div>
+
+                {/* Streaks */}
+                <div className="flex gap-4">
+                  <div className="flex items-center gap-1.5 text-sm">
+                    <Flame className={`w-4 h-4 ${cs.currentStreak > 0 ? 'text-orange-400' : 'text-gray-600'}`} />
+                    <span className="text-gray-300">{cs.currentStreak}</span>
+                    <span className="text-[10px] text-gray-500">current</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-sm">
+                    <Zap className="w-4 h-4 text-amber-400" />
+                    <span className="text-gray-300">{cs.bestStreak}</span>
+                    <span className="text-[10px] text-gray-500">best</span>
+                  </div>
+                </div>
+
+                {/* Per-mode breakdown */}
+                {playedModes.length > 1 && (
+                  <div className="border-t border-surface-border/30 pt-3">
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wide font-medium mb-2">By Mode</div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {playedModes.map(([mode, s]) => (
+                        <div key={mode} className="flex items-center justify-between px-2 py-1 bg-surface rounded text-xs">
+                          <span className="text-gray-300">{modeLabels[mode]}</span>
+                          <span className="text-gray-500">{s.wins}W {s.losses}L</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Last played */}
+                {cs.lastGameAt > 0 && (
+                  <div className="text-[10px] text-gray-600">
+                    Last played {timeAgo(cs.lastGameAt)}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Player Insights Summary */}
           {insights.insightsEnabled && (
