@@ -25,14 +25,14 @@ export function KioskHeader({ table }: KioskHeaderProps) {
 
   return (
     <header className="chalk-kiosk-header flex items-center justify-between px-[2.2vmin] bg-surface-card border-b border-surface-border">
+      {logoUrl && (
+        <img
+          src={logoUrl}
+          alt="Venue logo"
+          className="h-[7vmin] w-auto object-contain mr-[1.5vmin]"
+        />
+      )}
       <div className="flex items-center gap-[1.5vmin]">
-        {logoUrl && (
-          <img
-            src={logoUrl}
-            alt="Venue logo"
-            className="h-[5vmin] w-auto object-contain"
-          />
-        )}
         <h1 className="text-[1.7vmin] font-bold leading-tight">{table.name}</h1>
         {table.sessionStats.kingOfTable && (
           <div className="flex items-center gap-[0.55vmin] px-[1.1vmin] py-[0.37vmin] rounded-full bg-accent/10 text-accent text-[1.3vmin] font-medium">
