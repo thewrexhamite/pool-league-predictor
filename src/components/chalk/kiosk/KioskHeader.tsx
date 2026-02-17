@@ -3,18 +3,15 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Settings } from 'lucide-react';
-import type { ChalkTable, ChalkVenue } from '@/lib/chalk/types';
-import { useAuth } from '@/lib/auth';
+import type { ChalkTable } from '@/lib/chalk/types';
 import { getVenue } from '@/lib/chalk/firestore';
 import { CrownIcon } from '../shared/CrownIcon';
-import { PrivateModeToggle } from './PrivateModeToggle';
 
 interface KioskHeaderProps {
   table: ChalkTable;
 }
 
 export function KioskHeader({ table }: KioskHeaderProps) {
-  const { user } = useAuth();
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -50,21 +47,6 @@ export function KioskHeader({ table }: KioskHeaderProps) {
         </div>
 
         <div className="flex items-center gap-[1.8vmin]">
-          {table.venueId && user && (
-            <Link
-              href={`/manage/venue/${table.venueId}`}
-              className="text-[1.6vmin] text-gray-500 hover:text-baize transition-colors"
-            >
-              Manage
-            </Link>
-          )}
-          <PrivateModeToggle
-            isPrivate={table.session.isPrivate}
-            privatePlayerNames={table.session.privatePlayerNames}
-          />
-          <span className="text-[1.8vmin] text-gray-500">
-            {table.sessionStats.gamesPlayed} game{table.sessionStats.gamesPlayed !== 1 ? 's' : ''}
-          </span>
           <Link
             href={`/kiosk/${table.id}/settings`}
             className="chalk-touch rounded-[1vmin] p-[1vmin] text-gray-400 hover:text-white hover:bg-surface-elevated transition-colors"

@@ -4,7 +4,9 @@ import { useState, useEffect, useCallback } from 'react';
 import type { ChalkTable, QueueEntry } from '@/lib/chalk/types';
 import { getVenue } from '@/lib/chalk/firestore';
 import { useVmin } from '@/hooks/chalk/use-vmin';
+import { useTableHistory } from '@/hooks/chalk/use-match-history';
 import { QRCodeDisplay } from './QRCodeDisplay';
+import { CrownIcon } from '../shared/CrownIcon';
 
 interface AttractModeProps {
   table: ChalkTable;
@@ -49,6 +51,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const qrSize = Math.round(Math.max(120, Math.min(500, vmin * 28)));
   const [ripple, setRipple] = useState<{ x: number; y: number; id: number } | null>(null);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const { games: recentGames } = useTableHistory(table.id);
 
   useEffect(() => {
     if (!table.venueId) return;
@@ -128,34 +131,85 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
         </div>
       </div>
 
-      {/* Queue snapshot */}
-      {(table.currentGame || table.queue.length > 0) && (
-        <div className="relative z-10 flex-none mx-auto w-full max-w-[42vmin] px-[2.2vmin] pb-[1.5vmin] chalk-animate-fade">
-          <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[1.1vmin]">
-            {table.currentGame && (
-              <div className="flex items-center gap-[1.1vmin] text-[1.9vmin]">
-                <span className="text-baize font-medium">Now playing</span>
-                <span className="text-gray-300">
-                  {table.currentGame.players.map((p) => p.name).join(' vs ')}
-                </span>
-              </div>
-            )}
-            {table.queue.slice(0, 5).map((entry, i) => (
-              <div key={entry.id} className="flex items-center gap-[1.1vmin] text-[1.9vmin]">
-                <span className="w-[2.6vmin] text-right text-gray-600 font-mono">{i + 1}.</span>
-                <span className={i === 0 && !table.currentGame ? 'text-baize font-medium' : 'text-gray-400'}>
-                  {formatNames(entry)}
-                </span>
-                {entry.status === 'on_hold' && (
-                  <span className="text-[1.3vmin] text-gray-600">(hold)</span>
-                )}
-              </div>
-            ))}
-            {table.queue.length > 5 && (
-              <p className="text-gray-600 text-[1.5vmin] pl-[3.7vmin]">
-                +{table.queue.length - 5} more
-              </p>
-            )}
+      {/* Next Up + Recent Results */}
+      {(table.currentGame || table.queue.length > 0 || recentGames.length > 0) && (
+        <div className="relative z-10 flex-none mx-auto w-full max-w-[75vmin] px-[2.2vmin] pb-[1.5vmin] chalk-animate-fade">
+          <div className="grid grid-cols-2 gap-[2.2vmin]">
+            {/* Left — Next Up */}
+            <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[1.1vmin]">
+              <h3 className="text-[1.7vmin] font-bold text-baize">Next Up</h3>
+              {table.currentGame && (
+                <div className="flex items-center gap-[1.1vmin] text-[1.9vmin]">
+                  <span className="text-baize font-medium">Now playing</span>
+                  <span className="text-gray-300 truncate">
+                    {table.currentGame.players.map((p) => p.name).join(' vs ')}
+                  </span>
+                </div>
+              )}
+              {table.queue.length > 0 ? (
+                <>
+                  {table.queue.slice(0, 5).map((entry, i) => (
+                    <div key={entry.id} className="flex items-center gap-[1.1vmin] text-[1.9vmin]">
+                      <span className="w-[2.6vmin] text-right text-gray-600 font-mono">{i + 1}.</span>
+                      <span className={i === 0 && !table.currentGame ? 'text-baize font-medium' : 'text-gray-400'}>
+                        {formatNames(entry)}
+                      </span>
+                      {entry.status === 'on_hold' && (
+                        <span className="text-[1.3vmin] text-gray-600">(hold)</span>
+                      )}
+                    </div>
+                  ))}
+                  {table.queue.length > 5 && (
+                    <p className="text-gray-600 text-[1.5vmin] pl-[3.7vmin]">
+                      +{table.queue.length - 5} more
+                    </p>
+                  )}
+                </>
+              ) : !table.currentGame ? (
+                <p className="text-gray-500 text-[1.7vmin]">No one in the queue</p>
+              ) : null}
+            </div>
+
+            {/* Right — Recent Results */}
+            <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[1.1vmin]">
+              <h3 className="text-[1.7vmin] font-bold text-baize">Recent Results</h3>
+              {recentGames.length > 0 ? (
+                recentGames.slice(0, 5).map((game) => {
+                  const holders = game.players.filter((p) => p.side === 'holder').map((p) => p.name);
+                  const challengers = game.players.filter((p) => p.side === 'challenger').map((p) => p.name);
+                  const isKiller = game.mode === 'killer';
+
+                  return (
+                    <div key={game.id} className="space-y-[0.3vmin]">
+                      <div className="flex items-center gap-[1.1vmin] text-[1.9vmin]">
+                        {isKiller ? (
+                          <span className="text-gray-300 truncate">
+                            {game.players.map((p) => p.name).join(', ')}
+                          </span>
+                        ) : (
+                          <span className="text-gray-300 truncate">
+                            {holders.join(' & ')} vs {challengers.join(' & ')}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-[0.8vmin] text-[1.3vmin]">
+                        {game.winner && (
+                          <span className="text-baize font-medium">{game.winner} won</span>
+                        )}
+                        {game.consecutiveWins >= 3 && (
+                          <span className="flex items-center gap-[0.3vmin] text-accent">
+                            <CrownIcon size={12} />
+                            {game.consecutiveWins}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="text-gray-500 text-[1.7vmin]">No games yet this session</p>
+              )}
+            </div>
           </div>
         </div>
       )}
