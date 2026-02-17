@@ -14,6 +14,7 @@ import type {
   ChalkTableContextValue,
   ConnectionStatus,
   AddToQueuePayload,
+  RegisterGamePayload,
   ReportResultPayload,
   KillerEliminationPayload,
   ChalkSettings,
@@ -157,6 +158,50 @@ export function ChalkTableProvider({
       return {
         queue: result.queue,
         currentGame: result.currentGame,
+        status: t.session.isPrivate ? 'private' as const : 'active' as const,
+        lastActiveAt: Date.now(),
+        idleSince: null,
+      };
+    });
+  }, [tableId]);
+
+  const handleRegisterCurrentGame = useCallback(async (payload: RegisterGamePayload) => {
+    await transactTable(tableId, (t) => {
+      if (t.currentGame) throw new Error('A game is already in progress');
+
+      const holderEntry: QueueEntry = {
+        id: crypto.randomUUID(),
+        playerNames: payload.holderNames,
+        joinedAt: Date.now(),
+        status: 'waiting',
+        holdUntil: null,
+        noShowDeadline: null,
+        gameMode: payload.gameMode,
+      };
+
+      const challengerEntry: QueueEntry = {
+        id: crypto.randomUUID(),
+        playerNames: payload.challengerNames,
+        joinedAt: Date.now(),
+        status: 'waiting',
+        holdUntil: null,
+        noShowDeadline: null,
+        gameMode: payload.gameMode,
+      };
+
+      // Insert at front of queue, then start game from those entries
+      const cleanQueue = expireHeldEntries(t.queue);
+      const queueWithEntries = [holderEntry, challengerEntry, ...cleanQueue];
+      const result = startNextGame(queueWithEntries, null, t.settings, t.sessionStats);
+
+      // Update recent names
+      const allNames = [...payload.holderNames, ...payload.challengerNames];
+      const updatedRecent = [...new Set([...allNames, ...t.recentNames])].slice(0, 50);
+
+      return {
+        queue: result.queue,
+        currentGame: result.currentGame,
+        recentNames: updatedRecent,
         status: t.session.isPrivate ? 'private' as const : 'active' as const,
         lastActiveAt: Date.now(),
         idleSince: null,
@@ -379,6 +424,7 @@ export function ChalkTableProvider({
     resetTable: handleResetTable,
     togglePrivateMode: handleTogglePrivateMode,
     claimQueueSpot: handleClaimQueueSpot,
+    registerCurrentGame: handleRegisterCurrentGame,
   };
 
   return (

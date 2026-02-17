@@ -191,6 +191,12 @@ export interface AddToQueuePayload {
   userId?: string;
 }
 
+export interface RegisterGamePayload {
+  holderNames: string[];
+  challengerNames: string[];
+  gameMode: GameMode;
+}
+
 export interface ReportResultPayload {
   winningSide: PlayerSide;
   winnerNames: string[];
@@ -229,4 +235,6 @@ export interface ChalkTableContextValue {
   togglePrivateMode: (playerNames?: string[]) => Promise<void>;
   // Claim queue spot
   claimQueueSpot: (entryId: string, playerName: string, userId: string) => Promise<void>;
+  // Register existing game
+  registerCurrentGame: (payload: RegisterGamePayload) => Promise<void>;
 }

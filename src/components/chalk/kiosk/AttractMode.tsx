@@ -7,6 +7,7 @@ import { QRCodeDisplay } from './QRCodeDisplay';
 interface AttractModeProps {
   table: ChalkTable;
   onWake: () => void;
+  onClaim: () => void;
 }
 
 function LiveClock() {
@@ -40,7 +41,7 @@ function useQueueStatus(table: ChalkTable) {
   return `Game in progress \u2014 ${waiting} waiting`;
 }
 
-export function AttractMode({ table, onWake }: AttractModeProps) {
+export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const queueStatus = useQueueStatus(table);
   const [ripple, setRipple] = useState<{ x: number; y: number; id: number } | null>(null);
 
@@ -146,6 +147,14 @@ export function AttractMode({ table, onWake }: AttractModeProps) {
         <p className="text-gray-400 text-2xl">
           or tap here to add your name
         </p>
+
+        <button
+          onClick={(e) => { e.stopPropagation(); onClaim(); }}
+          onTouchStart={(e) => { e.stopPropagation(); }}
+          className="text-baize/70 hover:text-baize text-lg underline underline-offset-4 transition-colors"
+        >
+          Already at the table? Tap here
+        </button>
 
         {table.sessionStats.gamesPlayed > 0 && (
           <div className="text-lg text-gray-600">
