@@ -127,6 +127,11 @@ service cloud.firestore {
       }
     }
 
+    // Chalk game history — collection group rule for cross-table queries
+    match /{path=**}/history/{gameId} {
+      allow read: if true;
+    }
+
     // Chalk table index — short code to table ID lookup
     match /chalkTableIndex/{shortCode} {
       allow read: if true;
