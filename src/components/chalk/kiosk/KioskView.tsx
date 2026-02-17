@@ -115,9 +115,9 @@ export function KioskView() {
   if (loading) {
     return (
       <div className="chalk-kiosk flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-12 h-12 border-4 border-baize border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-gray-400">Loading table…</p>
+        <div className="text-center space-y-[1.5vmin]">
+          <div className="w-[4.5vmin] h-[4.5vmin] border-4 border-baize border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-[1.5vmin] text-gray-400">Loading table…</p>
         </div>
       </div>
     );
@@ -126,9 +126,9 @@ export function KioskView() {
   if (error || !table) {
     return (
       <div className="chalk-kiosk flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <p className="text-loss text-xl">{error ?? 'Table not found'}</p>
-          <Link href="/kiosk" className="text-baize hover:underline">
+        <div className="text-center space-y-[1.5vmin]">
+          <p className="text-loss text-[1.9vmin]">{error ?? 'Table not found'}</p>
+          <Link href="/kiosk" className="text-baize hover:underline text-[1.5vmin]">
             Back to setup
           </Link>
         </div>
@@ -155,24 +155,24 @@ export function KioskView() {
       {/* "Already playing?" prompt on wake from attract mode */}
       {showClaimPrompt && !table.currentGame && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 chalk-animate-fade">
-          <div className="bg-surface-card rounded-2xl p-8 mx-6 max-w-md w-full text-center space-y-6 border border-surface-border">
-            <h2 className="text-2xl font-bold">Already playing?</h2>
-            <p className="text-gray-400">
+          <div className="bg-surface-card rounded-[1.5vmin] p-[3vmin] mx-[2.2vmin] max-w-[42vmin] w-full text-center space-y-[2.2vmin] border border-surface-border">
+            <h2 className="text-[2.2vmin] font-bold">Already playing?</h2>
+            <p className="text-[1.5vmin] text-gray-400">
               If there&apos;s a game already in progress, register it so the queue works correctly.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-[1.1vmin]">
               <button
                 onClick={() => {
                   setShowClaimPrompt(false);
                   setShowRegisterSheet(true);
                 }}
-                className="flex-1 py-3 px-4 rounded-xl bg-baize text-white font-semibold text-lg transition-colors hover:bg-baize/90"
+                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-baize text-white font-semibold text-[1.7vmin] transition-colors hover:bg-baize/90"
               >
                 Yes — register our game
               </button>
               <button
                 onClick={() => setShowClaimPrompt(false)}
-                className="flex-1 py-3 px-4 rounded-xl bg-surface-elevated text-gray-300 font-semibold text-lg transition-colors hover:bg-surface-elevated/80"
+                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-surface-elevated text-gray-300 font-semibold text-[1.7vmin] transition-colors hover:bg-surface-elevated/80"
               >
                 No — table is free
               </button>
@@ -184,24 +184,24 @@ export function KioskView() {
       {/* Interstitial when first queue entry arrives on idle table */}
       {showQueueInterstitial && !table.currentGame && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 chalk-animate-fade">
-          <div className="bg-surface-card rounded-2xl p-8 mx-6 max-w-md w-full text-center space-y-6 border border-surface-border">
-            <h2 className="text-2xl font-bold">Someone just joined the queue</h2>
-            <p className="text-gray-400">
+          <div className="bg-surface-card rounded-[1.5vmin] p-[3vmin] mx-[2.2vmin] max-w-[42vmin] w-full text-center space-y-[2.2vmin] border border-surface-border">
+            <h2 className="text-[2.2vmin] font-bold">Someone just joined the queue</h2>
+            <p className="text-[1.5vmin] text-gray-400">
               Is there a game already in progress at this table?
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-[1.1vmin]">
               <button
                 onClick={() => {
                   setShowQueueInterstitial(false);
                   setShowRegisterSheet(true);
                 }}
-                className="flex-1 py-3 px-4 rounded-xl bg-baize text-white font-semibold text-lg transition-colors hover:bg-baize/90"
+                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-baize text-white font-semibold text-[1.7vmin] transition-colors hover:bg-baize/90"
               >
                 Yes — register current players
               </button>
               <button
                 onClick={() => setShowQueueInterstitial(false)}
-                className="flex-1 py-3 px-4 rounded-xl bg-surface-elevated text-gray-300 font-semibold text-lg transition-colors hover:bg-surface-elevated/80"
+                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-surface-elevated text-gray-300 font-semibold text-[1.7vmin] transition-colors hover:bg-surface-elevated/80"
               >
                 No — table was free
               </button>

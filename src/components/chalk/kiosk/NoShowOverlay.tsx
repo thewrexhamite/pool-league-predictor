@@ -50,17 +50,17 @@ export function NoShowOverlay({ entries, settings }: NoShowOverlayProps) {
 
   return (
     <div className="chalk-no-show-overlay" role="alertdialog" aria-label="Players called to table">
-      <div className="text-center space-y-6 chalk-animate-in">
-        <div className="space-y-2">
-          <p className="text-sm text-gray-400 uppercase tracking-wider">Calling</p>
-          <p className="text-4xl font-bold">{allNames}</p>
+      <div className="text-center space-y-[2.2vmin] chalk-animate-in">
+        <div className="space-y-[0.75vmin]">
+          <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Calling</p>
+          <p className="text-[3.7vmin] font-bold">{allNames}</p>
         </div>
 
         {isExpired ? (
-          <div className="space-y-4">
-            <p className="text-xl text-loss" role="alert">No show!</p>
-            <p className="text-sm text-gray-500">Auto-cancelling game in a few seconds…</p>
-            <div className="flex gap-4 justify-center">
+          <div className="space-y-[1.5vmin]">
+            <p className="text-[1.9vmin] text-loss" role="alert">No show!</p>
+            <p className="text-[1.3vmin] text-gray-500">Auto-cancelling game in a few seconds…</p>
+            <div className="flex gap-[1.5vmin] justify-center">
               <ChalkButton
                 variant="danger"
                 size="lg"
@@ -71,15 +71,15 @@ export function NoShowOverlay({ entries, settings }: NoShowOverlayProps) {
             </div>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-[1.5vmin]">
             <div
-              className="text-7xl font-mono font-bold text-accent"
+              className="text-[6.7vmin] font-mono font-bold text-accent"
               aria-live="polite"
               aria-atomic="true"
             >
               {secondsLeft}
             </div>
-            <p className="text-gray-400">seconds to get to the table</p>
+            <p className="text-[1.5vmin] text-gray-400">seconds to get to the table</p>
             <ChalkButton size="lg" onClick={dismissNoShow}>
               They&apos;re here
             </ChalkButton>

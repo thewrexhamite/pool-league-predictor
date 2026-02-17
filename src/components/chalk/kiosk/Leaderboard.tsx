@@ -18,11 +18,11 @@ export function Leaderboard({ stats, compact = false }: LeaderboardProps) {
   const maxItems = compact ? 5 : 20;
 
   return (
-    <div className="space-y-3">
-      <h3 className={clsx('font-bold', compact ? 'text-sm' : 'text-lg')}>
+    <div className="space-y-[1.1vmin]">
+      <h3 className={clsx('font-bold', compact ? 'text-[1.3vmin]' : 'text-[1.7vmin]')}>
         Session Leaderboard
       </h3>
-      <div className="space-y-1">
+      <div className="space-y-[0.37vmin]">
         {leaderboard.slice(0, maxItems).map((entry, index) => {
           const isKing = stats.kingOfTable?.playerName === entry.name;
           const winRate =
@@ -34,14 +34,14 @@ export function Leaderboard({ stats, compact = false }: LeaderboardProps) {
             <div
               key={entry.name}
               className={clsx(
-                'flex items-center gap-3 rounded-lg px-3 py-2',
+                'flex items-center gap-[1.1vmin] rounded-[0.7vmin] px-[1.1vmin] py-[0.75vmin]',
                 index === 0 && 'bg-accent/10',
                 index > 0 && 'hover:bg-surface-elevated/50'
               )}
             >
               <span
                 className={clsx(
-                  'w-6 text-center font-bold text-sm',
+                  'w-[2.2vmin] text-center font-bold text-[1.3vmin]',
                   index === 0 && 'text-accent',
                   index === 1 && 'text-gray-300',
                   index === 2 && 'text-amber-700',
@@ -50,19 +50,19 @@ export function Leaderboard({ stats, compact = false }: LeaderboardProps) {
               >
                 {index + 1}
               </span>
-              <span className="flex-1 font-medium truncate flex items-center gap-1.5">
+              <span className="flex-1 font-medium truncate flex items-center gap-[0.55vmin] text-[1.5vmin]">
                 {entry.name}
                 {isKing && <CrownIcon size={14} />}
               </span>
-              <span className="text-sm text-baize font-mono">{entry.stats.wins}W</span>
-              <span className="text-sm text-loss font-mono">{entry.stats.losses}L</span>
+              <span className="text-[1.3vmin] text-baize font-mono">{entry.stats.wins}W</span>
+              <span className="text-[1.3vmin] text-loss font-mono">{entry.stats.losses}L</span>
               {!compact && (
-                <span className="text-sm text-gray-500 font-mono w-12 text-right">
+                <span className="text-[1.3vmin] text-gray-500 font-mono w-[4.4vmin] text-right">
                   {winRate}%
                 </span>
               )}
               {entry.stats.currentStreak > 1 && (
-                <span className="text-xs px-1.5 py-0.5 rounded bg-baize/20 text-baize font-medium">
+                <span className="text-[1.1vmin] px-[0.55vmin] py-[0.2vmin] rounded bg-baize/20 text-baize font-medium">
                   {entry.stats.currentStreak} streak
                 </span>
               )}

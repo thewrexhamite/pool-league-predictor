@@ -2,31 +2,13 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import type { ChalkTable, QueueEntry } from '@/lib/chalk/types';
+import { useVmin } from '@/hooks/chalk/use-vmin';
 import { QRCodeDisplay } from './QRCodeDisplay';
 
 interface AttractModeProps {
   table: ChalkTable;
   onWake: () => void;
   onClaim: () => void;
-}
-
-/** Returns the current vmin in pixels, updating on resize. */
-function useVmin() {
-  const [vmin, setVmin] = useState(() =>
-    typeof window !== 'undefined'
-      ? Math.min(window.innerWidth, window.innerHeight) / 100
-      : 10.8
-  );
-
-  useEffect(() => {
-    function update() {
-      setVmin(Math.min(window.innerWidth, window.innerHeight) / 100);
-    }
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-
-  return vmin;
 }
 
 function LiveClock() {

@@ -41,7 +41,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
       ref={setNodeRef}
       style={style}
       className={clsx(
-        'rounded-xl border p-3 transition-colors chalk-animate-in',
+        'rounded-[1.1vmin] border p-[1.1vmin] transition-colors chalk-animate-in',
         isDragging && 'opacity-50 shadow-elevated z-10',
         isOnHold && !holdExpired && 'bg-accent/5 border-accent/20',
         isOnHold && holdExpired && 'bg-loss/5 border-loss/20',
@@ -49,7 +49,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
         !isOnHold && !isCalled && 'bg-surface-card border-surface-border',
       )}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-[1.1vmin]">
         {/* Drag handle */}
         <div
           {...attributes}
@@ -70,7 +70,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
         {/* Position number */}
         <span
           className={clsx(
-            'w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold',
+            'w-[3vmin] h-[3vmin] rounded-[0.7vmin] flex items-center justify-center text-[1.3vmin] font-bold',
             isCalled && 'bg-baize text-fixed-black',
             isOnHold && !holdExpired && 'bg-accent/20 text-accent',
             isOnHold && holdExpired && 'bg-loss/20 text-loss',
@@ -82,41 +82,41 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
 
         {/* Player info */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold truncate">
+          <div className="flex items-center gap-[0.75vmin]">
+            <span className="font-semibold truncate text-[1.5vmin]">
               {playerLabel}
             </span>
             {entry.gameMode !== 'singles' && (
-              <span className="px-1.5 py-0.5 rounded text-xs bg-surface-elevated text-gray-400">
+              <span className="px-[0.55vmin] py-[0.2vmin] rounded text-[1.1vmin] bg-surface-elevated text-gray-400">
                 {GAME_MODE_LABELS[entry.gameMode]}
               </span>
             )}
           </div>
           {isOnHold && !holdExpired && minutesLeft !== null && (
-            <p className="text-xs text-accent">
+            <p className="text-[1.1vmin] text-accent">
               Hold: {minutesLeft}m left
             </p>
           )}
           {isOnHold && holdExpired && (
-            <p className="text-xs text-loss">
+            <p className="text-[1.1vmin] text-loss">
               Hold expired
             </p>
           )}
           {isCalled && (
-            <p className="text-xs text-baize font-medium">
+            <p className="text-[1.1vmin] text-baize font-medium">
               Called to table
             </p>
           )}
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-[0.37vmin]">
           {!isCalled && (
             <>
               {isOnHold ? (
                 <button
                   onClick={() => unholdPosition(entry.id)}
-                  className="chalk-touch p-2 rounded-lg text-accent hover:bg-accent/10 transition-colors"
+                  className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-accent hover:bg-accent/10 transition-colors"
                   aria-label={`Unhold ${playerLabel}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -126,7 +126,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
               ) : (
                 <button
                   onClick={() => holdPosition(entry.id)}
-                  className="chalk-touch p-2 rounded-lg text-gray-500 hover:text-accent hover:bg-accent/10 transition-colors"
+                  className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-gray-500 hover:text-accent hover:bg-accent/10 transition-colors"
                   aria-label={`Hold position for ${playerLabel}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -139,7 +139,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
           )}
           <button
             onClick={() => removeFromQueue(entry.id)}
-            className="chalk-touch p-2 rounded-lg text-gray-500 hover:text-loss hover:bg-loss/10 transition-colors"
+            className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-gray-500 hover:text-loss hover:bg-loss/10 transition-colors"
             aria-label={`Remove ${playerLabel} from queue`}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

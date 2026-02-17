@@ -98,28 +98,28 @@ export function GamePanel({ table }: GamePanelProps) {
       {currentGame ? (
         <>
           {/* Active game */}
-          <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-8">
+          <div className="flex-1 flex flex-col items-center justify-center p-[3vmin] space-y-[3vmin]">
             {/* Game mode + timer */}
-            <div className="text-center space-y-1">
-              <p className="text-sm text-gray-400 uppercase tracking-wider">
+            <div className="text-center space-y-[0.37vmin]">
+              <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">
                 {currentGame.mode} — Game {table.sessionStats.gamesPlayed + 1}
               </p>
-              <p className="text-3xl font-mono font-bold text-baize" aria-live="off">{gameTime}</p>
+              <p className="text-[2.8vmin] font-mono font-bold text-baize" aria-live="off">{gameTime}</p>
             </div>
 
             {/* Players */}
-            <div className="flex items-center gap-8 w-full max-w-2xl">
+            <div className="flex items-center gap-[3vmin] w-full max-w-[63vmin]">
               {/* Holder */}
-              <div className="flex-1 text-center space-y-2">
-                <p className="text-sm text-gray-400 uppercase tracking-wider">Holder</p>
-                <p className="text-2xl font-bold">
+              <div className="flex-1 text-center space-y-[0.75vmin]">
+                <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Holder</p>
+                <p className="text-[2.2vmin] font-bold">
                   {currentGame.players
                     .filter((p) => p.side === 'holder')
                     .map((p) => p.name)
                     .join(' & ')}
                 </p>
                 {currentGame.consecutiveWins > 0 && (
-                  <p className="text-sm text-accent">
+                  <p className="text-[1.3vmin] text-accent">
                     {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
                   </p>
                 )}
@@ -127,13 +127,13 @@ export function GamePanel({ table }: GamePanelProps) {
 
               {/* VS */}
               <div className="flex-shrink-0">
-                <span className="text-4xl font-bold text-gray-600">vs</span>
+                <span className="text-[3.7vmin] font-bold text-gray-600">vs</span>
               </div>
 
               {/* Challenger */}
-              <div className="flex-1 text-center space-y-2">
-                <p className="text-sm text-gray-400 uppercase tracking-wider">Challenger</p>
-                <p className="text-2xl font-bold">
+              <div className="flex-1 text-center space-y-[0.75vmin]">
+                <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Challenger</p>
+                <p className="text-[2.2vmin] font-bold">
                   {currentGame.players
                     .filter((p) => p.side === 'challenger')
                     .map((p) => p.name)
@@ -144,7 +144,7 @@ export function GamePanel({ table }: GamePanelProps) {
 
             {/* Break indicator */}
             {currentGame.breakingPlayer && (
-              <p className="text-sm text-gray-400">
+              <p className="text-[1.3vmin] text-gray-400">
                 <span className="text-baize font-medium">{currentGame.breakingPlayer}</span> breaks
               </p>
             )}
@@ -169,18 +169,18 @@ export function GamePanel({ table }: GamePanelProps) {
       ) : (
         <>
           {/* No active game */}
-          <div className="flex-1 flex flex-col items-center justify-center p-8 space-y-6">
+          <div className="flex-1 flex flex-col items-center justify-center p-[3vmin] space-y-[2.2vmin]">
             {canStartGame && nextChallenger ? (
               <>
-                <div className="text-center space-y-2">
-                  <p className="text-lg text-gray-400">Next up:</p>
-                  <p className="text-2xl font-bold">
+                <div className="text-center space-y-[0.75vmin]">
+                  <p className="text-[1.7vmin] text-gray-400">Next up:</p>
+                  <p className="text-[2.2vmin] font-bold">
                     {nextHolder.playerNames.join(' & ')}
                     {' vs '}
                     {nextChallenger.playerNames.join(' & ')}
                   </p>
                   {nextChallenger.gameMode === 'challenge' && (
-                    <p className="text-sm text-accent">Challenge match</p>
+                    <p className="text-[1.3vmin] text-accent">Challenge match</p>
                   )}
                 </div>
                 <ChalkButton
@@ -191,17 +191,17 @@ export function GamePanel({ table }: GamePanelProps) {
                   {starting ? 'Starting…' : 'Start Game'}
                 </ChalkButton>
                 {startError && (
-                  <p className="text-loss text-sm" role="alert">{startError}</p>
+                  <p className="text-loss text-[1.3vmin]" role="alert">{startError}</p>
                 )}
               </>
             ) : (
-              <div className="text-center space-y-3 text-gray-500">
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" className="mx-auto opacity-30" aria-hidden="true">
+              <div className="text-center space-y-[1.1vmin] text-gray-500">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" className="mx-auto opacity-30 w-[6vmin] h-[6vmin]" aria-hidden="true">
                   <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="2" />
                   <circle cx="32" cy="32" r="4" fill="currentColor" />
                 </svg>
-                <p className="text-xl">Waiting for players</p>
-                <p className="text-sm">
+                <p className="text-[1.9vmin]">Waiting for players</p>
+                <p className="text-[1.3vmin]">
                   Need at least 2 in the queue to start
                 </p>
               </div>
@@ -210,7 +210,7 @@ export function GamePanel({ table }: GamePanelProps) {
 
           {/* Session leaderboard */}
           {table.sessionStats.gamesPlayed > 0 && (
-            <div className="border-t border-surface-border p-4">
+            <div className="border-t border-surface-border p-[1.5vmin]">
               <Leaderboard stats={table.sessionStats} compact />
             </div>
           )}

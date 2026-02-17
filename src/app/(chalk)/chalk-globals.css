@@ -59,7 +59,7 @@
   /* Chalk-specific variables */
   --chalk-queue-bg: 12 16 28;
   --chalk-game-bg: 16 22 38;
-  --chalk-header-height: 64px;
+  --chalk-header-height: 6vmin;
 
   color: rgb(var(--tw-white));
   background: rgb(var(--surface));

@@ -18,19 +18,19 @@ export function QRCodeDisplay({ tableId, shortCode, size = 128, showLabel = true
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(joinUrl)}&bgcolor=FFFFFF&color=0C1222&format=svg`;
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-[1.1vmin]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={qrUrl}
         alt={`QR code for ${shortCode}`}
         width={size}
         height={size}
-        className="rounded-lg"
+        className="rounded-[0.7vmin]"
       />
       {showLabel && (
         <div className="text-center">
-          <p className="text-xs text-gray-400">Scan to join</p>
-          <p className="text-sm font-mono text-baize">{shortCode}</p>
+          <p className="text-[1.1vmin] text-gray-400">Scan to join</p>
+          <p className="text-[1.3vmin] font-mono text-baize">{shortCode}</p>
         </div>
       )}
     </div>

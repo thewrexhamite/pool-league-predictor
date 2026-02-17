@@ -17,6 +17,7 @@ import {
 } from '@dnd-kit/sortable';
 import type { ChalkTable } from '@/lib/chalk/types';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
+import { useVmin } from '@/hooks/chalk/use-vmin';
 import { ChalkButton } from '../shared/ChalkButton';
 import { QueueEntry } from './QueueEntry';
 import { QRCodeDisplay } from './QRCodeDisplay';
@@ -28,6 +29,8 @@ interface QueuePanelProps {
 
 export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
   const { reorderQueue } = useChalkTable();
+  const vmin = useVmin();
+  const qrSize = Math.round(Math.max(80, Math.min(200, vmin * 13)));
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -54,14 +57,14 @@ export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
   return (
     <div className="chalk-kiosk-queue flex flex-col">
       {/* Queue header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-surface-border">
-        <div className="flex items-center gap-3">
-          <h2 className="text-lg font-bold">Queue</h2>
-          <span className="px-2 py-0.5 rounded-full bg-baize/20 text-baize text-sm font-medium">
+      <div className="flex items-center justify-between px-[1.5vmin] py-[1.1vmin] border-b border-surface-border">
+        <div className="flex items-center gap-[1.1vmin]">
+          <h2 className="text-[1.7vmin] font-bold">Queue</h2>
+          <span className="px-[0.75vmin] py-[0.2vmin] rounded-full bg-baize/20 text-baize text-[1.3vmin] font-medium">
             {waitingCount}
           </span>
           {holdCount > 0 && (
-            <span className="px-2 py-0.5 rounded-full bg-accent/20 text-accent text-sm font-medium">
+            <span className="px-[0.75vmin] py-[0.2vmin] rounded-full bg-accent/20 text-accent text-[1.3vmin] font-medium">
               {holdCount} held
             </span>
           )}
@@ -72,13 +75,13 @@ export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
       </div>
 
       {/* Queue list */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2">
+      <div className="flex-1 overflow-y-auto p-[1.1vmin] space-y-[0.75vmin]">
         {table.queue.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center text-gray-500 space-y-4 py-8">
-            <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={140} />
-            <div className="space-y-1">
-              <p className="text-lg text-gray-400">No one in the queue</p>
-              <p className="text-sm">Scan the QR code to join from your phone</p>
+          <div className="flex flex-col items-center justify-center h-full text-center text-gray-500 space-y-[1.5vmin] py-[3vmin]">
+            <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} />
+            <div className="space-y-[0.37vmin]">
+              <p className="text-[1.7vmin] text-gray-400">No one in the queue</p>
+              <p className="text-[1.3vmin]">Scan the QR code to join from your phone</p>
             </div>
           </div>
         ) : (

@@ -30,13 +30,13 @@ export function KingCrownAnimation({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-fixed-black/80 backdrop-blur-sm chalk-animate-fade">
-      <div className="text-center space-y-4 chalk-animate-in">
+      <div className="text-center space-y-[1.5vmin] chalk-animate-in">
         <CrownIcon size={96} animated className="mx-auto" />
-        <p className="text-4xl font-bold text-accent">{playerName}</p>
-        <p className="text-xl text-gray-300">
+        <p className="text-[3.7vmin] font-bold text-accent">{playerName}</p>
+        <p className="text-[1.9vmin] text-gray-300">
           King of the Table
         </p>
-        <p className="text-sm text-gray-500">
+        <p className="text-[1.3vmin] text-gray-500">
           {consecutiveWins} consecutive wins
         </p>
       </div>

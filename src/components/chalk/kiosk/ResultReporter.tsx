@@ -36,11 +36,11 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
   }
 
   return (
-    <div className="space-y-3">
-      <p className="text-center text-sm text-gray-400 uppercase tracking-wider">
+    <div className="space-y-[1.1vmin]">
+      <p className="text-center text-[1.3vmin] text-gray-400 uppercase tracking-wider">
         Who won?
       </p>
-      <div className="flex gap-4">
+      <div className="flex gap-[1.5vmin]">
         <ChalkButton
           size="lg"
           onClick={() => handleReport('holder')}
@@ -60,7 +60,7 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
         </ChalkButton>
       </div>
       {error && (
-        <p className="text-loss text-sm text-center" role="alert">{error}</p>
+        <p className="text-loss text-[1.3vmin] text-center" role="alert">{error}</p>
       )}
     </div>
   );

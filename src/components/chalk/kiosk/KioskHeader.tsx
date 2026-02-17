@@ -24,18 +24,18 @@ export function KioskHeader({ table }: KioskHeaderProps) {
   }, [table.venueId]);
 
   return (
-    <header className="chalk-kiosk-header flex items-center justify-between px-6 bg-surface-card border-b border-surface-border">
-      <div className="flex items-center gap-4">
+    <header className="chalk-kiosk-header flex items-center justify-between px-[2.2vmin] bg-surface-card border-b border-surface-border">
+      <div className="flex items-center gap-[1.5vmin]">
         {logoUrl && (
           <img
             src={logoUrl}
             alt="Venue logo"
-            className="h-10 w-auto object-contain"
+            className="h-[3.7vmin] w-auto object-contain"
           />
         )}
-        <h1 className="text-lg font-bold leading-tight">{table.name}</h1>
+        <h1 className="text-[1.7vmin] font-bold leading-tight">{table.name}</h1>
         {table.sessionStats.kingOfTable && (
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
+          <div className="flex items-center gap-[0.55vmin] px-[1.1vmin] py-[0.37vmin] rounded-full bg-accent/10 text-accent text-[1.3vmin] font-medium">
             <CrownIcon size={16} />
             <span>{table.sessionStats.kingOfTable.playerName}</span>
             <span className="text-accent/60">
@@ -45,11 +45,11 @@ export function KioskHeader({ table }: KioskHeaderProps) {
         )}
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-[1.1vmin]">
         {table.venueId && user && (
           <Link
             href={`/manage/venue/${table.venueId}`}
-            className="text-xs text-gray-500 hover:text-baize transition-colors"
+            className="text-[1.1vmin] text-gray-500 hover:text-baize transition-colors"
           >
             Manage
           </Link>
@@ -58,12 +58,12 @@ export function KioskHeader({ table }: KioskHeaderProps) {
           isPrivate={table.session.isPrivate}
           privatePlayerNames={table.session.privatePlayerNames}
         />
-        <span className="text-sm text-gray-500">
+        <span className="text-[1.3vmin] text-gray-500">
           {table.sessionStats.gamesPlayed} game{table.sessionStats.gamesPlayed !== 1 ? 's' : ''}
         </span>
         <Link
           href={`/kiosk/${table.id}/settings`}
-          className="chalk-touch rounded-lg p-2 text-gray-400 hover:text-white hover:bg-surface-elevated transition-colors"
+          className="chalk-touch rounded-[0.7vmin] p-[0.75vmin] text-gray-400 hover:text-white hover:bg-surface-elevated transition-colors"
           aria-label="Table settings"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
