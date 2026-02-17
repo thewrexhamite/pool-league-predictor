@@ -26,20 +26,20 @@ export function KioskHeader({ table }: KioskHeaderProps) {
   return (
     <header className="chalk-kiosk-header flex items-center bg-surface-card border-b border-surface-border">
       {logoUrl && (
-        <div className="flex items-center justify-center self-stretch px-[2.5vmin] border-r border-surface-border bg-surface-elevated/30">
+        <div className="flex items-center justify-center self-stretch px-[3.75vmin] border-r border-surface-border bg-surface-elevated/30">
           <img
             src={logoUrl}
             alt="Venue logo"
-            className="h-[9vmin] w-auto object-contain"
+            className="h-[13.5vmin] w-auto object-contain"
           />
         </div>
       )}
-      <div className="flex-1 flex items-center justify-between px-[3vmin] py-[1.8vmin]">
-        <div className="flex items-center gap-[2vmin]">
-          <h1 className="text-[2.5vmin] font-bold leading-tight">{table.name}</h1>
+      <div className="flex-1 flex items-center justify-between px-[4.5vmin] py-[2.7vmin]">
+        <div className="flex items-center gap-[3vmin]">
+          <h1 className="text-[3.75vmin] font-bold leading-tight">{table.name}</h1>
           {table.sessionStats.kingOfTable && (
-            <div className="flex items-center gap-[0.8vmin] px-[1.5vmin] py-[0.6vmin] rounded-full bg-accent/10 text-accent text-[1.8vmin] font-medium">
-              <CrownIcon size={20} />
+            <div className="flex items-center gap-[1.2vmin] px-[2.25vmin] py-[0.9vmin] rounded-full bg-accent/10 text-accent text-[2.7vmin] font-medium">
+              <CrownIcon size={30} />
               <span>{table.sessionStats.kingOfTable.playerName}</span>
               <span className="text-accent/60">
                 {table.sessionStats.kingOfTable.consecutiveWins}W
@@ -48,11 +48,11 @@ export function KioskHeader({ table }: KioskHeaderProps) {
           )}
         </div>
 
-        <div className="flex items-center gap-[1.8vmin]">
+        <div className="flex items-center gap-[2.7vmin]">
           {table.venueId && user && (
             <Link
               href={`/manage/venue/${table.venueId}`}
-              className="text-[1.6vmin] text-gray-500 hover:text-baize transition-colors"
+              className="text-[2.4vmin] text-gray-500 hover:text-baize transition-colors"
             >
               Manage
             </Link>
@@ -61,15 +61,15 @@ export function KioskHeader({ table }: KioskHeaderProps) {
             isPrivate={table.session.isPrivate}
             privatePlayerNames={table.session.privatePlayerNames}
           />
-          <span className="text-[1.8vmin] text-gray-500">
+          <span className="text-[2.7vmin] text-gray-500">
             {table.sessionStats.gamesPlayed} game{table.sessionStats.gamesPlayed !== 1 ? 's' : ''}
           </span>
           <Link
             href={`/kiosk/${table.id}/settings`}
-            className="chalk-touch rounded-[1vmin] p-[1vmin] text-gray-400 hover:text-white hover:bg-surface-elevated transition-colors"
+            className="chalk-touch rounded-[1.5vmin] p-[1.5vmin] text-gray-400 hover:text-white hover:bg-surface-elevated transition-colors"
             aria-label="Table settings"
           >
-            <svg className="w-[2.8vmin] h-[2.8vmin]" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <svg className="w-[4.2vmin] h-[4.2vmin]" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path
                 d="M10 13a3 3 0 100-6 3 3 0 000 6z"
                 stroke="currentColor"
