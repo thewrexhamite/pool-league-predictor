@@ -122,12 +122,12 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
       {/* Middle — CTA + QR code */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3.7vmin] chalk-animate-fade">
         <p className="text-[3.3vmin] font-semibold text-baize">
-          Put your name down to play
+          Tap to put your name down
         </p>
 
         <div className="flex flex-col items-center gap-[2.2vmin] p-[3vmin] rounded-[2.2vmin] bg-surface-card border-2 border-baize chalk-attract-glow">
           <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} showLabel={false} />
-          <p className="text-baize font-semibold text-[2.2vmin]">Scan to join the queue</p>
+          <p className="text-baize font-semibold text-[2.2vmin]">Use the QR code to sign in with your Pool Pro App account</p>
         </div>
       </div>
 
@@ -214,29 +214,8 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
         </div>
       )}
 
-      {/* Bottom — tap CTA + stats + status */}
-      <div className="relative z-10 flex-none text-center pb-[4.5vmin] space-y-[2.2vmin] chalk-animate-fade">
-        <p className="text-gray-400 text-[2.2vmin]">
-          or tap here to add your name
-        </p>
-
-        <button
-          onClick={(e) => { e.stopPropagation(); onClaim(); }}
-          onTouchStart={(e) => { e.stopPropagation(); }}
-          className="text-baize/70 hover:text-baize text-[1.7vmin] underline underline-offset-4 transition-colors"
-        >
-          Already at the table? Tap here
-        </button>
-
-        {table.sessionStats.gamesPlayed > 0 && (
-          <div className="text-[1.7vmin] text-gray-600">
-            {table.sessionStats.gamesPlayed} games played this session
-            {table.sessionStats.kingOfTable && (
-              <> &mdash; King: {table.sessionStats.kingOfTable.playerName}</>
-            )}
-          </div>
-        )}
-
+      {/* Bottom — status */}
+      <div className="relative z-10 flex-none text-center pb-[4.5vmin] chalk-animate-fade">
         <div className="flex items-center justify-center gap-[1.1vmin] text-[1.7vmin] text-gray-600">
           <span className="inline-block w-[0.9vmin] h-[0.9vmin] rounded-full bg-baize chalk-animate-pulse" />
           <span>{queueStatus}</span>
