@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Settings } from 'lucide-react';
 import type { ChalkTable, ChalkVenue } from '@/lib/chalk/types';
 import { useAuth } from '@/lib/auth';
 import { getVenue } from '@/lib/chalk/firestore';
@@ -69,18 +70,7 @@ export function KioskHeader({ table }: KioskHeaderProps) {
             className="chalk-touch rounded-[1vmin] p-[1vmin] text-gray-400 hover:text-white hover:bg-surface-elevated transition-colors"
             aria-label="Table settings"
           >
-            <svg className="w-[2.8vmin] h-[2.8vmin]" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path
-                d="M10 13a3 3 0 100-6 3 3 0 000 6z"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M17.4 12.3a1.3 1.3 0 00.26 1.43l.05.05a1.58 1.58 0 01-1.12 2.7 1.58 1.58 0 01-1.12-.46l-.05-.05a1.3 1.3 0 00-1.43-.26 1.3 1.3 0 00-.79 1.19v.14a1.58 1.58 0 01-3.16 0v-.07A1.3 1.3 0 009.3 15.8a1.3 1.3 0 00-1.43.26l-.05.05a1.58 1.58 0 01-2.24-2.24l.05-.05a1.3 1.3 0 00.26-1.43 1.3 1.3 0 00-1.19-.79h-.14a1.58 1.58 0 010-3.16h.07A1.3 1.3 0 005.8 7.7a1.3 1.3 0 00-.26-1.43l-.05-.05a1.58 1.58 0 012.24-2.24l.05.05a1.3 1.3 0 001.43.26h.06a1.3 1.3 0 00.79-1.19v-.14a1.58 1.58 0 013.16 0v.07a1.3 1.3 0 00.79 1.19 1.3 1.3 0 001.43-.26l.05-.05a1.58 1.58 0 012.24 2.24l-.05.05a1.3 1.3 0 00-.26 1.43v.06a1.3 1.3 0 001.19.79h.14a1.58 1.58 0 010 3.16h-.07a1.3 1.3 0 00-1.19.79z"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-            </svg>
+            <Settings className="w-[2.8vmin] h-[2.8vmin]" strokeWidth={1.75} />
           </Link>
         </div>
       </div>
