@@ -125,7 +125,6 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
         <div className="flex flex-col items-center gap-[2.2vmin] p-[3vmin] rounded-[2.2vmin] bg-surface-card border-2 border-baize chalk-attract-glow">
           <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} showLabel={false} />
           <p className="text-baize font-semibold text-[2.2vmin]">Scan to join the queue</p>
-          <p className="text-gray-400 font-mono text-[2.2vmin] tracking-wider">{table.shortCode}</p>
         </div>
       </div>
 
