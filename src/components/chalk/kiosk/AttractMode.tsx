@@ -73,7 +73,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
   return (
     <div
-      className="chalk-kiosk flex flex-col cursor-pointer chalk-attract-drift"
+      className="chalk-kiosk flex flex-col cursor-pointer chalk-attract-drift bg-surface"
       onClick={handleTap}
       onTouchStart={handleTap}
     >
