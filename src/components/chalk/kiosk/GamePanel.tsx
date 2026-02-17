@@ -6,6 +6,7 @@ import { findCompatibleChallenger } from '@/lib/chalk/game-engine';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
 import { useChalkSound } from '@/hooks/chalk/use-chalk-sound';
+import { useTablePeriodStats } from '@/hooks/chalk/use-table-period-stats';
 import { ChalkButton } from '../shared/ChalkButton';
 import { ResultReporter } from './ResultReporter';
 import { NoShowOverlay } from './NoShowOverlay';
@@ -13,6 +14,7 @@ import { KillerGamePanel } from './KillerGamePanel';
 import { KingCrownAnimation } from './KingCrownAnimation';
 import { Leaderboard } from './Leaderboard';
 import { WinLimitNotice } from './WinLimitNotice';
+import { CrownIcon } from '../shared/CrownIcon';
 
 interface GamePanelProps {
   table: ChalkTable;
@@ -26,6 +28,16 @@ export function GamePanel({ table }: GamePanelProps) {
   const [startError, setStartError] = useState<string | null>(null);
   const [newKing, setNewKing] = useState<{ name: string; wins: number } | null>(null);
   const prevKingRef = useRef(table.sessionStats.kingOfTable?.crownedAt ?? null);
+  const { daily, refresh: refreshPeriodStats } = useTablePeriodStats(table.id);
+  const prevGamesPlayedRef = useRef(table.sessionStats.gamesPlayed);
+
+  // Refresh daily stats when a game ends (gamesPlayed changes)
+  useEffect(() => {
+    if (table.sessionStats.gamesPlayed > prevGamesPlayedRef.current) {
+      refreshPeriodStats();
+    }
+    prevGamesPlayedRef.current = table.sessionStats.gamesPlayed;
+  }, [table.sessionStats.gamesPlayed, refreshPeriodStats]);
 
   // Detect when a new king is crowned
   useEffect(() => {
@@ -208,10 +220,42 @@ export function GamePanel({ table }: GamePanelProps) {
             )}
           </div>
 
-          {/* Session leaderboard */}
-          {table.sessionStats.gamesPlayed > 0 && (
-            <div className="border-t border-surface-border p-[1.5vmin]">
-              <Leaderboard stats={table.sessionStats} compact />
+          {/* Tonight's leaderboard (falls back to session if daily is empty) */}
+          {(daily.gamesPlayed > 0 || table.sessionStats.gamesPlayed > 0) && (
+            <div className="border-t border-surface-border p-[1.5vmin] space-y-[1.5vmin]">
+              <Leaderboard
+                stats={daily.gamesPlayed > 0 ? daily.stats : table.sessionStats}
+                title={daily.gamesPlayed > 0 ? "Tonight's Leaderboard" : "Session Leaderboard"}
+                compact
+              />
+
+              {/* Recent games */}
+              {daily.games.length > 0 && (
+                <div className="space-y-[0.75vmin]">
+                  <h3 className="text-[1.3vmin] font-bold">Recent Games</h3>
+                  {daily.games.slice(0, 3).map((game) => {
+                    const isKiller = game.mode === 'killer';
+                    const holders = game.players.filter((p) => p.side === 'holder').map((p) => p.name);
+                    const challengers = game.players.filter((p) => p.side === 'challenger').map((p) => p.name);
+
+                    return (
+                      <div key={game.id} className="flex items-center gap-[0.55vmin] text-[1.3vmin]">
+                        <span className="text-gray-400 truncate flex-1">
+                          {isKiller
+                            ? game.players.map((p) => p.name).join(', ')
+                            : `${holders.join(' & ')} vs ${challengers.join(' & ')}`}
+                        </span>
+                        {game.winner && (
+                          <span className="text-baize font-medium flex items-center gap-[0.3vmin]">
+                            → {game.winner}
+                            {game.consecutiveWins >= 3 && <CrownIcon size={10} />}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
         </>

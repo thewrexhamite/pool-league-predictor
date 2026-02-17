@@ -244,6 +244,27 @@ export async function getTableHistory(
   return snap.docs.map((d) => d.data() as GameHistoryRecord);
 }
 
+export async function getTableHistorySince(
+  tableId: string,
+  since: number,
+  pageSize?: number
+): Promise<GameHistoryRecord[]> {
+  const q = pageSize
+    ? query(
+        historyCollection(tableId),
+        where('endedAt', '>=', since),
+        orderBy('endedAt', 'desc'),
+        limit(pageSize)
+      )
+    : query(
+        historyCollection(tableId),
+        where('endedAt', '>=', since),
+        orderBy('endedAt', 'desc')
+      );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => d.data() as GameHistoryRecord);
+}
+
 export async function getUserGameHistory(
   uid: string,
   pageSize: number = 20,

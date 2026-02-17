@@ -8,9 +8,10 @@ import clsx from 'clsx';
 interface LeaderboardProps {
   stats: SessionStats;
   compact?: boolean;
+  title?: string;
 }
 
-export function Leaderboard({ stats, compact = false }: LeaderboardProps) {
+export function Leaderboard({ stats, compact = false, title = "Tonight's Leaderboard" }: LeaderboardProps) {
   const leaderboard = getLeaderboard(stats);
 
   if (leaderboard.length === 0) return null;
@@ -20,7 +21,7 @@ export function Leaderboard({ stats, compact = false }: LeaderboardProps) {
   return (
     <div className="space-y-[1.1vmin]">
       <h3 className={clsx('font-bold', compact ? 'text-[1.3vmin]' : 'text-[1.7vmin]')}>
-        Session Leaderboard
+        {title}
       </h3>
       <div className="space-y-[0.37vmin]">
         {leaderboard.slice(0, maxItems).map((entry, index) => {
