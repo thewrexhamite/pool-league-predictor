@@ -13,6 +13,8 @@ export interface HouseRules {
   blackSpotRule: boolean;
 }
 
+export type ChalkTheme = 'dark' | 'light';
+
 export interface ChalkSettings {
   pinHash: string;
   tableName: string;
@@ -24,6 +26,7 @@ export interface ChalkSettings {
   soundEnabled: boolean;
   soundVolume: number;
   houseRules: HouseRules;
+  theme: ChalkTheme;
 }
 
 export interface QueueEntry {
@@ -118,6 +121,7 @@ export interface ChalkVenue {
   ownerName: string;
   createdAt: number;
   tableIds: string[];
+  logoUrl: string | null;
 }
 
 // ===== Game History =====

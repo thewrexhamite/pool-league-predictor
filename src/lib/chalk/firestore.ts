@@ -274,6 +274,7 @@ export async function createVenue(
     ownerName: userName,
     createdAt: Date.now(),
     tableIds: [],
+    logoUrl: null,
   };
   await setDoc(venueDoc, venue);
   return venue;
@@ -295,7 +296,7 @@ export async function getVenuesByOwner(userId: string): Promise<ChalkVenue[]> {
 
 export async function updateVenue(
   venueId: string,
-  data: Partial<Pick<ChalkVenue, 'name'>>
+  data: Partial<Pick<ChalkVenue, 'name' | 'logoUrl'>>
 ): Promise<void> {
   await updateDoc(venueRef(venueId), data);
 }

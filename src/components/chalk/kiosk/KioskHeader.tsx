@@ -1,10 +1,11 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import type { ChalkTable } from '@/lib/chalk/types';
+import type { ChalkTable, ChalkVenue } from '@/lib/chalk/types';
 import { useAuth } from '@/lib/auth';
+import { getVenue } from '@/lib/chalk/firestore';
 import { CrownIcon } from '../shared/CrownIcon';
-import { QRCodeDisplay } from './QRCodeDisplay';
 import { PrivateModeToggle } from './PrivateModeToggle';
 
 interface KioskHeaderProps {
@@ -13,15 +14,26 @@ interface KioskHeaderProps {
 
 export function KioskHeader({ table }: KioskHeaderProps) {
   const { user } = useAuth();
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!table.venueId) return;
+    getVenue(table.venueId).then((venue) => {
+      if (venue?.logoUrl) setLogoUrl(venue.logoUrl);
+    });
+  }, [table.venueId]);
 
   return (
     <header className="chalk-kiosk-header flex items-center justify-between px-6 bg-surface-card border-b border-surface-border">
       <div className="flex items-center gap-4">
-        <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={48} showLabel={false} />
-        <div>
-          <h1 className="text-lg font-bold leading-tight">{table.name}</h1>
-          <p className="text-xs text-gray-400">Scan to join</p>
-        </div>
+        {logoUrl && (
+          <img
+            src={logoUrl}
+            alt="Venue logo"
+            className="h-10 w-auto object-contain"
+          />
+        )}
+        <h1 className="text-lg font-bold leading-tight">{table.name}</h1>
         {table.sessionStats.kingOfTable && (
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
             <CrownIcon size={16} />

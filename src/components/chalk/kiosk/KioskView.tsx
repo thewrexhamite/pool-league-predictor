@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useWakeLock } from '@/hooks/chalk/use-wake-lock';
@@ -17,6 +17,19 @@ export function KioskView() {
   const [showAddSheet, setShowAddSheet] = useState(false);
 
   useWakeLock();
+
+  // Apply theme class to chalk-root
+  const theme = table?.settings.theme ?? 'dark';
+  useEffect(() => {
+    const root = document.querySelector('.chalk-root');
+    if (!root) return;
+    if (theme === 'light') {
+      root.classList.add('chalk-light');
+    } else {
+      root.classList.remove('chalk-light');
+    }
+    return () => { root.classList.remove('chalk-light'); };
+  }, [theme]);
 
   const attractTimeout = table?.settings.attractModeTimeoutMinutes ?? 5;
   const { isIdle, wake } = useIdleDetector(attractTimeout);

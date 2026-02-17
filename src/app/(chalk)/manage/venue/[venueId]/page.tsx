@@ -30,12 +30,17 @@ export default function VenueDetailPage({
   const [loading, setLoading] = useState(true);
   const [editingName, setEditingName] = useState(false);
   const [nameValue, setNameValue] = useState('');
+  const [logoValue, setLogoValue] = useState('');
+  const [savingLogo, setSavingLogo] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   const loadVenue = useCallback(async () => {
     const v = await getVenue(venueId);
     setVenue(v);
-    if (v) setNameValue(v.name);
+    if (v) {
+      setNameValue(v.name);
+      setLogoValue(v.logoUrl ?? '');
+    }
     setLoading(false);
   }, [venueId]);
 
@@ -85,6 +90,15 @@ export default function VenueDetailPage({
     await updateVenue(venueId, { name: nameValue.trim() });
     setVenue((v) => (v ? { ...v, name: nameValue.trim() } : v));
     setEditingName(false);
+  }
+
+  async function handleSaveLogo() {
+    const url = logoValue.trim() || null;
+    if (url === (venue?.logoUrl ?? null)) return;
+    setSavingLogo(true);
+    await updateVenue(venueId, { logoUrl: url });
+    setVenue((v) => (v ? { ...v, logoUrl: url } : v));
+    setSavingLogo(false);
   }
 
   async function handleDeleteVenue() {
@@ -155,6 +169,47 @@ export default function VenueDetailPage({
           </h1>
         )}
       </div>
+
+      {/* Venue Logo */}
+      <ChalkCard padding="lg">
+        <h2 className="text-lg font-bold mb-3">Venue Logo</h2>
+        <p className="text-sm text-gray-400 mb-3">
+          Paste a URL to your venue&apos;s logo. It will appear in the kiosk header.
+        </p>
+        <div className="flex gap-2">
+          <input
+            type="url"
+            value={logoValue}
+            onChange={(e) => setLogoValue(e.target.value)}
+            placeholder="https://example.com/logo.png"
+            className="flex-1 bg-surface-elevated rounded-lg px-3 py-2 text-sm border border-surface-border focus:border-baize focus:outline-none"
+            onBlur={handleSaveLogo}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSaveLogo();
+            }}
+          />
+          <ChalkButton
+            size="sm"
+            onClick={handleSaveLogo}
+            disabled={savingLogo}
+          >
+            {savingLogo ? 'Saving…' : 'Save'}
+          </ChalkButton>
+        </div>
+        {logoValue.trim() && (
+          <div className="mt-3 flex items-center gap-3">
+            <img
+              src={logoValue.trim()}
+              alt="Logo preview"
+              className="h-10 w-auto object-contain rounded bg-surface-elevated p-1"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+            />
+            <span className="text-xs text-gray-400">Preview</span>
+          </div>
+        )}
+      </ChalkCard>
 
       {/* Tables */}
       <div className="space-y-3">

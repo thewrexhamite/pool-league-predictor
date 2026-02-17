@@ -31,6 +31,7 @@ export const DEFAULT_SETTINGS: ChalkSettings = {
     foulRule: 'two_shots',
     blackSpotRule: false,
   },
+  theme: 'dark',
 };
 
 export const DEFAULT_SESSION_STATS: SessionStats = {

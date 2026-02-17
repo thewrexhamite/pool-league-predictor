@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { ChalkButton } from '../shared/ChalkButton';
 import { ChalkCard } from '../shared/ChalkCard';
+import { ThemeSettings } from './ThemeSettings';
 import { HouseRulesSection } from './HouseRulesSection';
 import { TimerSettings } from './TimerSettings';
 import { WinLimitSettings } from './WinLimitSettings';
@@ -35,6 +36,7 @@ export function SettingsView({ tableId }: SettingsViewProps) {
         </ChalkButton>
       </div>
 
+      <ThemeSettings />
       <HouseRulesSection />
       <TimerSettings />
       <WinLimitSettings />
