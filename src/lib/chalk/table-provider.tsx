@@ -92,21 +92,10 @@ export function ChalkTableProvider({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableId]);
 
-  // Connection health check — only flag reconnecting for active tables
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const elapsed = Date.now() - lastSnapshotRef.current;
-      if (lastSnapshotRef.current > 0 && elapsed > 30000) {
-        // Only flag reconnecting if the table should be receiving updates
-        // (has active game or non-empty queue). Idle tables get no updates naturally.
-        const t = table;
-        if (t && (t.currentGame || t.queue.length > 0)) {
-          setConnectionStatus('reconnecting');
-        }
-      }
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [table]);
+  // Connection status is driven by the Firestore snapshot listener above:
+  // successful snapshots → 'connected', error callback → 'disconnected'.
+  // No polling health check — Firestore doesn't send snapshots when the
+  // document hasn't changed, so silence is normal during an active game.
 
   // ===== Queue actions =====
 
