@@ -254,6 +254,95 @@
   animation: chalk-shake 0.5s ease-in-out;
 }
 
+/* ===== Attract screen animations ===== */
+
+@keyframes chalk-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.6), 0 0 60px rgba(16, 185, 129, 0.3);
+  }
+}
+
+.chalk-attract-glow {
+  animation: chalk-glow-pulse 3s ease-in-out infinite;
+}
+
+.chalk-attract-title {
+  text-shadow: 0 0 40px rgba(16, 185, 129, 0.6), 0 0 80px rgba(16, 185, 129, 0.3);
+}
+
+/* Slow drift to prevent burn-in on long-running displays */
+@keyframes chalk-attract-drift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(8px, -6px); }
+  50%  { transform: translate(-4px, 10px); }
+  75%  { transform: translate(-8px, -4px); }
+  100% { transform: translate(0, 0); }
+}
+
+.chalk-attract-drift {
+  animation: chalk-attract-drift 120s ease-in-out infinite;
+}
+
+/* Tap ripple feedback */
+@keyframes chalk-tap-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+.chalk-tap-ripple {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 100;
+  animation: chalk-tap-ripple 0.5s ease-out forwards;
+}
+
+/* ===== Chalk dust particles ===== */
+
+.chalk-dust-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.chalk-dust {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  filter: blur(1px);
+}
+
+@keyframes chalk-dust-float {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  5%   { opacity: 0.8; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-105vh) translateX(30px); opacity: 0; }
+}
+
+.chalk-dust-1 { width: 6px; height: 6px; left: 8%;  animation: chalk-dust-float 14s linear infinite; }
+.chalk-dust-2 { width: 4px; height: 4px; left: 22%; animation: chalk-dust-float 18s linear infinite 2s; }
+.chalk-dust-3 { width: 8px; height: 8px; left: 38%; animation: chalk-dust-float 22s linear infinite 5s; }
+.chalk-dust-4 { width: 5px; height: 5px; left: 52%; animation: chalk-dust-float 16s linear infinite 1s; }
+.chalk-dust-5 { width: 3px; height: 3px; left: 68%; animation: chalk-dust-float 20s linear infinite 7s; }
+.chalk-dust-6 { width: 7px; height: 7px; left: 82%; animation: chalk-dust-float 24s linear infinite 3s; }
+.chalk-dust-7 { width: 4px; height: 4px; left: 15%; animation: chalk-dust-float 15s linear infinite 9s; }
+.chalk-dust-8 { width: 5px; height: 5px; left: 65%; animation: chalk-dust-float 19s linear infinite 6s; }
+
 /* ===== No-show overlay ===== */
 
 .chalk-no-show-overlay {

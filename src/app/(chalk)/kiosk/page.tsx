@@ -63,9 +63,9 @@ export default function KioskSetupPage() {
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">The Chalk</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Chalk It Up!</h1>
           <p className="text-gray-400 text-lg">
-            Digital queue for your pool table
+            Put your name down to play
           </p>
         </div>
 

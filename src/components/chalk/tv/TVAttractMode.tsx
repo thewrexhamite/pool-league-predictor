@@ -14,11 +14,13 @@ export function TVAttractMode({ table, onWake }: TVAttractModeProps) {
       onClick={onWake}
     >
       <div className="text-center space-y-8 chalk-animate-fade">
-        <h1 className="text-8xl font-bold tracking-tight">The Chalk</h1>
+        <h1 className="text-8xl font-bold tracking-tight chalk-attract-title">Chalk It Up!</h1>
         <p className="text-3xl text-gray-400">{table.venueName}</p>
 
+        <p className="text-4xl font-semibold text-baize mt-8">Put your name down to play</p>
+
         <div className="mt-12 space-y-4">
-          <p className="text-2xl text-gray-500">Scan QR or enter code</p>
+          <p className="text-2xl text-gray-500">Scan to join the queue</p>
           <p className="text-4xl font-mono text-baize">{table.shortCode}</p>
         </div>
 
