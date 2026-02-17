@@ -30,7 +30,7 @@ export function KioskHeader({ table }: KioskHeaderProps) {
           <img
             src={logoUrl}
             alt="Venue logo"
-            className="h-[3.7vmin] w-auto object-contain"
+            className="h-[5vmin] w-auto object-contain"
           />
         )}
         <h1 className="text-[1.7vmin] font-bold leading-tight">{table.name}</h1>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import type { ChalkTable, QueueEntry } from '@/lib/chalk/types';
+import { getVenue } from '@/lib/chalk/firestore';
 import { useVmin } from '@/hooks/chalk/use-vmin';
 import { QRCodeDisplay } from './QRCodeDisplay';
 
@@ -47,6 +48,14 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const vmin = useVmin();
   const qrSize = Math.round(Math.max(120, Math.min(500, vmin * 28)));
   const [ripple, setRipple] = useState<{ x: number; y: number; id: number } | null>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!table.venueId) return;
+    getVenue(table.venueId).then((venue) => {
+      if (venue?.logoUrl) setLogoUrl(venue.logoUrl);
+    });
+  }, [table.venueId]);
 
   const handleTap = useCallback(
     (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
@@ -91,12 +100,19 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
       {/* Top — branding */}
       <div className="relative z-10 flex-none text-center pt-[6vmin] pb-[3vmin] chalk-animate-fade">
-        <h1 className="text-[9vmin] font-bold tracking-tight chalk-attract-title">
-          Chalk It Up!
-        </h1>
-        <p className="text-[2.2vmin] text-gray-400 mt-[1.5vmin]">{table.venueName}</p>
+        {logoUrl ? (
+          <img
+            src={logoUrl}
+            alt={table.venueName}
+            className="h-[14vmin] w-auto object-contain mx-auto mb-[2vmin]"
+          />
+        ) : (
+          <h1 className="text-[9vmin] font-bold tracking-tight chalk-attract-title">
+            {table.venueName}
+          </h1>
+        )}
         {table.name && table.name !== table.venueName && (
-          <p className="text-[1.9vmin] text-gray-500 mt-[0.75vmin]">{table.name}</p>
+          <p className="text-[2.2vmin] text-gray-400 mt-[1vmin]">{table.name}</p>
         )}
       </div>
 
