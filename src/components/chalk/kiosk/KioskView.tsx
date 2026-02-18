@@ -55,7 +55,7 @@ export function KioskView() {
     if (!isIdle) {
       // Fade out attract before unmounting
       setAttractVisible(false);
-      const timer = setTimeout(() => setShowAttract(false), 500);
+      const timer = setTimeout(() => setShowAttract(false), 1000);
       return () => clearTimeout(timer);
     }
     // Start with attract screen when going idle
@@ -72,7 +72,7 @@ export function KioskView() {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => setAttractVisible(true));
         });
-      }, 500);
+      }, 1000);
     }, ATTRACT_CYCLE_MS);
     return () => clearInterval(interval);
   }, [isIdle]);
@@ -169,7 +169,7 @@ export function KioskView() {
   if (isIdle && showAttract) {
     return (
       <div
-        className="transition-opacity duration-500 ease-in-out"
+        className="transition-opacity duration-1000 ease-in-out"
         style={{ opacity: attractVisible ? 1 : 0 }}
       >
         <AttractMode table={table} onWake={handleWake} onClaim={handleClaim} />

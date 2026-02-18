@@ -159,7 +159,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
       setTimeout(() => {
         setSlide((prev) => nextSlide(prev, order));
         setSlideFading(false);
-      }, 500);
+      }, 1000);
     }, 15_000);
     return () => clearInterval(id);
   }, [daily.gamesPlayed]);
@@ -227,7 +227,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
       </div>
 
       <div
-        className="flex-1 flex flex-col transition-opacity duration-500 ease-in-out"
+        className="flex-1 flex flex-col transition-opacity duration-1000 ease-in-out"
         style={{ opacity: slideFading ? 0 : 1 }}
       >
       {slide === 'qr' && (
