@@ -13,7 +13,7 @@ interface QueueEntryProps {
 }
 
 export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps) {
-  const { removeFromQueue, holdPosition, unholdPosition } = useChalkTable();
+  const { holdPosition, unholdPosition } = useChalkTable();
   const { minutesLeft, isExpired: holdExpired } = useHoldTimer(entry.holdUntil);
 
   const isOnHold = entry.status === 'on_hold';
@@ -101,15 +101,6 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
               )}
             </>
           )}
-          <button
-            onClick={() => removeFromQueue(entry.id)}
-            className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-gray-500 hover:text-loss hover:bg-loss/10 transition-colors"
-            aria-label={`Remove ${playerLabel} from queue`}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </button>
         </div>
       </div>
     </div>
