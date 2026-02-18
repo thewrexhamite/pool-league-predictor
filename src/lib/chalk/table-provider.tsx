@@ -30,7 +30,7 @@ import {
   enableChalkPersistence,
 } from './firestore';
 import { addToQueue, removeFromQueue, reorderQueue, holdEntry, unholdEntry, expireHeldEntries } from './queue-engine';
-import { startNextGame, processResult, processKillerResult, eliminateKillerPlayer, cancelCurrentGame } from './game-engine';
+import { startNextGame, processResult, processKillerResult, eliminateKillerPlayer, cancelCurrentGame, resolveNoShows } from './game-engine';
 import { updateStatsAfterGame, updateStatsAfterKillerGame } from './stats-engine';
 import { updateUserLifetimeStats, type UserGameResult } from './user-stats';
 
@@ -231,6 +231,7 @@ export function ChalkTableProvider({
         killerState: t.currentGame.killerState,
         playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
         playerUidList: playerUidList.length > 0 ? playerUidList : undefined,
+        venueName: t.venueName,
       };
 
       // Build lifetime stats results for players with UIDs
@@ -304,6 +305,7 @@ export function ChalkTableProvider({
         killerState: t.currentGame.killerState,
         playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
         playerUidList: playerUidList.length > 0 ? playerUidList : undefined,
+        venueName: t.venueName,
       };
 
       // Build lifetime stats results for players with UIDs
@@ -354,6 +356,18 @@ export function ChalkTableProvider({
         e.status === 'called' ? { ...e, noShowDeadline: null } : e
       ),
     }));
+  }, [tableId]);
+
+  const handleResolveNoShows = useCallback(async (noShowEntryIds: string[]) => {
+    await transactTable(tableId, (t) => {
+      if (!t.currentGame) return {};
+      const result = resolveNoShows(t.currentGame, t.queue, new Set(noShowEntryIds));
+      return {
+        queue: result.queue,
+        currentGame: null,
+        lastActiveAt: Date.now(),
+      };
+    });
   }, [tableId]);
 
   // ===== Claim queue spot =====
@@ -413,6 +427,7 @@ export function ChalkTableProvider({
     finishKillerGame: handleFinishKillerGame,
     cancelGame: handleCancelGame,
     dismissNoShow: handleDismissNoShow,
+    resolveNoShows: handleResolveNoShows,
     updateSettings: handleUpdateSettings,
     resetTable: handleResetTable,
     togglePrivateMode: handleTogglePrivateMode,

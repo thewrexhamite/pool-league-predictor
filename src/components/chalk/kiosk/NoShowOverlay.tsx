@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import type { QueueEntry, ChalkSettings, CurrentGame } from '@/lib/chalk/types';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useNoShowTimer } from '@/hooks/chalk/use-no-show-timer';
@@ -13,8 +13,10 @@ interface NoShowOverlayProps {
   currentGame: CurrentGame | null;
 }
 
+const AUTO_REMOVE_SECONDS = 15;
+
 export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayProps) {
-  const { cancelGame, dismissNoShow } = useChalkTable();
+  const { dismissNoShow, resolveNoShows } = useChalkTable();
   // Use the earliest deadline for the countdown
   const earliestDeadline = entries.reduce<number | null>(
     (min, e) => (e.noShowDeadline && (!min || e.noShowDeadline < min) ? e.noShowDeadline : min),
@@ -23,7 +25,49 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
   const { secondsLeft, isExpired } = useNoShowTimer(earliestDeadline);
   const { play } = useChalkSound(settings.soundEnabled, settings.soundVolume);
   const soundPlayedRef = useRef(false);
-  const autoCancelRef = useRef<ReturnType<typeof setTimeout>>();
+  const autoRemoveRef = useRef<ReturnType<typeof setTimeout>>();
+  const autoRemoveIntervalRef = useRef<ReturnType<typeof setInterval>>();
+  const [autoRemoveCountdown, setAutoRemoveCountdown] = useState(AUTO_REMOVE_SECONDS);
+
+  // Distinct queue entries involved in this game
+  const calledEntries = useMemo(() => {
+    if (!currentGame) return [];
+    const seen = new Set<string>();
+    const result: { entryId: string; names: string; side: string }[] = [];
+    for (const player of currentGame.players) {
+      if (seen.has(player.queueEntryId)) continue;
+      seen.add(player.queueEntryId);
+      const entryPlayers = currentGame.players.filter((p) => p.queueEntryId === player.queueEntryId);
+      const names = entryPlayers.map((p) => p.name).join(' & ');
+      const side = currentGame.mode === 'killer'
+        ? ''
+        : entryPlayers[0].side === 'holder' ? 'holder' : 'challenger';
+      result.push({ entryId: player.queueEntryId, names, side });
+    }
+    return result;
+  }, [currentGame]);
+
+  // No-show checkbox state — all checked by default when expired
+  const [noShowIds, setNoShowIds] = useState<Set<string>>(new Set());
+  const expiredInitRef = useRef(false);
+  useEffect(() => {
+    if (isExpired && !expiredInitRef.current) {
+      expiredInitRef.current = true;
+      setNoShowIds(new Set(calledEntries.map((e) => e.entryId)));
+    }
+  }, [isExpired, calledEntries]);
+
+  const toggleNoShow = useCallback((entryId: string) => {
+    setNoShowIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(entryId)) {
+        next.delete(entryId);
+      } else {
+        next.add(entryId);
+      }
+      return next;
+    });
+  }, []);
 
   const holderNames = currentGame
     ? currentGame.players.filter((p) => p.side === 'holder').map((p) => p.name).join(' & ')
@@ -42,17 +86,29 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
     }
   }, [isExpired, play]);
 
-  // Auto-cancel game after 15 seconds of no-show
+  // Stable ref for noShowIds so auto-remove timer uses latest value
+  const noShowIdsRef = useRef(noShowIds);
+  noShowIdsRef.current = noShowIds;
+
+  // Auto-remove after 15 seconds of no-show
   useEffect(() => {
     if (isExpired) {
-      autoCancelRef.current = setTimeout(() => {
-        cancelGame();
-      }, 15000);
+      setAutoRemoveCountdown(AUTO_REMOVE_SECONDS);
+      autoRemoveIntervalRef.current = setInterval(() => {
+        setAutoRemoveCountdown((prev) => {
+          if (prev <= 1) return 0;
+          return prev - 1;
+        });
+      }, 1000);
+      autoRemoveRef.current = setTimeout(() => {
+        resolveNoShows([...noShowIdsRef.current]);
+      }, AUTO_REMOVE_SECONDS * 1000);
       return () => {
-        if (autoCancelRef.current) clearTimeout(autoCancelRef.current);
+        if (autoRemoveRef.current) clearTimeout(autoRemoveRef.current);
+        if (autoRemoveIntervalRef.current) clearInterval(autoRemoveIntervalRef.current);
       };
     }
-  }, [isExpired, cancelGame]);
+  }, [isExpired, resolveNoShows]);
 
   if (secondsLeft === null) return null;
 
@@ -87,18 +143,52 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
         )}
 
         {isExpired ? (
-          <div className="space-y-[1.5vmin]">
-            <p className="text-[2.2vmin] text-loss font-semibold" role="alert">Time&apos;s up!</p>
-            <p className="text-[1.3vmin] text-gray-500">Auto-cancelling game in a few seconds…</p>
+          <div className="space-y-[2vmin]">
+            <p className="text-[2vmin] text-gray-300">Who didn&apos;t show up?</p>
+
+            {/* Per-entry checkboxes */}
+            <div className="space-y-[1.5vmin] text-left max-w-[50vmin] mx-auto">
+              {calledEntries.map((entry) => (
+                <label
+                  key={entry.entryId}
+                  className="flex items-center gap-[1.5vmin] cursor-pointer select-none px-[2vmin] py-[1.2vmin] rounded-xl bg-surface-elevated/50 hover:bg-surface-elevated transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    checked={noShowIds.has(entry.entryId)}
+                    onChange={() => toggleNoShow(entry.entryId)}
+                    className="w-[2.5vmin] h-[2.5vmin] accent-loss rounded flex-shrink-0"
+                  />
+                  <span className="text-[2vmin] font-semibold flex-1">{entry.names}</span>
+                  {entry.side && (
+                    <span className="text-[1.3vmin] text-gray-500">{entry.side}</span>
+                  )}
+                </label>
+              ))}
+            </div>
+
+            {/* Action buttons */}
             <div className="flex gap-[1.5vmin] justify-center">
               <ChalkButton
                 variant="danger"
                 size="lg"
-                onClick={cancelGame}
+                onClick={() => resolveNoShows([...noShowIds])}
+                disabled={noShowIds.size === 0}
               >
-                Cancel game now
+                Remove no-shows
+              </ChalkButton>
+              <ChalkButton
+                variant="ghost"
+                size="lg"
+                onClick={dismissNoShow}
+              >
+                All here
               </ChalkButton>
             </div>
+
+            <p className="text-[1.3vmin] text-gray-500">
+              Auto-removing in {autoRemoveCountdown}s…
+            </p>
           </div>
         ) : (
           <div className="space-y-[1.5vmin]">

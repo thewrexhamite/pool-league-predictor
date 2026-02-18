@@ -158,6 +158,7 @@ export interface GameHistoryRecord {
   killerState: KillerState | null;
   playerUids?: Record<string, string>;
   playerUidList?: string[];
+  venueName?: string;
 }
 
 // ===== Short Code Index =====
@@ -229,6 +230,7 @@ export interface ChalkTableContextValue {
   finishKillerGame: (winnerName: string) => Promise<void>;
   cancelGame: () => Promise<void>;
   dismissNoShow: () => Promise<void>;
+  resolveNoShows: (noShowEntryIds: string[]) => Promise<void>;
   // Settings actions
   updateSettings: (settings: Partial<ChalkSettings>) => Promise<void>;
   resetTable: () => Promise<void>;

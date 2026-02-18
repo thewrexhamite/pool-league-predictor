@@ -255,6 +255,22 @@ export function cancelCurrentGame(
   return { queue: updatedQueue };
 }
 
+export function resolveNoShows(
+  currentGame: CurrentGame,
+  queue: QueueEntry[],
+  noShowEntryIds: Set<string>
+): { queue: QueueEntry[] } {
+  const calledIds = new Set(currentGame.players.map((p) => p.queueEntryId));
+  const updatedQueue = queue
+    .filter((e) => !noShowEntryIds.has(e.id))           // Remove no-shows
+    .map((e) =>
+      calledIds.has(e.id)                                // Reset remaining called entries
+        ? { ...e, status: 'waiting' as const, noShowDeadline: null }
+        : e
+    );
+  return { queue: updatedQueue };
+}
+
 /**
  * Find the first queue entry compatible with the holder's game mode.
  * Singles matches singles, doubles matches doubles. Killer is handled separately.
