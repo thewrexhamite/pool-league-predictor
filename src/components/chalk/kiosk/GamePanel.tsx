@@ -220,12 +220,12 @@ export function GamePanel({ table }: GamePanelProps) {
             )}
           </div>
 
-          {/* Tonight's leaderboard (falls back to session if daily is empty) */}
+          {/* Today's leaderboard (falls back to session if daily is empty) */}
           {(daily.gamesPlayed > 0 || table.sessionStats.gamesPlayed > 0) && (
             <div className="border-t border-surface-border p-[1.5vmin] space-y-[1.5vmin]">
               <Leaderboard
                 stats={daily.gamesPlayed > 0 ? daily.stats : table.sessionStats}
-                title={daily.gamesPlayed > 0 ? "Tonight's Leaderboard" : "Session Leaderboard"}
+                title="Today's Leaderboard"
                 compact
               />
 

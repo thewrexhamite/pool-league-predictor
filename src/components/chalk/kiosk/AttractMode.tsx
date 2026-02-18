@@ -254,7 +254,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                   ) : null}
                 </div>
 
-                {/* Right — Recent Results (tonight's games) */}
+                {/* Right — Recent Results (today's games) */}
                 <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[1.1vmin]">
                   <h3 className="text-[1.7vmin] font-bold text-baize">Recent Results</h3>
                   {recentGames.length > 0 ? (
@@ -291,7 +291,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                       );
                     })
                   ) : (
-                    <p className="text-gray-500 text-[1.7vmin]">No games yet tonight</p>
+                    <p className="text-gray-500 text-[1.7vmin]">No games yet today</p>
                   )}
                 </div>
               </div>
@@ -305,12 +305,12 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
       {slide === 'stats' && (
         /* Stats slide */
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-[4vmin] gap-[3vmin]">
-          {/* Tonight's Champion */}
+          {/* Today's Champion */}
           {daily.champion && (
             <div className="text-center space-y-[1vmin]">
               <div className="flex items-center justify-center gap-[1.1vmin]">
                 <CrownIcon size={Math.round(vmin * 4)} />
-                <h2 className="text-[3.7vmin] font-bold text-accent">Tonight&apos;s Champion</h2>
+                <h2 className="text-[3.7vmin] font-bold text-accent">Today&apos;s Champion</h2>
                 <CrownIcon size={Math.round(vmin * 4)} />
               </div>
               <p className="text-[4.5vmin] font-bold">{daily.champion}</p>
@@ -372,10 +372,10 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             </div>
           )}
 
-          {/* Tonight's Top 5 */}
+          {/* Today's Top 5 */}
           {dailyLeaderboard.length > 0 && (
             <div className="w-full max-w-[55vmin] space-y-[1.1vmin]">
-              <h3 className="text-[2.2vmin] font-bold text-center">Tonight&apos;s Top 5</h3>
+              <h3 className="text-[2.2vmin] font-bold text-center">Today&apos;s Top 5</h3>
               <div className="space-y-[0.55vmin]">
                 {dailyLeaderboard.slice(0, 5).map((entry, index) => {
                   const winRate =
@@ -418,7 +418,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                 })}
               </div>
               <p className="text-center text-[1.3vmin] text-gray-500 mt-[1vmin]">
-                {daily.gamesPlayed} game{daily.gamesPlayed !== 1 ? 's' : ''} tonight
+                {daily.gamesPlayed} game{daily.gamesPlayed !== 1 ? 's' : ''} today
                 {avgGameDuration > 0 && ` \u00b7 avg ${formatDuration(avgGameDuration)}`}
               </p>
             </div>

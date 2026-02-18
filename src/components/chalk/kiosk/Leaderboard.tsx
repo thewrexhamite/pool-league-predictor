@@ -11,7 +11,7 @@ interface LeaderboardProps {
   title?: string;
 }
 
-export function Leaderboard({ stats, compact = false, title = "Tonight's Leaderboard" }: LeaderboardProps) {
+export function Leaderboard({ stats, compact = false, title = "Today's Leaderboard" }: LeaderboardProps) {
   const leaderboard = getLeaderboard(stats);
 
   if (leaderboard.length === 0) return null;
