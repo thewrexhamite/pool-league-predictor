@@ -84,7 +84,7 @@ function HeroSlide({ vmin }: { vmin: number }) {
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(APP_DOWNLOAD_URL)}&bgcolor=FFFFFF&color=0C1222&format=svg`;
 
   return (
-    <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3vmin] chalk-animate-fade">
+    <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3vmin]">
       {/* Trophy logo */}
       <TrophyLogo size={Math.round(vmin * 14)} />
 
@@ -139,6 +139,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const { daily, weekly, monthly } = useTablePeriodStats(table.id);
   const [slide, setSlide] = useState<Slide>('qr');
+  const [slideFading, setSlideFading] = useState(false);
 
   // Use daily games for recent results (falls back to empty)
   const recentGames = daily.games;
@@ -150,11 +151,15 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
     });
   }, [table.venueId]);
 
-  // Rotate slides every 15s: qr → stats → hero (or qr → hero when no stats)
+  // Rotate slides every 15s with fade transition
   useEffect(() => {
     const order = daily.gamesPlayed > 0 ? SLIDE_ORDER : SLIDE_ORDER_NO_STATS;
     const id = setInterval(() => {
-      setSlide((prev) => nextSlide(prev, order));
+      setSlideFading(true);
+      setTimeout(() => {
+        setSlide((prev) => nextSlide(prev, order));
+        setSlideFading(false);
+      }, 500);
     }, 15_000);
     return () => clearInterval(id);
   }, [daily.gamesPlayed]);
@@ -221,10 +226,14 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
         <div className="chalk-dust chalk-dust-8" />
       </div>
 
+      <div
+        className="flex-1 flex flex-col transition-opacity duration-500 ease-in-out"
+        style={{ opacity: slideFading ? 0 : 1 }}
+      >
       {slide === 'qr' && (
         <>
           {/* Top — branding */}
-          <div className="relative z-10 flex-none text-center pt-[6vmin] pb-[3vmin] chalk-animate-fade">
+          <div className="relative z-10 flex-none text-center pt-[6vmin] pb-[3vmin]">
             {logoUrl ? (
               <img
                 src={logoUrl}
@@ -242,7 +251,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
           </div>
 
           {/* Middle — CTA + QR code */}
-          <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3.7vmin] chalk-animate-fade">
+          <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3.7vmin]">
             <p className="text-[3.3vmin] font-semibold text-baize">
               Tap to put your name down
             </p>
@@ -255,7 +264,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
           {/* Next Up + Recent Results */}
           {(table.currentGame || table.queue.length > 0 || recentGames.length > 0) && (
-            <div className="relative z-10 flex-none mx-auto w-full max-w-[75vmin] px-[2.2vmin] pb-[1.5vmin] chalk-animate-fade">
+            <div className="relative z-10 flex-none mx-auto w-full max-w-[75vmin] px-[2.2vmin] pb-[1.5vmin]">
               <div className="grid grid-cols-2 gap-[2.2vmin]">
                 {/* Left — Next Up */}
                 <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[1.1vmin]">
@@ -342,7 +351,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
       {slide === 'stats' && (
         /* Stats slide */
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-[4vmin] gap-[3vmin] chalk-animate-fade">
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-[4vmin] gap-[3vmin]">
           {/* Tonight's Champion */}
           {daily.champion && (
             <div className="text-center space-y-[1vmin]">
@@ -463,9 +472,10 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
           )}
         </div>
       )}
+      </div>
 
       {/* Bottom — status (always visible) */}
-      <div className="relative z-10 flex-none text-center pb-[4.5vmin] chalk-animate-fade">
+      <div className="relative z-10 flex-none text-center pb-[4.5vmin]">
         <div className="flex items-center justify-center gap-[1.1vmin] text-[1.7vmin] text-gray-600">
           <span className="inline-block w-[0.9vmin] h-[0.9vmin] rounded-full bg-baize chalk-animate-pulse" />
           <span>{queueStatus}</span>

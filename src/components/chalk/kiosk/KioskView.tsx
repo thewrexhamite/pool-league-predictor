@@ -48,17 +48,31 @@ export function KioskView() {
   const attractTimeout = table?.settings.attractModeTimeoutMinutes ?? 5;
   const { isIdle, wake } = useIdleDetector(attractTimeout);
   const [showAttract, setShowAttract] = useState(false);
+  const [attractVisible, setAttractVisible] = useState(false);
 
   // Alternate between attract and main view every 30s while idle
   useEffect(() => {
     if (!isIdle) {
-      setShowAttract(false);
-      return;
+      // Fade out attract before unmounting
+      setAttractVisible(false);
+      const timer = setTimeout(() => setShowAttract(false), 500);
+      return () => clearTimeout(timer);
     }
     // Start with attract screen when going idle
     setShowAttract(true);
+    // Trigger fade-in on next frame
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setAttractVisible(true));
+    });
     const interval = setInterval(() => {
-      setShowAttract((prev) => !prev);
+      // Fade out, swap, fade in
+      setAttractVisible(false);
+      setTimeout(() => {
+        setShowAttract((prev) => !prev);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => setAttractVisible(true));
+        });
+      }, 500);
     }, ATTRACT_CYCLE_MS);
     return () => clearInterval(interval);
   }, [isIdle]);
@@ -153,11 +167,18 @@ export function KioskView() {
   }
 
   if (isIdle && showAttract) {
-    return <AttractMode table={table} onWake={handleWake} onClaim={handleClaim} />;
+    return (
+      <div
+        className="transition-opacity duration-500 ease-in-out"
+        style={{ opacity: attractVisible ? 1 : 0 }}
+      >
+        <AttractMode table={table} onWake={handleWake} onClaim={handleClaim} />
+      </div>
+    );
   }
 
   return (
-    <div className="chalk-kiosk">
+    <div className="chalk-kiosk chalk-animate-fade">
       <ConnectionStatus status={connectionStatus} />
       <div className="chalk-kiosk-grid">
         <KioskHeader table={table} />
