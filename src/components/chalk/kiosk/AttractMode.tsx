@@ -310,7 +310,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             <div className="text-center space-y-[1vmin]">
               <div className="flex items-center justify-center gap-[1.1vmin]">
                 <CrownIcon size={Math.round(vmin * 4)} />
-                <h2 className="text-[3.7vmin] font-bold text-accent">Today&apos;s Champion</h2>
+                <h2 className="text-[3.7vmin] font-bold text-accent">Today&apos;s Top Shooter</h2>
                 <CrownIcon size={Math.round(vmin * 4)} />
               </div>
               <p className="text-[4.5vmin] font-bold">{daily.champion}</p>
