@@ -79,6 +79,9 @@ export function GameHistoryRow({ game, highlightUid, compact }: GameHistoryRowPr
             </span>
           </div>
           <div className="flex items-center gap-2 mt-0.5">
+            {game.venueName && (
+              <span className="text-[10px] text-gray-400">{game.venueName}</span>
+            )}
             <span className="text-[10px] text-gray-500">{timeAgo(game.endedAt)}</span>
             <span className="text-[10px] text-gray-600">{formatDuration(game.duration)}</span>
             {game.consecutiveWins >= 3 && (
