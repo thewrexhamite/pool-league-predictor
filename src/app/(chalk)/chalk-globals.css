@@ -269,8 +269,18 @@
   animation: chalk-glow-pulse 3s ease-in-out infinite;
 }
 
+@keyframes chalk-title-glow {
+  0%, 100% {
+    text-shadow: 0 0 40px rgba(16, 185, 129, 0.6), 0 0 80px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 60px rgba(16, 185, 129, 0.9), 0 0 100px rgba(16, 185, 129, 0.5);
+  }
+}
+
 .chalk-attract-title {
   text-shadow: 0 0 40px rgba(16, 185, 129, 0.6), 0 0 80px rgba(16, 185, 129, 0.3);
+  animation: chalk-title-glow 3s ease-in-out infinite;
 }
 
 /* Slow drift to prevent burn-in on long-running displays */

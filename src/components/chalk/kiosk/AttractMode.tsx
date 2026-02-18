@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import type { ChalkTable, QueueEntry } from '@/lib/chalk/types';
 import { getVenue } from '@/lib/chalk/firestore';
 import { getLeaderboard } from '@/lib/chalk/stats-engine';
@@ -8,7 +9,8 @@ import { useVmin } from '@/hooks/chalk/use-vmin';
 import { useTablePeriodStats } from '@/hooks/chalk/use-table-period-stats';
 import { QRCodeDisplay } from './QRCodeDisplay';
 import { CrownIcon } from '../shared/CrownIcon';
-import { ListOrdered, BarChart3, Smartphone } from 'lucide-react';
+import { AnimatedChalkTitle } from '../shared/AnimatedChalkTitle';
+import { AnimatedPoolLeagueProLogo } from '../shared/AnimatedPoolLeagueProLogo';
 
 interface AttractModeProps {
   table: ChalkTable;
@@ -53,8 +55,6 @@ function formatDuration(ms: number): string {
   return `${mins}m`;
 }
 
-const APP_DOWNLOAD_URL = 'https://pool-league-predictor-1--pool-league-predictor.us-east4.hosted.app/';
-
 type Slide = 'qr' | 'stats' | 'hero';
 
 const SLIDE_ORDER: Slide[] = ['qr', 'stats', 'hero'];
@@ -65,71 +65,6 @@ function nextSlide(current: Slide, order: Slide[]): Slide {
   return order[(idx + 1) % order.length];
 }
 
-function TrophyLogo({ size }: { size: number }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 512 512">
-      <path d="M155 110 C80 110 60 190 140 220 L155 220 L155 200 C100 195 95 130 155 130 Z" fill="#D4A855"/>
-      <path d="M357 110 C432 110 452 190 372 220 L357 220 L357 200 C412 195 417 130 357 130 Z" fill="#D4A855"/>
-      <path d="M150 90 L362 90 L340 240 C330 280 290 310 256 320 C222 310 182 280 172 240 Z" fill="#D4A855"/>
-      <path d="M192 115 L194 210 C198 255 228 285 256 295" fill="none" stroke="white" strokeWidth="10" strokeLinecap="round" strokeOpacity="0.2"/>
-      <rect x="236" y="315" width="40" height="40" rx="4" fill="#D4A855"/>
-      <rect x="196" y="350" width="120" height="18" rx="9" fill="#D4A855"/>
-      <rect x="176" y="365" width="160" height="22" rx="11" fill="#D4A855"/>
-    </svg>
-  );
-}
-
-function HeroSlide({ vmin }: { vmin: number }) {
-  const qrSize = Math.round(Math.max(80, Math.min(300, vmin * 18)));
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(APP_DOWNLOAD_URL)}&bgcolor=FFFFFF&color=0C1222&format=svg`;
-
-  return (
-    <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3vmin]">
-      {/* Trophy logo */}
-      <TrophyLogo size={Math.round(vmin * 14)} />
-
-      {/* Wordmark */}
-      <h2 className="text-[5vmin] font-bold tracking-tight">
-        Pool League <span className="text-accent">Pro</span>
-      </h2>
-
-      {/* Tagline */}
-      <p className="text-[2.5vmin] text-gray-400">
-        The smart way to manage your pool table
-      </p>
-
-      {/* Feature pills */}
-      <div className="flex items-stretch gap-[2.5vmin] mt-[1vmin]">
-        {[
-          { icon: ListOrdered, label: 'Fair Queues' },
-          { icon: BarChart3, label: 'Live Stats' },
-          { icon: Smartphone, label: 'Play From Your Phone' },
-        ].map(({ icon: Icon, label }) => (
-          <div
-            key={label}
-            className="flex flex-col items-center gap-[1vmin] rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.5vmin] py-[2vmin]"
-          >
-            <Icon size={Math.round(vmin * 3.5)} className="text-baize" />
-            <span className="text-[1.7vmin] font-medium text-gray-300">{label}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Download QR */}
-      <div className="flex flex-col items-center gap-[1.5vmin] mt-[2vmin] p-[2.5vmin] rounded-[2vmin] bg-surface-card border-2 border-baize chalk-attract-glow">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={qrUrl}
-          alt="QR code to download Pool League Pro"
-          width={qrSize}
-          height={qrSize}
-          className="rounded-[0.7vmin]"
-        />
-        <p className="text-baize font-semibold text-[2vmin]">Get the app</p>
-      </div>
-    </div>
-  );
-}
 
 export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const queueStatus = useQueueStatus(table);
@@ -231,27 +166,40 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
         style={{ opacity: slideFading ? 0 : 1 }}
       >
       {slide === 'qr' && (
-        <>
+        <div key={`qr-${slide}`}>
           {/* Top — branding */}
           <div className="relative z-10 flex-none text-center pt-[6vmin] pb-[3vmin]">
             {logoUrl ? (
-              <img
+              <motion.img
                 src={logoUrl}
                 alt={table.venueName}
                 className="h-[14vmin] w-auto object-contain mx-auto mb-[2vmin]"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
               />
             ) : (
-              <h1 className="text-[9vmin] font-bold tracking-tight chalk-attract-title">
-                {table.venueName}
-              </h1>
+              <AnimatedChalkTitle text={table.venueName} size="9vmin" />
             )}
             {table.name && table.name !== table.venueName && (
-              <p className="text-[2.2vmin] text-gray-400 mt-[1vmin]">{table.name}</p>
+              <motion.p
+                className="text-[2.2vmin] text-gray-400 mt-[1vmin]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.5 }}
+              >
+                {table.name}
+              </motion.p>
             )}
           </div>
 
           {/* Middle — CTA + QR code */}
-          <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3.7vmin]">
+          <motion.div
+            className="relative z-10 flex-1 flex flex-col items-center justify-center gap-[3.7vmin]"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.8, ease: 'easeOut' }}
+          >
             <p className="text-[3.3vmin] font-semibold text-baize">
               Tap to put your name down
             </p>
@@ -260,11 +208,16 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} showLabel={false} />
               <p className="text-baize font-semibold text-[2.2vmin]">Use the QR code to sign in with your Pool Pro App account</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Next Up + Recent Results */}
           {(table.currentGame || table.queue.length > 0 || recentGames.length > 0) && (
-            <div className="relative z-10 flex-none mx-auto w-full max-w-[75vmin] px-[2.2vmin] pb-[1.5vmin]">
+            <motion.div
+              className="relative z-10 flex-none mx-auto w-full max-w-[75vmin] px-[2.2vmin] pb-[1.5vmin]"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 2.2, ease: 'easeOut' }}
+            >
               <div className="grid grid-cols-2 gap-[2.2vmin]">
                 {/* Left — Next Up */}
                 <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[1.1vmin]">
@@ -342,12 +295,12 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
-        </>
+        </div>
       )}
 
-      {slide === 'hero' && <HeroSlide vmin={vmin} />}
+      {slide === 'hero' && <AnimatedPoolLeagueProLogo key={`hero-${slide}`} vmin={vmin} />}
 
       {slide === 'stats' && (
         /* Stats slide */
