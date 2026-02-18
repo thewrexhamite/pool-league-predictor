@@ -57,7 +57,7 @@ export default function CreateTablePage() {
           </button>
           <h1 className="text-3xl font-bold">Set Up Table</h1>
           <p className="text-gray-400">
-            Create a new chalk board for your pool table.
+            Create a new Chalk It Up! board for your pool table.
           </p>
         </div>
 

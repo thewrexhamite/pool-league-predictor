@@ -569,7 +569,7 @@ export default function AppHeader({
                   className="flex items-center justify-center gap-1.5 bg-surface-card border border-surface-border rounded-lg py-2 text-xs text-gray-300 hover:text-white transition"
                 >
                   <CircleDot size={14} />
-                  The Chalk
+                  Chalk It Up!
                 </button>
 
                 {/* Theme picker */}

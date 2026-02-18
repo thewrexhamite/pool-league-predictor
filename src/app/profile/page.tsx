@@ -30,8 +30,9 @@ import { AuthGuard } from '@/components/auth';
 import { CaptainClaimModal } from '@/components/auth/CaptainClaimModal';
 import { QRScanner } from '@/components/chalk/join/QRScanner';
 import { usePlayerInsights, usePlayerLabels } from '@/hooks/use-gamification';
-import { useUserGameHistory } from '@/hooks/chalk/use-match-history';
+import { useUnifiedMatchHistory } from '@/hooks/use-unified-match-history';
 import { GameHistoryRow } from '@/components/chalk/shared/GameHistoryRow';
+import { LeagueMatchRow } from '@/components/chalk/shared/LeagueMatchRow';
 import PlayerLabels from '@/components/gamification/PlayerLabels';
 
 export default function ProfilePage() {
@@ -44,7 +45,7 @@ export default function ProfilePage() {
 
   const { insights } = usePlayerInsights();
   const { active: activeLabels } = usePlayerLabels();
-  const { games: matchHistory, loading: historyLoading, loadingMore, hasMore, loadMore } = useUserGameHistory(user?.uid);
+  const { items: matchHistory, loading: historyLoading, loadingMore, hasMore, loadMore } = useUnifiedMatchHistory(user?.uid);
 
   const captainClaims = profile?.captainClaims || [];
   const claimedProfiles = profile?.claimedProfiles || [];
@@ -207,7 +208,7 @@ export default function ProfilePage() {
               <div className="bg-surface-card border border-surface-border rounded-card p-6 space-y-4">
                 <h3 className="font-semibold text-white flex items-center gap-2">
                   <Target className="w-4 h-4 text-baize" />
-                  Chalk Stats
+                  Chalk It Up! Stats
                 </h3>
 
                 {/* Big stat numbers */}
@@ -283,9 +284,13 @@ export default function ProfilePage() {
               ) : (
                 <>
                   <div className="space-y-1.5">
-                    {matchHistory.map((game) => (
-                      <GameHistoryRow key={game.id} game={game} highlightUid={user.uid} />
-                    ))}
+                    {matchHistory.map((item) =>
+                      item.type === 'chalk' ? (
+                        <GameHistoryRow key={item.game.id} game={item.game} highlightUid={user.uid} />
+                      ) : (
+                        <LeagueMatchRow key={item.matchId} match={item} />
+                      )
+                    )}
                   </div>
                   {hasMore && (
                     <button
