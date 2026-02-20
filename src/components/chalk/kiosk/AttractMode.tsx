@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { ChalkTable, QueueEntry, GameHistoryRecord } from '@/lib/chalk/types';
+import { CHALK_DEFAULTS } from '@/lib/chalk/constants';
 import { getVenue } from '@/lib/chalk/firestore';
 import { getLeaderboard } from '@/lib/chalk/stats-engine';
 import { useVmin } from '@/hooks/chalk/use-vmin';
@@ -241,9 +242,13 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
     });
   }, [table.venueId]);
 
-  // Rotate slides every 12s with fade transition
+  // Rotate slides with per-slide durations (setTimeout so each slide gets its own timing)
+  const durations = table.settings.attractSlideDurations;
+  const defaultDur = CHALK_DEFAULTS.ATTRACT_SLIDE_DURATION_SECONDS;
+
   useEffect(() => {
-    const id = setInterval(() => {
+    const dur = (durations?.[slide] ?? defaultDur) * 1000;
+    const id = setTimeout(() => {
       setSlideFading(true);
       setTimeout(() => {
         setSlide((prev) => {
@@ -255,9 +260,9 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
         });
         setSlideFading(false);
       }, 1000);
-    }, 12_000);
-    return () => clearInterval(id);
-  }, [slideOrder]);
+    }, dur);
+    return () => clearTimeout(id);
+  }, [slide, slideOrder, durations, defaultDur]);
 
   // If current slide isn't in the order, snap to first
   useEffect(() => {

@@ -9,6 +9,7 @@ import { HouseRulesSection } from './HouseRulesSection';
 import { TimerSettings } from './TimerSettings';
 import { WinLimitSettings } from './WinLimitSettings';
 import { SoundSettings } from './SoundSettings';
+import { AttractSlideSettings } from './AttractSlideSettings';
 import { LeagueSettings } from './LeagueSettings';
 import { DangerZone } from './DangerZone';
 
@@ -42,6 +43,7 @@ export function SettingsView({ tableId }: SettingsViewProps) {
       <TimerSettings />
       <WinLimitSettings />
       <SoundSettings />
+      <AttractSlideSettings />
       <LeagueSettings />
       <DangerZone tableId={tableId} />
     </div>

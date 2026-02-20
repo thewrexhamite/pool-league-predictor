@@ -16,6 +16,7 @@ export const CHALK_DEFAULTS = {
   SHORT_CODE_LENGTH: 4,
   SHORT_CODE_PREFIX: 'CHALK',
   PIN_LENGTH: 4,
+  ATTRACT_SLIDE_DURATION_SECONDS: 12,
 } as const;
 
 export const DEFAULT_SETTINGS: ChalkSettings = {

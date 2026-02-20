@@ -35,6 +35,7 @@ export interface ChalkSettings {
   houseRules: HouseRules;
   theme: ChalkTheme;
   linkedTeams?: LinkedTeam[];
+  attractSlideDurations?: Partial<Record<string, number>>;
 }
 
 export interface QueueEntry {
