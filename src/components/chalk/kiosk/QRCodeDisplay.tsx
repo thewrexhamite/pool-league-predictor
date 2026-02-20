@@ -29,7 +29,7 @@ export function QRCodeDisplay({ tableId, shortCode, size = 128, showLabel = true
       />
       {showLabel && (
         <div className="text-center">
-          <p className="text-[1.1vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>Scan to join</p>
+          <p className="text-[1.1vmin] text-white/65">Scan to join</p>
           <p className="text-[1.3vmin] font-mono text-baize">{shortCode}</p>
         </div>
       )}

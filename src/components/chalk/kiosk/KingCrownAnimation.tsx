@@ -33,10 +33,10 @@ export function KingCrownAnimation({
       <div className="text-center space-y-[1.5vmin] chalk-animate-in">
         <CrownIcon size={96} animated className="mx-auto" />
         <p className="text-[3.7vmin] font-bold text-accent">{playerName}</p>
-        <p className="text-[1.9vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>
+        <p className="text-[1.9vmin] text-white/70">
           King of the Table
         </p>
-        <p className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>
+        <p className="text-[1.3vmin] text-white/50">
           {consecutiveWins} consecutive wins
         </p>
       </div>

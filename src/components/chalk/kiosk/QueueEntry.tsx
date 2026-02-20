@@ -41,7 +41,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
             !isCalled && !isOnHold && 'bg-surface-elevated'
           )}
         >
-          <span style={!isCalled && !isOnHold ? { color: 'rgba(255,255,255,0.7)' } : undefined}>{position}</span>
+          <span className={!isCalled && !isOnHold ? 'text-white/70' : undefined}>{position}</span>
         </span>
 
         {/* Player info */}
@@ -51,7 +51,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
               {playerLabel}
             </span>
             {entry.gameMode !== 'singles' && (
-              <span className="px-[0.55vmin] py-[0.2vmin] rounded text-[1.1vmin] bg-surface-elevated" style={{ color: 'rgba(255,255,255,0.65)' }}>
+              <span className="px-[0.55vmin] py-[0.2vmin] rounded text-[1.1vmin] bg-surface-elevated text-white/65">
                 {GAME_MODE_LABELS[entry.gameMode]}
               </span>
             )}
@@ -90,7 +90,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
               ) : (
                 <button
                   onClick={() => holdPosition(entry.id)}
-                  className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] hover:text-accent hover:bg-accent/10 transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
+                  className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-white/50 hover:text-accent hover:bg-accent/10 transition-colors"
                   aria-label={`Hold position for ${playerLabel}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

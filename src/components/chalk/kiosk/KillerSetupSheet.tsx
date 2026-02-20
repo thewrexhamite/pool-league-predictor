@@ -96,8 +96,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
             <h2 className="text-[1.9vmin] font-bold">Start Killer</h2>
             <button
               onClick={onClose}
-              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] hover:text-white transition-colors"
-              style={{ color: 'rgba(255,255,255,0.65)' }}
+              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-white/65 hover:text-white transition-colors"
               aria-label="Close"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -108,7 +107,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
 
           {/* Lives selector */}
           <div className="space-y-[0.75vmin]">
-            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>Lives per player</label>
+            <label className="block text-[1.3vmin] font-medium text-white/70">Lives per player</label>
             <div className="flex gap-[0.75vmin]">
               {[1, 2, 3, 4, 5].map((count) => (
                 <button
@@ -120,7 +119,6 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
                       ? 'bg-loss/15 border-loss text-loss'
                       : 'bg-surface-elevated border-surface-border hover:border-white/30'
                   )}
-                  style={lives !== count ? { color: 'rgba(255,255,255,0.65)' } : undefined}
                 >
                   {count}
                 </button>

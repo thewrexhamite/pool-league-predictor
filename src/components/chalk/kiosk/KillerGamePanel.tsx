@@ -22,7 +22,7 @@ export function KillerGamePanel({ table }: KillerGamePanelProps) {
   if (!table.currentGame?.killerState) {
     return (
       <div className="chalk-kiosk-game flex items-center justify-center p-[3vmin]">
-        <p className="text-[1.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>No active killer game</p>
+        <p className="text-[1.5vmin] text-white/65">No active killer game</p>
       </div>
     );
   }
@@ -57,7 +57,7 @@ export function KillerGamePanel({ table }: KillerGamePanelProps) {
   return (
     <div className="chalk-kiosk-game flex flex-col items-center justify-center p-[3vmin] space-y-[3vmin]">
       <div className="text-center space-y-[0.37vmin]">
-        <p className="text-[1.3vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.65)' }}>
+        <p className="text-[1.3vmin] uppercase tracking-wider text-white/65">
           Killer — Round {killerState.round}
         </p>
         <p className="text-[2.8vmin] font-mono font-bold text-baize">{gameTime}</p>

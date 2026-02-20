@@ -96,8 +96,7 @@ export function AddToQueueSheet({ table, onClose }: AddToQueueSheetProps) {
             <h2 className="text-[1.9vmin] font-bold">Add to Queue</h2>
             <button
               onClick={onClose}
-              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] hover:text-white transition-colors"
-              style={{ color: 'rgba(255,255,255,0.65)' }}
+              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-white/65 hover:text-white transition-colors"
               aria-label="Close"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -111,7 +110,7 @@ export function AddToQueueSheet({ table, onClose }: AddToQueueSheetProps) {
             <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} showLabel={false} />
             <div className="flex-1 min-w-0">
               <p className="text-[1.3vmin] font-semibold text-baize">Join from your phone</p>
-              <p className="text-[1.1vmin] mt-[0.2vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+              <p className="text-[1.1vmin] mt-[0.2vmin] text-white/65">
                 Scan this QR code with your camera to jump in the queue instantly
               </p>
             </div>
@@ -128,7 +127,7 @@ export function AddToQueueSheet({ table, onClose }: AddToQueueSheetProps) {
 
               {/* Player names */}
               <div className="space-y-[1.1vmin]">
-                <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                <label className="block text-[1.3vmin] font-medium text-white/70">
                   {gameMode === 'doubles' ? 'Team members (2 players)' : 'Player name'}
                 </label>
                 <PlayerNameInput
