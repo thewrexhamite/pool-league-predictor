@@ -77,11 +77,6 @@ export function GamePanel({ table }: GamePanelProps) {
   // Check for called entries with active no-show deadlines
   const calledEntries = table.queue.filter((e) => e.status === 'called' && e.noShowDeadline);
 
-  // Killer mode has its own panel
-  if (currentGame?.mode === 'killer' && currentGame.killerState) {
-    return <KillerGamePanel table={table} />;
-  }
-
   const handleCoinTossResult = useCallback(async (winnerName: string) => {
     try {
       await setBreakingPlayer(winnerName);
@@ -89,6 +84,11 @@ export function GamePanel({ table }: GamePanelProps) {
       // Non-critical — overlay already shows the result visually
     }
   }, [setBreakingPlayer]);
+
+  // Killer mode has its own panel
+  if (currentGame?.mode === 'killer' && currentGame.killerState) {
+    return <KillerGamePanel table={table} />;
+  }
 
   async function handleStartGame() {
     setStarting(true);
