@@ -148,15 +148,15 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
 
             {/* Matchup display */}
             {isKiller || !holderNames || !challengerNames ? (
-              <p className="text-[3.7vmin] font-bold">{allNames}</p>
+              <p className="text-[3.7vmin] font-bold text-white">{allNames}</p>
             ) : (
               <div className="flex items-center gap-[3vmin]">
                 <div className="flex-1 text-right">
-                  <p className="text-[3.3vmin] font-bold">{holderNames}</p>
+                  <p className="text-[3.3vmin] font-bold text-white">{holderNames}</p>
                 </div>
-                <span className="text-[3.7vmin] font-bold text-gray-600 flex-shrink-0">vs</span>
+                <span className="text-[3.7vmin] font-bold text-gray-400 flex-shrink-0">vs</span>
                 <div className="flex-1 text-left">
-                  <p className="text-[3.3vmin] font-bold">{challengerNames}</p>
+                  <p className="text-[3.3vmin] font-bold text-white">{challengerNames}</p>
                 </div>
               </div>
             )}
@@ -225,20 +225,20 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
 
             {/* Matchup display */}
             {isKiller || !holderNames || !challengerNames ? (
-              <p className="text-[3.7vmin] font-bold">{allNames}</p>
+              <p className="text-[3.7vmin] font-bold text-white">{allNames}</p>
             ) : (
               <div className="flex items-center gap-[3vmin]">
                 <div className="flex-1 text-right space-y-[0.4vmin]">
-                  <p className="text-[3.3vmin] font-bold">{holderNames}</p>
+                  <p className="text-[3.3vmin] font-bold text-white">{holderNames}</p>
                   {currentGame?.consecutiveWins ? (
                     <p className="text-[1.3vmin] text-accent">
                       {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
                     </p>
                   ) : null}
                 </div>
-                <span className="text-[3.7vmin] font-bold text-gray-600 flex-shrink-0">vs</span>
+                <span className="text-[3.7vmin] font-bold text-gray-400 flex-shrink-0">vs</span>
                 <div className="flex-1 text-left space-y-[0.4vmin]">
-                  <p className="text-[3.3vmin] font-bold">{challengerNames}</p>
+                  <p className="text-[3.3vmin] font-bold text-white">{challengerNames}</p>
                   {currentGame?.mode === 'challenge' && (
                     <p className="text-[1.3vmin] text-accent">Challenge match</p>
                   )}
