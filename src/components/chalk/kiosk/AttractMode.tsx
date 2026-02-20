@@ -562,7 +562,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             </motion.p>
 
             {/* Matchup */}
-            <div className="flex items-center gap-[4vmin] max-w-[85vmin] mx-auto w-full">
+            <div className="flex items-start gap-[4vmin] max-w-[85vmin] mx-auto w-full">
               <motion.div
                 className="flex-1 text-right min-w-0"
                 initial={{ opacity: 0, x: -20 }}
@@ -578,7 +578,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               </motion.div>
 
               <motion.span
-                className="text-[5vmin] font-bold text-gray-500 flex-shrink-0"
+                className="text-[5vmin] font-bold text-gray-500 flex-shrink-0 mt-[0.5vmin]"
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, type: 'spring', stiffness: 200 }}
@@ -601,7 +601,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               </motion.div>
             </div>
 
-            {/* Badges below matchup so columns stay aligned */}
+            {/* Badges below matchup — include holder name for context */}
             {(table.currentGame.consecutiveWins > 0 || table.currentGame.mode === 'challenge') && (
               <motion.p
                 className="text-[2vmin] text-accent"
@@ -610,7 +610,9 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                 transition={{ delay: 0.7 }}
               >
                 {table.currentGame.consecutiveWins > 0 && (
-                  <span>{table.currentGame.consecutiveWins} win{table.currentGame.consecutiveWins !== 1 ? 's' : ''} in a row</span>
+                  <span>
+                    {table.currentGame.players.filter((p) => p.side === 'holder').map((p) => p.name).join(' & ')} — {table.currentGame.consecutiveWins} win{table.currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
+                  </span>
                 )}
                 {table.currentGame.mode === 'challenge' && <span>Challenge match</span>}
               </motion.p>

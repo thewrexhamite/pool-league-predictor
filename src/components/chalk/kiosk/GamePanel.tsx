@@ -143,7 +143,7 @@ export function GamePanel({ table }: GamePanelProps) {
           </div>
 
           {/* Players */}
-          <div className="flex items-center gap-[3vmin] w-full max-w-[63vmin]">
+          <div className="flex items-start gap-[3vmin] w-full max-w-[63vmin]">
             {/* Holder */}
             <div className="flex-1 text-center space-y-[0.75vmin]">
               <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Holder</p>
@@ -156,7 +156,7 @@ export function GamePanel({ table }: GamePanelProps) {
             </div>
 
             {/* VS */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 mt-[2vmin]">
               <span className="text-[3.7vmin] font-bold text-gray-600">vs</span>
             </div>
 
@@ -172,10 +172,10 @@ export function GamePanel({ table }: GamePanelProps) {
             </div>
           </div>
 
-          {/* Win streak badge — outside columns so names stay aligned */}
+          {/* Win streak badge — includes holder name for context */}
           {currentGame.consecutiveWins > 0 && (
             <p className="text-[1.3vmin] text-accent text-center">
-              {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
+              {currentGame.players.filter((p) => p.side === 'holder').map((p) => p.name).join(' & ')} — {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
             </p>
           )}
 
