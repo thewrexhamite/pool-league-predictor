@@ -47,6 +47,17 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
     setSelectedPlayers((prev) => prev.filter((n) => n !== name));
   }, []);
 
+  const handleRandomizeOrder = useCallback(() => {
+    setSelectedPlayers((prev) => {
+      const shuffled = [...prev];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    });
+  }, []);
+
   const handleStart = useCallback(async () => {
     if (!canStart) return;
     setStarting(true);
@@ -127,30 +138,46 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
               placeholder="Add player"
             />
 
-            {/* Selected players */}
+            {/* Selected players — numbered to show play order */}
             {selectedPlayers.length > 0 && (
-              <div className="flex flex-wrap gap-[0.75vmin]">
-                {selectedPlayers.map((name) => (
-                  <span
+              <div className="space-y-[0.55vmin]">
+                {selectedPlayers.map((name, i) => (
+                  <div
                     key={name}
-                    className="inline-flex items-center gap-[0.55vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/20 text-baize text-[1.3vmin] font-medium"
+                    className="flex items-center gap-[1.1vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/10"
                   >
-                    {name}
-                    {queuedNames.has(name) && (
-                      <span className="text-[1vmin] text-gray-400">(queued)</span>
-                    )}
+                    <span className="text-[1.1vmin] text-gray-500 font-mono w-[2vmin] text-right">{i + 1}.</span>
+                    <span className="flex-1 text-baize text-[1.3vmin] font-medium">
+                      {name}
+                      {queuedNames.has(name) && (
+                        <span className="text-[1vmin] text-gray-400 ml-[0.5vmin]">(queued)</span>
+                      )}
+                    </span>
                     <button
                       onClick={() => handleRemovePlayer(name)}
-                      className="hover:text-white transition-colors"
+                      className="text-gray-500 hover:text-white transition-colors"
                       aria-label={`Remove ${name}`}
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                         <path d="M10 4L4 10M4 4l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                       </svg>
                     </button>
-                  </span>
+                  </div>
                 ))}
               </div>
+            )}
+
+            {/* Randomize order button */}
+            {selectedPlayers.length >= CHALK_DEFAULTS.KILLER_MIN_PLAYERS && (
+              <button
+                onClick={handleRandomizeOrder}
+                className="flex items-center justify-center gap-[0.7vmin] w-full py-[1vmin] rounded-[0.7vmin] border border-accent/30 bg-accent/10 text-accent text-[1.3vmin] font-semibold hover:bg-accent/20 transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M2 4h3l2 3-2 3H2M14 4h-3l-2 3 2 3h3M5 4l6 6M11 4l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Randomize Order
+              </button>
             )}
           </div>
 
