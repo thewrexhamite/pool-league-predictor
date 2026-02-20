@@ -220,27 +220,30 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
 
             {/* Matchup display — names are the hero */}
             {isKiller || !holderNames || !challengerNames ? (
-              <p className="text-[5vmin] font-bold" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
+              <p className="text-[4.5vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
             ) : (
-              <div className="flex items-center gap-[3vmin] max-w-[85vmin]">
-                <div className="flex-1 text-right space-y-[0.5vmin] min-w-0">
-                  <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Holder</p>
-                  <p className="text-[5vmin] font-bold truncate" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
-                  {currentGame?.consecutiveWins ? (
-                    <p className="text-[1.5vmin] text-accent">
-                      {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
-                    </p>
-                  ) : null}
+              <>
+                <div className="flex items-center gap-[3vmin] max-w-[85vmin]">
+                  <div className="flex-1 text-right space-y-[0.5vmin] min-w-0">
+                    <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Holder</p>
+                    <p className="text-[4.5vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
+                  </div>
+                  <span className="text-[4vmin] font-bold flex-shrink-0" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
+                  <div className="flex-1 text-left space-y-[0.5vmin] min-w-0">
+                    <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Challenger</p>
+                    <p className="text-[4.5vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
+                  </div>
                 </div>
-                <span className="text-[4vmin] font-bold flex-shrink-0" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
-                <div className="flex-1 text-left space-y-[0.5vmin] min-w-0">
-                  <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Challenger</p>
-                  <p className="text-[5vmin] font-bold truncate" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
-                  {currentGame?.mode === 'challenge' && (
-                    <p className="text-[1.5vmin] text-accent">Challenge match</p>
-                  )}
-                </div>
-              </div>
+                {/* Badges below matchup so columns stay aligned */}
+                {(currentGame?.consecutiveWins || currentGame?.mode === 'challenge') && (
+                  <div className="text-[1.5vmin] text-accent">
+                    {currentGame?.consecutiveWins ? (
+                      <span>{currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row</span>
+                    ) : null}
+                    {currentGame?.mode === 'challenge' && <span>Challenge match</span>}
+                  </div>
+                )}
+              </>
             )}
 
             {/* Countdown with progress ring */}
