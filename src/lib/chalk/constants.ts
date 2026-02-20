@@ -27,7 +27,7 @@ export const DEFAULT_SETTINGS: ChalkSettings = {
   soundEnabled: true,
   soundVolume: CHALK_DEFAULTS.SOUND_VOLUME,
   houseRules: {
-    breakRule: 'winner_breaks',
+    breakRule: 'loser_breaks',
     foulRule: 'two_shots',
     blackSpotRule: false,
   },

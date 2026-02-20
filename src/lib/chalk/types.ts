@@ -235,6 +235,7 @@ export interface ChalkTableContextValue {
   startKillerDirect: (payload: StartKillerPayload) => Promise<void>;
   eliminateKillerPlayer: (payload: KillerEliminationPayload) => Promise<void>;
   finishKillerGame: (winnerName: string) => Promise<void>;
+  setBreakingPlayer: (playerName: string) => Promise<void>;
   cancelGame: () => Promise<void>;
   dismissNoShow: () => Promise<void>;
   resolveNoShows: (noShowEntryIds: string[]) => Promise<void>;

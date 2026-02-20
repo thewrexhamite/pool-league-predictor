@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import type { ChalkTable } from '@/lib/chalk/types';
 import { findCompatibleChallenger } from '@/lib/chalk/game-engine';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
@@ -16,6 +16,7 @@ import { KingCrownAnimation } from './KingCrownAnimation';
 import { Leaderboard } from './Leaderboard';
 import { WinLimitNotice } from './WinLimitNotice';
 import { QRCodeDisplay } from './QRCodeDisplay';
+import { CoinTossOverlay } from './CoinTossOverlay';
 import { CrownIcon } from '../shared/CrownIcon';
 
 interface GamePanelProps {
@@ -23,7 +24,7 @@ interface GamePanelProps {
 }
 
 export function GamePanel({ table }: GamePanelProps) {
-  const { startNextGame, cancelGame } = useChalkTable();
+  const { startNextGame, cancelGame, setBreakingPlayer } = useChalkTable();
   const { play } = useChalkSound(table.settings.soundEnabled, table.settings.soundVolume);
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
   const vmin = useVmin();
@@ -31,6 +32,7 @@ export function GamePanel({ table }: GamePanelProps) {
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
   const [newKing, setNewKing] = useState<{ name: string; wins: number } | null>(null);
+  const [showCoinToss, setShowCoinToss] = useState(false);
   const prevKingRef = useRef(table.sessionStats.kingOfTable?.crownedAt ?? null);
   const { daily, refresh: refreshPeriodStats } = useTablePeriodStats(table.id);
   const prevGamesPlayedRef = useRef(table.sessionStats.gamesPlayed);
@@ -80,6 +82,14 @@ export function GamePanel({ table }: GamePanelProps) {
     return <KillerGamePanel table={table} />;
   }
 
+  const handleCoinTossResult = useCallback(async (winnerName: string) => {
+    try {
+      await setBreakingPlayer(winnerName);
+    } catch {
+      // Non-critical — overlay already shows the result visually
+    }
+  }, [setBreakingPlayer]);
+
   async function handleStartGame() {
     setStarting(true);
     setStartError(null);
@@ -109,6 +119,16 @@ export function GamePanel({ table }: GamePanelProps) {
       {/* No-show overlay */}
       {calledEntries.length > 0 && (
         <NoShowOverlay entries={calledEntries} settings={table.settings} currentGame={table.currentGame} />
+      )}
+
+      {/* Coin toss overlay */}
+      {showCoinToss && currentGame && currentGame.mode !== 'killer' && (
+        <CoinTossOverlay
+          holderName={currentGame.players.filter((p) => p.side === 'holder').map((p) => p.name).join(' & ')}
+          challengerName={currentGame.players.filter((p) => p.side === 'challenger').map((p) => p.name).join(' & ')}
+          onResult={handleCoinTossResult}
+          onDismiss={() => setShowCoinToss(false)}
+        />
       )}
 
       {currentGame ? (
@@ -157,12 +177,22 @@ export function GamePanel({ table }: GamePanelProps) {
             </div>
           </div>
 
-          {/* Break indicator */}
-          {currentGame.breakingPlayer && (
-            <p className="text-[1.3vmin] text-gray-400">
-              <span className="text-baize font-medium">{currentGame.breakingPlayer}</span> breaks
-            </p>
-          )}
+          {/* Break indicator + coin toss */}
+          <div className="flex items-center gap-[1.5vmin]">
+            {currentGame.breakingPlayer && (
+              <p className="text-[1.3vmin] text-gray-400">
+                <span className="text-baize font-medium">{currentGame.breakingPlayer}</span> breaks
+              </p>
+            )}
+            {currentGame.mode !== 'killer' && (
+              <button
+                className="text-[1.1vmin] text-accent hover:text-accent-light transition-colors underline underline-offset-2"
+                onClick={() => setShowCoinToss(true)}
+              >
+                Flip for it?
+              </button>
+            )}
+          </div>
 
           {/* Win limit warning */}
           {table.settings.winLimitEnabled && currentGame.consecutiveWins >= table.settings.winLimitCount - 1 && (
@@ -180,20 +210,15 @@ export function GamePanel({ table }: GamePanelProps) {
             Cancel game
           </ChalkButton>
 
-          {/* On Deck — who's next */}
-          {waitingPlayers.length >= 2 && (() => {
-            const deckChallenger = findCompatibleChallenger(waitingPlayers, waitingPlayers[0]);
-            return deckChallenger ? (
-              <div className="w-full max-w-[63vmin] rounded-[1.1vmin] bg-surface-elevated/50 border border-surface-border px-[2vmin] py-[1.1vmin] text-center">
-                <p className="text-[1.1vmin] text-gray-500 uppercase tracking-wider">On Deck</p>
-                <p className="text-[1.5vmin] font-semibold text-gray-300 mt-[0.3vmin]">
-                  {waitingPlayers[0].playerNames.join(' & ')}
-                  <span className="text-gray-500 mx-[0.75vmin]">vs</span>
-                  {deckChallenger.playerNames.join(' & ')}
-                </p>
-              </div>
-            ) : null;
-          })()}
+          {/* Up Next */}
+          {waitingPlayers.length >= 1 && (
+            <div className="w-full max-w-[63vmin] rounded-[1.1vmin] bg-surface-elevated/50 border border-surface-border px-[2vmin] py-[1.1vmin] text-center">
+              <p className="text-[1.1vmin] text-gray-500 uppercase tracking-wider">Up Next</p>
+              <p className="text-[1.5vmin] font-semibold text-gray-300 mt-[0.3vmin]">
+                {waitingPlayers[0].playerNames.join(' & ')}
+              </p>
+            </div>
+          )}
         </div>
       ) : (
         /* No active game */

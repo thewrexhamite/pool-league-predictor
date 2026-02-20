@@ -357,6 +357,15 @@ export function ChalkTableProvider({
     }
   }, [tableId]);
 
+  const handleSetBreakingPlayer = useCallback(async (playerName: string) => {
+    await transactTable(tableId, (t) => {
+      if (!t.currentGame) return {};
+      return {
+        currentGame: { ...t.currentGame, breakingPlayer: playerName },
+      };
+    });
+  }, [tableId]);
+
   const handleCancelGame = useCallback(async () => {
     await transactTable(tableId, (t) => {
       if (!t.currentGame) return {};
@@ -445,6 +454,7 @@ export function ChalkTableProvider({
     startKillerDirect: handleStartKillerDirect,
     eliminateKillerPlayer: handleEliminateKillerPlayer,
     finishKillerGame: handleFinishKillerGame,
+    setBreakingPlayer: handleSetBreakingPlayer,
     cancelGame: handleCancelGame,
     dismissNoShow: handleDismissNoShow,
     resolveNoShows: handleResolveNoShows,
