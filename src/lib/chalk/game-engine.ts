@@ -6,6 +6,7 @@ import type {
   GamePlayer,
   KillerState,
   SessionStats,
+  StartKillerPayload,
 } from './types';
 import { moveToBack } from './queue-engine';
 import { CHALK_DEFAULTS } from './constants';
@@ -49,11 +50,6 @@ export function startNextGame(
       throw new Error('No compatible challenger in queue');
     }
     challenger = compatibleChallenger;
-  }
-
-  // Handle killer mode — need 3+ players
-  if (holder.gameMode === 'killer' || challenger.gameMode === 'killer') {
-    return startKillerGame(queue, waiting, settings);
   }
 
   // Determine game mode — both must agree for doubles
@@ -113,37 +109,36 @@ export function startNextGame(
   return { queue: updatedQueue, currentGame: game };
 }
 
-function startKillerGame(
-  queue: QueueEntry[],
-  waiting: QueueEntry[],
-  settings: ChalkSettings
-): StartGameResult {
-  if (waiting.length < 3) {
-    throw new Error('Killer requires at least 3 players');
+export function startKillerDirect(payload: StartKillerPayload): CurrentGame {
+  const { playerNames, lives } = payload;
+
+  if (playerNames.length < CHALK_DEFAULTS.KILLER_MIN_PLAYERS) {
+    throw new Error(`Killer requires at least ${CHALK_DEFAULTS.KILLER_MIN_PLAYERS} players`);
+  }
+  if (playerNames.length > CHALK_DEFAULTS.KILLER_MAX_PLAYERS) {
+    throw new Error(`Killer allows at most ${CHALK_DEFAULTS.KILLER_MAX_PLAYERS} players`);
+  }
+  if (lives < 1 || lives > 5) {
+    throw new Error('Lives must be between 1 and 5');
   }
 
-  // Take up to 8 players for killer
-  const killerEntries = waiting.slice(0, 8);
-  const killerPlayerNames = killerEntries.flatMap((e) => e.playerNames);
-
   const killerState: KillerState = {
-    players: killerPlayerNames.map((name) => ({
+    players: playerNames.map((name) => ({
       name,
-      lives: CHALK_DEFAULTS.KILLER_DEFAULT_LIVES,
+      lives,
       isEliminated: false,
     })),
     round: 1,
+    maxLives: lives,
   };
 
-  const players: GamePlayer[] = killerEntries.flatMap((entry) =>
-    entry.playerNames.map((name) => ({
-      name,
-      side: 'challenger' as const,
-      queueEntryId: entry.id,
-    }))
-  );
+  const players: GamePlayer[] = playerNames.map((name) => ({
+    name,
+    side: 'challenger' as const,
+    queueEntryId: `killer-${name}`,
+  }));
 
-  const game: CurrentGame = {
+  return {
     id: crypto.randomUUID(),
     mode: 'killer',
     startedAt: Date.now(),
@@ -152,14 +147,6 @@ function startKillerGame(
     consecutiveWins: 0,
     breakingPlayer: null,
   };
-
-  const killerEntryIds = new Set(killerEntries.map((e) => e.id));
-  const noShowDeadline = Date.now() + settings.noShowTimeoutSeconds * 1000;
-  const updatedQueue = queue.map((e) =>
-    killerEntryIds.has(e.id) ? { ...e, status: 'called' as const, noShowDeadline } : e
-  );
-
-  return { queue: updatedQueue, currentGame: game };
 }
 
 export function processResult(
@@ -245,6 +232,11 @@ export function cancelCurrentGame(
   currentGame: CurrentGame,
   queue: QueueEntry[]
 ): { queue: QueueEntry[] } {
+  // Killer games are independent of the queue — no queue changes needed
+  if (currentGame.mode === 'killer') {
+    return { queue };
+  }
+
   // Reset all called entries back to waiting
   const calledIds = new Set(currentGame.players.map((p) => p.queueEntryId));
   const updatedQueue = queue.map((e) =>
@@ -315,9 +307,8 @@ function determineBreaker(
 
 export function processKillerResult(
   currentGame: CurrentGame,
-  queue: QueueEntry[],
   winnerName: string
-): StartGameResult {
+): void {
   if (!currentGame.killerState) {
     throw new Error('Not a killer game');
   }
@@ -327,21 +318,7 @@ export function processKillerResult(
     throw new Error('Winner not found in game');
   }
 
-  const killerEntryIds = new Set(currentGame.players.map((p) => p.queueEntryId));
-
-  // Remove all killer entries from queue
-  let updatedQueue = queue.filter((e) => !killerEntryIds.has(e.id));
-
-  // Find the winner's original entry and place it at the front (winner stays on)
-  const winnerEntry = queue.find((e) => e.id === winnerPlayer.queueEntryId);
-  if (winnerEntry) {
-    updatedQueue = [
-      { ...winnerEntry, status: 'waiting' as const, noShowDeadline: null },
-      ...updatedQueue,
-    ];
-  }
-
-  return { queue: updatedQueue, currentGame: null };
+  // Queue is untouched — killer is independent of the queue system
 }
 
 export function getKillerSurvivors(killerState: KillerState): string[] {

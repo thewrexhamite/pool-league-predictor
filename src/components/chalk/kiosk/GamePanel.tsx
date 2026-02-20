@@ -11,6 +11,7 @@ import { ChalkButton } from '../shared/ChalkButton';
 import { ResultReporter } from './ResultReporter';
 import { NoShowOverlay } from './NoShowOverlay';
 import { KillerGamePanel } from './KillerGamePanel';
+import { KillerSetupSheet } from './KillerSetupSheet';
 import { KingCrownAnimation } from './KingCrownAnimation';
 import { Leaderboard } from './Leaderboard';
 import { WinLimitNotice } from './WinLimitNotice';
@@ -26,6 +27,7 @@ export function GamePanel({ table }: GamePanelProps) {
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
+  const [showKillerSetup, setShowKillerSetup] = useState(false);
   const [newKing, setNewKing] = useState<{ name: string; wins: number } | null>(null);
   const prevKingRef = useRef(table.sessionStats.kingOfTable?.crownedAt ?? null);
   const { daily, refresh: refreshPeriodStats } = useTablePeriodStats(table.id);
@@ -105,6 +107,11 @@ export function GamePanel({ table }: GamePanelProps) {
       {/* No-show overlay */}
       {calledEntries.length > 0 && (
         <NoShowOverlay entries={calledEntries} settings={table.settings} currentGame={table.currentGame} />
+      )}
+
+      {/* Killer setup sheet */}
+      {showKillerSetup && (
+        <KillerSetupSheet table={table} onClose={() => setShowKillerSetup(false)} />
       )}
 
       {currentGame ? (
@@ -192,13 +199,22 @@ export function GamePanel({ table }: GamePanelProps) {
                   <p className="text-[1.3vmin] text-accent">Challenge match</p>
                 )}
               </div>
-              <ChalkButton
-                size="lg"
-                onClick={handleStartGame}
-                disabled={starting}
-              >
-                {starting ? 'Starting…' : 'Start Game'}
-              </ChalkButton>
+              <div className="flex gap-[1.5vmin]">
+                <ChalkButton
+                  size="lg"
+                  onClick={handleStartGame}
+                  disabled={starting}
+                >
+                  {starting ? 'Starting…' : 'Start Game'}
+                </ChalkButton>
+                <ChalkButton
+                  size="lg"
+                  variant="secondary"
+                  onClick={() => setShowKillerSetup(true)}
+                >
+                  Start Killer
+                </ChalkButton>
+              </div>
               {startError && (
                 <p className="text-loss text-[1.3vmin]" role="alert">{startError}</p>
               )}
@@ -213,6 +229,12 @@ export function GamePanel({ table }: GamePanelProps) {
               <p className="text-[1.3vmin]">
                 Need at least 2 in the queue to start
               </p>
+              <ChalkButton
+                variant="secondary"
+                onClick={() => setShowKillerSetup(true)}
+              >
+                Start Killer
+              </ChalkButton>
             </div>
           )}
         </div>

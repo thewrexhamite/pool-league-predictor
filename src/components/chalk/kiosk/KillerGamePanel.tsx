@@ -5,7 +5,6 @@ import type { ChalkTable } from '@/lib/chalk/types';
 import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
 import { isKillerGameOver, getKillerWinner } from '@/lib/chalk/game-engine';
-import { CHALK_DEFAULTS } from '@/lib/chalk/constants';
 import { ChalkButton } from '../shared/ChalkButton';
 import { CrownIcon } from '../shared/CrownIcon';
 import clsx from 'clsx';
@@ -89,7 +88,7 @@ export function KillerGamePanel({ table }: KillerGamePanelProps) {
                   {player.name}
                 </p>
                 <div className="flex justify-center gap-[0.37vmin]">
-                  {Array.from({ length: CHALK_DEFAULTS.KILLER_DEFAULT_LIVES }).map((_, i) => (
+                  {Array.from({ length: killerState.maxLives ?? 3 }).map((_, i) => (
                     <div
                       key={i}
                       className={clsx(

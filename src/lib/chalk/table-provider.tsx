@@ -17,6 +17,7 @@ import type {
   RegisterGamePayload,
   ReportResultPayload,
   KillerEliminationPayload,
+  StartKillerPayload,
   ChalkSettings,
   GamePlayer,
   QueueEntry,
@@ -30,7 +31,7 @@ import {
   enableChalkPersistence,
 } from './firestore';
 import { addToQueue, removeFromQueue, reorderQueue, holdEntry, unholdEntry, expireHeldEntries } from './queue-engine';
-import { startNextGame, processResult, processKillerResult, eliminateKillerPlayer, cancelCurrentGame, resolveNoShows } from './game-engine';
+import { startNextGame, processResult, processKillerResult, eliminateKillerPlayer, startKillerDirect, cancelCurrentGame, resolveNoShows } from './game-engine';
 import { updateStatsAfterGame, updateStatsAfterKillerGame } from './stats-engine';
 import { updateUserLifetimeStats, type UserGameResult } from './user-stats';
 
@@ -198,6 +199,25 @@ export function ChalkTableProvider({
     });
   }, [tableId]);
 
+  const handleStartKillerDirect = useCallback(async (payload: StartKillerPayload) => {
+    await transactTable(tableId, (t) => {
+      if (t.currentGame) throw new Error('A game is already in progress');
+
+      const game = startKillerDirect(payload);
+
+      // Update recent names with killer participants
+      const updatedRecent = [...new Set([...payload.playerNames, ...t.recentNames])].slice(0, 50);
+
+      return {
+        currentGame: game,
+        recentNames: updatedRecent,
+        status: t.session.isPrivate ? 'private' as const : 'active' as const,
+        lastActiveAt: Date.now(),
+        idleSince: null,
+      };
+    });
+  }, [tableId]);
+
   const handleReportResult = useCallback(async (payload: ReportResultPayload) => {
     let historyData: Parameters<typeof addGameHistory>[1] | null = null;
     let statsResults: UserGameResult[] = [];
@@ -282,11 +302,11 @@ export function ChalkTableProvider({
     await transactTable(tableId, (t) => {
       if (!t.currentGame?.killerState) throw new Error('No active killer game');
 
-      const result = processKillerResult(t.currentGame, t.queue, winnerName);
+      processKillerResult(t.currentGame, winnerName);
       const stats = updateStatsAfterKillerGame(t.sessionStats, t.currentGame, winnerName);
       const now = Date.now();
 
-      // Extract UIDs before queue state changes
+      // Look up UIDs from queue entries that share player names
       const playerUidMap = extractPlayerUids(t.currentGame.players, t.queue);
 
       // Capture history data to write after transaction
@@ -319,7 +339,6 @@ export function ChalkTableProvider({
         }));
 
       return {
-        queue: result.queue,
         currentGame: null,
         sessionStats: stats,
         lastActiveAt: now,
@@ -423,6 +442,7 @@ export function ChalkTableProvider({
     unholdPosition: handleUnholdPosition,
     startNextGame: handleStartNextGame,
     reportResult: handleReportResult,
+    startKillerDirect: handleStartKillerDirect,
     eliminateKillerPlayer: handleEliminateKillerPlayer,
     finishKillerGame: handleFinishKillerGame,
     cancelGame: handleCancelGame,

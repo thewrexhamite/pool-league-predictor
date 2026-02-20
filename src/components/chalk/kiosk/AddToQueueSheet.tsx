@@ -115,7 +115,7 @@ export function AddToQueueSheet({ table, onClose }: AddToQueueSheetProps) {
           ) : (
             <>
               {/* Game mode */}
-              <GameModeSelector value={gameMode} onChange={setGameMode} />
+              <GameModeSelector value={gameMode} onChange={setGameMode} availableModes={['singles', 'doubles', 'challenge']} />
 
               {/* Player names */}
               <div className="space-y-[1.1vmin]">

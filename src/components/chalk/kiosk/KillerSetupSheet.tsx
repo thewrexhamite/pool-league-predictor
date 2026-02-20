@@ -1,0 +1,184 @@
+'use client';
+
+import { useState, useCallback, useEffect } from 'react';
+import type { ChalkTable } from '@/lib/chalk/types';
+import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
+import { useChalkSound } from '@/hooks/chalk/use-chalk-sound';
+import { CHALK_DEFAULTS } from '@/lib/chalk/constants';
+import { ChalkButton } from '../shared/ChalkButton';
+import { PlayerNameInput } from '../shared/PlayerNameInput';
+import clsx from 'clsx';
+
+interface KillerSetupSheetProps {
+  table: ChalkTable;
+  onClose: () => void;
+}
+
+export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
+  const { startKillerDirect } = useChalkTable();
+  const { play } = useChalkSound(table.settings.soundEnabled, table.settings.soundVolume);
+  const [selectedPlayers, setSelectedPlayers] = useState<string[]>([]);
+  const [lives, setLives] = useState<number>(CHALK_DEFAULTS.KILLER_DEFAULT_LIVES);
+  const [starting, setStarting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const queuedNames = new Set(table.queue.flatMap((e) => e.playerNames));
+  const canStart =
+    selectedPlayers.length >= CHALK_DEFAULTS.KILLER_MIN_PLAYERS &&
+    selectedPlayers.length <= CHALK_DEFAULTS.KILLER_MAX_PLAYERS;
+
+  // Escape key to close
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose();
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  const handleAddPlayer = useCallback((name: string) => {
+    if (selectedPlayers.includes(name)) return;
+    if (selectedPlayers.length >= CHALK_DEFAULTS.KILLER_MAX_PLAYERS) return;
+    setSelectedPlayers((prev) => [...prev, name]);
+    setError(null);
+  }, [selectedPlayers]);
+
+  const handleRemovePlayer = useCallback((name: string) => {
+    setSelectedPlayers((prev) => prev.filter((n) => n !== name));
+  }, []);
+
+  const handleStart = useCallback(async () => {
+    if (!canStart) return;
+    setStarting(true);
+    setError(null);
+    try {
+      await startKillerDirect({ playerNames: selectedPlayers, lives });
+      play('game_start');
+      onClose();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to start killer game';
+      setError(message);
+      play('error');
+      setStarting(false);
+    }
+  }, [canStart, selectedPlayers, lives, startKillerDirect, onClose, play]);
+
+  return (
+    <>
+      <div
+        className="chalk-bottom-sheet-backdrop"
+        onClick={onClose}
+        role="presentation"
+      />
+      <div
+        className="chalk-bottom-sheet chalk-animate-in"
+        role="dialog"
+        aria-label="Start Killer Game"
+      >
+        <div className="p-[2.2vmin] space-y-[1.85vmin]">
+          {/* Handle bar */}
+          <div className="flex justify-center">
+            <div className="w-[4.4vmin] h-[0.37vmin] rounded-full bg-surface-border" />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <h2 className="text-[1.9vmin] font-bold">Start Killer</h2>
+            <button
+              onClick={onClose}
+              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-gray-400 hover:text-white transition-colors"
+              aria-label="Close"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Lives selector */}
+          <div className="space-y-[0.75vmin]">
+            <label className="block text-[1.3vmin] font-medium text-gray-300">Lives per player</label>
+            <div className="flex gap-[0.75vmin]">
+              {[1, 2, 3, 4, 5].map((count) => (
+                <button
+                  key={count}
+                  onClick={() => setLives(count)}
+                  className={clsx(
+                    'chalk-touch flex-1 py-[1.1vmin] rounded-[1.1vmin] border text-[1.5vmin] font-bold transition-colors',
+                    lives === count
+                      ? 'bg-loss/15 border-loss text-loss'
+                      : 'bg-surface-elevated border-surface-border text-gray-400 hover:border-gray-500'
+                  )}
+                >
+                  {count}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Player names input */}
+          <div className="space-y-[1.1vmin]">
+            <label className="block text-[1.3vmin] font-medium text-gray-300">
+              Players ({selectedPlayers.length}/{CHALK_DEFAULTS.KILLER_MAX_PLAYERS})
+            </label>
+            <PlayerNameInput
+              onAdd={handleAddPlayer}
+              recentNames={table.recentNames}
+              excludeNames={selectedPlayers}
+              placeholder="Add player"
+            />
+
+            {/* Selected players */}
+            {selectedPlayers.length > 0 && (
+              <div className="flex flex-wrap gap-[0.75vmin]">
+                {selectedPlayers.map((name) => (
+                  <span
+                    key={name}
+                    className="inline-flex items-center gap-[0.55vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/20 text-baize text-[1.3vmin] font-medium"
+                  >
+                    {name}
+                    {queuedNames.has(name) && (
+                      <span className="text-[1vmin] text-gray-400">(queued)</span>
+                    )}
+                    <button
+                      onClick={() => handleRemovePlayer(name)}
+                      className="hover:text-white transition-colors"
+                      aria-label={`Remove ${name}`}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <path d="M10 4L4 10M4 4l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                      </svg>
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Player count hint */}
+          {selectedPlayers.length < CHALK_DEFAULTS.KILLER_MIN_PLAYERS && (
+            <p className="text-[1.1vmin] text-gray-500 text-center">
+              Need at least {CHALK_DEFAULTS.KILLER_MIN_PLAYERS} players to start
+            </p>
+          )}
+
+          {/* Error */}
+          {error && (
+            <p className="text-loss text-[1.3vmin] chalk-animate-shake" role="alert">{error}</p>
+          )}
+
+          {/* Start button */}
+          <ChalkButton
+            fullWidth
+            size="lg"
+            onClick={handleStart}
+            disabled={!canStart || starting}
+          >
+            {starting
+              ? 'Starting…'
+              : `Start Killer (${selectedPlayers.length} players)`}
+          </ChalkButton>
+        </div>
+      </div>
+    </>
+  );
+}

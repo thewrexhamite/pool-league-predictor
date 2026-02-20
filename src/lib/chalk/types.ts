@@ -56,6 +56,7 @@ export interface KillerPlayerState {
 export interface KillerState {
   players: KillerPlayerState[];
   round: number;
+  maxLives: number;
 }
 
 export interface CurrentGame {
@@ -208,6 +209,11 @@ export interface KillerEliminationPayload {
   eliminatedPlayerName: string;
 }
 
+export interface StartKillerPayload {
+  playerNames: string[];
+  lives: number;
+}
+
 // ===== Provider types =====
 
 export type ConnectionStatus = 'connected' | 'disconnected' | 'reconnecting';
@@ -226,6 +232,7 @@ export interface ChalkTableContextValue {
   // Game actions
   startNextGame: () => Promise<void>;
   reportResult: (payload: ReportResultPayload) => Promise<void>;
+  startKillerDirect: (payload: StartKillerPayload) => Promise<void>;
   eliminateKillerPlayer: (payload: KillerEliminationPayload) => Promise<void>;
   finishKillerGame: (winnerName: string) => Promise<void>;
   cancelGame: () => Promise<void>;
