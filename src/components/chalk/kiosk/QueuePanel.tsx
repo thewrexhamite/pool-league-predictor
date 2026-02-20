@@ -9,9 +9,10 @@ import { QRCodeDisplay } from './QRCodeDisplay';
 interface QueuePanelProps {
   table: ChalkTable;
   onAddPlayer: () => void;
+  onStartKiller: () => void;
 }
 
-export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
+export function QueuePanel({ table, onAddPlayer, onStartKiller }: QueuePanelProps) {
   const vmin = useVmin();
   const qrSize = Math.round(Math.max(140, Math.min(360, vmin * 24)));
 
@@ -33,9 +34,14 @@ export function QueuePanel({ table, onAddPlayer }: QueuePanelProps) {
             </span>
           )}
         </div>
-        <ChalkButton size="sm" onClick={onAddPlayer}>
-          + Add
-        </ChalkButton>
+        <div className="flex items-center gap-[0.75vmin]">
+          <ChalkButton size="sm" variant="secondary" onClick={onStartKiller} disabled={!!table.currentGame}>
+            Killer
+          </ChalkButton>
+          <ChalkButton size="sm" onClick={onAddPlayer}>
+            + Add
+          </ChalkButton>
+        </div>
       </div>
 
       {/* Queue list */}

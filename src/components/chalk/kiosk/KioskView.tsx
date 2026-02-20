@@ -11,6 +11,7 @@ import { QueuePanel } from './QueuePanel';
 import { GamePanel } from './GamePanel';
 import { AddToQueueSheet } from './AddToQueueSheet';
 import { RegisterGameSheet } from './RegisterGameSheet';
+import { KillerSetupSheet } from './KillerSetupSheet';
 import { AttractMode } from './AttractMode';
 
 const CLAIM_PROMPT_TIMEOUT = 10_000;
@@ -22,6 +23,7 @@ export function KioskView() {
   const { table, loading, error, connectionStatus } = useChalkTable();
   const [showAddSheet, setShowAddSheet] = useState(false);
   const [showRegisterSheet, setShowRegisterSheet] = useState(false);
+  const [showKillerSetup, setShowKillerSetup] = useState(false);
   const [showClaimPrompt, setShowClaimPrompt] = useState(false);
   const [showQueueInterstitial, setShowQueueInterstitial] = useState(false);
 
@@ -185,6 +187,7 @@ export function KioskView() {
         <QueuePanel
           table={table}
           onAddPlayer={() => setShowAddSheet(true)}
+          onStartKiller={() => setShowKillerSetup(true)}
         />
         <GamePanel table={table} />
       </div>
@@ -258,6 +261,13 @@ export function KioskView() {
         <RegisterGameSheet
           table={table}
           onClose={() => setShowRegisterSheet(false)}
+        />
+      )}
+
+      {showKillerSetup && (
+        <KillerSetupSheet
+          table={table}
+          onClose={() => setShowKillerSetup(false)}
         />
       )}
     </div>
