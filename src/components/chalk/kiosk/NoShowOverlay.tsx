@@ -6,6 +6,7 @@ import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useNoShowTimer } from '@/hooks/chalk/use-no-show-timer';
 import { useChalkSound } from '@/hooks/chalk/use-chalk-sound';
 import { ChalkButton } from '../shared/ChalkButton';
+import clsx from 'clsx';
 
 interface NoShowOverlayProps {
   entries: QueueEntry[];
@@ -14,6 +15,20 @@ interface NoShowOverlayProps {
 }
 
 const AUTO_REMOVE_SECONDS = 15;
+
+function getUrgencyColor(secondsLeft: number, total: number): string {
+  const ratio = secondsLeft / total;
+  if (ratio > 0.5) return 'text-baize'; // Green — plenty of time
+  if (ratio > 0.25) return 'text-amber-400'; // Amber — hurry up
+  return 'text-loss'; // Red — almost out of time
+}
+
+function getRingColor(secondsLeft: number, total: number): string {
+  const ratio = secondsLeft / total;
+  if (ratio > 0.5) return 'stroke-baize';
+  if (ratio > 0.25) return 'stroke-amber-400';
+  return 'stroke-loss';
+}
 
 export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayProps) {
   const { dismissNoShow, resolveNoShows } = useChalkTable();
@@ -28,6 +43,8 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
   const autoRemoveRef = useRef<ReturnType<typeof setTimeout>>();
   const autoRemoveIntervalRef = useRef<ReturnType<typeof setInterval>>();
   const [autoRemoveCountdown, setAutoRemoveCountdown] = useState(AUTO_REMOVE_SECONDS);
+
+  const totalSeconds = settings.noShowTimeoutSeconds;
 
   // Distinct queue entries involved in this game
   const calledEntries = useMemo(() => {
@@ -112,38 +129,38 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
 
   if (secondsLeft === null) return null;
 
+  // Progress ring calculations (SVG viewBox is 100x100, radius 44 to fit stroke)
+  const ringRadius = 44;
+  const circumference = 2 * Math.PI * ringRadius;
+  const progress = isExpired ? 0 : secondsLeft / totalSeconds;
+  const strokeDashoffset = circumference * (1 - progress);
+
   return (
     <div className="chalk-no-show-overlay" role="alertdialog" aria-label="Players called to table">
       <div className="text-center space-y-[3vmin] chalk-animate-in max-w-[70vmin] mx-auto px-[3vmin]">
-        <p className="text-[1.7vmin] text-gray-400 uppercase tracking-[0.3vmin]">
-          {isExpired ? 'No show' : 'Next game'}
-        </p>
-
-        {/* Matchup display */}
-        {isKiller || !holderNames || !challengerNames ? (
-          <p className="text-[3.7vmin] font-bold">{allNames}</p>
-        ) : (
-          <div className="flex items-center gap-[3vmin]">
-            <div className="flex-1 text-right">
-              <p className="text-[3.3vmin] font-bold">{holderNames}</p>
-              {currentGame?.consecutiveWins ? (
-                <p className="text-[1.3vmin] text-accent mt-[0.4vmin]">
-                  {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
-                </p>
-              ) : null}
-            </div>
-            <span className="text-[3.7vmin] font-bold text-gray-600 flex-shrink-0">vs</span>
-            <div className="flex-1 text-left">
-              <p className="text-[3.3vmin] font-bold">{challengerNames}</p>
-              {currentGame?.mode === 'challenge' && (
-                <p className="text-[1.3vmin] text-accent mt-[0.4vmin]">Challenge match</p>
-              )}
-            </div>
-          </div>
-        )}
 
         {isExpired ? (
-          <div className="space-y-[2vmin]">
+          /* ===== Expired: no-show resolution ===== */
+          <div className="space-y-[2.5vmin]">
+            <p className="text-[2.5vmin] font-bold text-loss uppercase tracking-[0.3vmin]">
+              No Show
+            </p>
+
+            {/* Matchup display */}
+            {isKiller || !holderNames || !challengerNames ? (
+              <p className="text-[3.7vmin] font-bold">{allNames}</p>
+            ) : (
+              <div className="flex items-center gap-[3vmin]">
+                <div className="flex-1 text-right">
+                  <p className="text-[3.3vmin] font-bold">{holderNames}</p>
+                </div>
+                <span className="text-[3.7vmin] font-bold text-gray-600 flex-shrink-0">vs</span>
+                <div className="flex-1 text-left">
+                  <p className="text-[3.3vmin] font-bold">{challengerNames}</p>
+                </div>
+              </div>
+            )}
+
             <p className="text-[2vmin] text-gray-300">Who didn&apos;t show up?</p>
 
             {/* Per-entry checkboxes */}
@@ -175,7 +192,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
                 onClick={() => resolveNoShows([...noShowIds])}
                 disabled={noShowIds.size === 0}
               >
-                Remove no-shows
+                Move to back of queue
               </ChalkButton>
               <ChalkButton
                 variant="ghost"
@@ -187,21 +204,99 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
             </div>
 
             <p className="text-[1.3vmin] text-gray-500">
-              Auto-removing in {autoRemoveCountdown}s…
+              Auto-moving in {autoRemoveCountdown}s…
             </p>
           </div>
         ) : (
-          <div className="space-y-[1.5vmin]">
-            <div
-              className="text-[8vmin] font-mono font-bold text-accent leading-none"
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              {secondsLeft}
+          /* ===== Countdown: waiting for players ===== */
+          <div className="space-y-[2.5vmin]">
+            {/* Bold header */}
+            <p className={clsx(
+              'text-[3vmin] font-bold uppercase tracking-[0.3vmin] chalk-animate-in',
+              getUrgencyColor(secondsLeft, totalSeconds),
+            )}>
+              Players to the table!
+            </p>
+
+            {/* Calling label */}
+            <p className="text-[1.5vmin] text-gray-400 uppercase tracking-wider">
+              Calling…
+            </p>
+
+            {/* Matchup display */}
+            {isKiller || !holderNames || !challengerNames ? (
+              <p className="text-[3.7vmin] font-bold">{allNames}</p>
+            ) : (
+              <div className="flex items-center gap-[3vmin]">
+                <div className="flex-1 text-right space-y-[0.4vmin]">
+                  <p className="text-[3.3vmin] font-bold">{holderNames}</p>
+                  {currentGame?.consecutiveWins ? (
+                    <p className="text-[1.3vmin] text-accent">
+                      {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
+                    </p>
+                  ) : null}
+                </div>
+                <span className="text-[3.7vmin] font-bold text-gray-600 flex-shrink-0">vs</span>
+                <div className="flex-1 text-left space-y-[0.4vmin]">
+                  <p className="text-[3.3vmin] font-bold">{challengerNames}</p>
+                  {currentGame?.mode === 'challenge' && (
+                    <p className="text-[1.3vmin] text-accent">Challenge match</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Countdown with progress ring */}
+            <div className="relative inline-flex items-center justify-center" style={{ width: '28vmin', height: '28vmin' }}>
+              <svg
+                className="absolute inset-0 transform -rotate-90"
+                viewBox="0 0 100 100"
+              >
+                {/* Background ring */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r={ringRadius}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  className="text-surface-border"
+                />
+                {/* Progress ring */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r={ringRadius}
+                  fill="none"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  className={clsx('transition-all duration-1000 ease-linear', getRingColor(secondsLeft, totalSeconds))}
+                  strokeDasharray={circumference}
+                  strokeDashoffset={strokeDashoffset}
+                />
+              </svg>
+              <div
+                className={clsx(
+                  'absolute inset-0 flex flex-col items-center justify-center',
+                  secondsLeft <= totalSeconds * 0.25 && 'animate-pulse',
+                )}
+              >
+                <span
+                  className={clsx(
+                    'text-[8vmin] font-mono font-bold leading-none transition-colors duration-500',
+                    getUrgencyColor(secondsLeft, totalSeconds),
+                  )}
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  {secondsLeft}
+                </span>
+                <span className="text-[1.3vmin] text-gray-500 mt-[0.5vmin]">seconds</span>
+              </div>
             </div>
-            <p className="text-[1.7vmin] text-gray-400">seconds to get to the table</p>
+
             <ChalkButton size="lg" onClick={dismissNoShow}>
-              They&apos;re here
+              They&apos;re here — start!
             </ChalkButton>
           </div>
         )}

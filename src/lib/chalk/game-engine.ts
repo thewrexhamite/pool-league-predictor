@@ -253,13 +253,21 @@ export function resolveNoShows(
   noShowEntryIds: Set<string>
 ): { queue: QueueEntry[] } {
   const calledIds = new Set(currentGame.players.map((p) => p.queueEntryId));
-  const updatedQueue = queue
-    .filter((e) => !noShowEntryIds.has(e.id))           // Remove no-shows
-    .map((e) =>
-      calledIds.has(e.id)                                // Reset remaining called entries
-        ? { ...e, status: 'waiting' as const, noShowDeadline: null }
-        : e
-    );
+  let updatedQueue = queue.map((e) => {
+    if (noShowEntryIds.has(e.id)) {
+      // Move no-shows to back of queue as waiting
+      return { ...e, status: 'waiting' as const, noShowDeadline: null, holdUntil: null };
+    }
+    if (calledIds.has(e.id)) {
+      // Reset remaining called entries
+      return { ...e, status: 'waiting' as const, noShowDeadline: null };
+    }
+    return e;
+  });
+  // Physically move no-show entries to the back
+  for (const id of noShowEntryIds) {
+    updatedQueue = moveToBack(updatedQueue, id);
+  }
   return { queue: updatedQueue };
 }
 
