@@ -94,7 +94,7 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
             <h2 className="text-[1.9vmin] font-bold">Who&apos;s playing right now?</h2>
             <button
               onClick={onClose}
-              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-gray-400 hover:text-white transition-colors"
+              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.65)' }}
               aria-label="Close"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -112,7 +112,7 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
 
           {/* Player/Team 1 */}
           <div className="space-y-[1.1vmin]">
-            <label className="block text-[1.3vmin] font-medium text-gray-300">
+            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {gameMode === 'doubles' ? 'Team 1 (2 players)' : 'Player 1'}
             </label>
             <PlayerNameInput
@@ -152,7 +152,7 @@ export function RegisterGameSheet({ table, onClose }: RegisterGameSheetProps) {
 
           {/* Player/Team 2 */}
           <div className="space-y-[1.1vmin]">
-            <label className="block text-[1.3vmin] font-medium text-gray-300">
+            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {gameMode === 'doubles' ? 'Team 2 (2 players)' : 'Player 2'}
             </label>
             <PlayerNameInput

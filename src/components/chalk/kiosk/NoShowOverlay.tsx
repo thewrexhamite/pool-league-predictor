@@ -161,7 +161,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
               </div>
             )}
 
-            <p className="text-[2vmin] text-gray-300">Who didn&apos;t show up?</p>
+            <p className="text-[2vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>Who didn&apos;t show up?</p>
 
             {/* Per-entry checkboxes */}
             <div className="space-y-[1.5vmin] text-left max-w-[50vmin] mx-auto">
@@ -178,7 +178,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
                   />
                   <span className="text-[2vmin] font-semibold flex-1">{entry.names}</span>
                   {entry.side && (
-                    <span className="text-[1.3vmin] text-gray-500">{entry.side}</span>
+                    <span className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>{entry.side}</span>
                   )}
                 </label>
               ))}
@@ -203,7 +203,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
               </ChalkButton>
             </div>
 
-            <p className="text-[1.3vmin] text-gray-500">
+            <p className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>
               Auto-moving in {autoRemoveCountdown}s…
             </p>
           </div>
@@ -291,7 +291,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
                 >
                   {secondsLeft}
                 </span>
-                <span className="text-[1.1vmin] text-gray-500 mt-[0.4vmin]">seconds</span>
+                <span className="text-[1.1vmin] mt-[0.4vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>seconds</span>
               </div>
             </div>
 

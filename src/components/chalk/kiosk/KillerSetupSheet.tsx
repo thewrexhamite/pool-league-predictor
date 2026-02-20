@@ -96,7 +96,8 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
             <h2 className="text-[1.9vmin] font-bold">Start Killer</h2>
             <button
               onClick={onClose}
-              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-gray-400 hover:text-white transition-colors"
+              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] hover:text-white transition-colors"
+              style={{ color: 'rgba(255,255,255,0.65)' }}
               aria-label="Close"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -107,7 +108,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
 
           {/* Lives selector */}
           <div className="space-y-[0.75vmin]">
-            <label className="block text-[1.3vmin] font-medium text-gray-300">Lives per player</label>
+            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>Lives per player</label>
             <div className="flex gap-[0.75vmin]">
               {[1, 2, 3, 4, 5].map((count) => (
                 <button
@@ -117,8 +118,9 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
                     'chalk-touch flex-1 py-[1.1vmin] rounded-[1.1vmin] border text-[1.5vmin] font-bold transition-colors',
                     lives === count
                       ? 'bg-loss/15 border-loss text-loss'
-                      : 'bg-surface-elevated border-surface-border text-gray-400 hover:border-gray-500'
+                      : 'bg-surface-elevated border-surface-border hover:border-white/30'
                   )}
+                  style={lives !== count ? { color: 'rgba(255,255,255,0.65)' } : undefined}
                 >
                   {count}
                 </button>
@@ -128,7 +130,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
 
           {/* Player names input */}
           <div className="space-y-[1.1vmin]">
-            <label className="block text-[1.3vmin] font-medium text-gray-300">
+            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
               Players ({selectedPlayers.length}/{CHALK_DEFAULTS.KILLER_MAX_PLAYERS})
             </label>
             <PlayerNameInput
@@ -146,16 +148,16 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
                     key={name}
                     className="flex items-center gap-[1.1vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/10"
                   >
-                    <span className="text-[1.1vmin] text-gray-500 font-mono w-[2vmin] text-right">{i + 1}.</span>
+                    <span className="text-[1.1vmin] font-mono w-[2vmin] text-right" style={{ color: 'rgba(255,255,255,0.5)' }}>{i + 1}.</span>
                     <span className="flex-1 text-baize text-[1.3vmin] font-medium">
                       {name}
                       {queuedNames.has(name) && (
-                        <span className="text-[1vmin] text-gray-400 ml-[0.5vmin]">(queued)</span>
+                        <span className="text-[1vmin] ml-[0.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>(queued)</span>
                       )}
                     </span>
                     <button
                       onClick={() => handleRemovePlayer(name)}
-                      className="text-gray-500 hover:text-white transition-colors"
+                      className="hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
                       aria-label={`Remove ${name}`}
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -183,7 +185,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
 
           {/* Player count hint */}
           {selectedPlayers.length < CHALK_DEFAULTS.KILLER_MIN_PLAYERS && (
-            <p className="text-[1.1vmin] text-gray-500 text-center">
+            <p className="text-[1.1vmin] text-center" style={{ color: 'rgba(255,255,255,0.5)' }}>
               Need at least {CHALK_DEFAULTS.KILLER_MIN_PLAYERS} players to start
             </p>
           )}

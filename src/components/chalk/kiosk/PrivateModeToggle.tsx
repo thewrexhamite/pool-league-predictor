@@ -53,7 +53,7 @@ export function PrivateModeToggle({ isPrivate, privatePlayerNames }: PrivateMode
     <>
       <button
         onClick={handleOpenModal}
-        className="chalk-touch p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-accent/10 transition-colors"
+        className="chalk-touch p-2 rounded-lg hover:text-accent hover:bg-accent/10 transition-colors" style={{ color: 'rgba(255,255,255,0.65)' }}
         aria-label="Enable private mode"
         title="Private mode"
       >
@@ -70,7 +70,7 @@ export function PrivateModeToggle({ isPrivate, privatePlayerNames }: PrivateMode
         size="sm"
       >
         <div className="space-y-4">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>
             Only listed players can join the queue. Leave blank to allow anyone who has the link.
           </p>
           <div>

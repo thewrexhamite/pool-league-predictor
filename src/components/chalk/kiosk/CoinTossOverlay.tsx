@@ -95,7 +95,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             </motion.button>
 
             <button
-              className="block mx-auto text-[1.5vmin] text-gray-500 hover:text-gray-300 transition-colors"
+              className="block mx-auto text-[1.5vmin] hover:text-white/70 transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
               onClick={onDismiss}
             >
               Cancel
@@ -112,7 +112,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <p className="text-[2.5vmin] font-bold text-gray-400 uppercase tracking-[0.3vmin]">
+            <p className="text-[2.5vmin] font-bold uppercase tracking-[0.3vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
               Flipping...
             </p>
 
@@ -185,7 +185,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             </motion.div>
 
             <motion.p
-              className="text-[1.3vmin] text-gray-500"
+              className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}

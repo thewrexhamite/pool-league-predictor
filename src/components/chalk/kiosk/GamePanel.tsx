@@ -136,7 +136,7 @@ export function GamePanel({ table }: GamePanelProps) {
         <div className="flex-none flex flex-col items-center justify-center p-[3vmin] space-y-[2vmin]">
           {/* Game mode + timer */}
           <div className="text-center space-y-[0.37vmin]">
-            <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">
+            <p className="text-[1.3vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.65)' }}>
               {currentGame.mode} — Game {table.sessionStats.gamesPlayed + 1}
             </p>
             <p className="text-[2.8vmin] font-mono font-bold text-baize" aria-live="off">{gameTime}</p>
@@ -146,7 +146,7 @@ export function GamePanel({ table }: GamePanelProps) {
           <div className="flex items-start gap-[3vmin] w-full max-w-[63vmin]">
             {/* Holder */}
             <div className="flex-1 text-center space-y-[0.75vmin]">
-              <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Holder</p>
+              <p className="text-[1.3vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.65)' }}>Holder</p>
               <p className="text-[2.8vmin] font-bold break-words">
                 {currentGame.players
                   .filter((p) => p.side === 'holder')
@@ -157,12 +157,12 @@ export function GamePanel({ table }: GamePanelProps) {
 
             {/* VS */}
             <div className="flex-shrink-0 mt-[2vmin]">
-              <span className="text-[3.7vmin] font-bold text-gray-600">vs</span>
+              <span className="text-[3.7vmin] font-bold" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
             </div>
 
             {/* Challenger */}
             <div className="flex-1 text-center space-y-[0.75vmin]">
-              <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Challenger</p>
+              <p className="text-[1.3vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.65)' }}>Challenger</p>
               <p className="text-[2.8vmin] font-bold break-words">
                 {currentGame.players
                   .filter((p) => p.side === 'challenger')
@@ -182,7 +182,7 @@ export function GamePanel({ table }: GamePanelProps) {
           {/* Break indicator banner + coin toss */}
           <div className="w-full max-w-[63vmin] rounded-[1.1vmin] bg-surface-elevated/50 border border-surface-border px-[2vmin] py-[1.1vmin] flex items-center justify-center gap-[2vmin]">
             {currentGame.breakingPlayer && (
-              <p className="text-[1.7vmin] text-gray-300">
+              <p className="text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>
                 <span className="text-baize font-bold">{currentGame.breakingPlayer}</span> breaks
               </p>
             )}
@@ -216,8 +216,8 @@ export function GamePanel({ table }: GamePanelProps) {
           {/* Up Next */}
           {waitingPlayers.length >= 1 && (
             <div className="w-full max-w-[63vmin] rounded-[1.1vmin] bg-surface-elevated/50 border border-surface-border px-[2vmin] py-[1.1vmin] text-center">
-              <p className="text-[1.1vmin] text-gray-500 uppercase tracking-wider">Up Next</p>
-              <p className="text-[1.5vmin] font-semibold text-gray-300 mt-[0.3vmin]">
+              <p className="text-[1.1vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Up Next</p>
+              <p className="text-[1.5vmin] font-semibold mt-[0.3vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>
                 {waitingPlayers[0].playerNames.join(' & ')}
               </p>
             </div>
@@ -229,7 +229,7 @@ export function GamePanel({ table }: GamePanelProps) {
           {canStartGame && nextChallenger ? (
             <>
               <div className="text-center space-y-[0.75vmin]">
-                <p className="text-[1.7vmin] text-gray-400">Next up:</p>
+                <p className="text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>Next up:</p>
                 <p className="text-[2.2vmin] font-bold break-words">
                   {nextHolder.playerNames.join(' & ')}
                   {' vs '}
@@ -251,9 +251,9 @@ export function GamePanel({ table }: GamePanelProps) {
               )}
             </>
           ) : (
-            <div className="text-center space-y-[2vmin] text-gray-500">
+            <div className="text-center space-y-[2vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>
               <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} />
-              <p className="text-[1.9vmin] text-gray-400">Waiting for players</p>
+              <p className="text-[1.9vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>Waiting for players</p>
               <p className="text-[1.3vmin]">
                 Scan to join or tap <span className="text-baize font-medium">+ Add</span> to add players
               </p>
@@ -278,16 +278,16 @@ export function GamePanel({ table }: GamePanelProps) {
             <div className="flex gap-[1.1vmin]">
               <div className="flex-1 rounded-[0.7vmin] bg-surface-elevated/50 px-[1.1vmin] py-[0.75vmin] text-center">
                 <p className="text-[1.7vmin] font-bold text-baize">{gamesCount}</p>
-                <p className="text-[1vmin] text-gray-500 uppercase">Games</p>
+                <p className="text-[1vmin] uppercase" style={{ color: 'rgba(255,255,255,0.5)' }}>Games</p>
               </div>
               <div className="flex-1 rounded-[0.7vmin] bg-surface-elevated/50 px-[1.1vmin] py-[0.75vmin] text-center">
                 <p className="text-[1.7vmin] font-bold text-accent">{playerCount}</p>
-                <p className="text-[1vmin] text-gray-500 uppercase">Players</p>
+                <p className="text-[1vmin] uppercase" style={{ color: 'rgba(255,255,255,0.5)' }}>Players</p>
               </div>
               {avgDuration !== null && (
                 <div className="flex-1 rounded-[0.7vmin] bg-surface-elevated/50 px-[1.1vmin] py-[0.75vmin] text-center">
-                  <p className="text-[1.7vmin] font-bold text-gray-300">{avgDuration}m</p>
-                  <p className="text-[1vmin] text-gray-500 uppercase">Avg Game</p>
+                  <p className="text-[1.7vmin] font-bold" style={{ color: 'rgba(255,255,255,0.7)' }}>{avgDuration}m</p>
+                  <p className="text-[1vmin] uppercase" style={{ color: 'rgba(255,255,255,0.5)' }}>Avg Game</p>
                 </div>
               )}
             </div>
@@ -309,7 +309,7 @@ export function GamePanel({ table }: GamePanelProps) {
 
                   return (
                     <div key={game.id} className="flex items-center gap-[0.55vmin] text-[1.3vmin]">
-                      <span className="text-gray-400 break-words flex-1">
+                      <span className="break-words flex-1" style={{ color: 'rgba(255,255,255,0.65)' }}>
                         {isKiller
                           ? game.players.map((p) => p.name).join(', ')
                           : `${holders.join(' & ')} vs ${challengers.join(' & ')}`}

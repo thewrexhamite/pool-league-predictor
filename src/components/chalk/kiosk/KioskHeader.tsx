@@ -49,7 +49,7 @@ export function KioskHeader({ table }: KioskHeaderProps) {
         <div className="flex items-center gap-[1.8vmin]">
           <Link
             href={`/kiosk/${table.id}/settings`}
-            className="chalk-touch rounded-[1vmin] p-[1vmin] text-gray-400 hover:text-white hover:bg-surface-elevated transition-colors"
+            className="chalk-touch rounded-[1vmin] p-[1vmin] hover:text-white hover:bg-surface-elevated transition-colors" style={{ color: 'rgba(255,255,255,0.65)' }}
             aria-label="Table settings"
           >
             <Settings className="w-[2.8vmin] h-[2.8vmin]" strokeWidth={1.75} />

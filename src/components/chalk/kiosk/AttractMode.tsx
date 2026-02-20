@@ -337,7 +337,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             )}
             {table.name && table.name !== table.venueName && (
               <motion.p
-                className="text-[2.5vmin] text-gray-400 mt-[1vmin]"
+                className="text-[2.5vmin] mt-[1vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.5 }}
@@ -528,7 +528,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                   showLabel={false}
                 />
               </div>
-              <p className="text-[2vmin] text-gray-400">Scan to join the queue</p>
+              <p className="text-[2vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>Scan to join the queue</p>
             </motion.div>
           </motion.div>
         </div>
@@ -578,7 +578,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               </motion.div>
 
               <motion.span
-                className="text-[5vmin] font-bold text-gray-500 flex-shrink-0 mt-[0.5vmin]"
+                className="text-[5vmin] font-bold flex-shrink-0 mt-[0.5vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, type: 'spring', stiffness: 200 }}
@@ -625,7 +625,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0, duration: 0.5 }}
             >
-              <p className="text-[2.5vmin] text-gray-400">
+              <p className="text-[2.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
                 {table.queue.filter((e) => e.status === 'waiting').length > 0
                   ? `${table.queue.filter((e) => e.status === 'waiting').length} in the queue \u2014 scan to join`
                   : 'Scan to play next'}
@@ -663,7 +663,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             </motion.p>
 
             <motion.p
-              className="text-[3.5vmin] text-gray-300 font-medium"
+              className="text-[3.5vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -705,7 +705,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               </div>
               <p className="text-[5vmin] font-bold">{daily.champion}</p>
               {daily.stats.playerStats[daily.champion] && (
-                <p className="text-[2.5vmin] text-gray-400">
+                <p className="text-[2.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
                   {daily.stats.playerStats[daily.champion].wins}W{' '}
                   {daily.stats.playerStats[daily.champion].losses}L
                   {daily.stats.playerStats[daily.champion].currentStreak > 1 && (
@@ -785,12 +785,11 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                         className={`w-[2.6vmin] text-center font-bold text-[2vmin] ${
                           index === 0
                             ? 'text-accent'
-                            : index === 1
-                              ? 'text-gray-300'
-                              : index === 2
-                                ? 'text-amber-700'
-                                : 'text-gray-500'
+                            : index === 2
+                              ? 'text-amber-700'
+                              : ''
                         }`}
+                        style={index === 1 ? { color: 'rgba(255,255,255,0.7)' } : index > 2 ? { color: 'rgba(255,255,255,0.5)' } : undefined}
                       >
                         {index + 1}
                       </span>
@@ -800,14 +799,14 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                       </span>
                       <span className="text-[1.7vmin] text-baize font-mono">{entry.stats.wins}W</span>
                       <span className="text-[1.7vmin] text-loss font-mono">{entry.stats.losses}L</span>
-                      <span className="text-[1.7vmin] text-gray-500 font-mono w-[5vmin] text-right">
+                      <span className="text-[1.7vmin] font-mono w-[5vmin] text-right" style={{ color: 'rgba(255,255,255,0.5)' }}>
                         {winRate}%
                       </span>
                     </div>
                   );
                 })}
               </div>
-              <p className="text-center text-[1.5vmin] text-gray-500 mt-[1vmin]">
+              <p className="text-center text-[1.5vmin] mt-[1vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 {daily.gamesPlayed} game{daily.gamesPlayed !== 1 ? 's' : ''} today
                 {avgGameDuration > 0 && ` \u00b7 avg ${formatDuration(avgGameDuration)}`}
               </p>
@@ -924,8 +923,9 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               className={`inline-block rounded-full transition-all duration-500 ${
                 s === slide
                   ? 'w-[2.2vmin] h-[0.8vmin] bg-baize'
-                  : 'w-[0.8vmin] h-[0.8vmin] bg-gray-600'
+                  : 'w-[0.8vmin] h-[0.8vmin]'
               }`}
+              style={s !== slide ? { backgroundColor: 'rgba(255,255,255,0.35)' } : undefined}
             />
           ))}
         </div>
@@ -933,7 +933,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
       {/* ===== Bottom — rotating status bar (always visible) ===== */}
       <div className="relative z-10 flex-none text-center pb-[4.5vmin]">
-        <div className="flex items-center justify-center gap-[1.1vmin] text-[2vmin] text-gray-500">
+        <div className="flex items-center justify-center gap-[1.1vmin] text-[2vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>
           <span className="inline-block w-[1vmin] h-[1vmin] rounded-full bg-baize chalk-animate-pulse" />
           <motion.span
             key={rotatingStatus}
