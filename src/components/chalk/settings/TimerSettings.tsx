@@ -75,19 +75,21 @@ function TimerSettingsInner({
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <label className="text-sm font-medium text-gray-300">Attract mode timeout</label>
-            <span className="text-sm text-gray-400">{attract}m</span>
+            <span className="text-sm text-gray-400">
+              {attract < 1 ? `${Math.round(attract * 60)}s` : `${attract}m`}
+            </span>
           </div>
           <input
             type="range"
-            min={1}
-            max={30}
-            step={1}
-            value={attract}
-            onChange={(e) => setAttract(Number(e.target.value))}
+            min={10}
+            max={1800}
+            step={10}
+            value={Math.round(attract * 60)}
+            onChange={(e) => setAttract(Number(e.target.value) / 60)}
             className="w-full accent-baize"
           />
           <div className="flex justify-between text-xs text-gray-500">
-            <span>1m</span>
+            <span>10s</span>
             <span>30m</span>
           </div>
         </div>
