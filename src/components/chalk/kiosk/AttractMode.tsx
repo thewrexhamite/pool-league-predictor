@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { ChalkTable, QueueEntry, GameHistoryRecord } from '@/lib/chalk/types';
 import { getVenue } from '@/lib/chalk/firestore';
@@ -12,6 +12,33 @@ import { QRCodeDisplay } from './QRCodeDisplay';
 import { CrownIcon } from '../shared/CrownIcon';
 import { AnimatedChalkTitle } from '../shared/AnimatedChalkTitle';
 import { AnimatedPoolLeagueProLogo } from '../shared/AnimatedPoolLeagueProLogo';
+
+// ===== Animated count-up number =====
+
+function CountUp({ target, duration = 1.5, delay = 0 }: { target: number; duration?: number; delay?: number }) {
+  const [value, setValue] = useState(0);
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    if (startedRef.current) return;
+    const delayTimer = setTimeout(() => {
+      startedRef.current = true;
+      const start = performance.now();
+      function tick(now: number) {
+        const elapsed = (now - start) / 1000;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.round(eased * target));
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }, delay * 1000);
+    return () => clearTimeout(delayTimer);
+  }, [target, duration, delay]);
+
+  return <>{value}</>;
+}
 
 interface AttractModeProps {
   table: ChalkTable;
@@ -333,7 +360,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
             <div className="flex flex-col items-center gap-[2.2vmin] p-[3vmin] rounded-[2.2vmin] bg-surface-card border-2 border-baize chalk-attract-glow">
               <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} showLabel={false} />
-              <p className="text-baize font-semibold text-[2.5vmin]">Scan to sign in with your Pool Pro account</p>
+              <p className="text-baize font-semibold text-[2.5vmin] max-w-[50vmin] mx-auto text-center">Scan to sign in with your Pool Pro account</p>
             </div>
           </motion.div>
 
@@ -458,7 +485,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
             {/* King name */}
             <motion.p
-              className="text-[7vmin] font-bold text-white"
+              className={`font-bold text-white max-w-[70vmin] mx-auto truncate ${king.length > 15 ? 'text-[5vmin]' : 'text-[7vmin]'}`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
@@ -535,14 +562,14 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             </motion.p>
 
             {/* Matchup */}
-            <div className="flex items-center gap-[4vmin]">
+            <div className="flex items-center gap-[4vmin] max-w-[85vmin] mx-auto w-full">
               <motion.div
-                className="flex-1 text-right"
+                className="flex-1 text-right min-w-0"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
               >
-                <p className="text-[5vmin] font-bold text-white">
+                <p className="text-[5vmin] font-bold text-white truncate">
                   {table.currentGame.players
                     .filter((p) => p.side === 'holder')
                     .map((p) => p.name)
@@ -565,12 +592,12 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               </motion.span>
 
               <motion.div
-                className="flex-1 text-left"
+                className="flex-1 text-left min-w-0"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
               >
-                <p className="text-[5vmin] font-bold text-white">
+                <p className="text-[5vmin] font-bold text-white truncate">
                   {table.currentGame.players
                     .filter((p) => p.side === 'challenger')
                     .map((p) => p.name)
@@ -781,7 +808,10 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
       )}
 
       {/* ===== Fun Stats Slide ===== */}
-      {slide === 'fun_stats' && (
+      {slide === 'fun_stats' && (() => {
+        const bottomCards = [funStats.fastestGame ? 'fastest' : null, funStats.longestStreak ? 'streak' : null].filter(Boolean);
+        const useWideGrid = bottomCards.length < 2;
+        return (
         <div key="fun_stats" className="relative z-10 flex-1 flex flex-col items-center justify-center p-[4vmin] gap-[4vmin]">
           <motion.h2
             className="text-[4vmin] font-bold text-baize"
@@ -792,7 +822,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
             Today&apos;s Numbers
           </motion.h2>
 
-          <div className="grid grid-cols-2 gap-[3vmin] w-full max-w-[65vmin]">
+          <div className={`grid gap-[3vmin] w-full max-w-[65vmin] ${useWideGrid ? 'grid-cols-1 max-w-[35vmin]' : 'grid-cols-2'}`}>
             {/* Total games */}
             <motion.div
               className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[3vmin] py-[2.5vmin] text-center"
@@ -800,7 +830,9 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <p className="text-[6vmin] font-bold text-baize">{funStats.totalGames}</p>
+              <p className="text-[6vmin] font-bold text-baize">
+                <CountUp target={funStats.totalGames} delay={0.3} />
+              </p>
               <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Games Played</p>
             </motion.div>
 
@@ -811,7 +843,9 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <p className="text-[6vmin] font-bold text-accent">{funStats.totalPlayers}</p>
+              <p className="text-[6vmin] font-bold text-accent">
+                <CountUp target={funStats.totalPlayers} delay={0.4} />
+              </p>
               <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Players Today</p>
             </motion.div>
 
@@ -825,7 +859,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               >
                 <p className="text-[5vmin] font-bold text-white">{formatDuration(funStats.fastestGame.duration)}</p>
                 <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Fastest Game</p>
-                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin] truncate">{funStats.fastestGame.players}</p>
+                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin] truncate max-w-[28vmin] mx-auto">{funStats.fastestGame.players}</p>
               </motion.div>
             )}
 
@@ -837,9 +871,11 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-[5vmin] font-bold text-baize">{funStats.longestStreak.streak}</p>
+                <p className="text-[5vmin] font-bold text-baize">
+                  <CountUp target={funStats.longestStreak.streak} delay={0.6} />
+                </p>
                 <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Best Streak</p>
-                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin]">{funStats.longestStreak.name}</p>
+                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin] truncate max-w-[28vmin] mx-auto">{funStats.longestStreak.name}</p>
               </motion.div>
             )}
           </div>
@@ -853,21 +889,38 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               transition={{ delay: 0.7 }}
             >
               <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Most Active Player</p>
-              <p className="text-[3.5vmin] font-bold text-white mt-[0.5vmin]">
+              <p className="text-[3.5vmin] font-bold text-white mt-[0.5vmin] truncate max-w-[50vmin]">
                 {funStats.mostGamesPlayer.name}
               </p>
               <p className="text-[2vmin] text-gray-500">
-                {funStats.mostGamesPlayer.count} game{funStats.mostGamesPlayer.count !== 1 ? 's' : ''} played
+                <CountUp target={funStats.mostGamesPlayer.count} delay={0.8} /> game{funStats.mostGamesPlayer.count !== 1 ? 's' : ''} played
               </p>
             </motion.div>
           )}
         </div>
-      )}
+        );
+      })()}
 
       {/* ===== Hero Slide (Pool League Pro branding) ===== */}
       {slide === 'hero' && <AnimatedPoolLeagueProLogo key="hero" vmin={vmin} />}
 
       </div>
+
+      {/* ===== Slide indicator dots ===== */}
+      {slideOrder.length > 1 && (
+        <div className="relative z-10 flex items-center justify-center gap-[1vmin] pb-[1.5vmin]">
+          {slideOrder.map((s) => (
+            <span
+              key={s}
+              className={`inline-block rounded-full transition-all duration-500 ${
+                s === slide
+                  ? 'w-[2.2vmin] h-[0.8vmin] bg-baize'
+                  : 'w-[0.8vmin] h-[0.8vmin] bg-gray-600'
+              }`}
+            />
+          ))}
+        </div>
+      )}
 
       {/* ===== Bottom — rotating status bar (always visible) ===== */}
       <div className="relative z-10 flex-none text-center pb-[4.5vmin]">

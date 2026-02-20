@@ -177,19 +177,20 @@ export function GamePanel({ table }: GamePanelProps) {
             </div>
           </div>
 
-          {/* Break indicator + coin toss */}
-          <div className="flex items-center gap-[1.5vmin]">
+          {/* Break indicator banner + coin toss */}
+          <div className="w-full max-w-[63vmin] rounded-[1.1vmin] bg-surface-elevated/50 border border-surface-border px-[2vmin] py-[1.1vmin] flex items-center justify-center gap-[2vmin]">
             {currentGame.breakingPlayer && (
-              <p className="text-[1.3vmin] text-gray-400">
-                <span className="text-baize font-medium">{currentGame.breakingPlayer}</span> breaks
+              <p className="text-[1.7vmin] text-gray-300">
+                <span className="text-baize font-bold">{currentGame.breakingPlayer}</span> breaks
               </p>
             )}
             {currentGame.mode !== 'killer' && (
               <button
-                className="text-[1.1vmin] text-accent hover:text-accent-light transition-colors underline underline-offset-2"
+                className="flex items-center gap-[0.7vmin] px-[1.5vmin] py-[0.5vmin] rounded-full bg-accent/15 border border-accent/30 text-[1.3vmin] text-accent font-semibold hover:bg-accent/25 transition-colors"
                 onClick={() => setShowCoinToss(true)}
               >
-                Flip for it?
+                <span className="text-[1.5vmin]">&#x1FA99;</span>
+                Flip for break
               </button>
             )}
           </div>
