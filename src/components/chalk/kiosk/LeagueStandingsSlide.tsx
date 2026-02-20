@@ -72,7 +72,7 @@ export function LeagueStandingsSlide({ data, vmin }: LeagueStandingsSlideProps) 
         transition={{ duration: 0.3, delay: 0.2 }}
       >
         {/* Table header */}
-        <div className="grid grid-cols-[2.5vmin_1fr_3.5vmin_3.5vmin_3.5vmin_4.5vmin_4vmin] gap-x-[1vmin] px-[1.5vmin] py-[0.5vmin] text-[1.4vmin] font-bold uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>
+        <div className="grid grid-cols-[2.5vmin_1fr_3.5vmin_3.5vmin_3.5vmin_4.5vmin_4vmin] gap-x-[1vmin] px-[1.5vmin] py-[0.5vmin] text-[1.4vmin] font-bold uppercase tracking-wider text-white/50">
           <span className="text-center">#</span>
           <span>Team</span>
           <span className="text-center">P</span>
@@ -95,7 +95,7 @@ export function LeagueStandingsSlide({ data, vmin }: LeagueStandingsSlideProps) 
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: 0.3 + i * 0.05 }}
             >
-              <span className="text-center" style={!isLinked ? { color: 'rgba(255,255,255,0.5)' } : undefined}>{i + 1}</span>
+              <span className={`text-center ${!isLinked ? 'text-white/50' : ''}`}>{i + 1}</span>
               <span className="truncate">
                 {entry.team}
                 {isLinked && <span className="ml-[0.5vmin] text-[1.2vmin]">●</span>}
@@ -119,11 +119,11 @@ export function LeagueStandingsSlide({ data, vmin }: LeagueStandingsSlideProps) 
       >
         {/* Next Fixture */}
         <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[0.7vmin]">
-          <h3 className="text-[1.5vmin] font-bold uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Next Fixture</h3>
+          <h3 className="text-[1.5vmin] font-bold uppercase tracking-wider text-white/50">Next Fixture</h3>
           {nextFixtureInfo ? (
             <>
               <p className="text-[2.2vmin] font-bold text-white truncate">vs {nextFixtureInfo.opponent}</p>
-              <div className="flex items-center gap-[1vmin] text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+              <div className="flex items-center gap-[1vmin] text-[1.7vmin] text-white/65">
                 <span>{nextFixtureInfo.date}</span>
                 <span className="mx-[0.3vmin]">&middot;</span>
                 <span className={nextFixtureInfo.homeAway === 'Home' ? 'text-baize font-medium' : 'text-accent font-medium'}>
@@ -132,26 +132,26 @@ export function LeagueStandingsSlide({ data, vmin }: LeagueStandingsSlideProps) 
               </div>
             </>
           ) : (
-            <p className="text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>No upcoming fixtures</p>
+            <p className="text-[1.7vmin] text-white/50">No upcoming fixtures</p>
           )}
         </div>
 
         {/* Last Result */}
         <div className="rounded-[1.5vmin] bg-surface-card/60 border border-surface-border px-[2.2vmin] py-[1.85vmin] space-y-[0.7vmin]">
-          <h3 className="text-[1.5vmin] font-bold uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Last Result</h3>
+          <h3 className="text-[1.5vmin] font-bold uppercase tracking-wider text-white/50">Last Result</h3>
           {lastResultInfo ? (
             <>
               <p className="text-[2.2vmin] font-bold text-white">
                 {teamName} <span className={outcomeColor}>{lastResultInfo.score}</span>
               </p>
-              <div className="flex items-center gap-[1vmin] text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+              <div className="flex items-center gap-[1vmin] text-[1.7vmin] text-white/65">
                 <span className={outcomeColor}>{lastResultInfo.outcome}</span>
                 <span className="mx-[0.3vmin]">&middot;</span>
                 <span className="truncate">vs {lastResultInfo.opponent}</span>
               </div>
             </>
           ) : (
-            <p className="text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>Season not started</p>
+            <p className="text-[1.7vmin] text-white/50">Season not started</p>
           )}
         </div>
       </motion.div>

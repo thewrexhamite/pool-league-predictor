@@ -70,7 +70,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             <p className="text-[3vmin] font-bold text-accent uppercase tracking-[0.4vmin]">
               Coin Toss
             </p>
-            <p className="text-[2vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            <p className="text-[2vmin] text-white/70">
               {holderName} vs {challengerName}
             </p>
 
@@ -95,7 +95,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             </motion.button>
 
             <button
-              className="block mx-auto text-[1.5vmin] hover:text-white/70 transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
+              className="block mx-auto text-[1.5vmin] text-white/50 hover:text-white/70 transition-colors"
               onClick={onDismiss}
             >
               Cancel
@@ -112,7 +112,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <p className="text-[2.5vmin] font-bold uppercase tracking-[0.3vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            <p className="text-[2.5vmin] font-bold uppercase tracking-[0.3vmin] text-white/65">
               Flipping...
             </p>
 
@@ -138,9 +138,9 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             </div>
 
             <div className="flex justify-center gap-[4vmin] text-[2vmin]">
-              <span style={{ color: 'rgba(255,255,255,0.7)' }}>{holderName}</span>
-              <span style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
-              <span style={{ color: 'rgba(255,255,255,0.7)' }}>{challengerName}</span>
+              <span className="text-white/70">{holderName}</span>
+              <span className="text-white/50">vs</span>
+              <span className="text-white/70">{challengerName}</span>
             </div>
           </motion.div>
         )}
@@ -176,7 +176,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.4 }}
             >
-              <p className="text-[5vmin] font-bold chalk-animate-shake" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+              <p className="text-[5vmin] font-bold chalk-animate-shake text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                 {winner}
               </p>
               <p className="text-[2.5vmin] font-semibold text-baize mt-[1vmin]">
@@ -185,7 +185,7 @@ export function CoinTossOverlay({ holderName, challengerName, onResult, onDismis
             </motion.div>
 
             <motion.p
-              className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}
+              className="text-[1.3vmin] text-white/50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}

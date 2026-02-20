@@ -117,7 +117,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
                     'chalk-touch flex-1 py-[1.1vmin] rounded-[1.1vmin] border text-[1.5vmin] font-bold transition-colors',
                     lives === count
                       ? 'bg-loss/15 border-loss text-loss'
-                      : 'bg-surface-elevated border-surface-border hover:border-white/30'
+                      : 'bg-surface-elevated border-surface-border hover:border-white/30 text-white/65'
                   )}
                 >
                   {count}
@@ -128,7 +128,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
 
           {/* Player names input */}
           <div className="space-y-[1.1vmin]">
-            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            <label className="block text-[1.3vmin] font-medium text-white/70">
               Players ({selectedPlayers.length}/{CHALK_DEFAULTS.KILLER_MAX_PLAYERS})
             </label>
             <PlayerNameInput
@@ -146,16 +146,16 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
                     key={name}
                     className="flex items-center gap-[1.1vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/10"
                   >
-                    <span className="text-[1.1vmin] font-mono w-[2vmin] text-right" style={{ color: 'rgba(255,255,255,0.5)' }}>{i + 1}.</span>
+                    <span className="text-[1.1vmin] font-mono w-[2vmin] text-right text-white/50">{i + 1}.</span>
                     <span className="flex-1 text-baize text-[1.3vmin] font-medium">
                       {name}
                       {queuedNames.has(name) && (
-                        <span className="text-[1vmin] ml-[0.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>(queued)</span>
+                        <span className="text-[1vmin] ml-[0.5vmin] text-white/65">(queued)</span>
                       )}
                     </span>
                     <button
                       onClick={() => handleRemovePlayer(name)}
-                      className="hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
+                      className="text-white/50 hover:text-white transition-colors"
                       aria-label={`Remove ${name}`}
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -183,7 +183,7 @@ export function KillerSetupSheet({ table, onClose }: KillerSetupSheetProps) {
 
           {/* Player count hint */}
           {selectedPlayers.length < CHALK_DEFAULTS.KILLER_MIN_PLAYERS && (
-            <p className="text-[1.1vmin] text-center" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <p className="text-[1.1vmin] text-center text-white/50">
               Need at least {CHALK_DEFAULTS.KILLER_MIN_PLAYERS} players to start
             </p>
           )}

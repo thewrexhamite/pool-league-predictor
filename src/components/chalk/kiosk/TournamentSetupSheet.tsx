@@ -131,8 +131,7 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
             <h2 className="text-[1.9vmin] font-bold">Start Tournament</h2>
             <button
               onClick={onClose}
-              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] hover:text-white transition-colors"
-              style={{ color: 'rgba(255,255,255,0.65)' }}
+              className="chalk-touch p-[0.75vmin] rounded-[0.7vmin] text-white/65 hover:text-white transition-colors"
               aria-label="Close"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -143,7 +142,7 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
 
           {/* Format picker */}
           <div className="space-y-[0.75vmin]">
-            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>Format</label>
+            <label className="block text-[1.3vmin] font-medium text-white/70">Format</label>
             <div className="flex gap-[0.75vmin]">
               {FORMAT_OPTIONS.map((opt) => {
                 const disabled = playerCount > 0 && playerCount < opt.minPlayers;
@@ -160,10 +159,9 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
                         ? 'bg-surface-elevated border-surface-border opacity-40'
                         : 'bg-surface-elevated border-surface-border hover:border-white/30'
                     )}
-                    style={format !== opt.value && !disabled ? { color: 'rgba(255,255,255,0.65)' } : undefined}
                   >
-                    <p className="text-[1.3vmin] font-bold">{opt.label}</p>
-                    <p className="text-[1vmin] mt-[0.2vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>{opt.description}</p>
+                    <p className={`text-[1.3vmin] font-bold ${format !== opt.value && !disabled ? 'text-white/65' : ''}`}>{opt.label}</p>
+                    <p className="text-[1vmin] mt-[0.2vmin] text-white/50">{opt.description}</p>
                   </button>
                 );
               })}
@@ -172,8 +170,8 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
 
           {/* Race-to picker */}
           <div className="space-y-[0.75vmin]">
-            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
-              Race to {raceTo} <span style={{ color: 'rgba(255,255,255,0.5)' }}>({bestOfLabel(raceTo)})</span>
+            <label className="block text-[1.3vmin] font-medium text-white/70">
+              Race to {raceTo} <span className="text-white/50">({bestOfLabel(raceTo)})</span>
             </label>
             <div className="flex gap-[0.75vmin]">
               {[1, 2, 3, 4, 5, 6, 7].map((n) => (
@@ -184,9 +182,8 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
                     'chalk-touch flex-1 py-[1.1vmin] rounded-[1.1vmin] border text-[1.5vmin] font-bold transition-colors',
                     raceTo === n
                       ? 'bg-accent/15 border-accent text-accent'
-                      : 'bg-surface-elevated border-surface-border hover:border-white/30'
+                      : 'bg-surface-elevated border-surface-border hover:border-white/30 text-white/65'
                   )}
-                  style={raceTo !== n ? { color: 'rgba(255,255,255,0.65)' } : undefined}
                 >
                   {n}
                 </button>
@@ -194,8 +191,7 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
               {!showMoreRaceTo ? (
                 <button
                   onClick={() => setShowMoreRaceTo(true)}
-                  className="chalk-touch flex-1 py-[1.1vmin] rounded-[1.1vmin] border bg-surface-elevated border-surface-border text-[1.3vmin] font-medium hover:border-white/30 transition-colors"
-                  style={{ color: 'rgba(255,255,255,0.5)' }}
+                  className="chalk-touch flex-1 py-[1.1vmin] rounded-[1.1vmin] border bg-surface-elevated border-surface-border text-[1.3vmin] font-medium hover:border-white/30 transition-colors text-white/50"
                 >
                   More
                 </button>
@@ -211,9 +207,8 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
                       'chalk-touch flex-1 py-[1.1vmin] rounded-[1.1vmin] border text-[1.5vmin] font-bold transition-colors',
                       raceTo === n
                         ? 'bg-accent/15 border-accent text-accent'
-                        : 'bg-surface-elevated border-surface-border hover:border-white/30'
+                        : 'bg-surface-elevated border-surface-border hover:border-white/30 text-white/65'
                     )}
-                    style={raceTo !== n ? { color: 'rgba(255,255,255,0.65)' } : undefined}
                   >
                     {n}
                   </button>
@@ -224,7 +219,7 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
 
           {/* Player names input */}
           <div className="space-y-[1.1vmin]">
-            <label className="block text-[1.3vmin] font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            <label className="block text-[1.3vmin] font-medium text-white/70">
               Players ({playerCount}/{CHALK_DEFAULTS.TOURNAMENT_MAX_PLAYERS})
             </label>
             <PlayerNameInput
@@ -242,13 +237,13 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
                     key={name}
                     className="flex items-center gap-[1.1vmin] px-[1.1vmin] py-[0.55vmin] rounded-[0.7vmin] bg-baize/10"
                   >
-                    <span className="text-[1.1vmin] font-mono w-[2vmin] text-right" style={{ color: 'rgba(255,255,255,0.5)' }}>{i + 1}.</span>
+                    <span className="text-[1.1vmin] font-mono w-[2vmin] text-right text-white/50">{i + 1}.</span>
                     <span className="flex-1 text-baize text-[1.3vmin] font-medium">
                       {name}
                     </span>
                     <button
                       onClick={() => handleRemovePlayer(name)}
-                      className="hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
+                      className="text-white/50 hover:text-white transition-colors"
                       aria-label={`Remove ${name}`}
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -293,7 +288,7 @@ export function TournamentSetupSheet({ table, onClose }: TournamentSetupSheetPro
 
           {/* Player count hint */}
           {playerCount < CHALK_DEFAULTS.TOURNAMENT_MIN_PLAYERS && (
-            <p className="text-[1.1vmin] text-center" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <p className="text-[1.1vmin] text-center text-white/50">
               Need at least {CHALK_DEFAULTS.TOURNAMENT_MIN_PLAYERS} players to start
             </p>
           )}

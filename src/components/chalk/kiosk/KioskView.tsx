@@ -151,7 +151,7 @@ export function KioskView() {
       <div className="chalk-kiosk flex items-center justify-center">
         <div className="text-center space-y-[1.5vmin]">
           <div className="w-[4.5vmin] h-[4.5vmin] border-4 border-baize border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-[1.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>Loading table…</p>
+          <p className="text-[1.5vmin] text-white/65">Loading table…</p>
         </div>
       </div>
     );
@@ -200,7 +200,7 @@ export function KioskView() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 chalk-animate-fade">
           <div className="bg-surface-card rounded-[1.5vmin] p-[3vmin] mx-[2.2vmin] max-w-[42vmin] w-full text-center space-y-[2.2vmin] border border-surface-border">
             <h2 className="text-[2.2vmin] font-bold">Already playing?</h2>
-            <p className="text-[1.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            <p className="text-[1.5vmin] text-white/65">
               If there&apos;s a game already in progress, register it so the queue works correctly.
             </p>
             <div className="flex gap-[1.1vmin]">
@@ -215,8 +215,7 @@ export function KioskView() {
               </button>
               <button
                 onClick={() => setShowClaimPrompt(false)}
-                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-surface-elevated font-semibold text-[1.7vmin] transition-colors hover:bg-surface-elevated/80"
-                style={{ color: 'rgba(255,255,255,0.7)' }}
+                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-surface-elevated font-semibold text-[1.7vmin] transition-colors hover:bg-surface-elevated/80 text-white/70"
               >
                 No — table is free
               </button>
@@ -230,7 +229,7 @@ export function KioskView() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 chalk-animate-fade">
           <div className="bg-surface-card rounded-[1.5vmin] p-[3vmin] mx-[2.2vmin] max-w-[42vmin] w-full text-center space-y-[2.2vmin] border border-surface-border">
             <h2 className="text-[2.2vmin] font-bold">Someone just joined the queue</h2>
-            <p className="text-[1.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            <p className="text-[1.5vmin] text-white/65">
               Is there a game already in progress at this table?
             </p>
             <div className="flex gap-[1.1vmin]">
@@ -245,8 +244,7 @@ export function KioskView() {
               </button>
               <button
                 onClick={() => setShowQueueInterstitial(false)}
-                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-surface-elevated font-semibold text-[1.7vmin] transition-colors hover:bg-surface-elevated/80"
-                style={{ color: 'rgba(255,255,255,0.7)' }}
+                className="flex-1 py-[1.1vmin] px-[1.5vmin] rounded-[1.1vmin] bg-surface-elevated font-semibold text-[1.7vmin] transition-colors hover:bg-surface-elevated/80 text-white/70"
               >
                 No — table was free
               </button>

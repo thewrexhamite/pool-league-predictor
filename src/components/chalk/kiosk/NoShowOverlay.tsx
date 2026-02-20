@@ -148,20 +148,20 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
 
             {/* Matchup display */}
             {isKiller || !holderNames || !challengerNames ? (
-              <p className="text-[4.5vmin] font-bold" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
+              <p className="text-[4.5vmin] font-bold text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
             ) : (
               <div className="flex items-start gap-[3vmin] max-w-[85vmin]">
                 <div className="flex-1 text-right min-w-0">
-                  <p className="text-[4vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
+                  <p className="text-[4vmin] font-bold break-words text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
                 </div>
-                <span className="text-[4vmin] font-bold flex-shrink-0" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
+                <span className="text-[4vmin] font-bold flex-shrink-0 text-white/50">vs</span>
                 <div className="flex-1 text-left min-w-0">
-                  <p className="text-[4vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
+                  <p className="text-[4vmin] font-bold break-words text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
                 </div>
               </div>
             )}
 
-            <p className="text-[2vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>Who didn&apos;t show up?</p>
+            <p className="text-[2vmin] text-white/70">Who didn&apos;t show up?</p>
 
             {/* Per-entry checkboxes */}
             <div className="space-y-[1.5vmin] text-left max-w-[50vmin] mx-auto">
@@ -178,7 +178,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
                   />
                   <span className="text-[2vmin] font-semibold flex-1">{entry.names}</span>
                   {entry.side && (
-                    <span className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>{entry.side}</span>
+                    <span className="text-[1.3vmin] text-white/50">{entry.side}</span>
                   )}
                 </label>
               ))}
@@ -203,7 +203,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
               </ChalkButton>
             </div>
 
-            <p className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <p className="text-[1.3vmin] text-white/50">
               Auto-moving in {autoRemoveCountdown}s…
             </p>
           </div>
@@ -220,18 +220,18 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
 
             {/* Matchup display — names are the hero */}
             {isKiller || !holderNames || !challengerNames ? (
-              <p className="text-[4.5vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
+              <p className="text-[4.5vmin] font-bold break-words text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
             ) : (
               <>
                 <div className="flex items-start gap-[3vmin] max-w-[85vmin]">
                   <div className="flex-1 text-right space-y-[0.5vmin] min-w-0">
-                    <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Holder</p>
-                    <p className="text-[4.5vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
+                    <p className="text-[1.5vmin] uppercase tracking-wider text-white/50">Holder</p>
+                    <p className="text-[4.5vmin] font-bold break-words text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
                   </div>
-                  <span className="text-[4vmin] font-bold flex-shrink-0 mt-[2.5vmin]" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
+                  <span className="text-[4vmin] font-bold flex-shrink-0 mt-[2.5vmin] text-white/50">vs</span>
                   <div className="flex-1 text-left space-y-[0.5vmin] min-w-0">
-                    <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Challenger</p>
-                    <p className="text-[4.5vmin] font-bold break-words" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
+                    <p className="text-[1.5vmin] uppercase tracking-wider text-white/50">Challenger</p>
+                    <p className="text-[4.5vmin] font-bold break-words text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
                   </div>
                 </div>
                 {/* Badges below matchup — include holder name for context */}
@@ -291,7 +291,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
                 >
                   {secondsLeft}
                 </span>
-                <span className="text-[1.1vmin] mt-[0.4vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>seconds</span>
+                <span className="text-[1.1vmin] mt-[0.4vmin] text-white/50">seconds</span>
               </div>
             </div>
 

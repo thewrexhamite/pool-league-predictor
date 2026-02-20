@@ -44,9 +44,10 @@ export function Leaderboard({ stats, compact = false, title = "Today's Leaderboa
                 className={clsx(
                   'w-[2.2vmin] text-center font-bold text-[1.3vmin]',
                   index === 0 && 'text-accent',
-                  index === 2 && 'text-amber-700'
+                  index === 1 && 'text-white/70',
+                  index === 2 && 'text-amber-700',
+                  index > 2 && 'text-white/50'
                 )}
-                style={index === 1 ? { color: 'rgba(255,255,255,0.7)' } : index > 2 ? { color: 'rgba(255,255,255,0.5)' } : undefined}
               >
                 {index + 1}
               </span>
@@ -57,7 +58,7 @@ export function Leaderboard({ stats, compact = false, title = "Today's Leaderboa
               <span className="text-[1.3vmin] text-baize font-mono">{entry.stats.wins}W</span>
               <span className="text-[1.3vmin] text-loss font-mono">{entry.stats.losses}L</span>
               {!compact && (
-                <span className="text-[1.3vmin] font-mono w-[4.4vmin] text-right" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                <span className="text-[1.3vmin] font-mono w-[4.4vmin] text-right text-white/50">
                   {winRate}%
                 </span>
               )}

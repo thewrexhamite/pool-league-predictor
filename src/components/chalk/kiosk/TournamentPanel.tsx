@@ -24,7 +24,7 @@ export function TournamentPanel({ table }: TournamentPanelProps) {
   if (!table.currentGame?.tournamentState) {
     return (
       <div className="chalk-kiosk-game flex items-center justify-center p-[3vmin]">
-        <p className="text-[1.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>No active tournament</p>
+        <p className="text-[1.5vmin] text-white/65">No active tournament</p>
       </div>
     );
   }
@@ -68,7 +68,7 @@ export function TournamentPanel({ table }: TournamentPanelProps) {
     <div className="chalk-kiosk-game flex flex-col overflow-hidden">
       {/* Header */}
       <div className="flex-none text-center p-[2vmin] space-y-[0.37vmin]">
-        <p className="text-[1.3vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.65)' }}>
+        <p className="text-[1.3vmin] uppercase tracking-wider text-white/65">
           {TOURNAMENT_FORMAT_LABELS[ts.format]} — Match {progress.completed + (currentMatch ? 1 : 0)} of {progress.total}
         </p>
         <p className="text-[2.8vmin] font-mono font-bold text-baize">{gameTime}</p>
@@ -90,7 +90,7 @@ export function TournamentPanel({ table }: TournamentPanelProps) {
           />
         ) : (
           <div className="text-center">
-            <p className="text-[1.5vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>Advancing...</p>
+            <p className="text-[1.5vmin] text-white/65">Advancing...</p>
           </div>
         )}
       </div>
@@ -134,7 +134,7 @@ export function TournamentPanel({ table }: TournamentPanelProps) {
         <div className="flex-none p-[1.5vmin] text-center">
           {showCancelConfirm ? (
             <div className="space-y-[1.1vmin]">
-              <p className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>Cancel tournament? All progress will be lost.</p>
+              <p className="text-[1.3vmin] text-white/70">Cancel tournament? All progress will be lost.</p>
               <div className="flex gap-[0.75vmin] justify-center">
                 <ChalkButton variant="ghost" size="sm" onClick={() => setShowCancelConfirm(false)}>
                   Keep playing
@@ -189,7 +189,7 @@ function TournamentMatchDisplay({
         </div>
 
         <div className="flex-shrink-0 mt-[1.5vmin]">
-          <span className="text-[3.7vmin] font-bold" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
+          <span className="text-[3.7vmin] font-bold text-white/50">vs</span>
         </div>
 
         <div className="flex-1 text-center space-y-[0.75vmin]">
@@ -260,7 +260,7 @@ function KnockoutBracketView({
 
         return (
           <div key={roundIdx} className="space-y-[0.55vmin]">
-            <p className="text-[1.1vmin] font-medium uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <p className="text-[1.1vmin] font-medium uppercase tracking-wider text-white/50">
               {roundLabel}
             </p>
             {roundMatches
@@ -315,7 +315,7 @@ function BracketMatchCard({
             {match.player1 ?? 'TBD'}
           </span>
           {match.winner && (
-            <span className="text-[1.1vmin] font-mono" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <span className="text-[1.1vmin] font-mono text-white/50">
               {score.player1Frames} - {score.player2Frames}
             </span>
           )}
@@ -347,7 +347,7 @@ function GroupStandingsView({
       <h3 className="text-[1.3vmin] font-bold">{title}</h3>
       <table className="w-full text-[1.1vmin]">
         <thead>
-          <tr style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <tr className="text-white/50">
             <th className="text-left py-[0.3vmin] w-[2vmin]">#</th>
             <th className="text-left py-[0.3vmin]">Player</th>
             <th className="text-center py-[0.3vmin] w-[3vmin]">P</th>
@@ -365,7 +365,7 @@ function GroupStandingsView({
                 currentPlayers.includes(s.playerName) && 'text-baize font-semibold'
               )}
             >
-              <td className="py-[0.3vmin]" style={{ color: 'rgba(255,255,255,0.5)' }}>{i + 1}</td>
+              <td className="py-[0.3vmin] text-white/50">{i + 1}</td>
               <td className="py-[0.3vmin] font-medium">{s.playerName}</td>
               <td className="text-center py-[0.3vmin]">{s.played}</td>
               <td className="text-center py-[0.3vmin]">{s.won}</td>
@@ -393,7 +393,7 @@ function TournamentCompleteView({
     <div className="text-center space-y-[1.5vmin] chalk-animate-in">
       <CrownIcon size={48} animated className="mx-auto" />
       <p className="text-[2.8vmin] font-bold text-accent">{winner} wins!</p>
-      <p className="text-[1.3vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>Tournament complete</p>
+      <p className="text-[1.3vmin] text-white/65">Tournament complete</p>
       <ChalkButton size="lg" onClick={onFinish} disabled={finishing}>
         {finishing ? 'Finishing...' : 'Finish Tournament'}
       </ChalkButton>

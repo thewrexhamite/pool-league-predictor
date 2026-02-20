@@ -69,10 +69,10 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
           <h2 className="text-[3.5vmin] font-bold text-baize">
             Congratulations!
           </h2>
-          <p className="text-[2.5vmin] font-semibold" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+          <p className="text-[2.5vmin] font-semibold text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
             {winnerNames.join(' & ')}
           </p>
-          <p className="text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>wins the game</p>
+          <p className="text-[1.7vmin] text-white/65">wins the game</p>
         </div>
       </div>
     );
@@ -82,7 +82,7 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
   if (phase === 'confirm' && selected) {
     return (
       <div className="space-y-[1.5vmin]">
-        <p className="text-center text-[1.5vmin]" style={{ color: 'rgba(255,255,255,0.7)' }}>
+        <p className="text-center text-[1.5vmin] text-white/70">
           <span className="text-baize font-semibold">{winnerNames.join(' & ')}</span> won?
         </p>
         <div className="flex gap-[1.5vmin] justify-center">
@@ -100,7 +100,7 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
           <button
             onClick={handleCancel}
             disabled={reporting}
-            className="chalk-touch px-[3vmin] py-[1.5vmin] text-[1.7vmin] font-semibold rounded-xl bg-surface-elevated hover:bg-surface-border transition-all active:scale-[0.98]" style={{ color: 'rgba(255,255,255,0.7)' }}
+            className="chalk-touch px-[3vmin] py-[1.5vmin] text-[1.7vmin] font-semibold rounded-xl bg-surface-elevated hover:bg-surface-border transition-all active:scale-[0.98] text-white/70"
           >
             Go Back
           </button>
@@ -115,7 +115,7 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
   // Selection step — both buttons neutral by default
   return (
     <div className="space-y-[1.1vmin]">
-      <p className="text-center text-[1.3vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.65)' }}>
+      <p className="text-center text-[1.3vmin] uppercase tracking-wider text-white/65">
         Who won?
       </p>
       <div className="flex gap-[1.5vmin]">
@@ -123,9 +123,8 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
           onClick={() => handleSelect('holder')}
           className={clsx(
             'chalk-touch flex-1 px-[2vmin] py-[1.5vmin] text-[1.7vmin] font-semibold rounded-xl border-2 transition-all active:scale-[0.98]',
-            'border-surface-border bg-surface-card hover:border-baize hover:text-baize',
+            'border-surface-border bg-surface-card hover:border-baize hover:text-baize text-white/70',
           )}
-          style={{ color: 'rgba(255,255,255,0.7)' }}
         >
           {holderNames.join(' & ')}
         </button>
@@ -133,9 +132,8 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
           onClick={() => handleSelect('challenger')}
           className={clsx(
             'chalk-touch flex-1 px-[2vmin] py-[1.5vmin] text-[1.7vmin] font-semibold rounded-xl border-2 transition-all active:scale-[0.98]',
-            'border-surface-border bg-surface-card hover:border-baize hover:text-baize',
+            'border-surface-border bg-surface-card hover:border-baize hover:text-baize text-white/70',
           )}
-          style={{ color: 'rgba(255,255,255,0.7)' }}
         >
           {challengerNames.join(' & ')}
         </button>
