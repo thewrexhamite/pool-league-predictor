@@ -379,7 +379,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                   {table.currentGame && (
                     <div className="flex items-center gap-[1.1vmin] text-[2vmin]">
                       <span className="text-baize font-medium">Now playing</span>
-                      <span className="text-gray-300 truncate">
+                      <span className="text-gray-300 break-words">
                         {table.currentGame.players.map((p) => p.name).join(' vs ')}
                       </span>
                     </div>
@@ -421,11 +421,11 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                         <div key={game.id} className="space-y-[0.3vmin]">
                           <div className="flex items-center gap-[1.1vmin] text-[2vmin]">
                             {isKiller ? (
-                              <span className="text-gray-300 truncate">
+                              <span className="text-gray-300 break-words">
                                 {game.players.map((p) => p.name).join(', ')}
                               </span>
                             ) : (
-                              <span className="text-gray-300 truncate">
+                              <span className="text-gray-300 break-words">
                                 {holders.join(' & ')} vs {challengers.join(' & ')}
                               </span>
                             )}
@@ -485,7 +485,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
 
             {/* King name */}
             <motion.p
-              className={`font-bold text-white max-w-[70vmin] mx-auto truncate ${king.length > 15 ? 'text-[5vmin]' : 'text-[7vmin]'}`}
+              className={`font-bold text-white max-w-[70vmin] mx-auto break-words text-center ${king.length > 15 ? 'text-[5vmin]' : 'text-[7vmin]'}`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
@@ -569,17 +569,12 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
               >
-                <p className="text-[5vmin] font-bold text-white truncate">
+                <p className="text-[5vmin] font-bold text-white break-words">
                   {table.currentGame.players
                     .filter((p) => p.side === 'holder')
                     .map((p) => p.name)
                     .join(' & ')}
                 </p>
-                {table.currentGame.consecutiveWins > 0 && (
-                  <p className="text-[2vmin] text-accent mt-[0.5vmin]">
-                    {table.currentGame.consecutiveWins} win{table.currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
-                  </p>
-                )}
               </motion.div>
 
               <motion.span
@@ -597,17 +592,29 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
               >
-                <p className="text-[5vmin] font-bold text-white truncate">
+                <p className="text-[5vmin] font-bold text-white break-words">
                   {table.currentGame.players
                     .filter((p) => p.side === 'challenger')
                     .map((p) => p.name)
                     .join(' & ')}
                 </p>
-                {table.currentGame.mode === 'challenge' && (
-                  <p className="text-[2vmin] text-accent mt-[0.5vmin]">Challenge match</p>
-                )}
               </motion.div>
             </div>
+
+            {/* Badges below matchup so columns stay aligned */}
+            {(table.currentGame.consecutiveWins > 0 || table.currentGame.mode === 'challenge') && (
+              <motion.p
+                className="text-[2vmin] text-accent"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+              >
+                {table.currentGame.consecutiveWins > 0 && (
+                  <span>{table.currentGame.consecutiveWins} win{table.currentGame.consecutiveWins !== 1 ? 's' : ''} in a row</span>
+                )}
+                {table.currentGame.mode === 'challenge' && <span>Challenge match</span>}
+              </motion.p>
+            )}
 
             {/* Queue CTA */}
             <motion.div
@@ -785,7 +792,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                       >
                         {index + 1}
                       </span>
-                      <span className="flex-1 font-medium truncate flex items-center gap-[0.55vmin] text-[2.2vmin]">
+                      <span className="flex-1 font-medium break-words flex items-center gap-[0.55vmin] text-[2.2vmin]">
                         {entry.name}
                         {isKing && <CrownIcon size={18} />}
                       </span>
@@ -859,7 +866,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               >
                 <p className="text-[5vmin] font-bold text-white">{formatDuration(funStats.fastestGame.duration)}</p>
                 <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Fastest Game</p>
-                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin] truncate max-w-[28vmin] mx-auto">{funStats.fastestGame.players}</p>
+                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin] break-words max-w-[28vmin] mx-auto">{funStats.fastestGame.players}</p>
               </motion.div>
             )}
 
@@ -875,7 +882,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
                   <CountUp target={funStats.longestStreak.streak} delay={0.6} />
                 </p>
                 <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Best Streak</p>
-                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin] truncate max-w-[28vmin] mx-auto">{funStats.longestStreak.name}</p>
+                <p className="text-[1.5vmin] text-gray-500 mt-[0.5vmin] break-words max-w-[28vmin] mx-auto">{funStats.longestStreak.name}</p>
               </motion.div>
             )}
           </div>
@@ -889,7 +896,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
               transition={{ delay: 0.7 }}
             >
               <p className="text-[2vmin] text-gray-400 uppercase tracking-wider">Most Active Player</p>
-              <p className="text-[3.5vmin] font-bold text-white mt-[0.5vmin] truncate max-w-[50vmin]">
+              <p className="text-[3.5vmin] font-bold text-white mt-[0.5vmin] break-words max-w-[50vmin] mx-auto">
                 {funStats.mostGamesPlayer.name}
               </p>
               <p className="text-[2vmin] text-gray-500">

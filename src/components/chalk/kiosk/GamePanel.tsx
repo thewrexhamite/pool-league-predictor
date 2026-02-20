@@ -147,17 +147,12 @@ export function GamePanel({ table }: GamePanelProps) {
             {/* Holder */}
             <div className="flex-1 text-center space-y-[0.75vmin]">
               <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Holder</p>
-              <p className="text-[2.2vmin] font-bold">
+              <p className="text-[2.8vmin] font-bold break-words">
                 {currentGame.players
                   .filter((p) => p.side === 'holder')
                   .map((p) => p.name)
                   .join(' & ')}
               </p>
-              {currentGame.consecutiveWins > 0 && (
-                <p className="text-[1.3vmin] text-accent">
-                  {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
-                </p>
-              )}
             </div>
 
             {/* VS */}
@@ -168,7 +163,7 @@ export function GamePanel({ table }: GamePanelProps) {
             {/* Challenger */}
             <div className="flex-1 text-center space-y-[0.75vmin]">
               <p className="text-[1.3vmin] text-gray-400 uppercase tracking-wider">Challenger</p>
-              <p className="text-[2.2vmin] font-bold">
+              <p className="text-[2.8vmin] font-bold break-words">
                 {currentGame.players
                   .filter((p) => p.side === 'challenger')
                   .map((p) => p.name)
@@ -176,6 +171,13 @@ export function GamePanel({ table }: GamePanelProps) {
               </p>
             </div>
           </div>
+
+          {/* Win streak badge — outside columns so names stay aligned */}
+          {currentGame.consecutiveWins > 0 && (
+            <p className="text-[1.3vmin] text-accent text-center">
+              {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
+            </p>
+          )}
 
           {/* Break indicator banner + coin toss */}
           <div className="w-full max-w-[63vmin] rounded-[1.1vmin] bg-surface-elevated/50 border border-surface-border px-[2vmin] py-[1.1vmin] flex items-center justify-center gap-[2vmin]">
@@ -228,7 +230,7 @@ export function GamePanel({ table }: GamePanelProps) {
             <>
               <div className="text-center space-y-[0.75vmin]">
                 <p className="text-[1.7vmin] text-gray-400">Next up:</p>
-                <p className="text-[2.2vmin] font-bold">
+                <p className="text-[2.2vmin] font-bold break-words">
                   {nextHolder.playerNames.join(' & ')}
                   {' vs '}
                   {nextChallenger.playerNames.join(' & ')}
@@ -307,7 +309,7 @@ export function GamePanel({ table }: GamePanelProps) {
 
                   return (
                     <div key={game.id} className="flex items-center gap-[0.55vmin] text-[1.3vmin]">
-                      <span className="text-gray-400 truncate flex-1">
+                      <span className="text-gray-400 break-words flex-1">
                         {isKiller
                           ? game.players.map((p) => p.name).join(', ')
                           : `${holders.join(' & ')} vs ${challengers.join(' & ')}`}

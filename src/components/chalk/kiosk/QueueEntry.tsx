@@ -47,7 +47,7 @@ export function QueueEntry({ entry, position, isCurrentHolder }: QueueEntryProps
         {/* Player info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-[0.75vmin]">
-            <span className="font-semibold truncate text-[1.5vmin]">
+            <span className="font-semibold break-words text-[1.5vmin]">
               {playerLabel}
             </span>
             {entry.gameMode !== 'singles' && (

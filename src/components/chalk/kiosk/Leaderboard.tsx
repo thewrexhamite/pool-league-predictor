@@ -51,7 +51,7 @@ export function Leaderboard({ stats, compact = false, title = "Today's Leaderboa
               >
                 {index + 1}
               </span>
-              <span className="flex-1 font-medium truncate flex items-center gap-[0.55vmin] text-[1.5vmin]">
+              <span className="flex-1 font-medium break-words flex items-center gap-[0.55vmin] text-[1.5vmin]">
                 {entry.name}
                 {isKing && <CrownIcon size={14} />}
               </span>
