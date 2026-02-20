@@ -36,7 +36,7 @@ export function QueuePanel({ table, onAddPlayer, onStartKiller }: QueuePanelProp
         </div>
         <div className="flex items-center gap-[0.75vmin]">
           <ChalkButton size="sm" variant="secondary" onClick={onStartKiller} disabled={!!table.currentGame}>
-            Killer
+            Start Killer
           </ChalkButton>
           <ChalkButton size="sm" onClick={onAddPlayer}>
             + Add
