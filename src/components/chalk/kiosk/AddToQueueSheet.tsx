@@ -53,7 +53,15 @@ export function AddToQueueSheet({ table, onClose }: AddToQueueSheetProps) {
     setAdding(true);
     setError(null);
     try {
-      await addToQueue({ playerNames, gameMode });
+      if (gameMode === 'doubles') {
+        // Doubles: add both players as one entry
+        await addToQueue({ playerNames, gameMode });
+      } else {
+        // Singles/challenge: add each player as their own queue entry
+        for (const name of playerNames) {
+          await addToQueue({ playerNames: [name], gameMode });
+        }
+      }
       play('queue_add');
       onClose();
     } catch (err) {

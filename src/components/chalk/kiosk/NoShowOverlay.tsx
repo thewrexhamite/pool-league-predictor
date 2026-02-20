@@ -148,15 +148,15 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
 
             {/* Matchup display */}
             {isKiller || !holderNames || !challengerNames ? (
-              <p className="text-[3.7vmin] font-bold text-white">{allNames}</p>
+              <p className="text-[4.5vmin] font-bold" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
             ) : (
-              <div className="flex items-center gap-[3vmin]">
-                <div className="flex-1 text-right">
-                  <p className="text-[3.3vmin] font-bold text-white">{holderNames}</p>
+              <div className="flex items-center gap-[3vmin] max-w-[85vmin]">
+                <div className="flex-1 text-right min-w-0">
+                  <p className="text-[4vmin] font-bold truncate" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
                 </div>
-                <span className="text-[3.7vmin] font-bold text-gray-400 flex-shrink-0">vs</span>
-                <div className="flex-1 text-left">
-                  <p className="text-[3.3vmin] font-bold text-white">{challengerNames}</p>
+                <span className="text-[4vmin] font-bold flex-shrink-0" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
+                <div className="flex-1 text-left min-w-0">
+                  <p className="text-[4vmin] font-bold truncate" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
                 </div>
               </div>
             )}
@@ -218,36 +218,33 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
               Players to the table!
             </p>
 
-            {/* Calling label */}
-            <p className="text-[1.5vmin] text-gray-400 uppercase tracking-wider">
-              Calling…
-            </p>
-
-            {/* Matchup display */}
+            {/* Matchup display — names are the hero */}
             {isKiller || !holderNames || !challengerNames ? (
-              <p className="text-[3.7vmin] font-bold text-white">{allNames}</p>
+              <p className="text-[5vmin] font-bold" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{allNames}</p>
             ) : (
-              <div className="flex items-center gap-[3vmin]">
-                <div className="flex-1 text-right space-y-[0.4vmin]">
-                  <p className="text-[3.3vmin] font-bold text-white">{holderNames}</p>
+              <div className="flex items-center gap-[3vmin] max-w-[85vmin]">
+                <div className="flex-1 text-right space-y-[0.5vmin] min-w-0">
+                  <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Holder</p>
+                  <p className="text-[5vmin] font-bold truncate" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{holderNames}</p>
                   {currentGame?.consecutiveWins ? (
-                    <p className="text-[1.3vmin] text-accent">
+                    <p className="text-[1.5vmin] text-accent">
                       {currentGame.consecutiveWins} win{currentGame.consecutiveWins !== 1 ? 's' : ''} in a row
                     </p>
                   ) : null}
                 </div>
-                <span className="text-[3.7vmin] font-bold text-gray-400 flex-shrink-0">vs</span>
-                <div className="flex-1 text-left space-y-[0.4vmin]">
-                  <p className="text-[3.3vmin] font-bold text-white">{challengerNames}</p>
+                <span className="text-[4vmin] font-bold flex-shrink-0" style={{ color: 'rgba(255,255,255,0.35)' }}>vs</span>
+                <div className="flex-1 text-left space-y-[0.5vmin] min-w-0">
+                  <p className="text-[1.5vmin] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>Challenger</p>
+                  <p className="text-[5vmin] font-bold truncate" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{challengerNames}</p>
                   {currentGame?.mode === 'challenge' && (
-                    <p className="text-[1.3vmin] text-accent">Challenge match</p>
+                    <p className="text-[1.5vmin] text-accent">Challenge match</p>
                   )}
                 </div>
               </div>
             )}
 
             {/* Countdown with progress ring */}
-            <div className="relative inline-flex items-center justify-center" style={{ width: '28vmin', height: '28vmin' }}>
+            <div className="relative inline-flex items-center justify-center" style={{ width: '22vmin', height: '22vmin' }}>
               <svg
                 className="absolute inset-0 transform -rotate-90"
                 viewBox="0 0 100 100"
@@ -283,7 +280,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
               >
                 <span
                   className={clsx(
-                    'text-[8vmin] font-mono font-bold leading-none transition-colors duration-500',
+                    'text-[6vmin] font-mono font-bold leading-none transition-colors duration-500',
                     getUrgencyColor(secondsLeft, totalSeconds),
                   )}
                   aria-live="polite"
@@ -291,7 +288,7 @@ export function NoShowOverlay({ entries, settings, currentGame }: NoShowOverlayP
                 >
                   {secondsLeft}
                 </span>
-                <span className="text-[1.3vmin] text-gray-500 mt-[0.5vmin]">seconds</span>
+                <span className="text-[1.1vmin] text-gray-500 mt-[0.4vmin]">seconds</span>
               </div>
             </div>
 
