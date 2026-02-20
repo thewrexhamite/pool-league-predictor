@@ -15,6 +15,13 @@ export interface HouseRules {
 
 export type ChalkTheme = 'dark' | 'light';
 
+export interface LinkedTeam {
+  leagueId: string;
+  seasonId: string;
+  teamName: string;
+  divisionCode: string;
+}
+
 export interface ChalkSettings {
   pinHash: string;
   tableName: string;
@@ -27,6 +34,7 @@ export interface ChalkSettings {
   soundVolume: number;
   houseRules: HouseRules;
   theme: ChalkTheme;
+  linkedTeams?: LinkedTeam[];
 }
 
 export interface QueueEntry {

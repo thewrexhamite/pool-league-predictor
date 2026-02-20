@@ -8,7 +8,9 @@ import { getLeaderboard } from '@/lib/chalk/stats-engine';
 import { useVmin } from '@/hooks/chalk/use-vmin';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
 import { useTablePeriodStats } from '@/hooks/chalk/use-table-period-stats';
+import { useLeagueStandings } from '@/hooks/chalk/use-league-standings';
 import { QRCodeDisplay } from './QRCodeDisplay';
+import { LeagueStandingsSlide } from './LeagueStandingsSlide';
 import { CrownIcon } from '../shared/CrownIcon';
 import { AnimatedChalkTitle } from '../shared/AnimatedChalkTitle';
 import { AnimatedPoolLeagueProLogo } from '../shared/AnimatedPoolLeagueProLogo';
@@ -162,7 +164,7 @@ function computeFunStats(games: GameHistoryRecord[], playerStats: Record<string,
 
 // ===== Slide types and ordering =====
 
-type Slide = 'qr' | 'stats' | 'hero' | 'king' | 'live_game' | 'table_free' | 'fun_stats';
+type Slide = 'qr' | 'stats' | 'hero' | 'king' | 'live_game' | 'table_free' | 'fun_stats' | 'league_standings';
 
 function nextSlide(current: Slide, order: Slide[]): Slide {
   const idx = order.indexOf(current);
@@ -175,6 +177,8 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
   const [ripple, setRipple] = useState<{ x: number; y: number; id: number } | null>(null);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const { daily, weekly, monthly } = useTablePeriodStats(table.id);
+  const leagueStandings = useLeagueStandings(table.settings.linkedTeams);
+  const leagueSlideIndexRef = useRef(0);
   const [slide, setSlide] = useState<Slide>('qr');
   const [slideFading, setSlideFading] = useState(false);
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
@@ -221,11 +225,14 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
     // Fun stats (need at least 3 games for interesting data)
     if (daily.games.length >= 3) order.push('fun_stats');
 
+    // League standings
+    if (leagueStandings.teams.length > 0) order.push('league_standings');
+
     // Hero always last
     order.push('hero');
 
     return order;
-  }, [king, table.currentGame, table.queue, daily.gamesPlayed, daily.games.length]);
+  }, [king, table.currentGame, table.queue, daily.gamesPlayed, daily.games.length, leagueStandings.teams.length]);
 
   useEffect(() => {
     if (!table.venueId) return;
@@ -239,7 +246,13 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
     const id = setInterval(() => {
       setSlideFading(true);
       setTimeout(() => {
-        setSlide((prev) => nextSlide(prev, slideOrder));
+        setSlide((prev) => {
+          // If leaving league_standings, advance the team index for next time
+          if (prev === 'league_standings') {
+            leagueSlideIndexRef.current++;
+          }
+          return nextSlide(prev, slideOrder);
+        });
         setSlideFading(false);
       }, 1000);
     }, 12_000);
@@ -367,7 +380,7 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
           {/* Next Up + Recent Results */}
           {(table.currentGame || table.queue.length > 0 || recentGames.length > 0) && (
             <motion.div
-              className="relative z-10 flex-none mx-auto w-full max-w-[75vmin] px-[2.2vmin] pb-[1.5vmin]"
+              className="relative z-10 flex-none mx-auto w-full max-w-[75vmin] px-[2.2vmin] pt-[2.5vmin] pb-[1.5vmin]"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 2.2, ease: 'easeOut' }}
@@ -907,6 +920,13 @@ export function AttractMode({ table, onWake, onClaim }: AttractModeProps) {
           )}
         </div>
         );
+      })()}
+
+      {/* ===== League Standings Slide ===== */}
+      {slide === 'league_standings' && leagueStandings.teams.length > 0 && (() => {
+        // Rotate through linked teams if multiple divisions
+        const idx = leagueSlideIndexRef.current % leagueStandings.teams.length;
+        return <LeagueStandingsSlide data={leagueStandings.teams[idx]} vmin={vmin} />;
       })()}
 
       {/* ===== Hero Slide (Pool League Pro branding) ===== */}
