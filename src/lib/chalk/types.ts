@@ -1,6 +1,6 @@
 // ===== Chalk Table Types =====
 
-export type GameMode = 'singles' | 'doubles' | 'killer' | 'challenge';
+export type GameMode = 'singles' | 'doubles' | 'killer' | 'challenge' | 'tournament';
 export type TableStatus = 'idle' | 'active' | 'private';
 export type QueueEntryStatus = 'waiting' | 'on_hold' | 'called' | 'no_show_warning';
 export type BreakRule = 'winner_breaks' | 'loser_breaks' | 'alternate';
@@ -67,12 +67,68 @@ export interface KillerState {
   maxLives: number;
 }
 
+// ===== Tournament Types =====
+
+export type TournamentFormat = 'knockout' | 'round_robin' | 'group_knockout';
+export type TournamentStage = 'group' | 'knockout' | 'complete';
+
+export interface TournamentFrame {
+  winner: string;
+  reportedAt: number;
+}
+
+export interface TournamentMatch {
+  id: string;
+  player1: string | null;
+  player2: string | null;
+  isBye: boolean;
+  frames: TournamentFrame[];
+  winner: string | null;
+  raceTo: number;
+  stage: TournamentStage;
+  groupIndex: number | null;
+  roundIndex: number;
+  matchIndex: number;
+  feedsInto: string | null;
+  feedsSlot: 1 | 2 | null;
+}
+
+export interface TournamentGroupStanding {
+  playerName: string;
+  played: number;
+  won: number;
+  lost: number;
+  framesWon: number;
+  framesLost: number;
+  points: number;
+}
+
+export interface TournamentGroup {
+  name: string;
+  playerNames: string[];
+  standings: TournamentGroupStanding[];
+}
+
+export interface TournamentState {
+  format: TournamentFormat;
+  raceTo: number;
+  playerNames: string[];
+  matches: TournamentMatch[];
+  groups: TournamentGroup[];
+  currentMatchId: string | null;
+  stage: TournamentStage;
+  winner: string | null;
+  completedMatchCount: number;
+  totalMatchCount: number;
+}
+
 export interface CurrentGame {
   id: string;
   mode: GameMode;
   startedAt: number;
   players: GamePlayer[];
   killerState: KillerState | null;
+  tournamentState: TournamentState | null;
   consecutiveWins: number;
   breakingPlayer: string | null;
 }
@@ -165,6 +221,7 @@ export interface GameHistoryRecord {
   duration: number;
   consecutiveWins: number;
   killerState: KillerState | null;
+  tournamentState: TournamentState | null;
   playerUids?: Record<string, string>;
   playerUidList?: string[];
   venueName?: string;
@@ -222,6 +279,16 @@ export interface StartKillerPayload {
   lives: number;
 }
 
+export interface StartTournamentPayload {
+  playerNames: string[];
+  format: TournamentFormat;
+  raceTo: number;
+}
+
+export interface ReportTournamentFramePayload {
+  winnerName: string;
+}
+
 // ===== Provider types =====
 
 export type ConnectionStatus = 'connected' | 'disconnected' | 'reconnecting';
@@ -256,4 +323,8 @@ export interface ChalkTableContextValue {
   claimQueueSpot: (entryId: string, playerName: string, userId: string) => Promise<void>;
   // Register existing game
   registerCurrentGame: (payload: RegisterGamePayload) => Promise<void>;
+  // Tournament actions
+  startTournament: (payload: StartTournamentPayload) => Promise<void>;
+  reportTournamentFrame: (payload: ReportTournamentFramePayload) => Promise<void>;
+  finishTournament: (winnerName: string) => Promise<void>;
 }

@@ -4,6 +4,7 @@ import type {
   ReportResultPayload,
   PlayerSessionStats,
   KingOfTable,
+  TournamentMatch,
 } from './types';
 
 const DEFAULT_PLAYER_STATS: PlayerSessionStats = {
@@ -115,6 +116,44 @@ export function updateStatsAfterKillerGame(
     gamesPlayed: stats.gamesPlayed + 1,
     playerStats: updatedPlayerStats,
     kingOfTable: stats.kingOfTable,
+  };
+}
+
+export function updateStatsAfterTournamentMatch(
+  stats: SessionStats,
+  match: TournamentMatch
+): SessionStats {
+  if (!match.winner || !match.player1 || !match.player2) return stats;
+
+  const winnerName = match.winner;
+  const loserName = match.winner === match.player1 ? match.player2 : match.player1;
+
+  const updatedPlayerStats = { ...stats.playerStats };
+
+  // Update winner
+  const prevWinner = updatedPlayerStats[winnerName] ?? { ...DEFAULT_PLAYER_STATS };
+  const newStreak = prevWinner.currentStreak + 1;
+  updatedPlayerStats[winnerName] = {
+    ...prevWinner,
+    wins: prevWinner.wins + 1,
+    gamesPlayed: prevWinner.gamesPlayed + 1,
+    currentStreak: newStreak,
+    bestStreak: Math.max(prevWinner.bestStreak, newStreak),
+  };
+
+  // Update loser
+  const prevLoser = updatedPlayerStats[loserName] ?? { ...DEFAULT_PLAYER_STATS };
+  updatedPlayerStats[loserName] = {
+    ...prevLoser,
+    losses: prevLoser.losses + 1,
+    gamesPlayed: prevLoser.gamesPlayed + 1,
+    currentStreak: 0,
+  };
+
+  return {
+    gamesPlayed: stats.gamesPlayed + 1,
+    playerStats: updatedPlayerStats,
+    kingOfTable: stats.kingOfTable, // Tournament matches don't affect king
   };
 }
 

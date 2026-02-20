@@ -10,9 +10,10 @@ interface QueuePanelProps {
   table: ChalkTable;
   onAddPlayer: () => void;
   onStartKiller: () => void;
+  onStartTournament: () => void;
 }
 
-export function QueuePanel({ table, onAddPlayer, onStartKiller }: QueuePanelProps) {
+export function QueuePanel({ table, onAddPlayer, onStartKiller, onStartTournament }: QueuePanelProps) {
   const vmin = useVmin();
   const qrSize = Math.round(Math.max(140, Math.min(360, vmin * 24)));
 
@@ -37,6 +38,9 @@ export function QueuePanel({ table, onAddPlayer, onStartKiller }: QueuePanelProp
         <div className="flex items-center gap-[0.75vmin]">
           <ChalkButton size="sm" variant="secondary" onClick={onStartKiller} disabled={!!table.currentGame}>
             Start Killer
+          </ChalkButton>
+          <ChalkButton size="sm" variant="secondary" onClick={onStartTournament} disabled={!!table.currentGame}>
+            Tournament
           </ChalkButton>
           <ChalkButton size="sm" onClick={onAddPlayer}>
             + Add

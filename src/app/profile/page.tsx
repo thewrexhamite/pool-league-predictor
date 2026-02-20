@@ -191,6 +191,7 @@ export default function ProfilePage() {
               doubles: 'Doubles',
               killer: 'Killer',
               challenge: 'Challenge',
+              tournament: 'Tournament',
             };
             const playedModes = (Object.entries(cs.byMode) as [GameMode, { wins: number; losses: number; gamesPlayed: number }][])
               .filter(([, s]) => s.gamesPlayed > 0);

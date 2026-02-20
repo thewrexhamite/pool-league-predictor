@@ -93,6 +93,7 @@ export function startNextGame(
     startedAt: Date.now(),
     players,
     killerState: null,
+    tournamentState: null,
     consecutiveWins,
     breakingPlayer: determineBreaker(settings, null, players),
   };
@@ -144,6 +145,7 @@ export function startKillerDirect(payload: StartKillerPayload): CurrentGame {
     startedAt: Date.now(),
     players,
     killerState,
+    tournamentState: null,
     consecutiveWins: 0,
     breakingPlayer: null,
   };
@@ -232,8 +234,8 @@ export function cancelCurrentGame(
   currentGame: CurrentGame,
   queue: QueueEntry[]
 ): { queue: QueueEntry[] } {
-  // Killer games are independent of the queue — no queue changes needed
-  if (currentGame.mode === 'killer') {
+  // Killer and tournament games are independent of the queue — no queue changes needed
+  if (currentGame.mode === 'killer' || currentGame.mode === 'tournament') {
     return { queue };
   }
 

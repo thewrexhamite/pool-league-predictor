@@ -12,6 +12,7 @@ import { ChalkButton } from '../shared/ChalkButton';
 import { ResultReporter } from './ResultReporter';
 import { NoShowOverlay } from './NoShowOverlay';
 import { KillerGamePanel } from './KillerGamePanel';
+import { TournamentPanel } from './TournamentPanel';
 import { KingCrownAnimation } from './KingCrownAnimation';
 import { Leaderboard } from './Leaderboard';
 import { WinLimitNotice } from './WinLimitNotice';
@@ -88,6 +89,11 @@ export function GamePanel({ table }: GamePanelProps) {
   // Killer mode has its own panel
   if (currentGame?.mode === 'killer' && currentGame.killerState) {
     return <KillerGamePanel table={table} />;
+  }
+
+  // Tournament mode has its own panel
+  if (currentGame?.mode === 'tournament' && currentGame.tournamentState) {
+    return <TournamentPanel table={table} />;
   }
 
   async function handleStartGame() {

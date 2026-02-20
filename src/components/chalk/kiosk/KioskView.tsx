@@ -12,6 +12,7 @@ import { GamePanel } from './GamePanel';
 import { AddToQueueSheet } from './AddToQueueSheet';
 import { RegisterGameSheet } from './RegisterGameSheet';
 import { KillerSetupSheet } from './KillerSetupSheet';
+import { TournamentSetupSheet } from './TournamentSetupSheet';
 import { AttractMode } from './AttractMode';
 
 const CLAIM_PROMPT_TIMEOUT = 10_000;
@@ -24,6 +25,7 @@ export function KioskView() {
   const [showAddSheet, setShowAddSheet] = useState(false);
   const [showRegisterSheet, setShowRegisterSheet] = useState(false);
   const [showKillerSetup, setShowKillerSetup] = useState(false);
+  const [showTournamentSetup, setShowTournamentSetup] = useState(false);
   const [showClaimPrompt, setShowClaimPrompt] = useState(false);
   const [showQueueInterstitial, setShowQueueInterstitial] = useState(false);
 
@@ -188,6 +190,7 @@ export function KioskView() {
           table={table}
           onAddPlayer={() => setShowAddSheet(true)}
           onStartKiller={() => setShowKillerSetup(true)}
+          onStartTournament={() => setShowTournamentSetup(true)}
         />
         <GamePanel table={table} />
       </div>
@@ -270,6 +273,13 @@ export function KioskView() {
         <KillerSetupSheet
           table={table}
           onClose={() => setShowKillerSetup(false)}
+        />
+      )}
+
+      {showTournamentSetup && (
+        <TournamentSetupSheet
+          table={table}
+          onClose={() => setShowTournamentSetup(false)}
         />
       )}
     </div>

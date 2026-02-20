@@ -15,6 +15,7 @@ const MODE_DESCRIPTIONS: Record<GameMode, string> = {
   doubles: '2v2',
   killer: '3+ players',
   challenge: 'Skip queue',
+  tournament: 'Bracket/group',
 };
 
 export function GameModeSelector({

@@ -18,6 +18,8 @@ import type {
   ReportResultPayload,
   KillerEliminationPayload,
   StartKillerPayload,
+  StartTournamentPayload,
+  ReportTournamentFramePayload,
   ChalkSettings,
   GamePlayer,
   QueueEntry,
@@ -32,7 +34,8 @@ import {
 } from './firestore';
 import { addToQueue, removeFromQueue, reorderQueue, holdEntry, unholdEntry, expireHeldEntries } from './queue-engine';
 import { startNextGame, processResult, processKillerResult, eliminateKillerPlayer, startKillerDirect, cancelCurrentGame, resolveNoShows } from './game-engine';
-import { updateStatsAfterGame, updateStatsAfterKillerGame } from './stats-engine';
+import { updateStatsAfterGame, updateStatsAfterKillerGame, updateStatsAfterTournamentMatch } from './stats-engine';
+import { generateTournamentState, advanceTournament, reportTournamentFrame as reportFrame, getCurrentTournamentMatch } from './tournament-engine';
 import { updateUserLifetimeStats, type UserGameResult } from './user-stats';
 
 function extractPlayerUids(players: GamePlayer[], queue: QueueEntry[]): Record<string, string> {
@@ -249,6 +252,7 @@ export function ChalkTableProvider({
         duration: now - t.currentGame.startedAt,
         consecutiveWins: newConsecutiveWins,
         killerState: t.currentGame.killerState,
+        tournamentState: null,
         playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
         playerUidList: playerUidList.length > 0 ? playerUidList : undefined,
         venueName: t.venueName,
@@ -323,6 +327,7 @@ export function ChalkTableProvider({
         duration: now - t.currentGame.startedAt,
         consecutiveWins: 0,
         killerState: t.currentGame.killerState,
+        tournamentState: null,
         playerUids: Object.keys(playerUidMap).length > 0 ? playerUidMap : undefined,
         playerUidList: playerUidList.length > 0 ? playerUidList : undefined,
         venueName: t.venueName,
@@ -398,6 +403,146 @@ export function ChalkTableProvider({
     });
   }, [tableId]);
 
+  // ===== Tournament actions =====
+
+  const handleStartTournament = useCallback(async (payload: StartTournamentPayload) => {
+    await transactTable(tableId, (t) => {
+      if (t.currentGame) throw new Error('A game is already in progress');
+
+      let tournamentState = generateTournamentState(payload);
+      tournamentState = advanceTournament(tournamentState);
+
+      const players: GamePlayer[] = payload.playerNames.map((name) => ({
+        name,
+        side: 'challenger' as const,
+        queueEntryId: `tournament-${name}`,
+      }));
+
+      const game = {
+        id: crypto.randomUUID(),
+        mode: 'tournament' as const,
+        startedAt: Date.now(),
+        players,
+        killerState: null,
+        tournamentState,
+        consecutiveWins: 0,
+        breakingPlayer: null,
+      };
+
+      const updatedRecent = [...new Set([...payload.playerNames, ...t.recentNames])].slice(0, 50);
+
+      return {
+        currentGame: game,
+        recentNames: updatedRecent,
+        status: t.session.isPrivate ? 'private' as const : 'active' as const,
+        lastActiveAt: Date.now(),
+        idleSince: null,
+      };
+    });
+  }, [tableId]);
+
+  const handleReportTournamentFrame = useCallback(async (payload: ReportTournamentFramePayload) => {
+    let matchHistoryData: Parameters<typeof addGameHistory>[1] | null = null;
+    let statsResults: UserGameResult[] = [];
+
+    await transactTable(tableId, (t) => {
+      if (!t.currentGame?.tournamentState) throw new Error('No active tournament');
+
+      let ts = reportFrame(t.currentGame.tournamentState, payload.winnerName);
+      const completedMatch = ts.matches.find(
+        (m) => m.id === t.currentGame!.tournamentState!.currentMatchId && m.winner !== null
+      );
+
+      let updatedStats = t.sessionStats;
+
+      if (completedMatch) {
+        // Update session stats for this match
+        updatedStats = updateStatsAfterTournamentMatch(updatedStats, completedMatch);
+
+        // Build per-match history record (no tournamentState to save space)
+        const now = Date.now();
+        const matchPlayers: GamePlayer[] = [
+          completedMatch.player1,
+          completedMatch.player2,
+        ]
+          .filter((n): n is string => n !== null)
+          .map((name) => ({
+            name,
+            side: 'challenger' as const,
+            queueEntryId: `tournament-${name}`,
+          }));
+
+        matchHistoryData = {
+          id: `${t.currentGame!.id}-${completedMatch.id}`,
+          tableId,
+          mode: 'tournament' as const,
+          players: matchPlayers,
+          winner: completedMatch.winner,
+          winnerSide: null,
+          startedAt: t.currentGame!.startedAt,
+          endedAt: now,
+          duration: now - t.currentGame!.startedAt,
+          consecutiveWins: 0,
+          killerState: null,
+          tournamentState: null,
+          venueName: t.venueName,
+        };
+
+        // If tournament not over, advance to next match
+        if (!ts.winner) {
+          ts = advanceTournament(ts);
+        }
+      }
+
+      return {
+        currentGame: { ...t.currentGame, tournamentState: ts },
+        sessionStats: updatedStats,
+        lastActiveAt: Date.now(),
+      };
+    });
+
+    if (matchHistoryData) {
+      addGameHistory(tableId, matchHistoryData)
+        .catch((err) => console.error('Failed to write tournament match history:', err));
+    }
+  }, [tableId]);
+
+  const handleFinishTournament = useCallback(async (winnerName: string) => {
+    let historyData: Parameters<typeof addGameHistory>[1] | null = null;
+
+    await transactTable(tableId, (t) => {
+      if (!t.currentGame?.tournamentState) throw new Error('No active tournament');
+
+      const now = Date.now();
+      historyData = {
+        id: t.currentGame.id,
+        tableId,
+        mode: 'tournament' as const,
+        players: t.currentGame.players,
+        winner: winnerName,
+        winnerSide: null,
+        startedAt: t.currentGame.startedAt,
+        endedAt: now,
+        duration: now - t.currentGame.startedAt,
+        consecutiveWins: 0,
+        killerState: null,
+        tournamentState: t.currentGame.tournamentState,
+        venueName: t.venueName,
+      };
+
+      return {
+        currentGame: null,
+        lastActiveAt: now,
+        idleSince: now,
+      };
+    });
+
+    if (historyData) {
+      addGameHistory(tableId, historyData)
+        .catch((err) => console.error('Failed to write tournament summary history:', err));
+    }
+  }, [tableId]);
+
   // ===== Claim queue spot =====
 
   const handleClaimQueueSpot = useCallback(async (entryId: string, playerName: string, userId: string) => {
@@ -463,6 +608,9 @@ export function ChalkTableProvider({
     togglePrivateMode: handleTogglePrivateMode,
     claimQueueSpot: handleClaimQueueSpot,
     registerCurrentGame: handleRegisterCurrentGame,
+    startTournament: handleStartTournament,
+    reportTournamentFrame: handleReportTournamentFrame,
+    finishTournament: handleFinishTournament,
   };
 
   return (

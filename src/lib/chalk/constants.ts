@@ -11,6 +11,8 @@ export const CHALK_DEFAULTS = {
   KILLER_DEFAULT_LIVES: 3,
   KILLER_MIN_PLAYERS: 3,
   KILLER_MAX_PLAYERS: 8,
+  TOURNAMENT_MIN_PLAYERS: 3,
+  TOURNAMENT_MAX_PLAYERS: 16,
   SHORT_CODE_LENGTH: 4,
   SHORT_CODE_PREFIX: 'CHALK',
   PIN_LENGTH: 4,
@@ -51,6 +53,7 @@ export const GAME_MODE_LABELS: Record<string, string> = {
   doubles: 'Doubles',
   killer: 'Killer',
   challenge: 'Challenge',
+  tournament: 'Tournament',
 };
 
 export const BREAK_RULE_LABELS: Record<string, string> = {
@@ -63,6 +66,15 @@ export const FOUL_RULE_LABELS: Record<string, string> = {
   two_shots: 'Two shots',
   ball_in_hand: 'Ball in hand',
 };
+
+export const TOURNAMENT_FORMAT_LABELS: Record<string, string> = {
+  knockout: 'Knockout',
+  round_robin: 'Round Robin',
+  group_knockout: 'Group + Knockout',
+};
+
+export const TOURNAMENT_RACE_TO_MIN = 1;
+export const TOURNAMENT_RACE_TO_MAX = 13;
 
 // ===== Venue + Kiosk constants =====
 
