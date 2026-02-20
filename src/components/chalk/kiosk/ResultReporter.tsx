@@ -69,10 +69,10 @@ export function ResultReporter({ game, settings }: ResultReporterProps) {
           <h2 className="text-[3.5vmin] font-bold text-baize">
             Congratulations!
           </h2>
-          <p className="text-[2.5vmin] font-semibold text-white">
+          <p className="text-[2.5vmin] font-semibold" style={{ color: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
             {winnerNames.join(' & ')}
           </p>
-          <p className="text-[1.7vmin] text-gray-400">wins the game</p>
+          <p className="text-[1.7vmin]" style={{ color: 'rgba(255,255,255,0.65)' }}>wins the game</p>
         </div>
       </div>
     );
