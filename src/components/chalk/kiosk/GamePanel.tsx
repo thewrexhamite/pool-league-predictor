@@ -7,6 +7,7 @@ import { useChalkTable } from '@/hooks/chalk/use-chalk-table';
 import { useGameTimer } from '@/hooks/chalk/use-game-timer';
 import { useChalkSound } from '@/hooks/chalk/use-chalk-sound';
 import { useTablePeriodStats } from '@/hooks/chalk/use-table-period-stats';
+import { useVmin } from '@/hooks/chalk/use-vmin';
 import { ChalkButton } from '../shared/ChalkButton';
 import { ResultReporter } from './ResultReporter';
 import { NoShowOverlay } from './NoShowOverlay';
@@ -14,6 +15,7 @@ import { KillerGamePanel } from './KillerGamePanel';
 import { KingCrownAnimation } from './KingCrownAnimation';
 import { Leaderboard } from './Leaderboard';
 import { WinLimitNotice } from './WinLimitNotice';
+import { QRCodeDisplay } from './QRCodeDisplay';
 import { CrownIcon } from '../shared/CrownIcon';
 
 interface GamePanelProps {
@@ -24,6 +26,8 @@ export function GamePanel({ table }: GamePanelProps) {
   const { startNextGame, cancelGame } = useChalkTable();
   const { play } = useChalkSound(table.settings.soundEnabled, table.settings.soundVolume);
   const { display: gameTime } = useGameTimer(table.currentGame?.startedAt ?? null);
+  const vmin = useVmin();
+  const qrSize = Math.round(Math.max(120, Math.min(280, vmin * 18)));
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
   const [newKing, setNewKing] = useState<{ name: string; wins: number } | null>(null);
@@ -175,6 +179,21 @@ export function GamePanel({ table }: GamePanelProps) {
           <ChalkButton variant="ghost" size="sm" onClick={cancelGame}>
             Cancel game
           </ChalkButton>
+
+          {/* On Deck — who's next */}
+          {waitingPlayers.length >= 2 && (() => {
+            const deckChallenger = findCompatibleChallenger(waitingPlayers, waitingPlayers[0]);
+            return deckChallenger ? (
+              <div className="w-full max-w-[63vmin] rounded-[1.1vmin] bg-surface-elevated/50 border border-surface-border px-[2vmin] py-[1.1vmin] text-center">
+                <p className="text-[1.1vmin] text-gray-500 uppercase tracking-wider">On Deck</p>
+                <p className="text-[1.5vmin] font-semibold text-gray-300 mt-[0.3vmin]">
+                  {waitingPlayers[0].playerNames.join(' & ')}
+                  <span className="text-gray-500 mx-[0.75vmin]">vs</span>
+                  {deckChallenger.playerNames.join(' & ')}
+                </p>
+              </div>
+            ) : null;
+          })()}
         </div>
       ) : (
         /* No active game */
@@ -204,58 +223,83 @@ export function GamePanel({ table }: GamePanelProps) {
               )}
             </>
           ) : (
-            <div className="text-center space-y-[1.1vmin] text-gray-500">
-              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" className="mx-auto opacity-30 w-[6vmin] h-[6vmin]" aria-hidden="true">
-                <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="2" />
-                <circle cx="32" cy="32" r="4" fill="currentColor" />
-              </svg>
-              <p className="text-[1.9vmin]">Waiting for players</p>
+            <div className="text-center space-y-[2vmin] text-gray-500">
+              <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={qrSize} />
+              <p className="text-[1.9vmin] text-gray-400">Waiting for players</p>
               <p className="text-[1.3vmin]">
-                Need at least 2 in the queue to start
+                Scan to join or tap <span className="text-baize font-medium">+ Add</span> to add players
               </p>
             </div>
           )}
         </div>
       )}
 
-      {/* Today's leaderboard + recent games (always visible) */}
-      {(daily.gamesPlayed > 0 || table.sessionStats.gamesPlayed > 0) && (
-        <div className="flex-1 border-t border-surface-border p-[1.5vmin] space-y-[1.5vmin] overflow-y-auto">
-          <Leaderboard
-            stats={daily.gamesPlayed > 0 ? daily.stats : table.sessionStats}
-            title="Today's Leaderboard"
-            compact
-          />
+      {/* Today's stats, leaderboard + recent games (always visible) */}
+      {(daily.gamesPlayed > 0 || table.sessionStats.gamesPlayed > 0) && (() => {
+        const stats = daily.gamesPlayed > 0 ? daily.stats : table.sessionStats;
+        const playerCount = Object.keys(stats.playerStats).length;
+        const gamesCount = daily.gamesPlayed > 0 ? daily.gamesPlayed : table.sessionStats.gamesPlayed;
+        // Average game duration from daily games
+        const avgDuration = daily.games.length > 0
+          ? Math.round(daily.games.reduce((sum, g) => sum + g.duration, 0) / daily.games.length / 1000 / 60)
+          : null;
 
-          {/* Recent games */}
-          {daily.games.length > 0 && (
-            <div className="space-y-[0.75vmin]">
-              <h3 className="text-[1.3vmin] font-bold">Recent Games</h3>
-              {daily.games.slice(0, 3).map((game) => {
-                const isKiller = game.mode === 'killer';
-                const holders = game.players.filter((p) => p.side === 'holder').map((p) => p.name);
-                const challengers = game.players.filter((p) => p.side === 'challenger').map((p) => p.name);
-
-                return (
-                  <div key={game.id} className="flex items-center gap-[0.55vmin] text-[1.3vmin]">
-                    <span className="text-gray-400 truncate flex-1">
-                      {isKiller
-                        ? game.players.map((p) => p.name).join(', ')
-                        : `${holders.join(' & ')} vs ${challengers.join(' & ')}`}
-                    </span>
-                    {game.winner && (
-                      <span className="text-baize font-medium flex items-center gap-[0.3vmin]">
-                        → {game.winner}
-                        {game.consecutiveWins >= 3 && <CrownIcon size={10} />}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
+        return (
+          <div className="flex-1 border-t border-surface-border p-[1.5vmin] space-y-[1.5vmin] overflow-y-auto">
+            {/* Session stats summary */}
+            <div className="flex gap-[1.1vmin]">
+              <div className="flex-1 rounded-[0.7vmin] bg-surface-elevated/50 px-[1.1vmin] py-[0.75vmin] text-center">
+                <p className="text-[1.7vmin] font-bold text-baize">{gamesCount}</p>
+                <p className="text-[1vmin] text-gray-500 uppercase">Games</p>
+              </div>
+              <div className="flex-1 rounded-[0.7vmin] bg-surface-elevated/50 px-[1.1vmin] py-[0.75vmin] text-center">
+                <p className="text-[1.7vmin] font-bold text-accent">{playerCount}</p>
+                <p className="text-[1vmin] text-gray-500 uppercase">Players</p>
+              </div>
+              {avgDuration !== null && (
+                <div className="flex-1 rounded-[0.7vmin] bg-surface-elevated/50 px-[1.1vmin] py-[0.75vmin] text-center">
+                  <p className="text-[1.7vmin] font-bold text-gray-300">{avgDuration}m</p>
+                  <p className="text-[1vmin] text-gray-500 uppercase">Avg Game</p>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      )}
+
+            <Leaderboard
+              stats={stats}
+              title="Today's Leaderboard"
+              compact
+            />
+
+            {/* Recent games */}
+            {daily.games.length > 0 && (
+              <div className="space-y-[0.75vmin]">
+                <h3 className="text-[1.3vmin] font-bold">Recent Games</h3>
+                {daily.games.slice(0, 5).map((game) => {
+                  const isKiller = game.mode === 'killer';
+                  const holders = game.players.filter((p) => p.side === 'holder').map((p) => p.name);
+                  const challengers = game.players.filter((p) => p.side === 'challenger').map((p) => p.name);
+
+                  return (
+                    <div key={game.id} className="flex items-center gap-[0.55vmin] text-[1.3vmin]">
+                      <span className="text-gray-400 truncate flex-1">
+                        {isKiller
+                          ? game.players.map((p) => p.name).join(', ')
+                          : `${holders.join(' & ')} vs ${challengers.join(' & ')}`}
+                      </span>
+                      {game.winner && (
+                        <span className="text-baize font-medium flex items-center gap-[0.3vmin]">
+                          → {game.winner}
+                          {game.consecutiveWins >= 3 && <CrownIcon size={10} />}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 }

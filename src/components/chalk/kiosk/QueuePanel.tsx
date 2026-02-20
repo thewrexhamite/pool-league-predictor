@@ -64,6 +64,14 @@ export function QueuePanel({ table, onAddPlayer, onStartKiller }: QueuePanelProp
                 isCurrentHolder={index === 0 && !!table.currentGame}
               />
             ))}
+            {/* Persistent QR code at bottom of queue */}
+            <div className="flex items-center gap-[1.1vmin] mt-[1.5vmin] pt-[1.5vmin] border-t border-surface-border/50">
+              <QRCodeDisplay tableId={table.id} shortCode={table.shortCode} size={Math.round(Math.max(60, Math.min(100, vmin * 7)))} showLabel={false} />
+              <div className="flex-1 min-w-0">
+                <p className="text-[1.1vmin] text-gray-400">Scan to join the queue</p>
+                <p className="text-[1.1vmin] font-mono text-baize">{table.shortCode}</p>
+              </div>
+            </div>
           </>
         )}
       </div>

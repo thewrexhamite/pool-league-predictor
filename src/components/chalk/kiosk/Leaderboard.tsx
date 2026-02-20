@@ -16,7 +16,7 @@ export function Leaderboard({ stats, compact = false, title = "Today's Leaderboa
 
   if (leaderboard.length === 0) return null;
 
-  const maxItems = compact ? 5 : 20;
+  const maxItems = compact ? 8 : 20;
 
   return (
     <div className="space-y-[1.1vmin]">
