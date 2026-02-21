@@ -230,10 +230,6 @@ npm run deploy   # OR: firebase deploy --only functions
 
 The build step uses esbuild to bundle `functions/src/index.ts` and copies `league-config.json` into `functions/lib/` so the functions can read league configuration at runtime.
 
-### Vercel (Alternative)
-
-A `vercel.json` is included for Vercel deployment. Environment variables must be configured in the Vercel dashboard. Cron jobs for data sync are configured in `vercel.json`.
-
 ### CI/CD
 
 GitHub Actions runs on every push and PR (`.github/workflows/ci.yml`):
@@ -293,7 +289,7 @@ tsx scripts/sync-all.ts    # Syncs all leagues with report
 
 ### Updating Static Fallback Data
 
-The app falls back to static JSON files in `data/` when Firestore is unavailable. To update:
+The app falls back to static JSON files in `data/wrexham/` when Firestore is unavailable. To update:
 
 ```bash
 npm run sync-data    # Writes to data/*.json
@@ -313,7 +309,7 @@ npm run build        # Bundles the updated JSON
      "leagueName": "New League Name",
      "shortName": "NL",
      "primaryColor": "#FF6600",
-     "dataDir": "data-newleague",
+     "dataDir": "data/newleague",
      "divisions": [
        { "code": "D1", "siteGroup": "Division One" },
        { "code": "D2", "siteGroup": "Division Two" }
@@ -324,7 +320,7 @@ npm run build        # Bundles the updated JSON
 
 2. **Create the data directory:**
    ```bash
-   mkdir data-newleague
+   mkdir data/newleague
    ```
 
 3. **Seed league metadata in Firestore:**
@@ -459,13 +455,13 @@ pool-league-predictor/
 |-- functions/                  # Firebase Cloud Functions
 |   |-- src/index.ts            # Scheduled sync + HTTP trigger
 |-- scripts/                    # Build & maintenance scripts (12 files)
-|-- data/                       # Static JSON data (Wrexham)
-|-- data-nwpa/                  # Static JSON data (NWPA)
-|-- data-chester/               # Static JSON data (Chester)
+|-- data/                       # Static JSON data (all leagues)
+|   |-- wrexham/                # Wrexham & District
+|   |-- nwpa/                   # North Wales Pool Association
+|   |-- chester/                # Chester & District
 |-- league-config.json          # Multi-league configuration
 |-- firebase.json               # Firebase project config
 |-- apphosting.yaml             # Firebase App Hosting config
-|-- vercel.json                 # Vercel deployment config
 |-- CHANGELOG.md                # Full project history
 |-- docs/                       # Additional documentation
 ```
@@ -530,8 +526,6 @@ See `docs/` for detailed testing guides:
 | [docs/LIGHTHOUSE_PWA_AUDIT_GUIDE.md](docs/LIGHTHOUSE_PWA_AUDIT_GUIDE.md) | PWA audit methodology |
 | [docs/E2E_ADMIN_TEST_CHECKLIST.md](docs/E2E_ADMIN_TEST_CHECKLIST.md) | Admin feature test checklist |
 | [docs/FEATURE_COMPLETE.md](docs/FEATURE_COMPLETE.md) | Feature completion status tracker |
-| [docs/vercel-deployment-verification.md](docs/vercel-deployment-verification.md) | Vercel deployment verification |
-| [docs/vercel-cron-setup.md](docs/vercel-cron-setup.md) | Vercel cron job setup |
 
 ---
 

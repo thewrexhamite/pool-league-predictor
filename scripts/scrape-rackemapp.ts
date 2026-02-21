@@ -16,7 +16,7 @@
  *
  * Options:
  *   --league <id>       League ID (default: WrexhamTuesdayPoolLeague)
- *   --output <dir>      Output directory (default: ./data-wrexham-tuesday)
+ *   --output <dir>      Output directory (default: ./data/wrexham-tuesday)
  *   --delay <ms>        Base delay between requests in ms (default: 2000)
  *   --dry-run           Don't write files, just log what would be fetched
  *   --from-html <file>  Parse match IDs from a saved HTML file instead of fetching
@@ -148,7 +148,7 @@ const getArg = (name: string, defaultVal: string): string => {
 };
 
 const LEAGUE_ID = getArg('league', 'WrexhamTuesdayPoolLeague');
-const OUTPUT_DIR = getArg('output', './data-wrexham-tuesday');
+const OUTPUT_DIR = getArg('output', './data/wrexham-tuesday');
 const BASE_DELAY = parseInt(getArg('delay', '2000'), 10);
 const DRY_RUN = args.includes('--dry-run');
 const FROM_HTML = getArg('from-html', '');

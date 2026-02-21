@@ -10,7 +10,8 @@
   "functions": [
     {
       "source": "functions",
-      "codebase": "sync"
+      "codebase": "sync",
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
     }
   ]
 }

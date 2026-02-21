@@ -4,7 +4,7 @@
  * Upload scraped league data to Firestore
  *
  * Usage:
- *   npx tsx scripts/upload-to-firestore.ts --data ./data-wrexham-tuesday
+ *   npx tsx scripts/upload-to-firestore.ts --data ./data/wrexham-tuesday
  *
  * Options:
  *   --data <dir>        Directory containing scraped JSON files (required)
@@ -69,7 +69,7 @@ function loadJson<T>(filePath: string): T {
 async function main() {
   if (!DATA_DIR) {
     console.error('Error: --data <directory> is required');
-    console.error('Usage: npx tsx scripts/upload-to-firestore.ts --data ./data-wrexham-tuesday');
+    console.error('Usage: npx tsx scripts/upload-to-firestore.ts --data ./data/wrexham-tuesday');
     process.exit(1);
   }
 

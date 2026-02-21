@@ -8,7 +8,7 @@
     "primaryColor": "#C8102E",
     "lat": 53.046,
     "lng": -2.993,
-    "dataDir": "data",
+    "dataDir": "data/wrexham",
     "divisions": [
       { "code": "SD1", "siteGroup": "Sunday Division 1" },
       { "code": "SD2", "siteGroup": "Sunday Division 2" },
@@ -32,7 +32,7 @@
     "primaryColor": "#1E40AF",
     "lat": 53.227,
     "lng": -3.718,
-    "dataDir": "data-nwpa",
+    "dataDir": "data/nwpa",
     "divisions": [
       { "code": "PREM", "siteGroup": "Premier Division" },
       { "code": "D1", "siteGroup": "Division One" },
@@ -55,7 +55,7 @@
     "primaryColor": "#059669",
     "lat": 53.190,
     "lng": -2.893,
-    "dataDir": "data-chester",
+    "dataDir": "data/chester",
     "divisions": [
       { "code": "PREM", "rackemappId": "2824", "siteGroup": "Premium" },
       { "code": "D1", "rackemappId": "2825", "siteGroup": "Division 1" },

@@ -1,8 +1,7 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'next/og';
 
 /**
  * OG Image utilities for generating dynamic Open Graph images
- * Uses @vercel/og to create branded social media preview images
  */
 
 // Standard OG image dimensions (recommended by Open Graph protocol)

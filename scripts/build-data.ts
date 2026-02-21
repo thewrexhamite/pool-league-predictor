@@ -8,7 +8,7 @@ import * as path from 'path';
  * Usage: npx tsx scripts/build-data.ts
  */
 
-const DATA_DIR = path.join(__dirname, '..', 'data');
+const DATA_DIR = path.join(__dirname, '..', 'data', 'wrexham');
 
 function extractJSON(filePath: string): string {
   const content = fs.readFileSync(filePath, 'utf8').trim();

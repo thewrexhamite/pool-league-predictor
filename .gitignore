@@ -31,9 +31,6 @@ service-account*.json
 # Generated files
 public/firebase-messaging-sw.js
 
-# vercel
-.vercel
-
 # Firebase Functions build output
 functions/lib/
 functions/node_modules/
@@ -42,10 +39,8 @@ functions/node_modules/
 *.tsbuildinfo
 next-env.d.ts
 
-# legacy files (kept in repo for reference)
-# app_code.html
-# build.js
 index.html
+sync-report.json
 
 # Auto Claude data directory
 .auto-claude/
