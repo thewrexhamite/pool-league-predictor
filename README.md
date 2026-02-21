@@ -507,14 +507,31 @@ See `docs/` for detailed testing guides:
 
 ## Further Documentation
 
+### System Documentation
+
+| Document | Description |
+|----------|-------------|
+| [docs/PREDICTIONS.md](docs/PREDICTIONS.md) | Prediction engine — Bayesian ratings, Monte Carlo simulation, lineup optimization |
+| [docs/STATISTICS.md](docs/STATISTICS.md) | Statistics & analytics — power rankings, clutch index, cross-league comparison |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Data architecture — providers, caching, sync pipeline, Firestore structure |
+| [docs/ADMIN.md](docs/ADMIN.md) | Admin system — league management, data corrections, player merge/link |
+| [docs/API.md](docs/API.md) | API reference — all endpoints with request/response schemas |
+| [docs/FEATURES.md](docs/FEATURES.md) | Gamification, AI, auth & notifications systems |
+| [docs/KIOSK.md](docs/KIOSK.md) | Chalk kiosk — real-time pool table queue management system |
+
+### Testing & Deployment
+
 | Document | Description |
 |----------|-------------|
 | [CHANGELOG.md](CHANGELOG.md) | Full commit history grouped by feature |
 | [docs/DATA-SOURCE-INTEGRATION.md](docs/DATA-SOURCE-INTEGRATION.md) | Data source factory pattern |
+| [docs/multi-league-setup.md](docs/multi-league-setup.md) | Multi-league setup guide |
 | [docs/MOBILE_PWA_TESTING_GUIDE.md](docs/MOBILE_PWA_TESTING_GUIDE.md) | Mobile PWA testing procedures |
 | [docs/LIGHTHOUSE_PWA_AUDIT_GUIDE.md](docs/LIGHTHOUSE_PWA_AUDIT_GUIDE.md) | PWA audit methodology |
 | [docs/E2E_ADMIN_TEST_CHECKLIST.md](docs/E2E_ADMIN_TEST_CHECKLIST.md) | Admin feature test checklist |
 | [docs/FEATURE_COMPLETE.md](docs/FEATURE_COMPLETE.md) | Feature completion status tracker |
+| [docs/vercel-deployment-verification.md](docs/vercel-deployment-verification.md) | Vercel deployment verification |
+| [docs/vercel-cron-setup.md](docs/vercel-cron-setup.md) | Vercel cron job setup |
 
 ---
 
